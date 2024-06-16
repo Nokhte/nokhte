@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/presets/presets.dart';
 part 'presets_instructions_coordinator.g.dart';
 
@@ -13,11 +14,13 @@ abstract class _PresetsInstructionsCoordinatorBase extends BaseCoordinator
     with Store {
   final PresetsInstructionsWidgetsCoordinator widgets;
   final PresetsLogicCoordinator logic;
+  final TapDetector tap;
 
   _PresetsInstructionsCoordinatorBase({
     required this.widgets,
     required super.captureScreen,
     required this.logic,
+    required this.tap,
   });
 
   @action
@@ -42,7 +45,14 @@ abstract class _PresetsInstructionsCoordinatorBase extends BaseCoordinator
       },
     ));
     disposers.add(companyPresetsReactor());
+    disposers.add(tapReactor());
   }
+
+  tapReactor() => reaction((p0) => tap.tapCount, (p0) {
+        ifTouchIsNotDisabled(() {
+          widgets.dismissExpandedPresetCard();
+        });
+      });
 
   companyPresetsReactor() => reaction((p0) => logic.names, (p0) {
         widgets.onCompanyPresetsReceived(

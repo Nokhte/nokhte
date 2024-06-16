@@ -30,8 +30,11 @@ class PresetsWidgetsModule extends Module {
     );
     i.add<PresetsInstructionsWidgetsCoordinator>(
       () => PresetsInstructionsWidgetsCoordinator(
-        condensedPresetsCards: CondensedPresetsCardsStore(),
-        nokhteBlur: NokhteBlurStore(),
+        blur: NokhteBlurStore(),
+        presetCards: PresetCardsStore(
+          condensed: CondensedPresetCardsStore(),
+          expanded: ExpandedPresetCardsStore(),
+        ),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: BeachWavesStore(),
         smartText: SmartTextStore(),

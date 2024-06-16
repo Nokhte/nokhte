@@ -5,6 +5,7 @@ import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/supabase/supabase.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'presets.dart';
 export 'presets_widgets.dart';
@@ -56,6 +57,7 @@ class PresetsModule extends Module {
     );
     i.add<PresetsInstructionsCoordinator>(
       () => PresetsInstructionsCoordinator(
+        tap: TapDetector(),
         logic: Modular.get<PresetsLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<PresetsInstructionsWidgetsCoordinator>(),

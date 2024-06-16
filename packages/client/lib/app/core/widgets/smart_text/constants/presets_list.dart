@@ -11,7 +11,15 @@ class PresetsLists {
       pauseHere: true,
     ),
     RotatingTextData(
-      mainMessage: "Hold",
+      mainMessage: "Hold to select",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "Tap on the cross",
       pauseHere: true,
     ),
   ];

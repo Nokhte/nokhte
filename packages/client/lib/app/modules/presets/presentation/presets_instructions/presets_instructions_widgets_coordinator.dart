@@ -16,17 +16,18 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final GestureCrossStore gestureCross;
-  final CondensedPresetsCardsStore condensedPresetsCards;
-  final NokhteBlurStore nokhteBlur;
+  final PresetCardsStore presetCards;
+  final CondensedPresetCardsStore condensedPresetCards;
+  final NokhteBlurStore blur;
 
   _PresetsInstructionsWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.gestureCross,
     required this.smartText,
-    required this.condensedPresetsCards,
+    required this.presetCards,
+    required this.blur,
     required super.wifiDisconnectOverlay,
-    required this.nokhteBlur,
-  }) {
+  }) : condensedPresetCards = presetCards.condensed {
     setSmartTextTopPaddingScalar(0);
     setSmartTextBottomPaddingScalar(.1);
     setSmartTextSubMessagePaddingScalar(110);
@@ -47,19 +48,79 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
     required ObservableList tags,
     required ObservableList names,
   }) {
-    condensedPresetsCards.setPresets(
+    presetCards.setPresets(
       unifiedUIDs: unifiedUIDs,
       tags: tags,
       names: names,
     );
-    Timer(Seconds.get(1), () {
-      smartText.startRotatingText();
-    });
+    presetCards.showAllCondensedPresets(showTags: false);
   }
+
+  @observable
+  bool canHoldOnPresetCard = false;
+
+  @observable
+  bool canTapOnPresetCard = false;
 
   initReactors() {
     disposers.add(centerCrossNokhteReactor());
+    disposers.add(condensedPresetCardTapReactor());
+    disposers.add(condensedPresetCardHoldReactor());
+    disposers.add(selectionCondensedPresetCardMovieStatusReactor());
+    disposers.add(transitionsCondensedPresetCardMovieStatusReactor());
   }
+
+  @action
+  dismissExpandedPresetCard() {
+    presetCards.dismissExpandedPresetCard(resetIndex: 0);
+    smartText.startRotatingText(isResuming: true);
+    canHoldOnPresetCard = true;
+  }
+
+  condensedPresetCardHoldReactor() =>
+      reaction((p0) => condensedPresetCards.lastHeldIndex, (p0) {
+        presetCards.selectPreset(p0);
+      });
+
+  condensedPresetCardTapReactor() =>
+      reaction((p0) => presetCards.chosenName, (p0) {
+        if (p0.isNotEmpty) {
+          presetCards.onChosenNameChanged();
+          smartText.startRotatingText(isResuming: true);
+        }
+      });
+
+  selectionCondensedPresetCardMovieStatusReactor() =>
+      reaction((p0) => condensedPresetCards.movieStatuses.toString(), (p0) {
+        final lastHeldIndex = condensedPresetCards.lastHeldIndex;
+        if (condensedPresetCards.movieModes[lastHeldIndex] ==
+                CondensedPresetCardMovieModes.selectionInProgress &&
+            condensedPresetCards.movieStatuses[lastHeldIndex] ==
+                MovieStatus.finished) {
+          smartText.startRotatingText(isResuming: true);
+          condensedPresetCards.initSelectionMovie(lastHeldIndex);
+          condensedPresetCards.disableAllTouchFeedback();
+          Timer(Seconds.get(2), () {
+            smartText.startRotatingText(isResuming: true);
+            blur.init();
+          });
+        }
+      });
+
+  transitionsCondensedPresetCardMovieStatusReactor() =>
+      reaction((p0) => condensedPresetCards.movieStatuses.first, (p0) {
+        if (p0 == MovieStatus.finished) {
+          if (condensedPresetCards.movieModes.first ==
+              CondensedPresetCardMovieModes.fadeIn) {
+            condensedPresetCards.teeUpInstructions(0);
+          } else if (condensedPresetCards.movieModes.first ==
+              CondensedPresetCardMovieModes.instructionHighlightTransition) {
+            condensedPresetCards.initHighlightMovie(0);
+            smartText.startRotatingText();
+            canTapOnPresetCard = true;
+          }
+        }
+      });
 
   centerCrossNokhteReactor() =>
       reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
