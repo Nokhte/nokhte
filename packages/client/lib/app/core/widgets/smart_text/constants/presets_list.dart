@@ -2,6 +2,13 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/core/types/types.dart';
 
 class PresetsLists {
+  static List<RotatingTextData> presetsHeader = [
+    RotatingTextData(
+      mainMessage: "Session Types",
+      pauseHere: true,
+      mainMessageFontSize: 40.0,
+    ),
+  ];
   static List<RotatingTextData> presetsInstructions = [
     RotatingTextData(
       mainMessage: "Tap to explore",

@@ -15,6 +15,7 @@ class PresetsInstructionsWidgetsCoordinator = _PresetsInstructionsWidgetsCoordin
 abstract class _PresetsInstructionsWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
+  final SmartTextStore headerText;
   final SmartTextStore smartText;
   final GestureCrossStore gestureCross;
   final PresetCardsStore presetCards;
@@ -25,6 +26,7 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
 
   _PresetsInstructionsWidgetsCoordinatorBase({
     required this.beachWaves,
+    required this.headerText,
     required this.gestureCross,
     required this.centerInstructionalNokhte,
     required this.sessionStarterInstructionalNokhte,
@@ -46,8 +48,9 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
     sessionStarterInstructionalNokhte.setWidgetVisibility(false);
     gestureCross.fadeIn();
     gestureCross.cross.initStaticGlow();
-    // gestureCross.centerCrossNokhte.setWidgetVisibility(false);
     smartText.setMessagesData(PresetsLists.presetsInstructions);
+    headerText.setMessagesData(PresetsLists.presetsHeader);
+    headerText.startRotatingText();
     initReactors();
   }
 

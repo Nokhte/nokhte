@@ -50,6 +50,13 @@ class PresetsInstructionsScreen extends HookWidget {
                   store: coordinator.widgets.blur,
                 ),
               ),
+              SmartText(
+                store: coordinator.widgets.headerText,
+                opacityDuration: Seconds.get(1),
+                bottomPadding: height * .75,
+                subTextPadding:
+                    coordinator.widgets.smartTextSubMessagePaddingScalar,
+              ),
               Observer(builder: (context) {
                 return Center(
                   child: SmartText(
