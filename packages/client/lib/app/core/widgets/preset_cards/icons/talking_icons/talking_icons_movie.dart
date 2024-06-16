@@ -15,8 +15,8 @@ class TalkingIconsMovie {
       ),
     )
     ..scene(
-      begin: Seconds.get(1),
-      end: Seconds.get(2),
+      begin: Seconds.get(30),
+      end: Seconds.get(31),
     ).tween(
       'color',
       ColorTween(
@@ -25,8 +25,8 @@ class TalkingIconsMovie {
       ),
     )
     ..scene(
-      begin: Seconds.get(2),
-      end: Seconds.get(3),
+      begin: Seconds.get(60),
+      end: Seconds.get(90),
     ).tween(
       'color',
       ColorTween(
@@ -35,8 +35,8 @@ class TalkingIconsMovie {
       ),
     )
     ..scene(
-      begin: Seconds.get(3),
-      end: Seconds.get(4),
+      begin: Seconds.get(90),
+      end: Seconds.get(91),
     ).tween(
       'color',
       ColorTween(
