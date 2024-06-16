@@ -79,7 +79,7 @@ abstract class _BaseWidgetStoreBase<T> extends Equatable with Store {
   initMovie(T param) {}
 
   @action
-  reverseMovie(params) {}
+  reverseMovie(T params) {}
 
   @override
   List<Object> get props => [];
