@@ -65,6 +65,16 @@ abstract class _CondensedPresetCardsStoreBase extends BaseWidgetStore
   }
 
   @action
+  showEverythingExcept(int index) {
+    for (int i = 0; i < length; i++) {
+      if (i != index) {
+        controls[i] = Control.playFromStart;
+        movies[i] = FadePresetCardMovies.fadeIn;
+      }
+    }
+  }
+
+  @action
   showOnly(int index) {
     movieModes[index] = CondensedPresetCardMovieModes.fadeOut;
     movieStatuses[index] = MovieStatus.idle;
