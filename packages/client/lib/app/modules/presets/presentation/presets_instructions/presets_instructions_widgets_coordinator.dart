@@ -88,7 +88,6 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
     disposers.add(centerCrossNokhteReactor());
     disposers.add(condensedPresetCardTapReactor());
     disposers.add(condensedPresetCardHoldReactor());
-    disposers.add(selectionCondensedPresetCardMovieStatusReactor());
     disposers.add(transitionsCondensedPresetCardMovieStatusReactor());
   }
 
@@ -145,28 +144,33 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
       });
 
   condensedPresetCardTapReactor() =>
-      reaction((p0) => presetCards.chosenName, (p0) {
+      reaction((p0) => presetCards.currentExpandedPresetCardName, (p0) {
         if (p0.isNotEmpty) {
           presetCards.onChosenNameChanged();
           smartText.startRotatingText(isResuming: true);
         }
       });
 
-  selectionCondensedPresetCardMovieStatusReactor() =>
-      reaction((p0) => condensedPresetCards.movieStatuses.toString(), (p0) {
-        final lastHeldIndex = condensedPresetCards.lastHeldIndex;
-        if (condensedPresetCards.movieModes[lastHeldIndex] ==
-                CondensedPresetCardMovieModes.selectionInProgress &&
-            condensedPresetCards.movieStatuses[lastHeldIndex] ==
-                MovieStatus.finished) {
-          smartText.startRotatingText(isResuming: true);
-          condensedPresetCards.initSelectionMovie(lastHeldIndex);
-          condensedPresetCards.disableAllTouchFeedback();
-          Timer(Seconds.get(2), () {
-            isAllowedToTapOnCross = true;
+  selectionCondensedPresetCardMovieStatusReactor(
+          Function(String param) onSelected) =>
+      reaction((p0) => condensedPresetCards.movieStatuses.toString(),
+          (p0) async {
+        if (condensedPresetCards.lastHeldIndex != -1) {
+          final lastHeldIndex = condensedPresetCards.lastHeldIndex;
+          if (condensedPresetCards.movieModes[lastHeldIndex] ==
+                  CondensedPresetCardMovieModes.selectionInProgress &&
+              condensedPresetCards.movieStatuses[lastHeldIndex] ==
+                  MovieStatus.finished) {
             smartText.startRotatingText(isResuming: true);
-            blur.init();
-          });
+            condensedPresetCards.initSelectionMovie(lastHeldIndex);
+            condensedPresetCards.disableAllTouchFeedback();
+            Timer(Seconds.get(2), () {
+              isAllowedToTapOnCross = true;
+              smartText.startRotatingText(isResuming: true);
+              blur.init();
+            });
+            await onSelected(presetCards.currentlySelectedSessionUID);
+          }
         }
       });
 

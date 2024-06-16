@@ -80,10 +80,14 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
   }
 
   @computed
-  String get chosenName =>
+  String get currentExpandedPresetCardName =>
       condensed.lastTappedIndex == -1 ? '' : names[condensed.lastTappedIndex];
 
   @computed
-  List get chosenTags =>
+  List get currentExpandedPresetTags =>
       condensed.lastTappedIndex == -1 ? [] : tags[condensed.lastTappedIndex];
+
+  @computed
+  String get currentlySelectedSessionUID =>
+      condensed.lastHeldIndex == -1 ? '' : unifiedUIDs[condensed.lastHeldIndex];
 }

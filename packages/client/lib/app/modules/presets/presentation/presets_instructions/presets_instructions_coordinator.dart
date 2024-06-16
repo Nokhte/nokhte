@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/presets/presets.dart';
@@ -17,6 +18,7 @@ abstract class _PresetsInstructionsCoordinatorBase extends BaseCoordinator
   final PresetsLogicCoordinator logic;
   final TapDetector tap;
   final SwipeDetector swipe;
+  final UserInformationCoordinator userInformation;
 
   _PresetsInstructionsCoordinatorBase({
     required this.widgets,
@@ -24,6 +26,7 @@ abstract class _PresetsInstructionsCoordinatorBase extends BaseCoordinator
     required this.logic,
     required this.tap,
     required this.swipe,
+    required this.userInformation,
   });
 
   @action
@@ -50,7 +53,13 @@ abstract class _PresetsInstructionsCoordinatorBase extends BaseCoordinator
     disposers.add(companyPresetsReactor());
     disposers.add(tapReactor());
     disposers.add(swipeReactor());
+    disposers.add(
+        widgets.selectionCondensedPresetCardMovieStatusReactor(onSelected));
   }
+
+  @action
+  onSelected(String presetUID) async =>
+      await userInformation.updatePreferredPreset(presetUID);
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
