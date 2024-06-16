@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/presets/presets.dart';
 part 'presets_instructions_coordinator.g.dart';
@@ -15,12 +16,14 @@ abstract class _PresetsInstructionsCoordinatorBase extends BaseCoordinator
   final PresetsInstructionsWidgetsCoordinator widgets;
   final PresetsLogicCoordinator logic;
   final TapDetector tap;
+  final SwipeDetector swipe;
 
   _PresetsInstructionsCoordinatorBase({
     required this.widgets,
     required super.captureScreen,
     required this.logic,
     required this.tap,
+    required this.swipe,
   });
 
   @action
@@ -46,11 +49,21 @@ abstract class _PresetsInstructionsCoordinatorBase extends BaseCoordinator
     ));
     disposers.add(companyPresetsReactor());
     disposers.add(tapReactor());
+    disposers.add(swipeReactor());
   }
+
+  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
+        switch (p0) {
+          case GestureDirections.right:
+            widgets.onSwipeRight();
+          default:
+            break;
+        }
+      });
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
         ifTouchIsNotDisabled(() {
-          widgets.dismissExpandedPresetCard();
+          widgets.onTap();
         });
       });
 

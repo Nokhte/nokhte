@@ -25,10 +25,11 @@ class PresetsInstructionsScreen extends HookWidget {
       return () => coordinator.deconstructor();
     }, []);
 
-    return Observer(builder: (context) {
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Tap(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Swipe(
+        store: coordinator.swipe,
+        child: Tap(
           store: coordinator.tap,
           child: MultiHitStack(
             children: [
@@ -49,18 +50,20 @@ class PresetsInstructionsScreen extends HookWidget {
                   store: coordinator.widgets.blur,
                 ),
               ),
-              Center(
-                child: SmartText(
-                  store: coordinator.widgets.smartText,
-                  opacityDuration: Seconds.get(1),
-                  topPadding:
-                      height * coordinator.widgets.smartTextTopPaddingScalar,
-                  bottomPadding:
-                      height * coordinator.widgets.smartTextBottomPaddingScalar,
-                  subTextPadding:
-                      coordinator.widgets.smartTextSubMessagePaddingScalar,
-                ),
-              ),
+              Observer(builder: (context) {
+                return Center(
+                  child: SmartText(
+                    store: coordinator.widgets.smartText,
+                    opacityDuration: Seconds.get(1),
+                    topPadding:
+                        height * coordinator.widgets.smartTextTopPaddingScalar,
+                    bottomPadding: height *
+                        coordinator.widgets.smartTextBottomPaddingScalar,
+                    subTextPadding:
+                        coordinator.widgets.smartTextSubMessagePaddingScalar,
+                  ),
+                );
+              }),
               GestureCross(
                 showGlowAndOutline: true,
                 config: GestureCrossConfiguration(
@@ -72,14 +75,20 @@ class PresetsInstructionsScreen extends HookWidget {
                 ),
                 store: coordinator.widgets.gestureCross,
               ),
+              CenterInstructionalNokhte(
+                store: coordinator.widgets.centerInstructionalNokhte,
+              ),
+              InstructionalGradientNokhte(
+                store: coordinator.widgets.sessionStarterInstructionalNokhte,
+              ),
               WifiDisconnectOverlay(
                 store: coordinator.widgets.wifiDisconnectOverlay,
               ),
             ],
           ),
         ),
-        // ),
-      );
-    });
+      ),
+      // ),
+    );
   }
 }

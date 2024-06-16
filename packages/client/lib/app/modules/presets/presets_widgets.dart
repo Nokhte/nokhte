@@ -30,6 +30,8 @@ class PresetsWidgetsModule extends Module {
     );
     i.add<PresetsInstructionsWidgetsCoordinator>(
       () => PresetsInstructionsWidgetsCoordinator(
+        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
+        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
         blur: NokhteBlurStore(),
         presetCards: PresetCardsStore(
           condensed: CondensedPresetCardsStore(),

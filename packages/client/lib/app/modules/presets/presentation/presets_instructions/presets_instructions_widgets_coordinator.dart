@@ -1,11 +1,12 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 part 'presets_instructions_widgets_coordinator.g.dart';
 
 class PresetsInstructionsWidgetsCoordinator = _PresetsInstructionsWidgetsCoordinatorBase
@@ -18,11 +19,15 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
   final GestureCrossStore gestureCross;
   final PresetCardsStore presetCards;
   final CondensedPresetCardsStore condensedPresetCards;
+  final CenterInstructionalNokhteStore centerInstructionalNokhte;
+  final InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
   final NokhteBlurStore blur;
 
   _PresetsInstructionsWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.gestureCross,
+    required this.centerInstructionalNokhte,
+    required this.sessionStarterInstructionalNokhte,
     required this.smartText,
     required this.presetCards,
     required this.blur,
@@ -37,8 +42,11 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
   constructor(Offset centerParam) {
     center = centerParam;
     beachWaves.setMovieMode(BeachWaveMovieModes.staticInvertedDeeperBlue);
+    centerInstructionalNokhte.setWidgetVisibility(false);
+    sessionStarterInstructionalNokhte.setWidgetVisibility(false);
     gestureCross.fadeIn();
     gestureCross.cross.initStaticGlow();
+    // gestureCross.centerCrossNokhte.setWidgetVisibility(false);
     smartText.setMessagesData(PresetsLists.presetsInstructions);
     initReactors();
   }
@@ -62,7 +70,21 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
   @observable
   bool canTapOnPresetCard = false;
 
+  @observable
+  bool isAllowedToTapOnCross = false;
+
+  @observable
+  bool hasSwiped = false;
+
+  @observable
+  bool instructionalNokhteAreVisible = false;
+
+  @observable
+  bool isAllowedToExit = false;
+
   initReactors() {
+    disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(gestureCrossTapReactor());
     disposers.add(centerCrossNokhteReactor());
     disposers.add(condensedPresetCardTapReactor());
     disposers.add(condensedPresetCardHoldReactor());
@@ -70,11 +92,51 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
     disposers.add(transitionsCondensedPresetCardMovieStatusReactor());
   }
 
+  @observable
+  bool hasAlreadyDismissed = false;
+
   @action
   dismissExpandedPresetCard() {
-    presetCards.dismissExpandedPresetCard(resetIndex: 0);
-    smartText.startRotatingText(isResuming: true);
-    canHoldOnPresetCard = true;
+    if (presetCards.activePresetType == ActivePresetType.expanded) {
+      hasAlreadyDismissed = true;
+      presetCards.dismissExpandedPresetCard(resetIndex: 0);
+      smartText.startRotatingText(isResuming: true);
+      canHoldOnPresetCard = true;
+    }
+  }
+
+  @action
+  onTap() {
+    if (readyToInteract) {
+      if (instructionalNokhteAreVisible && hasSwiped) {
+        dismissInstructionalNokhte();
+      } else {
+        dismissExpandedPresetCard();
+      }
+    }
+  }
+
+  @action
+  dismissInstructionalNokhte() {
+    if (instructionalNokhteAreVisible && hasSwiped) {
+      smartText.startRotatingText(isResuming: true);
+      isAllowedToExit = true;
+      hasSwiped = false;
+      instructionalNokhteAreVisible = false;
+      centerInstructionalNokhte.moveBackToCross(
+        startingPosition: CenterNokhtePositions.right,
+      );
+      sessionStarterInstructionalNokhte.initMovie(
+        InstructionalGradientMovieParams(
+          center: center,
+          colorway: GradientNokhteColorways.invertedBeachWave,
+          direction: InstructionalGradientDirections.shrink,
+          position: InstructionalNokhtePositions.right,
+        ),
+      );
+      // condensedPresetCards.showEverythingExcept(0);
+      blur.reverse();
+    }
   }
 
   condensedPresetCardHoldReactor() =>
@@ -101,18 +163,25 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
           condensedPresetCards.initSelectionMovie(lastHeldIndex);
           condensedPresetCards.disableAllTouchFeedback();
           Timer(Seconds.get(2), () {
+            isAllowedToTapOnCross = true;
             smartText.startRotatingText(isResuming: true);
             blur.init();
           });
         }
       });
 
+  @observable
+  int count = 0;
+
   transitionsCondensedPresetCardMovieStatusReactor() =>
       reaction((p0) => condensedPresetCards.movieStatuses.first, (p0) {
         if (p0 == MovieStatus.finished) {
           if (condensedPresetCards.movieModes.first ==
               CondensedPresetCardMovieModes.fadeIn) {
-            condensedPresetCards.teeUpInstructions(0);
+            if (count == 0) {
+              condensedPresetCards.teeUpInstructions(0);
+              count++;
+            }
           } else if (condensedPresetCards.movieModes.first ==
               CondensedPresetCardMovieModes.instructionHighlightTransition) {
             condensedPresetCards.initHighlightMovie(0);
@@ -122,6 +191,71 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
         }
       });
 
+  @action
+  onGestureCrossTap() {
+    if (!isDisconnected && readyToInteract) {
+      if (isAllowedToTapOnCross) {
+        isAllowedToTapOnCross = false;
+        centerInstructionalNokhte.setWidgetVisibility(true);
+        sessionStarterInstructionalNokhte.setWidgetVisibility(true);
+        sessionStarterInstructionalNokhte.initMovie(
+          InstructionalGradientMovieParams(
+            center: center,
+            colorway: GradientNokhteColorways.invertedBeachWave,
+            direction: InstructionalGradientDirections.enlarge,
+            position: InstructionalNokhtePositions.right,
+          ),
+        );
+        gestureCross.centerCrossNokhte.setWidgetVisibility(false);
+        gestureCross.gradientNokhte.setWidgetVisibility(false);
+        smartText.startRotatingText(isResuming: true);
+        centerInstructionalNokhte.moveToCenter(center);
+        Timer(Seconds.get(0, milli: 500), () {
+          setSmartTextTopPaddingScalar(.24);
+          instructionalNokhteAreVisible = true;
+        });
+        // setSmartTextPadding(bottomPadding: .14);
+      }
+    }
+  }
+
+  @action
+  onSwipeRight() {
+    if (!isDisconnected &&
+        centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
+      if (instructionalNokhteAreVisible) {
+        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.right);
+        hasSwiped = true;
+        smartText.startRotatingText(isResuming: true);
+        // setSmartTextPadding(topPadding: 0);
+      } else if (isAllowedToExit) {
+        gestureCross.centerCrossNokhte.setWidgetVisibility(true);
+        gestureCross.gradientNokhte.setWidgetVisibility(true);
+        centerInstructionalNokhte.setWidgetVisibility(false);
+        sessionStarterInstructionalNokhte.setWidgetVisibility(false);
+        gestureCross.cross.initOutlineFadeOut();
+        gestureCross.initMoveAndRegenerate(CircleOffsets.right);
+        beachWaves.setMovieMode(
+          BeachWaveMovieModes.invertedOnShoreToInvertedDeeperBlue,
+        );
+        beachWaves.currentStore.reverseMovie(-10.0);
+        condensedPresetCards.setWidgetVisibility(false);
+      }
+    }
+  }
+
+  beachWavesMovieStatusReactor() =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          Modular.to.navigate(SessionStarterConstants.sessionStarter);
+        }
+      });
+
+  gestureCrossTapReactor() => reaction(
+        (p0) => gestureCross.tapCount,
+        (p0) => onGestureCrossTap(),
+      );
+
   centerCrossNokhteReactor() =>
       reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
@@ -129,4 +263,11 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
           gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
         }
       });
+
+  @computed
+  bool get readyToInteract =>
+      // !isEnteringNokhteSession &&
+      // !hasSwipedUp &&
+      // !isInErrorMode &&
+      centerInstructionalNokhte.movieStatus != MovieStatus.inProgress;
 }
