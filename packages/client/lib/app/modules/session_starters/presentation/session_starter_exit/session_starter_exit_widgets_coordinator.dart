@@ -23,7 +23,7 @@ abstract class _SessionStarterExitWidgetsCoordinatorBase
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
     beachWaves.currentStore.callsOnCompleteTwice = false;
-    beachWaves.currentStore.reverseMovie(0);
+    beachWaves.currentStore.reverseMovie(0.0);
     gestureCross.fadeInTheCross();
   }
 
