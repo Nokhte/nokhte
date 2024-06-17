@@ -39,7 +39,8 @@ class SessionStartersWidgetsModule extends Module {
         beachWaves: BeachWavesStore(),
         smartText: SmartTextStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        instructionalGradientNokhte: InstructionalGradientNokhteStore(),
+        homeInstructionalNokhte: InstructionalGradientNokhteStore(),
+        presetsInstructionalNokhte: InstructionalGradientNokhteStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
       ),
     );

@@ -1,4 +1,5 @@
 export 'home_lists.dart';
+export 'instruction_items.dart';
 export 'shared_lists.dart';
 export 'login_list.dart';
 export 'session_lists.dart';

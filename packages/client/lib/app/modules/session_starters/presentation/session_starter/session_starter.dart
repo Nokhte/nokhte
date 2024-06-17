@@ -75,6 +75,11 @@ class SessionStarterScreen extends HookWidget {
                         gradientType: NokhteGradientTypes.home,
                       ),
                     ),
+                    left: Right(
+                      NokhteGradientConfig(
+                        gradientType: NokhteGradientTypes.presets,
+                      ),
+                    ),
                   ),
                   store: coordinator.widgets.gestureCross,
                 ),
@@ -82,7 +87,10 @@ class SessionStarterScreen extends HookWidget {
                   store: coordinator.widgets.centerInstructionalNokhte,
                 ),
                 InstructionalGradientNokhte(
-                  store: coordinator.widgets.instructionalGradientNokhte,
+                  store: coordinator.widgets.presetsInstructionalNokhte,
+                ),
+                InstructionalGradientNokhte(
+                  store: coordinator.widgets.homeInstructionalNokhte,
                 ),
                 WifiDisconnectOverlay(
                   store: coordinator.widgets.wifiDisconnectOverlay,

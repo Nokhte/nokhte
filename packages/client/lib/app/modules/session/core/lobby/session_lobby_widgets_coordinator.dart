@@ -41,9 +41,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
       primarySmartText.setMessagesData(SessionLists.leaderLobby);
       primarySmartText.startRotatingText();
     } else {
-      primarySmartText.setMessagesData(
-        SharedLists.empty,
-      );
+      primarySmartText.setMessagesData(SharedLists.emptyList);
       qrCode.setWidgetVisibility(false);
     }
     constructorHasBeenCalled = true;

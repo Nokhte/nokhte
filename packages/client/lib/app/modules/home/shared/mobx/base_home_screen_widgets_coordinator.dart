@@ -45,7 +45,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     }
     beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
     beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
-    errorSmartText.setMessagesData(SharedLists.empty);
+    errorSmartText.setMessagesData(SharedLists.emptyList);
     secondaryErrorSmartText.setMessagesData(SharedLists.errorConfirmList);
     center = centerParam;
   }

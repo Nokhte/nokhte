@@ -18,7 +18,6 @@ abstract class _SessionExitWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   final SessionExitStatusIndicatorStore sessionExitStatusIndicator;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
-  final SmartTextStore tertiarySmartText;
   final GestureCrossStore gestureCross;
   final TintStore tint;
 
@@ -28,7 +27,6 @@ abstract class _SessionExitWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     required super.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
-    required this.tertiarySmartText,
     required this.gestureCross,
     required this.tint,
   });
@@ -38,7 +36,6 @@ abstract class _SessionExitWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     tint.initMovie(NoParams());
     primarySmartText.setMessagesData(SessionLists.waitingToLeave);
     secondarySmartText.setMessagesData(SessionLists.exitBottomText);
-    tertiarySmartText.setMessagesData(SessionLists.exitWaiting);
     primarySmartText.startRotatingText();
     secondarySmartText.startRotatingText();
     beachWaves.setMovieMode(
@@ -64,26 +61,13 @@ abstract class _SessionExitWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     tint.reverseMovie(NoParams());
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
     beachWaves.currentStore.reverseMovie(NoParams());
-    tertiarySmartText.setWidgetVisibility(false);
     gestureCross.fadeInTheCross();
-  }
-
-  @action
-  onSwipeUp() {
-    primarySmartText.setWidgetVisibility(false);
-    secondarySmartText.setWidgetVisibility(false);
-    if (tertiarySmartText.currentIndex == 0) {
-      tertiarySmartText.startRotatingText();
-    } else {
-      tertiarySmartText.setWidgetVisibility(true);
-    }
   }
 
   @action
   onReadyToGoBack(SessionPhoneRole phoneRole) {
     primarySmartText.setWidgetVisibility(false);
     secondarySmartText.setWidgetVisibility(false);
-    tertiarySmartText.setWidgetVisibility(false);
     if (phoneRole == SessionPhoneRole.speaking) {
       beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
       beachWaves.currentStore.initMovie(NoParams());

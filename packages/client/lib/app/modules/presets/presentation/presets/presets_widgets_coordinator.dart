@@ -70,7 +70,7 @@ abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     beachWaves.setMovieMode(BeachWaveMovieModes.staticInvertedDeeperBlue);
     gestureCross.fadeIn();
     gestureCross.cross.initStaticGlow();
-    smartText.setMessagesData(SharedLists.empty);
+    smartText.setMessagesData(SharedLists.emptyList);
     initReactors();
   }
 

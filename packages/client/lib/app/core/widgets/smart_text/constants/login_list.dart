@@ -14,10 +14,6 @@ class LoginList {
           subText: "Tap anywhere to confirm",
           pauseHere: true,
         ),
-        RotatingTextData(
-          text: "",
-          pauseHere: true,
-          onScreenTime: Seconds.get(2),
-        ),
+        SharedLists.emptyItem,
       ];
 }

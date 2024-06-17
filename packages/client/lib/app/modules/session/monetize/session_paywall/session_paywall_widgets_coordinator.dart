@@ -62,7 +62,7 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   constructor() {
     cooldownStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.borealisToSky);
-    primarySmartText.setMessagesData(SharedLists.empty);
+    primarySmartText.setMessagesData(SharedLists.emptyList);
     secondarySmartText.setMessagesData(SessionLists.swipeUpToPay);
     tertiarySmartText.setMessagesData(SessionLists.swipeToDecide);
     setSmartTextBottomPaddingScalar(.1);

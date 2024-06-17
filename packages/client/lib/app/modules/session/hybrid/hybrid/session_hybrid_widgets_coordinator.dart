@@ -21,12 +21,10 @@ abstract class _SessionHybridWidgetsCoordinatorBase
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
   final HalfScreenTintStore othersAreTalkingTint;
-  final SmartTextStore smartText;
 
   _SessionHybridWidgetsCoordinatorBase({
     required this.othersAreTalkingTint,
     required this.mirroredText,
-    required this.smartText,
     required this.beachWaves,
     required this.borderGlow,
     required super.wifiDisconnectOverlay,
@@ -39,10 +37,6 @@ abstract class _SessionHybridWidgetsCoordinatorBase
     othersAreTalkingTint.setShouldCoverBottom(false);
     beachWaves.setMovieMode(BeachWaveMovieModes.invertedHalfAndHalfToDrySand);
     mirroredText.setMessagesData(MirroredTextContent.hybrid);
-    smartText.setMessagesData(SessionLists.speakLessWriteMore);
-    smartText.setStaticAltMovie(SessionConstants.blue);
-    smartText.startRotatingText();
-    smartText.setWidgetVisibility(false);
     mirroredText.startBothRotatingText();
     if (!userCanSpeak) {
       othersAreTalkingTint.initMovie(NoParams());

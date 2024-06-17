@@ -60,7 +60,6 @@ class SessionWidgetsModule extends Module {
         gestureCross: Modular.get<GestureCrossStore>(),
         primarySmartText: SmartTextStore(),
         secondarySmartText: SmartTextStore(),
-        tertiarySmartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
@@ -164,7 +163,6 @@ class SessionWidgetsModule extends Module {
     );
     i.add<SessionHybridWidgetsCoordinator>(
       () => SessionHybridWidgetsCoordinator(
-        smartText: SmartTextStore(),
         othersAreTalkingTint: HalfScreenTintStore(),
         speakLessSmileMore: SpeakLessSmileMoreStore(),
         touchRipple: TouchRippleStore(),
