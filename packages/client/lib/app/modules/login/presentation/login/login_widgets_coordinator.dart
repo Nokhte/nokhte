@@ -120,8 +120,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onTap(Offset currentTapPosition) {
-    if (Gestures.tap == smartTextStore.currentUnlockGesture &&
-        hasNotMadeTheDot) {
+    if (smartTextStore.currentIndex == 1 && hasNotMadeTheDot) {
       smartTextStore.startRotatingText(isResuming: true);
       toggleHasMadeTheDot();
       nokhte.initPositionMovie(

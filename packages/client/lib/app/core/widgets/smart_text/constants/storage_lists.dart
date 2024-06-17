@@ -4,46 +4,44 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 class StorageLists {
   static List<RotatingTextData> get contentSecondary => [
         RotatingTextData(
-          mainMessage: "",
+          text: "",
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "That is where you go view your sessions",
-          subMessage: "Tap anywhere to confirm",
+          text: "That is where you go view your sessions",
+          subText: "Tap anywhere to confirm",
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "",
+          text: "",
           pauseHere: true,
         ),
       ];
 
   static List<RotatingTextData> get homeSecondary => [
         RotatingTextData(
-          mainMessage: "",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
-          unlockGesture: Gestures.tap,
-        ),
-        RotatingTextData(
-          mainMessage: "That is where you go to get home",
-          subMessage: "Tap anywhere to confirm",
+          text: "",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "",
+          text: "That is where you go to get home",
+          subText: "Tap anywhere to confirm",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
-          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          text: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
         ),
       ];
 
   static List<RotatingTextData> get homeHeader => [
         RotatingTextData(
-          mainMessage: "Sessions:",
+          text: "Sessions:",
           pauseHere: true,
-          mainMessageFontSize: 40.0,
+          mainFontSize: 40.0,
         ),
       ];
 }

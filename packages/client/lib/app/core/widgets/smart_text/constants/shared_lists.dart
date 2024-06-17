@@ -4,23 +4,23 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 class SharedLists {
   static List<RotatingTextData> get empty => [
         RotatingTextData(
-          mainMessage: "",
+          text: "",
           onScreenTime: Seconds.get(0),
         ),
       ];
 
   static List<RotatingTextData> getErrorList(String errorMessage) => [
         RotatingTextData(
-          mainMessage: errorMessage,
+          text: errorMessage,
           pauseHere: true,
         ),
       ];
 
   static List<RotatingTextData> get errorConfirmList => [
         RotatingTextData(
-          mainMessage: "Tap to confirm",
+          text: "Tap to confirm",
           pauseHere: true,
-          mainMessageFontSize: 19.0,
+          mainFontSize: 19.0,
         ),
       ];
 }

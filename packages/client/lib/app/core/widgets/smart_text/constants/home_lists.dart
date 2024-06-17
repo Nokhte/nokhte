@@ -4,47 +4,45 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 class HomeLists {
   static List<RotatingTextData> get storageGuide => [
         RotatingTextData(
-          mainMessage: "Tap on the compass",
+          text: "Tap on the compass",
           pauseHere: true,
           initialFadeInDelay: Seconds.get(1),
         ),
         RotatingTextData(
-          mainMessage: "Swipe right",
+          text: "Swipe right",
           pauseHere: true,
           initialFadeInDelay: Seconds.get(1),
         ),
         RotatingTextData(
-          mainMessage: "That is where you go to view session notes",
-          subMessage: "Tap anywhere to confirm",
+          text: "That is where you go to view session notes",
+          subText: "Tap anywhere to confirm",
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "Swipe right",
+          text: "Swipe right",
           pauseHere: true,
         ),
       ];
 
   static List<RotatingTextData> get shortQrGuide => [
         RotatingTextData(
-          mainMessage: "Tap on the compass",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
-          unlockGesture: Gestures.tap,
-        ),
-        RotatingTextData(
-          mainMessage: "Swipe up",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
-          unlockGesture: Gestures.tap,
-        ),
-        RotatingTextData(
-          mainMessage: "That is where you go to start a session",
-          subMessage: "Tap anywhere to confirm",
+          text: "Tap on the compass",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "Swipe up",
+          text: "Swipe up",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          text: "That is where you go to start a session",
+          subText: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          text: "Swipe up",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
@@ -52,70 +50,66 @@ class HomeLists {
 
   static List<RotatingTextData> get qrAndStorageAdept => [
         RotatingTextData(
-          mainMessage: "",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
-          unlockGesture: Gestures.tap,
-        ),
-        RotatingTextData(
-          mainMessage: "That is where you go to start a session",
-          subMessage: "Tap anywhere to confirm",
+          text: "",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
-          unlockGesture: Gestures.tap,
-        ),
-        RotatingTextData(
-          mainMessage: "That is where you go to view session notes",
-          subMessage: "Tap anywhere to confirm",
+          text: "That is where you go to start a session",
+          subText: "Tap anywhere to confirm",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "",
+          text: "",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
-          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          text: "That is where you go to view session notes",
+          subText: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          text: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
         ),
       ];
 
   static List<RotatingTextData> get compassAndStorageGuide => [
         RotatingTextData(
-          mainMessage: "If you're ever confused, Tap on the compass",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
-          unlockGesture: Gestures.tap,
-        ),
-        RotatingTextData(
-          mainMessage: "The compass is a map of the app",
-          subMessage: "Tap anywhere to confirm",
-          pauseHere: true,
-          initialFadeInDelay: Seconds.get(1),
-        ),
-        RotatingTextData(
-          mainMessage: "You are here",
-          subMessage: "Tap anywhere to confirm",
+          text: "If you're ever confused, Tap on the compass",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "You move by swiping",
-          subMessage: "Swipe right",
+          text: "The compass is a map of the app",
+          subText: "Tap anywhere to confirm",
+          pauseHere: true,
+          initialFadeInDelay: Seconds.get(1),
+        ),
+        RotatingTextData(
+          text: "You are here",
+          subText: "Tap anywhere to confirm",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "That is where you go to view session notes",
-          subMessage: "Tap anywhere to confirm",
+          text: "You move by swiping",
+          subText: "Swipe right",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "Swipe right",
+          text: "That is where you go to view session notes",
+          subText: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          text: "Swipe right",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
@@ -123,37 +117,36 @@ class HomeLists {
 
   static List<RotatingTextData> get compassAndQrGuide => [
         RotatingTextData(
-          mainMessage: "If you're ever confused, Tap on the compass",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
-          unlockGesture: Gestures.tap,
-        ),
-        RotatingTextData(
-          mainMessage: "The compass is a map of the app",
-          subMessage: "Tap anywhere to confirm",
-          pauseHere: true,
-          initialFadeInDelay: Seconds.get(1),
-        ),
-        RotatingTextData(
-          mainMessage: "You are here",
-          subMessage: "Tap anywhere to confirm",
+          text: "If you're ever confused, Tap on the compass",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "You move by swiping",
-          subMessage: "Swipe Up",
+          text: "The compass is a map of the app",
+          subText: "Tap anywhere to confirm",
+          pauseHere: true,
+          initialFadeInDelay: Seconds.get(1),
+        ),
+        RotatingTextData(
+          text: "You are here",
+          subText: "Tap anywhere to confirm",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "That is where you go to start a session",
-          subMessage: "Tap anywhere to confirm",
+          text: "You move by swiping",
+          subText: "Swipe Up",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "",
+          text: "That is where you go to start a session",
+          subText: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          text: "",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
@@ -161,23 +154,23 @@ class HomeLists {
 
   static List<RotatingTextData> get qrNavigationReminder => [
         RotatingTextData(
-          mainMessage: "Swipe up to start a session",
+          text: "Swipe up to start a session",
           pauseHere: true,
           initialFadeInDelay: Seconds.get(1),
         ),
         RotatingTextData(
-          mainMessage: "",
+          text: "",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "That is where you go to start a session",
-          subMessage: "Tap anywhere to confirm",
+          text: "That is where you go to start a session",
+          subText: "Tap anywhere to confirm",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "",
+          text: "",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),

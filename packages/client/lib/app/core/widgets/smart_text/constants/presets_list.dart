@@ -4,44 +4,44 @@ import 'package:nokhte/app/core/types/types.dart';
 class PresetsLists {
   static List<RotatingTextData> presetsHeader = [
     RotatingTextData(
-      mainMessage: "Session Types",
+      text: "Session Types",
       pauseHere: true,
-      mainMessageFontSize: 40.0,
+      mainFontSize: 40.0,
     ),
   ];
   static List<RotatingTextData> presetsInstructions = [
     RotatingTextData(
-      mainMessage: "Tap to explore",
+      text: "Tap to explore",
       pauseHere: true,
     ),
     RotatingTextData(
-      mainMessage: "",
+      text: "",
       pauseHere: true,
     ),
     RotatingTextData(
-      mainMessage: "Hold to select",
+      text: "Hold to select",
       pauseHere: true,
     ),
     RotatingTextData(
-      mainMessage: "",
+      text: "",
       pauseHere: true,
     ),
     RotatingTextData(
-      mainMessage: "Tap on the cross",
+      text: "Tap on the cross",
       pauseHere: true,
     ),
     RotatingTextData(
-      mainMessage: "Swipe right",
+      text: "Swipe right",
       pauseHere: true,
     ),
     RotatingTextData(
-      mainMessage: "That is where you go to start a session",
-      subMessage: "Tap anywhere to confirm",
+      text: "That is where you go to start a session",
+      subText: "Tap anywhere to confirm",
       initialFadeInDelay: Seconds.get(1),
       pauseHere: true,
     ),
     RotatingTextData(
-      mainMessage: "",
+      text: "",
       pauseHere: true,
     ),
   ];

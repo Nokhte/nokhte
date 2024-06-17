@@ -4,23 +4,23 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 class SessionStartersList {
   static List<RotatingTextData> get hasDoneInstructions => [
         RotatingTextData(
-          mainMessage: "Scan to join",
+          text: "Scan to join",
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "",
+          text: "",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
         RotatingTextData(
           initialFadeInDelay: Seconds.get(1),
-          mainMessage: "That is where you go to get home",
-          subMessage: "Tap anywhere to confirm",
+          text: "That is where you go to get home",
+          subText: "Tap anywhere to confirm",
           onScreenTime: Seconds.get(0),
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "",
+          text: "",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
@@ -28,27 +28,27 @@ class SessionStartersList {
 
   static List<RotatingTextData> get hasNotDoneInstructions => [
         RotatingTextData(
-          mainMessage: "Tap on the cross",
+          text: "Tap on the cross",
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "Swipe left",
+          text: "Swipe left",
           pauseHere: true,
         ),
         RotatingTextData(
           initialFadeInDelay: Seconds.get(1),
-          mainMessage: "This is where you go to choose the session type",
-          subMessage: "Tap anywhere to confirm",
+          text: "This is where you go to choose the session type",
+          subText: "Tap anywhere to confirm",
           onScreenTime: Seconds.get(0),
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "Swipe left",
+          text: "Swipe left",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "",
+          text: "",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
