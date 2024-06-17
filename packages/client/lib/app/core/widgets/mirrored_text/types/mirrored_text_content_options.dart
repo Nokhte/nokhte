@@ -11,6 +11,5 @@ enum MirroredTextContent {
   sessionHybridWaiting,
   hybrid,
   sessionNotesHybridInstructions,
-  speakLessWriteMore,
   lookAtTheOtherPhone
 }

@@ -9,8 +9,7 @@ part 'mirrored_text_store.g.dart';
 
 class MirroredTextStore = _MirroredTextStoreBase with _$MirroredTextStore;
 
-abstract class _MirroredTextStoreBase extends BaseWidgetStore
-    with Store {
+abstract class _MirroredTextStoreBase extends BaseWidgetStore with Store {
   final SmartTextStore primaryRightSideUpText;
   final SmartTextStore secondaryRightSideUpText;
   final SmartTextStore primaryUpsideDownText;
@@ -32,7 +31,7 @@ abstract class _MirroredTextStoreBase extends BaseWidgetStore
         setPrimaryMessagesData(SessionLists.speakingInstructionsPrimary);
       case MirroredTextContent.sessionSpeaking:
         prepForSplitScreen();
-        setPrimaryMessagesData(SharedLists.empty);
+        setPrimaryMessagesData(SharedLists.emptyList);
         setSecondaryMessagesData(SessionLists.touchToTalk);
       case MirroredTextContent.sessionNotesFullInstructions:
         primaryRightSideUpText.setMessagesData(
@@ -53,28 +52,15 @@ abstract class _MirroredTextStoreBase extends BaseWidgetStore
             MirroredTextOrientations.upsideDown,
           ),
         );
-      case MirroredTextContent.speakLessWriteMore:
-        primaryRightSideUpText
-            .setMessagesData(SessionLists.speakLessWriteMorePrimary);
-        primaryUpsideDownText
-            .setMessagesData(SessionLists.speakLessWriteMorePrimary);
-        secondaryRightSideUpText
-            .setMessagesData(SessionLists.speakLessWriteMoreSecondary);
-        secondaryUpsideDownText
-            .setMessagesData(SessionLists.speakLessWriteMoreSecondary);
-        primaryRightSideUpText.setStaticAltMovie(SessionConstants.blue);
-        secondaryRightSideUpText.setStaticAltMovie(SessionConstants.blue);
-        primaryUpsideDownText.setStaticAltMovie(SessionConstants.blue);
-        secondaryUpsideDownText.setStaticAltMovie(SessionConstants.blue);
       case MirroredTextContent.sessionSpeakingWaiting:
         setPrimaryMessagesData(SessionLists.speakingWaiting);
-        setSecondaryMessagesData(SharedLists.empty);
+        setSecondaryMessagesData(SharedLists.emptyList);
         prepForSplitScreen();
       case MirroredTextContent.sessionSpeakingHybridInstructions:
         primaryRightSideUpText.setMessagesData(
           SessionLists.lookAtTheOtherPhone,
         );
-        secondaryRightSideUpText.setMessagesData(SharedLists.empty);
+        secondaryRightSideUpText.setMessagesData(SharedLists.emptyList);
         primaryUpsideDownText.setMessagesData(
           SessionLists.speakingHalfInstructionsPrimary(
             isHybrid: true,
@@ -86,9 +72,9 @@ abstract class _MirroredTextStoreBase extends BaseWidgetStore
         prepForSplitScreen(isInverted: true);
       case MirroredTextContent.sessionHybridWaiting:
         primaryRightSideUpText.setMessagesData(SessionLists.waitForTheOthers);
-        secondaryRightSideUpText.setMessagesData(SharedLists.empty);
+        secondaryRightSideUpText.setMessagesData(SharedLists.emptyList);
         primaryUpsideDownText.setMessagesData(SessionLists.waitForTheOthers);
-        secondaryUpsideDownText.setMessagesData(SharedLists.empty);
+        secondaryUpsideDownText.setMessagesData(SharedLists.emptyList);
         prepForSplitScreen(isInverted: true);
       case MirroredTextContent.sessionNotesHybridInstructions:
         prepForSplitScreen(isInverted: true);
@@ -101,23 +87,23 @@ abstract class _MirroredTextStoreBase extends BaseWidgetStore
         primaryUpsideDownText.setMessagesData(
           SessionLists.lookAtTheOtherPhone,
         );
-        secondaryUpsideDownText.setMessagesData(SharedLists.empty);
+        secondaryUpsideDownText.setMessagesData(SharedLists.emptyList);
       case MirroredTextContent.lookAtTheOtherPhone:
         primaryRightSideUpText.setMessagesData(
           SessionLists.lookAtTheOtherPhone,
         );
-        secondaryRightSideUpText.setMessagesData(SharedLists.empty);
+        secondaryRightSideUpText.setMessagesData(SharedLists.emptyList);
         primaryUpsideDownText.setMessagesData(SessionLists.lookAtTheOtherPhone);
-        secondaryUpsideDownText.setMessagesData(SharedLists.empty);
+        secondaryUpsideDownText.setMessagesData(SharedLists.emptyList);
       case MirroredTextContent.hybrid:
-        setPrimaryMessagesData(SharedLists.empty);
+        setPrimaryMessagesData(SharedLists.emptyList);
         secondaryRightSideUpText.setMessagesData(SessionLists.tapToTakeANote);
         secondaryUpsideDownText.setMessagesData(SessionLists.touchToTalk);
         prepForSplitScreen(isInverted: true);
       case MirroredTextContent.sessionSpeakingTopHalfInstructions:
         primaryRightSideUpText
             .setMessagesData(SessionLists.youHaveAlreadyDoneThis);
-        secondaryRightSideUpText.setMessagesData(SharedLists.empty);
+        secondaryRightSideUpText.setMessagesData(SharedLists.emptyList);
         primaryUpsideDownText.setMessagesData(
           SessionLists.speakingHalfInstructionsPrimary(
             isHybrid: false,
@@ -138,12 +124,12 @@ abstract class _MirroredTextStoreBase extends BaseWidgetStore
         );
         primaryUpsideDownText
             .setMessagesData(SessionLists.youHaveAlreadyDoneThis);
-        secondaryUpsideDownText.setMessagesData(SharedLists.empty);
+        secondaryUpsideDownText.setMessagesData(SharedLists.emptyList);
         prepForSplitScreen();
       case MirroredTextContent.sessionNotesTopHalfInstructions:
         primaryRightSideUpText
             .setMessagesData(SessionLists.youHaveAlreadyDoneThis);
-        secondaryRightSideUpText.setMessagesData(SharedLists.empty);
+        secondaryRightSideUpText.setMessagesData(SharedLists.emptyList);
         primaryUpsideDownText.setMessagesData(
           SessionLists.getNotesHalfInstructionsPrimary(isHybrid: true),
         );
@@ -159,7 +145,7 @@ abstract class _MirroredTextStoreBase extends BaseWidgetStore
             .setMessagesData(SessionLists.notesHalfInstructionsSecondary);
         primaryUpsideDownText
             .setMessagesData(SessionLists.youHaveAlreadyDoneThis);
-        secondaryUpsideDownText.setMessagesData(SharedLists.empty);
+        secondaryUpsideDownText.setMessagesData(SharedLists.emptyList);
     }
   }
 
