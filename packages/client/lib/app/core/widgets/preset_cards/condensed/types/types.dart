@@ -4,5 +4,6 @@ enum CondensedPresetCardMovieModes {
   activeSelection,
   instructionHighlight,
   instructionHighlightTransition,
-  selectionInProgress
+  selectionInProgress,
+  selectionWindDown
 }

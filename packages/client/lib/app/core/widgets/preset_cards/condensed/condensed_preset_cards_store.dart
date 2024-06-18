@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -24,6 +25,13 @@ abstract class _CondensedPresetCardsStoreBase extends BaseWidgetStore
   ObservableList<MovieStatus> movieStatuses = ObservableList();
 
   @observable
+  ObservableList<Color> selectedPresetColors = ObservableList.of([]);
+
+  @action
+  setSelectedPresetColors(List<Color> colors) =>
+      selectedPresetColors = ObservableList.of(colors);
+
+  @observable
   ObservableList<CondensedPresetCardMovieModes> movieModes = ObservableList();
 
   @observable
@@ -36,32 +44,56 @@ abstract class _CondensedPresetCardsStoreBase extends BaseWidgetStore
   setShowTags(bool val) => showTags = val;
 
   @observable
-  int lastTappedIndex = -1;
+  int currentTappedIndex = -1;
 
   @action
-  setLastTappedIndex(int i) {
+  setCurrentTappedIndex(int i) {
     if (isEnabled[i]) {
-      lastTappedIndex = i;
+      currentTappedIndex = i;
     }
+  }
+
+  @action
+  initWindDown(int i) {
+    movies[i] = PresetCardSelectionMovies.getWindDown(selectedPresetColors);
+    controls[i] = Control.play;
+    movieStatuses[i] = MovieStatus.idle;
+    movieModes[i] = CondensedPresetCardMovieModes.selectionWindDown;
   }
 
   @observable
-  int lastHeldIndex = -1;
+  int currentHeldIndex = -1;
+
+  @observable
+  int pastHeldIndex = -1;
 
   @action
-  setLastHeldIndex(int i) {
-    if (isEnabled[i]) {
-      lastHeldIndex = i;
+  setCurrentHeldIndex(int i, {bool override = false}) {
+    if (isEnabled[i] || override) {
+      pastHeldIndex = currentHeldIndex;
+      currentHeldIndex = i;
     }
   }
 
   @action
-  initSelection(int index) {
-    controls[index] = Control.play;
-    movieStatuses[index] = MovieStatus.idle;
+  initSelectionInProgress(int index) {
+    Control pastHeldIndexControl = Control.stop;
+    if (pastHeldIndex != -1) {
+      pastHeldIndexControl = controls[pastHeldIndex];
+    }
+    controls = ObservableList.of(List.generate(length, (i) {
+      if (i == index) {
+        return Control.playFromStart;
+      } else if (i == pastHeldIndex && pastHeldIndex != -1) {
+        return pastHeldIndexControl;
+      } else {
+        return Control.stop;
+      }
+    }));
     movieModes[index] = CondensedPresetCardMovieModes.selectionInProgress;
-    // movies[index] = PresetSelectionInProgressMovie.movie;
     movies[index] = PresetCardSelectionMovies.inProgress;
+    // resetMovieStatuses();
+    movieStatuses[index] = MovieStatus.idle;
   }
 
   @action
@@ -88,8 +120,13 @@ abstract class _CondensedPresetCardsStoreBase extends BaseWidgetStore
     resetMovieStatuses();
     movieModes[index] = CondensedPresetCardMovieModes.activeSelection;
     movieStatuses[index] = MovieStatus.idle;
-    controls[index] = Control.loop;
-    // movies[index] = ActiveSelectedPresetCardMovie.movie;
+    controls = ObservableList.of(List.generate(length, (i) {
+      if (i == index) {
+        return Control.loop;
+      } else {
+        return Control.stop;
+      }
+    }));
     movies[index] = PresetCardSelectionMovies.active;
   }
 

@@ -119,31 +119,38 @@ class CondensedPresetsCards extends HookWidget with PresetTags {
           duration: store.movies[i].duration,
           control: store.controls[i],
           onCompleted: () => store.onAnimationCompleted(i),
-          builder: (context, value, child) => GestureDetector(
-            onTap: () => store.setLastTappedIndex(i),
-            onLongPressStart: (details) {
-              store.setLastHeldIndex(i);
-            },
-            child: Opacity(
-              opacity: value.get('c1').opacity,
-              child: Container(
-                decoration: buildSquareDecoration(value, text.isEmpty),
-                height: size,
-                width: size,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    buildText(value, text, height),
-                    buildIcons(
-                      i,
-                      opacity: store.showTags ? value.get('c1').opacity : 0,
-                      containerSize: size,
-                    )
-                  ],
+          builder: (context, value, child) {
+            if (i == store.currentHeldIndex) {
+              store.setSelectedPresetColors(
+                [value.get('c1'), value.get('c2'), value.get('c3')],
+              );
+            }
+            return GestureDetector(
+              onTap: () => store.setCurrentTappedIndex(i),
+              onLongPressStart: (details) {
+                store.setCurrentHeldIndex(i);
+              },
+              child: Opacity(
+                opacity: value.get('c1').opacity,
+                child: Container(
+                  decoration: buildSquareDecoration(value, text.isEmpty),
+                  height: size,
+                  width: size,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      buildText(value, text, height),
+                      buildIcons(
+                        i,
+                        opacity: store.showTags ? value.get('c1').opacity : 0,
+                        containerSize: size,
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         );
       });
     }

@@ -111,4 +111,38 @@ class PresetCardSelectionMovies {
             end: 0,
           ),
         );
+
+  static MovieTween getWindDown(List<Color> startingColors) => MovieTween()
+    ..scene(
+      begin: Seconds.get(0),
+      end: Seconds.get(1),
+    )
+        .tween(
+          'c1',
+          ColorTween(
+            begin: startingColors[0],
+            end: Colors.white,
+          ),
+        )
+        .tween(
+          'c2',
+          ColorTween(
+            begin: startingColors[1],
+            end: Colors.white,
+          ),
+        )
+        .tween(
+          'c3',
+          ColorTween(
+            begin: startingColors[2],
+            end: Colors.white,
+          ),
+        )
+        .tween(
+          'blur',
+          Tween<double>(
+            begin: 0,
+            end: 0,
+          ),
+        );
 }

@@ -25,9 +25,14 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
   ObservableList names = ObservableList();
 
   @observable
-  ActivePresetType activePresetType = ActivePresetType.condensed;
+  String preferredPresetUID = "";
 
   @observable
+  ActivePresetType activePresetType = ActivePresetType.condensed;
+
+  @action
+  setPreferredPresetUID(String uid) => preferredPresetUID = uid;
+
   @action
   setPresets({
     required ObservableList unifiedUIDs,
@@ -41,12 +46,26 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
   }
 
   @action
-  showAllCondensedPresets({required bool showTags}) {
+  showAllCondensedPresets({
+    required bool showTags,
+    int preferredIndex = -1,
+  }) {
     if (!showTags) {
       condensed.setShowTags(false);
     }
-    condensed.fadeEverythingIn(tags.length);
-    condensed.setWidgetVisibility(true);
+    if (preferredIndex == -1) {
+      condensed.fadeEverythingIn(tags.length);
+      condensed.setWidgetVisibility(true);
+    }
+  }
+
+  @action
+  activateSelectedPreset() {
+    if (preferredPresetUID.isNotEmpty) {
+      condensed.enableAllTouchFeedback();
+      condensed.setCurrentHeldIndex(preferredPresetIndex);
+      selectPreset(preferredPresetIndex);
+    }
   }
 
   @action
@@ -61,7 +80,7 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
   @action
   selectPreset(int index) {
     if (activePresetType == ActivePresetType.condensed) {
-      condensed.initSelection(index);
+      condensed.initSelectionInProgress(index);
     }
   }
 
@@ -80,14 +99,23 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
   }
 
   @computed
-  String get currentExpandedPresetCardName =>
-      condensed.lastTappedIndex == -1 ? '' : names[condensed.lastTappedIndex];
+  String get currentExpandedPresetCardName => condensed.currentTappedIndex == -1
+      ? ''
+      : names[condensed.currentTappedIndex];
 
   @computed
-  List get currentExpandedPresetTags =>
-      condensed.lastTappedIndex == -1 ? [] : tags[condensed.lastTappedIndex];
+  List get currentExpandedPresetTags => condensed.currentTappedIndex == -1
+      ? []
+      : tags[condensed.currentTappedIndex];
 
   @computed
-  String get currentlySelectedSessionUID =>
-      condensed.lastHeldIndex == -1 ? '' : unifiedUIDs[condensed.lastHeldIndex];
+  String get currentlySelectedSessionUID => condensed.currentHeldIndex == -1
+      ? ''
+      : unifiedUIDs[condensed.currentHeldIndex];
+
+  @computed
+  int get preferredPresetIndex =>
+      unifiedUIDs.isEmpty || preferredPresetUID.isEmpty
+          ? -1
+          : unifiedUIDs.indexOf(preferredPresetUID);
 }
