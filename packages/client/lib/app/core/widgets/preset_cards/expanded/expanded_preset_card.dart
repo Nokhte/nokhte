@@ -27,7 +27,6 @@ class ExpandedPresetsCards extends HookWidget with PresetTags {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: fromTagsToWidgets(
             chosenTags,
-            opacity: 1.0,
             containerSize: containerSize,
             shouldAnimate: true,
             isHorizontal: false,
@@ -70,7 +69,6 @@ class ExpandedPresetsCards extends HookWidget with PresetTags {
                         Padding(
                           padding: EdgeInsets.only(
                             left: height * .05,
-                            // bottom: height * .5,
                           ),
                           child: Jost(chosenName),
                         ),

@@ -124,20 +124,23 @@ class CondensedPresetsCards extends HookWidget with PresetTags {
             onLongPressStart: (details) {
               store.setLastHeldIndex(i);
             },
-            child: Container(
-              decoration: buildSquareDecoration(value, text.isEmpty),
-              height: size,
-              width: size,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  buildText(value, text, height),
-                  buildIcons(
-                    i,
-                    opacity: store.showTags ? value.get('c1').opacity : 0,
-                    containerSize: size,
-                  )
-                ],
+            child: Opacity(
+              opacity: value.get('c1').opacity,
+              child: Container(
+                decoration: buildSquareDecoration(value, text.isEmpty),
+                height: size,
+                width: size,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    buildText(value, text, height),
+                    buildIcons(
+                      i,
+                      opacity: store.showTags ? value.get('c1').opacity : 0,
+                      containerSize: size,
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -151,15 +154,17 @@ class CondensedPresetsCards extends HookWidget with PresetTags {
     required double opacity,
     required double containerSize,
   }) =>
-      Padding(
-        padding: EdgeInsets.only(
-            right: containerSize * .0, bottom: containerSize * .04),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: fromTagsToWidgets(
-            tags[i],
-            opacity: opacity,
-            containerSize: containerSize,
+      Opacity(
+        opacity: opacity,
+        child: Padding(
+          padding: EdgeInsets.only(
+              right: containerSize * .0, bottom: containerSize * .04),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: fromTagsToWidgets(
+              tags[i],
+              containerSize: containerSize,
+            ),
           ),
         ),
       );

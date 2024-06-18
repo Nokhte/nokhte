@@ -5,41 +5,36 @@ import 'package:simple_animations/simple_animations.dart';
 export 'flexible_seating_movie.dart';
 
 class FlexibleSeatingIcon extends StatelessWidget {
-  final double opacity;
   final double containerSize;
   final bool shouldAnimate;
   const FlexibleSeatingIcon({
     super.key,
-    required this.opacity,
     required this.containerSize,
     required this.shouldAnimate,
   });
 
   @override
-  build(context) => Opacity(
-        opacity: opacity,
-        child: CustomAnimationBuilder(
-          tween: shouldAnimate
-              ? FlexibleSeatingMovie.active
-              : FlexibleSeatingMovie.static,
-          duration: shouldAnimate
-              ? FlexibleSeatingMovie.active.duration
-              : FlexibleSeatingMovie.static.duration,
-          control: shouldAnimate ? Control.loop : Control.stop,
-          builder: (context, value, child) {
-            return SizedBox(
-              height: containerSize * .23,
-              width: containerSize * .23,
-              child: CustomPaint(
-                painter: FlexibleSeatingIconPainter(
-                  containerSize: containerSize,
-                  o1: value.get('o1'),
-                  o2: value.get('o2'),
-                  o3: value.get('o3'),
-                ),
+  build(context) => CustomAnimationBuilder(
+        tween: shouldAnimate
+            ? FlexibleSeatingMovie.active
+            : FlexibleSeatingMovie.static,
+        duration: shouldAnimate
+            ? FlexibleSeatingMovie.active.duration
+            : FlexibleSeatingMovie.static.duration,
+        control: shouldAnimate ? Control.loop : Control.stop,
+        builder: (context, value, child) {
+          return SizedBox(
+            height: containerSize * .23,
+            width: containerSize * .23,
+            child: CustomPaint(
+              painter: FlexibleSeatingIconPainter(
+                containerSize: containerSize,
+                o1: value.get('o1'),
+                o2: value.get('o2'),
+                o3: value.get('o3'),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       );
 }

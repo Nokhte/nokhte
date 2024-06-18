@@ -37,8 +37,7 @@ mixin PresetTags {
   }
 
   List<Widget> fromTagsToWidgets(
-    tags, {
-    required double opacity,
+    List tags, {
     required double containerSize,
     bool shouldAnimate = false,
     bool isHorizontal = true,
@@ -62,7 +61,6 @@ mixin PresetTags {
               TalkingIcons(
                 shouldAnimate: shouldAnimate,
                 containerSize: containerSize,
-                opacity: opacity,
                 isHoldToTalk: true,
               ),
               i),
@@ -77,7 +75,6 @@ mixin PresetTags {
               TalkingIcons(
                 shouldAnimate: shouldAnimate,
                 containerSize: containerSize,
-                opacity: opacity,
                 isHoldToTalk: false,
               ),
               i),
@@ -92,7 +89,6 @@ mixin PresetTags {
               NotesIcon(
                 shouldAnimate: shouldAnimate,
                 containerSize: containerSize,
-                opacity: opacity,
               ),
               i),
           addText,
@@ -107,7 +103,6 @@ mixin PresetTags {
                 FlexibleSeatingIcon(
                   shouldAnimate: shouldAnimate,
                   containerSize: containerSize,
-                  opacity: opacity,
                 ),
                 i),
             addText,
@@ -123,7 +118,6 @@ mixin PresetTags {
               StrictSeatingIcon(
                 shouldAnimate: shouldAnimate,
                 containerSize: containerSize,
-                opacity: opacity,
               ),
               i,
             ),
