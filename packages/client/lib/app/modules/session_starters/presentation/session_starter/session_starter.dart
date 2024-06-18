@@ -58,7 +58,24 @@ class SessionStarterScreen extends HookWidget {
                 ),
                 Center(
                   child: SmartText(
-                    store: coordinator.widgets.smartText,
+                    store: coordinator.widgets.primarySmartText,
+                    opacityDuration: Seconds.get(1),
+                    topPadding: height * .23,
+                  ),
+                ),
+                FullScreen(
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: height * .33),
+                      child: PresetIcons(
+                        store: coordinator.widgets.presetIcons,
+                      ),
+                    ),
+                  ),
+                ),
+                Center(
+                  child: SmartText(
+                    store: coordinator.widgets.secondarySmartText,
                     opacityDuration: Seconds.get(1),
                     topPadding:
                         height * coordinator.widgets.smartTextTopPaddingScalar,
@@ -69,6 +86,7 @@ class SessionStarterScreen extends HookWidget {
                   ),
                 ),
                 GestureCross(
+                  showGlowAndOutline: true,
                   config: GestureCrossConfiguration(
                     bottom: Right(
                       NokhteGradientConfig(

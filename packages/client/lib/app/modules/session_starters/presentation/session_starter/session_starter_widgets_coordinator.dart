@@ -17,20 +17,24 @@ class SessionStarterWidgetsCoordinator = _SessionStarterWidgetsCoordinatorBase
 abstract class _SessionStarterWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
-  final SmartTextStore smartText;
+  final SmartTextStore secondarySmartText;
+  final SmartTextStore primarySmartText;
   final GestureCrossStore gestureCross;
   final TouchRippleStore touchRipple;
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final InstructionalGradientNokhteStore presetsInstructionalNokhte;
   final InstructionalGradientNokhteStore homeInstructionalNokhte;
+  final PresetIconsStore presetIcons;
   final NokhteBlurStore nokhteBlur;
   final NokhteQrCodeStore qrCode;
 
   _SessionStarterWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.touchRipple,
+    required this.presetIcons,
     required this.gestureCross,
-    required this.smartText,
+    required this.primarySmartText,
+    required this.secondarySmartText,
     required super.wifiDisconnectOverlay,
     required this.centerInstructionalNokhte,
     required this.homeInstructionalNokhte,
@@ -38,6 +42,9 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     required this.nokhteBlur,
     required this.qrCode,
   }) {
+    presetIcons.setContainerSize(.2);
+    presetIcons.setWidgetVisibility(false);
+    presetIcons.setIsHorizontal(true);
     setSmartTextTopPaddingScalar(.27);
     setSmartTextBottomPaddingScalar(0);
     setSmartTextSubMessagePaddingScalar(110);
@@ -62,6 +69,9 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   bool invitationIsSent = false;
 
   @observable
+  ObservableList<Widget> tags = ObservableList.of([]);
+
+  @observable
   bool shouldDisableTouchRipple = false;
 
   @observable
@@ -79,10 +89,11 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     center = centerParam;
     qrCode.setWidgetVisibility(false);
     gestureCross.setCollaborationHomeScreen();
-    smartText.setMessagesData(SessionStartersList.hasDoneInstructions);
+    primarySmartText.setMessagesData(SharedLists.emptyList);
+    secondarySmartText.setMessagesData(SessionStartersList.hasDoneInstructions);
     beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
     beachWaves.currentStore.setControl(Control.playFromStart);
-    smartText.startRotatingText();
+    secondarySmartText.startRotatingText();
     disposers.add(centerCrossNokhteReactor());
     disposers.add(gestureCrossTapReactor());
     initReactors();
@@ -95,13 +106,24 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   }
 
   @action
+  onPreferredPresetReceived({
+    required String sessionName,
+    required List tags,
+  }) {
+    primarySmartText
+        .setMessagesData(SessionStartersList.getQrCodeSubtitle(sessionName));
+    primarySmartText.startRotatingText();
+    presetIcons.setTags(tags: tags);
+  }
+
+  @action
   onSwipeDown(Function onLeaving) async {
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
         hasInitiatedBlur = false;
         setSmartTextBottomPaddingScalar(.1);
         setSmartTextTopPaddingScalar(0);
-        smartText.startRotatingText(isResuming: true);
+        secondarySmartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte
             .initMovie(InstructionalNokhtePositions.bottom);
         presetsInstructionalNokhte.setWidgetVisibility(false);
@@ -109,7 +131,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
       } else {
         if (!hasSwipedDown) {
           hasSwipedDown = true;
-          smartText.setWidgetVisibility(false);
+          secondarySmartText.setWidgetVisibility(false);
           homeInstructionalNokhte.setWidgetVisibility(false);
           centerInstructionalNokhte.setWidgetVisibility(false);
           gestureCross.fadeIn();
@@ -130,19 +152,22 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
         hasInitiatedBlur = false;
-        setSmartTextBottomPaddingScalar(.1);
+        setSmartTextBottomPaddingScalar(.2);
         setSmartTextTopPaddingScalar(0);
-        smartText.startRotatingText(isResuming: true);
+        secondarySmartText.setCurrentIndex(3);
+        secondarySmartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.left);
+        homeInstructionalNokhte.setWidgetVisibility(false);
 
         setSmartTextPadding();
       } else {
         if (!hasSwipedDown) {
           hasSwipedDown = true;
-          smartText.setWidgetVisibility(false);
+          secondarySmartText.setWidgetVisibility(false);
           homeInstructionalNokhte.setWidgetVisibility(false);
           centerInstructionalNokhte.setWidgetVisibility(false);
           gestureCross.fadeIn();
+          gestureCross.cross.initOutlineFadeIn();
           gestureCross.initMoveAndRegenerate(CircleOffsets.left);
           beachWaves.setMovieMode(
               BeachWaveMovieModes.invertedOnShoreToInvertedDeeperBlue);
@@ -159,7 +184,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   onSwipeCoordinatesChanged(Offset offset) {
     if (!shouldDisableTouchRipple) {
       if ((beachWaves.movieStatus != MovieStatus.finished) ||
-          smartText.currentIndex == 1) {
+          secondarySmartText.currentIndex == 1) {
         touchRipple.onSwipe(offset);
       }
     }
@@ -168,6 +193,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   initReactors() {
     disposers.add(beachWavesMovieStatusReactor());
     disposers.add(centerInstructionalNokhteReactor());
+    disposers.add(primarySmartTextReactor());
   }
 
   centerInstructionalNokhteReactor() =>
@@ -180,7 +206,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
           setSmartTextTopPaddingScalar(.27);
           setSmartTextBottomPaddingScalar(0);
           setSmartTextSubMessagePaddingScalar(110);
-          smartText.startRotatingText();
+          secondarySmartText.startRotatingText();
           qrCode.setWidgetVisibility(true);
           hasSwipedDown = false;
           setTouchIsDisabled(false);
@@ -192,6 +218,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         if (p0 == MovieStatus.finished) {
           gestureCross.gradientNokhte.setWidgetVisibility(false);
           gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
+          homeInstructionalNokhte.setWidgetVisibility(false);
+          presetsInstructionalNokhte.setWidgetVisibility(false);
         }
       });
 
@@ -202,7 +230,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
             beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
             beachWaves.currentStore.setControl(Control.playFromStart);
             qrCode.setWidgetVisibility(true);
-            smartText.startRotatingText();
+            secondarySmartText.startRotatingText();
             disposers.add(centerCrossNokhteReactor());
             disposers.add(gestureCrossTapReactor());
           } else if (beachWaves.movieMode ==
@@ -220,16 +248,35 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         }
       });
 
+  primarySmartTextReactor() => reaction(
+        (p0) => primarySmartText.currentIndex,
+        (p0) {
+          if (p0 == 0) {
+            primarySmartText.startRotatingText(isResuming: true);
+            // show tags
+          } else if (p0 == 2) {
+            presetIcons.setWidgetVisibility(true);
+          } else if (p0 == 3) {
+            // reset the list
+            presetIcons.setWidgetVisibility(false);
+            primarySmartText.reset();
+            primarySmartText.startRotatingText();
+          }
+        },
+      );
+
   @action
   initTransition() {
+    deconstructor();
     isEnteringNokhteSession = true;
     shouldDisableTouchRipple = true;
     hasSwipedDown = true;
     beachWaves
         .setMovieMode(BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea);
     beachWaves.currentStore.initMovie(beachWaves.currentAnimationValues.first);
-    smartText.setWidgetVisibility(false);
+    secondarySmartText.setWidgetVisibility(false);
     gestureCross.fadeAllOut();
+    presetIcons.setWidgetVisibility(false);
     centerInstructionalNokhte.setWidgetVisibility(false);
     homeInstructionalNokhte.setWidgetVisibility(false);
   }
@@ -267,8 +314,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     nokhteBlur.reverse();
     beachWaves.currentStore.setControl(Control.mirror);
     hasInitiatedBlur = false;
-    smartText.reset();
-    smartText.startRotatingText();
+    secondarySmartText.reset();
+    secondarySmartText.startRotatingText();
     setSmartTextPadding();
   }
 
@@ -303,7 +350,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         );
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         gestureCross.gradientNokhte.setWidgetVisibility(false);
-        smartText.startRotatingText(isResuming: true);
+        secondarySmartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte.moveToCenter(center);
       } else if (hasInitiatedBlur) {
         dismissInstructionalNokhte();
@@ -314,27 +361,61 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   @action
   onTap(Offset offset) {
     if (!touchIsDisabled) {
-      if (smartText.currentIndex == 2) {
+      if (secondarySmartText.currentIndex == 2 ||
+          secondarySmartText.currentIndex == 4) {
         touchRipple.onTap(offset);
         nokhteBlur.reverse();
         setTouchIsDisabled(true);
         beachWaves.currentStore.setControl(Control.mirror);
         hasInitiatedBlur = false;
-        smartText.startRotatingText(isResuming: true);
+        secondarySmartText.startRotatingText(isResuming: true);
 
         Timer(Seconds.get(1, milli: 500), () {
-          smartText.reset();
-          centerInstructionalNokhte.moveBackToCross(
-            startingPosition: CenterNokhtePositions.bottom,
-          );
-          homeInstructionalNokhte.initMovie(
-            InstructionalGradientMovieParams(
-              center: center,
-              colorway: GradientNokhteColorways.beachWave,
-              direction: InstructionalGradientDirections.shrink,
-              position: InstructionalNokhtePositions.bottom,
-            ),
-          );
+          if (secondarySmartText.currentIndex == 2) {
+            centerInstructionalNokhte.moveBackToCross(
+              startingPosition: CenterNokhtePositions.bottom,
+            );
+            presetsInstructionalNokhte.setWidgetVisibility(true);
+            presetsInstructionalNokhte.initMovie(
+              InstructionalGradientMovieParams(
+                center: center,
+                colorway: GradientNokhteColorways.deeperBlue,
+                direction: InstructionalGradientDirections.shrink,
+                position: InstructionalNokhtePositions.left,
+              ),
+            );
+            homeInstructionalNokhte.initMovie(
+              InstructionalGradientMovieParams(
+                center: center,
+                colorway: GradientNokhteColorways.beachWave,
+                direction: InstructionalGradientDirections.shrink,
+                position: InstructionalNokhtePositions.bottom,
+              ),
+            );
+          } else {
+            centerInstructionalNokhte.moveBackToCross(
+              startingPosition: CenterNokhtePositions.left,
+            );
+            presetsInstructionalNokhte.initMovie(
+              InstructionalGradientMovieParams(
+                center: center,
+                colorway: GradientNokhteColorways.deeperBlue,
+                direction: InstructionalGradientDirections.shrink,
+                position: InstructionalNokhtePositions.left,
+              ),
+            );
+            homeInstructionalNokhte.setWidgetVisibility(true);
+            homeInstructionalNokhte.initMovie(
+              InstructionalGradientMovieParams(
+                center: center,
+                colorway: GradientNokhteColorways.beachWave,
+                direction: InstructionalGradientDirections.shrink,
+                position: InstructionalNokhtePositions.bottom,
+              ),
+            );
+            //
+          }
+          secondarySmartText.reset();
         });
         hasInitiatedBlur = false;
       }
@@ -358,8 +439,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
       nokhteBlur.reverse();
       beachWaves.currentStore.setControl(Control.mirror);
       hasInitiatedBlur = false;
-      smartText.reset();
-      smartText.startRotatingText();
+      secondarySmartText.reset();
+      secondarySmartText.startRotatingText();
       setSmartTextPadding();
     }
   }

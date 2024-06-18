@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
@@ -19,9 +20,11 @@ abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
   final TapDetector tap;
   final DeepLinksCoordinator deepLinks;
   final SessionStartersLogicCoordinator logic;
+  final UserInformationCoordinator userInfo;
 
   _SessionStarterCoordinatorBase({
     required this.widgets,
+    required this.userInfo,
     required this.deepLinks,
     required this.tap,
     required this.swipe,
@@ -40,6 +43,7 @@ abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
     widgets.constructor(center);
     widgets.initReactors();
     initReactors();
+    await userInfo.getPreferredPreset();
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionLeader);
     await logic.initialize();
     await captureScreen(SessionStarterConstants.sessionStarter);
@@ -52,6 +56,15 @@ abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
         }
       });
 
+  preferredPresetReactor() => reaction((p0) => userInfo.preferredPreset, (p0) {
+        if (p0.name.isNotEmpty) {
+          widgets.onPreferredPresetReceived(
+            sessionName: p0.name,
+            tags: p0.tags,
+          );
+        }
+      });
+
   swipeCoordinatesReactor() =>
       reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
         ifTouchIsNotDisabled(() {
@@ -60,6 +73,7 @@ abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
       });
 
   initReactors() {
+    disposers.add(preferredPresetReactor());
     disposers.add(deepLinkReactor());
     disposers.add(swipeCoordinatesReactor());
     disposers.add(swipeReactor());
@@ -85,8 +99,15 @@ abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
     if (!isNavigatingAway) {
       switch (direction) {
         case GestureDirections.down:
-          ifTouchIsNotDisabled(() async {
+          ifTouchIsNotDisabled(() {
             widgets.onSwipeDown(() async {
+              toggleIsNavigatingAway();
+              await logic.dispose();
+            });
+          });
+        case GestureDirections.left:
+          ifTouchIsNotDisabled(() {
+            widgets.onSwipeLeft(() async {
               toggleIsNavigatingAway();
               await logic.dispose();
             });
@@ -115,7 +136,6 @@ abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
   @override
   deconstructor() {
     logic.dispose();
-    widgets.deconstructor();
     super.deconstructor();
   }
 }

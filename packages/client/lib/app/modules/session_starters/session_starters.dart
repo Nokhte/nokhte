@@ -36,6 +36,7 @@ class SessionStartersModule extends Module {
     );
     i.add<SessionStarterCoordinator>(
       () => SessionStarterCoordinator(
+        userInfo: Modular.get<UserInformationCoordinator>(),
         tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
         logic: Modular.get<SessionStartersLogicCoordinator>(),

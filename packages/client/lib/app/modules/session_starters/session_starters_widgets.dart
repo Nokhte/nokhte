@@ -32,12 +32,14 @@ class SessionStartersWidgetsModule extends Module {
     );
     i.add<SessionStarterWidgetsCoordinator>(
       () => SessionStarterWidgetsCoordinator(
+        presetIcons: PresetIconsStore(),
         qrCode: NokhteQrCodeStore(),
         nokhteBlur: NokhteBlurStore(),
         touchRipple: TouchRippleStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: BeachWavesStore(),
-        smartText: SmartTextStore(),
+        primarySmartText: SmartTextStore(),
+        secondarySmartText: SmartTextStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         homeInstructionalNokhte: InstructionalGradientNokhteStore(),
         presetsInstructionalNokhte: InstructionalGradientNokhteStore(),
