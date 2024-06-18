@@ -217,7 +217,7 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
         gestureCross.gradientNokhte.setWidgetVisibility(false);
         smartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte.moveToCenter(center);
-        Timer(Seconds.get(0, milli: 500), () {
+        Timer(Seconds.get(1, milli: 500), () {
           setSmartTextTopPaddingScalar(.24);
           instructionalNokhteAreVisible = true;
         });
@@ -236,6 +236,7 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
         smartText.startRotatingText(isResuming: true);
         // setSmartTextPadding(topPadding: 0);
       } else if (isAllowedToExit) {
+        headerText.setWidgetVisibility(false);
         gestureCross.centerCrossNokhte.setWidgetVisibility(true);
         gestureCross.gradientNokhte.setWidgetVisibility(true);
         centerInstructionalNokhte.setWidgetVisibility(false);
