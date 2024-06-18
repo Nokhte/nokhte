@@ -20,6 +20,7 @@ class SharedLists {
   static RotatingTextData get emptyItem => RotatingTextData(
         text: "",
         onScreenTime: Seconds.get(0),
+        pauseHere: true,
       );
 
   static RotatingTextData tapToConfirm(double fontSize) => RotatingTextData(
