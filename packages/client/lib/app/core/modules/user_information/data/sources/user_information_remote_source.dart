@@ -26,8 +26,6 @@ class UserInformationRemoteSourceImpl implements UserInformationRemoteSource {
   updatePreferredPreset(String presetUID) async =>
       await userInfoQueries.updatePreferredPreset(presetUID);
 
-  // final res = await userInfoQueries.getPreferredPresetInfo();
-  // print(res);
   @override
   getUserInfo() async => await userInfoQueries.getUserInfo();
 
