@@ -44,7 +44,6 @@ class PresetIcons extends HookWidget with PresetTags {
 
   @override
   Widget build(BuildContext context) {
-    print("are you building ${store.tags}");
     final height = useFullScreenSize().height;
     final containerSize = height * store.containerSize;
     return Observer(
