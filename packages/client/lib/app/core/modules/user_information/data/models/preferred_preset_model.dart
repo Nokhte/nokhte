@@ -6,6 +6,7 @@ class PreferredPresetModel extends PreferredPresetEntity {
   const PreferredPresetModel({
     required super.name,
     required super.tags,
+    required super.unifiedUID,
   });
 
   factory PreferredPresetModel.fromSupabase(List res) {
@@ -13,6 +14,7 @@ class PreferredPresetModel extends PreferredPresetEntity {
       return const PreferredPresetModel(
         name: '',
         tags: [],
+        unifiedUID: '',
       );
     } else {
       final companyPreset =
@@ -20,6 +22,8 @@ class PreferredPresetModel extends PreferredPresetEntity {
       return PreferredPresetModel(
         name: companyPreset[CompanyPresetsQueries.NAME],
         tags: companyPreset[CompanyPresetsQueries.TAGS],
+        unifiedUID: res.first[UnifiedPresetsConstants.TABLE]
+            [UnifiedPresetsConstants.UID],
       );
     }
   }
