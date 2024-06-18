@@ -21,15 +21,5 @@ void main() {
       final initialRes = await user1Queries.getCollaboratorRows();
       expect(initialRes, isEmpty);
     });
-    // test("should be able to read collaborators row (if shared)", () async {
-    //   await tSetup.supabaseAdmin.from('user_information').update({
-    //     "authorized_viewers": [tSetup.firstUserUID],
-    //   }).eq('uid', tSetup.secondUserUID);
-    //   final postRes = await user1Queries.getCollaboratorRows();
-    //   expect(postRes, isNotEmpty);
-    //   await tSetup.supabaseAdmin.from('user_information').update({
-    //     "authorized_viewers": [tSetup.firstUserUID],
-    //   }).eq('uid', tSetup.secondUserUID);
-    // });
   });
 }

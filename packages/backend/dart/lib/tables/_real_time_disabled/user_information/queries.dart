@@ -1,3 +1,6 @@
+import 'package:nokhte_backend/tables/_real_time_disabled/company_presets/queries.dart';
+import 'package:nokhte_backend/tables/_real_time_disabled/unified_presets/constants.dart';
+
 import 'constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -34,6 +37,14 @@ class UserInformationQueries with UserInformationConstants {
         .eq(UID, userUID)
         .select();
   }
+  //
+
+  Future<List> getPreferredPresetInfo() async =>
+      await supabase.from(TABLE).select('''
+        $PREFERRED_PRESET, ${UnifiedPresetsConstants.TABLE}(
+          ${UnifiedPresetsConstants.COMPANY_PRESET_ID},
+           ${CompanyPresetsQueries.TABLE}(*))
+           ''').eq(UID, userUID);
 
   Future<List> updateHasEnteredStorage(bool hasEnteredStorage) async {
     final getRes = await getUserInfo();
