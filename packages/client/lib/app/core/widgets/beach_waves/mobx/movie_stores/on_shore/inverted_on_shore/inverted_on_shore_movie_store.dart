@@ -15,7 +15,7 @@ abstract class _InvertedOnShoreMovieStoreBase
           shouldPaintSand: OnShoreMovie.shouldPaintSand,
         ) {
     movie = InvertedOnShoreMovie.movie;
-    control = Control.playFromStart;
+    control = Control.mirror;
   }
 
   @action
