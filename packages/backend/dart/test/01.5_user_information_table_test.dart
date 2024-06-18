@@ -1,15 +1,20 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:nokhte_backend/tables/_real_time_disabled/company_presets/preset_types.dart';
+import 'package:nokhte_backend/tables/_real_time_disabled/company_presets/queries.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/user_information/queries.dart';
 
 import 'shared/shared.dart';
 
 void main() {
   late UserInformationQueries user1Queries;
+  late CompanyPresetsQueries companyPresetsQueries;
   final tSetup = CommonCollaborativeTestFunctions();
 
   setUp(() async {
     await tSetup.setUp(shouldMakeCollaboration: false);
     user1Queries = UserInformationQueries(supabase: tSetup.user1Supabase);
+    companyPresetsQueries =
+        CompanyPresetsQueries(supabase: tSetup.user1Supabase);
   });
 
   group("getCollaboratorRows", () {
@@ -20,6 +25,14 @@ void main() {
     test("shoulnd't be able to read anything if nothing is shared", () async {
       final initialRes = await user1Queries.getCollaboratorRows();
       expect(initialRes, isEmpty);
+    });
+
+    test("should be able to update their preferred preset uid", () async {
+      final presetUID =
+          await companyPresetsQueries.getUnifiedUID(PresetTypes.collaborative);
+      final res = await user1Queries.updatePreferredPreset(presetUID);
+      expect(res.first[user1Queries.PREFERRED_PRESET], presetUID);
+      //
     });
   });
 }
