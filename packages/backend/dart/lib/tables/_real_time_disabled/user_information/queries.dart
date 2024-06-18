@@ -37,7 +37,15 @@ class UserInformationQueries with UserInformationConstants {
         .eq(UID, userUID)
         .select();
   }
-  //
+
+  Future<String?> getPreferredPresetUID() async {
+    final res = await supabase.from(TABLE).select().eq(UID, userUID);
+    if (res.isNotEmpty) {
+      return res.first[PREFERRED_PRESET];
+    } else {
+      return '';
+    }
+  }
 
   Future<List> getPreferredPresetInfo() async =>
       await supabase.from(TABLE).select('''
