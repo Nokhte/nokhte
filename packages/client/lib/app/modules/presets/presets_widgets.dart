@@ -18,13 +18,18 @@ class PresetsWidgetsModule extends Module {
   void binds(Injector i) {
     i.add<PresetsWidgetsCoordinator>(
       () => PresetsWidgetsCoordinator(
+        headerText: SmartTextStore(),
+        presetCards: PresetCardsStore(
+          condensed: CondensedPresetCardsStore(),
+          expanded: ExpandedPresetCardsStore(),
+        ),
         nokhteBlur: NokhteBlurStore(),
         touchRipple: TouchRippleStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: BeachWavesStore(),
         smartText: SmartTextStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        instructionalGradientNokhte: InstructionalGradientNokhteStore(),
+        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
       ),
     );

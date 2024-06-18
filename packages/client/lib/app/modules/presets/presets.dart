@@ -51,8 +51,12 @@ class PresetsModule extends Module {
     );
     i.add<PresetsCoordinator>(
       () => PresetsCoordinator(
+        tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<PresetsWidgetsCoordinator>(),
+        logic: Modular.get<PresetsLogicCoordinator>(),
+        userInformation: Modular.get<UserInformationCoordinator>(),
+        swipe: SwipeDetector(),
       ),
     );
     i.add<PresetsInstructionsCoordinator>(

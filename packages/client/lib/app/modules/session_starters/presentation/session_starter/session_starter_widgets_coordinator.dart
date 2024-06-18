@@ -7,6 +7,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/presets/presets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'session_starter_widgets_coordinator.g.dart';
@@ -131,6 +132,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
       } else {
         if (!hasSwipedDown) {
           hasSwipedDown = true;
+          primarySmartText.setWidgetVisibility(false);
+          presetIcons.setWidgetVisibility(false);
           secondarySmartText.setWidgetVisibility(false);
           homeInstructionalNokhte.setWidgetVisibility(false);
           centerInstructionalNokhte.setWidgetVisibility(false);
@@ -158,11 +161,12 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         secondarySmartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.left);
         homeInstructionalNokhte.setWidgetVisibility(false);
-
         setSmartTextPadding();
       } else {
         if (!hasSwipedDown) {
           hasSwipedDown = true;
+          primarySmartText.setWidgetVisibility(false);
+          presetIcons.setWidgetVisibility(false);
           secondarySmartText.setWidgetVisibility(false);
           homeInstructionalNokhte.setWidgetVisibility(false);
           centerInstructionalNokhte.setWidgetVisibility(false);
@@ -244,6 +248,9 @@ abstract class _SessionStarterWidgetsCoordinatorBase
             Modular.to.navigate("/session/core/lobby", arguments: {
               "qrCodeData": qrCode.qrCodeData,
             });
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.invertedOnShoreToInvertedDeeperBlue) {
+            Modular.to.navigate(PresetsConstants.presets);
           }
         }
       });
@@ -251,16 +258,16 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   primarySmartTextReactor() => reaction(
         (p0) => primarySmartText.currentIndex,
         (p0) {
-          if (p0 == 0) {
-            primarySmartText.startRotatingText(isResuming: true);
-            // show tags
-          } else if (p0 == 2) {
-            presetIcons.setWidgetVisibility(true);
-          } else if (p0 == 3) {
-            // reset the list
-            presetIcons.setWidgetVisibility(false);
-            primarySmartText.reset();
-            primarySmartText.startRotatingText();
+          if (beachWaves.movieMode == BeachWaveMovieModes.invertedOnShore) {
+            if (p0 == 0) {
+              primarySmartText.startRotatingText(isResuming: true);
+            } else if (p0 == 2) {
+              presetIcons.setWidgetVisibility(true);
+            } else if (p0 == 3) {
+              presetIcons.setWidgetVisibility(false);
+              primarySmartText.reset();
+              primarySmartText.startRotatingText();
+            }
           }
         },
       );
@@ -275,6 +282,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         .setMovieMode(BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea);
     beachWaves.currentStore.initMovie(beachWaves.currentAnimationValues.first);
     secondarySmartText.setWidgetVisibility(false);
+    primarySmartText.setWidgetVisibility(false);
+    presetIcons.setWidgetVisibility(false);
     gestureCross.fadeAllOut();
     presetIcons.setWidgetVisibility(false);
     centerInstructionalNokhte.setWidgetVisibility(false);

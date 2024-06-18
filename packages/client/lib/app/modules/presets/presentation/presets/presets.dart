@@ -28,59 +28,68 @@ class PresetsScreen extends HookWidget {
     return Observer(builder: (context) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
-        body: MultiHitStack(
-          children: [
-            RotatedBox(
-              quarterTurns: 2,
-              child: FullScreen(
-                child: BeachWaves(
-                  sandType: SandTypes.collaboration,
-                  store: coordinator.widgets.beachWaves,
-                ),
-              ),
-            ),
-            FullScreen(
-              child: NokhteBlur(
-                store: coordinator.widgets.nokhteBlur,
-              ),
-            ),
-            FullScreen(
-              child: TouchRipple(
-                store: coordinator.widgets.touchRipple,
-              ),
-            ),
-            Center(
-              child: SmartText(
-                store: coordinator.widgets.smartText,
-                opacityDuration: Seconds.get(1),
-                topPadding:
-                    height * coordinator.widgets.smartTextTopPaddingScalar,
-                bottomPadding:
-                    height * coordinator.widgets.smartTextBottomPaddingScalar,
-                subTextPadding:
-                    coordinator.widgets.smartTextSubMessagePaddingScalar,
-              ),
-            ),
-            GestureCross(
-              config: GestureCrossConfiguration(
-                bottom: Right(
-                  NokhteGradientConfig(
-                    gradientType: NokhteGradientTypes.home,
+        body: Tap(
+          store: coordinator.tap,
+          child: Swipe(
+            store: coordinator.swipe,
+            child: MultiHitStack(
+              children: [
+                RotatedBox(
+                  quarterTurns: 2,
+                  child: FullScreen(
+                    child: BeachWaves(
+                      sandType: SandTypes.collaboration,
+                      store: coordinator.widgets.beachWaves,
+                    ),
                   ),
                 ),
-              ),
-              store: coordinator.widgets.gestureCross,
+                SmartText(
+                  store: coordinator.widgets.headerText,
+                  opacityDuration: Seconds.get(1),
+                  bottomPadding: height * .75,
+                  subTextPadding:
+                      coordinator.widgets.smartTextSubMessagePaddingScalar,
+                ),
+                PresetCards(
+                  store: coordinator.widgets.presetCards,
+                ),
+                FullScreen(
+                  child: NokhteBlur(
+                    store: coordinator.widgets.nokhteBlur,
+                  ),
+                ),
+                Center(
+                  child: SmartText(
+                    store: coordinator.widgets.smartText,
+                    opacityDuration: Seconds.get(1),
+                    topPadding: height * .15,
+                    subTextPadding:
+                        coordinator.widgets.smartTextSubMessagePaddingScalar,
+                  ),
+                ),
+                GestureCross(
+                  showGlowAndOutline: true,
+                  config: GestureCrossConfiguration(
+                    right: Right(
+                      NokhteGradientConfig(
+                        gradientType: NokhteGradientTypes.sessionStarter,
+                      ),
+                    ),
+                  ),
+                  store: coordinator.widgets.gestureCross,
+                ),
+                CenterInstructionalNokhte(
+                  store: coordinator.widgets.centerInstructionalNokhte,
+                ),
+                InstructionalGradientNokhte(
+                  store: coordinator.widgets.sessionStarterInstructionalNokhte,
+                ),
+                WifiDisconnectOverlay(
+                  store: coordinator.widgets.wifiDisconnectOverlay,
+                ),
+              ],
             ),
-            CenterInstructionalNokhte(
-              store: coordinator.widgets.centerInstructionalNokhte,
-            ),
-            InstructionalGradientNokhte(
-              store: coordinator.widgets.instructionalGradientNokhte,
-            ),
-            WifiDisconnectOverlay(
-              store: coordinator.widgets.wifiDisconnectOverlay,
-            ),
-          ],
+          ),
         ),
         // ),
       );

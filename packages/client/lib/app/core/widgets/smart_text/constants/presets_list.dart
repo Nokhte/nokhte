@@ -8,6 +8,14 @@ class PresetsLists {
       mainFontSize: 40.0,
     ),
   ];
+
+  static List<RotatingTextData> presetsScreen = [
+    SharedLists.emptyItem,
+    SharedLists.emptyItem,
+    InstructionItems.sessionStarterExplanation,
+    SharedLists.emptyItem,
+  ];
+
   static List<RotatingTextData> presetsInstructions = [
     RotatingTextData(
       text: "Tap to explore",

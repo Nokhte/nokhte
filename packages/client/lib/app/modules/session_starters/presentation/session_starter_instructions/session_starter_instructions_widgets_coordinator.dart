@@ -230,9 +230,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode == BeachWaveMovieModes.invertedOnShore) {
-            beachWaves.currentStore.setControl(Control.mirror);
-          } else if (beachWaves.movieMode ==
+          if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedOnShoreToInvertedOceanDive) {
             Modular.to.navigate(SessionStarterConstants.sessionStarterExit);
           } else if (beachWaves.movieMode ==

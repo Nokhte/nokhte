@@ -80,6 +80,9 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
   bool hasSwiped = false;
 
   @observable
+  int fadeInCount = 0;
+
+  @observable
   bool instructionalNokhteAreVisible = false;
 
   @observable
@@ -142,7 +145,7 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
   }
 
   condensedPresetCardHoldReactor() =>
-      reaction((p0) => condensedPresetCards.lastHeldIndex, (p0) {
+      reaction((p0) => condensedPresetCards.currentHeldIndex, (p0) {
         presetCards.selectPreset(p0);
       });
 
@@ -158,14 +161,14 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
           Function(String param) onSelected) =>
       reaction((p0) => condensedPresetCards.movieStatuses.toString(),
           (p0) async {
-        if (condensedPresetCards.lastHeldIndex != -1) {
-          final lastHeldIndex = condensedPresetCards.lastHeldIndex;
-          if (condensedPresetCards.movieModes[lastHeldIndex] ==
+        if (condensedPresetCards.currentHeldIndex != -1) {
+          final currentHeldIndex = condensedPresetCards.currentHeldIndex;
+          if (condensedPresetCards.movieModes[currentHeldIndex] ==
                   CondensedPresetCardMovieModes.selectionInProgress &&
-              condensedPresetCards.movieStatuses[lastHeldIndex] ==
+              condensedPresetCards.movieStatuses[currentHeldIndex] ==
                   MovieStatus.finished) {
             smartText.startRotatingText(isResuming: true);
-            condensedPresetCards.initSelectionMovie(lastHeldIndex);
+            condensedPresetCards.initSelectionMovie(currentHeldIndex);
             condensedPresetCards.disableAllTouchFeedback();
             Timer(Seconds.get(2), () {
               isAllowedToTapOnCross = true;
@@ -177,17 +180,14 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
         }
       });
 
-  @observable
-  int count = 0;
-
   transitionsCondensedPresetCardMovieStatusReactor() =>
       reaction((p0) => condensedPresetCards.movieStatuses.first, (p0) {
         if (p0 == MovieStatus.finished) {
           if (condensedPresetCards.movieModes.first ==
               CondensedPresetCardMovieModes.fadeIn) {
-            if (count == 0) {
+            if (fadeInCount == 0) {
               condensedPresetCards.teeUpInstructions(0);
-              count++;
+              fadeInCount++;
             }
           } else if (condensedPresetCards.movieModes.first ==
               CondensedPresetCardMovieModes.instructionHighlightTransition) {
@@ -274,8 +274,5 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
 
   @computed
   bool get readyToInteract =>
-      // !isEnteringNokhteSession &&
-      // !hasSwipedUp &&
-      // !isInErrorMode &&
       centerInstructionalNokhte.movieStatus != MovieStatus.inProgress;
 }
