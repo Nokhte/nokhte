@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 part 'user_information_coordinator.g.dart';
@@ -9,6 +10,7 @@ class UserInformationCoordinator = _UserInformationCoordinatorBase
 
 abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
     with Store {
+  final GetPreferredPreset getPreferredPresetLogic;
   final GetUserInfoStore getUserInfoStore;
   final UpdatePreferredPreset updatePreferredPresetLogic;
   final UpdateHasEnteredStorage updateHasEnteredStorageLogic;
@@ -17,6 +19,7 @@ abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
     required this.getUserInfoStore,
     required this.updatePreferredPresetLogic,
     required this.updateHasEnteredStorageLogic,
+    required this.getPreferredPresetLogic,
   });
 
   @observable
@@ -30,6 +33,18 @@ abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
 
   @observable
   bool storageStatusIsUpdated = false;
+
+  @observable
+  PreferredPresetEntity preferredPreset = PreferredPresetEntity.initial();
+
+  @action
+  getPreferredPreset() async {
+    state = StoreState.loading;
+    final res = await getPreferredPresetLogic(NoParams());
+    res.fold((failure) => errorUpdater(failure),
+        (status) => preferredPreset = status);
+    state = StoreState.loaded;
+  }
 
   @action
   updatePreferredPreset(String presetUID) async {

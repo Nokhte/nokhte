@@ -54,4 +54,14 @@ class UserInformationContractImpl
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  getPreferredPreset(params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.getPreferredPreset();
+      return Right(PreferredPresetModel.fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }

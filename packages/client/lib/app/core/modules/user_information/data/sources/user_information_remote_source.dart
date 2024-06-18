@@ -9,24 +9,27 @@ abstract class UserInformationRemoteSource {
   Future<List> getFinishedNokhteSessions();
   Future<List> updateHasEnteredStorage(bool newEntryStatus);
   Future<bool> versionIsUpToDate();
+  Future<List> getPreferredPreset();
 }
 
 class UserInformationRemoteSourceImpl implements UserInformationRemoteSource {
   final SupabaseClient supabase;
-  final UserInformationQueries userNamesQueries;
+  final UserInformationQueries userInfoQueries;
   final FinishedNokhteSessionQueries finishedNokhteSessionQueries;
 
   UserInformationRemoteSourceImpl({required this.supabase})
-      : userNamesQueries = UserInformationQueries(supabase: supabase),
+      : userInfoQueries = UserInformationQueries(supabase: supabase),
         finishedNokhteSessionQueries =
             FinishedNokhteSessionQueries(supabase: supabase);
 
   @override
   updatePreferredPreset(String presetUID) async =>
-      await userNamesQueries.updatePreferredPreset(presetUID);
+      await userInfoQueries.updatePreferredPreset(presetUID);
 
+  // final res = await userInfoQueries.getPreferredPresetInfo();
+  // print(res);
   @override
-  getUserInfo() async => await userNamesQueries.getUserInfo();
+  getUserInfo() async => await userInfoQueries.getUserInfo();
 
   @override
   getFinishedNokhteSessions() async =>
@@ -34,7 +37,7 @@ class UserInformationRemoteSourceImpl implements UserInformationRemoteSource {
 
   @override
   updateHasEnteredStorage(bool newEntryStatus) async =>
-      await userNamesQueries.updateHasEnteredStorage(newEntryStatus);
+      await userInfoQueries.updateHasEnteredStorage(newEntryStatus);
 
   @override
   versionIsUpToDate() async {
@@ -42,4 +45,8 @@ class UserInformationRemoteSourceImpl implements UserInformationRemoteSource {
     String version = packageInfo.version;
     return (await supabase.rpc('get_valid_app_versions')).contains(version);
   }
+
+  @override
+  Future<List> getPreferredPreset() async =>
+      await userInfoQueries.getPreferredPresetInfo();
 }
