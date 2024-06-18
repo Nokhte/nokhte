@@ -50,7 +50,7 @@ class UserInformationQueries with UserInformationConstants {
   Future<List> getPreferredPresetInfo() async =>
       await supabase.from(TABLE).select('''
         $PREFERRED_PRESET, ${UnifiedPresetsConstants.TABLE}(
-          ${UnifiedPresetsConstants.COMPANY_PRESET_ID},
+          ${UnifiedPresetsConstants.COMPANY_PRESET_ID}, ${UnifiedPresetsConstants.UID},
            ${CompanyPresetsQueries.TABLE}(*))
            ''').eq(UID, userUID);
 
