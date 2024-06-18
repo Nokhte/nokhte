@@ -114,7 +114,7 @@ class CondensedPresetsCards extends HookWidget with PresetTags {
       );
     } else {
       return Observer(builder: (context) {
-        return CustomAnimationBuilder(
+        return NokhteCustomAnimationBuilder(
           tween: store.movies[i],
           duration: store.movies[i].duration,
           control: store.controls[i],
