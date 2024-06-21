@@ -24,19 +24,6 @@ class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
   RTActiveNokhteSessionsStream({required super.supabase})
       : presetsQueries = CompanyPresetsQueries(supabase: supabase);
 
-  static List<T> createLoopingList<T>(List<T> originalList, int startIndex) {
-    List<T> loopingList = [];
-    int length = originalList.length;
-    startIndex = startIndex % length;
-    for (int i = startIndex; i < length; i++) {
-      loopingList.add(originalList[i]);
-    }
-    for (int i = 0; i < startIndex; i++) {
-      loopingList.add(originalList[i]);
-    }
-    return loopingList;
-  }
-
   cancelSessionActivationStream() {
     getActiveNokhteSessionCreationListingingStatus = false;
     return getActiveNokhteSessionCreationListingingStatus;
@@ -73,40 +60,8 @@ class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
       if (event.isEmpty) {
         yield NokhteSessionMetadata.initial();
       } else {
-        await computeCollaboratorInformation();
-        if (lastTrackedNumOfCollaborators !=
-            event.first[CURRENT_PHASES].length) {
-          lastTrackedNumOfCollaborators = event.first[CURRENT_PHASES].length;
-          final res = await supabase.from('st_active_nokhte_sessions').select();
-          final unifiedPresetUID = res.first[PRESET_UID];
-          if (tags.isEmpty) {
-            tags = await presetsQueries.getTagsFromUnifiedUID(unifiedPresetUID);
-          }
-          leaderUID = res.first[LEADER_UID];
-          leaderIndex =
-              res.first[COLLABORATOR_UIDS].indexOf(res.first[LEADER_UID]);
-          orderedCollaboratorUIDs =
-              createLoopingList(res.first[COLLABORATOR_UIDS], leaderIndex);
-          userIndex = orderedCollaboratorUIDs.indexOf(userUID);
-          isAValidSession = res.first[HAS_PREMIUM_ACCESS].length < 4 ||
-              res.first[HAS_PREMIUM_ACCESS].every((e) => e == true);
-          isAPremiumSession = res.first[COLLABORATOR_UIDS].length > 3;
-          isWhitelisted = res.first[IS_WHITELISTED];
-          shouldSkipInstructions = createLoopingList(
-              res.first[SHOULD_SKIP_INSTRUCTIONS], leaderIndex);
-        }
-        orderedPhases = createLoopingList(
-          event.first[CURRENT_PHASES],
-          leaderIndex,
-        );
         yield NokhteSessionMetadata(
-          leaderUID: leaderUID,
-          tags: tags,
-          isWhitelisted: isWhitelisted,
-          shouldSkipInstructions: shouldSkipInstructions,
-          isAValidSession: isAValidSession,
-          userIndex: userIndex,
-          phases: orderedPhases,
+          phases: event.first[CURRENT_PHASES],
           userCanSpeak: event.first[SPEAKER_SPOTLIGHT] == null,
           userIsSpeaking: event.first[SPEAKER_SPOTLIGHT] == userUID,
           sessionHasBegun: event.first[HAS_BEGUN],
