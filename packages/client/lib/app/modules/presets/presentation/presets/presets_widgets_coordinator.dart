@@ -265,7 +265,7 @@ abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   @action
   dismissExpandedPresetCard() {
     if (presetCards.activePresetType == ActivePresetType.expanded) {
-      presetCards.dismissExpandedPresetCard(resetIndex: 0);
+      presetCards.dismissExpandedPresetCard();
       canHoldOnPresetCard = true;
     }
   }
