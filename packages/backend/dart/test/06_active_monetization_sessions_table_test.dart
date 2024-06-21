@@ -34,7 +34,6 @@ void main() {
       "is_whitelisted": false,
       "leader_uid": tSetup.firstUserUID,
       "has_premium_access": [false, false],
-      "should_skip_instructions": [false, false],
       "preset_uid": consultativeUID,
     });
 
