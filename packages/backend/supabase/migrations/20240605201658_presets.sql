@@ -248,3 +248,25 @@ alter table "public"."user_information" add column "preferred_preset" uuid;
 alter table "public"."user_information" add constraint "user_information_preferred_preset_fkey" FOREIGN KEY (preferred_preset) REFERENCES unified_presets(uid) ON UPDATE CASCADE ON DELETE SET NULL not valid;
 
 alter table "public"."user_information" validate constraint "user_information_preferred_preset_fkey";
+
+alter table "public"."finished_nokhte_sessions" add column "preset_uid" uuid;
+
+alter table "public"."st_active_nokhte_sessions" drop column "should_skip_instructions";
+
+alter table "public"."finished_nokhte_sessions" add constraint "finished_nokhte_sessions_preset_uid_fkey" FOREIGN KEY (preset_uid) REFERENCES unified_presets(uid) ON UPDATE CASCADE not valid;
+
+alter table "public"."finished_nokhte_sessions" validate constraint "finished_nokhte_sessions_preset_uid_fkey";
+
+UPDATE finished_nokhte_sessions
+SET preset_uid = (
+    SELECT company_presets.uid
+    FROM company_presets
+    INNER JOIN unified_presets ON company_presets.uid = unified_presets.company_preset_id
+    WHERE company_presets.name = 'Consultation'
+);
+
+alter table "public"."finished_nokhte_sessions" alter column "preset_uid" set not null;
+
+CREATE INDEX finished_nokhte_sessions_collaborator_uids_idx ON public.finished_nokhte_sessions USING btree (collaborator_uids);
+
+CREATE INDEX finished_nokhte_sessions_preset_uid_idx ON public.finished_nokhte_sessions USING btree (preset_uid);
