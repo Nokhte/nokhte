@@ -43,6 +43,7 @@ serve(async (req) => {
     const sessionUID = stSessionRes?.data?.[0]["session_uid"];
     const collaboratorUIDsArr = stSessionRes?.data?.[0]["collaborator_uids"];
     const currentPhases = rtSessionRes?.data?.[0]["current_phases"];
+    const presetUID = stSessionRes?.data?.[0]["preset_uid"];
 
     const duplicateCheckRes = (
       await supabaseAdmin
@@ -59,6 +60,7 @@ serve(async (req) => {
           content: content,
           session_timestamp: sessionTimestamp,
           aliases: Array(collaboratorUIDsArr.length).fill(""),
+          preset_uid: presetUID,
           session_uid: sessionUID,
         })
         .select();
