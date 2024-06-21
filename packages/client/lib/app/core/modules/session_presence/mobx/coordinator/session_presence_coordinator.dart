@@ -14,7 +14,8 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
   final UpdateOnlineStatus updateOnlineStatusLogic;
   final UpdateCurrentPhase updateCurrentPhaseLogic;
   final CancelSessionMetadataStream cancelSessionMetadataStreamLogic;
-  final ListenToSessionMetadataStore listenToSessionMetadataStore;
+  final SessionMetadataStore sessionMetadataStore;
+  final CheckIfHasDoneSession checkIfHasDoneSessionLogic;
   final CollaboratorPresenceIncidentsOverlayStore incidentsOverlayStore;
   final AddContent addContentLogic;
   final CompleteTheSession completeTheSessionLogic;
@@ -24,14 +25,15 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
   _SessionPresenceCoordinatorBase({
     required this.cancelSessionMetadataStreamLogic,
     required this.updateWhoIsTalkingLogic,
+    required this.checkIfHasDoneSessionLogic,
     required this.updateCurrentPhaseLogic,
     required this.updateOnlineStatusLogic,
-    required this.listenToSessionMetadataStore,
+    required this.sessionMetadataStore,
     required this.addContentLogic,
     required this.startTheSessionLogic,
     required this.completeTheSessionLogic,
   }) : incidentsOverlayStore = CollaboratorPresenceIncidentsOverlayStore(
-          sessionMetadataStore: listenToSessionMetadataStore,
+          sessionMetadataStore: sessionMetadataStore,
         );
 
   @observable
@@ -61,6 +63,9 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
   @observable
   bool speakerSpotlightIsUpdated = false;
 
+  @observable
+  SessionInstructionTypes instructionType = SessionInstructionTypes.initial;
+
   @action
   ReactionDisposer initReactors({
     required Function onCollaboratorJoined,
@@ -73,14 +78,29 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
   dispose() async {
     state = StoreState.loading;
     final res = cancelSessionMetadataStreamLogic(NoParams());
-    await listenToSessionMetadataStore.dispose();
+    await sessionMetadataStore.dispose();
     isListening = res;
+  }
+
+  @action
+  checkIfHasDoneSession() async {
+    final res = await checkIfHasDoneSessionLogic(NoParams());
+    res.fold(
+      (failure) => errorUpdater(failure),
+      (hasDoneASession) {
+        if (hasDoneASession) {
+          instructionType = SessionInstructionTypes.justSymbols;
+        } else {
+          instructionType = SessionInstructionTypes.fullInstructions;
+        }
+      },
+    );
   }
 
   @action
   listen() {
     state = StoreState.loading;
-    listenToSessionMetadataStore.get(NoParams());
+    sessionMetadataStore.get(NoParams());
   }
 
   @action

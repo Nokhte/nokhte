@@ -10,10 +10,17 @@ abstract class SessionPresenceContract {
   Future<Either<Failure, bool>> startTheSession(NoParams params);
   Future<Either<Failure, bool>> updateOnlineStatus(
       UpdatePresencePropertyParams params);
+  Future<Either<Failure, bool>> checkIfHasDoneSession(NoParams params);
   Future<Either<Failure, bool>> updateWhoIsTalking(
       UpdateWhoIsTalkingParams params);
   Future<Either<Failure, bool>> updateCurrentPhase(double params);
+  Future<Either<Failure, StaticSessionMetadataEntity>> getSTSessionMetadata(
+    NoParams params,
+  );
+  Future<Either<Failure, SessionPresetInfoEntity>> getSessionPresetInfo(
+    String unifiedUID,
+  );
   Future<Either<Failure, Stream<NokhteSessionMetadata>>>
-      listenToSessionMetadata(NoParams params);
+      listenToRTSessionMetadata(NoParams params);
   bool cancelSessionMetadataStream(NoParams params);
 }

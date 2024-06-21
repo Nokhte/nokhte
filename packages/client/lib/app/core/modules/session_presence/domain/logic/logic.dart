@@ -1,6 +1,9 @@
 export 'add_content.dart';
 export 'cancel_session_metadata_stream.dart';
 export 'complete_the_session.dart';
+export 'get_static_session_metadata.dart';
+export 'check_if_has_done_session.dart';
+export 'get_session_preset_info.dart';
 export 'listen_to_session_metadata.dart';
 export 'start_the_session.dart';
 export 'update_current_phase.dart';

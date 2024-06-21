@@ -39,7 +39,7 @@ class SessionPresenceContractImpl
   }
 
   @override
-  listenToSessionMetadata(NoParams params) async {
+  listenToRTSessionMetadata(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = remoteSource.listenToSessionMetadata();
       return Right(res);
@@ -93,6 +93,37 @@ class SessionPresenceContractImpl
     if (await networkInfo.isConnected) {
       final res = await remoteSource.startTheSession();
       return fromFunctionResponse(res);
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  getSTSessionMetadata(params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.getStaticSessionMetadata();
+      final uid = remoteSource.getUserUID();
+      return Right(StaticSessionMetadataModel.fromSupabase(res, uid));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  getSessionPresetInfo(unifiedUID) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.getPresetInformation(unifiedUID);
+      return Right(SessionPresetInfoModel.fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  checkIfHasDoneSession(params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.checkIfHasDoneSession();
+      return fromSupabase(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
