@@ -8,6 +8,7 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/presets/presets.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'session_starter_widgets_coordinator.g.dart';
@@ -245,7 +246,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
             Modular.to.navigate(SessionStarterConstants.sessionStarterExit);
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea) {
-            Modular.to.navigate("/session/core/lobby", arguments: {
+            Modular.to.navigate(SessionConstants.lobby, arguments: {
               "qrCodeData": qrCode.qrCodeData,
             });
           } else if (beachWaves.movieMode ==
@@ -274,7 +275,6 @@ abstract class _SessionStarterWidgetsCoordinatorBase
 
   @action
   initTransition() {
-    deconstructor();
     isEnteringNokhteSession = true;
     shouldDisableTouchRipple = true;
     hasSwipedDown = true;
