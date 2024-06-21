@@ -19,14 +19,14 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
   final SwipeDetector swipe;
   final HoldDetector hold;
   final SessionPresenceCoordinator presence;
-  final ListenToSessionMetadataStore sessionMetadata;
+  final SessionMetadataStore sessionMetadata;
   _SessionSpeakingCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.swipe,
     required this.hold,
     required this.presence,
-  }) : sessionMetadata = presence.listenToSessionMetadataStore;
+  }) : sessionMetadata = presence.sessionMetadataStore;
 
   @action
   constructor() async {

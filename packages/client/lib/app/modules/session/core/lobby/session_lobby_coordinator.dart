@@ -20,7 +20,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
   final SessionLobbyWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
-  final ListenToSessionMetadataStore sessionMetadata;
+  final SessionMetadataStore sessionMetadata;
   final UserMetadataCoordinator userMetadata;
   final DeepLinksCoordinator deepLinks;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
@@ -35,7 +35,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
     required this.presence,
     required this.userMetadata,
     required this.activeMonetizationSession,
-  }) : sessionMetadata = presence.listenToSessionMetadataStore;
+  }) : sessionMetadata = presence.sessionMetadataStore;
 
   @observable
   bool isNavigatingAway = false;

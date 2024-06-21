@@ -17,14 +17,14 @@ abstract class _SessionFullNotesInstructionsCoordinatorBase
   final SessionFullNotesInstructionsWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
-  final ListenToSessionMetadataStore sessionMetadata;
+  final SessionMetadataStore sessionMetadata;
 
   _SessionFullNotesInstructionsCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
-  }) : sessionMetadata = presence.listenToSessionMetadataStore;
+  }) : sessionMetadata = presence.sessionMetadataStore;
 
   @action
   constructor() async {
@@ -97,7 +97,7 @@ abstract class _SessionFullNotesInstructionsCoordinatorBase
       );
   updateCurrentPhase() async {
     Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
-      if (presence.listenToSessionMetadataStore.userPhase != 2.0) {
+      if (sessionMetadata.userPhase != 2.0) {
         await presence.updateCurrentPhase(2.0);
       } else {
         timer.cancel();

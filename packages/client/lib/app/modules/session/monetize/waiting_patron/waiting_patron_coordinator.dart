@@ -17,7 +17,7 @@ abstract class _WaitingPatronCoordinatorBase
   final TapDetector tap;
   final WaitingPatronWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
-  final ListenToSessionMetadataStore sessionMetadata;
+  final SessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
 
   _WaitingPatronCoordinatorBase({
@@ -27,7 +27,7 @@ abstract class _WaitingPatronCoordinatorBase
     required this.presence,
     required this.swipe,
     required super.getUserInfo,
-  }) : sessionMetadata = presence.listenToSessionMetadataStore;
+  }) : sessionMetadata = presence.sessionMetadataStore;
 
   @action
   constructor() async {

@@ -23,7 +23,7 @@ abstract class _SessionPaywallCoordinatorBase
   final TapDetector tap;
   final SessionPaywallWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
-  final ListenToSessionMetadataStore sessionMetadata;
+  final SessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
   final InAppPurchaseCoordinator iap;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
@@ -39,7 +39,7 @@ abstract class _SessionPaywallCoordinatorBase
     required this.iap,
     required this.activeMonetizationSession,
     required super.getUserInfo,
-  }) : sessionMetadata = presence.listenToSessionMetadataStore;
+  }) : sessionMetadata = presence.sessionMetadataStore;
 
   @action
   constructor() async {

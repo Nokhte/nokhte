@@ -19,14 +19,14 @@ abstract class _SessionTrialGreeterCoordinatorBase extends BaseCoordinator
   final SessionTrialGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
-  final ListenToSessionMetadataStore sessionMetadata;
+  final SessionMetadataStore sessionMetadata;
 
   _SessionTrialGreeterCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
-  }) : sessionMetadata = presence.listenToSessionMetadataStore;
+  }) : sessionMetadata = presence.sessionMetadataStore;
 
   @action
   constructor() async {
@@ -52,7 +52,7 @@ abstract class _SessionTrialGreeterCoordinatorBase extends BaseCoordinator
 
   @action
   initReactors() {
-  disposers.addAll(  widgets.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -61,7 +61,7 @@ abstract class _SessionTrialGreeterCoordinatorBase extends BaseCoordinator
         setDisableAllTouchFeedback(true);
       },
     ));
-   disposers.add( presence.initReactors(
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
         setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();

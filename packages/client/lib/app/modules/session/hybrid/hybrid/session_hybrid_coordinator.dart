@@ -21,7 +21,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
   final SwipeDetector swipe;
   final HoldDetector hold;
   final SessionPresenceCoordinator presence;
-  final ListenToSessionMetadataStore sessionMetadata;
+  final SessionMetadataStore sessionMetadata;
   _SessionHybridCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
@@ -29,7 +29,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
     required this.hold,
     required this.tap,
     required this.presence,
-  }) : sessionMetadata = presence.listenToSessionMetadataStore;
+  }) : sessionMetadata = presence.sessionMetadataStore;
 
   @action
   constructor() async {

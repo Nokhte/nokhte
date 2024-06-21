@@ -13,12 +13,12 @@ abstract class _SessionHybridRootRouterCoordinatorBase extends BaseCoordinator
     with Store {
   final SessionHybridRootRouterWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
-  final ListenToSessionMetadataStore sessionMetadata;
+  final SessionMetadataStore sessionMetadata;
   _SessionHybridRootRouterCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.presence,
-  }) : sessionMetadata = presence.listenToSessionMetadataStore;
+  }) : sessionMetadata = presence.sessionMetadataStore;
 
   @action
   constructor() {

@@ -17,14 +17,14 @@ abstract class _SessionHybridNotesInstructionsCoordinatorBase
   final SessionHybridNotesInstructionsWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
-  final ListenToSessionMetadataStore sessionMetadata;
+  final SessionMetadataStore sessionMetadata;
 
   _SessionHybridNotesInstructionsCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
-  }) : sessionMetadata = presence.listenToSessionMetadataStore;
+  }) : sessionMetadata = presence.sessionMetadataStore;
 
   @observable
   bool instructionModeIsUnlocked = false;

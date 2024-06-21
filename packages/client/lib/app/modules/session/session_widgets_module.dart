@@ -14,6 +14,15 @@ class SessionWidgetsModule extends Module {
       ];
   @override
   void exportedBinds(Injector i) {
+    i.add<SessionPreviewWidgetsCoordinator>(
+      () => SessionPreviewWidgetsCoordinator(
+        touchRipple: TouchRippleStore(),
+        primarySmartText: SmartTextStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+        presetCard: ExpandedPresetCardsStore(),
+      ),
+    );
     i.add<SessionLobbyWidgetsCoordinator>(
       () => SessionLobbyWidgetsCoordinator(
         touchRipple: TouchRippleStore(),

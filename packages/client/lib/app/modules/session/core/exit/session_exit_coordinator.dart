@@ -20,7 +20,7 @@ abstract class _SessionExitCoordinatorBase
   final SessionExitWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final SessionPresenceCoordinator presence;
-  final ListenToSessionMetadataStore sessionMetadata;
+  final SessionMetadataStore sessionMetadata;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final CaptureNokhteSessionEnd captureEnd;
 
@@ -32,7 +32,7 @@ abstract class _SessionExitCoordinatorBase
     required this.presence,
     required this.cleanUpCollaborationArtifacts,
     required super.getUserInfo,
-  }) : sessionMetadata = presence.listenToSessionMetadataStore;
+  }) : sessionMetadata = presence.sessionMetadataStore;
 
   @observable
   bool showCollaboratorIncidents = true;

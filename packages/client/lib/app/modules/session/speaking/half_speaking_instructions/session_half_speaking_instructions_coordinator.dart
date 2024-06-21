@@ -19,7 +19,7 @@ abstract class _HalfSessionSpeakingInstructionsCoordinatorBase
   final HoldDetector hold;
   final HalfSessionSpeakingInstructionsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
-  final ListenToSessionMetadataStore sessionMetadata;
+  final SessionMetadataStore sessionMetadata;
   final GyroscopicCoordinator gyroscopic;
 
   _HalfSessionSpeakingInstructionsCoordinatorBase({
@@ -29,7 +29,7 @@ abstract class _HalfSessionSpeakingInstructionsCoordinatorBase
     required this.tap,
     required this.presence,
     required this.hold,
-  }) : sessionMetadata = presence.listenToSessionMetadataStore;
+  }) : sessionMetadata = presence.sessionMetadataStore;
 
   @action
   constructor() async {

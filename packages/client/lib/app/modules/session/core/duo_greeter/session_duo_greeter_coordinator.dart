@@ -18,14 +18,14 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
   final SessionDuoGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
-  final ListenToSessionMetadataStore sessionMetadata;
+  final SessionMetadataStore sessionMetadata;
 
   _SessionDuoGreeterCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
-  }) : sessionMetadata = presence.listenToSessionMetadataStore;
+  }) : sessionMetadata = presence.sessionMetadataStore;
 
   @observable
   Stopwatch stopwatch = Stopwatch();
