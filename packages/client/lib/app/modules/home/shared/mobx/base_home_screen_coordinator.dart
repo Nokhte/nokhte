@@ -79,7 +79,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
 
   @action
   onShoreToDeepSeaComplete() => Modular.to.navigate(
-        SessionConstants.lobby,
+        SessionConstants.preview,
         arguments: deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
       );
 
@@ -150,7 +150,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
                 widgets.errorSmartText.setWidgetVisibility(false);
                 widgets.secondaryErrorSmartText.setWidgetVisibility(false);
                 Timer(Seconds.get(2), () {
-                  Modular.to.navigate(SessionConstants.lobby, arguments: {});
+                  Modular.to.navigate(SessionConstants.preview, arguments: {});
                 });
               }
             }

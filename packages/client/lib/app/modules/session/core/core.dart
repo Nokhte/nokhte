@@ -12,6 +12,7 @@ import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'core.dart';
 export 'duo_greeter/duo_greeter.dart';
 export 'exit/exit.dart';
+export 'preview/preview.dart';
 export 'group_greeter/group_greeter.dart';
 export 'lobby/lobby.dart';
 export 'trial_greeter/trial_greeter.dart';
@@ -31,6 +32,18 @@ class SessionCoreModule extends Module {
 
   @override
   void exportedBinds(i) {
+    i.add<SessionPreviewCoordinator>(
+      () => SessionPreviewCoordinator(
+        captureStart: Modular.get<CaptureNokhteSessionStart>(),
+        activeMonetizationSession:
+            Modular.get<ActiveMonetizationSessionCoordinator>(),
+        deepLinks: Modular.get<DeepLinksCoordinator>(),
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        tap: TapDetector(),
+        widgets: Modular.get<SessionPreviewWidgetsCoordinator>(),
+      ),
+    );
     i.add<SessionLobbyCoordinator>(
       () => SessionLobbyCoordinator(
         captureStart: Modular.get<CaptureNokhteSessionStart>(),
@@ -84,6 +97,13 @@ class SessionCoreModule extends Module {
 
   @override
   routes(r) {
+    r.child(
+      SessionConstants.relativePreview,
+      transition: TransitionType.noTransition,
+      child: (context) => SessionPreviewScreen(
+        coordinator: Modular.get<SessionPreviewCoordinator>(),
+      ),
+    );
     r.child(
       SessionConstants.relativeLobby,
       transition: TransitionType.noTransition,

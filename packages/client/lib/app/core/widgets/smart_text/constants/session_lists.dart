@@ -16,6 +16,14 @@ class SessionLists {
     ),
   ];
 
+  static List<RotatingTextData> previewHeader = [
+    RotatingTextData(
+      text: "Session Type",
+      pauseHere: true,
+      mainFontSize: 40.0,
+    ),
+  ];
+
   static List<RotatingTextData> speakingWaiting = [
     RotatingTextData(
       text: "Continue on the other phone",
