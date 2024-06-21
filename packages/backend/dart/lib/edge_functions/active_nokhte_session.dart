@@ -1,4 +1,3 @@
-import 'package:nokhte_backend/tables/_real_time_disabled/company_presets/preset_types.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/company_presets/queries.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/user_information/queries.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

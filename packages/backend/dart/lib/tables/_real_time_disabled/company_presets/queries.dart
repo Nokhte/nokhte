@@ -1,8 +1,9 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:nokhte_backend/tables/company_presets.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'preset_types.dart';
-import 'session_tags.dart';
+export 'preset_types.dart';
+export 'session_tags.dart';
 
 class CompanyPresetsQueries {
   static const TABLE = 'company_presets';
