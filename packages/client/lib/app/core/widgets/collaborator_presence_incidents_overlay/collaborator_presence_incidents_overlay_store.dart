@@ -9,7 +9,7 @@ class CollaboratorPresenceIncidentsOverlayStore = _CollaboratorPresenceIncidents
 
 abstract class _CollaboratorPresenceIncidentsOverlayStoreBase
     extends BaseWidgetStore with Store {
-  final ListenToSessionMetadataStore sessionMetadataStore;
+  final SessionMetadataStore sessionMetadataStore;
 
   _CollaboratorPresenceIncidentsOverlayStoreBase({
     required this.sessionMetadataStore,
