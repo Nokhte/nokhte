@@ -42,6 +42,12 @@ class CompanyPresetsQueries {
     }
   }
 
+  Future<List> getInfoFromUnifiedUID(String unifiedUID) async => await supabase
+      .from(UNIFIED_PRESETS)
+      .select(
+          '*, $TABLE($TAGS, $NAME, $EVEN_CONFIGURATION, $ODD_CONFIGURATION)')
+      .eq(UID, unifiedUID);
+
   Future<List<SessionTags>> getTagsFromUnifiedUID(String unifiedUID) async {
     final res = await supabase
         .from(UNIFIED_PRESETS)
