@@ -102,14 +102,14 @@ abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
           ifTouchIsNotDisabled(() {
             widgets.onSwipeDown(() async {
               toggleIsNavigatingAway();
-              await logic.dispose();
+              await logic.dispose(shouldNuke: true);
             });
           });
         case GestureDirections.left:
           ifTouchIsNotDisabled(() {
             widgets.onSwipeLeft(() async {
               toggleIsNavigatingAway();
-              await logic.dispose();
+              await logic.dispose(shouldNuke: true);
             });
           });
         default:

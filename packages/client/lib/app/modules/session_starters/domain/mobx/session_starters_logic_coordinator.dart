@@ -76,8 +76,12 @@ abstract class _SessionStartersLogicCoordinatorBase extends BaseMobxDBStore
       Stream.value(false).listen((event) {});
 
   @action
-  dispose() async {
-    await nuke();
+  dispose({
+    bool shouldNuke = false,
+  }) async {
+    if (shouldNuke) {
+      await nuke();
+    }
     nokhteSessionSearchStatusIsListening = cancelStreamLogic(NoParams());
     await collaboratorSearchStatus.close();
     await searchSubscription.cancel();
