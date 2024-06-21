@@ -10,7 +10,9 @@ abstract class SessionPresenceContract {
   Future<Either<Failure, bool>> startTheSession(NoParams params);
   Future<Either<Failure, bool>> updateOnlineStatus(
       UpdatePresencePropertyParams params);
-  Future<Either<Failure, bool>> checkIfHasDoneSession(NoParams params);
+  Future<Either<Failure, SessionInstructionTypes>> getInstructionType(
+    String params,
+  );
   Future<Either<Failure, bool>> updateWhoIsTalking(
       UpdateWhoIsTalkingParams params);
   Future<Either<Failure, bool>> updateCurrentPhase(double params);

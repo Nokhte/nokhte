@@ -9,7 +9,7 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 
 class SessionPresenceContractImpl
-    with ResponseToStatus
+    with ResponseToStatus, FromFinishedSessions
     implements SessionPresenceContract {
   final SessionPresenceRemoteSource remoteSource;
   final NetworkInfo networkInfo;
@@ -120,10 +120,16 @@ class SessionPresenceContractImpl
   }
 
   @override
-  checkIfHasDoneSession(params) async {
+  getInstructionType(params) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.checkIfHasDoneSession();
-      return fromSupabase(res);
+      final otherSessionsRes =
+          await remoteSource.checkIfHasDoneSessionBesides(params);
+      final currentPresetSessionsRes =
+          await remoteSource.checkIfHasDoneSessionSessionType(params);
+      return Right(toInstructionType(
+        otherSessions: otherSessionsRes,
+        currentPresetSessions: currentPresetSessionsRes,
+      ));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

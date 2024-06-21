@@ -5,6 +5,7 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
 part 'session_metadata_store.g.dart';
 
@@ -17,8 +18,10 @@ abstract class _SessionMetadataStoreBase
   final ListenToSessionMetadata listenLogic;
   final GetStaticSessionMetadata getterLogic;
   final GetSessionPresetInfo presetLogic;
+  final GetInstructionType getInstructionTypeLogic;
   _SessionMetadataStoreBase({
     required this.listenLogic,
+    required this.getInstructionTypeLogic,
     required this.getterLogic,
     required this.presetLogic,
   });
@@ -66,7 +69,7 @@ abstract class _SessionMetadataStoreBase
   String presetUID = '';
 
   @observable
-  String sessionName = '';
+  String presetName = '';
 
   @observable
   ObservableList tags = ObservableList.of([]);
@@ -76,6 +79,9 @@ abstract class _SessionMetadataStoreBase
 
   @observable
   ObservableList evenConfiguration = ObservableList.of([]);
+
+  @observable
+  SessionInstructionTypes instructionType = SessionInstructionTypes.initial;
 
   @observable
   ObservableStream<NokhteSessionMetadata> sessionMetadata =
@@ -90,6 +96,37 @@ abstract class _SessionMetadataStoreBase
   }
 
   @action
+  _getInstructionType(String unifiedUID) async {
+    final res = await getInstructionTypeLogic(unifiedUID);
+    res.fold(
+      (failure) => errorUpdater(failure),
+      (instructionType) => this.instructionType = instructionType,
+    );
+  }
+
+  @action
+  _getStaticMetadata() async {
+    final res = await getterLogic(NoParams());
+    res.fold((failure) => mapFailureToMessage(failure), (entity) async {
+      leaderIsWhitelisted = entity.leaderIsWhitelisted;
+      isAPremiumSession = entity.isAPremiumSession;
+      isAValidSession = entity.isAValidSession;
+      userIndex = entity.userIndex;
+      presetUID = entity.presetUID;
+      if (presetName.isEmpty) {
+        final res = await presetLogic(presetUID);
+        res.fold((failure) => mapFailureToMessage(failure), (presetEntity) {
+          presetName = presetEntity.name;
+          tags = ObservableList.of(presetEntity.tags);
+          oddConfiguration = ObservableList.of(presetEntity.oddConfiguration);
+          evenConfiguration = ObservableList.of(presetEntity.evenConfiguration);
+        });
+      }
+    });
+    //
+  }
+
+  @action
   Future<void> get(params) async {
     final result = await listenLogic(params);
     result.fold(
@@ -100,28 +137,9 @@ abstract class _SessionMetadataStoreBase
       (stream) {
         sessionMetadata = ObservableStream(stream);
         streamSubscription = sessionMetadata.listen((value) async {
-          print("what happened?? $value");
           if (value.phases.length != currentPhases.length) {
-            final res = await getterLogic(NoParams());
-            res.fold((failure) => mapFailureToMessage(failure), (entity) async {
-              leaderIsWhitelisted = entity.leaderIsWhitelisted;
-              isAPremiumSession = entity.isAPremiumSession;
-              isAValidSession = entity.isAValidSession;
-              userIndex = entity.userIndex;
-              presetUID = entity.presetUID;
-              if (sessionName.isEmpty) {
-                final res = await presetLogic(presetUID);
-                res.fold((failure) => mapFailureToMessage(failure),
-                    (presetEntity) {
-                  sessionName = presetEntity.name;
-                  tags = ObservableList.of(presetEntity.tags);
-                  oddConfiguration =
-                      ObservableList.of(presetEntity.oddConfiguration);
-                  evenConfiguration =
-                      ObservableList.of(presetEntity.evenConfiguration);
-                });
-              }
-            });
+            await _getStaticMetadata();
+            await _getInstructionType(presetUID);
           }
           everyoneIsOnline = value.everyoneIsOnline;
           final phases = value.phases.map((e) => double.parse(e.toString()));
@@ -129,13 +147,6 @@ abstract class _SessionMetadataStoreBase
           sessionHasBegun = value.sessionHasBegun;
           userIsSpeaking = value.userIsSpeaking;
           userCanSpeak = value.userCanSpeak;
-          // userShouldSkipInstructions = value.shouldSkipInstructions[userIndex];
-          // neighborShouldSkipInstructions =
-          //     userIndex == value.shouldSkipInstructions.length - 1
-          //         ? value.shouldSkipInstructions.first
-          //         : value.shouldSkipInstructions[userIndex + 1];
-          // everyoneShouldSkipInstructions =
-          //     value.shouldSkipInstructions.every((e) => e == true);
         });
         state = StoreState.loaded;
       },
@@ -155,6 +166,19 @@ abstract class _SessionMetadataStoreBase
     }
 
     return [evenList, oddList];
+  }
+
+  @computed
+  PresetTypes get presetType {
+    if (presetName.contains('sultat')) {
+      return PresetTypes.consultative;
+    } else if (presetName.contains('llaborat')) {
+      return PresetTypes.collaborative;
+    } else if (presetName.contains('crat')) {
+      return PresetTypes.socratic;
+    } else {
+      return PresetTypes.none;
+    }
   }
 
   @computed

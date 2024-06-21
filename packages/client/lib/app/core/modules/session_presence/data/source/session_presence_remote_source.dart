@@ -18,7 +18,8 @@ abstract class SessionPresenceRemoteSource {
   Future<List> getStaticSessionMetadata();
   Future<FunctionResponse> completeTheSession();
   Future<FunctionResponse> startTheSession();
-  Future<List> checkIfHasDoneSession();
+  Future<List> checkIfHasDoneSessionBesides(String presetUID);
+  Future<List> checkIfHasDoneSessionSessionType(String presetUID);
 }
 
 class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
@@ -79,5 +80,13 @@ class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
       await presetsQueries.getInfoFromUnifiedUID(unifiedUID);
 
   @override
-  checkIfHasDoneSession() async => await finishedQueries.selectOne();
+  checkIfHasDoneSessionBesides(presetUID) async =>
+      await finishedQueries.selectOne(
+        unifiedUID: presetUID,
+        invertToNeq: true,
+      );
+
+  @override
+  checkIfHasDoneSessionSessionType(presetUID) async =>
+      await finishedQueries.selectOne(unifiedUID: presetUID);
 }

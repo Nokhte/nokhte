@@ -15,7 +15,6 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
   final UpdateCurrentPhase updateCurrentPhaseLogic;
   final CancelSessionMetadataStream cancelSessionMetadataStreamLogic;
   final SessionMetadataStore sessionMetadataStore;
-  final CheckIfHasDoneSession checkIfHasDoneSessionLogic;
   final CollaboratorPresenceIncidentsOverlayStore incidentsOverlayStore;
   final AddContent addContentLogic;
   final CompleteTheSession completeTheSessionLogic;
@@ -25,7 +24,6 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
   _SessionPresenceCoordinatorBase({
     required this.cancelSessionMetadataStreamLogic,
     required this.updateWhoIsTalkingLogic,
-    required this.checkIfHasDoneSessionLogic,
     required this.updateCurrentPhaseLogic,
     required this.updateOnlineStatusLogic,
     required this.sessionMetadataStore,
@@ -63,9 +61,6 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
   @observable
   bool speakerSpotlightIsUpdated = false;
 
-  @observable
-  SessionInstructionTypes instructionType = SessionInstructionTypes.initial;
-
   @action
   ReactionDisposer initReactors({
     required Function onCollaboratorJoined,
@@ -82,20 +77,20 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
     isListening = res;
   }
 
-  @action
-  checkIfHasDoneSession() async {
-    final res = await checkIfHasDoneSessionLogic(NoParams());
-    res.fold(
-      (failure) => errorUpdater(failure),
-      (hasDoneASession) {
-        if (hasDoneASession) {
-          instructionType = SessionInstructionTypes.justSymbols;
-        } else {
-          instructionType = SessionInstructionTypes.fullInstructions;
-        }
-      },
-    );
-  }
+  // @action
+  // checkIfHasDoneSession() async {
+  //   final res = await checkIfHasDoneSessionLogic(NoParams());
+  //   res.fold(
+  //     (failure) => errorUpdater(failure),
+  //     (hasDoneASession) {
+  //       if (hasDoneASession) {
+  //         instructionType = SessionInstructionTypes.justSymbols;
+  //       } else {
+  //         instructionType = SessionInstructionTypes.fullInstructions;
+  //       }
+  //     },
+  //   );
+  // }
 
   @action
   listen() {

@@ -3,35 +3,26 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
-import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
-part 'session_preview_coordinator.g.dart';
+part 'session_preset_diagrams_coordinator.g.dart';
 
-class SessionPreviewCoordinator = _SessionPreviewCoordinatorBase
-    with _$SessionPreviewCoordinator;
+class SessionPresetDiagramsCoordinator = _SessionPresetDiagramsCoordinatorBase
+    with _$SessionPresetDiagramsCoordinator;
 
-abstract class _SessionPreviewCoordinatorBase extends BaseCoordinator
+abstract class _SessionPresetDiagramsCoordinatorBase extends BaseCoordinator
     with Store {
-  final SessionPreviewWidgetsCoordinator widgets;
+  final SessionPresetDiagramsWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
-  final DeepLinksCoordinator deepLinks;
-  final ActiveMonetizationSessionCoordinator activeMonetizationSession;
-  final CaptureNokhteSessionStart captureStart;
 
-  _SessionPreviewCoordinatorBase({
+  _SessionPresetDiagramsCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
-    required this.deepLinks,
-    required this.captureStart,
     required this.tap,
     required this.presence,
-    required this.activeMonetizationSession,
   }) : sessionMetadata = presence.sessionMetadataStore;
 
   @observable
@@ -41,8 +32,7 @@ abstract class _SessionPreviewCoordinatorBase extends BaseCoordinator
   constructor() async {
     widgets.constructor();
     initReactors();
-    await presence.listen();
-    await captureScreen(SessionConstants.preview);
+    await captureScreen(SessionConstants.presetDiagrams);
   }
 
   @action
@@ -82,24 +72,15 @@ abstract class _SessionPreviewCoordinatorBase extends BaseCoordinator
       },
     ));
     disposers.add(tapReactor());
-    disposers.add(sessionPresetInfoReactor());
   }
-
-  sessionPresetInfoReactor() =>
-      reaction((p0) => sessionMetadata.presetName, (p0) {
-        widgets.onSessionTypeReceived(
-          sessionName: p0,
-          tags: sessionMetadata.tags,
-        );
-      });
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
         (p0) => ifTouchIsNotDisabled(() async {
-          widgets.onTap(
-            tap.currentTapPosition,
-            onTap: () async {},
-          );
+          // widgets.onTap(
+          //   tap.currentTapPosition,
+          //   onTap: () async {},
+          // );
         }),
       );
 

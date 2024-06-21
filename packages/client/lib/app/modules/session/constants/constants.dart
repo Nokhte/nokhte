@@ -12,6 +12,7 @@ mixin SessionConstants {
   static const relativeRoot = '/';
   static const relativeLobby = '/lobby';
   static const relativePreview = '/preview';
+  static const relativePresetDiagrams = '/preset_diagrams';
   static const relativeDuoGreeter = '/duo_greeter';
   static const relativeGroupGreeter = '/group_greeter';
   static const relativeTrialGreeter = '/trial_greeter';
@@ -31,6 +32,7 @@ mixin SessionConstants {
   static const relativeWaitingPatron = '/waiting_patron';
 
   static const lobby = '${module}core$relativeLobby';
+  static const presetDiagrams = '${module}core$relativePresetDiagrams';
   static const preview = '${module}core$relativePreview';
   static const duoGreeter = '${module}core$relativeDuoGreeter';
   static const groupGreeter = '${module}core$relativeGroupGreeter';

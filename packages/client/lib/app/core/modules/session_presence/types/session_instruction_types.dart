@@ -1,5 +1,6 @@
 enum SessionInstructionTypes {
-justSymbols,
-initial,
-fullInstructions,
+  initial,
+  justSymbols,
+  fullInstructions,
+  skipInstructions,
 }

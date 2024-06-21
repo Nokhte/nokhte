@@ -63,8 +63,8 @@ class SessionPresenceModule extends Module {
         contract: i<SessionPresenceContractImpl>(),
       ),
     );
-    i.add<CheckIfHasDoneSession>(
-      () => CheckIfHasDoneSession(
+    i.add<GetInstructionType>(
+      () => GetInstructionType(
         contract: i<SessionPresenceContractImpl>(),
       ),
     );
@@ -88,11 +88,11 @@ class SessionPresenceModule extends Module {
         presetLogic: i<GetSessionPresetInfo>(),
         listenLogic: i<ListenToSessionMetadata>(),
         getterLogic: i<GetStaticSessionMetadata>(),
+        getInstructionTypeLogic: i<GetInstructionType>(),
       ),
     );
     i.add<SessionPresenceCoordinator>(
       () => SessionPresenceCoordinator(
-        checkIfHasDoneSessionLogic: i<CheckIfHasDoneSession>(),
         updateWhoIsTalkingLogic: Modular.get<UpdateWhoIsTalking>(),
         addContentLogic: Modular.get<AddContent>(),
         completeTheSessionLogic: Modular.get<CompleteTheSession>(),
