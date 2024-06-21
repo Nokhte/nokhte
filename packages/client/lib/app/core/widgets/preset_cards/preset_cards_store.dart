@@ -73,7 +73,10 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
     if (activePresetType == ActivePresetType.condensed) {
       activePresetType = ActivePresetType.expanded;
       condensed.setWidgetVisibility(false);
-      expanded.setWidgetVisibility(true);
+      expanded.setExpandedCard(
+        name: currentExpandedPresetCardName,
+        tags: currentExpandedPresetTags,
+      );
     }
   }
 
@@ -93,7 +96,7 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
       expanded.setWidgetVisibility(false);
       condensed.setWidgetVisibility(true);
       if (resetIndex != -1) {
-        condensed.showOnly(0);
+        condensed.showOnly(resetIndex);
       }
     }
   }

@@ -9,14 +9,10 @@ export 'expanded_preset_cards_store.dart';
 
 class ExpandedPresetsCards extends HookWidget with PresetTags {
   final ExpandedPresetCardsStore store;
-  final String chosenName;
-  final List chosenTags;
 
   const ExpandedPresetsCards({
     super.key,
     required this.store,
-    required this.chosenName,
-    required this.chosenTags,
   });
 
   Widget buildIcons(
@@ -26,7 +22,7 @@ class ExpandedPresetsCards extends HookWidget with PresetTags {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: fromTagsToWidgets(
-            chosenTags,
+            store.chosenTags,
             containerSize: containerSize,
             shouldAnimate: true,
             isHorizontal: false,
@@ -68,9 +64,9 @@ class ExpandedPresetsCards extends HookWidget with PresetTags {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(
-                            left: height * .05,
+                            left: height * .07,
                           ),
-                          child: Jost(chosenName),
+                          child: Jost(store.chosenName),
                         ),
                         Padding(
                           padding: EdgeInsets.only(

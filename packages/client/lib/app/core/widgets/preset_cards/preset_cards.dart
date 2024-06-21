@@ -27,8 +27,6 @@ class PresetCards extends StatelessWidget {
             store: store.condensed,
           ),
           ExpandedPresetsCards(
-            chosenName: store.currentExpandedPresetCardName,
-            chosenTags: store.currentExpandedPresetTags,
             store: store.expanded,
           ),
         ],

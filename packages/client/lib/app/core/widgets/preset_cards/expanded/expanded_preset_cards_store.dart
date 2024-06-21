@@ -11,5 +11,20 @@ abstract class _ExpandedPresetCardsStoreBase extends BaseWidgetStore
   _ExpandedPresetCardsStoreBase() {
     setWidgetVisibility(false);
   }
-  //
+
+  @observable
+  String chosenName = '';
+
+  @observable
+  ObservableList chosenTags = ObservableList();
+
+  @action
+  setExpandedCard({
+    required String name,
+    required List tags,
+  }) {
+    chosenName = name;
+    chosenTags = ObservableList.of(tags);
+    setWidgetVisibility(true);
+  }
 }
