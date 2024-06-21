@@ -27,7 +27,7 @@ void main() {
   List sortedArr = [];
 
   setUpAll(() async {
-    await tSetup.setUp(shouldMakeCollaboration: false);
+    await tSetup.setUp();
     sortedArr = [
       tSetup.firstUserUID,
       tSetup.secondUserUID,

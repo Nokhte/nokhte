@@ -13,7 +13,7 @@ void main() {
   late List<String> sortedUIDs = [];
 
   setUpAll(() async {
-    await tSetup.setUp(shouldMakeCollaboration: false);
+    await tSetup.setUp();
     sortedUIDs = [tSetup.firstUserUID, tSetup.secondUserUID];
     user1Queries =
         ActiveMonetizationSessionQueries(supabase: tSetup.user1Supabase);

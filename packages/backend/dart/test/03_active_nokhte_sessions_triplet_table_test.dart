@@ -19,7 +19,7 @@ void main() {
   List sortedArr = [];
 
   setUpAll(() async {
-    await tSetup.setUp(shouldMakeCollaboration: false);
+    await tSetup.setUp();
     sortedArr = [
       tSetup.firstUserUID,
       tSetup.secondUserUID,
@@ -79,7 +79,6 @@ void main() {
     final onlineStatus3 = await user1RTQueries.getWhoIsOnline();
     expect(onlineStatus3, [false, false, false]);
   });
-
 
   test("addContent", () async {
     await user1STQueries.addContent('test');

@@ -11,7 +11,7 @@ void main() {
   final tSetup = CommonCollaborativeTestFunctions();
 
   setUpAll(() async {
-    await tSetup.setUp(shouldMakeCollaboration: false);
+    await tSetup.setUp();
     user1Queries = CompanyPresetsQueries(supabase: tSetup.user1Supabase);
   });
 

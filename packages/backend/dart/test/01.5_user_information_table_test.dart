@@ -11,28 +11,28 @@ void main() {
   final tSetup = CommonCollaborativeTestFunctions();
 
   setUp(() async {
-    await tSetup.setUp(shouldMakeCollaboration: false);
+    await tSetup.setUp();
     user1Queries = UserInformationQueries(supabase: tSetup.user1Supabase);
     companyPresetsQueries =
         CompanyPresetsQueries(supabase: tSetup.user1Supabase);
   });
 
-  group("getCollaboratorRows", () {
-    tearDownAll(
-        () async => await tSetup.supabaseAdmin.from('user_information').update({
-              "authorized_viewers": [],
-            }).eq('uid', tSetup.secondUserUID));
-    test("shoulnd't be able to read anything if nothing is shared", () async {
-      final initialRes = await user1Queries.getCollaboratorRows();
-      expect(initialRes, isEmpty);
-    });
+  tearDownAll(
+      () async => await tSetup.supabaseAdmin.from('user_information').update({
+            "authorized_viewers": [],
+          }).eq('uid', tSetup.secondUserUID));
 
-    test("should be able to update their preferred preset uid", () async {
-      final presetUID =
-          await companyPresetsQueries.getUnifiedUID(PresetTypes.collaborative);
-      final res = await user1Queries.updatePreferredPreset(presetUID);
-      expect(res.first[user1Queries.PREFERRED_PRESET], presetUID);
-      //
-    });
+  test("should be able to update their preferred preset uid", () async {
+    final presetUID =
+        await companyPresetsQueries.getUnifiedUID(PresetTypes.collaborative);
+    print("presetUID: $presetUID");
+    final res = await user1Queries.updatePreferredPreset(presetUID);
+    expect(res.first[user1Queries.PREFERRED_PRESET], presetUID);
+    //
+  });
+
+  test("shoulnd't be able to read anything if nothing is shared", () async {
+    final initialRes = await user1Queries.getCollaboratorRows();
+    expect(initialRes, isEmpty);
   });
 }
