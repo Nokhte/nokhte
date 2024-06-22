@@ -18,6 +18,7 @@ export 'nokhte_blur/nokhte_blur.dart';
 export 'nokhte_qr_code/nokhte_qr_code.dart';
 export 'session_phone_placement_guide/session_phone_placement_guide.dart';
 export "nokhte_custom_animation_builder/nokhte_custom_animation_builder.dart";
+export 'preset_diagram/preset_diagram.dart';
 export 'preset_cards/preset_cards.dart';
 export 'preset_icons/preset_icons.dart';
 export 'session_seating_guide/session_seating_guide.dart';
