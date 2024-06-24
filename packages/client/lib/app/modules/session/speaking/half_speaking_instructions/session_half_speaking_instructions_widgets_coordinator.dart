@@ -78,9 +78,7 @@ abstract class _HalfSessionSpeakingInstructionsWidgetsCoordinatorBase
     }
     beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
     mirroredText.setMessagesData(
-      instructionsOnTop
-          ? MirroredTextContent.sessionSpeakingTopHalfInstructions
-          : MirroredTextContent.sessionSpeakingBottomHalfInstructions,
+      MirroredTextContent.sessionSpeakingInstructions,
     );
     errorSmartText.setWidgetVisibility(false);
     errorSmartText.setMessagesData(SessionLists.speakingInstructionsError);

@@ -39,9 +39,9 @@ abstract class _FullSessionSpeakingInstructionsWidgetsCoordinatorBase
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
-    mirroredText.setMessagesData(
-      MirroredTextContent.sessionSpeakingFullInstructions,
-    );
+    // mirroredText.setMessagesData(
+    //   MirroredTextContent.sessionSpeakingFullInstructions,
+    // );
     errorSmartText.setWidgetVisibility(false);
     errorSmartText.setMessagesData(SessionLists.speakingInstructionsError);
     errorSmartText.startRotatingText();
