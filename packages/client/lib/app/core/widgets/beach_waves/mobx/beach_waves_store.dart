@@ -22,6 +22,8 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
       BeachWaveMovieModes.blackOutToDrySand: BlackOutToDrySandMovieStore(),
       BeachWaveMovieModes.deepSeaToBorealis: DeepSeaToBorealisMovieStore(),
       BeachWaveMovieModes.deepSeaToSky: DeepSeaToSkyMovieStore(),
+      BeachWaveMovieModes.deepSeaToHalfAndHalf:
+          DeepSeaToHalfAndHalfMovieStore(),
       BeachWaveMovieModes.drySandToSky: DrySandToSkyMovieStore(),
       BeachWaveMovieModes.halfAndHalfToDrySand:
           HalfAndHalfToDrySandMovieStore(),
