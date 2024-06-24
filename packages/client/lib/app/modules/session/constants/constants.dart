@@ -7,19 +7,39 @@ mixin SessionConstants {
     Color(0xFF39FF18),
   ];
 
-  static const module = '/session/';
-
+  static const module = '/session';
   static const relativeRoot = '/';
+
+  // instructions
+  static const instructionsModule = '/instructions';
+  static const relativeConsultationSpeakingSymbols =
+      '/consultation_speaking_symbols';
+  static const relativeSpeakingInstructions = '/speaking_instructions';
+  static const relativeShowGroupGeometry = '/show_group_geometry';
+  static const relativeConsultationNotesSymbols = '/consultation_notes_symbols';
+  static const consultationSpeakingSymbols =
+      '$module$instructionsModule$relativeConsultationSpeakingSymbols';
+  static const consultationNotesSymbols =
+      '$module$instructionsModule$relativeConsultationNotesSymbols';
+  static const speakingInstructions =
+      '$module$instructionsModule$relativeSpeakingInstructions';
+  static const showGroupGeometry =
+      '$module$instructionsModule$relativeShowGroupGeometry';
+  static const relativeNotesInstructions = '/notes_instructions';
+  static const notesInstructions =
+      '$module$instructionsModule$relativeNotesInstructions';
+  static const relativeConsultationJustSymbols = '/consultation_just_symbols';
+  static const consultationJustSymbols =
+      '$module$instructionsModule$relativeConsultationJustSymbols';
+  //
+
   static const relativeLobby = '/lobby';
   static const relativePreview = '/preview';
-  static const relativePresetDiagrams = '/preset_diagrams';
   static const relativeDuoGreeter = '/duo_greeter';
   static const relativeGroupGreeter = '/group_greeter';
   static const relativeTrialGreeter = '/trial_greeter';
   static const relativeExit = '/exit';
 
-  static const relativeSpeakingInstructions = '/speaking_instructions';
-  static const relativeNotesInstructions = '/notes_instructions';
   static const relativeWaiting = '/waiting';
   static const relativeNotes = '/notes';
 
@@ -32,7 +52,6 @@ mixin SessionConstants {
   static const relativeWaitingPatron = '/waiting_patron';
 
   static const lobby = '${module}core$relativeLobby';
-  static const presetDiagrams = '${module}core$relativePresetDiagrams';
   static const preview = '${module}core$relativePreview';
   static const duoGreeter = '${module}core$relativeDuoGreeter';
   static const groupGreeter = '${module}core$relativeGroupGreeter';
