@@ -51,11 +51,11 @@ abstract class HalflSessionNotesInstructionsWidgetsCoordinatorBase
     this.instructionsOnTop = instructionsOnTop;
     cooldownStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
-    mirroredText.setMessagesData(
-      instructionsOnTop
-          ? MirroredTextContent.sessionNotesTopHalfInstructions
-          : MirroredTextContent.sessionNotesBottomHalfInstructions,
-    );
+    // mirroredText.setMessagesData(
+    //   instructionsOnTop
+    //       ? MirroredTextContent.sessionNotesTopHalfInstructions
+    //       : MirroredTextContent.sessionNotesBottomHalfInstructions,
+    // );
 
     if (!instructionsOnTop) {
       halfScreenTint.setShouldCoverBottom(false);

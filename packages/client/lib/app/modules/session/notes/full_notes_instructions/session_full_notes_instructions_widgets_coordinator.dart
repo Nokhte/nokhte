@@ -46,9 +46,9 @@ abstract class _SessionFullNotesInstructionsWidgetsCoordinatorBase
   constructor() {
     cooldownStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
-    mirroredText.setMessagesData(
-      MirroredTextContent.sessionNotesFullInstructions,
-    );
+    // mirroredText.setMessagesData(
+    //   MirroredTextContent.sessionNotesFullInstructions,
+    // );
     mirroredText.startBothRotatingText();
     setDisableTouchInput(false);
   }
