@@ -198,6 +198,60 @@ class SessionLists {
     ];
   }
 
+  static List<RotatingTextData> consultationTalkingSymbols = [
+    SharedLists.customTapToConfirmSub(
+      "This is you",
+      subTextFontSize: 18.0,
+    ),
+    SharedLists.customTapToConfirmSub(
+      "That is your collaborator",
+      subTextFontSize: 18.0,
+    ),
+    SharedLists.customTapToConfirmSub(
+      "One phone will be used for speaking",
+      subTextFontSize: 18.0,
+    ),
+    SharedLists.emptyItem,
+  ];
+
+  static List<RotatingTextData> consultationJustSymbols = [
+    SharedLists.customTapToConfirmSub(
+      "One phone will be used for speaking",
+      subTextFontSize: 18.0,
+    ),
+    SharedLists.customTapToConfirmSub(
+      "Another phone will be used for notes",
+      subTextFontSize: 18.0,
+    ),
+    SharedLists.emptyItem,
+  ];
+
+  static List<RotatingTextData> consultationNotesSymbols = [
+    SharedLists.customTapToConfirmSub(
+      "Another phone will be used for notes",
+      subTextFontSize: 18.0,
+    ),
+    SharedLists.emptyItem,
+  ];
+
+  static List<RotatingTextData> showGroupGeometry = [
+    RotatingTextData(
+      text: "2 Person Group",
+      pauseHere: true,
+    ),
+    SharedLists.emptyItem,
+    RotatingTextData(
+      text: "3 Person Group",
+      pauseHere: true,
+    ),
+    SharedLists.emptyItem,
+    RotatingTextData(
+      text: "4 Person Group",
+      pauseHere: true,
+    ),
+    SharedLists.emptyItem,
+  ];
+
   static List<RotatingTextData> speakingHalfInstructionsSecondary = [
     SharedLists.tapToConfirm(19.0),
     SharedLists.tapToConfirm(19.0),

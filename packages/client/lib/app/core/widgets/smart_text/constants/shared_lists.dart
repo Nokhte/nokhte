@@ -36,13 +36,16 @@ class SharedLists {
         ),
       ];
 
-  static List<RotatingTextData> customTapToConfirmSub(String text) => [
-        RotatingTextData(
-          text: text,
-          subText: "Tap to confirm",
-          pauseHere: true,
-        ),
-      ];
+  static RotatingTextData customTapToConfirmSub(
+    String text, {
+    double subTextFontSize = 15.0,
+  }) =>
+      RotatingTextData(
+        text: text,
+        subText: "Tap to confirm",
+        pauseHere: true,
+        subFontSize: subTextFontSize,
+      );
 
   static String getSwipeDirection(GestureDirections swipeDirection) {
     switch (swipeDirection) {
