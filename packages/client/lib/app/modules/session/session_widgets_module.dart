@@ -14,13 +14,74 @@ class SessionWidgetsModule extends Module {
       ];
   @override
   void exportedBinds(Injector i) {
-    i.add<SessionPresetDiagramsWidgetsCoordinator>(
-      () => SessionPresetDiagramsWidgetsCoordinator(
-        primarySmartText: SmartTextStore(),
+    injectCore(i);
+    injectInstructions(i);
+    injectHybrid(i);
+    injectSpeaking(i);
+    injectNotes(i);
+    injectMonetization(i);
+  }
+
+  injectInstructions(i) {
+    i.add<ShowGroupGeometryWidgetsCoordinator>(
+      () => ShowGroupGeometryWidgetsCoordinator(
+        presetDiagram: PresetDiagramStore(),
+        smartText: SmartTextStore(),
+        touchRipple: TouchRippleStore(),
+        beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+      ),
+    );
+    i.add<SessionNotesInstructionsWidgetsCoordinator>(
+      () => SessionNotesInstructionsWidgetsCoordinator(
+        touchRipple: TouchRippleStore(),
+        beachWaves: BeachWavesStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+      ),
+    );
+    i.add<ConsultationNotesSymbolsWidgetsCoordinator>(
+      () => ConsultationNotesSymbolsWidgetsCoordinator(
+        touchRipple: TouchRippleStore(),
+        presetDiagram: PresetDiagramStore(),
+        beachWaves: BeachWavesStore(),
+        smartText: SmartTextStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+      ),
+    );
+    i.add<ConsultationJustSymbolsWidgetsCoordinator>(
+      () => ConsultationJustSymbolsWidgetsCoordinator(
+        touchRipple: TouchRippleStore(),
+        presetDiagram: PresetDiagramStore(),
+        beachWaves: BeachWavesStore(),
+        smartText: SmartTextStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+      ),
+    );
+    i.add<ConsultationSpeakingSymbolsWidgetsCoordinator>(
+      () => ConsultationSpeakingSymbolsWidgetsCoordinator(
+        touchRipple: TouchRippleStore(),
+        presetDiagram: PresetDiagramStore(),
+        beachWaves: BeachWavesStore(),
+        smartText: SmartTextStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+      ),
+    );
+
+    i.add<SessionSpeakingInstructionsWidgetsCoordinator>(
+      () => SessionSpeakingInstructionsWidgetsCoordinator(
+        holdTimerIndicator: HoldTimerIndicatorStore(),
+        errorSmartText: SmartTextStore(),
+        touchRipple: TouchRippleStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        borderGlow: BorderGlowStore(),
         beachWaves: BeachWavesStore(),
       ),
     );
+  }
+
+  injectCore(i) {
     i.add<SessionPreviewWidgetsCoordinator>(
       () => SessionPreviewWidgetsCoordinator(
         touchRipple: TouchRippleStore(),
@@ -80,10 +141,6 @@ class SessionWidgetsModule extends Module {
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
     );
-    injectHybrid(i);
-    injectSpeaking(i);
-    injectNotes(i);
-    injectMonetization(i);
   }
 
   injectSpeaking(i) {
