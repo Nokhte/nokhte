@@ -10,7 +10,12 @@ class PresetDiagramPainter extends CustomPainter {
   final List<Color> circleColors;
   final List<LineGradientTypes> lineGradTypes;
   final List<List<Alignment>> lineGradAlignments;
-  final List<PaintingStyle> circlePaintingStyles;
+  final List<PaintingStyle> circlePaintingStyles = [
+    PaintingStyle.fill,
+    PaintingStyle.stroke,
+    PaintingStyle.stroke,
+    PaintingStyle.stroke,
+  ];
 
   PresetDiagramPainter({
     required this.radii,
@@ -19,7 +24,6 @@ class PresetDiagramPainter extends CustomPainter {
     required this.circleStops,
     required this.lineWidth,
     required this.lineGradTypes,
-    required this.circlePaintingStyles,
     required this.lineGradAlignments,
     required this.lineOffsets,
   });

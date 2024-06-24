@@ -1,273 +1,179 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:simple_animations/simple_animations.dart';
 part 'preset_diagram_store.g.dart';
 
 class PresetDiagramStore = _PresetDiagramStoreBase with _$PresetDiagramStore;
 
-abstract class _PresetDiagramStoreBase extends BaseWidgetStore with Store {
+abstract class _PresetDiagramStoreBase
+    extends BaseWidgetStore<PresetDiagramMovieModes> with Store {
   _PresetDiagramStoreBase() {
     final movies = PresetDiagramMovies();
     setMovie(movies.appear);
   }
 
   @observable
-  PresetDiagramCircleMovieModes movieMode =
-      PresetDiagramCircleMovieModes.appear;
+  PresetDiagramMovieModes movieMode = PresetDiagramMovieModes.appear;
+
+  @observable
+  bool isASocraticSession = false;
 
   @action
-  setMovieMode(PresetDiagramCircleMovieModes movieMode) =>
-      this.movieMode = movieMode;
+  setIsASocraticSession(bool value) => isASocraticSession = value;
+
+  @action
+  setMovieMode(PresetDiagramMovieModes movieMode) => this.movieMode = movieMode;
+
+  @override
+  initMovie(PresetDiagramMovieModes param) {
+    setMovie(getCurrentMovie(param));
+    setControl(Control.playFromStart);
+    setMovieStatus(MovieStatus.inProgress);
+    Timer(Seconds.get(0, milli: 0), () {
+      setMovieMode(param);
+    });
+  }
 
   @computed
   int get numOfCircles {
+    if (isAOneCircleMovie) {
+      return 1;
+    } else if (isATwoCircleMovie) {
+      return 2;
+    } else if (isAThreeCircleMovie) {
+      return 3;
+    } else if (isAFourCircleMovie) {
+      return 4;
+    } else {
+      return 0;
+    }
+  }
+
+  MovieTween getCurrentMovie(PresetDiagramMovieModes movieMode) {
+    final movies = PresetDiagramMovies();
     switch (movieMode) {
-      case PresetDiagramCircleMovieModes.appear:
-        return 1;
-      case PresetDiagramCircleMovieModes.showSecondCircle:
-        return 2;
-      case PresetDiagramCircleMovieModes.showLeftTalkingPhone:
-        return 2;
-      case PresetDiagramCircleMovieModes.showRightNotesPhone:
-        return 2;
-      case PresetDiagramCircleMovieModes.consolidateThePair:
-        return 2;
-      case PresetDiagramCircleMovieModes.trioExpansion:
-        return 3;
-      case PresetDiagramCircleMovieModes.trioConsolidation:
-        return 3;
-      case PresetDiagramCircleMovieModes.fourWayExpansion:
-        return 4;
-      case PresetDiagramCircleMovieModes.fourWayConsolidation:
-        return 4;
-      case PresetDiagramCircleMovieModes.whiteToHalfAndHalfCircle:
-        return 1;
+      case PresetDiagramMovieModes.appear:
+        return movies.appear;
+      case PresetDiagramMovieModes.showSecondCircle:
+        return movies.showSecondCircle;
+      case PresetDiagramMovieModes.showLeftLine:
+        return movies.showLeftTalkingPhone;
+      case PresetDiagramMovieModes.showRightLine:
+        return movies.showRightNotesPhone;
+      case PresetDiagramMovieModes.showBothLines:
+        return movies.showBothTalkingPhones;
+      case PresetDiagramMovieModes.consolidateThePair:
+        return movies.consolidateThePair;
+      case PresetDiagramMovieModes.trioExpansion:
+        return movies.trioExpansion;
+      case PresetDiagramMovieModes.trioConsolidation:
+        return movies.trioConsolidation;
+      case PresetDiagramMovieModes.fourWayExpansion:
+        return movies.fourWayExpansion;
+      case PresetDiagramMovieModes.fourWayConsolidation:
+        return movies.fourWayConsolidation;
+      case PresetDiagramMovieModes.whiteToHalfAndHalfCircle:
+        return movies.whiteToHalfAndHalfCircle;
+      case PresetDiagramMovieModes.hideSingleCircle:
+        return movies.hideSingleCircle;
     }
   }
 
   @computed
   List<List<Alignment>> get lineGradAlignments {
-    switch (movieMode) {
-      case PresetDiagramCircleMovieModes.appear:
-        return [];
-      case PresetDiagramCircleMovieModes.showSecondCircle:
-        return [];
-      case PresetDiagramCircleMovieModes.showLeftTalkingPhone:
-        return [
-          [
-            Alignment.topCenter,
-            Alignment.bottomCenter,
-          ],
-        ];
-      case PresetDiagramCircleMovieModes.showRightNotesPhone:
-        return [
-          [
-            Alignment.topCenter,
-            Alignment.bottomCenter,
-          ],
-          [
-            Alignment.topCenter,
-            Alignment.bottomCenter,
-          ],
-        ];
-      case PresetDiagramCircleMovieModes.consolidateThePair:
-        return [
-          [
-            Alignment.topCenter,
-            Alignment.bottomCenter,
-          ],
-          [
-            Alignment.topCenter,
-            Alignment.bottomCenter,
-          ],
-        ];
-      case PresetDiagramCircleMovieModes.trioExpansion:
-        return [
-          [
-            Alignment.topCenter,
-            Alignment.bottomCenter,
-          ],
-          [
-            Alignment.centerLeft,
-            Alignment.centerRight,
-          ],
-          [
-            Alignment.topCenter,
-            Alignment.bottomCenter,
-          ],
-        ];
-      case PresetDiagramCircleMovieModes.trioConsolidation:
-        return [
-          [
-            Alignment.topCenter,
-            Alignment.bottomCenter,
-          ],
-          [
-            Alignment.centerLeft,
-            Alignment.centerRight,
-          ],
-          [
-            Alignment.topCenter,
-            Alignment.bottomCenter,
-          ],
-        ];
-      case PresetDiagramCircleMovieModes.fourWayExpansion:
-        return [
-          [
-            Alignment.topCenter,
-            Alignment.bottomCenter,
-          ],
-          [
-            Alignment.centerLeft,
-            Alignment.centerRight,
-          ],
-          [
-            Alignment.topCenter,
-            Alignment.bottomCenter,
-          ],
-          [
-            Alignment.centerLeft,
-            Alignment.centerRight,
-          ],
-        ];
-      case PresetDiagramCircleMovieModes.fourWayConsolidation:
-        return [
-          [
-            Alignment.topCenter,
-            Alignment.bottomCenter,
-          ],
-          [
-            Alignment.centerLeft,
-            Alignment.centerRight,
-          ],
-          [
-            Alignment.topCenter,
-            Alignment.bottomCenter,
-          ],
-          [
-            Alignment.centerLeft,
-            Alignment.centerRight,
-          ],
-        ];
-      case PresetDiagramCircleMovieModes.whiteToHalfAndHalfCircle:
-        return [];
+    if (isAZeroLineMovie) {
+      return List.empty();
+    } else if (isAOneLineMovie || isATwoLineMovie) {
+      return PresetDiagamConstants.twoLineAlignment;
+    } else if (isAThreeLineMovie) {
+      return PresetDiagamConstants.threeLineAlignment;
+    } else if (isAFourLineMovie) {
+      return PresetDiagamConstants.fourLineAlignment;
+    } else {
+      return List.empty();
     }
   }
 
   @computed
   int get numOfLines {
-    switch (movieMode) {
-      case PresetDiagramCircleMovieModes.appear:
-        return 0;
-      case PresetDiagramCircleMovieModes.showSecondCircle:
-        return 0;
-      case PresetDiagramCircleMovieModes.showLeftTalkingPhone:
-        return 1;
-      case PresetDiagramCircleMovieModes.showRightNotesPhone:
-        return 2;
-      case PresetDiagramCircleMovieModes.consolidateThePair:
-        return 2;
-      case PresetDiagramCircleMovieModes.trioExpansion:
-        return 3;
-      case PresetDiagramCircleMovieModes.trioConsolidation:
-        return 3;
-      case PresetDiagramCircleMovieModes.fourWayExpansion:
-        return 4;
-      case PresetDiagramCircleMovieModes.fourWayConsolidation:
-        return 4;
-      case PresetDiagramCircleMovieModes.whiteToHalfAndHalfCircle:
-        return 0;
+    if (isAZeroLineMovie) {
+      return 0;
+    } else if (isAOneLineMovie) {
+      return 1;
+    } else if (isATwoLineMovie) {
+      return 2;
+    } else if (isAThreeLineMovie) {
+      return 3;
+    } else if (isAFourCircleMovie) {
+      return 4;
+    } else {
+      return 0;
     }
   }
 
   @computed
   List<LineGradientTypes> get lineGrads {
-    switch (movieMode) {
-      case PresetDiagramCircleMovieModes.appear:
-        return [];
-      case PresetDiagramCircleMovieModes.showSecondCircle:
-        return [];
-      case PresetDiagramCircleMovieModes.showLeftTalkingPhone:
-        return [LineGradientTypes.talking];
-      case PresetDiagramCircleMovieModes.showRightNotesPhone:
-        return [LineGradientTypes.talking, LineGradientTypes.notes];
-      case PresetDiagramCircleMovieModes.consolidateThePair:
-        return [LineGradientTypes.talking, LineGradientTypes.notes];
-      case PresetDiagramCircleMovieModes.trioExpansion:
-        return [
-          LineGradientTypes.talking,
-          LineGradientTypes.notes,
-          LineGradientTypes.talking,
-        ];
-      case PresetDiagramCircleMovieModes.trioConsolidation:
-        return [
-          LineGradientTypes.talking,
-          LineGradientTypes.notes,
-          LineGradientTypes.talking,
-        ];
-      case PresetDiagramCircleMovieModes.fourWayExpansion:
-        return [
-          LineGradientTypes.talking,
-          LineGradientTypes.notes,
-          LineGradientTypes.talking,
-          LineGradientTypes.notes,
-        ];
-
-      case PresetDiagramCircleMovieModes.fourWayConsolidation:
-        return [
-          LineGradientTypes.talking,
-          LineGradientTypes.notes,
-          LineGradientTypes.talking,
-          LineGradientTypes.notes,
-        ];
-      case PresetDiagramCircleMovieModes.whiteToHalfAndHalfCircle:
-        return [];
+    if (!isASocraticSession) {
+      return PresetDiagamConstants.alternatingGrads;
+    } else {
+      return PresetDiagamConstants.talkingGrads;
     }
   }
 
   @computed
-  List<PaintingStyle> get paintingStyle {
-    switch (movieMode) {
-      case PresetDiagramCircleMovieModes.appear:
-        return [PaintingStyle.fill, PaintingStyle.stroke];
-      case PresetDiagramCircleMovieModes.showSecondCircle:
-        return [PaintingStyle.fill, PaintingStyle.stroke];
-      case PresetDiagramCircleMovieModes.showLeftTalkingPhone:
-        return [PaintingStyle.fill, PaintingStyle.stroke];
-      case PresetDiagramCircleMovieModes.showRightNotesPhone:
-        return [PaintingStyle.fill, PaintingStyle.stroke];
-      case PresetDiagramCircleMovieModes.consolidateThePair:
-        return [PaintingStyle.fill, PaintingStyle.stroke];
-      case PresetDiagramCircleMovieModes.trioExpansion:
-        return [
-          PaintingStyle.fill,
-          PaintingStyle.stroke,
-          PaintingStyle.stroke,
-        ];
-      case PresetDiagramCircleMovieModes.trioConsolidation:
-        return [
-          PaintingStyle.fill,
-          PaintingStyle.stroke,
-          PaintingStyle.stroke,
-        ];
-      case PresetDiagramCircleMovieModes.fourWayExpansion:
-        return [
-          PaintingStyle.fill,
-          PaintingStyle.stroke,
-          PaintingStyle.stroke,
-          PaintingStyle.stroke,
-        ];
-      case PresetDiagramCircleMovieModes.fourWayConsolidation:
-        return [
-          PaintingStyle.fill,
-          PaintingStyle.stroke,
-          PaintingStyle.stroke,
-          PaintingStyle.stroke,
-        ];
-      case PresetDiagramCircleMovieModes.whiteToHalfAndHalfCircle:
-        return [PaintingStyle.fill];
-    }
-  }
+  bool get isAOneCircleMovie =>
+      movieMode == PresetDiagramMovieModes.appear ||
+      movieMode == PresetDiagramMovieModes.hideSingleCircle ||
+      movieMode == PresetDiagramMovieModes.whiteToHalfAndHalfCircle;
+
+  @computed
+  bool get isATwoCircleMovie =>
+      movieMode == PresetDiagramMovieModes.showSecondCircle ||
+      movieMode == PresetDiagramMovieModes.showLeftLine ||
+      movieMode == PresetDiagramMovieModes.showRightLine ||
+      movieMode == PresetDiagramMovieModes.showRightLine ||
+      movieMode == PresetDiagramMovieModes.consolidateThePair ||
+      movieMode == PresetDiagramMovieModes.showBothLines;
+
+  @computed
+  bool get isAThreeCircleMovie =>
+      movieMode == PresetDiagramMovieModes.trioExpansion ||
+      movieMode == PresetDiagramMovieModes.trioConsolidation;
+
+  @computed
+  bool get isAFourCircleMovie =>
+      movieMode == PresetDiagramMovieModes.fourWayExpansion ||
+      movieMode == PresetDiagramMovieModes.fourWayConsolidation;
+
+  @computed
+  bool get isAZeroLineMovie =>
+      movieMode == PresetDiagramMovieModes.appear ||
+      movieMode == PresetDiagramMovieModes.hideSingleCircle ||
+      movieMode == PresetDiagramMovieModes.showSecondCircle ||
+      movieMode == PresetDiagramMovieModes.whiteToHalfAndHalfCircle;
+
+  @computed
+  bool get isAOneLineMovie => movieMode == PresetDiagramMovieModes.showLeftLine;
+
+  @computed
+  bool get isATwoLineMovie =>
+      movieMode == PresetDiagramMovieModes.showRightLine ||
+      movieMode == PresetDiagramMovieModes.consolidateThePair ||
+      movieMode == PresetDiagramMovieModes.showBothLines;
+
+  @computed
+  bool get isAThreeLineMovie =>
+      movieMode == PresetDiagramMovieModes.trioExpansion ||
+      movieMode == PresetDiagramMovieModes.trioConsolidation;
+
+  @computed
+  bool get isAFourLineMovie =>
+      movieMode == PresetDiagramMovieModes.fourWayExpansion ||
+      movieMode == PresetDiagramMovieModes.fourWayConsolidation;
 }

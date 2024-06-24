@@ -8,6 +8,7 @@ import 'package:simple_animations/simple_animations.dart';
 export 'canvas/preset_diagram_painter.dart';
 export 'movies/preset_diagram_movies.dart';
 export 'mobx/preset_diagram_store.dart';
+export 'constants/constants.dart';
 export 'types/types.dart';
 
 class PresetDiagam extends StatelessWidget {
@@ -99,6 +100,7 @@ class PresetDiagam extends StatelessWidget {
             tween: store.movie,
             duration: store.movie.duration,
             control: store.control,
+            onCompleted: () => store.onCompleted(),
             builder: (context, value, child) => Stack(
               children: [
                 FullScreen(
@@ -109,7 +111,6 @@ class PresetDiagam extends StatelessWidget {
                       lineGradAlignments: store.lineGradAlignments,
                       lineWidth: getLineWidths(value, store.numOfLines),
                       lineOffsets: getLineOffsets(value, store.numOfLines),
-                      circlePaintingStyles: store.paintingStyle,
                       circleOffsets:
                           getCircleOffsets(value, store.numOfCircles),
                       radii: getCircleRadii(value, store.numOfCircles),
@@ -117,16 +118,6 @@ class PresetDiagam extends StatelessWidget {
                     ),
                   ),
                 ),
-                // FullScreen(
-                //   child: BackdropFilter(
-                //     filter: ImageFilter.blur(
-                //       sigmaX: value.get('blur'),
-                //       sigmaY: value.get('blur'),
-                //     ),
-                //     child: Container(),
-                //   ),
-                // ),
-                // BorderGlow(store: BorderGlowStore()),
               ],
             ),
           )),

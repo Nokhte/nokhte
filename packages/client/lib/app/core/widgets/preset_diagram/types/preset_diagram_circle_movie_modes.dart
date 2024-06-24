@@ -1,8 +1,10 @@
-enum PresetDiagramCircleMovieModes {
+enum PresetDiagramMovieModes {
   appear,
+  hideSingleCircle,
   showSecondCircle,
-  showLeftTalkingPhone,
-  showRightNotesPhone,
+  showLeftLine,
+  showRightLine,
+  showBothLines,
   consolidateThePair,
   trioExpansion,
   trioConsolidation,
