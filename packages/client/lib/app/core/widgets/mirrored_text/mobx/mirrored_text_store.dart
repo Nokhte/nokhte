@@ -15,6 +15,12 @@ abstract class _MirroredTextStoreBase extends BaseWidgetStore with Store {
   final SmartTextStore primaryUpsideDownText;
   final SmartTextStore secondaryUpsideDownText;
 
+  @observable
+  bool topShouldBeFlipped = true;
+
+  @action
+  setTopShouldBeFlipped(bool value) => topShouldBeFlipped = value;
+
   _MirroredTextStoreBase({
     required this.primaryRightSideUpText,
     required this.secondaryRightSideUpText,
@@ -98,6 +104,22 @@ abstract class _MirroredTextStoreBase extends BaseWidgetStore with Store {
             .setMessagesData(SessionLists.notesHalfInstructionsSecondary);
         primaryUpsideDownText.setMessagesData(SharedLists.emptyList);
         secondaryUpsideDownText.setMessagesData(SharedLists.emptyList);
+      case MirroredTextContent.soloHybridInstructions:
+        primaryRightSideUpText
+            .setMessagesData(SessionLists.speakingHalfInstructionsPrimary(
+          isHybrid: false,
+        ));
+        secondaryRightSideUpText.setMessagesData(
+          SessionLists.speakingHalfInstructionsSecondary,
+        );
+        primaryUpsideDownText.setMessagesData(
+          SessionLists.getNotesHalfInstructionsPrimary(
+            isHybrid: true,
+          ),
+        );
+        secondaryUpsideDownText
+            .setMessagesData(SessionLists.notesHalfInstructionsSecondary);
+        prepForSplitScreen(isInverted: true);
     }
   }
 

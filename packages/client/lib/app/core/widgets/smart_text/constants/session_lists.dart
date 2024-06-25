@@ -164,6 +164,8 @@ class SessionLists {
 
   static List<RotatingTextData> speakingHalfInstructionsPrimary({
     required bool isHybrid,
+    bool isHoldToTalk = true,
+    bool showSubText = false,
   }) {
     String phoneOrSide = isHybrid ? "side" : "phone";
     return [
@@ -171,44 +173,89 @@ class SessionLists {
         text: "The point of this $phoneOrSide is to limit speaking",
         pauseHere: true,
         mainFontSize: 22.0,
+        subText: showSubText ? "Tap to confirm" : "",
+        subFontSize: 18.0,
       ),
       RotatingTextData(
-        text: "You can only speak when your finger is on the screen",
+        text: isHoldToTalk
+            ? "You can only speak when your finger is on the screen"
+            : "You can only speak when you tap on the screen",
         pauseHere: true,
         mainFontSize: 22.0,
+        subText: showSubText ? "Tap to confirm" : "",
+        subFontSize: 18.0,
       ),
       RotatingTextData(
-        text: "Now, put your finger on the screen",
+        text: isHoldToTalk ? "Now, put your finger on the screen" : "Tap",
         pauseHere: true,
         mainFontSize: 22.0,
+        subText: showSubText ? "" : "",
+        subFontSize: 18.0,
       ),
       SharedLists.emptyItem,
       RotatingTextData(
         text: "Only you are allowed to speak right now",
         mainFontSize: 22.0,
         pauseHere: true,
+        subText: showSubText ? "" : "",
+        subFontSize: 18.0,
       ),
       SharedLists.emptyItem,
       RotatingTextData(
-        text: "Let go",
+        text: isHoldToTalk ? "Let go" : "Tap again",
         mainFontSize: 22.0,
         pauseHere: true,
+        subText: showSubText ? "" : "",
+        subFontSize: 18.0,
       ),
       SharedLists.emptyItem,
     ];
   }
 
-  static List<RotatingTextData> consultationTalkingSymbols = [
-    SharedLists.customTapToConfirmSub(
-      "This is you",
-      subTextFontSize: 18.0,
+  static List<RotatingTextData> soloHybridInstructions = [
+    ...speakingHalfInstructionsPrimary(
+      isHybrid: true,
+      isHoldToTalk: false,
+      showSubText: true,
     ),
+    ...getNotesHalfInstructionsPrimary(
+      isHybrid: true,
+      showSubText: true,
+    ),
+    // thisIsYou,
+    // SharedLists.customTapToConfirmSub(
+    //   "That is your collaborator",
+    //   subTextFontSize: 18.0,
+    // ),
+    // SharedLists.customTapToConfirmSub(
+    //   "One phone will be used for speaking",
+    //   subTextFontSize: 18.0,
+    // ),
+    // SharedLists.emptyItem,
+  ];
+
+  static RotatingTextData thisIsYou = SharedLists.customTapToConfirmSub(
+    "This is you",
+    subTextFontSize: 18.0,
+  );
+
+  static List<RotatingTextData> consultationTalkingSymbols = [
+    thisIsYou,
     SharedLists.customTapToConfirmSub(
       "That is your collaborator",
       subTextFontSize: 18.0,
     ),
     SharedLists.customTapToConfirmSub(
       "One phone will be used for speaking",
+      subTextFontSize: 18.0,
+    ),
+    SharedLists.emptyItem,
+  ];
+
+  static List<RotatingTextData> collaborationFullInstructions = [
+    thisIsYou,
+    SharedLists.customTapToConfirmSub(
+      "Your phone will be used to talk and take notes",
       subTextFontSize: 18.0,
     ),
     SharedLists.emptyItem,
@@ -298,6 +345,7 @@ class SessionLists {
 
   static List<RotatingTextData> getNotesHalfInstructionsPrimary({
     required bool isHybrid,
+    bool showSubText = false,
   }) {
     String phoneOrSide = isHybrid ? "side" : "phone";
     final arr = [
@@ -305,11 +353,15 @@ class SessionLists {
         text: "This $phoneOrSide will be used for notes",
         pauseHere: true,
         mainFontSize: 22.0,
+        subText: showSubText ? "Tap to confirm" : "",
+        subFontSize: 18.0,
       ),
       RotatingTextData(
         text: "To complete the session swipe down on all the phones",
         pauseHere: true,
         mainFontSize: 22.0,
+        subText: showSubText ? "Tap to confirm" : "",
+        subFontSize: 18.0,
       ),
       SharedLists.emptyItem,
     ];
