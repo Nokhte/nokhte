@@ -38,6 +38,9 @@ mixin SessionConstants {
   static const relativeSoloHybridInstructions = '/solo_hybrid_instructions';
   static const soloHybridInstructions =
       '$module$instructionsModule$relativeSoloHybridInstructions';
+  static const relativeCollaborationJustSymbols = '/collaboration_just_symbols';
+  static const collaborationJustSymbols =
+      '$module$instructionsModule$relativeCollaborationJustSymbols';
   //
 
   static const relativeLobby = '/lobby';

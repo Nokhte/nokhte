@@ -273,6 +273,14 @@ class SessionLists {
     SharedLists.emptyItem,
   ];
 
+  static List<RotatingTextData> collaborationJustSymbols = [
+    SharedLists.customTapToConfirmSub(
+      "You can be anywhere in the room",
+      subTextFontSize: 18.0,
+    ),
+    SharedLists.emptyItem,
+  ];
+
   static List<RotatingTextData> consultationNotesSymbols = [
     SharedLists.customTapToConfirmSub(
       "Another phone will be used for notes",

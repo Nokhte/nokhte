@@ -23,6 +23,15 @@ class SessionWidgetsModule extends Module {
   }
 
   injectInstructions(i) {
+    i.add<CollaborationJustSymbolsWidgetsCoordinator>(
+      () => CollaborationJustSymbolsWidgetsCoordinator(
+        smartText: SmartTextStore(),
+        touchRipple: TouchRippleStore(),
+        beachWaves: BeachWavesStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        presetDiagram: PresetDiagramStore(),
+      ),
+    );
     i.add<SoloHybridInstructionsWidgetsCoordinator>(
       () => SoloHybridInstructionsWidgetsCoordinator(
         smartText: SmartTextStore(),

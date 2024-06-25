@@ -18,6 +18,14 @@ class SessionInstructionsModule extends Module {
       ];
   @override
   binds(i) {
+    i.add<CollaborationJustSymbolsCoordinator>(
+      () => CollaborationJustSymbolsCoordinator(
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        widgets: Modular.get<CollaborationJustSymbolsWidgetsCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        tap: TapDetector(),
+      ),
+    );
     i.add<ShowGroupGeometryCoordinator>(
       () => ShowGroupGeometryCoordinator(
         presence: Modular.get<SessionPresenceCoordinator>(),
@@ -93,6 +101,13 @@ class SessionInstructionsModule extends Module {
 
   @override
   routes(r) {
+    r.child(
+      SessionConstants.relativeCollaborationJustSymbols,
+      transition: TransitionType.noTransition,
+      child: (context) => CollaborationJustSymbolsScreen(
+        coordinator: Modular.get<CollaborationJustSymbolsCoordinator>(),
+      ),
+    );
     r.child(
       SessionConstants.relativeSoloHybridInstructions,
       transition: TransitionType.noTransition,
