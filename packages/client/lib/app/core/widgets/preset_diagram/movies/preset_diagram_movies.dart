@@ -1108,7 +1108,6 @@ class PresetDiagramMovies with MovieUtils {
             begin: Colors.white,
             end: const Color(0xFFF5DC91),
           ),
-          curve: Curves.easeInOutCubicEmphasized,
         )
         .tween(
           'c1.co2',
@@ -1116,7 +1115,6 @@ class PresetDiagramMovies with MovieUtils {
             begin: Colors.white,
             end: const Color(0xFFFFFFDC),
           ),
-          curve: Curves.easeInOutCubicEmphasized,
         )
         .tween(
           'c1.co3',
@@ -1124,7 +1122,6 @@ class PresetDiagramMovies with MovieUtils {
             begin: Colors.white,
             end: const Color(0xFFFAF2C3),
           ),
-          curve: Curves.easeInOutCubicEmphasized,
         )
         .tween(
           'c1.co4',
@@ -1132,7 +1129,6 @@ class PresetDiagramMovies with MovieUtils {
             begin: Colors.white,
             end: const Color(0xFFF9EFB7),
           ),
-          curve: Curves.easeInOutCubicEmphasized,
         )
         .tween(
           'c1.co5',
@@ -1140,7 +1136,6 @@ class PresetDiagramMovies with MovieUtils {
             begin: Colors.white,
             end: const Color(0xFF53DCE3),
           ),
-          curve: Curves.easeInOutCubicEmphasized,
         )
         .tween(
           'c1.co6',
@@ -1148,7 +1143,6 @@ class PresetDiagramMovies with MovieUtils {
             begin: Colors.white,
             end: const Color(0xFF4FD9E8),
           ),
-          curve: Curves.easeInOutCubicEmphasized,
         )
         .tween(
           'c1.co7',
@@ -1156,7 +1150,6 @@ class PresetDiagramMovies with MovieUtils {
             begin: Colors.white,
             end: const Color(0xFF49D6EF),
           ),
-          curve: Curves.easeInOutCubicEmphasized,
         )
         .tween(
           'c1.co8',
@@ -1164,7 +1157,6 @@ class PresetDiagramMovies with MovieUtils {
             begin: Colors.white,
             end: const Color(0xFF43D3F5),
           ),
-          curve: Curves.easeInOutCubicEmphasized,
         )
         .tween(
           'c1.st1',
@@ -1172,7 +1164,6 @@ class PresetDiagramMovies with MovieUtils {
             begin: 0,
             end: 0,
           ),
-          curve: Curves.easeInOutCubicEmphasized,
         )
         .tween(
           'c1.st2',
@@ -1180,7 +1171,6 @@ class PresetDiagramMovies with MovieUtils {
             begin: 0,
             end: 0.19,
           ),
-          curve: Curves.easeInOutCubicEmphasized,
         )
         .tween(
           'c1.st3',
@@ -1188,7 +1178,6 @@ class PresetDiagramMovies with MovieUtils {
             begin: 0,
             end: 0.38,
           ),
-          curve: Curves.easeInOutCubicEmphasized,
         )
         .tween(
           'c1.st4',
@@ -1196,7 +1185,6 @@ class PresetDiagramMovies with MovieUtils {
             begin: 0,
             end: 0.47,
           ),
-          curve: Curves.easeInOutCubicEmphasized,
         )
         .tween(
           'c1.st5',
@@ -1204,7 +1192,6 @@ class PresetDiagramMovies with MovieUtils {
             begin: 0,
             end: 0.68,
           ),
-          curve: Curves.easeInOutCubicEmphasized,
         )
         .tween(
           'c1.st6',
@@ -1212,7 +1199,6 @@ class PresetDiagramMovies with MovieUtils {
             begin: 0,
             end: 0.79,
           ),
-          curve: Curves.easeInOutCubicEmphasized,
         )
         .tween(
           'c1.st7',
@@ -1220,7 +1206,6 @@ class PresetDiagramMovies with MovieUtils {
             begin: 0,
             end: 0.9,
           ),
-          curve: Curves.easeInOutCubicEmphasized,
         )
         .tween(
           'c1.st8',
@@ -1228,7 +1213,6 @@ class PresetDiagramMovies with MovieUtils {
             begin: 0,
             end: 1.00,
           ),
-          curve: Curves.easeInOutCubicEmphasized,
         );
 }
 
