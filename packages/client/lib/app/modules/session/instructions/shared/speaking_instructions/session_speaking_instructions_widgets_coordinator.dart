@@ -16,7 +16,6 @@ class SessionSpeakingInstructionsWidgetsCoordinator = _SessionSpeakingInstructio
 abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final MirroredTextStore mirroredText;
-  final SmartTextStore errorSmartText;
   final BeachWavesStore beachWaves;
   final TouchRippleStore touchRipple;
   final BorderGlowStore borderGlow;
@@ -26,7 +25,6 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
     required this.beachWaves,
     required super.wifiDisconnectOverlay,
     required this.touchRipple,
-    required this.errorSmartText,
     required this.borderGlow,
     required this.holdTimerIndicator,
   });
@@ -64,11 +62,6 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
     mirroredText.setMessagesData(
       MirroredTextContent.sessionSpeakingInstructions,
     );
-    errorSmartText.setWidgetVisibility(false);
-    errorSmartText.setMessagesData(
-      SessionLists.speakingInstructionsError,
-    );
-    errorSmartText.startRotatingText();
     initReactors();
     mirroredText.startBothRotatingText();
     cooldownStopwatch.start();

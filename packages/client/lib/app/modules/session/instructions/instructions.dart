@@ -26,6 +26,23 @@ class SessionInstructionsModule extends Module {
         tap: TapDetector(),
       ),
     );
+    i.add<CollaborationFullInstructionsCoordinator>(
+      () => CollaborationFullInstructionsCoordinator(
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        widgets: Modular.get<CollaborationFullInstructionsWidgetsCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        tap: TapDetector(),
+      ),
+    );
+
+    i.add<SoloHybridInstructionsCoordinator>(
+      () => SoloHybridInstructionsCoordinator(
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        widgets: Modular.get<SoloHybridInstructionsWidgetsCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        tap: TapDetector(),
+      ),
+    );
 
     i.add<ConsultationNotesSymbolsCoordinator>(
       () => ConsultationNotesSymbolsCoordinator(
@@ -76,6 +93,20 @@ class SessionInstructionsModule extends Module {
 
   @override
   routes(r) {
+    r.child(
+      SessionConstants.relativeSoloHybridInstructions,
+      transition: TransitionType.noTransition,
+      child: (context) => SoloHybridInstructionsScreen(
+        coordinator: Modular.get<SoloHybridInstructionsCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionConstants.relativeCollaborationFullInstructions,
+      transition: TransitionType.noTransition,
+      child: (context) => CollaborationFullInstructionsScreen(
+        coordinator: Modular.get<CollaborationFullInstructionsCoordinator>(),
+      ),
+    );
     r.child(
       SessionConstants.relativeConsultationJustSymbols,
       transition: TransitionType.noTransition,

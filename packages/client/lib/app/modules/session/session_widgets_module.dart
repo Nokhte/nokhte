@@ -23,6 +23,25 @@ class SessionWidgetsModule extends Module {
   }
 
   injectInstructions(i) {
+    i.add<SoloHybridInstructionsWidgetsCoordinator>(
+      () => SoloHybridInstructionsWidgetsCoordinator(
+        smartText: SmartTextStore(),
+        touchRipple: TouchRippleStore(),
+        beachWaves: BeachWavesStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        borderGlow: BorderGlowStore(),
+        holdTimerIndicator: HoldTimerIndicatorStore(),
+      ),
+    );
+    i.add<CollaborationFullInstructionsWidgetsCoordinator>(
+      () => CollaborationFullInstructionsWidgetsCoordinator(
+        presetDiagram: PresetDiagramStore(),
+        smartText: SmartTextStore(),
+        touchRipple: TouchRippleStore(),
+        beachWaves: BeachWavesStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+      ),
+    );
     i.add<ShowGroupGeometryWidgetsCoordinator>(
       () => ShowGroupGeometryWidgetsCoordinator(
         presetDiagram: PresetDiagramStore(),
@@ -71,7 +90,6 @@ class SessionWidgetsModule extends Module {
     i.add<SessionSpeakingInstructionsWidgetsCoordinator>(
       () => SessionSpeakingInstructionsWidgetsCoordinator(
         holdTimerIndicator: HoldTimerIndicatorStore(),
-        errorSmartText: SmartTextStore(),
         touchRipple: TouchRippleStore(),
         mirroredText: Modular.get<MirroredTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
