@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -13,13 +13,15 @@ class ConsultationNotesSymbolsWidgetsCoordinator = _ConsultationNotesSymbolsWidg
     with _$ConsultationNotesSymbolsWidgetsCoordinator;
 
 abstract class _ConsultationNotesSymbolsWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, BaseWidgetsCoordinator, Disposer {
   final PresetDiagramStore presetDiagram;
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final TouchRippleStore touchRipple;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
+
   _ConsultationNotesSymbolsWidgetsCoordinatorBase({
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.presetDiagram,
     required this.beachWaves,
     required this.smartText,

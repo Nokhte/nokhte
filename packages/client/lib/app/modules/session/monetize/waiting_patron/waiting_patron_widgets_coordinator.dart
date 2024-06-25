@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -14,15 +14,17 @@ class WaitingPatronWidgetsCoordinator = _WaitingPatronWidgetsCoordinatorBase
     with _$WaitingPatronWidgetsCoordinator;
 
 abstract class _WaitingPatronWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, BaseWidgetsCoordinator, SmartTextPaddingAdjuster {
   final BeachWavesStore beachWaves;
   final TintStore tint;
   final GestureCrossStore gestureCross;
   final NokhteGradientTextStore nokhteGradientText;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
+
   _WaitingPatronWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.nokhteGradientText,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.tint,
     required this.gestureCross,
   });

@@ -1,7 +1,8 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -12,15 +13,16 @@ part 'session_preview_coordinator.g.dart';
 class SessionPreviewCoordinator = _SessionPreviewCoordinatorBase
     with _$SessionPreviewCoordinator;
 
-abstract class _SessionPreviewCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _SessionPreviewCoordinatorBase
+    with Store, BaseCoordinator, Disposer {
   final SessionPreviewWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
+  final CaptureScreen captureScreen;
 
   _SessionPreviewCoordinatorBase({
-    required super.captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,

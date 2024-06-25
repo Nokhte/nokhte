@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -15,7 +15,7 @@ class SessionGroupGreeterWidgetsCoordinator = _SessionGroupGreeterWidgetsCoordin
     with _$SessionGroupGreeterWidgetsCoordinator;
 
 abstract class _SessionGroupGreeterWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, BaseWidgetsCoordinator, Disposer, SmartTextPaddingAdjuster {
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
@@ -23,10 +23,11 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
   final SessionSeatingGuideStore sessionSeatingGuide;
   final TintStore tint;
   final SessionPhonePlacementGuideStore sessionPhonePlacementGuide;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionGroupGreeterWidgetsCoordinatorBase({
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.sessionPhonePlacementGuide,
     required this.secondarySmartText,

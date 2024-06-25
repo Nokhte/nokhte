@@ -1,7 +1,8 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
@@ -11,12 +12,12 @@ part 'home_screen_root_router_coordinator.g.dart';
 class HomeScreenRootRouterCoordinator = _HomeScreenRootRouterCoordinatorBase
     with _$HomeScreenRootRouterCoordinator;
 
-abstract class _HomeScreenRootRouterCoordinatorBase
-    extends BaseHomeScreenRouterCoordinator with Store {
+abstract class _HomeScreenRootRouterCoordinatorBase with Store, HomeRouter {
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final HomeScreenRootRouterWidgetsCoordinator widgets;
   final SessionStartersLogicCoordinator sessionStarters;
   final UserMetadataCoordinator userMetadata;
+  final GetUserInfoStore getUserInfo;
 
   @observable
   bool isConnected = true;
@@ -27,10 +28,9 @@ abstract class _HomeScreenRootRouterCoordinatorBase
   _HomeScreenRootRouterCoordinatorBase({
     required this.cleanUpCollaborationArtifacts,
     required this.userMetadata,
-    required super.getUserInfo,
+    required this.getUserInfo,
     required this.sessionStarters,
     required this.widgets,
-    required super.captureScreen,
   });
 
   @action

@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -10,8 +10,8 @@ part 'storage_home_widgets_coordinator.g.dart';
 class StorageHomeWidgetsCoordinator = _StorageHomeWidgetsCoordinatorBase
     with _$StorageHomeWidgetsCoordinator;
 
-abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
-    with Store {
+abstract class _StorageHomeWidgetsCoordinatorBase
+    with Store, BaseWidgetsCoordinator, Disposer, SmartTextPaddingAdjuster {
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
   final SessionCardStore sessionCard;
@@ -20,8 +20,10 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final InstructionalGradientNokhteStore primaryInstructionalGradientNokhte;
   final NokhteBlurStore blur;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
+
   _StorageHomeWidgetsCoordinatorBase({
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.beachWaves,
     required this.gestureCross,
     required this.primarySmartText,
@@ -31,6 +33,9 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     required this.primaryInstructionalGradientNokhte,
     required this.blur,
   });
+
+  @observable
+  Offset center = Offset.zero;
 
   @action
   constructor(Offset offset) {

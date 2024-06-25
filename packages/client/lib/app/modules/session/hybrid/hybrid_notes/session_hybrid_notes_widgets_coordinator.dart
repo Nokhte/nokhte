@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -13,15 +13,17 @@ class SessionHybridNotesWidgetsCoordinator = _SessionHybridNotesWidgetsCoordinat
     with _$SessionHybridNotesWidgetsCoordinator;
 
 abstract class _SessionHybridNotesWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, BaseWidgetsCoordinator, Disposer {
   final BeachWavesStore beachWaves;
   final TouchRippleStore touchRipple;
   final TextEditorStore textEditor;
   final SmartTextStore smartText;
   final BorderGlowStore borderGlow;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
+
   _SessionHybridNotesWidgetsCoordinatorBase({
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.textEditor,
     required this.smartText,

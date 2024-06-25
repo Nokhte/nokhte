@@ -1,5 +1,6 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/movie_status.dart';
@@ -11,13 +12,15 @@ class SocraticJustSymbolsWidgetsCoordinator = _SocraticJustSymbolsWidgetsCoordin
     with _$SocraticJustSymbolsWidgetsCoordinator;
 
 abstract class _SocraticJustSymbolsWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, BaseWidgetsCoordinator, Disposer {
   final PresetDiagramStore presetDiagram;
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final TouchRippleStore touchRipple;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
+
   _SocraticJustSymbolsWidgetsCoordinatorBase({
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.presetDiagram,
     required this.beachWaves,
     required this.smartText,

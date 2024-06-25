@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class SessionStarterWidgetsCoordinator = _SessionStarterWidgetsCoordinatorBase
     with _$SessionStarterWidgetsCoordinator;
 
 abstract class _SessionStarterWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, BaseWidgetsCoordinator, SmartTextPaddingAdjuster, Disposer {
   final BeachWavesStore beachWaves;
   final SmartTextStore secondarySmartText;
   final SmartTextStore primarySmartText;
@@ -29,6 +29,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   final PresetIconsStore presetIcons;
   final NokhteBlurStore nokhteBlur;
   final NokhteQrCodeStore qrCode;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionStarterWidgetsCoordinatorBase({
     required this.beachWaves,
@@ -37,7 +38,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     required this.gestureCross,
     required this.primarySmartText,
     required this.secondarySmartText,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.centerInstructionalNokhte,
     required this.homeInstructionalNokhte,
     required this.presetsInstructionalNokhte,
@@ -69,6 +70,9 @@ abstract class _SessionStarterWidgetsCoordinatorBase
 
   @observable
   bool invitationIsSent = false;
+
+  @observable
+  Offset center = Offset.zero;
 
   @observable
   ObservableList<Widget> tags = ObservableList.of([]);

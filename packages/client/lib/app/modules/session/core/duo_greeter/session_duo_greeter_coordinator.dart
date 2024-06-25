@@ -1,9 +1,10 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -13,15 +14,16 @@ part 'session_duo_greeter_coordinator.g.dart';
 class SessionDuoGreeterCoordinator = _SessionDuoGreeterCoordinatorBase
     with _$SessionDuoGreeterCoordinator;
 
-abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _SessionDuoGreeterCoordinatorBase
+    with Store, BaseCoordinator, Disposer {
   final SessionDuoGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
+  final CaptureScreen captureScreen;
 
   _SessionDuoGreeterCoordinatorBase({
-    required super.captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,

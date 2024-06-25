@@ -11,8 +11,7 @@ part 'session_starters_logic_coordinator.g.dart';
 class SessionStartersLogicCoordinator = _SessionStartersLogicCoordinatorBase
     with _$SessionStartersLogicCoordinator;
 
-abstract class _SessionStartersLogicCoordinatorBase extends BaseMobxDBStore
-    with Store {
+abstract class _SessionStartersLogicCoordinatorBase with Store, BaseMobxLogic {
   final CancelSessionActivationStream cancelStreamLogic;
   final InitializeSession initializeSessionLogic;
   final JoinSession joinSessionLogic;
@@ -27,7 +26,6 @@ abstract class _SessionStartersLogicCoordinatorBase extends BaseMobxDBStore
     required this.listenToSessionActivationLogic,
   });
 
-  @override
   String mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
       case const (NetworkConnectionFailure):
@@ -91,7 +89,7 @@ abstract class _SessionStartersLogicCoordinatorBase extends BaseMobxDBStore
   listenToSessionActivation() async {
     nokhteSessionSearchStatusIsListening = true;
     final result = await listenToSessionActivationLogic(NoParams());
-    result.fold((failure) => errorUpdater(failure), (stream) {
+    result.fold((failure) => baseErrorUpdater(failure), (stream) {
       nokhteSearchStatus = ObservableStream(stream);
       nokhteSubscription = nokhteSearchStatus.listen((value) {
         hasFoundNokhteSession = value;
@@ -102,21 +100,21 @@ abstract class _SessionStartersLogicCoordinatorBase extends BaseMobxDBStore
   @action
   initialize() async {
     final result = await initializeSessionLogic(NoParams());
-    result.fold((failure) => errorUpdater(failure),
+    result.fold((failure) => baseErrorUpdater(failure),
         (entryStatus) => hasJoined = entryStatus);
   }
 
   @action
   join(String collaboratorUID) async {
     final result = await joinSessionLogic(collaboratorUID);
-    result.fold((failure) => errorUpdater(failure),
+    result.fold((failure) => baseErrorUpdater(failure),
         (entryStatus) => hasJoined = entryStatus);
   }
 
   @action
   nuke() async {
     final result = await nukeSessionLogic(NoParams());
-    result.fold((failure) => errorUpdater(failure),
+    result.fold((failure) => baseErrorUpdater(failure),
         (nukeStatus) => hasNuked = nukeStatus);
   }
 }

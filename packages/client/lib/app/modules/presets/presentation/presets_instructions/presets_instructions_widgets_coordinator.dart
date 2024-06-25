@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -13,7 +13,7 @@ class PresetsInstructionsWidgetsCoordinator = _PresetsInstructionsWidgetsCoordin
     with _$PresetsInstructionsWidgetsCoordinator;
 
 abstract class _PresetsInstructionsWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, BaseWidgetsCoordinator, SmartTextPaddingAdjuster, Disposer {
   final BeachWavesStore beachWaves;
   final SmartTextStore headerText;
   final SmartTextStore smartText;
@@ -22,6 +22,7 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
   final CondensedPresetCardsStore condensedPresetCards;
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final NokhteBlurStore blur;
 
   _PresetsInstructionsWidgetsCoordinatorBase({
@@ -33,12 +34,15 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
     required this.smartText,
     required this.presetCards,
     required this.blur,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
   }) : condensedPresetCards = presetCards.condensed {
     setSmartTextTopPaddingScalar(0);
     setSmartTextBottomPaddingScalar(.1);
     setSmartTextSubMessagePaddingScalar(110);
   }
+
+  @observable
+  Offset center = Offset.zero;
 
   @action
   constructor(Offset centerParam) {

@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 // import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -11,15 +11,16 @@ class SessionDuoGreeterWidgetsCoordinator = _SessionDuoGreeterWidgetsCoordinator
     with _$SessionDuoGreeterWidgetsCoordinator;
 
 abstract class _SessionDuoGreeterWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, BaseWidgetsCoordinator {
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final TouchRippleStore touchRipple;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionDuoGreeterWidgetsCoordinatorBase({
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.touchRipple,

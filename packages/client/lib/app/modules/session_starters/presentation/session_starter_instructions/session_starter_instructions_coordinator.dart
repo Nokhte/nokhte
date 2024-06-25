@@ -1,8 +1,9 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
@@ -12,18 +13,19 @@ class SessionStarterInstructionsCoordinator = _SessionStarterInstructionsCoordin
     with _$SessionStarterInstructionsCoordinator;
 
 abstract class _SessionStarterInstructionsCoordinatorBase
-    extends BaseCoordinator with Store {
+    with Store, BaseCoordinator, Disposer {
   final SessionStarterInstructionsWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final TapDetector tap;
   final SessionStartersLogicCoordinator logic;
+  final CaptureScreen captureScreen;
 
   _SessionStarterInstructionsCoordinatorBase({
     required this.widgets,
     required this.tap,
     required this.swipe,
     required this.logic,
-    required super.captureScreen,
+    required this.captureScreen,
   });
 
   @observable

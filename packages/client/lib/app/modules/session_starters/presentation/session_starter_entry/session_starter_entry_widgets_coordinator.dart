@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -9,14 +9,15 @@ class SessionStarterEntryWidgetsCoordinator = _SessionStarterEntryWidgetsCoordin
     with _$SessionStarterEntryWidgetsCoordinator;
 
 abstract class _SessionStarterEntryWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, BaseWidgetsCoordinator {
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionStarterEntryWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.gestureCross,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
   });
 
   @action

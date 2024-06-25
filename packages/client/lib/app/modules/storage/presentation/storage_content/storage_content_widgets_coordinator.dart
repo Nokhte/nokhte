@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -13,7 +13,7 @@ class StorageContentWidgetsCoordinator = _StorageContentWidgetsCoordinatorBase
     with _$StorageContentWidgetsCoordinator;
 
 abstract class _StorageContentWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, BaseWidgetsCoordinator, Disposer, SmartTextPaddingAdjuster {
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
   final ContentCardStore contentCard;
@@ -21,8 +21,10 @@ abstract class _StorageContentWidgetsCoordinatorBase
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final InstructionalGradientNokhteStore primaryInstructionalGradientNokhte;
   final NokhteBlurStore blur;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
+
   _StorageContentWidgetsCoordinatorBase({
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.beachWaves,
     required this.gestureCross,
     required this.smartText,
@@ -31,6 +33,9 @@ abstract class _StorageContentWidgetsCoordinatorBase
     required this.primaryInstructionalGradientNokhte,
     required this.blur,
   });
+
+  @observable
+  Offset center = Offset.zero;
 
   @action
   constructor(Offset offset) {

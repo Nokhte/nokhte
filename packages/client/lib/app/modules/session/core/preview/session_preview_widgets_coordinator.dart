@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 // import 'dart:async';
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -11,15 +11,16 @@ class SessionPreviewWidgetsCoordinator = _SessionPreviewWidgetsCoordinatorBase
     with _$SessionPreviewWidgetsCoordinator;
 
 abstract class _SessionPreviewWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, BaseWidgetsCoordinator, SmartTextPaddingAdjuster, Disposer {
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
   final TouchRippleStore touchRipple;
   final ExpandedPresetCardsStore presetCard;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionPreviewWidgetsCoordinatorBase({
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.presetCard,
     required this.touchRipple,

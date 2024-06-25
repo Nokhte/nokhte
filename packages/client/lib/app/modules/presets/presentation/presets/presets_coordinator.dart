@@ -1,6 +1,7 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -10,16 +11,17 @@ part 'presets_coordinator.g.dart';
 
 class PresetsCoordinator = _PresetsCoordinatorBase with _$PresetsCoordinator;
 
-abstract class _PresetsCoordinatorBase extends BaseCoordinator with Store {
+abstract class _PresetsCoordinatorBase with Store, BaseCoordinator, Disposer {
   final PresetsWidgetsCoordinator widgets;
   final PresetsLogicCoordinator logic;
   final SwipeDetector swipe;
   final UserInformationCoordinator userInformation;
   final TapDetector tap;
+  final CaptureScreen captureScreen;
 
   _PresetsCoordinatorBase({
     required this.widgets,
-    required super.captureScreen,
+    required this.captureScreen,
     required this.logic,
     required this.swipe,
     required this.tap,

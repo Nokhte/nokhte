@@ -8,8 +8,7 @@ part 'user_metadata_coordinator.g.dart';
 class UserMetadataCoordinator = _UserMetadataCoordinatorBase
     with _$UserMetadataCoordinator;
 
-abstract class _UserMetadataCoordinatorBase
-    extends BaseMobxDBStore<NoParams, bool> with Store {
+abstract class _UserMetadataCoordinatorBase with Store, BaseMobxLogic {
   final AddUserMetadata addUserMetadataLogic;
   final GetUserMetadata getUserMetadataLogic;
 
@@ -31,7 +30,7 @@ abstract class _UserMetadataCoordinatorBase
   getMetadata() async {
     final res = await getUserMetadataLogic(NoParams());
     res.fold((failure) {
-      errorMessage = mapFailureToMessage(failure);
+      errorMessage = baseMapFailureToMessage(failure);
       state = StoreState.initial;
     }, (metadataEntity) {
       hasUsedTrial = metadataEntity.hasUsedTrial;
@@ -45,7 +44,7 @@ abstract class _UserMetadataCoordinatorBase
     state = StoreState.loading;
     final res = await addUserMetadataLogic(NoParams());
     res.fold((failure) {
-      errorMessage = mapFailureToMessage(failure);
+      errorMessage = baseMapFailureToMessage(failure);
       state = StoreState.initial;
     }, (status) {
       hasAddedMetadata = status;

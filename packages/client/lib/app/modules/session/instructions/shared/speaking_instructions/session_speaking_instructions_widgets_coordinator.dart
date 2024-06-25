@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -14,16 +14,18 @@ class SessionSpeakingInstructionsWidgetsCoordinator = _SessionSpeakingInstructio
     with _$SessionSpeakingInstructionsWidgetsCoordinator;
 
 abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, BaseWidgetsCoordinator, Disposer {
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
   final TouchRippleStore touchRipple;
   final BorderGlowStore borderGlow;
   final HoldTimerIndicatorStore holdTimerIndicator;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
+
   _SessionSpeakingInstructionsWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.borderGlow,
     required this.holdTimerIndicator,

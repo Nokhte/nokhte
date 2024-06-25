@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -13,8 +13,8 @@ part 'presets_widgets_coordinator.g.dart';
 class PresetsWidgetsCoordinator = _PresetsWidgetsCoordinatorBase
     with _$PresetsWidgetsCoordinator;
 
-abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
-    with Store {
+abstract class _PresetsWidgetsCoordinatorBase
+    with Store, BaseWidgetsCoordinator, SmartTextPaddingAdjuster, Disposer {
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final GestureCrossStore gestureCross;
@@ -25,6 +25,7 @@ abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   final NokhteBlurStore nokhteBlur;
   final PresetCardsStore presetCards;
   final CondensedPresetCardsStore condensedPresetCards;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _PresetsWidgetsCoordinatorBase({
     required this.beachWaves,
@@ -33,7 +34,7 @@ abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     required this.headerText,
     required this.smartText,
     required this.presetCards,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.centerInstructionalNokhte,
     required this.sessionStarterInstructionalNokhte,
     required this.nokhteBlur,
@@ -61,8 +62,8 @@ abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   @observable
   bool instructionalNokhteAreVisible = false;
 
-  // so we need a way to know what their
-  // preferred is and pass it into here
+  @observable
+  Offset center = Offset.zero;
 
   @action
   constructor(Offset centerParam) {

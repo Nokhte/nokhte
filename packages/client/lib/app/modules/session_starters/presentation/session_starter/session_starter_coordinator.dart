@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -13,14 +14,16 @@ part 'session_starter_coordinator.g.dart';
 class SessionStarterCoordinator = _SessionStarterCoordinatorBase
     with _$SessionStarterCoordinator;
 
-abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _SessionStarterCoordinatorBase
+    with Store, BaseCoordinator, Disposer {
   final SessionStarterWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final TapDetector tap;
   final DeepLinksCoordinator deepLinks;
   final SessionStartersLogicCoordinator logic;
   final UserInformationCoordinator userInfo;
+  @override
+  final CaptureScreen captureScreen;
 
   _SessionStarterCoordinatorBase({
     required this.widgets,
@@ -29,7 +32,7 @@ abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
     required this.tap,
     required this.swipe,
     required this.logic,
-    required super.captureScreen,
+    required this.captureScreen,
   });
 
   @observable

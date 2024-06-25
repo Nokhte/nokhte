@@ -1,9 +1,9 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/mobx/base_widgets_coordinator.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'needs_update_widgets_coordinator.g.dart';
@@ -11,15 +11,16 @@ part 'needs_update_widgets_coordinator.g.dart';
 class NeedsUpdateWidgetsCoordinator = _NeedsUpdateWidgetsCoordinatorBase
     with _$NeedsUpdateWidgetsCoordinator;
 
-abstract class _NeedsUpdateWidgetsCoordinatorBase extends BaseWidgetsCoordinator
-    with Store {
+abstract class _NeedsUpdateWidgetsCoordinatorBase
+    with Store, BaseWidgetsCoordinator, Disposer {
   final GestureCrossStore gestureCross;
   final BeachWavesStore beachWaves;
   final TintStore tint;
   final NokhteGradientTextStore gradientText;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _NeedsUpdateWidgetsCoordinatorBase({
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.tint,
     required this.beachWaves,
     required this.gestureCross,

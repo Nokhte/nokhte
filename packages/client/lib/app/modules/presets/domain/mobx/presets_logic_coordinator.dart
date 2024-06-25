@@ -8,7 +8,7 @@ part 'presets_logic_coordinator.g.dart';
 class PresetsLogicCoordinator = _PresetsLogicCoordinatorBase
     with _$PresetsLogicCoordinator;
 
-abstract class _PresetsLogicCoordinatorBase extends BaseMobxDBStore with Store {
+abstract class _PresetsLogicCoordinatorBase with Store, BaseMobxLogic {
   final GetCompanyPresets getCompanyPresetsLogic;
 
   _PresetsLogicCoordinatorBase({
@@ -27,7 +27,7 @@ abstract class _PresetsLogicCoordinatorBase extends BaseMobxDBStore with Store {
   @action
   getCompanyPresets() async {
     final result = await getCompanyPresetsLogic(NoParams());
-    result.fold((failure) => errorUpdater(failure), (entity) {
+    result.fold((failure) => baseErrorUpdater(failure), (entity) {
       unifiedUIDs = ObservableList.of(entity.unifiedUIDs);
       tags = ObservableList.of(entity.tags);
       names = ObservableList.of(entity.names);

@@ -10,7 +10,7 @@ part 'gyroscopic_coordinator.g.dart';
 class GyroscopicCoordinator = _GyroscopicCoordinatorBase
     with _$GyroscopicCoordinator;
 
-abstract class _GyroscopicCoordinatorBase extends BaseMobxDBStore with Store {
+abstract class _GyroscopicCoordinatorBase with Store, BaseMobxLogic {
   final GetTiltStream getTiltStreamLogic;
   final CheckIfDeviceHasGyroscope checkIfDeviceHasGyroscopeLogic;
   _GyroscopicCoordinatorBase({

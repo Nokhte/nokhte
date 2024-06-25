@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 // import 'dart:async';
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -14,15 +14,16 @@ class SessionLobbyWidgetsCoordinator = _SessionLobbyWidgetsCoordinatorBase
     with _$SessionLobbyWidgetsCoordinator;
 
 abstract class _SessionLobbyWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, BaseWidgetsCoordinator, SmartTextPaddingAdjuster, Disposer {
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
   final NokhteQrCodeStore qrCode;
   final TouchRippleStore touchRipple;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionLobbyWidgetsCoordinatorBase({
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.qrCode,
     required this.touchRipple,

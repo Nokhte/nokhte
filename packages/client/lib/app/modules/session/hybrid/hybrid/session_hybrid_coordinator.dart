@@ -1,9 +1,10 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -14,16 +15,18 @@ part 'session_hybrid_coordinator.g.dart';
 class SessionHybridCoordinator = _SessionHybridCoordinatorBase
     with _$SessionHybridCoordinator;
 
-abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _SessionHybridCoordinatorBase
+    with Store, BaseCoordinator, Disposer {
   final SessionHybridWidgetsCoordinator widgets;
   final TapDetector tap;
   final SwipeDetector swipe;
   final HoldDetector hold;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
+  final CaptureScreen captureScreen;
+
   _SessionHybridCoordinatorBase({
-    required super.captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.swipe,
     required this.hold,

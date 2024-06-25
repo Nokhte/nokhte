@@ -8,8 +8,7 @@ part 'user_information_coordinator.g.dart';
 class UserInformationCoordinator = _UserInformationCoordinatorBase
     with _$UserInformationCoordinator;
 
-abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
-    with Store {
+abstract class _UserInformationCoordinatorBase with Store, BaseMobxLogic {
   final GetPreferredPreset getPreferredPresetLogic;
   final GetUserInfoStore getUserInfoStore;
   final UpdatePreferredPreset updatePreferredPresetLogic;
@@ -41,7 +40,7 @@ abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
   getPreferredPreset() async {
     state = StoreState.loading;
     final res = await getPreferredPresetLogic(NoParams());
-    res.fold((failure) => errorUpdater(failure),
+    res.fold((failure) => baseErrorUpdater(failure),
         (status) => preferredPreset = status);
     state = StoreState.loaded;
   }
@@ -50,7 +49,7 @@ abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
   updatePreferredPreset(String presetUID) async {
     state = StoreState.loading;
     final res = await updatePreferredPresetLogic(presetUID);
-    res.fold((failure) => errorUpdater(failure),
+    res.fold((failure) => baseErrorUpdater(failure),
         (status) => invitationFlowCompletionStatusIsUpdated = status);
     state = StoreState.loaded;
   }
@@ -59,11 +58,8 @@ abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
   updateHasEnteredStorage(bool newStatus) async {
     state = StoreState.loading;
     final res = await updateHasEnteredStorageLogic(newStatus);
-    res.fold((failure) => errorUpdater(failure),
+    res.fold((failure) => baseErrorUpdater(failure),
         (status) => storageStatusIsUpdated = status);
     state = StoreState.loaded;
   }
-
-  @override
-  List<Object> get props => [];
 }
