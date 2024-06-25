@@ -18,6 +18,22 @@ class SessionInstructionsModule extends Module {
       ];
   @override
   binds(i) {
+    i.add<SocraticJustSymbolsCoordinator>(
+      () => SocraticJustSymbolsCoordinator(
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        widgets: Modular.get<SocraticJustSymbolsWidgetsCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        tap: TapDetector(),
+      ),
+    );
+    i.add<SocraticFullInstructionsCoordinator>(
+      () => SocraticFullInstructionsCoordinator(
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        widgets: Modular.get<SocraticFullInstructionsWidgetsCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        tap: TapDetector(),
+      ),
+    );
     i.add<CollaborationJustSymbolsCoordinator>(
       () => CollaborationJustSymbolsCoordinator(
         presence: Modular.get<SessionPresenceCoordinator>(),
@@ -101,6 +117,20 @@ class SessionInstructionsModule extends Module {
 
   @override
   routes(r) {
+    r.child(
+      SessionConstants.relativeSocraticJustSymbols,
+      transition: TransitionType.noTransition,
+      child: (context) => SocraticJustSymbolsScreen(
+        coordinator: Modular.get<SocraticJustSymbolsCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionConstants.relativeSocraticFullInstructions,
+      transition: TransitionType.noTransition,
+      child: (context) => SocraticFullInstructionsScreen(
+        coordinator: Modular.get<SocraticFullInstructionsCoordinator>(),
+      ),
+    );
     r.child(
       SessionConstants.relativeCollaborationJustSymbols,
       transition: TransitionType.noTransition,

@@ -66,12 +66,9 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase
   @action
   onComplete() {
     if (sessionMetadata.presetType == PresetTypes.consultative) {
-      //
       Modular.to.navigate(SessionConstants.consultationNotesSymbols);
     } else {
-      Modular.to.navigate(SessionConstants.consultationNotesSymbols);
-      // Modular.to.navigate(SessionConstants.showGroupGeometry);
-      //
+      Modular.to.navigate(SessionConstants.showGroupGeometry);
     }
   }
 

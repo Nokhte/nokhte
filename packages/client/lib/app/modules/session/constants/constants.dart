@@ -41,6 +41,12 @@ mixin SessionConstants {
   static const relativeCollaborationJustSymbols = '/collaboration_just_symbols';
   static const collaborationJustSymbols =
       '$module$instructionsModule$relativeCollaborationJustSymbols';
+  static const relativeSocraticFullInstructions = '/socratic_full_instructions';
+  static const socraticFullInstructions =
+      '$module$instructionsModule$relativeSocraticFullInstructions';
+  static const relativeSocraticJustSymbols = '/socratic_just_symbols';
+  static const socraticJustSymbols =
+      '$module$instructionsModule$relativeSocraticJustSymbols';
   //
 
   static const relativeLobby = '/lobby';
