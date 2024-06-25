@@ -34,10 +34,6 @@ class SessionCoreModule extends Module {
   void exportedBinds(i) {
     i.add<SessionPreviewCoordinator>(
       () => SessionPreviewCoordinator(
-        captureStart: Modular.get<CaptureNokhteSessionStart>(),
-        activeMonetizationSession:
-            Modular.get<ActiveMonetizationSessionCoordinator>(),
-        deepLinks: Modular.get<DeepLinksCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         tap: TapDetector(),

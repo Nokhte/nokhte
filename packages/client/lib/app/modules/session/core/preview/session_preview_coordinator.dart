@@ -1,12 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
-import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
@@ -21,18 +18,12 @@ abstract class _SessionPreviewCoordinatorBase extends BaseCoordinator
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
-  final DeepLinksCoordinator deepLinks;
-  final ActiveMonetizationSessionCoordinator activeMonetizationSession;
-  final CaptureNokhteSessionStart captureStart;
 
   _SessionPreviewCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
-    required this.deepLinks,
-    required this.captureStart,
     required this.tap,
     required this.presence,
-    required this.activeMonetizationSession,
   }) : sessionMetadata = presence.sessionMetadataStore;
 
   @observable
@@ -47,21 +38,6 @@ abstract class _SessionPreviewCoordinatorBase extends BaseCoordinator
   }
 
   @action
-  onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-  }
-
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
-  }
-
-  @action
   initReactors() {
     disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
@@ -72,18 +48,9 @@ abstract class _SessionPreviewCoordinatorBase extends BaseCoordinator
         setDisableAllTouchFeedback(true);
       },
     ));
-    disposers.add(presence.initReactors(
-      onCollaboratorJoined: () {
-        setDisableAllTouchFeedback(false);
-        widgets.onCollaboratorJoined();
-      },
-      onCollaboratorLeft: () {
-        setDisableAllTouchFeedback(true);
-        widgets.onCollaboratorLeft();
-      },
-    ));
     disposers.add(tapReactor());
     disposers.add(sessionPresetInfoReactor());
+    disposers.add(rippleMovieStatusReactor());
   }
 
   sessionPresetInfoReactor() =>
@@ -94,30 +61,15 @@ abstract class _SessionPreviewCoordinatorBase extends BaseCoordinator
         );
       });
 
-  tapReactor() => reaction(
-        (p0) => tap.tapCount,
-        (p0) => ifTouchIsNotDisabled(() async {
-          widgets.onTap(
-            tap.currentTapPosition,
-            onTap: () async {},
-          );
-        }),
-      );
+  tapReactor() => reaction((p0) => tap.currentTapPosition,
+      (p0) => ifTouchIsNotDisabled(() => widgets.onTap(p0)));
 
-  @action
-  enterGreeter() => Modular.to.navigate(route);
-
-  String chooseInstructionType({
-    required String fullInstructionsPath,
-    required String justSymbolsPath,
-  }) {
-    if (sessionMetadata.instructionType ==
-        SessionInstructionTypes.fullInstructions) {
-      return fullInstructionsPath;
-    } else {
-      return justSymbolsPath;
-    }
-  }
+  rippleMovieStatusReactor() =>
+      reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          Modular.to.navigate(route, arguments: {});
+        }
+      });
 
   @computed
   String get route {
@@ -126,23 +78,35 @@ abstract class _SessionPreviewCoordinatorBase extends BaseCoordinator
       return SessionConstants.lobby;
     } else {
       if (sessionMetadata.presetType == PresetTypes.collaborative) {
-        return chooseInstructionType(
+        return _chooseInstructionType(
           fullInstructionsPath: SessionConstants.collaborationFullInstructions,
           justSymbolsPath: SessionConstants.collaborationJustSymbols,
         );
       } else if (sessionMetadata.presetType == PresetTypes.consultative) {
-        return chooseInstructionType(
+        return _chooseInstructionType(
           fullInstructionsPath: SessionConstants.consultationSpeakingSymbols,
           justSymbolsPath: SessionConstants.consultationJustSymbols,
         );
       } else if (sessionMetadata.presetType == PresetTypes.socratic) {
-        return chooseInstructionType(
+        return _chooseInstructionType(
           fullInstructionsPath: SessionConstants.socraticFullInstructions,
           justSymbolsPath: SessionConstants.socraticJustSymbols,
         );
       } else {
         return '';
       }
+    }
+  }
+
+  String _chooseInstructionType({
+    required String fullInstructionsPath,
+    required String justSymbolsPath,
+  }) {
+    if (sessionMetadata.instructionType ==
+        SessionInstructionTypes.fullInstructions) {
+      return fullInstructionsPath;
+    } else {
+      return justSymbolsPath;
     }
   }
 }
