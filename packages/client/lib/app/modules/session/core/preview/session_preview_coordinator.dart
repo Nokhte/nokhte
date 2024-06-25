@@ -9,6 +9,7 @@ import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 part 'session_preview_coordinator.g.dart';
 
 class SessionPreviewCoordinator = _SessionPreviewCoordinatorBase
@@ -106,21 +107,42 @@ abstract class _SessionPreviewCoordinatorBase extends BaseCoordinator
   @action
   enterGreeter() => Modular.to.navigate(route);
 
+  String chooseInstructionType({
+    required String fullInstructionsPath,
+    required String justSymbolsPath,
+  }) {
+    if (sessionMetadata.instructionType ==
+        SessionInstructionTypes.fullInstructions) {
+      return fullInstructionsPath;
+    } else {
+      return justSymbolsPath;
+    }
+  }
+
   @computed
   String get route {
-    return '';
-    // if (groupIsLargerThanTwo) {
-    //   if (isAPremiumSession) {
-    //     if (sessionMetadata.isAValidSession) {
-    //       return premiumSessionPath;
-    //     } else {
-    //       return monetizationSessionPath;
-    //     }
-    //   } else {
-    //     return SessionConstants.groupGreeter;
-    //   }
-    // } else {
-    //   return SessionConstants.duoGreeter;
-    // }
+    if (sessionMetadata.instructionType ==
+        SessionInstructionTypes.skipInstructions) {
+      return SessionConstants.lobby;
+    } else {
+      if (sessionMetadata.presetType == PresetTypes.collaborative) {
+        return chooseInstructionType(
+          fullInstructionsPath: SessionConstants.collaborationFullInstructions,
+          justSymbolsPath: SessionConstants.collaborationJustSymbols,
+        );
+      } else if (sessionMetadata.presetType == PresetTypes.consultative) {
+        return chooseInstructionType(
+          fullInstructionsPath: SessionConstants.consultationSpeakingSymbols,
+          justSymbolsPath: SessionConstants.consultationJustSymbols,
+        );
+      } else if (sessionMetadata.presetType == PresetTypes.socratic) {
+        return chooseInstructionType(
+          fullInstructionsPath: SessionConstants.socraticFullInstructions,
+          justSymbolsPath: SessionConstants.socraticJustSymbols,
+        );
+      } else {
+        return '';
+      }
+    }
   }
 }
