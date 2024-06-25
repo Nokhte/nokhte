@@ -7,6 +7,7 @@ import 'package:simple_animations/simple_animations.dart';
 export 'constants/constants.dart';
 export 'mobx/smart_text_store.dart';
 export 'movies/movies.dart';
+export 'mixin/mixin.dart';
 export 'types/types.dart';
 
 class SmartText extends StatelessWidget {
