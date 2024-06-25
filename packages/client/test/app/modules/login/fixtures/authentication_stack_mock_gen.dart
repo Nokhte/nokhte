@@ -18,6 +18,7 @@ import 'package:nokhte/app/modules/login/login.dart';
   MockSpec<SignInWithApple>(),
   MockSpec<SignInWithGoogle>(),
   MockSpec<AddMetadata>(),
-  MockSpec<LoginScreenWidgetsCoordinator>()
+  MockSpec<LoginScreenWidgetsCoordinator>(),
+  MockSpec<CaptureScreen>(),
 ])
 void main() {}
