@@ -7,10 +7,6 @@ import 'package:nokhte/app/modules/session/session.dart';
 
 export 'hybrid/hybrid.dart';
 export 'hybrid_notes/hybrid_notes.dart';
-export 'hybrid_notes_instructions/hybrid_notes_instructions.dart';
-export 'hybrid_root_router/hybrid_root_router.dart';
-export 'hybrid_speaking_instructions/hybrid_speaking_instructions.dart';
-export 'hybrid_waiting/hybrid_waiting.dart';
 
 class SessionHybridModule extends Module {
   @override
@@ -31,46 +27,13 @@ class SessionHybridModule extends Module {
         swipe: SwipeDetector(),
       ),
     );
-    i.add<SessionHybridWaitingCoordinator>(
-      () => SessionHybridWaitingCoordinator(
-        presence: Modular.get<SessionPresenceCoordinator>(),
-        captureScreen: Modular.get<CaptureScreen>(),
-        widgets: Modular.get<SessionHybridWaitingWidgetsCoordinator>(),
-      ),
-    );
-    i.add<SessionHybridSpeakingInstructionsCoordinator>(
-      () => SessionHybridSpeakingInstructionsCoordinator(
-        hold: HoldDetector(),
-        gyroscopic: Modular.get<GyroscopicCoordinator>(),
-        presence: Modular.get<SessionPresenceCoordinator>(),
-        captureScreen: Modular.get<CaptureScreen>(),
-        widgets:
-            Modular.get<SessionHybridSpeakingInstructionsWidgetsCoordinator>(),
-        tap: TapDetector(),
-      ),
-    );
-    i.add<SessionHybridNotesInstructionsCoordinator>(
-      () => SessionHybridNotesInstructionsCoordinator(
-        presence: Modular.get<SessionPresenceCoordinator>(),
-        captureScreen: Modular.get<CaptureScreen>(),
-        widgets:
-            Modular.get<SessionHybridNotesInstructionsWidgetsCoordinator>(),
-        tap: TapDetector(),
-      ),
-    );
     i.add<SessionHybridNotesCoordinator>(
       () => SessionHybridNotesCoordinator(
-          tap: TapDetector(),
-          captureScreen: Modular.get<CaptureScreen>(),
-          widgets: Modular.get<SessionHybridNotesWidgetsCoordinator>(),
-          presence: Modular.get<SessionPresenceCoordinator>(),
-          swipe: SwipeDetector()),
-    );
-    i.add<SessionHybridRootRouterCoordinator>(
-      () => SessionHybridRootRouterCoordinator(
-        presence: Modular.get<SessionPresenceCoordinator>(),
+        tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
-        widgets: Modular.get<SessionHybridRootRouterWidgetsCoordinator>(),
+        widgets: Modular.get<SessionHybridNotesWidgetsCoordinator>(),
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        swipe: SwipeDetector(),
       ),
     );
   }
@@ -80,37 +43,8 @@ class SessionHybridModule extends Module {
     r.child(
       SessionConstants.relativeRoot,
       transition: TransitionType.noTransition,
-      child: (context) => SessionHybridRootRouterScreen(
-        coordinator: Modular.get<SessionHybridRootRouterCoordinator>(),
-      ),
-    );
-    r.child(
-      SessionConstants.relativeHybrid,
-      transition: TransitionType.noTransition,
       child: (context) => SessionHybridScreen(
         coordinator: Modular.get<SessionHybridCoordinator>(),
-      ),
-    );
-    r.child(
-      SessionConstants.relativeSpeakingInstructions,
-      transition: TransitionType.noTransition,
-      child: (context) => SessionHybridSpeakingInstructionsScreen(
-        coordinator:
-            Modular.get<SessionHybridSpeakingInstructionsCoordinator>(),
-      ),
-    );
-    r.child(
-      SessionConstants.relativeWaiting,
-      transition: TransitionType.noTransition,
-      child: (context) => SessionHybridWaitingScreen(
-        coordinator: Modular.get<SessionHybridWaitingCoordinator>(),
-      ),
-    );
-    r.child(
-      SessionConstants.relativeNotesInstructions,
-      transition: TransitionType.noTransition,
-      child: (context) => SessionHybridNotesInstructionsScreen(
-        coordinator: Modular.get<SessionHybridNotesInstructionsCoordinator>(),
       ),
     );
     r.child(
