@@ -22,8 +22,8 @@ class PresetDiagamConstants {
       Alignment.bottomCenter,
     ],
     [
-      Alignment.topCenter,
       Alignment.bottomCenter,
+      Alignment.topCenter,
     ],
   ];
 
@@ -33,12 +33,12 @@ class PresetDiagamConstants {
       Alignment.bottomCenter,
     ],
     [
-      Alignment.centerLeft,
       Alignment.centerRight,
+      Alignment.centerLeft,
     ],
     [
-      Alignment.topCenter,
       Alignment.bottomCenter,
+      Alignment.topCenter,
     ]
   ];
 
@@ -52,12 +52,12 @@ class PresetDiagamConstants {
       Alignment.centerRight,
     ],
     [
-      Alignment.topCenter,
       Alignment.bottomCenter,
+      Alignment.topCenter,
     ],
     [
-      Alignment.centerLeft,
       Alignment.centerRight,
+      Alignment.centerLeft,
     ],
   ];
 }
