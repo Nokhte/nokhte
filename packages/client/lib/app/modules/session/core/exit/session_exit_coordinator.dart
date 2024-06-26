@@ -1,11 +1,13 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -15,24 +17,26 @@ part 'session_exit_coordinator.g.dart';
 class SessionExitCoordinator = _SessionExitCoordinatorBase
     with _$SessionExitCoordinator;
 
-abstract class _SessionExitCoordinatorBase
-    extends BaseHomeScreenRouterCoordinator with Store {
+abstract class _SessionExitCoordinatorBase with Store, HomeScreenRouter {
   final SessionExitWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final CaptureNokhteSessionEnd captureEnd;
+  final BaseCoordinator base;
+  final GetUserInfoStore getUserInfo;
 
   _SessionExitCoordinatorBase({
-    required super.captureScreen,
+    required CaptureScreen captureScreen,
     required this.widgets,
     required this.swipe,
     required this.captureEnd,
     required this.presence,
     required this.cleanUpCollaborationArtifacts,
-    required super.getUserInfo,
-  }) : sessionMetadata = presence.sessionMetadataStore;
+    required this.getUserInfo,
+  })  : base = BaseCoordinator(captureScreen: captureScreen),
+        sessionMetadata = presence.sessionMetadataStore;
 
   @observable
   bool showCollaboratorIncidents = true;
@@ -50,7 +54,7 @@ abstract class _SessionExitCoordinatorBase
     widgets.constructor();
     initReactors();
     await presence.updateCurrentPhase(4.0);
-    await captureScreen(SessionConstants.exit);
+    await base.captureScreen(SessionConstants.exit);
   }
 
   @observable
@@ -82,26 +86,26 @@ abstract class _SessionExitCoordinatorBase
 
   @action
   initReactors() {
-    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => setDisableAllTouchFeedback(false),
+    base.disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        setDisableAllTouchFeedback(false);
+        base.setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        setDisableAllTouchFeedback(true);
+        base.setDisableAllTouchFeedback(true);
       },
     ));
-    disposers.add(presence.initReactors(
+    base.disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
-        setDisableAllTouchFeedback(false);
+        base.setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
-        setDisableAllTouchFeedback(true);
+        base.setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
     ));
-    disposers.add(widgets.beachWavesMovieStatusReactor(
+    base.disposers.add(widgets.beachWavesMovieStatusReactor(
         onToHomeComplete: onAnimationComplete,
         onReturnToTalkingComplete: () {
           if (phoneRole == SessionPhoneRole.speaking) {
@@ -111,11 +115,11 @@ abstract class _SessionExitCoordinatorBase
         onReturnToHybridComplete: () {
           Modular.to.navigate(SessionConstants.hybrid);
         }));
-    disposers.add(swipeReactor());
-    disposers.add(userPhaseReactor());
-    disposers.add(
+    base.disposers.add(swipeReactor());
+    base.disposers.add(userPhaseReactor());
+    base.disposers.add(
       widgets.sessionExitStatusCompletionReactor(
-        onInitialized: () => disposers.add(numberOfAffirmativeReactor()),
+        onInitialized: () => base.disposers.add(numberOfAffirmativeReactor()),
         onReadyToGoHome: () async => await onReturnHome(),
       ),
     );
@@ -124,9 +128,9 @@ abstract class _SessionExitCoordinatorBase
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.down:
-            ifTouchIsNotDisabled(() async {
+            base.ifTouchIsNotDisabled(() async {
               widgets.onReadyToGoBack(phoneRole);
-              setDisableAllTouchFeedback(true);
+              base.setDisableAllTouchFeedback(true);
             });
           default:
             break;
@@ -201,9 +205,8 @@ abstract class _SessionExitCoordinatorBase
     }
   }
 
-  @override
   deconstructor() {
     widgets.deconstructor();
-    super.deconstructor();
+    base.deconstructor();
   }
 }

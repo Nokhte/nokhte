@@ -25,6 +25,6 @@ abstract class _NeedsUpdateCoordinatorBase with Store {
   @action
   deconstructor() {
     base.deconstructor();
-    widgets.deconstructor();
+    widgets.base.deconstructor();
   }
 }

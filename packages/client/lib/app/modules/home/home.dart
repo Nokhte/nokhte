@@ -35,7 +35,6 @@ class HomeModule extends Module {
     i.add<HomeScreenRootRouterCoordinator>(
       () => HomeScreenRootRouterCoordinator(
         userMetadata: Modular.get<UserMetadataCoordinator>(),
-        captureScreen: Modular.get<CaptureScreen>(),
         cleanUpCollaborationArtifacts:
             Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),

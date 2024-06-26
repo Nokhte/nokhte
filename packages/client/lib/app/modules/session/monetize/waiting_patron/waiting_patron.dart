@@ -19,10 +19,10 @@ class WaitingPatronScreen extends HookWidget {
     final height = useFullScreenSize().height;
     useEffect(() {
       coordinator.constructor();
-      return () => coordinator.deconstructor();
+      return () => coordinator.base.deconstructor();
     }, []);
     useOnAppLifecycleStateChange(
-        (previous, current) => coordinator.onAppLifeCycleStateChange(
+        (previous, current) => coordinator.base.onAppLifeCycleStateChange(
               current,
               onResumed: () => coordinator.onResumed(),
               onInactive: () => coordinator.onInactive(),

@@ -1,12 +1,15 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/in_app_purchase/in_app_purchase.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -18,8 +21,7 @@ part 'session_paywall_coordinator.g.dart';
 class SessionPaywallCoordinator = _SessionPaywallCoordinatorBase
     with _$SessionPaywallCoordinator;
 
-abstract class _SessionPaywallCoordinatorBase
-    extends BaseHomeScreenRouterCoordinator with Store {
+abstract class _SessionPaywallCoordinatorBase with Store, HomeScreenRouter {
   final TapDetector tap;
   final SessionPaywallWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
@@ -28,18 +30,21 @@ abstract class _SessionPaywallCoordinatorBase
   final InAppPurchaseCoordinator iap;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
+  final GetUserInfoStore getUserInfo;
+  final BaseCoordinator base;
 
   _SessionPaywallCoordinatorBase({
     required this.cleanUpCollaborationArtifacts,
-    required super.captureScreen,
+    required CaptureScreen captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
     required this.swipe,
     required this.iap,
     required this.activeMonetizationSession,
-    required super.getUserInfo,
-  }) : sessionMetadata = presence.sessionMetadataStore;
+    required this.getUserInfo,
+  })  : sessionMetadata = presence.sessionMetadataStore,
+        base = BaseCoordinator(captureScreen: captureScreen);
 
   @action
   constructor() async {
@@ -47,19 +52,19 @@ abstract class _SessionPaywallCoordinatorBase
     initReactors();
     await iap.getSubscriptionInfo();
     await activeMonetizationSession.listenToExplanationCompletionStatus();
-    await captureScreen(SessionConstants.paywall);
+    await base.captureScreen(SessionConstants.paywall);
     await getUserInfo(NoParams());
   }
 
   initReactors() {
-    disposers.add(tapReactor());
-    disposers.add(swipeReactor());
-    disposers.add(presence.initReactors(
+    base.disposers.add(tapReactor());
+    base.disposers.add(swipeReactor());
+    base.disposers.add(presence.initReactors(
       onCollaboratorJoined: () {},
       onCollaboratorLeft: () {},
     ));
-    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => setDisableAllTouchFeedback(false),
+    base.disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
       },
@@ -67,14 +72,14 @@ abstract class _SessionPaywallCoordinatorBase
         widgets.setDisableTouchInput(true);
       },
     ));
-    disposers.add(
+    base.disposers.add(
         widgets.beachWaveMovieStatusReactor(onReturnHome: onAnimationComplete));
-    disposers.add(subscriptionInfoReactor());
-    disposers.add(purchaseSuccessReactor());
-    disposers.add(purchaseErrorReactor());
-    disposers.add(phaseReactor());
-    disposers.add(validSessionReactor());
-    disposers.add(everyoneHasFinishedExplanationReactor());
+    base.disposers.add(subscriptionInfoReactor());
+    base.disposers.add(purchaseSuccessReactor());
+    base.disposers.add(purchaseErrorReactor());
+    base.disposers.add(phaseReactor());
+    base.disposers.add(validSessionReactor());
+    base.disposers.add(everyoneHasFinishedExplanationReactor());
   }
 
   everyoneHasFinishedExplanationReactor() =>
@@ -116,7 +121,7 @@ abstract class _SessionPaywallCoordinatorBase
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => ifTouchIsNotDisabled(
+        (p0) => base.ifTouchIsNotDisabled(
           () {
             widgets.onTap(
               tap.currentTapPosition,
@@ -155,9 +160,8 @@ abstract class _SessionPaywallCoordinatorBase
   @action
   onResumed() async {}
 
-  @override
   deconstructor() {
-    super.deconstructor();
+    base.deconstructor();
     widgets.deconstructor();
   }
 }

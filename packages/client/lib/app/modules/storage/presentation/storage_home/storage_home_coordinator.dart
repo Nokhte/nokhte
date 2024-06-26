@@ -4,6 +4,8 @@ import 'dart:ui';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -14,24 +16,27 @@ part 'storage_home_coordinator.g.dart';
 class StorageHomeCoordinator = _StorageHomeCoordinatorBase
     with _$StorageHomeCoordinator;
 
-abstract class _StorageHomeCoordinatorBase
-    extends BaseHomeScreenRouterCoordinator with Store {
+abstract class _StorageHomeCoordinatorBase with Store, HomeScreenRouter {
   final StorageHomeWidgetsCoordinator widgets;
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
   final UpdateSessionAlias updateSessionAliasLogic;
   final UserInformationCoordinator userInfo;
   final TapDetector tap;
+  @override
+  final GetUserInfoStore getUserInfo;
+  final BaseCoordinator base;
 
   final SwipeDetector swipe;
   _StorageHomeCoordinatorBase({
-    required super.captureScreen,
+    required CaptureScreen captureScreen,
     required this.getNokhteSessionArtifactsLogic,
     required this.updateSessionAliasLogic,
     required this.widgets,
     required this.swipe,
     required this.userInfo,
     required this.tap,
-  }) : super(getUserInfo: userInfo.getUserInfoStore);
+  })  : getUserInfo = userInfo.getUserInfoStore,
+        base = BaseCoordinator(captureScreen: captureScreen);
 
   @observable
   ObservableList<NokhteSessionArtifactEntity> nokhteSessionArtifacts =
@@ -53,14 +58,14 @@ abstract class _StorageHomeCoordinatorBase
     await getUserInfo(NoParams());
     await getNokhteSessionArtifacts();
     await userInfo.updateHasEnteredStorage(true);
-    await captureScreen(StorageConstants.root);
+    await base.captureScreen(StorageConstants.root);
   }
 
   @action
   getNokhteSessionArtifacts() async {
     final res = await getNokhteSessionArtifactsLogic(NoParams());
     res.fold(
-      (failure) => baseLogic.errorUpdater(failure),
+      (failure) => base.baseLogic.errorUpdater(failure),
       (artifacts) => nokhteSessionArtifacts = ObservableList.of(artifacts),
     );
   }
@@ -69,21 +74,21 @@ abstract class _StorageHomeCoordinatorBase
   updateSessionAlias(UpdateSessionAliasParams params) async {
     final res = await updateSessionAliasLogic(params);
     res.fold(
-      (failure) => baseLogic.errorUpdater(failure),
+      (failure) => base.baseLogic.errorUpdater(failure),
       (updateStatus) => aliasIsUpdated = updateStatus,
     );
   }
 
   initReactors() {
-    disposers.add(tapReactor());
-    disposers.add(swipeReactor());
-    disposers.add(beachWavesMovieStatusReactor());
-    disposers.add(sessionCardEditReactor());
-    disposers.add(sessionCardTapReactor());
+    base.disposers.add(tapReactor());
+    base.disposers.add(swipeReactor());
+    base.disposers.add(beachWavesMovieStatusReactor());
+    base.disposers.add(sessionCardEditReactor());
+    base.disposers.add(sessionCardTapReactor());
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        ifTouchIsNotDisabled(() {
+        base.ifTouchIsNotDisabled(() {
           widgets.onTap();
         });
       });
@@ -91,7 +96,7 @@ abstract class _StorageHomeCoordinatorBase
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.left:
-            ifTouchIsNotDisabled(() {
+            base.ifTouchIsNotDisabled(() {
               widgets.onSwipeLeft();
             });
           default:
@@ -130,15 +135,14 @@ abstract class _StorageHomeCoordinatorBase
 
   sessionCardTapReactor() =>
       reaction((p0) => widgets.sessionCard.lastTappedIndex, (p0) {
-        ifTouchIsNotDisabled(() {
+        base.ifTouchIsNotDisabled(() {
           widgets.onSessionCardTapped();
-          setDisableAllTouchFeedback(true);
+          base.setDisableAllTouchFeedback(true);
         });
       });
 
-  @override
   deconstructor() {
+    base.deconstructor();
     widgets.deconstructor();
-    super.deconstructor();
   }
 }

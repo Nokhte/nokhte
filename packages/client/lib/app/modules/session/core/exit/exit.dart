@@ -23,7 +23,7 @@ class SessionExitScreen extends HookWidget {
       return () => coordinator.deconstructor();
     }, []);
     useOnAppLifecycleStateChange(
-        (previous, current) => coordinator.onAppLifeCycleStateChange(
+        (previous, current) => coordinator.base.onAppLifeCycleStateChange(
               current,
               onResumed: () => coordinator.onResumed(),
               onInactive: () => coordinator.onInactive(),

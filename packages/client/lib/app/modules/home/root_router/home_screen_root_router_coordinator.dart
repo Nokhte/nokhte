@@ -2,6 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
@@ -12,11 +13,13 @@ class HomeScreenRootRouterCoordinator = _HomeScreenRootRouterCoordinatorBase
     with _$HomeScreenRootRouterCoordinator;
 
 abstract class _HomeScreenRootRouterCoordinatorBase
-    extends BaseHomeScreenRouterCoordinator with Store {
+    with Store, HomeScreenRouter {
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final HomeScreenRootRouterWidgetsCoordinator widgets;
   final SessionStartersLogicCoordinator sessionStarters;
   final UserMetadataCoordinator userMetadata;
+  @override
+  final GetUserInfoStore getUserInfo;
 
   @observable
   bool isConnected = true;
@@ -27,10 +30,9 @@ abstract class _HomeScreenRootRouterCoordinatorBase
   _HomeScreenRootRouterCoordinatorBase({
     required this.cleanUpCollaborationArtifacts,
     required this.userMetadata,
-    required super.getUserInfo,
+    required this.getUserInfo,
     required this.sessionStarters,
     required this.widgets,
-    required super.captureScreen,
   });
 
   @action
@@ -53,7 +55,7 @@ abstract class _HomeScreenRootRouterCoordinatorBase
   }
 
   initReactors() {
-    widgets.wifiDisconnectOverlay.initReactors(
+    widgets.base.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () async {
         widgets.onConnected();
         setIsConnected(true);

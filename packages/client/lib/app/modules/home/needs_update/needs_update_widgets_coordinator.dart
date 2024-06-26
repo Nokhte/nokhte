@@ -11,20 +11,21 @@ part 'needs_update_widgets_coordinator.g.dart';
 class NeedsUpdateWidgetsCoordinator = _NeedsUpdateWidgetsCoordinatorBase
     with _$NeedsUpdateWidgetsCoordinator;
 
-abstract class _NeedsUpdateWidgetsCoordinatorBase extends BaseWidgetsCoordinator
-    with Store {
+abstract class _NeedsUpdateWidgetsCoordinatorBase with Store {
+  final BaseWidgetsCoordinator base;
   final GestureCrossStore gestureCross;
   final BeachWavesStore beachWaves;
   final TintStore tint;
   final NokhteGradientTextStore gradientText;
 
   _NeedsUpdateWidgetsCoordinatorBase({
-    required super.wifiDisconnectOverlay,
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
     required this.tint,
     required this.beachWaves,
     required this.gestureCross,
     required this.gradientText,
-  });
+  }) : base = BaseWidgetsCoordinator(
+            wifiDisconnectOverlay: wifiDisconnectOverlay);
 
   @observable
   ResumeOnShoreParams params = ResumeOnShoreParams.initial();
@@ -37,7 +38,7 @@ abstract class _NeedsUpdateWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     gestureCross.fadeInTheCross();
     beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
     beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
-    disposers.add(beachWavesMovieStatusReactor());
+    base.disposers.add(beachWavesMovieStatusReactor());
     tint.initMovie(NoParams());
     gradientText.setWidgetVisibility(false);
     Timer(Seconds.get(1), () {

@@ -13,14 +13,14 @@ part 'login_widgets_coordinator.g.dart';
 class LoginScreenWidgetsCoordinator = _LoginScreenWidgetsCoordinatorBase
     with _$LoginScreenWidgetsCoordinator;
 
-abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
-    with Store {
+abstract class _LoginScreenWidgetsCoordinatorBase with Store {
   final BeachWavesStore layer1BeachWaves;
   final BeachWavesStore layer2BeachWaves;
   final GestureCrossStore gestureCross;
   final SmartTextStore smartTextStore;
   final NokhteStore nokhte;
   final TrailingTextStore bottomTrailingText;
+  final BaseWidgetsCoordinator base;
   final TrailingTextStore topTrailingText;
 
   _LoginScreenWidgetsCoordinatorBase({
@@ -31,8 +31,10 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     required this.nokhte,
     required this.bottomTrailingText,
     required this.topTrailingText,
-    required super.wifiDisconnectOverlay,
-  });
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+  }) : base = BaseWidgetsCoordinator(
+          wifiDisconnectOverlay: wifiDisconnectOverlay,
+        );
 
   constructor(
     Offset center,
@@ -48,7 +50,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     smartTextStore.setMessagesData(LoginList.list);
     smartTextStore.startRotatingText();
     initReactors(loginBusinessLogic);
-    setSmartTextSubMessagePaddingScalar(200);
+    base.setSmartTextSubMessagePaddingScalar(200);
   }
 
   @observable
@@ -164,9 +166,9 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   }
 
   initReactors(Function loginBusinessLogic) {
-    disposers.add(nokhteReactor(loginBusinessLogic));
-    disposers.add(trailingTextReactor());
-    disposers.add(layer1BeachWavesReactor());
+    base.disposers.add(nokhteReactor(loginBusinessLogic));
+    base.disposers.add(trailingTextReactor());
+    base.disposers.add(layer1BeachWavesReactor());
   }
 
   nokhteReactor(Function loginBusinessLogic) =>

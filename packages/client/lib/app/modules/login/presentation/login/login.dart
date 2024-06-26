@@ -21,7 +21,7 @@ class LoginScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     useOnAppLifecycleStateChange(
-        (previous, current) => coordinator.onAppLifeCycleStateChange(
+        (previous, current) => coordinator.base.onAppLifeCycleStateChange(
               current,
               onResumed: () => coordinator.onResumed(),
               onInactive: () => null,
@@ -83,12 +83,12 @@ class LoginScreen extends HookWidget {
                   child: SmartText(
                     opacityDuration: Seconds.get(1),
                     store: coordinator.widgets.smartTextStore,
-                    topPadding:
-                        height * coordinator.widgets.smartTextTopPaddingScalar,
+                    topPadding: height *
+                        coordinator.widgets.base.smartTextTopPaddingScalar,
                     bottomPadding: height *
-                        coordinator.widgets.smartTextBottomPaddingScalar,
-                    subTextPadding:
-                        coordinator.widgets.smartTextSubMessagePaddingScalar,
+                        coordinator.widgets.base.smartTextBottomPaddingScalar,
+                    subTextPadding: coordinator
+                        .widgets.base.smartTextSubMessagePaddingScalar,
                   ),
                 ),
                 FullScreen(
@@ -98,7 +98,7 @@ class LoginScreen extends HookWidget {
                 ),
                 FullScreen(
                   child: WifiDisconnectOverlay(
-                    store: coordinator.widgets.wifiDisconnectOverlay,
+                    store: coordinator.widgets.base.wifiDisconnectOverlay,
                   ),
                 ),
               ],
