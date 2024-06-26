@@ -60,7 +60,7 @@ abstract class _StorageHomeCoordinatorBase
   getNokhteSessionArtifacts() async {
     final res = await getNokhteSessionArtifactsLogic(NoParams());
     res.fold(
-      (failure) => errorUpdater(failure),
+      (failure) => baseLogic.errorUpdater(failure),
       (artifacts) => nokhteSessionArtifacts = ObservableList.of(artifacts),
     );
   }
@@ -69,7 +69,7 @@ abstract class _StorageHomeCoordinatorBase
   updateSessionAlias(UpdateSessionAliasParams params) async {
     final res = await updateSessionAliasLogic(params);
     res.fold(
-      (failure) => errorUpdater(failure),
+      (failure) => baseLogic.errorUpdater(failure),
       (updateStatus) => aliasIsUpdated = updateStatus,
     );
   }
