@@ -181,7 +181,7 @@ abstract class _SessionMetadataStoreBase
   }
 
   @computed
-  bool get sessionCanStart => currentPhases.every((e) => e == 1.0);
+  bool get canMoveIntoInstructions => currentPhases.every((e) => e >= 1);
 
   @computed
   bool get canMoveIntoSession => currentPhases.every((e) => e == 2);
