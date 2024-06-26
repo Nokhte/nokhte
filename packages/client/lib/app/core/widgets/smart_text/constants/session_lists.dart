@@ -249,6 +249,10 @@ class SessionLists {
     thisIsYou,
     thatIsYourCollaborator,
     SharedLists.customTapToConfirmSub(
+      "That is your collaborator",
+      subTextFontSize: 18.0,
+    ),
+    SharedLists.customTapToConfirmSub(
       "One phone will be used for speaking",
       subTextFontSize: 18.0,
     ),
