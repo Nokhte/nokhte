@@ -5,6 +5,7 @@ class StaticSessionMetadataEntity extends Equatable {
   final bool isAPremiumSession;
   final bool leaderIsWhitelisted;
   final bool isAValidSession;
+  final bool shouldSkipInstructions;
   final String presetUID;
 
   const StaticSessionMetadataEntity({
@@ -12,6 +13,7 @@ class StaticSessionMetadataEntity extends Equatable {
     required this.isAPremiumSession,
     required this.leaderIsWhitelisted,
     required this.isAValidSession,
+    required this.shouldSkipInstructions,
     required this.presetUID,
   });
 
@@ -22,5 +24,6 @@ class StaticSessionMetadataEntity extends Equatable {
         leaderIsWhitelisted,
         isAValidSession,
         presetUID,
+        shouldSkipInstructions,
       ];
 }
