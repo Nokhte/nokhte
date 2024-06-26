@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -12,20 +12,19 @@ part 'session_exit_widgets_coordinator.g.dart';
 class SessionExitWidgetsCoordinator = _SessionExitWidgetsCoordinatorBase
     with _$SessionExitWidgetsCoordinator;
 
-abstract class _SessionExitWidgetsCoordinatorBase
-    with Store, BaseWidgetsCoordinator, Disposer {
+abstract class _SessionExitWidgetsCoordinatorBase extends BaseWidgetsCoordinator
+    with Store {
   final BeachWavesStore beachWaves;
   final SessionExitStatusIndicatorStore sessionExitStatusIndicator;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final GestureCrossStore gestureCross;
   final TintStore tint;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionExitWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.sessionExitStatusIndicator,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.gestureCross,

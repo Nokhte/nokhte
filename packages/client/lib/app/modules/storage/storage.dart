@@ -30,7 +30,6 @@ class StorageModule extends Module {
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
         updateSessionAliasLogic: Modular.get<UpdateSessionAlias>(),
-        getUserInfo: Modular.get<GetUserInfoStore>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<StorageHomeWidgetsCoordinator>(),
         swipe: SwipeDetector(),

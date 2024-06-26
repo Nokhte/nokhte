@@ -1,11 +1,8 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
-import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -16,16 +13,14 @@ class StorageContentCoordinator = _StorageContentCoordinatorBase
     with _$StorageContentCoordinator;
 
 abstract class _StorageContentCoordinatorBase
-    with Store, HomeRouter, BaseCoordinator, Disposer {
+    extends BaseHomeScreenRouterCoordinator with Store {
   final StorageContentWidgetsCoordinator widgets;
   final TapDetector tap;
-  final SwipeDetector swipe;
-  final CaptureScreen captureScreen;
-  final GetUserInfoStore getUserInfo;
 
+  final SwipeDetector swipe;
   _StorageContentCoordinatorBase({
-    required this.getUserInfo,
-    required this.captureScreen,
+    required super.getUserInfo,
+    required super.captureScreen,
     required this.tap,
     required this.widgets,
     required this.swipe,

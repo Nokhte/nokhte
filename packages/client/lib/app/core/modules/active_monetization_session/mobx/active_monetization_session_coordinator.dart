@@ -8,8 +8,8 @@ part 'active_monetization_session_coordinator.g.dart';
 class ActiveMonetizationSessionCoordinator = _ActiveMonetizationSessionCoordinatorBase
     with _$ActiveMonetizationSessionCoordinator;
 
-abstract class _ActiveMonetizationSessionCoordinatorBase
-    with Store, BaseMobxLogic<dynamic> {
+abstract class _ActiveMonetizationSessionCoordinatorBase extends BaseMobxDBStore
+    with Store {
   final StartMonetizationSession startMonetizationSessionLogic;
   final UpdateHasFinishedExplanation updateHasFinishedExplanationLogic;
   final ListenToExplanationCompletionStatus
@@ -53,7 +53,7 @@ abstract class _ActiveMonetizationSessionCoordinatorBase
     final result = await startMonetizationSessionLogic(NoParams());
     result.fold(
       (failure) {
-        errorMessage = baseMapFailureToMessage(failure);
+        errorMessage = mapFailureToMessage(failure);
         state = StoreState.initial;
       },
       (value) async => sessionHasStarted = value,
@@ -65,7 +65,7 @@ abstract class _ActiveMonetizationSessionCoordinatorBase
     final result = await updateHasFinishedExplanationLogic(NoParams());
     result.fold(
       (failure) {
-        errorMessage = baseMapFailureToMessage(failure);
+        errorMessage = mapFailureToMessage(failure);
         state = StoreState.initial;
       },
       (value) async => hasUpdatedHasFinishedExplanation = value,
@@ -77,7 +77,7 @@ abstract class _ActiveMonetizationSessionCoordinatorBase
     final result = await listenToExplanationCompletionStatusLogic(NoParams());
     result.fold(
       (failure) {
-        errorMessage = baseMapFailureToMessage(failure);
+        errorMessage = mapFailureToMessage(failure);
         state = StoreState.initial;
       },
       (stream) {

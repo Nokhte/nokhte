@@ -11,7 +11,7 @@ class CleanUpCollaborationArtifactsCoordinator = _CleanUpCollaborationArtifactsC
     with _$CleanUpCollaborationArtifactsCoordinator;
 
 abstract class _CleanUpCollaborationArtifactsCoordinatorBase
-    with Store, BaseMobxLogic<bool> {
+    extends BaseMobxDBStore<NoParams, bool> with Store {
   final SessionStartersLogicCoordinator sessionStarters;
   final CleanUpNokhteSession cleanUpNokhteSession;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
@@ -22,6 +22,7 @@ abstract class _CleanUpCollaborationArtifactsCoordinatorBase
     required this.activeMonetizationSession,
   });
 
+  @override
   @action
   Future<void> call(NoParams params) async {
     state = StoreState.loading;

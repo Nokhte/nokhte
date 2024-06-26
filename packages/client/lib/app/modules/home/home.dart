@@ -9,7 +9,6 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 import 'home.dart';
-export 'mixin/home_router.dart';
 export 'constants/constants.dart';
 export './needs_update/needs_update.dart';
 export 'has_session/has_session.dart';
@@ -36,6 +35,7 @@ class HomeModule extends Module {
     i.add<HomeScreenRootRouterCoordinator>(
       () => HomeScreenRootRouterCoordinator(
         userMetadata: Modular.get<UserMetadataCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
         cleanUpCollaborationArtifacts:
             Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),

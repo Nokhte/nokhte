@@ -1,8 +1,7 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -15,15 +14,13 @@ class ShowGroupGeometryWidgetsCoordinator = _ShowGroupGeometryWidgetsCoordinator
     with _$ShowGroupGeometryWidgetsCoordinator;
 
 abstract class _ShowGroupGeometryWidgetsCoordinatorBase
-    with Store, BaseWidgetsCoordinator, Disposer {
+    extends BaseWidgetsCoordinator with Store {
   final PresetDiagramStore presetDiagram;
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final TouchRippleStore touchRipple;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
-
   _ShowGroupGeometryWidgetsCoordinatorBase({
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.presetDiagram,
     required this.beachWaves,
     required this.smartText,

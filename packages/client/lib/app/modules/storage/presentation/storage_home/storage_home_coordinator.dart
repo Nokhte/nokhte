@@ -1,11 +1,9 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:ui';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -17,26 +15,23 @@ class StorageHomeCoordinator = _StorageHomeCoordinatorBase
     with _$StorageHomeCoordinator;
 
 abstract class _StorageHomeCoordinatorBase
-    with Store, HomeRouter, Disposer, BaseCoordinator, BaseMobxLogic {
+    extends BaseHomeScreenRouterCoordinator with Store {
   final StorageHomeWidgetsCoordinator widgets;
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
   final UpdateSessionAlias updateSessionAliasLogic;
   final UserInformationCoordinator userInfo;
-  final GetUserInfoStore getUserInfo;
   final TapDetector tap;
-  final CaptureScreen captureScreen;
 
   final SwipeDetector swipe;
   _StorageHomeCoordinatorBase({
-    required this.captureScreen,
-    required this.userInfo,
+    required super.captureScreen,
     required this.getNokhteSessionArtifactsLogic,
     required this.updateSessionAliasLogic,
     required this.widgets,
     required this.swipe,
-    required this.getUserInfo,
+    required this.userInfo,
     required this.tap,
-  });
+  }) : super(getUserInfo: userInfo.getUserInfoStore);
 
   @observable
   ObservableList<NokhteSessionArtifactEntity> nokhteSessionArtifacts =
@@ -65,7 +60,7 @@ abstract class _StorageHomeCoordinatorBase
   getNokhteSessionArtifacts() async {
     final res = await getNokhteSessionArtifactsLogic(NoParams());
     res.fold(
-      (failure) => baseErrorUpdater(failure),
+      (failure) => errorUpdater(failure),
       (artifacts) => nokhteSessionArtifacts = ObservableList.of(artifacts),
     );
   }
@@ -74,7 +69,7 @@ abstract class _StorageHomeCoordinatorBase
   updateSessionAlias(UpdateSessionAliasParams params) async {
     final res = await updateSessionAliasLogic(params);
     res.fold(
-      (failure) => baseErrorUpdater(failure),
+      (failure) => errorUpdater(failure),
       (updateStatus) => aliasIsUpdated = updateStatus,
     );
   }

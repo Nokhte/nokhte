@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'dart:io';
 
@@ -18,18 +18,17 @@ class SessionPaywallWidgetsCoordinator = _SessionPaywallWidgetsCoordinatorBase
     with _$SessionPaywallWidgetsCoordinator;
 
 abstract class _SessionPaywallWidgetsCoordinatorBase
-    with Store, BaseWidgetsCoordinator, Disposer, SmartTextPaddingAdjuster {
+    extends BaseWidgetsCoordinator with Store {
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final SmartTextStore tertiarySmartText;
   final BeachWavesStore beachWaves;
   final TouchRippleStore touchRipple;
   final GestureCrossStore gestureCross;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final MultiplyingNokhteStore multiplyingNokhte;
   _SessionPaywallWidgetsCoordinatorBase({
     required this.beachWaves,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.primarySmartText,
     required this.secondarySmartText,

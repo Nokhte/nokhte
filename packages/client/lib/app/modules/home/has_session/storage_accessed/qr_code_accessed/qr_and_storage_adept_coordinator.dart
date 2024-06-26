@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 part 'qr_and_storage_adept_coordinator.g.dart';
@@ -13,8 +12,6 @@ class QrAndStorageAdeptCoordinator = _QrAndStorageAdeptCoordinatorBase
 
 abstract class _QrAndStorageAdeptCoordinatorBase
     extends BaseHomeScreenCoordinator with Store {
-  @override
-  final CaptureScreen captureScreen;
   final QrAndStorageAdeptWidgetsCoordinator widgets;
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
 
@@ -24,12 +21,9 @@ abstract class _QrAndStorageAdeptCoordinatorBase
     required super.deepLinks,
     required this.widgets,
     required this.getNokhteSessionArtifactsLogic,
-    required this.captureScreen,
+    required super.captureScreen,
     required super.tap,
-  }) : super(
-          widgets: widgets,
-          captureScreen: captureScreen,
-        );
+  }) : super(widgets: widgets);
 
   @observable
   ObservableList<NokhteSessionArtifactEntity> nokhteSessionArtifacts =
@@ -78,7 +72,7 @@ abstract class _QrAndStorageAdeptCoordinatorBase
   getNokhteSessionArtifacts() async {
     final res = await getNokhteSessionArtifactsLogic(NoParams());
     res.fold(
-      (failure) => baseErrorUpdater(failure),
+      (failure) => errorUpdater(failure),
       (artifacts) => nokhteSessionArtifacts = ObservableList.of(artifacts),
     );
   }

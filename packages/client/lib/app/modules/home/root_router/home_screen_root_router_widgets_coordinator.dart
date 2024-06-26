@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -9,14 +9,13 @@ class HomeScreenRootRouterWidgetsCoordinator = _HomeScreenRootRouterWidgetsCoord
     with _$HomeScreenRootRouterWidgetsCoordinator;
 
 abstract class _HomeScreenRootRouterWidgetsCoordinatorBase
-    with Store, BaseWidgetsCoordinator {
+    extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _HomeScreenRootRouterWidgetsCoordinatorBase({
     required this.beachWaves,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.gestureCross,
   });
 

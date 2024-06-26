@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -11,14 +11,12 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
-import 'package:nokhte_backend/tables/_real_time_disabled/company_presets/queries.dart';
 part 'session_lobby_coordinator.g.dart';
 
 class SessionLobbyCoordinator = _SessionLobbyCoordinatorBase
     with _$SessionLobbyCoordinator;
 
-abstract class _SessionLobbyCoordinatorBase
-    with Store, BaseCoordinator, Disposer {
+abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
   final SessionLobbyWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
@@ -27,10 +25,9 @@ abstract class _SessionLobbyCoordinatorBase
   final DeepLinksCoordinator deepLinks;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
   final CaptureNokhteSessionStart captureStart;
-  final CaptureScreen captureScreen;
 
   _SessionLobbyCoordinatorBase({
-    required this.captureScreen,
+    required super.captureScreen,
     required this.widgets,
     required this.deepLinks,
     required this.captureStart,

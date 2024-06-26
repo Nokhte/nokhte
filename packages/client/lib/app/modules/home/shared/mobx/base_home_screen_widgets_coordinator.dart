@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -12,7 +12,7 @@ class BaseHomeScreenWidgetsCoordinator = _BaseHomeScreenWidgetsCoordinatorBase
     with _$BaseHomeScreenWidgetsCoordinator;
 
 abstract class _BaseHomeScreenWidgetsCoordinatorBase
-    with Store, BaseWidgetsCoordinator, Disposer, SmartTextPaddingAdjuster {
+    extends BaseWidgetsCoordinator with Store {
   final NokhteBlurStore nokhteBlur;
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
@@ -23,12 +23,11 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
   final InstructionalGradientNokhteStore storageInstructionalNokhte;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _BaseHomeScreenWidgetsCoordinatorBase({
     required this.nokhteBlur,
     required this.beachWaves,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.gestureCross,
     required this.primarySmartText,
     required this.errorSmartText,
@@ -38,9 +37,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     required this.sessionStarterInstructionalNokhte,
     required this.storageInstructionalNokhte,
   });
-
-  @observable
-  Offset center = Offset.zero;
 
   @action
   constructor(Offset centerParam) {

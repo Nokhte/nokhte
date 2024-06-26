@@ -9,7 +9,8 @@ part 'session_presence_coordinator.g.dart';
 class SessionPresenceCoordinator = _SessionPresenceCoordinatorBase
     with _$SessionPresenceCoordinator;
 
-abstract class _SessionPresenceCoordinatorBase with Store, BaseMobxLogic {
+abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
+    with Store {
   final UpdateOnlineStatus updateOnlineStatusLogic;
   final UpdateCurrentPhase updateCurrentPhaseLogic;
   final CancelSessionMetadataStream cancelSessionMetadataStreamLogic;
@@ -76,6 +77,21 @@ abstract class _SessionPresenceCoordinatorBase with Store, BaseMobxLogic {
     isListening = res;
   }
 
+  // @action
+  // checkIfHasDoneSession() async {
+  //   final res = await checkIfHasDoneSessionLogic(NoParams());
+  //   res.fold(
+  //     (failure) => errorUpdater(failure),
+  //     (hasDoneASession) {
+  //       if (hasDoneASession) {
+  //         instructionType = SessionInstructionTypes.justSymbols;
+  //       } else {
+  //         instructionType = SessionInstructionTypes.fullInstructions;
+  //       }
+  //     },
+  //   );
+  // }
+
   @action
   listen() {
     state = StoreState.loading;
@@ -86,7 +102,7 @@ abstract class _SessionPresenceCoordinatorBase with Store, BaseMobxLogic {
   addContent(String params) async {
     final res = await addContentLogic(params);
     res.fold(
-      (failure) => baseErrorUpdater(failure),
+      (failure) => errorUpdater(failure),
       (contentUpdateStatus) => contentIsUpdated = contentUpdateStatus,
     );
   }
@@ -95,7 +111,7 @@ abstract class _SessionPresenceCoordinatorBase with Store, BaseMobxLogic {
   completeTheSession() async {
     final res = await completeTheSessionLogic(NoParams());
     res.fold(
-      (failure) => baseErrorUpdater(failure),
+      (failure) => errorUpdater(failure),
       (sessionUpdateStatus) => sessionIsFinished = sessionUpdateStatus,
     );
   }
@@ -104,7 +120,7 @@ abstract class _SessionPresenceCoordinatorBase with Store, BaseMobxLogic {
   updateWhoIsTalking(UpdateWhoIsTalkingParams params) async {
     final res = await updateWhoIsTalkingLogic(params);
     res.fold(
-      (failure) => baseErrorUpdater(failure),
+      (failure) => errorUpdater(failure),
       (gyroscopeUpdateStatus) =>
           speakerSpotlightIsUpdated = gyroscopeUpdateStatus,
     );
@@ -115,7 +131,7 @@ abstract class _SessionPresenceCoordinatorBase with Store, BaseMobxLogic {
     onlineStatusIsUpdated = false;
     state = StoreState.loading;
     final res = await updateOnlineStatusLogic(params);
-    res.fold((failure) => baseErrorUpdater(failure),
+    res.fold((failure) => errorUpdater(failure),
         (status) => onlineStatusIsUpdated = status);
   }
 
@@ -124,7 +140,7 @@ abstract class _SessionPresenceCoordinatorBase with Store, BaseMobxLogic {
     currentPhaseIsUpdated = false;
     state = StoreState.loading;
     final res = await updateCurrentPhaseLogic(params);
-    res.fold((failure) => baseErrorUpdater(failure),
+    res.fold((failure) => errorUpdater(failure),
         (status) => currentPhaseIsUpdated = status);
   }
 
@@ -133,7 +149,7 @@ abstract class _SessionPresenceCoordinatorBase with Store, BaseMobxLogic {
     state = StoreState.loading;
     final res = await startTheSessionLogic(NoParams());
     res.fold(
-      (failure) => baseErrorUpdater(failure),
+      (failure) => errorUpdater(failure),
       (status) => sessionStartStatusIsUpdated = status,
     );
   }

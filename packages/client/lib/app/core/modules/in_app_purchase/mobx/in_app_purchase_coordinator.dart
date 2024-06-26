@@ -10,7 +10,8 @@ part 'in_app_purchase_coordinator.g.dart';
 class InAppPurchaseCoordinator = _InAppPurchaseCoordinatorBase
     with _$InAppPurchaseCoordinator;
 
-abstract class _InAppPurchaseCoordinatorBase with Store, BaseMobxLogic {
+abstract class _InAppPurchaseCoordinatorBase extends BaseMobxDBStore
+    with Store {
   final BuySubscription buySubscriptionLogic;
   final GetSubscriptionInfo getSubscriptionInfoLogic;
 
@@ -25,6 +26,7 @@ abstract class _InAppPurchaseCoordinatorBase with Store, BaseMobxLogic {
   @observable
   bool hasPurchasedSubscription = false;
 
+  @override
   @action
   String mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
@@ -41,7 +43,7 @@ abstract class _InAppPurchaseCoordinatorBase with Store, BaseMobxLogic {
   getSubscriptionInfo() async {
     final res = await getSubscriptionInfoLogic(NoParams());
     res.fold(
-      (failure) => errorMessage = mapFailureToMessage(failure),
+      (failure) => mapFailureToMessage(failure),
       (productInfo) => skuProductEntity = productInfo,
     );
   }
@@ -50,7 +52,7 @@ abstract class _InAppPurchaseCoordinatorBase with Store, BaseMobxLogic {
   buySubscription() async {
     final res = await buySubscriptionLogic(NoParams());
     res.fold(
-      (failure) => baseErrorUpdater(failure),
+      (failure) => errorUpdater(failure),
       (result) => hasPurchasedSubscription = result,
     );
   }

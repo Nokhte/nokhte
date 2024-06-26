@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -14,21 +14,20 @@ class SessionHybridWidgetsCoordinator = _SessionHybridWidgetsCoordinatorBase
     with _$SessionHybridWidgetsCoordinator;
 
 abstract class _SessionHybridWidgetsCoordinatorBase
-    with Store, BaseWidgetsCoordinator, Disposer {
+    extends BaseWidgetsCoordinator with Store {
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
   final BorderGlowStore borderGlow;
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
   final HalfScreenTintStore othersAreTalkingTint;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionHybridWidgetsCoordinatorBase({
     required this.othersAreTalkingTint,
     required this.mirroredText,
     required this.beachWaves,
     required this.borderGlow,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.speakLessSmileMore,
   });

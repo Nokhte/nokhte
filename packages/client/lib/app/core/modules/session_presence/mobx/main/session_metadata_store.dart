@@ -13,7 +13,8 @@ class SessionMetadataStore = _SessionMetadataStoreBase
     with _$SessionMetadataStore;
 
 abstract class _SessionMetadataStoreBase
-    with Store, BaseMobxLogic<Stream<NokhteSessionMetadata>> {
+    extends BaseMobxDBStore<NoParams, Stream<NokhteSessionMetadata>>
+    with Store {
   final ListenToSessionMetadata listenLogic;
   final GetStaticSessionMetadata getterLogic;
   final GetSessionPresetInfo presetLogic;
@@ -98,7 +99,7 @@ abstract class _SessionMetadataStoreBase
   _getInstructionType(String unifiedUID) async {
     final res = await getInstructionTypeLogic(unifiedUID);
     res.fold(
-      (failure) => baseErrorUpdater(failure),
+      (failure) => errorUpdater(failure),
       (instructionType) => this.instructionType = instructionType,
     );
   }
@@ -106,7 +107,7 @@ abstract class _SessionMetadataStoreBase
   @action
   _getStaticMetadata() async {
     final res = await getterLogic(NoParams());
-    res.fold((failure) => baseMapFailureToMessage(failure), (entity) async {
+    res.fold((failure) => mapFailureToMessage(failure), (entity) async {
       leaderIsWhitelisted = entity.leaderIsWhitelisted;
       isAPremiumSession = entity.isAPremiumSession;
       isAValidSession = entity.isAValidSession;
@@ -114,7 +115,7 @@ abstract class _SessionMetadataStoreBase
       presetUID = entity.presetUID;
       if (presetName.isEmpty) {
         final res = await presetLogic(presetUID);
-        res.fold((failure) => baseMapFailureToMessage(failure), (presetEntity) {
+        res.fold((failure) => mapFailureToMessage(failure), (presetEntity) {
           presetName = presetEntity.name;
           tags = ObservableList.of(presetEntity.tags);
           oddConfiguration = ObservableList.of(presetEntity.oddConfiguration);
@@ -126,11 +127,11 @@ abstract class _SessionMetadataStoreBase
   }
 
   @action
-  Future<void> get(NoParams params) async {
+  Future<void> get(params) async {
     final result = await listenLogic(params);
     result.fold(
       (failure) {
-        errorMessage = baseMapFailureToMessage(failure);
+        errorMessage = mapFailureToMessage(failure);
         state = StoreState.initial;
       },
       (stream) {

@@ -9,7 +9,7 @@ part 'get_user_info_store.g.dart';
 class GetUserInfoStore = _GetUserInfoStoreBase with _$GetUserInfoStore;
 
 abstract class _GetUserInfoStoreBase
-    with Store, BaseMobxLogic<UserJourneyInfoEntity> {
+    extends BaseMobxDBStore<NoParams, UserJourneyInfoEntity> with Store {
   @observable
   bool hasAccessedQrCode = false;
 
@@ -45,7 +45,7 @@ abstract class _GetUserInfoStoreBase
   @override
   void stateOrErrorUpdater(result) {
     result.fold((failure) {
-      errorMessage = baseMapFailureToMessage(failure);
+      errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
     }, (journeyInfoEntity) {
       entity = journeyInfoEntity;
@@ -57,8 +57,9 @@ abstract class _GetUserInfoStoreBase
     });
   }
 
+  @override
   @action
-  call(NoParams params) async {
+  Future<void> call(params) async {
     state = StoreState.loading;
     futureStore.entityOrFailureFuture = ObservableFuture(logic(params));
     futureStore.unwrappedEntityOrFailure =

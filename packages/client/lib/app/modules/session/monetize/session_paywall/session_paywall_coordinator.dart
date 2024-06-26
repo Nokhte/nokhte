@@ -1,15 +1,12 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/in_app_purchase/in_app_purchase.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
-import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -22,7 +19,7 @@ class SessionPaywallCoordinator = _SessionPaywallCoordinatorBase
     with _$SessionPaywallCoordinator;
 
 abstract class _SessionPaywallCoordinatorBase
-    with Store, HomeRouter, Disposer, BaseCoordinator {
+    extends BaseHomeScreenRouterCoordinator with Store {
   final TapDetector tap;
   final SessionPaywallWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
@@ -31,19 +28,17 @@ abstract class _SessionPaywallCoordinatorBase
   final InAppPurchaseCoordinator iap;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
-  final CaptureScreen captureScreen;
-  final GetUserInfoStore getUserInfo;
 
   _SessionPaywallCoordinatorBase({
     required this.cleanUpCollaborationArtifacts,
-    required this.captureScreen,
-    required this.getUserInfo,
+    required super.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
     required this.swipe,
     required this.iap,
     required this.activeMonetizationSession,
+    required super.getUserInfo,
   }) : sessionMetadata = presence.sessionMetadataStore;
 
   @action

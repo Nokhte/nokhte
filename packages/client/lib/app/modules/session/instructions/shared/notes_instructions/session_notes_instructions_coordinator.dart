@@ -1,9 +1,8 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
+import 'package:nokhte/app/core/mobx/base_coordinator.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -13,16 +12,15 @@ part 'session_notes_instructions_coordinator.g.dart';
 class SessionNotesInstructionsCoordinator = SessionNotesInstructionsCoordinatorBase
     with _$SessionNotesInstructionsCoordinator;
 
-abstract class SessionNotesInstructionsCoordinatorBase
-    with Store, Disposer, BaseCoordinator {
+abstract class SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
+    with Store {
   final SessionNotesInstructionsWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
-  final CaptureScreen captureScreen;
 
   SessionNotesInstructionsCoordinatorBase({
-    required this.captureScreen,
+    required super.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,

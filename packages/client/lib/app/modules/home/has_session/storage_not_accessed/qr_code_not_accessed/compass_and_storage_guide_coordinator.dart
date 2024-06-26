@@ -63,7 +63,7 @@ abstract class _CompassAndStorageGuideCoordinatorBase
   getNokhteSessionArtifacts() async {
     final res = await getNokhteSessionArtifactsLogic(NoParams());
     res.fold(
-      (failure) => baseErrorUpdater(failure),
+      (failure) => errorUpdater(failure),
       (artifacts) => nokhteSessionArtifacts = ObservableList.of(artifacts),
     );
   }

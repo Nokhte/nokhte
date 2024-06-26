@@ -5,7 +5,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
@@ -17,15 +16,13 @@ part 'base_home_screen_coordinator.g.dart';
 class BaseHomeScreenCoordinator = _BaseHomeScreenCoordinatorBase
     with _$BaseHomeScreenCoordinator;
 
-abstract class _BaseHomeScreenCoordinatorBase
-    with Store, BaseCoordinator, Disposer, BaseMobxLogic {
+abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
+    with Store {
   final BaseHomeScreenWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final SessionStartersLogicCoordinator sessionStarters;
   final DeepLinksCoordinator deepLinks;
   final TapDetector tap;
-  @override
-  final CaptureScreen captureScreen;
 
   _BaseHomeScreenCoordinatorBase({
     required this.sessionStarters,
@@ -33,7 +30,7 @@ abstract class _BaseHomeScreenCoordinatorBase
     required this.tap,
     required this.widgets,
     required this.deepLinks,
-    required this.captureScreen,
+    required super.captureScreen,
   });
 
   @action

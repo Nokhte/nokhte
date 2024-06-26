@@ -1,15 +1,12 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
-import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/home/mixin/home_router.dart';
 import 'package:nokhte/app/modules/login/domain/logic/add_metadata.dart';
 import 'package:nokhte/app/modules/login/login.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -17,8 +14,8 @@ part 'login_coordinator.g.dart';
 
 class LoginCoordinator = _LoginCoordinatorBase with _$LoginCoordinator;
 
-abstract class _LoginCoordinatorBase
-    with Store, HomeRouter, BaseCoordinator, Disposer {
+abstract class _LoginCoordinatorBase extends BaseHomeScreenRouterCoordinator
+    with Store {
   final LoginScreenWidgetsCoordinator widgets;
   final SignInWithAuthProviderStore signInWithAuthProvider;
   final AddName addName;
@@ -27,8 +24,6 @@ abstract class _LoginCoordinatorBase
   final SwipeDetector swipe;
   final TapDetector tap;
   final IdentifyUser identifyUser;
-  final GetUserInfoStore getUserInfo;
-  final CaptureScreen captureScreen;
 
   _LoginCoordinatorBase({
     required this.signInWithAuthProvider,
@@ -36,11 +31,11 @@ abstract class _LoginCoordinatorBase
     required this.addMetadata,
     required this.authStateStore,
     required this.addName,
-    required this.getUserInfo,
+    required super.getUserInfo,
     required this.identifyUser,
     required this.tap,
     required this.swipe,
-    required this.captureScreen,
+    required super.captureScreen,
   });
 
   @observable

@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -13,8 +13,8 @@ part 'login_widgets_coordinator.g.dart';
 class LoginScreenWidgetsCoordinator = _LoginScreenWidgetsCoordinatorBase
     with _$LoginScreenWidgetsCoordinator;
 
-abstract class _LoginScreenWidgetsCoordinatorBase
-    with Store, BaseWidgetsCoordinator, Disposer, SmartTextPaddingAdjuster {
+abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
+    with Store {
   final BeachWavesStore layer1BeachWaves;
   final BeachWavesStore layer2BeachWaves;
   final GestureCrossStore gestureCross;
@@ -22,7 +22,6 @@ abstract class _LoginScreenWidgetsCoordinatorBase
   final NokhteStore nokhte;
   final TrailingTextStore bottomTrailingText;
   final TrailingTextStore topTrailingText;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _LoginScreenWidgetsCoordinatorBase({
     required this.layer1BeachWaves,
@@ -32,7 +31,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase
     required this.nokhte,
     required this.bottomTrailingText,
     required this.topTrailingText,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
   });
 
   constructor(
@@ -238,4 +237,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase
       layer2BeachWaves.movieMode ==
           BeachWaveMovieModes.waterFromTopToOnShorePt1 &&
       hasCompletedSandTransition;
+
+  @override
+  List<Object> get props => [];
 }

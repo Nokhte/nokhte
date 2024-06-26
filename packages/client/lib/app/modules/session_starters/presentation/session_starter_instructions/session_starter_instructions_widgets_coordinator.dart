@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class SessionStarterInstructionsWidgetsCoordinator = _SessionStarterInstructions
     with _$SessionStarterInstructionsWidgetsCoordinator;
 
 abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
-    with Store, BaseWidgetsCoordinator, SmartTextPaddingAdjuster, Disposer {
+    extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final GestureCrossStore gestureCross;
@@ -25,14 +25,13 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
   final NokhteBlurStore nokhteBlur;
   final InstructionalGradientNokhteStore homeInstructionalNokhte;
   final InstructionalGradientNokhteStore presetsInstructionalNokhte;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionStarterInstructionsWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.touchRipple,
     required this.gestureCross,
     required this.smartText,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.centerInstructionalNokhte,
     required this.nokhteBlur,
     required this.homeInstructionalNokhte,
@@ -42,9 +41,6 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
     setSmartTextBottomPaddingScalar(.27);
     setSmartTextSubMessagePaddingScalar(110);
   }
-
-  @observable
-  Offset center = Offset.zero;
 
   @observable
   bool hasSwipedDown = false;

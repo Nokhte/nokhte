@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -12,17 +12,16 @@ class SessionNotesInstructionsWidgetsCoordinator = SessionNotesInstructionsWidge
     with _$SessionNotesInstructionsWidgetsCoordinator;
 
 abstract class SessionNotesInstructionsWidgetsCoordinatorBase
-    with Store, BaseWidgetsCoordinator, Disposer {
+    extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final MirroredTextStore mirroredText;
   final TouchRippleStore touchRipple;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   SessionNotesInstructionsWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.mirroredText,
     required this.touchRipple,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
   });
 
   @observable

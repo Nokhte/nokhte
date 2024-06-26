@@ -1,13 +1,11 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
-import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -18,24 +16,22 @@ class SessionExitCoordinator = _SessionExitCoordinatorBase
     with _$SessionExitCoordinator;
 
 abstract class _SessionExitCoordinatorBase
-    with Store, BaseCoordinator, HomeRouter, Disposer {
+    extends BaseHomeScreenRouterCoordinator with Store {
   final SessionExitWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final CaptureNokhteSessionEnd captureEnd;
-  final CaptureScreen captureScreen;
-  final GetUserInfoStore getUserInfo;
 
   _SessionExitCoordinatorBase({
-    required this.captureScreen,
+    required super.captureScreen,
     required this.widgets,
     required this.swipe,
     required this.captureEnd,
     required this.presence,
     required this.cleanUpCollaborationArtifacts,
-    required this.getUserInfo,
+    required super.getUserInfo,
   }) : sessionMetadata = presence.sessionMetadataStore;
 
   @observable
