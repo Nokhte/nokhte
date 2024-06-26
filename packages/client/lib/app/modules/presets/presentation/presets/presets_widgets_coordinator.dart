@@ -136,7 +136,7 @@ abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   condensedPresetCardTapReactor() =>
       reaction((p0) => presetCards.currentExpandedPresetCardName, (p0) {
-        if (p0.isNotEmpty && firstCardIsSelected) {
+        if (p0.isNotEmpty) {
           presetCards.onChosenNameChanged();
         }
       });
