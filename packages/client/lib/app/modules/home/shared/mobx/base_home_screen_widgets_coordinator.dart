@@ -11,8 +11,7 @@ part 'base_home_screen_widgets_coordinator.g.dart';
 class BaseHomeScreenWidgetsCoordinator = _BaseHomeScreenWidgetsCoordinatorBase
     with _$BaseHomeScreenWidgetsCoordinator;
 
-abstract class _BaseHomeScreenWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+abstract class _BaseHomeScreenWidgetsCoordinatorBase with Store {
   final NokhteBlurStore nokhteBlur;
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
@@ -23,11 +22,12 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
   final InstructionalGradientNokhteStore storageInstructionalNokhte;
+  final BaseWidgetsCoordinator base;
 
   _BaseHomeScreenWidgetsCoordinatorBase({
     required this.nokhteBlur,
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
     required this.gestureCross,
     required this.primarySmartText,
     required this.errorSmartText,
@@ -36,7 +36,9 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     required this.centerInstructionalNokhte,
     required this.sessionStarterInstructionalNokhte,
     required this.storageInstructionalNokhte,
-  });
+  }) : base = BaseWidgetsCoordinator(
+          wifiDisconnectOverlay: wifiDisconnectOverlay,
+        );
 
   @action
   constructor(Offset centerParam) {
@@ -47,7 +49,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
     errorSmartText.setMessagesData(SharedLists.emptyList);
     secondaryErrorSmartText.setMessagesData(SharedLists.errorConfirmList);
-    center = centerParam;
+    base.center = centerParam;
   }
 
   @observable
@@ -71,12 +73,12 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   @action
   onConnected() {
     onResumed();
-    setIsDisconnected(false);
+    base.setIsDisconnected(false);
   }
 
   @action
   onDisconnected() {
-    setIsDisconnected(true);
+    base.setIsDisconnected(true);
     onInactive();
     if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToSky) {
       isEnteringNokhteSession = false;
@@ -204,9 +206,9 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @action
   onLongReconnected() {
-    if (wifiDisconnectOverlay.movieMode ==
+    if (base.wifiDisconnectOverlay.movieMode ==
         WifiDisconnectMovieModes.removeTheCircle) {
-      if (isDisconnected) setIsDisconnected(false);
+      if (base.isDisconnected) base.setIsDisconnected(false);
       if (primarySmartText.isPaused) {
         primarySmartText.resume();
       }
@@ -258,7 +260,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     hasSwipedUp = true;
     isEnteringNokhteSession = true;
     primarySmartText.toggleWidgetVisibility();
-    touchIsDisabled = true;
+    base.touchIsDisabled = true;
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToDeepSea);
     beachWaves.currentStore.initMovie(
       beachWaves.currentAnimationValues.first,

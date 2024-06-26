@@ -37,7 +37,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
     primarySmartText.startRotatingText();
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
     storageInstructionalNokhte.prepareYellowDiamond(
-      center,
+      base.center,
       position: InstructionalNokhtePositions.right,
       colorway: GradientNokhteColorways.vibrantBlue,
     );
@@ -46,9 +46,9 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   initReactors() {
-    disposers.add(gestureCrossTapReactor());
-    disposers.add(centerInstructionalNokhteMovieReactor());
-    disposers.add(centerCrossNokhteReactor(() {
+    base.disposers.add(gestureCrossTapReactor());
+    base.disposers.add(centerInstructionalNokhteMovieReactor());
+    base.disposers.add(centerCrossNokhteReactor(() {
       sessionStarterInstructionalNokhte.setWidgetVisibility(false);
       storageInstructionalNokhte.setWidgetVisibility(false);
     }));
@@ -84,26 +84,26 @@ abstract class _StorageGuideWidgetsCoordinatorBase
     primarySmartText.startRotatingText(isResuming: true);
     Timer(const Duration(seconds: 1, milliseconds: 500), () {
       storageInstructionalNokhte.setWidgetVisibility(true);
-      setSmartTextBottomPaddingScalar(0);
-      setSmartTextTopPaddingScalar(.13);
+      base.setSmartTextBottomPaddingScalar(0);
+      base.setSmartTextTopPaddingScalar(.13);
     });
     gestureCross.gradientNokhte.setWidgetVisibility(false);
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
     sessionStarterInstructionalNokhte.setWidgetVisibility(true);
     sessionStarterInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
-        center: center,
+        center: base.center,
         colorway: GradientNokhteColorways.invertedBeachWave,
         direction: InstructionalGradientDirections.enlarge,
         position: InstructionalNokhtePositions.top,
       ),
     );
-    centerInstructionalNokhte.moveToCenter(center);
+    centerInstructionalNokhte.moveToCenter(base.center);
   }
 
   @action
   onGestureCrossTap() {
-    if (!isDisconnected &&
+    if (!base.isDisconnected &&
         isAllowedToMakeAGesture &&
         !swipeRightIsUnlocked &&
         canTapOnGestureCross) {
@@ -114,7 +114,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   onSwipeUp() {
-    if (!isDisconnected && isAllowedToMakeAGesture) {
+    if (!base.isDisconnected && isAllowedToMakeAGesture) {
       if (!hasInitiatedBlur) {
         centerInstructionalNokhte.setWidgetVisibility(false);
         gestureCross.centerCrossNokhte.setWidgetVisibility(true);
@@ -126,7 +126,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   onSwipeRight() {
-    if (!isDisconnected && isAllowedToMakeAGesture) {
+    if (!base.isDisconnected && isAllowedToMakeAGesture) {
       if (hasInitiatedBlur && !hasSwipedUp) {
         hasSwipedUp = true;
         centerNokhtePosition = InstructionalNokhtePositions.right;
@@ -152,7 +152,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   onTap(Offset tapPosition) {
-    if (!isDisconnected && canTap) {
+    if (!base.isDisconnected && canTap) {
       touchRipple.onTap(tapPosition);
       hasInitiatedBlur = false;
       canTap = false;
@@ -162,7 +162,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
       );
       storageInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
-          center: center,
+          center: base.center,
           colorway: GradientNokhteColorways.vibrantBlue,
           direction: InstructionalGradientDirections.shrink,
           position: InstructionalNokhtePositions.right,
@@ -172,7 +172,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
       sessionStarterInstructionalNokhte.setWidgetVisibility(true);
       sessionStarterInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
-          center: center,
+          center: base.center,
           colorway: GradientNokhteColorways.invertedBeachWave,
           direction: InstructionalGradientDirections.shrink,
           position: InstructionalNokhtePositions.top,

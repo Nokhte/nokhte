@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
@@ -16,53 +17,53 @@ part 'base_home_screen_coordinator.g.dart';
 class BaseHomeScreenCoordinator = _BaseHomeScreenCoordinatorBase
     with _$BaseHomeScreenCoordinator;
 
-abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _BaseHomeScreenCoordinatorBase with Store {
   final BaseHomeScreenWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final SessionStartersLogicCoordinator sessionStarters;
   final DeepLinksCoordinator deepLinks;
   final TapDetector tap;
+  final BaseCoordinator base;
 
   _BaseHomeScreenCoordinatorBase({
+    required CaptureScreen captureScreen,
     required this.sessionStarters,
     required this.swipe,
     required this.tap,
     required this.widgets,
     required this.deepLinks,
-    required super.captureScreen,
-  });
+  }) : base = BaseCoordinator(captureScreen: captureScreen);
 
   @action
   constructor(Offset center) {}
 
   initReactors() {
     deepLinks.listen();
-    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => setDisableAllTouchFeedback(false),
+    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.onLongReconnected();
-        setDisableAllTouchFeedback(false);
+        base.setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        setDisableAllTouchFeedback(true);
+        base.setDisableAllTouchFeedback(true);
         widgets.onDisconnected();
       },
     ));
-    disposers.add(openedDeepLinksReactor());
-    disposers.add(collaboratorPoolEntryErrorReactor());
+    base.disposers.add(openedDeepLinksReactor());
+    base.disposers.add(collaboratorPoolEntryErrorReactor());
   }
 
   @action
   onResumed() {
-    ifTouchIsNotDisabled(() {
+    base.ifTouchIsNotDisabled(() {
       widgets.onResumed();
     });
   }
 
   @action
   onInactive() {
-    ifTouchIsNotDisabled(() {
+    base.ifTouchIsNotDisabled(() {
       widgets.onInactive();
     });
   }
@@ -116,8 +117,8 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
   collaboratorPoolEntryErrorReactor() =>
       reaction((p0) => sessionStarters.errorMessage, (p0) async {
         if (p0.isNotEmpty) {
-          setDisableAllTouchFeedback(true);
-          setIsInErrorMode(true);
+          base.setDisableAllTouchFeedback(true);
+          base.setIsInErrorMode(true);
           widgets.onError(p0);
           deepLinks.reset();
           sessionStarters.resetErrorMessage();
@@ -135,7 +136,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
                 widgets.beachWaves.movieStatus != MovieStatus.inProgress) {
               timer.cancel();
               if (!widgets.isInErrorMode) {
-                setDisableAllTouchFeedback(true);
+                base.setDisableAllTouchFeedback(true);
                 final additionalMetadata =
                     deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
                 await sessionStarters.join(additionalMetadata["deepLinkUID"]);
@@ -143,7 +144,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
                 widgets.onDeepLinkOpened();
               } else {
                 timer.cancel();
-                setDisableAllTouchFeedback(true);
+                base.setDisableAllTouchFeedback(true);
                 final additionalMetadata =
                     deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
                 await sessionStarters.join(additionalMetadata["deepLinkUID"]);
@@ -158,10 +159,9 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
         }
       });
 
-  @override
   deconstructor() {
+    base.deconstructor();
     deepLinks.dispose();
-    widgets.deconstructor();
-    super.deconstructor();
+    widgets.base.deconstructor();
   }
 }

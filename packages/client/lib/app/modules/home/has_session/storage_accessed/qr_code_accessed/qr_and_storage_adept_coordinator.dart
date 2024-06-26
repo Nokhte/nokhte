@@ -34,36 +34,37 @@ abstract class _QrAndStorageAdeptCoordinatorBase
   constructor(Offset offset) async {
     widgets.constructor(offset);
     initReactors();
-    await captureScreen(HomeConstants.qrAndStorageAdept);
+    await base.captureScreen(HomeConstants.qrAndStorageAdept);
     await getNokhteSessionArtifacts();
   }
 
   @override
   initReactors() {
     super.initReactors();
-    disposers.add(swipeReactor(
+    base.disposers.add(swipeReactor(
       onSwipeUp: () => widgets.onSwipeUp(),
       onSwipeRight: () => widgets.onSwipeRight(),
     ));
-    disposers.add(widgets.beachWavesMovieStatusReactor(
+    base.disposers.add(widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
       onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
       onAnyToShoreComplete: () {
-        setDisableAllTouchFeedback(false);
+        base.setDisableAllTouchFeedback(false);
       },
       onStorageEntry: onSubsequentStorageEntry,
     ));
-    disposers.add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
-    disposers.add(tapReactor());
+    base.disposers
+        .add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
+    base.disposers.add(tapReactor());
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        if (isInErrorMode) {
+        if (base.isInErrorMode) {
           widgets.onErrorResolved(() {
-            setIsInErrorMode(true);
+            base.setIsInErrorMode(true);
           });
         }
-        ifTouchIsNotDisabled(() {
+        base.ifTouchIsNotDisabled(() {
           widgets.onTap(tap.currentTapPosition);
         });
       });
@@ -72,7 +73,7 @@ abstract class _QrAndStorageAdeptCoordinatorBase
   getNokhteSessionArtifacts() async {
     final res = await getNokhteSessionArtifactsLogic(NoParams());
     res.fold(
-      (failure) => errorUpdater(failure),
+      (failure) => base.baseLogic.errorUpdater(failure),
       (artifacts) => nokhteSessionArtifacts = ObservableList.of(artifacts),
     );
   }
