@@ -49,9 +49,6 @@ mixin SessionConstants {
       '$module$instructionsModule$relativeSocraticJustSymbols';
   //
 
-  // core
-  static const coreModule = '/core';
-
   static const relativeLobby = '/lobby';
   static const relativePreview = '/preview';
   static const relativeDuoGreeter = '/duo_greeter';
@@ -59,38 +56,49 @@ mixin SessionConstants {
   static const relativeTrialGreeter = '/trial_greeter';
   static const relativeExit = '/exit';
 
-  // static const relativeWaiting = '/waiting';
+  static const relativeWaiting = '/waiting';
   static const relativeNotes = '/notes';
+
+  static const relativeInstructions = '/instructions';
+  static const relativeFullInstructions = '/full_instructions';
+  static const relativeHalfInstructions = '/half_instructions';
+  static const relativeSpeaking = '/speaking';
 
   static const relativePaywall = '/paywall';
   static const relativeWaitingPatron = '/waiting_patron';
 
-  static const lobby = '$module$coreModule$relativeLobby';
-  static const preview = '$module$coreModule$relativePreview';
-  static const duoGreeter = '$module$coreModule$relativeDuoGreeter';
-  static const groupGreeter = '$module$coreModule$relativeGroupGreeter';
-  static const trialGreeter = '$module$coreModule$relativeTrialGreeter';
-  static const exit = '$module$coreModule$relativeExit';
+  static const lobby = '${module}core$relativeLobby';
+  static const preview = '${module}core$relativePreview';
+  static const duoGreeter = '${module}core$relativeDuoGreeter';
+  static const groupGreeter = '${module}core$relativeGroupGreeter';
+  static const trialGreeter = '${module}core$relativeTrialGreeter';
+  static const exit = '${module}core$relativeExit';
 
-  static const hybridModule = '/hybrid';
-
-  static const hybridRouter = '$module$hybridModule$relativeRoot';
+  static const hybridRouter = '${module}hybrid$relativeRoot';
   static const relativeHybrid = '/hybrid';
-  static const hybrid = '$module$hybridModule$relativeHybrid';
+  static const hybrid = '${module}hybrid$relativeHybrid';
   static const hybridSpeakingInstructions =
-      '$module$hybridModule$relativeSpeakingInstructions';
-  // static const hybridWaiting = '$module$hybridModule$relativeWaiting';
+      '${module}hybrid$relativeSpeakingInstructions';
+  static const hybridWaiting = '${module}hybrid$relativeWaiting';
   static const hybridNotesInstructions =
-      '$module$hybridModule$relativeNotesInstructions';
-  static const hybridNotes = '$module$hybridModule$relativeNotes';
+      '${module}hybrid$relativeNotesInstructions';
+  static const hybridNotes = '${module}hybrid$relativeNotes';
 
-  static const monetizeModule = '/monetize';
-  static const paywall = '$module$monetizeModule$relativePaywall';
-  static const waitingPatron = '$module$monetizeModule$relativeWaitingPatron';
+  static const paywall = '${module}monetize$relativePaywall';
+  static const waitingPatron = '${module}monetize$relativeWaitingPatron';
 
-  static const notesModule = '/notes';
-
+  static const notesWaiting = '${module}notes$relativeWaiting';
+  static const notesFullInstructions =
+      '${module}notes$relativeFullInstructions';
+  static const notesHalfInstructions =
+      '${module}notes$relativeHalfInstructions';
   static const notes = '${module}notes$relativeRoot';
 
-  static const speaking = '${module}speaking$relativeRoot';
+  static const speakingRouter = '${module}speaking$relativeRoot';
+  static const speaking = '${module}speaking$relativeSpeaking';
+  static const speakingFullInstructions =
+      '${module}speaking$relativeFullInstructions';
+  static const speakingHalfInstructions =
+      '${module}speaking$relativeHalfInstructions';
+  static const speakingWaiting = '${module}speaking$relativeWaiting';
 }
