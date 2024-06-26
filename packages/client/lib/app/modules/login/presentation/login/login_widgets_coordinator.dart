@@ -237,7 +237,4 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       layer2BeachWaves.movieMode ==
           BeachWaveMovieModes.waterFromTopToOnShorePt1 &&
       hasCompletedSandTransition;
-
-  @override
-  List<Object> get props => [];
 }

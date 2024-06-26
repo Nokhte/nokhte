@@ -48,7 +48,4 @@ abstract class _SignInWithAuthProviderStoreBase
       state = StoreState.loaded;
     });
   }
-
-  @override
-  List<Object> get props => [errorMessage, state];
 }
