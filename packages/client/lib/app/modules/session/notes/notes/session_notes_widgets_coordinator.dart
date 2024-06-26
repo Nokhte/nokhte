@@ -11,19 +11,22 @@ part 'session_notes_widgets_coordinator.g.dart';
 class SessionNotesWidgetsCoordinator = _SessionNotesWidgetsCoordinatorBase
     with _$SessionNotesWidgetsCoordinator;
 
-abstract class _SessionNotesWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+abstract class _SessionNotesWidgetsCoordinatorBase with Store {
   final BeachWavesStore beachWaves;
   final TouchRippleStore touchRipple;
   final TextEditorStore textEditor;
   final SmartTextStore smartText;
+
+  final BaseWidgetsCoordinator base;
+
   _SessionNotesWidgetsCoordinatorBase({
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
     required this.touchRipple,
     required this.textEditor,
     required this.smartText,
-  });
+  }) : base = BaseWidgetsCoordinator(
+            wifiDisconnectOverlay: wifiDisconnectOverlay);
 
   @observable
   String lastSubmittedText = '';

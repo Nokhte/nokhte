@@ -13,20 +13,21 @@ part 'session_lobby_widgets_coordinator.g.dart';
 class SessionLobbyWidgetsCoordinator = _SessionLobbyWidgetsCoordinatorBase
     with _$SessionLobbyWidgetsCoordinator;
 
-abstract class _SessionLobbyWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+abstract class _SessionLobbyWidgetsCoordinatorBase with Store {
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
   final NokhteQrCodeStore qrCode;
   final TouchRippleStore touchRipple;
+  final BaseWidgetsCoordinator base;
 
   _SessionLobbyWidgetsCoordinatorBase({
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
     required this.primarySmartText,
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
     required this.qrCode,
     required this.touchRipple,
-  });
+  }) : base = BaseWidgetsCoordinator(
+            wifiDisconnectOverlay: wifiDisconnectOverlay);
 
   @observable
   bool constructorHasBeenCalled = false;

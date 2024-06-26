@@ -11,18 +11,19 @@ part 'session_notes_instructions_widgets_coordinator.g.dart';
 class SessionNotesInstructionsWidgetsCoordinator = SessionNotesInstructionsWidgetsCoordinatorBase
     with _$SessionNotesInstructionsWidgetsCoordinator;
 
-abstract class SessionNotesInstructionsWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+abstract class SessionNotesInstructionsWidgetsCoordinatorBase with Store {
   final BeachWavesStore beachWaves;
   final MirroredTextStore mirroredText;
   final TouchRippleStore touchRipple;
+  final BaseWidgetsCoordinator base;
 
   SessionNotesInstructionsWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.mirroredText,
     required this.touchRipple,
-    required super.wifiDisconnectOverlay,
-  });
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+  }) : base = BaseWidgetsCoordinator(
+            wifiDisconnectOverlay: wifiDisconnectOverlay);
 
   @observable
   Stopwatch cooldownStopwatch = Stopwatch();

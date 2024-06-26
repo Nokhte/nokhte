@@ -14,19 +14,22 @@ part 'show_group_geometry_widgets_coordinator.g.dart';
 class ShowGroupGeometryWidgetsCoordinator = _ShowGroupGeometryWidgetsCoordinatorBase
     with _$ShowGroupGeometryWidgetsCoordinator;
 
-abstract class _ShowGroupGeometryWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+abstract class _ShowGroupGeometryWidgetsCoordinatorBase with Store {
   final PresetDiagramStore presetDiagram;
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final TouchRippleStore touchRipple;
+
+  final BaseWidgetsCoordinator base;
+
   _ShowGroupGeometryWidgetsCoordinatorBase({
-    required super.wifiDisconnectOverlay,
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
     required this.presetDiagram,
     required this.beachWaves,
     required this.smartText,
     required this.touchRipple,
-  });
+  }) : base = BaseWidgetsCoordinator(
+            wifiDisconnectOverlay: wifiDisconnectOverlay);
 
   @observable
   bool canTap = false;
@@ -47,7 +50,7 @@ abstract class _ShowGroupGeometryWidgetsCoordinatorBase
 
   @action
   initReactors() {
-    disposers.add(presetDiagramsMovieStatusReactor());
+    base.disposers.add(presetDiagramsMovieStatusReactor());
   }
 
   @action

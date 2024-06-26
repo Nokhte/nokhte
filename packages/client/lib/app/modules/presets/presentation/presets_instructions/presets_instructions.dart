@@ -55,19 +55,19 @@ class PresetsInstructionsScreen extends HookWidget {
                 opacityDuration: Seconds.get(1),
                 bottomPadding: height * .75,
                 subTextPadding:
-                    coordinator.widgets.smartTextSubMessagePaddingScalar,
+                    coordinator.widgets.base.smartTextSubMessagePaddingScalar,
               ),
               Observer(builder: (context) {
                 return Center(
                   child: SmartText(
                     store: coordinator.widgets.smartText,
                     opacityDuration: Seconds.get(1),
-                    topPadding:
-                        height * coordinator.widgets.smartTextTopPaddingScalar,
+                    topPadding: height *
+                        coordinator.widgets.base.smartTextTopPaddingScalar,
                     bottomPadding: height *
-                        coordinator.widgets.smartTextBottomPaddingScalar,
-                    subTextPadding:
-                        coordinator.widgets.smartTextSubMessagePaddingScalar,
+                        coordinator.widgets.base.smartTextBottomPaddingScalar,
+                    subTextPadding: coordinator
+                        .widgets.base.smartTextSubMessagePaddingScalar,
                   ),
                 );
               }),
@@ -89,7 +89,7 @@ class PresetsInstructionsScreen extends HookWidget {
                 store: coordinator.widgets.sessionStarterInstructionalNokhte,
               ),
               WifiDisconnectOverlay(
-                store: coordinator.widgets.wifiDisconnectOverlay,
+                store: coordinator.widgets.base.wifiDisconnectOverlay,
               ),
             ],
           ),

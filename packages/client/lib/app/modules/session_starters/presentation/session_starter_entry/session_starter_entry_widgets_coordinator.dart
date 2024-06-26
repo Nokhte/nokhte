@@ -8,16 +8,17 @@ part 'session_starter_entry_widgets_coordinator.g.dart';
 class SessionStarterEntryWidgetsCoordinator = _SessionStarterEntryWidgetsCoordinatorBase
     with _$SessionStarterEntryWidgetsCoordinator;
 
-abstract class _SessionStarterEntryWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+abstract class _SessionStarterEntryWidgetsCoordinatorBase with Store {
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
+  final BaseWidgetsCoordinator base;
 
   _SessionStarterEntryWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.gestureCross,
-    required super.wifiDisconnectOverlay,
-  });
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+  }) : base = BaseWidgetsCoordinator(
+            wifiDisconnectOverlay: wifiDisconnectOverlay);
 
   @action
   constructor() {
@@ -36,7 +37,7 @@ abstract class _SessionStarterEntryWidgetsCoordinatorBase
   }) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-            onFinished();
+          onFinished();
         }
       });
 }

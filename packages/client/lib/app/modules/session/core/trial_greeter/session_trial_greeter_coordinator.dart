@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -14,25 +15,27 @@ part 'session_trial_greeter_coordinator.g.dart';
 class SessionTrialGreeterCoordinator = _SessionTrialGreeterCoordinatorBase
     with _$SessionTrialGreeterCoordinator;
 
-abstract class _SessionTrialGreeterCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _SessionTrialGreeterCoordinatorBase with Store {
   final SessionTrialGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
 
+  final BaseCoordinator base;
+
   _SessionTrialGreeterCoordinatorBase({
-    required super.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
-  }) : sessionMetadata = presence.sessionMetadataStore;
+    required CaptureScreen captureScreen,
+  })  : sessionMetadata = presence.sessionMetadataStore,
+        base = BaseCoordinator(captureScreen: captureScreen);
 
   @action
   constructor() async {
     widgets.constructor();
     initReactors();
-    await captureScreen(SessionConstants.trialGreeter);
+    await base.captureScreen(SessionConstants.trialGreeter);
   }
 
   @action
@@ -52,32 +55,32 @@ abstract class _SessionTrialGreeterCoordinatorBase extends BaseCoordinator
 
   @action
   initReactors() {
-    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => setDisableAllTouchFeedback(false),
+    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        setDisableAllTouchFeedback(false);
+        base.setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        setDisableAllTouchFeedback(true);
+        base.setDisableAllTouchFeedback(true);
       },
     ));
-    disposers.add(presence.initReactors(
+    base.disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
-        setDisableAllTouchFeedback(false);
+        base.setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
-        setDisableAllTouchFeedback(true);
+        base.setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
     ));
-    disposers.add(tapReactor());
-    disposers.add(rippleCompletionStatusReactor());
+    base.disposers.add(tapReactor());
+    base.disposers.add(rippleCompletionStatusReactor());
   }
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => ifTouchIsNotDisabled(() async {
+        (p0) => base.ifTouchIsNotDisabled(() async {
           widgets.onTap(
             tap.currentTapPosition,
             onFinalTap: () async => await presence.updateCurrentPhase(1),
@@ -91,6 +94,11 @@ abstract class _SessionTrialGreeterCoordinatorBase extends BaseCoordinator
           Modular.to.navigate(route);
         }
       });
+
+  deconstructor() {
+    base.deconstructor();
+    widgets.base.deconstructor();
+  }
 
   @computed
   String get route => sessionMetadata.numberOfCollaborators.isGreaterThan(2)

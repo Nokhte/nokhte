@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, overridden_fields, annotate_overrides
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -10,18 +11,21 @@ part 'collaboration_just_symbols_coordinator.g.dart';
 class CollaborationJustSymbolsCoordinator = _CollaborationJustSymbolsCoordinatorBase
     with _$CollaborationJustSymbolsCoordinator;
 
-abstract class _CollaborationJustSymbolsCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _CollaborationJustSymbolsCoordinatorBase with Store {
   final CollaborationJustSymbolsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
   final TapDetector tap;
+
+  final BaseCoordinator base;
+
   _CollaborationJustSymbolsCoordinatorBase({
-    required super.captureScreen,
+    required CaptureScreen captureScreen,
     required this.widgets,
     required this.presence,
     required this.tap,
-  }) : sessionMetadata = presence.sessionMetadataStore;
+  })  : sessionMetadata = presence.sessionMetadataStore,
+        base = BaseCoordinator(captureScreen: captureScreen);
 
   @action
   constructor() {
@@ -31,17 +35,17 @@ abstract class _CollaborationJustSymbolsCoordinatorBase extends BaseCoordinator
 
   @action
   initReactors() {
-    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => setDisableAllTouchFeedback(false),
+    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        setDisableAllTouchFeedback(false);
+        base.setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        setDisableAllTouchFeedback(true);
+        base.setDisableAllTouchFeedback(true);
       },
     ));
-    disposers.add(rippleCompletionStatusReactor());
-    disposers.add(tapReactor());
+    base.disposers.add(rippleCompletionStatusReactor());
+    base.disposers.add(tapReactor());
   }
 
   rippleCompletionStatusReactor() =>
@@ -52,8 +56,13 @@ abstract class _CollaborationJustSymbolsCoordinatorBase extends BaseCoordinator
       });
 
   tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
-        ifTouchIsNotDisabled(() {
+        base.ifTouchIsNotDisabled(() {
           widgets.onTap(p0);
         });
       });
+
+  deconstructor() {
+    base.deconstructor();
+    widgets.base.deconstructor();
+  }
 }

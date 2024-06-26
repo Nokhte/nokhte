@@ -45,7 +45,7 @@ abstract class _SoloHybridInstructionsCoordinatorBase with Store {
         widgets.setDisableTouchInput(true);
       },
     ));
-    base.disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
+    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
@@ -88,6 +88,6 @@ abstract class _SoloHybridInstructionsCoordinatorBase with Store {
 
   deconstructor() {
     base.deconstructor();
-    widgets.deconstructor();
+    widgets.base.deconstructor();
   }
 }

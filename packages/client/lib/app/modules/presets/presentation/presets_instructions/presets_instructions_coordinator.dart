@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -12,8 +13,9 @@ part 'presets_instructions_coordinator.g.dart';
 class PresetsInstructionsCoordinator = _PresetsInstructionsCoordinatorBase
     with _$PresetsInstructionsCoordinator;
 
-abstract class _PresetsInstructionsCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _PresetsInstructionsCoordinatorBase with Store {
+  final BaseCoordinator base;
+
   final PresetsInstructionsWidgetsCoordinator widgets;
   final PresetsLogicCoordinator logic;
   final TapDetector tap;
@@ -22,12 +24,12 @@ abstract class _PresetsInstructionsCoordinatorBase extends BaseCoordinator
 
   _PresetsInstructionsCoordinatorBase({
     required this.widgets,
-    required super.captureScreen,
+    required CaptureScreen captureScreen,
     required this.logic,
     required this.tap,
     required this.swipe,
     required this.userInformation,
-  });
+  }) : base = BaseCoordinator(captureScreen: captureScreen);
 
   @action
   constructor(Offset center) async {
@@ -35,25 +37,25 @@ abstract class _PresetsInstructionsCoordinatorBase extends BaseCoordinator
     widgets.initReactors();
     initReactors();
     await logic.getCompanyPresets();
-    await captureScreen(PresetsConstants.presetsInstructions);
+    await base.captureScreen(PresetsConstants.presetsInstructions);
   }
 
   initReactors() {
-    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => setDisableAllTouchFeedback(false),
+    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        setDisableAllTouchFeedback(false);
-        widgets.setIsDisconnected(false);
+        base.setDisableAllTouchFeedback(false);
+        widgets.base.setIsDisconnected(false);
       },
       onDisconnected: () {
-        setDisableAllTouchFeedback(true);
-        widgets.setIsDisconnected(true);
+        base.setDisableAllTouchFeedback(true);
+        widgets.base.setIsDisconnected(true);
       },
     ));
-    disposers.add(companyPresetsReactor());
-    disposers.add(tapReactor());
-    disposers.add(swipeReactor());
-    disposers.add(
+    base.disposers.add(companyPresetsReactor());
+    base.disposers.add(tapReactor());
+    base.disposers.add(swipeReactor());
+    base.disposers.add(
         widgets.selectionCondensedPresetCardMovieStatusReactor(onSelected));
   }
 
@@ -71,7 +73,7 @@ abstract class _PresetsInstructionsCoordinatorBase extends BaseCoordinator
       });
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        ifTouchIsNotDisabled(() {
+        base.ifTouchIsNotDisabled(() {
           widgets.onTap();
         });
       });
@@ -84,9 +86,8 @@ abstract class _PresetsInstructionsCoordinatorBase extends BaseCoordinator
         );
       });
 
-  @override
   deconstructor() {
-    widgets.deconstructor();
-    super.deconstructor();
+    widgets.base.deconstructor();
+    base.deconstructor();
   }
 }

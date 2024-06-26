@@ -22,7 +22,7 @@ class SessionLobbyScreen extends HookWidget {
       return () => coordinator.deconstructor();
     }, []);
     useOnAppLifecycleStateChange(
-        (previous, current) => coordinator.onAppLifeCycleStateChange(
+        (previous, current) => coordinator.base.onAppLifeCycleStateChange(
               current,
               onResumed: () => coordinator.onResumed(),
               onInactive: () => coordinator.onInactive(),
@@ -57,7 +57,7 @@ class SessionLobbyScreen extends HookWidget {
               store: coordinator.presence.incidentsOverlayStore,
             ),
             WifiDisconnectOverlay(
-              store: coordinator.widgets.wifiDisconnectOverlay,
+              store: coordinator.widgets.base.wifiDisconnectOverlay,
             ),
           ],
         ),

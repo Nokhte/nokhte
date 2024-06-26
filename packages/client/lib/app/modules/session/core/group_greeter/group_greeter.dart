@@ -23,7 +23,7 @@ class SessionGroupGreeterScreen extends HookWidget {
       return () => coordinator.deconstructor();
     }, []);
     useOnAppLifecycleStateChange(
-        (previous, current) => coordinator.onAppLifeCycleStateChange(
+        (previous, current) => coordinator.base.onAppLifeCycleStateChange(
               current,
               onResumed: () => coordinator.onResumed(),
               onInactive: () => coordinator.onInactive(),
@@ -49,8 +49,8 @@ class SessionGroupGreeterScreen extends HookWidget {
               Center(
                 child: SmartText(
                   store: coordinator.widgets.primarySmartText,
-                  bottomPadding:
-                      height * coordinator.widgets.smartTextBottomPaddingScalar,
+                  bottomPadding: height *
+                      coordinator.widgets.base.smartTextBottomPaddingScalar,
                   opacityDuration: Seconds.get(1),
                 ),
               ),
@@ -76,7 +76,7 @@ class SessionGroupGreeterScreen extends HookWidget {
                 store: coordinator.presence.incidentsOverlayStore,
               ),
               WifiDisconnectOverlay(
-                store: coordinator.widgets.wifiDisconnectOverlay,
+                store: coordinator.widgets.base.wifiDisconnectOverlay,
               ),
             ],
           ),

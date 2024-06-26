@@ -12,24 +12,25 @@ part 'session_exit_widgets_coordinator.g.dart';
 class SessionExitWidgetsCoordinator = _SessionExitWidgetsCoordinatorBase
     with _$SessionExitWidgetsCoordinator;
 
-abstract class _SessionExitWidgetsCoordinatorBase extends BaseWidgetsCoordinator
-    with Store {
+abstract class _SessionExitWidgetsCoordinatorBase with Store {
   final BeachWavesStore beachWaves;
   final SessionExitStatusIndicatorStore sessionExitStatusIndicator;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final GestureCrossStore gestureCross;
   final TintStore tint;
+  final BaseWidgetsCoordinator base;
 
   _SessionExitWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.sessionExitStatusIndicator,
-    required super.wifiDisconnectOverlay,
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.gestureCross,
     required this.tint,
-  });
+  }) : base = BaseWidgetsCoordinator(
+            wifiDisconnectOverlay: wifiDisconnectOverlay);
 
   @action
   constructor() {

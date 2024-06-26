@@ -73,7 +73,7 @@ class SessionExitScreen extends HookWidget {
                 ),
               ),
               WifiDisconnectOverlay(
-                store: coordinator.widgets.wifiDisconnectOverlay,
+                store: coordinator.widgets.base.wifiDisconnectOverlay,
               ),
             ],
           ),

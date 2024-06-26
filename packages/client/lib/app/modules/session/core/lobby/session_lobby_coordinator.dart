@@ -16,7 +16,7 @@ part 'session_lobby_coordinator.g.dart';
 class SessionLobbyCoordinator = _SessionLobbyCoordinatorBase
     with _$SessionLobbyCoordinator;
 
-abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
+abstract class _SessionLobbyCoordinatorBase with Store {
   final SessionLobbyWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
@@ -25,9 +25,9 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
   final DeepLinksCoordinator deepLinks;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
   final CaptureNokhteSessionStart captureStart;
+  final BaseCoordinator base;
 
   _SessionLobbyCoordinatorBase({
-    required super.captureScreen,
     required this.widgets,
     required this.deepLinks,
     required this.captureStart,
@@ -35,7 +35,9 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
     required this.presence,
     required this.userMetadata,
     required this.activeMonetizationSession,
-  }) : sessionMetadata = presence.sessionMetadataStore;
+    required CaptureScreen captureScreen,
+  })  : sessionMetadata = presence.sessionMetadataStore,
+        base = BaseCoordinator(captureScreen: captureScreen);
 
   @observable
   bool isNavigatingAway = false;
@@ -47,7 +49,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
     await presence.listen();
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionBearer);
     await userMetadata.getMetadata();
-    await captureScreen(SessionConstants.lobby);
+    await base.captureScreen(SessionConstants.lobby);
   }
 
   @action
@@ -67,31 +69,31 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
 
   @action
   initReactors() {
-    disposers.add(deepLinkReactor());
-    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => setDisableAllTouchFeedback(false),
+    base.disposers.add(deepLinkReactor());
+    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        setDisableAllTouchFeedback(false);
+        base.setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        setDisableAllTouchFeedback(true);
+        base.setDisableAllTouchFeedback(true);
       },
     ));
-    disposers.add(presence.initReactors(
+    base.disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
-        setDisableAllTouchFeedback(false);
+        base.setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
-        setDisableAllTouchFeedback(true);
+        base.setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
     ));
     if (isTheLeader) {
       tapReactor();
     }
-    disposers.add(sessionStartReactor());
-    disposers.add(widgets.beachWavesMovieStatusReactor(enterGreeter));
+    base.disposers.add(sessionStartReactor());
+    base.disposers.add(widgets.beachWavesMovieStatusReactor(enterGreeter));
   }
 
   deepLinkReactor() => reaction(
@@ -101,7 +103,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => ifTouchIsNotDisabled(() async {
+        (p0) => base.ifTouchIsNotDisabled(() async {
           widgets.onTap(
             tap.currentTapPosition,
             onTap: () async {
@@ -140,6 +142,11 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
     } else {
       return SessionConstants.duoGreeter;
     }
+  }
+
+  deconstructor() {
+    base.deconstructor();
+    widgets.base.deconstructor();
   }
 
   @computed

@@ -12,19 +12,20 @@ part 'collaboration_full_instructions_widgets_coordinator.g.dart';
 class CollaborationFullInstructionsWidgetsCoordinator = _CollaborationFullInstructionsWidgetsCoordinatorBase
     with _$CollaborationFullInstructionsWidgetsCoordinator;
 
-abstract class _CollaborationFullInstructionsWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+abstract class _CollaborationFullInstructionsWidgetsCoordinatorBase with Store {
   final PresetDiagramStore presetDiagram;
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final TouchRippleStore touchRipple;
+  final BaseWidgetsCoordinator base;
   _CollaborationFullInstructionsWidgetsCoordinatorBase({
-    required super.wifiDisconnectOverlay,
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
     required this.presetDiagram,
     required this.beachWaves,
     required this.smartText,
     required this.touchRipple,
-  });
+  }) : base = BaseWidgetsCoordinator(
+            wifiDisconnectOverlay: wifiDisconnectOverlay);
 
   @observable
   bool canTap = false;
@@ -42,7 +43,7 @@ abstract class _CollaborationFullInstructionsWidgetsCoordinatorBase
 
   @action
   initReactors() {
-    disposers.add(rippleCompletionStatusReactor());
+   base. disposers.add(rippleCompletionStatusReactor());
   }
 
   @action

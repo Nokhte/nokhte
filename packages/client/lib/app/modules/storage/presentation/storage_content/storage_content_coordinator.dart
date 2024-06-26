@@ -64,7 +64,7 @@ abstract class _StorageContentCoordinatorBase with Store {
       });
 
   deconstructor() {
-    widgets.deconstructor();
+    widgets.base.deconstructor();
     base.deconstructor();
   }
 }

@@ -17,8 +17,7 @@ part 'session_paywall_widgets_coordinator.g.dart';
 class SessionPaywallWidgetsCoordinator = _SessionPaywallWidgetsCoordinatorBase
     with _$SessionPaywallWidgetsCoordinator;
 
-abstract class _SessionPaywallWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+abstract class _SessionPaywallWidgetsCoordinatorBase with Store {
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final SmartTextStore tertiarySmartText;
@@ -26,16 +25,18 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   final TouchRippleStore touchRipple;
   final GestureCrossStore gestureCross;
   final MultiplyingNokhteStore multiplyingNokhte;
+  final BaseWidgetsCoordinator base;
   _SessionPaywallWidgetsCoordinatorBase({
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
     required this.touchRipple,
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.gestureCross,
     required this.tertiarySmartText,
     required this.multiplyingNokhte,
-  });
+  }) : base = BaseWidgetsCoordinator(
+            wifiDisconnectOverlay: wifiDisconnectOverlay);
 
   @observable
   int tapCount = 0;
@@ -65,8 +66,8 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
     primarySmartText.setMessagesData(SharedLists.emptyList);
     secondarySmartText.setMessagesData(SessionLists.swipeUpToPay);
     tertiarySmartText.setMessagesData(SessionLists.swipeToDecide);
-    setSmartTextBottomPaddingScalar(.1);
-    disposers.add(multiplyNokhteReactor());
+    base.setSmartTextBottomPaddingScalar(.1);
+    base.disposers.add(multiplyNokhteReactor());
     setCanSwipe(false);
   }
 

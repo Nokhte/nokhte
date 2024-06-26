@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -10,21 +11,23 @@ part 'presets_coordinator.g.dart';
 
 class PresetsCoordinator = _PresetsCoordinatorBase with _$PresetsCoordinator;
 
-abstract class _PresetsCoordinatorBase extends BaseCoordinator with Store {
+abstract class _PresetsCoordinatorBase with Store {
   final PresetsWidgetsCoordinator widgets;
   final PresetsLogicCoordinator logic;
   final SwipeDetector swipe;
   final UserInformationCoordinator userInformation;
   final TapDetector tap;
 
+  final BaseCoordinator base;
+
   _PresetsCoordinatorBase({
     required this.widgets,
-    required super.captureScreen,
+    required CaptureScreen captureScreen,
     required this.logic,
     required this.swipe,
     required this.tap,
     required this.userInformation,
-  });
+  }) : base = BaseCoordinator(captureScreen: captureScreen);
 
   @action
   constructor(Offset center) async {
@@ -33,31 +36,31 @@ abstract class _PresetsCoordinatorBase extends BaseCoordinator with Store {
     initReactors();
     await logic.getCompanyPresets();
     await userInformation.getPreferredPreset();
-    await captureScreen(PresetsConstants.presets);
+    await base.captureScreen(PresetsConstants.presets);
   }
 
   initReactors() {
-    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => setDisableAllTouchFeedback(false),
+    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        setDisableAllTouchFeedback(false);
-        widgets.setIsDisconnected(false);
+        base.setDisableAllTouchFeedback(false);
+        widgets.base.setIsDisconnected(false);
       },
       onDisconnected: () {
-        setDisableAllTouchFeedback(true);
-        widgets.setIsDisconnected(true);
+        base.setDisableAllTouchFeedback(true);
+        widgets.base.setIsDisconnected(true);
       },
     ));
-    disposers.add(preferredPresetReactor());
-    disposers.add(companyPresetsReactor());
-    disposers.add(
+    base.disposers.add(preferredPresetReactor());
+    base.disposers.add(companyPresetsReactor());
+    base.disposers.add(
         widgets.selectionCondensedPresetCardMovieStatusReactor(onSelected));
-    disposers.add(tapReactor());
-    disposers.add(swipeReactor());
+    base.disposers.add(tapReactor());
+    base.disposers.add(swipeReactor());
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        ifTouchIsNotDisabled(() {
+        base.ifTouchIsNotDisabled(() {
           widgets.onTap();
         });
       });
@@ -88,9 +91,8 @@ abstract class _PresetsCoordinatorBase extends BaseCoordinator with Store {
         );
       });
 
-  @override
   deconstructor() {
-    widgets.deconstructor();
-    super.deconstructor();
+    widgets.base.deconstructor();
+    base.deconstructor();
   }
 }

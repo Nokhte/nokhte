@@ -12,8 +12,8 @@ part 'storage_content_widgets_coordinator.g.dart';
 class StorageContentWidgetsCoordinator = _StorageContentWidgetsCoordinatorBase
     with _$StorageContentWidgetsCoordinator;
 
-abstract class _StorageContentWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+abstract class _StorageContentWidgetsCoordinatorBase with Store {
+  final BaseWidgetsCoordinator base;
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
   final ContentCardStore contentCard;
@@ -22,7 +22,7 @@ abstract class _StorageContentWidgetsCoordinatorBase
   final InstructionalGradientNokhteStore primaryInstructionalGradientNokhte;
   final NokhteBlurStore blur;
   _StorageContentWidgetsCoordinatorBase({
-    required super.wifiDisconnectOverlay,
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
     required this.beachWaves,
     required this.gestureCross,
     required this.smartText,
@@ -30,11 +30,12 @@ abstract class _StorageContentWidgetsCoordinatorBase
     required this.centerInstructionalNokhte,
     required this.primaryInstructionalGradientNokhte,
     required this.blur,
-  });
+  }) : base = BaseWidgetsCoordinator(
+            wifiDisconnectOverlay: wifiDisconnectOverlay);
 
   @action
   constructor(Offset offset) {
-    center = offset;
+    base.center = offset;
     contentCard.initFadeIn();
     smartText.setMessagesData(StorageLists.contentSecondary);
     smartText.startRotatingText();
@@ -46,10 +47,10 @@ abstract class _StorageContentWidgetsCoordinatorBase
   }
 
   initReactors() {
-    disposers.add(centerCrossNokhteReactor());
-    disposers.add(beachWavesReactor());
-    disposers.add(gestureCrossTapReactor());
-    disposers.add(centerInstructionalNokhteReactor());
+    base.disposers.add(centerCrossNokhteReactor());
+    base.disposers.add(beachWavesReactor());
+    base.disposers.add(gestureCrossTapReactor());
+    base.disposers.add(centerInstructionalNokhteReactor());
   }
 
   @observable
@@ -100,7 +101,7 @@ abstract class _StorageContentWidgetsCoordinatorBase
         );
         primaryInstructionalGradientNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: center,
+            center: base.center,
             colorway: GradientNokhteColorways.vibrantBlue,
             direction: InstructionalGradientDirections.shrink,
             position: InstructionalNokhtePositions.left,
@@ -122,11 +123,11 @@ abstract class _StorageContentWidgetsCoordinatorBase
         hasInitiatedBlur = true;
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         gestureCross.gradientNokhte.setWidgetVisibility(false);
-        centerInstructionalNokhte.moveToCenter(center);
+        centerInstructionalNokhte.moveToCenter(base.center);
         primaryInstructionalGradientNokhte.setWidgetVisibility(true);
         primaryInstructionalGradientNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: center,
+            center: base.center,
             colorway: GradientNokhteColorways.vibrantBlue,
             direction: InstructionalGradientDirections.enlarge,
             position: InstructionalNokhtePositions.left,
@@ -147,7 +148,7 @@ abstract class _StorageContentWidgetsCoordinatorBase
         startingPosition: CenterNokhtePositions.center);
     primaryInstructionalGradientNokhte.initMovie(
       InstructionalGradientMovieParams(
-        center: center,
+        center: base.center,
         colorway: GradientNokhteColorways.vibrantBlue,
         direction: InstructionalGradientDirections.shrink,
         position: InstructionalNokhtePositions.left,

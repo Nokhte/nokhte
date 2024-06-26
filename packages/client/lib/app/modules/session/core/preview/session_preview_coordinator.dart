@@ -14,8 +14,7 @@ part 'session_preview_coordinator.g.dart';
 class SessionPreviewCoordinator = _SessionPreviewCoordinatorBase
     with _$SessionPreviewCoordinator;
 
-abstract class _SessionPreviewCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _SessionPreviewCoordinatorBase with Store {
   final SessionPreviewWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
@@ -24,15 +23,18 @@ abstract class _SessionPreviewCoordinatorBase extends BaseCoordinator
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
   final CaptureNokhteSessionStart captureStart;
 
+  final BaseCoordinator base;
+
   _SessionPreviewCoordinatorBase({
-    required super.captureScreen,
+    required CaptureScreen captureScreen,
     required this.widgets,
     required this.deepLinks,
     required this.captureStart,
     required this.tap,
     required this.presence,
     required this.activeMonetizationSession,
-  }) : sessionMetadata = presence.sessionMetadataStore;
+  })  : sessionMetadata = presence.sessionMetadataStore,
+        base = BaseCoordinator(captureScreen: captureScreen);
 
   @observable
   bool isNavigatingAway = false;
@@ -42,7 +44,7 @@ abstract class _SessionPreviewCoordinatorBase extends BaseCoordinator
     widgets.constructor();
     initReactors();
     await presence.listen();
-    await captureScreen(SessionConstants.preview);
+    await base.captureScreen(SessionConstants.preview);
   }
 
   @action
@@ -62,27 +64,27 @@ abstract class _SessionPreviewCoordinatorBase extends BaseCoordinator
 
   @action
   initReactors() {
-    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => setDisableAllTouchFeedback(false),
+    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        setDisableAllTouchFeedback(false);
+        base.setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        setDisableAllTouchFeedback(true);
+        base.setDisableAllTouchFeedback(true);
       },
     ));
-    disposers.add(presence.initReactors(
+    base.disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
-        setDisableAllTouchFeedback(false);
+        base.setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
-        setDisableAllTouchFeedback(true);
+        base.setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
     ));
-    disposers.add(tapReactor());
-    disposers.add(sessionPresetInfoReactor());
+    base.disposers.add(tapReactor());
+    base.disposers.add(sessionPresetInfoReactor());
   }
 
   sessionPresetInfoReactor() =>
@@ -95,7 +97,7 @@ abstract class _SessionPreviewCoordinatorBase extends BaseCoordinator
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => ifTouchIsNotDisabled(() async {
+        (p0) => base.ifTouchIsNotDisabled(() async {
           widgets.onTap(
             tap.currentTapPosition,
             onTap: () async {},
@@ -105,6 +107,11 @@ abstract class _SessionPreviewCoordinatorBase extends BaseCoordinator
 
   @action
   enterGreeter() => Modular.to.navigate(route);
+
+  deconstructor() {
+    base.deconstructor();
+    widgets.base.deconstructor();
+  }
 
   @computed
   String get route {

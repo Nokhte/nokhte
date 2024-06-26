@@ -47,7 +47,7 @@ abstract class _WaitingPatronCoordinatorBase with Store, HomeScreenRouter {
   }
 
   initReactors() {
-    base.disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
+    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {},
       onDisconnected: () {},

@@ -86,7 +86,7 @@ abstract class _SessionExitCoordinatorBase with Store, HomeScreenRouter {
 
   @action
   initReactors() {
-    base.disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
+    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         base.setDisableAllTouchFeedback(false);
@@ -206,7 +206,7 @@ abstract class _SessionExitCoordinatorBase with Store, HomeScreenRouter {
   }
 
   deconstructor() {
-    widgets.deconstructor();
+    widgets.base.deconstructor();
     base.deconstructor();
   }
 }

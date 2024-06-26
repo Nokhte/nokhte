@@ -12,8 +12,8 @@ part 'presets_instructions_widgets_coordinator.g.dart';
 class PresetsInstructionsWidgetsCoordinator = _PresetsInstructionsWidgetsCoordinatorBase
     with _$PresetsInstructionsWidgetsCoordinator;
 
-abstract class _PresetsInstructionsWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+abstract class _PresetsInstructionsWidgetsCoordinatorBase with Store {
+  final BaseWidgetsCoordinator base;
   final BeachWavesStore beachWaves;
   final SmartTextStore headerText;
   final SmartTextStore smartText;
@@ -33,16 +33,18 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
     required this.smartText,
     required this.presetCards,
     required this.blur,
-    required super.wifiDisconnectOverlay,
-  }) : condensedPresetCards = presetCards.condensed {
-    setSmartTextTopPaddingScalar(0);
-    setSmartTextBottomPaddingScalar(.1);
-    setSmartTextSubMessagePaddingScalar(110);
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+  })  : condensedPresetCards = presetCards.condensed,
+        base = BaseWidgetsCoordinator(
+            wifiDisconnectOverlay: wifiDisconnectOverlay) {
+    base.setSmartTextTopPaddingScalar(0);
+    base.setSmartTextBottomPaddingScalar(.1);
+    base.setSmartTextSubMessagePaddingScalar(110);
   }
 
   @action
   constructor(Offset centerParam) {
-    center = centerParam;
+    base.center = centerParam;
     beachWaves.setMovieMode(BeachWaveMovieModes.staticInvertedDeeperBlue);
     centerInstructionalNokhte.setWidgetVisibility(false);
     sessionStarterInstructionalNokhte.setWidgetVisibility(false);
@@ -89,12 +91,12 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
   bool isAllowedToExit = false;
 
   initReactors() {
-    disposers.add(beachWavesMovieStatusReactor());
-    disposers.add(gestureCrossTapReactor());
-    disposers.add(centerCrossNokhteReactor());
-    disposers.add(condensedPresetCardTapReactor());
-    disposers.add(condensedPresetCardHoldReactor());
-    disposers.add(transitionsCondensedPresetCardMovieStatusReactor());
+    base.disposers.add(beachWavesMovieStatusReactor());
+    base.disposers.add(gestureCrossTapReactor());
+    base.disposers.add(centerCrossNokhteReactor());
+    base.disposers.add(condensedPresetCardTapReactor());
+    base.disposers.add(condensedPresetCardHoldReactor());
+    base.disposers.add(transitionsCondensedPresetCardMovieStatusReactor());
   }
 
   @observable
@@ -133,7 +135,7 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
       );
       sessionStarterInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
-          center: center,
+          center: base.center,
           colorway: GradientNokhteColorways.invertedBeachWave,
           direction: InstructionalGradientDirections.shrink,
           position: InstructionalNokhtePositions.right,
@@ -200,14 +202,14 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!isDisconnected && readyToInteract) {
+    if (!base.isDisconnected && readyToInteract) {
       if (isAllowedToTapOnCross) {
         isAllowedToTapOnCross = false;
         centerInstructionalNokhte.setWidgetVisibility(true);
         sessionStarterInstructionalNokhte.setWidgetVisibility(true);
         sessionStarterInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: center,
+            center: base.center,
             colorway: GradientNokhteColorways.invertedBeachWave,
             direction: InstructionalGradientDirections.enlarge,
             position: InstructionalNokhtePositions.right,
@@ -216,9 +218,9 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         gestureCross.gradientNokhte.setWidgetVisibility(false);
         smartText.startRotatingText(isResuming: true);
-        centerInstructionalNokhte.moveToCenter(center);
+        centerInstructionalNokhte.moveToCenter(base.center);
         Timer(Seconds.get(1, milli: 500), () {
-          setSmartTextTopPaddingScalar(.24);
+          base.setSmartTextTopPaddingScalar(.24);
           instructionalNokhteAreVisible = true;
         });
         // setSmartTextPadding(bottomPadding: .14);
@@ -228,7 +230,7 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
 
   @action
   onSwipeRight() {
-    if (!isDisconnected &&
+    if (!base.isDisconnected &&
         centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (instructionalNokhteAreVisible) {
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.right);

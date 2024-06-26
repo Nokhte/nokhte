@@ -10,8 +10,8 @@ part 'session_duo_greeter_widgets_coordinator.g.dart';
 class SessionDuoGreeterWidgetsCoordinator = _SessionDuoGreeterWidgetsCoordinatorBase
     with _$SessionDuoGreeterWidgetsCoordinator;
 
-abstract class _SessionDuoGreeterWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+abstract class _SessionDuoGreeterWidgetsCoordinatorBase with Store {
+  final BaseWidgetsCoordinator base;
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
@@ -19,12 +19,12 @@ abstract class _SessionDuoGreeterWidgetsCoordinatorBase
 
   _SessionDuoGreeterWidgetsCoordinatorBase({
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.touchRipple,
-  });
-
+  }) : base = BaseWidgetsCoordinator(
+            wifiDisconnectOverlay: wifiDisconnectOverlay);
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToDrySand);

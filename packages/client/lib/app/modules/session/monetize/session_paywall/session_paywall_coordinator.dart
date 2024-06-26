@@ -63,7 +63,7 @@ abstract class _SessionPaywallCoordinatorBase with Store, HomeScreenRouter {
       onCollaboratorJoined: () {},
       onCollaboratorLeft: () {},
     ));
-    base.disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
+    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
@@ -162,6 +162,6 @@ abstract class _SessionPaywallCoordinatorBase with Store, HomeScreenRouter {
 
   deconstructor() {
     base.deconstructor();
-    widgets.deconstructor();
+    widgets.base.deconstructor();
   }
 }

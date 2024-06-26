@@ -48,7 +48,7 @@ class PresetsScreen extends HookWidget {
                   opacityDuration: Seconds.get(1),
                   bottomPadding: height * .75,
                   subTextPadding:
-                      coordinator.widgets.smartTextSubMessagePaddingScalar,
+                      coordinator.widgets.base.smartTextSubMessagePaddingScalar,
                 ),
                 PresetCards(
                   store: coordinator.widgets.presetCards,
@@ -63,8 +63,8 @@ class PresetsScreen extends HookWidget {
                     store: coordinator.widgets.smartText,
                     opacityDuration: Seconds.get(1),
                     topPadding: height * .15,
-                    subTextPadding:
-                        coordinator.widgets.smartTextSubMessagePaddingScalar,
+                    subTextPadding: coordinator
+                        .widgets.base.smartTextSubMessagePaddingScalar,
                   ),
                 ),
                 GestureCross(
@@ -85,7 +85,7 @@ class PresetsScreen extends HookWidget {
                   store: coordinator.widgets.sessionStarterInstructionalNokhte,
                 ),
                 WifiDisconnectOverlay(
-                  store: coordinator.widgets.wifiDisconnectOverlay,
+                  store: coordinator.widgets.base.wifiDisconnectOverlay,
                 ),
               ],
             ),

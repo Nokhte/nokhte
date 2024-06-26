@@ -20,7 +20,7 @@ class SessionHybridScreen extends HookWidget {
       return () => coordinator.deconstructor();
     }, []);
     useOnAppLifecycleStateChange(
-        (previous, current) => coordinator.onAppLifeCycleStateChange(
+        (previous, current) => coordinator.base.onAppLifeCycleStateChange(
               current,
               onResumed: () => coordinator.onResumed(),
               onInactive: () => coordinator.onInactive(),
@@ -61,7 +61,7 @@ class SessionHybridScreen extends HookWidget {
                   store: coordinator.presence.incidentsOverlayStore,
                 ),
                 WifiDisconnectOverlay(
-                  store: coordinator.widgets.wifiDisconnectOverlay,
+                  store: coordinator.widgets.base.wifiDisconnectOverlay,
                 ),
               ],
             ),

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -12,31 +13,33 @@ part 'session_notes_instructions_coordinator.g.dart';
 class SessionNotesInstructionsCoordinator = SessionNotesInstructionsCoordinatorBase
     with _$SessionNotesInstructionsCoordinator;
 
-abstract class SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class SessionNotesInstructionsCoordinatorBase with Store {
   final SessionNotesInstructionsWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
 
+  final BaseCoordinator base;
+
   SessionNotesInstructionsCoordinatorBase({
-    required super.captureScreen,
+    required CaptureScreen captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
-  }) : sessionMetadata = presence.sessionMetadataStore;
+  })  : sessionMetadata = presence.sessionMetadataStore,
+        base = BaseCoordinator(captureScreen: captureScreen);
 
   @action
   constructor() async {
     widgets.constructor();
     initReactors();
-    await captureScreen(SessionConstants.notesInstructions);
+    await base.captureScreen(SessionConstants.notesInstructions);
   }
 
   @action
   initReactors() {
-    disposers.add(tapReactor());
-    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
+    base.disposers.add(tapReactor());
+    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => widgets.setDisableTouchInput(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
@@ -45,7 +48,7 @@ abstract class SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
         widgets.setDisableTouchInput(true);
       },
     ));
-    disposers.add(rippleCompletionStatusReactor());
+    base.disposers.add(rippleCompletionStatusReactor());
   }
 
   rippleCompletionStatusReactor() =>
@@ -57,7 +60,7 @@ abstract class SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => ifTouchIsNotDisabled(
+        (p0) => base.ifTouchIsNotDisabled(
           () async {
             widgets.onTap(tap.currentTapPosition);
           },
@@ -71,5 +74,10 @@ abstract class SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
         timer.cancel();
       }
     });
+  }
+
+  deconstructor() {
+    base.deconstructor();
+    widgets.base.deconstructor();
   }
 }

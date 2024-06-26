@@ -57,12 +57,12 @@ class SessionStarterInstructionsScreen extends HookWidget {
                   child: SmartText(
                     store: coordinator.widgets.smartText,
                     opacityDuration: Seconds.get(1),
-                    topPadding:
-                        height * coordinator.widgets.smartTextTopPaddingScalar,
+                    topPadding: height *
+                        coordinator.widgets.base.smartTextTopPaddingScalar,
                     bottomPadding: height *
-                        coordinator.widgets.smartTextBottomPaddingScalar,
-                    subTextPadding:
-                        coordinator.widgets.smartTextSubMessagePaddingScalar,
+                        coordinator.widgets.base.smartTextBottomPaddingScalar,
+                    subTextPadding: coordinator
+                        .widgets.base.smartTextSubMessagePaddingScalar,
                   ),
                 ),
                 GestureCross(
@@ -86,7 +86,7 @@ class SessionStarterInstructionsScreen extends HookWidget {
                   store: coordinator.widgets.presetsInstructionalNokhte,
                 ),
                 WifiDisconnectOverlay(
-                  store: coordinator.widgets.wifiDisconnectOverlay,
+                  store: coordinator.widgets.base.wifiDisconnectOverlay,
                 ),
               ],
             ),

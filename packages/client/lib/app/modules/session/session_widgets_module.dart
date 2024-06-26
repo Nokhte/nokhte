@@ -171,45 +171,6 @@ class SessionWidgetsModule extends Module {
   }
 
   injectSpeaking(i) {
-    i.add<SessionSpeakingRootRouterWidgetsCoordinator>(
-      () => SessionSpeakingRootRouterWidgetsCoordinator(
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
-    i.add<HalfSessionSpeakingInstructionsWidgetsCoordinator>(
-      () => HalfSessionSpeakingInstructionsWidgetsCoordinator(
-        halfScreenTint: HalfScreenTintStore(),
-        holdTimerIndicator: HoldTimerIndicatorStore(),
-        tint: TintStore(),
-        errorSmartText: SmartTextStore(),
-        touchRipple: TouchRippleStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        borderGlow: BorderGlowStore(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
-    i.add<FullSessionSpeakingInstructionsWidgetsCoordinator>(
-      () => FullSessionSpeakingInstructionsWidgetsCoordinator(
-        holdTimerIndicator: HoldTimerIndicatorStore(),
-        tint: TintStore(),
-        errorSmartText: SmartTextStore(),
-        touchRipple: TouchRippleStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        borderGlow: BorderGlowStore(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
-    i.add<SessionSpeakingWaitingWidgetsCoordinator>(
-      () => SessionSpeakingWaitingWidgetsCoordinator(
-        tint: TintStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
     i.add<SessionSpeakingWidgetsCoordinator>(
       () => SessionSpeakingWidgetsCoordinator(
         tint: TintStore(),
@@ -224,43 +185,6 @@ class SessionWidgetsModule extends Module {
   }
 
   injectHybrid(i) {
-    i.add<SessionHybridRootRouterWidgetsCoordinator>(
-      () => SessionHybridRootRouterWidgetsCoordinator(
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
-    i.add<SessionHybridWaitingWidgetsCoordinator>(
-      () => SessionHybridWaitingWidgetsCoordinator(
-        tint: TintStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
-    i.add<SessionHybridSpeakingInstructionsWidgetsCoordinator>(
-      () => SessionHybridSpeakingInstructionsWidgetsCoordinator(
-        halfScreenTint: HalfScreenTintStore(),
-        holdTimerIndicator: HoldTimerIndicatorStore(),
-        tint: TintStore(),
-        errorSmartText: SmartTextStore(),
-        touchRipple: TouchRippleStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        borderGlow: BorderGlowStore(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
-    i.add<SessionHybridNotesInstructionsWidgetsCoordinator>(
-      () => SessionHybridNotesInstructionsWidgetsCoordinator(
-        halfScreenTint: HalfScreenTintStore(),
-        touchRipple: TouchRippleStore(),
-        tint: TintStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
     i.add<SessionHybridWidgetsCoordinator>(
       () => SessionHybridWidgetsCoordinator(
         othersAreTalkingTint: HalfScreenTintStore(),
@@ -286,33 +210,6 @@ class SessionWidgetsModule extends Module {
   }
 
   injectNotes(i) {
-    i.add<SessionNotesWaitingWidgetsCoordinator>(
-      () => SessionNotesWaitingWidgetsCoordinator(
-        tint: TintStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
-    i.add<HalfSessionNotesInstructionsWidgetsCoordinator>(
-      () => HalfSessionNotesInstructionsWidgetsCoordinator(
-        halfScreenTint: HalfScreenTintStore(),
-        touchRipple: TouchRippleStore(),
-        tint: TintStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
-    i.add<SessionFullNotesInstructionsWidgetsCoordinator>(
-      () => SessionFullNotesInstructionsWidgetsCoordinator(
-        touchRipple: TouchRippleStore(),
-        tint: TintStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
     i.add<SessionNotesWidgetsCoordinator>(
       () => SessionNotesWidgetsCoordinator(
         smartText: SmartTextStore(),

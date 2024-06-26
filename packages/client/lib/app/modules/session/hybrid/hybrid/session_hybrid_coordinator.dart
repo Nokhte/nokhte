@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -14,29 +15,31 @@ part 'session_hybrid_coordinator.g.dart';
 class SessionHybridCoordinator = _SessionHybridCoordinatorBase
     with _$SessionHybridCoordinator;
 
-abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _SessionHybridCoordinatorBase with Store {
   final SessionHybridWidgetsCoordinator widgets;
   final TapDetector tap;
   final SwipeDetector swipe;
   final HoldDetector hold;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
+  final BaseCoordinator base;
+
   _SessionHybridCoordinatorBase({
-    required super.captureScreen,
     required this.widgets,
     required this.swipe,
     required this.hold,
     required this.tap,
+    required CaptureScreen captureScreen,
     required this.presence,
-  }) : sessionMetadata = presence.sessionMetadataStore;
+  })  : sessionMetadata = presence.sessionMetadataStore,
+        base = BaseCoordinator(captureScreen: captureScreen);
 
   @action
   constructor() async {
     widgets.constructor(sessionMetadata.userCanSpeak);
     initReactors();
     await presence.updateCurrentPhase(2.0);
-    await captureScreen(SessionConstants.hybrid);
+    await base.captureScreen(SessionConstants.hybrid);
   }
 
   @observable
@@ -46,37 +49,37 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
   setUserIsSpeaking(bool newValue) => userIsSpeaking = newValue;
 
   initReactors() {
-    disposers.add(holdReactor());
-    disposers.add(letGoReactor());
-    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => setDisableAllTouchFeedback(false),
+    base.disposers.add(holdReactor());
+    base.disposers.add(letGoReactor());
+    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        setDisableAllTouchFeedback(false);
+        base.setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        setDisableAllTouchFeedback(true);
+        base.setDisableAllTouchFeedback(true);
         if (hold.holdCount.isGreaterThan(hold.letGoCount)) {
           widgets.onLetGo();
         }
       },
     ));
-    disposers.add(presence.initReactors(
+    base.disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
-        setDisableAllTouchFeedback(false);
+        base.setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
-        setDisableAllTouchFeedback(true);
+        base.setDisableAllTouchFeedback(true);
         if (hold.holdCount.isGreaterThan(hold.letGoCount)) {
           widgets.onLetGo();
         }
         widgets.onCollaboratorLeft();
       },
     ));
-    disposers.add(swipeReactor());
-    disposers.add(tapReactor());
-    disposers.add(userIsSpeakingReactor());
-    disposers.add(userCanSpeakReactor());
+    base.disposers.add(swipeReactor());
+    base.disposers.add(tapReactor());
+    base.disposers.add(userIsSpeakingReactor());
+    base.disposers.add(userCanSpeakReactor());
   }
 
   userIsSpeakingReactor() =>
@@ -85,7 +88,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
           setUserIsSpeaking(true);
           widgets.adjustSpeakLessSmileMoreRotation(hold.placement);
           widgets.onHold(hold.placement);
-          setDisableAllTouchFeedback(true);
+          base.setDisableAllTouchFeedback(true);
           await presence.updateCurrentPhase(2);
         }
       });
@@ -95,7 +98,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
           widgets.onLetGo();
           setUserIsSpeaking(false);
           Timer(Seconds.get(2), () {
-            setDisableAllTouchFeedback(false);
+            base.setDisableAllTouchFeedback(false);
           });
         } else if (p0 && !userIsSpeaking) {
           widgets.othersAreTalkingTint.reverseMovie(NoParams());
@@ -107,7 +110,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.down:
-            ifTouchIsNotDisabled(() {
+            base.ifTouchIsNotDisabled(() {
               widgets.onExit();
             });
           default:
@@ -117,7 +120,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => ifTouchIsNotDisabled(
+        (p0) => base.ifTouchIsNotDisabled(
           () async {
             widgets.onTap(tap.currentTapPosition);
           },
@@ -125,7 +128,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
       );
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) {
-        ifTouchIsNotDisabled(() async {
+        base.ifTouchIsNotDisabled(() async {
           if (sessionMetadata.everyoneIsOnline) {
             await presence
                 .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
@@ -154,9 +157,8 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
     }
   }
 
-  @override
   deconstructor() {
-    widgets.deconstructor();
-    super.deconstructor();
+    base.deconstructor();
+    widgets.base.deconstructor();
   }
 }

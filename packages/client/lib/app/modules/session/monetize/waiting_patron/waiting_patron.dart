@@ -56,7 +56,7 @@ class WaitingPatronScreen extends HookWidget {
                 config: GestureCrossConfiguration(),
               ),
               WifiDisconnectOverlay(
-                store: coordinator.widgets.wifiDisconnectOverlay,
+                store: coordinator.widgets.base.wifiDisconnectOverlay,
               ),
             ],
           ),

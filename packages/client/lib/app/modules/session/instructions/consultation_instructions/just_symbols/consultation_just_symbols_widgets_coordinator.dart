@@ -10,19 +10,21 @@ part 'consultation_just_symbols_widgets_coordinator.g.dart';
 class ConsultationJustSymbolsWidgetsCoordinator = _ConsultationJustSymbolsWidgetsCoordinatorBase
     with _$ConsultationJustSymbolsWidgetsCoordinator;
 
-abstract class _ConsultationJustSymbolsWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+abstract class _ConsultationJustSymbolsWidgetsCoordinatorBase with Store {
   final PresetDiagramStore presetDiagram;
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final TouchRippleStore touchRipple;
+
+  final BaseWidgetsCoordinator base;
   _ConsultationJustSymbolsWidgetsCoordinatorBase({
-    required super.wifiDisconnectOverlay,
     required this.presetDiagram,
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
     required this.beachWaves,
     required this.smartText,
     required this.touchRipple,
-  });
+  }) : base = BaseWidgetsCoordinator(
+            wifiDisconnectOverlay: wifiDisconnectOverlay);
 
   @action
   constructor() {
@@ -31,8 +33,8 @@ abstract class _ConsultationJustSymbolsWidgetsCoordinatorBase
     smartText.setStaticAltMovie(SessionConstants.blue);
     presetDiagram.initMovie(PresetDiagramMovieModes.appear);
 
-    disposers.add(rippleCompletionStatusReactor());
-    disposers.add(presetDiagramsMovieStatusReactor());
+    base.disposers.add(rippleCompletionStatusReactor());
+    base.disposers.add(presetDiagramsMovieStatusReactor());
   }
 
   @observable

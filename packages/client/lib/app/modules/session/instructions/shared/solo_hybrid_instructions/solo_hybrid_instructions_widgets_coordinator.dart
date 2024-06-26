@@ -14,24 +14,26 @@ part 'solo_hybrid_instructions_widgets_coordinator.g.dart';
 class SoloHybridInstructionsWidgetsCoordinator = _SoloHybridInstructionsWidgetsCoordinatorBase
     with _$SoloHybridInstructionsWidgetsCoordinator;
 
-abstract class _SoloHybridInstructionsWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+abstract class _SoloHybridInstructionsWidgetsCoordinatorBase with Store {
   final SmartTextStore smartText;
   final BeachWavesStore beachWaves;
   final TouchRippleStore touchRipple;
   final BorderGlowStore borderGlow;
   final HoldTimerIndicatorStore holdTimerIndicator;
+  final BaseWidgetsCoordinator base;
+
   _SoloHybridInstructionsWidgetsCoordinatorBase({
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
     required this.smartText,
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.borderGlow,
     required this.holdTimerIndicator,
-  }) {
-    setSmartTextTopPaddingScalar(.15);
-    setSmartTextBottomPaddingScalar(0);
-    setSmartTextSubMessagePaddingScalar(.2);
+  }) : base = BaseWidgetsCoordinator(
+            wifiDisconnectOverlay: wifiDisconnectOverlay) {
+    base.setSmartTextTopPaddingScalar(.15);
+    base.setSmartTextBottomPaddingScalar(0);
+    base.setSmartTextSubMessagePaddingScalar(.2);
   }
 
   @observable
@@ -82,8 +84,8 @@ abstract class _SoloHybridInstructionsWidgetsCoordinatorBase
   }
 
   initReactors() {
-    disposers.add(smartTextIndexReactor());
-    disposers.add(beachWavesMovieStatusReactor());
+    base.disposers.add(smartTextIndexReactor());
+    base.disposers.add(beachWavesMovieStatusReactor());
   }
 
   setDisableTouchInput(bool newValue) => disableTouchInput = newValue;
@@ -111,8 +113,8 @@ abstract class _SoloHybridInstructionsWidgetsCoordinatorBase
                 }
               });
             } else {
-              setSmartTextTopPaddingScalar(0);
-              setSmartTextBottomPaddingScalar(0.4);
+              base.setSmartTextTopPaddingScalar(0);
+              base.setSmartTextBottomPaddingScalar(0.4);
               smartText.startRotatingText(isResuming: true);
               smartText.setStaticAltMovie(SessionConstants.blue);
             }
@@ -123,22 +125,22 @@ abstract class _SoloHybridInstructionsWidgetsCoordinatorBase
   @action
   adjustSmartTextToNotesPadding() {
     Timer(Seconds.get(0, milli: 500), () {
-      setSmartTextTopPaddingScalar(0);
-      setSmartTextBottomPaddingScalar(0.4);
+      base.setSmartTextTopPaddingScalar(0);
+      base.setSmartTextBottomPaddingScalar(0.4);
     });
   }
 
   @action
   adjustSmartTextToHoldingPadding() {
     Timer(Seconds.get(0, milli: 500), () {
-      setSmartTextTopPaddingScalar(0);
-      setSmartTextBottomPaddingScalar(0.2);
+      base.setSmartTextTopPaddingScalar(0);
+      base.setSmartTextBottomPaddingScalar(0.2);
     });
   }
 
   @action
   resetSmartTextHoldingPadding() {
-    setSmartTextPadding(
+    base.setSmartTextPadding(
       topPadding: 0.15,
       bottomPadding: 0,
       subMessagePadding: .2,

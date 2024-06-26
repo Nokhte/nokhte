@@ -55,12 +55,12 @@ class StorageContentScreen extends HookWidget {
                 Center(
                   child: SmartText(
                     store: coordinator.widgets.smartText,
-                    topPadding:
-                        height * coordinator.widgets.smartTextTopPaddingScalar,
+                    topPadding: height *
+                        coordinator.widgets.base.smartTextTopPaddingScalar,
                     bottomPadding: height *
-                        coordinator.widgets.smartTextBottomPaddingScalar,
-                    subTextPadding:
-                        coordinator.widgets.smartTextSubMessagePaddingScalar,
+                        coordinator.widgets.base.smartTextBottomPaddingScalar,
+                    subTextPadding: coordinator
+                        .widgets.base.smartTextSubMessagePaddingScalar,
                     opacityDuration: Seconds.get(1),
                   ),
                 ),
@@ -82,7 +82,7 @@ class StorageContentScreen extends HookWidget {
                   store: coordinator.widgets.primaryInstructionalGradientNokhte,
                 ),
                 WifiDisconnectOverlay(
-                  store: coordinator.widgets.wifiDisconnectOverlay,
+                  store: coordinator.widgets.base.wifiDisconnectOverlay,
                 ),
               ],
             ),

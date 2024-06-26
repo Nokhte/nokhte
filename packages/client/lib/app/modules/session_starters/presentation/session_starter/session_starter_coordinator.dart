@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -13,14 +14,14 @@ part 'session_starter_coordinator.g.dart';
 class SessionStarterCoordinator = _SessionStarterCoordinatorBase
     with _$SessionStarterCoordinator;
 
-abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _SessionStarterCoordinatorBase with Store {
   final SessionStarterWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final TapDetector tap;
   final DeepLinksCoordinator deepLinks;
   final SessionStartersLogicCoordinator logic;
   final UserInformationCoordinator userInfo;
+  final BaseCoordinator base;
 
   _SessionStarterCoordinatorBase({
     required this.widgets,
@@ -29,8 +30,8 @@ abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
     required this.tap,
     required this.swipe,
     required this.logic,
-    required super.captureScreen,
-  });
+    required CaptureScreen captureScreen,
+  }) : base = BaseCoordinator(captureScreen: captureScreen);
 
   @observable
   bool isNavigatingAway = false;
@@ -46,7 +47,7 @@ abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
     await userInfo.getPreferredPreset();
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionLeader);
     await logic.initialize();
-    await captureScreen(SessionStarterConstants.sessionStarter);
+    await base.captureScreen(SessionStarterConstants.sessionStarter);
     logic.listenToSessionActivation();
   }
 
@@ -67,29 +68,29 @@ abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
 
   swipeCoordinatesReactor() =>
       reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
-        ifTouchIsNotDisabled(() {
+        base.ifTouchIsNotDisabled(() {
           widgets.onSwipeCoordinatesChanged(p0);
         });
       });
 
   initReactors() {
-    disposers.add(preferredPresetReactor());
-    disposers.add(deepLinkReactor());
-    disposers.add(swipeCoordinatesReactor());
-    disposers.add(swipeReactor());
-    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => setDisableAllTouchFeedback(false),
+    base.disposers.add(preferredPresetReactor());
+    base.disposers.add(deepLinkReactor());
+    base.disposers.add(swipeCoordinatesReactor());
+    base.disposers.add(swipeReactor());
+    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        setDisableAllTouchFeedback(false);
-        widgets.setIsDisconnected(false);
+        base.setDisableAllTouchFeedback(false);
+        widgets.base.setIsDisconnected(false);
       },
       onDisconnected: () {
-        setDisableAllTouchFeedback(true);
-        widgets.setIsDisconnected(true);
+        base.setDisableAllTouchFeedback(true);
+        widgets.base.setIsDisconnected(true);
       },
     ));
-    disposers.add(nokhteSearchStatusReactor());
-    disposers.add(tapReactor());
+    base.disposers.add(nokhteSearchStatusReactor());
+    base.disposers.add(tapReactor());
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) => onSwipe(p0));
@@ -99,14 +100,14 @@ abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
     if (!isNavigatingAway) {
       switch (direction) {
         case GestureDirections.down:
-          ifTouchIsNotDisabled(() {
+          base.ifTouchIsNotDisabled(() {
             widgets.onSwipeDown(() async {
               toggleIsNavigatingAway();
               await logic.dispose(shouldNuke: true);
             });
           });
         case GestureDirections.left:
-          ifTouchIsNotDisabled(() {
+          base.ifTouchIsNotDisabled(() {
             widgets.onSwipeLeft(() async {
               toggleIsNavigatingAway();
               await logic.dispose(shouldNuke: true);
@@ -119,7 +120,7 @@ abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        ifTouchIsNotDisabled(() {
+        base.ifTouchIsNotDisabled(() {
           widgets.onTap(tap.currentTapPosition);
         });
       });
@@ -127,15 +128,14 @@ abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
   nokhteSearchStatusReactor() =>
       reaction((p0) => logic.hasFoundNokhteSession, (p0) async {
         if (p0) {
-          setDisableAllTouchFeedback(true);
+          base.setDisableAllTouchFeedback(true);
           await logic.dispose();
           widgets.initTransition();
         }
       });
 
-  @override
   deconstructor() {
     logic.dispose();
-    super.deconstructor();
+    base.deconstructor();
   }
 }

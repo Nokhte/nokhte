@@ -13,8 +13,7 @@ part 'presets_widgets_coordinator.g.dart';
 class PresetsWidgetsCoordinator = _PresetsWidgetsCoordinatorBase
     with _$PresetsWidgetsCoordinator;
 
-abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
-    with Store {
+abstract class _PresetsWidgetsCoordinatorBase with Store {
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final GestureCrossStore gestureCross;
@@ -25,6 +24,7 @@ abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   final NokhteBlurStore nokhteBlur;
   final PresetCardsStore presetCards;
   final CondensedPresetCardsStore condensedPresetCards;
+  final BaseWidgetsCoordinator base;
 
   _PresetsWidgetsCoordinatorBase({
     required this.beachWaves,
@@ -33,14 +33,17 @@ abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     required this.headerText,
     required this.smartText,
     required this.presetCards,
-    required super.wifiDisconnectOverlay,
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
     required this.centerInstructionalNokhte,
     required this.sessionStarterInstructionalNokhte,
     required this.nokhteBlur,
-  }) : condensedPresetCards = presetCards.condensed {
-    setSmartTextTopPaddingScalar(.27);
-    setSmartTextBottomPaddingScalar(0);
-    setSmartTextSubMessagePaddingScalar(110);
+  })  : condensedPresetCards = presetCards.condensed,
+        base = BaseWidgetsCoordinator(
+          wifiDisconnectOverlay: wifiDisconnectOverlay,
+        ) {
+    base.setSmartTextTopPaddingScalar(.27);
+    base.setSmartTextBottomPaddingScalar(0);
+    base.setSmartTextSubMessagePaddingScalar(110);
   }
 
   @observable
@@ -66,7 +69,7 @@ abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   constructor(Offset centerParam) {
-    center = centerParam;
+    base.center = centerParam;
     beachWaves.setMovieMode(BeachWaveMovieModes.staticInvertedDeeperBlue);
     gestureCross.fadeIn();
     gestureCross.cross.initStaticGlow();
@@ -78,13 +81,13 @@ abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   }
 
   initReactors() {
-    disposers.add(beachWavesMovieStatusReactor());
-    disposers.add(centerInstructionalNokhteReactor());
-    disposers.add(centerCrossNokhteReactor());
-    disposers.add(gestureCrossTapReactor());
-    disposers.add(transitionsCondensedPresetCardMovieStatusReactor());
-    disposers.add(condensedPresetCardHoldReactor());
-    disposers.add(condensedPresetCardTapReactor());
+    base.disposers.add(beachWavesMovieStatusReactor());
+    base.disposers.add(centerInstructionalNokhteReactor());
+    base.disposers.add(centerCrossNokhteReactor());
+    base.disposers.add(gestureCrossTapReactor());
+    base.disposers.add(transitionsCondensedPresetCardMovieStatusReactor());
+    base.disposers.add(condensedPresetCardHoldReactor());
+    base.disposers.add(condensedPresetCardTapReactor());
   }
 
   @action
@@ -110,7 +113,7 @@ abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onSwipeRight() {
-    if (!isDisconnected &&
+    if (!base.isDisconnected &&
         centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (instructionalNokhteAreVisible) {
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.right);
@@ -199,7 +202,7 @@ abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       );
       sessionStarterInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
-          center: center,
+          center: base.center,
           colorway: GradientNokhteColorways.invertedBeachWave,
           direction: InstructionalGradientDirections.shrink,
           position: InstructionalNokhtePositions.right,
@@ -212,7 +215,7 @@ abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       );
       sessionStarterInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
-          center: center,
+          center: base.center,
           colorway: GradientNokhteColorways.invertedBeachWave,
           direction: InstructionalGradientDirections.shrink,
           position: InstructionalNokhtePositions.right,
@@ -227,16 +230,16 @@ abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onGestureCrossTap() {
-    if (!isDisconnected && readyToInteract) {
+    if (!base.isDisconnected && readyToInteract) {
       if (!instructionalNokhteAreVisible) {
-        setTouchIsDisabled(true);
+        base.setTouchIsDisabled(true);
         nokhteBlur.init();
         beachWaves.currentStore.setControl(Control.stop);
         instructionalNokhteAreVisible = true;
         sessionStarterInstructionalNokhte.setWidgetVisibility(true);
         sessionStarterInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: center,
+            center: base.center,
             colorway: GradientNokhteColorways.invertedBeachWave,
             direction: InstructionalGradientDirections.enlarge,
             position: InstructionalNokhtePositions.right,
@@ -244,7 +247,7 @@ abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
         );
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         gestureCross.gradientNokhte.setWidgetVisibility(false);
-        centerInstructionalNokhte.moveToCenter(center);
+        centerInstructionalNokhte.moveToCenter(base.center);
       } else if (instructionalNokhteAreVisible) {
         dismissInstructionalNokhte();
       }
@@ -278,12 +281,12 @@ abstract class _PresetsWidgetsCoordinatorBase extends BaseWidgetsCoordinator
             !instructionalNokhteAreVisible) {
           gestureCross.centerCrossNokhte.setWidgetVisibility(true);
           gestureCross.gradientNokhte.setWidgetVisibility(true);
-          setSmartTextTopPaddingScalar(.27);
-          setSmartTextBottomPaddingScalar(0);
-          setSmartTextSubMessagePaddingScalar(110);
+          base.setSmartTextTopPaddingScalar(.27);
+base.          setSmartTextBottomPaddingScalar(0);
+base.          setSmartTextSubMessagePaddingScalar(110);
           smartText.startRotatingText();
           hasSwiped = false;
-          setTouchIsDisabled(false);
+    base.      setTouchIsDisabled(false);
         }
       });
 

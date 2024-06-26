@@ -12,19 +12,20 @@ part 'consultation_speaking_symbols_widgets_coordinator.g.dart';
 class ConsultationSpeakingSymbolsWidgetsCoordinator = _ConsultationSpeakingSymbolsWidgetsCoordinatorBase
     with _$ConsultationSpeakingSymbolsWidgetsCoordinator;
 
-abstract class _ConsultationSpeakingSymbolsWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+abstract class _ConsultationSpeakingSymbolsWidgetsCoordinatorBase with Store {
   final PresetDiagramStore presetDiagram;
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final TouchRippleStore touchRipple;
+  final BaseWidgetsCoordinator base;
   _ConsultationSpeakingSymbolsWidgetsCoordinatorBase({
-    required super.wifiDisconnectOverlay,
     required this.presetDiagram,
     required this.beachWaves,
     required this.smartText,
+    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
     required this.touchRipple,
-  });
+  }) : base = BaseWidgetsCoordinator(
+            wifiDisconnectOverlay: wifiDisconnectOverlay);
 
   @action
   constructor() {
@@ -34,7 +35,7 @@ abstract class _ConsultationSpeakingSymbolsWidgetsCoordinatorBase
     smartText.startRotatingText();
     presetDiagram.initMovie(PresetDiagramMovieModes.appear);
 
-    disposers.add(rippleCompletionStatusReactor());
+    base.disposers.add(rippleCompletionStatusReactor());
   }
 
   @action

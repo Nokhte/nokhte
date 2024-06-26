@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -11,21 +12,23 @@ part 'session_hybrid_notes_coordinator.g.dart';
 class SessionHybridNotesCoordinator = _SessionHybridNotesCoordinatorBase
     with _$SessionHybridNotesCoordinator;
 
-abstract class _SessionHybridNotesCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _SessionHybridNotesCoordinatorBase with Store {
   final SessionHybridNotesWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
   final TapDetector tap;
 
+  final BaseCoordinator base;
+
   _SessionHybridNotesCoordinatorBase({
     required this.widgets,
-    required super.captureScreen,
+    required CaptureScreen captureScreen,
     required this.tap,
     required this.presence,
     required this.swipe,
-  }) : sessionMetadata = presence.sessionMetadataStore;
+  })  : sessionMetadata = presence.sessionMetadataStore,
+        base = BaseCoordinator(captureScreen: captureScreen);
 
   @action
   constructor() async {
@@ -33,7 +36,7 @@ abstract class _SessionHybridNotesCoordinatorBase extends BaseCoordinator
     initReactors();
     setBlockPhoneTiltReactor(false);
     await presence.updateCurrentPhase(2.0);
-    await captureScreen(SessionConstants.hybridNotes);
+    await base.captureScreen(SessionConstants.hybridNotes);
   }
 
   @observable
@@ -43,25 +46,25 @@ abstract class _SessionHybridNotesCoordinatorBase extends BaseCoordinator
   setBlockPhoneTiltReactor(bool newValue) => blockPhoneTiltReactor = newValue;
 
   initReactors() {
-    disposers.add(swipeReactor());
-    disposers.add(presence.initReactors(
+    base.disposers.add(swipeReactor());
+    base.disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
-        setDisableAllTouchFeedback(false);
+        base.setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined(() {
           setBlockPhoneTiltReactor(true);
         });
       },
       onCollaboratorLeft: () {
-        setDisableAllTouchFeedback(true);
+        base.setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
     ));
-    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => setDisableAllTouchFeedback(false),
-      onLongReConnected: () => setDisableAllTouchFeedback(false),
-      onDisconnected: () => setDisableAllTouchFeedback(true),
+    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+      onLongReConnected: () => base.setDisableAllTouchFeedback(false),
+      onDisconnected: () => base.setDisableAllTouchFeedback(true),
     ));
-    disposers.add(touchFeedbackStatusReactor());
+    base.disposers.add(touchFeedbackStatusReactor());
   }
 
   @action
@@ -78,7 +81,7 @@ abstract class _SessionHybridNotesCoordinatorBase extends BaseCoordinator
   }
 
   touchFeedbackStatusReactor() =>
-      reaction((p0) => disableAllTouchFeedback, (p0) {
+      reaction((p0) => base.disableAllTouchFeedback, (p0) {
         if (p0) {
           widgets.textEditor.setIsReadOnly(true);
         } else {
@@ -89,7 +92,7 @@ abstract class _SessionHybridNotesCoordinatorBase extends BaseCoordinator
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
-            ifTouchIsNotDisabled(() {
+            base.ifTouchIsNotDisabled(() {
               widgets.onSwipeUp(onSwipeUp);
             });
           default:
@@ -100,9 +103,8 @@ abstract class _SessionHybridNotesCoordinatorBase extends BaseCoordinator
   @action
   onSwipeUp(String param) async => await presence.addContent(param);
 
-  @override
   deconstructor() {
-    widgets.deconstructor();
-    super.deconstructor();
+    base.deconstructor();
+    widgets.base.deconstructor();
   }
 }

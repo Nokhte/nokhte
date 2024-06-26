@@ -143,6 +143,6 @@ abstract class _StorageHomeCoordinatorBase with Store, HomeScreenRouter {
 
   deconstructor() {
     base.deconstructor();
-    widgets.deconstructor();
+    widgets.base.deconstructor();
   }
 }

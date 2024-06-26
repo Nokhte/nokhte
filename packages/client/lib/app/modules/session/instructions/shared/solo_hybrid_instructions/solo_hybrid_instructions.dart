@@ -43,12 +43,12 @@ class SoloHybridInstructionsScreen extends HookWidget {
             Observer(builder: (context) {
               return Center(
                 child: SmartText(
-                  topPadding:
-                      height * coordinator.widgets.smartTextTopPaddingScalar,
-                  bottomPadding:
-                      height * coordinator.widgets.smartTextBottomPaddingScalar,
+                  topPadding: height *
+                      coordinator.widgets.base.smartTextTopPaddingScalar,
+                  bottomPadding: height *
+                      coordinator.widgets.base.smartTextBottomPaddingScalar,
                   subTextPadding: height *
-                      coordinator.widgets.smartTextSubMessagePaddingScalar,
+                      coordinator.widgets.base.smartTextSubMessagePaddingScalar,
                   store: coordinator.widgets.smartText,
                 ),
               );
@@ -62,7 +62,7 @@ class SoloHybridInstructionsScreen extends HookWidget {
               store: coordinator.presence.incidentsOverlayStore,
             ),
             WifiDisconnectOverlay(
-              store: coordinator.widgets.wifiDisconnectOverlay,
+              store: coordinator.widgets.base.wifiDisconnectOverlay,
             ),
           ],
         ),

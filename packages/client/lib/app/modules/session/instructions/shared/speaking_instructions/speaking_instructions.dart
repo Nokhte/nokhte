@@ -51,7 +51,7 @@ class SessionSpeakingInstructionsScreen extends HookWidget {
                 store: coordinator.presence.incidentsOverlayStore,
               ),
               WifiDisconnectOverlay(
-                store: coordinator.widgets.wifiDisconnectOverlay,
+                store: coordinator.widgets.base.wifiDisconnectOverlay,
               ),
             ],
           ),

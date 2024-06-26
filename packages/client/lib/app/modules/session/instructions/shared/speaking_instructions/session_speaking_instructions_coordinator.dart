@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -13,32 +14,34 @@ part 'session_speaking_instructions_coordinator.g.dart';
 class SessionSpeakingInstructionsCoordinator = _SessionSpeakingInstructionsCoordinatorBase
     with _$SessionSpeakingInstructionsCoordinator;
 
-abstract class _SessionSpeakingInstructionsCoordinatorBase
-    extends BaseCoordinator with Store {
+abstract class _SessionSpeakingInstructionsCoordinatorBase with Store {
   final TapDetector tap;
   final HoldDetector hold;
   final SessionSpeakingInstructionsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
 
+  final BaseCoordinator base;
+
   _SessionSpeakingInstructionsCoordinatorBase({
-    required super.captureScreen,
+    required CaptureScreen captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
     required this.hold,
-  }) : sessionMetadata = presence.sessionMetadataStore;
+  })  : sessionMetadata = presence.sessionMetadataStore,
+        base = BaseCoordinator(captureScreen: captureScreen);
 
   @action
   constructor() async {
     widgets.constructor();
     initReactors();
-    await captureScreen(SessionConstants.speakingHalfInstructions);
+    await base.captureScreen(SessionConstants.speakingHalfInstructions);
   }
 
   initReactors() {
-    disposers.add(tapReactor());
-    disposers.add(presence.initReactors(
+    base.disposers.add(tapReactor());
+    base.disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
         widgets.setDisableTouchInput(false);
         widgets.onCollaboratorJoined();
@@ -48,8 +51,8 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase
         widgets.onCollaboratorLeft();
       },
     ));
-    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => setDisableAllTouchFeedback(false),
+    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
       },
@@ -57,10 +60,10 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase
         widgets.setDisableTouchInput(true);
       },
     ));
-    disposers.add(holdReactor());
-    disposers.add(letGoReactor());
+    base.disposers.add(holdReactor());
+    base.disposers.add(letGoReactor());
 
-    disposers.add(widgets.beachWavesMovieStatusReactor(onComplete));
+    base.disposers.add(widgets.beachWavesMovieStatusReactor(onComplete));
   }
 
   @action
@@ -93,7 +96,7 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase
   holdReactor() => reaction(
         (p0) => hold.holdCount,
         (p0) {
-          ifTouchIsNotDisabled(() {
+          base.ifTouchIsNotDisabled(() {
             widgets.onHold();
           });
         },
@@ -102,20 +105,19 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
         widgets.onLetGo();
         Timer(Seconds.get(2), () {
-          setDisableAllTouchFeedback(false);
+          base.setDisableAllTouchFeedback(false);
         });
       });
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => ifTouchIsNotDisabled(
+        (p0) => base.ifTouchIsNotDisabled(
           () => widgets.onTap(tap.currentTapPosition),
         ),
       );
 
-  @override
   deconstructor() {
-    super.deconstructor();
-    widgets.deconstructor();
+    base.deconstructor();
+    widgets.base.deconstructor();
   }
 }
