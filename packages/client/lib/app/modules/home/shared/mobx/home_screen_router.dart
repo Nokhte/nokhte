@@ -2,23 +2,12 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
-part 'base_home_screen_router_coordinator.g.dart';
 
-class BaseHomeScreenRouterCoordinator = _BaseHomeScreenRouterCoordinatorBase
-    with _$BaseHomeScreenRouterCoordinator;
-
-abstract class _BaseHomeScreenRouterCoordinatorBase extends BaseCoordinator
-    with Store {
-  final GetUserInfoStore getUserInfo;
-
-  _BaseHomeScreenRouterCoordinatorBase({
-    required this.getUserInfo,
-    required super.captureScreen,
-  });
+mixin HomeScreenRouter on Store {
+  GetUserInfoStore get getUserInfo;
 
   @observable
   ResumeOnShoreParams params = const ResumeOnShoreParams();
