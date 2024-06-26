@@ -5,10 +5,12 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 part 'base_coordinator.g.dart';
 
-class BaseCoordinator = _BaseCoordinatorBase with _$BaseCoordinator;
+class BaseCoordinator<P, T> = _BaseCoordinatorBase<P, T>
+    with _$BaseCoordinator<P, T>;
 
-abstract class _BaseCoordinatorBase extends BaseMobxDBStore with Store {
+abstract class _BaseCoordinatorBase<P, T> with Store {
   final CaptureScreen captureScreen;
+  final BaseMobxDBStore baseLogic = BaseMobxDBStore<P, T>();
 
   _BaseCoordinatorBase({
     required this.captureScreen,
@@ -56,12 +58,9 @@ abstract class _BaseCoordinatorBase extends BaseMobxDBStore with Store {
     }
   }
 
-      deconstructor() {
+  deconstructor() {
     for (var disposer in disposers) {
       disposer.call();
     }
   }
-
-  @override
-  List<Object> get props => [];
 }

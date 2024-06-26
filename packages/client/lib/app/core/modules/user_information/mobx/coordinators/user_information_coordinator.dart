@@ -63,7 +63,4 @@ abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
         (status) => storageStatusIsUpdated = status);
     state = StoreState.loaded;
   }
-
-  @override
-  List<Object> get props => [];
 }
