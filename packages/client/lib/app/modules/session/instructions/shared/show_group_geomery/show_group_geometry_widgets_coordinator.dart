@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -104,6 +105,9 @@ abstract class _ShowGroupGeometryWidgetsCoordinatorBase
           } else if (presetDiagram.movieMode ==
               PresetDiagramMovieModes.fourWayConsolidation) {
             presetDiagram.initMovie(PresetDiagramMovieModes.hideSingleCircle);
+          } else if (presetDiagram.movieMode ==
+              PresetDiagramMovieModes.hideSingleCircle) {
+            Modular.to.navigate(SessionConstants.lobby, arguments: {});
           }
         }
       });

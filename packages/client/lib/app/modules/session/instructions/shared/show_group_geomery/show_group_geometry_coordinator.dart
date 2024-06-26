@@ -11,7 +11,7 @@ class ShowGroupGeometryCoordinator = _ShowGroupGeometryCoordinatorBase
     with _$ShowGroupGeometryCoordinator;
 
 abstract class _ShowGroupGeometryCoordinatorBase extends BaseCoordinator
-    with Store, PresenceMixin {
+    with Store {
   final ShowGroupGeometryWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
@@ -41,12 +41,5 @@ abstract class _ShowGroupGeometryCoordinatorBase extends BaseCoordinator
         setDisableAllTouchFeedback(true);
       },
     ));
-    disposers.add(tapReactor());
   }
-
-  tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
-        ifTouchIsNotDisabled(() {
-          widgets.onTap(p0);
-        });
-      });
 }
