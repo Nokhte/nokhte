@@ -37,7 +37,7 @@ abstract class _SessionStarterEntryWidgetsCoordinatorBase
   }) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-            onFinished();
+          onFinished();
         }
       });
 }
