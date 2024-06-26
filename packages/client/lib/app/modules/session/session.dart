@@ -10,7 +10,6 @@ import 'package:nokhte/app/modules/session/session_widgets_module.dart';
 import 'session.dart';
 export 'core/core.dart';
 export 'instructions/instructions.dart';
-export 'shared/shared.dart';
 export 'constants/constants.dart';
 export 'types/types.dart';
 export 'speaking/speaking.dart';
