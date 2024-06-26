@@ -222,6 +222,16 @@ class SessionLists {
       isHybrid: true,
       showSubText: true,
     ),
+    // thisIsYou,
+    // SharedLists.customTapToConfirmSub(
+    //   "That is your collaborator",
+    //   subTextFontSize: 18.0,
+    // ),
+    // SharedLists.customTapToConfirmSub(
+    //   "One phone will be used for speaking",
+    //   subTextFontSize: 18.0,
+    // ),
+    // SharedLists.emptyItem,
   ];
 
   static RotatingTextData thisIsYou = SharedLists.customTapToConfirmSub(
@@ -229,25 +239,8 @@ class SessionLists {
     subTextFontSize: 18.0,
   );
 
-  static RotatingTextData thatIsYourCollaborator =
-      SharedLists.customTapToConfirmSub(
-    "That is your collaborator",
-    subTextFontSize: 18.0,
-  );
-
-  static List<RotatingTextData> socraticFullInstructions = [
-    thisIsYou,
-    thatIsYourCollaborator,
-    SharedLists.customTapToConfirmSub(
-      "All of the Phones will be used for speaking",
-      subTextFontSize: 18.0,
-    ),
-    SharedLists.emptyItem,
-  ];
-
   static List<RotatingTextData> consultationTalkingSymbols = [
     thisIsYou,
-    thatIsYourCollaborator,
     SharedLists.customTapToConfirmSub(
       "That is your collaborator",
       subTextFontSize: 18.0,
