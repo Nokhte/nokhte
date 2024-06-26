@@ -15,16 +15,16 @@ void main() {
     expect(dummyDBChild.errorMessage, "");
   });
 
-  group('baseMapFailureToMessage', () {
+  group('mapFailureToMessage', () {
     test("should map the Network Connection error accordingly", () {
       final result = dummyDBChild
-          .baseMapFailureToMessage(FailureConstants.internetConnectionFailure);
+          .mapFailureToMessage(FailureConstants.internetConnectionFailure);
 
       expect(result, FailureConstants.internetConnectionFailureMsg);
     });
     test("should map any other error accordingly", () {
       final result =
-          dummyDBChild.baseMapFailureToMessage(FailureConstants.dbFailure);
+          dummyDBChild.mapFailureToMessage(FailureConstants.dbFailure);
 
       expect(result, FailureConstants.genericFailureMsg);
     });
