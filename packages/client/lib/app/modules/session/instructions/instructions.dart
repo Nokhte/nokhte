@@ -6,7 +6,6 @@ import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte/app/modules/session/session_widgets_module.dart';
 export 'collaboration_instructions/collaboration_instructions.dart';
 export 'consultation_instructions/consultation_instructions.dart';
-export './socratic_instructions/socratic_instructions.dart';
 export 'shared/shared.dart';
 
 class SessionInstructionsModule extends Module {
