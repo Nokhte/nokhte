@@ -39,6 +39,7 @@ abstract class _SessionPreviewWidgetsCoordinatorBase
   }) {
     presetCard.setExpandedCard(name: sessionName, tags: tags);
     primarySmartText.startRotatingText();
+    // show
   }
 
   @observable
@@ -54,7 +55,10 @@ abstract class _SessionPreviewWidgetsCoordinatorBase
   Stopwatch cooldownStopwatch = Stopwatch();
 
   @action
-  onTap(Offset tapPosition) async {
+  onTap(
+    Offset tapPosition, {
+    required Function onTap,
+  }) async {
     if (isFirstTap) {
       touchRipple.onTap(tapPosition);
       presetCard.setWidgetVisibility(false);
@@ -62,6 +66,7 @@ abstract class _SessionPreviewWidgetsCoordinatorBase
       primarySmartText.startRotatingText(isResuming: true);
       isFirstTap = false;
     }
+    await onTap();
   }
 
   @action
