@@ -1,9 +1,20 @@
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
+part 'base_coordinator.g.dart';
 
-mixin BaseCoordinator on Store {
-  CaptureScreen get captureScreen;
+class BaseCoordinator = _BaseCoordinatorBase with _$BaseCoordinator;
+
+abstract class _BaseCoordinatorBase extends BaseMobxDBStore with Store {
+  final CaptureScreen captureScreen;
+
+  _BaseCoordinatorBase({
+    required this.captureScreen,
+  });
+
+  List<ReactionDisposer> disposers = [];
 
   @observable
   bool isInErrorMode = false;
@@ -44,4 +55,13 @@ mixin BaseCoordinator on Store {
         break;
     }
   }
+
+      deconstructor() {
+    for (var disposer in disposers) {
+      disposer.call();
+    }
+  }
+
+  @override
+  List<Object> get props => [];
 }
