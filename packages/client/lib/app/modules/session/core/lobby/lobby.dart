@@ -41,8 +41,18 @@ class SessionLobbyScreen extends HookWidget {
             Center(
               child: SmartText(
                 store: coordinator.widgets.primarySmartText,
-                topPadding: height * .29,
+                topPadding: height * .26,
                 opacityDuration: Seconds.get(1),
+              ),
+            ),
+            FullScreen(
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.only(top: height * .37),
+                  child: PresetIcons(
+                    store: coordinator.widgets.presetIcons,
+                  ),
+                ),
               ),
             ),
             NokhteQrCode(

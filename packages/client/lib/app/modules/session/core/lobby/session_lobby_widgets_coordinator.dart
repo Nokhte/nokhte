@@ -19,15 +19,20 @@ abstract class _SessionLobbyWidgetsCoordinatorBase with Store {
   final NokhteQrCodeStore qrCode;
   final TouchRippleStore touchRipple;
   final BaseWidgetsCoordinator base;
+  final PresetIconsStore presetIcons;
 
   _SessionLobbyWidgetsCoordinatorBase({
     required this.beachWaves,
+    required this.presetIcons,
     required this.primarySmartText,
     required WifiDisconnectOverlayStore wifiDisconnectOverlay,
     required this.qrCode,
     required this.touchRipple,
   }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+            wifiDisconnectOverlay: wifiDisconnectOverlay) {
+    presetIcons.setContainerSize(.2);
+    presetIcons.setIsHorizontal(true);
+  }
 
   @observable
   bool constructorHasBeenCalled = false;
@@ -39,12 +44,13 @@ abstract class _SessionLobbyWidgetsCoordinatorBase with Store {
     );
     if (isTheLeader) {
       qrCode.setQrCodeData(Modular.args.data["qrCodeData"]);
-      primarySmartText.setMessagesData(SessionLists.leaderLobby);
+      primarySmartText.setMessagesData(SharedLists.emptyList);
       primarySmartText.startRotatingText();
     } else {
       primarySmartText.setMessagesData(SharedLists.emptyList);
       qrCode.setWidgetVisibility(false);
     }
+    presetIcons.setWidgetVisibility(false);
     constructorHasBeenCalled = true;
   }
 
@@ -73,8 +79,8 @@ abstract class _SessionLobbyWidgetsCoordinatorBase with Store {
   @action
   onQrCodeReady(String data) {
     if (!isTheLeader) {
-      primarySmartText.setMessagesData(SessionLists.followerLobby);
-      primarySmartText.startRotatingText();
+      // primarySmartText.setMessagesData(SessionLists.followerLobby);
+      // primarySmartText.startRotatingText();
       Timer.periodic(Seconds.get(0, milli: 100), (timer) {
         if (constructorHasBeenCalled) {
           qrCode.setWidgetVisibility(true);
@@ -83,6 +89,29 @@ abstract class _SessionLobbyWidgetsCoordinatorBase with Store {
         }
       });
     }
+  }
+
+  @observable
+  bool presetInfoRecieved = false;
+
+  @action
+  onPresetInfoRecieved({
+    required String presetName,
+    required List presetTags,
+  }) {
+    Timer(Seconds.get(0, milli: 10), () {
+      primarySmartText.setMessagesData(SessionLists.leaderLobby(presetName));
+      presetInfoRecieved = true;
+      primarySmartText.startRotatingText();
+      presetIcons.setTags(tags: presetTags);
+      presetIcons.setWidgetVisibility(true);
+    });
+  }
+
+  @action
+  onCanStartTheSession() {
+    presetIcons.setWidgetVisibility(false);
+    primarySmartText.startRotatingText(isResuming: true);
   }
 
   @action
@@ -106,6 +135,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase with Store {
       beachWaves.setMovieMode(BeachWaveMovieModes.deepSeaToBorealis);
       beachWaves.currentStore.initMovie(NoParams());
     }
+    presetIcons.setWidgetVisibility(false);
     qrCode.setWidgetVisibility(false);
     primarySmartText.setWidgetVisibility(false);
   }

@@ -72,7 +72,7 @@ abstract class _SessionMetadataStoreBase
   String presetName = '';
 
   @observable
-  ObservableList tags = ObservableList.of([]);
+  ObservableList presetTags = ObservableList.of([]);
 
   @observable
   ObservableList oddConfiguration = ObservableList.of([]);
@@ -117,7 +117,7 @@ abstract class _SessionMetadataStoreBase
         final res = await presetLogic(presetUID);
         res.fold((failure) => mapFailureToMessage(failure), (presetEntity) {
           presetName = presetEntity.name;
-          tags = ObservableList.of(presetEntity.tags);
+          presetTags = ObservableList.of(presetEntity.tags);
           oddConfiguration = ObservableList.of(presetEntity.oddConfiguration);
           evenConfiguration = ObservableList.of(presetEntity.evenConfiguration);
         });
@@ -182,7 +182,7 @@ abstract class _SessionMetadataStoreBase
   }
 
   @computed
-  bool get canMoveIntoInstructions => currentPhases.every((e) => e >= 1);
+  bool get canStartTheSession => currentPhases.every((e) => e == 1.0);
 
   @computed
   bool get canMoveIntoSession => currentPhases.every((e) => e == 2);

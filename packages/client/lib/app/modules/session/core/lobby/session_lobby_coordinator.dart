@@ -46,9 +46,14 @@ abstract class _SessionLobbyCoordinatorBase with Store {
   constructor() async {
     widgets.constructor();
     initReactors();
-    await presence.listen();
+    if (isTheLeader) {
+      await presence.listen();
+    } else {
+      showPresetInfo();
+    }
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionBearer);
     await userMetadata.getMetadata();
+    await presence.updateCurrentPhase(1.0);
     await base.captureScreen(SessionConstants.lobby);
   }
 
@@ -91,10 +96,33 @@ abstract class _SessionLobbyCoordinatorBase with Store {
     ));
     if (isTheLeader) {
       tapReactor();
+      base.disposers.add(canStartTheSessionReactor());
     }
     base.disposers.add(sessionStartReactor());
     base.disposers.add(widgets.beachWavesMovieStatusReactor(enterGreeter));
+    base.disposers.add(sessionPresetReactor());
   }
+
+  canStartTheSessionReactor() =>
+      reaction((p0) => sessionMetadata.canStartTheSession, (p0) {
+        if (p0) {
+          widgets.onCanStartTheSession();
+        }
+      });
+
+  sessionPresetReactor() => reaction((p0) => sessionMetadata.presetTags, (p0) {
+        showPresetInfo();
+      });
+
+  @action
+  showPresetInfo() {
+    widgets.onPresetInfoRecieved(
+      presetName: sessionMetadata.presetName,
+      presetTags: sessionMetadata.presetTags,
+    );
+    //
+  }
+  // add the on ready to start reactor too
 
   deepLinkReactor() => reaction(
         (p0) => deepLinks.link,
@@ -103,17 +131,19 @@ abstract class _SessionLobbyCoordinatorBase with Store {
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => base.ifTouchIsNotDisabled(() async {
-          widgets.onTap(
-            tap.currentTapPosition,
-            onTap: () async {
-              await presence.startTheSession();
-              await captureStart(sessionMetadata.numberOfCollaborators);
-              if (isTheLeader && !sessionMetadata.isAValidSession) {
-                await activeMonetizationSession.startMonetizationSession();
-              }
-            },
-          );
+        (p0) => base.ifTouchIsNotDisabled(() {
+          if (sessionMetadata.canStartTheSession) {
+            widgets.onTap(
+              tap.currentTapPosition,
+              onTap: () async {
+                await presence.startTheSession();
+                await captureStart(sessionMetadata.numberOfCollaborators);
+                if (isTheLeader && !sessionMetadata.isAValidSession) {
+                  await activeMonetizationSession.startMonetizationSession();
+                }
+              },
+            );
+          }
         }),
       );
 
