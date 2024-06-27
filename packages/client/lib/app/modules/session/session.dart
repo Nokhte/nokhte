@@ -1,7 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
@@ -28,7 +27,6 @@ class SessionModule extends Module {
         CleanUpCollaborationArtifactsModule(),
         PosthogModule(),
         SessionPresenceModule(),
-        GyroscopicModule(),
         UserInformationModule(),
         DeepLinksModule(),
       ];
@@ -39,10 +37,10 @@ class SessionModule extends Module {
       SessionConstants.instructionsModule,
       module: SessionInstructionsModule(),
     );
-    r.module('/notes', module: SessionNotesModule());
-    r.module('/speaking', module: SessionSpeakingModule());
-    r.module('/hybrid', module: SessionHybridModule());
-    r.module('/core', module: SessionCoreModule());
-    r.module('/monetize', module: SessionMonetizeModule());
+    r.module(SessionConstants.notesModule, module: SessionNotesModule());
+    r.module(SessionConstants.speakingModule, module: SessionSpeakingModule());
+    r.module(SessionConstants.hybridModule, module: SessionHybridModule());
+    r.module(SessionConstants.coreModule, module: SessionCoreModule());
+    r.module(SessionConstants.monetizeModule, module: SessionMonetizeModule());
   }
 }
