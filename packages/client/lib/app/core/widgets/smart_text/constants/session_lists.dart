@@ -33,13 +33,17 @@ class SessionLists {
     SharedLists.emptyItem,
   ];
 
-  static List<RotatingTextData> leaderLobby = [
-    RotatingTextData(
-      text: "Tap to begin",
-      pauseHere: true,
-    ),
-    SharedLists.emptyItem,
-  ];
+  static List<RotatingTextData> leaderLobby(String presetName) => [
+        RotatingTextData(
+          text: presetName,
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          text: "Tap to begin",
+          pauseHere: true,
+        ),
+        SharedLists.emptyItem,
+      ];
 
   static List<RotatingTextData> followerLobby = [
     RotatingTextData(
@@ -222,16 +226,6 @@ class SessionLists {
       isHybrid: true,
       showSubText: true,
     ),
-    // thisIsYou,
-    // SharedLists.customTapToConfirmSub(
-    //   "That is your collaborator",
-    //   subTextFontSize: 18.0,
-    // ),
-    // SharedLists.customTapToConfirmSub(
-    //   "One phone will be used for speaking",
-    //   subTextFontSize: 18.0,
-    // ),
-    // SharedLists.emptyItem,
   ];
 
   static RotatingTextData thisIsYou = SharedLists.customTapToConfirmSub(
@@ -239,12 +233,25 @@ class SessionLists {
     subTextFontSize: 18.0,
   );
 
-  static List<RotatingTextData> consultationTalkingSymbols = [
+  static RotatingTextData thatIsYourCollaborator =
+      SharedLists.customTapToConfirmSub(
+    "That is your collaborator",
+    subTextFontSize: 18.0,
+  );
+
+  static List<RotatingTextData> socraticFullInstructions = [
     thisIsYou,
+    thatIsYourCollaborator,
     SharedLists.customTapToConfirmSub(
-      "That is your collaborator",
+      "All of the Phones will be used for speaking",
       subTextFontSize: 18.0,
     ),
+    SharedLists.emptyItem,
+  ];
+
+  static List<RotatingTextData> consultationTalkingSymbols = [
+    thisIsYou,
+    thatIsYourCollaborator,
     SharedLists.customTapToConfirmSub(
       "One phone will be used for speaking",
       subTextFontSize: 18.0,

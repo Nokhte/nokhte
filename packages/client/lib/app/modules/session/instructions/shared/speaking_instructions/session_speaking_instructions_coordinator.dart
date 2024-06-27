@@ -41,16 +41,6 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase with Store {
 
   initReactors() {
     base.disposers.add(tapReactor());
-    base.disposers.add(presence.initReactors(
-      onCollaboratorJoined: () {
-        widgets.setDisableTouchInput(false);
-        widgets.onCollaboratorJoined();
-      },
-      onCollaboratorLeft: () {
-        widgets.setDisableTouchInput(true);
-        widgets.onCollaboratorLeft();
-      },
-    ));
     base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => base.setDisableAllTouchFeedback(false),
       onLongReConnected: () {
@@ -69,12 +59,9 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase with Store {
   @action
   onComplete() {
     if (sessionMetadata.presetType == PresetTypes.consultative) {
-      //
       Modular.to.navigate(SessionConstants.consultationNotesSymbols);
     } else {
-      Modular.to.navigate(SessionConstants.consultationNotesSymbols);
-      // Modular.to.navigate(SessionConstants.showGroupGeometry);
-      //
+      Modular.to.navigate(SessionConstants.showGroupGeometry);
     }
   }
 

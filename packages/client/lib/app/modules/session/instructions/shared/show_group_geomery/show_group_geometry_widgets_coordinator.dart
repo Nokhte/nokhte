@@ -34,16 +34,12 @@ abstract class _ShowGroupGeometryWidgetsCoordinatorBase with Store {
   @observable
   bool canTap = false;
 
-  @observable
-  bool isASocraticSession = false;
-
   @action
   constructor({required bool isASocraticSession}) {
-    this.isASocraticSession = isASocraticSession;
     beachWaves.setMovieMode(BeachWaveMovieModes.deepSeaToBorealis);
     smartText.setMessagesData(SessionLists.showGroupGeometry);
     smartText.setStaticAltMovie(SessionConstants.blue);
-    presetDiagram.setIsASocraticSession(true);
+    presetDiagram.setIsASocraticSession(isASocraticSession);
     presetDiagram.initMovie(PresetDiagramMovieModes.appear);
     initReactors();
   }

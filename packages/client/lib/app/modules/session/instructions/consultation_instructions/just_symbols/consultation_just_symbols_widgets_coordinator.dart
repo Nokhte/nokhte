@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/movie_status.dart';
@@ -77,7 +78,7 @@ abstract class _ConsultationJustSymbolsWidgetsCoordinatorBase with Store {
   rippleCompletionStatusReactor() =>
       reaction((p0) => touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished && !isAllowedToTap) {
-          // Modular.to.navigate(SessionConstants.speakingInstructions);
+          Modular.to.navigate(SessionConstants.lobby, arguments: {});
         }
       });
 
