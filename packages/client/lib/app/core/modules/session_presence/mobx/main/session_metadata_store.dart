@@ -5,6 +5,7 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
 import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
 part 'session_metadata_store.g.dart';
@@ -29,9 +30,6 @@ abstract class _SessionMetadataStoreBase
   @observable
   int userIndex = -1;
 
-  @action
-  setUserIndex(int index) => userIndex = index;
-
   @observable
   bool everyoneIsOnline = false;
 
@@ -55,15 +53,6 @@ abstract class _SessionMetadataStoreBase
 
   @observable
   bool isAValidSession = false;
-
-  @observable
-  bool userShouldSkipInstructions = false;
-
-  @observable
-  bool neighborShouldSkipInstructions = false;
-
-  @observable
-  bool everyoneShouldSkipInstructions = false;
 
   @observable
   String presetUID = '';
@@ -168,16 +157,17 @@ abstract class _SessionMetadataStoreBase
     return [evenList, oddList];
   }
 
-  @computed
-  PresetTypes get presetType {
-    if (presetName.contains('sultat')) {
-      return PresetTypes.consultative;
-    } else if (presetName.contains('llaborat')) {
-      return PresetTypes.collaborative;
-    } else if (presetName.contains('crat')) {
-      return PresetTypes.socratic;
+  SessionScreenTypes fromRawScreenType(String param) {
+    if (param.contains('solo')) {
+      return SessionScreenTypes.soloHybrid;
+    } else if (param.contains('group')) {
+      return SessionScreenTypes.groupHybrid;
+    } else if (param.contains('speaking')) {
+      return SessionScreenTypes.speaking;
+    } else if (param.contains('notes')) {
+      return SessionScreenTypes.notes;
     } else {
-      return PresetTypes.none;
+      return SessionScreenTypes.inital;
     }
   }
 
@@ -212,10 +202,16 @@ abstract class _SessionMetadataStoreBase
   }
 
   @computed
-  List get evenListMinusHybridPhone {
-    final list = splitList(currentPhases)[0];
-    list.removeAt(0);
-    return list;
+  PresetTypes get presetType {
+    if (presetName.contains('sultat')) {
+      return PresetTypes.consultative;
+    } else if (presetName.contains('llaborat')) {
+      return PresetTypes.collaborative;
+    } else if (presetName.contains('crat')) {
+      return PresetTypes.socratic;
+    } else {
+      return PresetTypes.none;
+    }
   }
 
   @computed
@@ -229,16 +225,40 @@ abstract class _SessionMetadataStoreBase
   }
 
   @computed
-  bool get hybridCanMoveIntoSecondInstructionsSet =>
-      evenListMinusHybridPhone.every((e) => e == 2) &&
-      oddList.every((e) => e >= 1);
+  SessionScreenTypes get sessionScreenType {
+    if (evenConfiguration.isEmpty || oddConfiguration.isEmpty) {
+      return SessionScreenTypes.inital;
+    } else {
+      if (evenConfiguration.length == 1 && oddConfiguration.length == 1) {
+        return fromRawScreenType(evenConfiguration.first);
+      } else {
+        final moduloIndex = userIndex % 2;
+        if (numberOfCollaborators.isOdd) {
+          if (userIndex == numberOfCollaborators - 1) {
+            return fromRawScreenType(oddConfiguration.last);
+          } else {
+            return fromRawScreenType(oddConfiguration[moduloIndex]);
+          }
+        } else {
+          return fromRawScreenType(evenConfiguration[moduloIndex]);
+        }
+      }
+    }
+  }
 
   @computed
-  bool get canMoveIntoSecondInstructionsSet {
-    if (numberOfCollaborators.isOdd) {
-      return evenList.every((e) => e == 2) && oddList.every((e) => e >= 1);
-    } else {
-      return evenList.every((e) => e == 2) && oddList.every((e) => e >= 1);
+  String get sessionRouterScreen {
+    switch (sessionScreenType) {
+      case SessionScreenTypes.speaking:
+        return SessionConstants.speakingRouter;
+      case SessionScreenTypes.groupHybrid:
+        return SessionConstants.hybridRouter;
+      case SessionScreenTypes.soloHybrid:
+        return SessionConstants.hybridRouter;
+      case SessionScreenTypes.notes:
+        return SessionConstants.notes;
+      case SessionScreenTypes.inital:
+        return '';
     }
   }
 
