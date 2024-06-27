@@ -63,6 +63,11 @@ class SessionLists {
         ),
       );
 
+  static List<RotatingTextData> collaborationGreeterPrimary = [
+    putYourPhoneOnDND,
+    SharedLists.emptyItem,
+  ];
+
   static List<RotatingTextData> trialGreeterPrimary = [
     RotatingTextData(
       text: "This is your only Trial Group Session",
@@ -71,8 +76,9 @@ class SessionLists {
     ),
   ];
 
-  static List<RotatingTextData> trialGreeterSecondary = [
-    SharedLists.tapToConfirm(20)
+  static List<RotatingTextData> singleTapToConfirm = [
+    SharedLists.tapToConfirm(20),
+    SharedLists.emptyItem,
   ];
 
   static List<RotatingTextData> duoGreeterPrimary = [

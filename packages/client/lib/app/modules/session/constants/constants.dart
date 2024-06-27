@@ -54,6 +54,7 @@ mixin SessionConstants {
   static const relativePreview = '/preview';
   static const relativeDuoGreeter = '/duo_greeter';
   static const relativeGroupGreeter = '/group_greeter';
+  static const relativeCollaborationGreeter = '/collaboration_greeter';
   static const relativeTrialGreeter = '/trial_greeter';
   static const relativeExit = '/exit';
 
@@ -70,6 +71,8 @@ mixin SessionConstants {
 
   static const lobby = '$module$coreModule$relativeLobby';
   static const preview = '$module$coreModule$relativePreview';
+  static const collaborationGreeter =
+      '$module$coreModule$relativeCollaborationGreeter';
   static const duoGreeter = '$module$coreModule$relativeDuoGreeter';
   static const groupGreeter = '$module$coreModule$relativeGroupGreeter';
   static const trialGreeter = '$module$coreModule$relativeTrialGreeter';

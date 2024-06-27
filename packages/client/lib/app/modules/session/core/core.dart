@@ -14,7 +14,9 @@ export 'exit/exit.dart';
 export 'preview/preview.dart';
 export 'group_greeter/group_greeter.dart';
 export 'lobby/lobby.dart';
+export './shared/shared.dart';
 export 'trial_greeter/trial_greeter.dart';
+export 'collaboration_greeter/collaboration_greeter.dart';
 
 class SessionCoreModule extends Module {
   @override
@@ -60,6 +62,14 @@ class SessionCoreModule extends Module {
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<SessionDuoGreeterWidgetsCoordinator>(),
+        tap: TapDetector(),
+      ),
+    );
+    i.add<SessionCollaborationGreeterCoordinator>(
+      () => SessionCollaborationGreeterCoordinator(
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<SessionCollaborationGreeterWidgetsCoordinator>(),
         tap: TapDetector(),
       ),
     );
@@ -114,6 +124,13 @@ class SessionCoreModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => SessionGroupGreeterScreen(
         coordinator: Modular.get<SessionGroupGreeterCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionConstants.relativeCollaborationGreeter,
+      transition: TransitionType.noTransition,
+      child: (context) => SessionCollaborationGreeterScreen(
+        coordinator: Modular.get<SessionCollaborationGreeterCoordinator>(),
       ),
     );
     r.child(
