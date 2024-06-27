@@ -41,7 +41,7 @@ abstract class _SessionPreviewWidgetsCoordinatorBase with Store {
   }) {
     presetCard.setExpandedCard(name: sessionName, tags: tags);
     primarySmartText.startRotatingText();
-    // show
+    presetCard.setWidgetVisibility(true);
   }
 
   @observable
@@ -57,10 +57,7 @@ abstract class _SessionPreviewWidgetsCoordinatorBase with Store {
   Stopwatch cooldownStopwatch = Stopwatch();
 
   @action
-  onTap(
-    Offset tapPosition, {
-    required Function onTap,
-  }) async {
+  onTap(Offset tapPosition) async {
     if (isFirstTap) {
       touchRipple.onTap(tapPosition);
       presetCard.setWidgetVisibility(false);
@@ -68,18 +65,5 @@ abstract class _SessionPreviewWidgetsCoordinatorBase with Store {
       primarySmartText.startRotatingText(isResuming: true);
       isFirstTap = false;
     }
-    await onTap();
-  }
-
-  @action
-  onCollaboratorLeft() {
-    primarySmartText.setWidgetVisibility(false);
-    presetCard.setWidgetVisibility(false);
-  }
-
-  @action
-  onCollaboratorJoined() {
-    primarySmartText.setWidgetVisibility(primarySmartText.pastShowWidget);
-    presetCard.setWidgetVisibility(presetCard.pastShowWidget);
   }
 }
