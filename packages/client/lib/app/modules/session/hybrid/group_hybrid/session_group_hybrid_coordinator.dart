@@ -9,14 +9,14 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
-import 'session_hybrid_widgets_coordinator.dart';
-part 'session_hybrid_coordinator.g.dart';
+import 'session_group_hybrid_widgets_coordinator.dart';
+part 'session_group_hybrid_coordinator.g.dart';
 
-class SessionHybridCoordinator = _SessionHybridCoordinatorBase
-    with _$SessionHybridCoordinator;
+class SessionGroupHybridCoordinator = _SessionGroupHybridCoordinatorBase
+    with _$SessionGroupHybridCoordinator;
 
-abstract class _SessionHybridCoordinatorBase with Store {
-  final SessionHybridWidgetsCoordinator widgets;
+abstract class _SessionGroupHybridCoordinatorBase with Store {
+  final SessionGroupHybridWidgetsCoordinator widgets;
   final TapDetector tap;
   final SwipeDetector swipe;
   final HoldDetector hold;
@@ -24,7 +24,7 @@ abstract class _SessionHybridCoordinatorBase with Store {
   final SessionMetadataStore sessionMetadata;
   final BaseCoordinator base;
 
-  _SessionHybridCoordinatorBase({
+  _SessionGroupHybridCoordinatorBase({
     required this.widgets,
     required this.swipe,
     required this.hold,
@@ -39,7 +39,7 @@ abstract class _SessionHybridCoordinatorBase with Store {
     widgets.constructor(sessionMetadata.userCanSpeak);
     initReactors();
     await presence.updateCurrentPhase(2.0);
-    await base.captureScreen(SessionConstants.hybrid);
+    await base.captureScreen(SessionConstants.groupHybrid);
   }
 
   @observable

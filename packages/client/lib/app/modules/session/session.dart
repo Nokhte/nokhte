@@ -10,7 +10,6 @@ import 'session.dart';
 export 'core/core.dart';
 export 'instructions/instructions.dart';
 export 'constants/constants.dart';
-export 'types/types.dart';
 export 'speaking/speaking.dart';
 export 'notes/notes.dart';
 export 'hybrid/hybrid.dart';

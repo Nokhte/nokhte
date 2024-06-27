@@ -8,12 +8,12 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
-part 'session_hybrid_widgets_coordinator.g.dart';
+part 'session_group_hybrid_widgets_coordinator.g.dart';
 
-class SessionHybridWidgetsCoordinator = _SessionHybridWidgetsCoordinatorBase
-    with _$SessionHybridWidgetsCoordinator;
+class SessionGroupHybridWidgetsCoordinator = _SessionGroupHybridWidgetsCoordinatorBase
+    with _$SessionGroupHybridWidgetsCoordinator;
 
-abstract class _SessionHybridWidgetsCoordinatorBase with Store {
+abstract class _SessionGroupHybridWidgetsCoordinatorBase with Store {
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
   final BorderGlowStore borderGlow;
@@ -22,7 +22,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase with Store {
   final HalfScreenTintStore othersAreTalkingTint;
   final BaseWidgetsCoordinator base;
 
-  _SessionHybridWidgetsCoordinatorBase({
+  _SessionGroupHybridWidgetsCoordinatorBase({
     required this.othersAreTalkingTint,
     required WifiDisconnectOverlayStore wifiDisconnectOverlay,
     required this.mirroredText,

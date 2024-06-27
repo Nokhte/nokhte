@@ -213,8 +213,8 @@ class SessionWidgetsModule extends Module {
   }
 
   injectHybrid(i) {
-    i.add<SessionHybridWidgetsCoordinator>(
-      () => SessionHybridWidgetsCoordinator(
+    i.add<SessionGroupHybridWidgetsCoordinator>(
+      () => SessionGroupHybridWidgetsCoordinator(
         othersAreTalkingTint: HalfScreenTintStore(),
         speakLessSmileMore: SpeakLessSmileMoreStore(),
         touchRipple: TouchRippleStore(),

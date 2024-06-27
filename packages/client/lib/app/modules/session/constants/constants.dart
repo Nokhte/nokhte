@@ -58,7 +58,6 @@ mixin SessionConstants {
   static const relativeTrialGreeter = '/trial_greeter';
   static const relativeExit = '/exit';
 
-  static const relativeWaiting = '/waiting';
   static const relativeNotes = '/notes';
 
   static const relativeInstructions = '/instructions';
@@ -81,11 +80,12 @@ mixin SessionConstants {
   static const hybridModule = '/hybrid';
 
   static const hybridRouter = '$module$hybridModule$relativeRoot';
-  static const relativeHybrid = '/hybrid';
-  static const hybrid = '$module$hybridModule$relativeHybrid';
+  static const relativeGroupHybrid = '/group_hybrid';
+  static const relativeSoloHybrid = '/solo_hybrid';
+  static const groupHybrid = '$module$hybridModule$relativeGroupHybrid';
+  static const soloHybrid = '$module$hybridModule$relativeSoloHybrid';
   static const hybridSpeakingInstructions =
       '$module$hybridModule$relativeSpeakingInstructions';
-  static const hybridWaiting = '$module$hybridModule$relativeWaiting';
   static const hybridNotesInstructions =
       '$module$hybridModule$relativeNotesInstructions';
   static const hybridNotes = '$module$hybridModule$relativeNotes';
@@ -96,7 +96,6 @@ mixin SessionConstants {
   static const waitingPatron = '$module$monetizeModule$relativeWaitingPatron';
 
   static const notesModule = '/notes';
-  static const notesWaiting = '$module$notesModule$relativeWaiting';
   static const notesFullInstructions =
       '$module$notesModule$relativeFullInstructions';
   static const notesHalfInstructions =
@@ -111,5 +110,4 @@ mixin SessionConstants {
       '$module$speakingModule$relativeFullInstructions';
   static const speakingHalfInstructions =
       '$module$speakingModule$relativeHalfInstructions';
-  static const speakingWaiting = '$module$speakingModule$relativeWaiting';
 }

@@ -117,7 +117,7 @@ abstract class _SessionHybridNotesWidgetsCoordinatorBase with Store {
         if (p0 == MovieStatus.finished &&
             beachWaves.movieMode ==
                 BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
-          Modular.to.navigate(SessionConstants.hybrid);
+          Modular.to.navigate(SessionConstants.groupHybrid);
         }
       });
 }
