@@ -16,10 +16,11 @@ part 'session_lobby_coordinator.g.dart';
 class SessionLobbyCoordinator = _SessionLobbyCoordinatorBase
     with _$SessionLobbyCoordinator;
 
-abstract class _SessionLobbyCoordinatorBase with Store {
+abstract class _SessionLobbyCoordinatorBase with Store, ChooseGreeterType {
   final SessionLobbyWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
+  @override
   final SessionMetadataStore sessionMetadata;
   final UserMetadataCoordinator userMetadata;
   final DeepLinksCoordinator deepLinks;
@@ -167,10 +168,10 @@ abstract class _SessionLobbyCoordinatorBase with Store {
           return monetizationSessionPath;
         }
       } else {
-        return SessionConstants.groupGreeter;
+        return chooseGreeterType(SessionConstants.groupGreeter);
       }
     } else {
-      return SessionConstants.duoGreeter;
+      return chooseGreeterType(SessionConstants.duoGreeter);
     }
   }
 

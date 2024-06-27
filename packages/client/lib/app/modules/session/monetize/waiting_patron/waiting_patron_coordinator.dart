@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -15,10 +16,12 @@ part 'waiting_patron_coordinator.g.dart';
 class WaitingPatronCoordinator = _WaitingPatronCoordinatorBase
     with _$WaitingPatronCoordinator;
 
-abstract class _WaitingPatronCoordinatorBase with Store, HomeScreenRouter {
+abstract class _WaitingPatronCoordinatorBase
+    with Store, HomeScreenRouter, ChooseGreeterType {
   final TapDetector tap;
   final WaitingPatronWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
+  @override
   final SessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
   @override
@@ -52,8 +55,12 @@ abstract class _WaitingPatronCoordinatorBase with Store, HomeScreenRouter {
       onLongReConnected: () {},
       onDisconnected: () {},
     ));
-    base.disposers.add(
-        widgets.beachWaveMovieStatusReactor(onReturnHome: onAnimationComplete));
+    base.disposers.add(widgets.beachWaveMovieStatusReactor(
+      onReturnHome: onAnimationComplete,
+      onReturnToSession: () =>
+          Modular.to.navigate(chooseGreeterType(SessionConstants.groupGreeter)),
+      //
+    ));
     base.disposers.add(validSessionReactor());
     base.disposers.add(phaseReactor());
   }

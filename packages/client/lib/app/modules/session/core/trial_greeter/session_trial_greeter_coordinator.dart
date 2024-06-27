@@ -15,10 +15,12 @@ part 'session_trial_greeter_coordinator.g.dart';
 class SessionTrialGreeterCoordinator = _SessionTrialGreeterCoordinatorBase
     with _$SessionTrialGreeterCoordinator;
 
-abstract class _SessionTrialGreeterCoordinatorBase with Store {
+abstract class _SessionTrialGreeterCoordinatorBase
+    with Store, ChooseGreeterType {
   final SessionTrialGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
+  @override
   final SessionMetadataStore sessionMetadata;
 
   final BaseCoordinator base;
@@ -80,17 +82,15 @@ abstract class _SessionTrialGreeterCoordinatorBase with Store {
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => base.ifTouchIsNotDisabled(() async {
-          widgets.onTap(
-            tap.currentTapPosition,
-            onFinalTap: () async => await presence.updateCurrentPhase(1),
-          );
+        (p0) => base.ifTouchIsNotDisabled(() {
+          widgets.onTap(tap.currentTapPosition);
         }),
       );
 
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
+          final route = chooseGreeterType(nonCollaborationSessionRoute);
           Modular.to.navigate(route);
         }
       });
@@ -101,7 +101,8 @@ abstract class _SessionTrialGreeterCoordinatorBase with Store {
   }
 
   @computed
-  String get route => sessionMetadata.numberOfCollaborators.isGreaterThan(2)
-      ? SessionConstants.groupGreeter
-      : SessionConstants.duoGreeter;
+  String get nonCollaborationSessionRoute =>
+      sessionMetadata.numberOfCollaborators.isGreaterThan(2)
+          ? SessionConstants.groupGreeter
+          : SessionConstants.duoGreeter;
 }
