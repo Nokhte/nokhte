@@ -108,12 +108,12 @@ abstract class _SessionExitCoordinatorBase with Store, HomeScreenRouter {
     base.disposers.add(widgets.beachWavesMovieStatusReactor(
         onToHomeComplete: onAnimationComplete,
         onReturnToTalkingComplete: () {
-          if (phoneRole == SessionPhoneRole.speaking) {
+          if (phoneRole == SessionScreenTypes.speaking) {
             Modular.to.navigate(SessionConstants.speaking);
           }
         },
         onReturnToHybridComplete: () {
-          Modular.to.navigate(SessionConstants.hybrid);
+          Modular.to.navigate(SessionConstants.groupHybrid);
         }));
     base.disposers.add(swipeReactor());
     base.disposers.add(userPhaseReactor());
@@ -187,23 +187,7 @@ abstract class _SessionExitCoordinatorBase with Store, HomeScreenRouter {
       });
 
   @computed
-  SessionPhoneRole get phoneRole {
-    if (sessionMetadata.numberOfCollaborators.isOdd) {
-      if (sessionMetadata.userIndex == 0) {
-        return SessionPhoneRole.hybrid;
-      } else if (sessionMetadata.userIndex.isOdd) {
-        return SessionPhoneRole.speaking;
-      } else {
-        return SessionPhoneRole.notes;
-      }
-    } else {
-      if (sessionMetadata.userIndex.isEven) {
-        return SessionPhoneRole.speaking;
-      } else {
-        return SessionPhoneRole.notes;
-      }
-    }
-  }
+  SessionScreenTypes get phoneRole => sessionMetadata.sessionScreenType;
 
   deconstructor() {
     widgets.base.deconstructor();

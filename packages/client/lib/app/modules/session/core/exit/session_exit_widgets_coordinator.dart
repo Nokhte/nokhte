@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
@@ -66,17 +67,17 @@ abstract class _SessionExitWidgetsCoordinatorBase with Store {
   }
 
   @action
-  onReadyToGoBack(SessionPhoneRole phoneRole) {
+  onReadyToGoBack(SessionScreenTypes phoneRole) {
     primarySmartText.setWidgetVisibility(false);
     secondarySmartText.setWidgetVisibility(false);
-    if (phoneRole == SessionPhoneRole.speaking) {
+    if (phoneRole == SessionScreenTypes.speaking) {
       beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
       beachWaves.currentStore.initMovie(NoParams());
-    } else if (phoneRole == SessionPhoneRole.notes) {
+    } else if (phoneRole == SessionScreenTypes.notes) {
       Timer(Seconds.get(1), () {
         Modular.to.navigate(SessionConstants.notes);
       });
-    } else if (phoneRole == SessionPhoneRole.hybrid) {
+    } else if (phoneRole == SessionScreenTypes.groupHybrid) {
       beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
       beachWaves.currentStore.initMovie(NoParams());
     }
