@@ -1,5 +1,4 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -13,7 +12,6 @@ class SessionHybridModule extends Module {
   List<Module> get imports => [
         PosthogModule(),
         SessionPresenceModule(),
-        GyroscopicModule(),
       ];
   @override
   void exportedBinds(i) {
