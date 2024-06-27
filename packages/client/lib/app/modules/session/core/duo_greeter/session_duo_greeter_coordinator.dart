@@ -86,13 +86,13 @@ abstract class _SessionDuoGreeterCoordinatorBase with Store {
 
   collaboratorPhaseReactor() =>
       reaction((p0) => sessionMetadata.currentPhases, (p0) {
-        if (sessionMetadata.canMoveIntoInstructions &&
+        if (sessionMetadata.canMoveIntoSession &&
             widgets.touchRipple.movieStatus != MovieStatus.inProgress &&
             tap.tapCount.isGreaterThan(0)) {
           widgets.hidePrimarySmartText();
           isNavigatingAway = true;
           Timer(Seconds.get(1, milli: 500), () {
-            Modular.to.navigate(pathIntoSession);
+            Modular.to.navigate(sessionMetadata.sessionRouterScreen);
           });
         }
       });
@@ -119,26 +119,11 @@ abstract class _SessionDuoGreeterCoordinatorBase with Store {
 
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            sessionMetadata.canMoveIntoInstructions) {
+        if (p0 == MovieStatus.finished && sessionMetadata.canMoveIntoSession) {
           isNavigatingAway = true;
-          Modular.to.navigate(pathIntoSession);
+          Modular.to.navigate(sessionMetadata.sessionRouterScreen);
         }
       });
-
-  @computed
-  String get pathIntoSession => sessionMetadata.userIndex.isEven
-      ? SessionConstants.speakingRouter
-      : notesPath;
-
-  @computed
-  String get notesPath {
-    if (sessionMetadata.everyoneShouldSkipInstructions) {
-      return SessionConstants.notes;
-    } else {
-      return SessionConstants.notesWaiting;
-    }
-  }
 
   deconstructor() {
     base.deconstructor();

@@ -93,7 +93,7 @@ abstract class _SessionGroupGreeterCoordinatorBase with Store {
   collaboratorPhaseReactor() =>
       reaction((p0) => sessionMetadata.currentPhases, (p0) {
         if (p0.every((e) => e >= 1.0)) {
-          widgets.initTransition(pathIntoSession);
+          widgets.initTransition(sessionMetadata.sessionRouterScreen);
         } else if (sessionMetadata.everyoneButUserPhases
                 .every((e) => e >= 1.0) &&
             sessionMetadata.userPhase != 1.0) {
@@ -114,9 +114,9 @@ abstract class _SessionGroupGreeterCoordinatorBase with Store {
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
-            sessionMetadata.canMoveIntoInstructions &&
+            sessionMetadata.canMoveIntoSession &&
             !widgets.hasTriggeredTint) {
-          Modular.to.navigate(pathIntoSession);
+          Modular.to.navigate(sessionMetadata.sessionRouterScreen);
         }
       });
 
@@ -133,33 +133,5 @@ abstract class _SessionGroupGreeterCoordinatorBase with Store {
   deconstructor() {
     base.deconstructor();
     widgets.base.deconstructor();
-  }
-
-  @computed
-  String get pathIntoSession {
-    if (sessionMetadata.numberOfCollaborators.isOdd) {
-      if (sessionMetadata.userIndex == 0) {
-        return SessionConstants.hybridRouter;
-      } else if (sessionMetadata.userIndex.isOdd) {
-        return notesPath;
-      } else {
-        return SessionConstants.speakingRouter;
-      }
-    } else {
-      if (sessionMetadata.userIndex.isEven) {
-        return SessionConstants.speakingRouter;
-      } else {
-        return notesPath;
-      }
-    }
-  }
-
-  @computed
-  String get notesPath {
-    if (sessionMetadata.everyoneShouldSkipInstructions) {
-      return SessionConstants.notes;
-    } else {
-      return SessionConstants.notesWaiting;
-    }
   }
 }
