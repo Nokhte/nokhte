@@ -116,12 +116,16 @@ abstract class _SessionLobbyWidgetsCoordinatorBase with Store {
 
   @action
   onCollaboratorLeft() {
+    if (presetIcons.showWidget) {
+      presetIcons.setWidgetVisibility(false);
+    }
     primarySmartText.setWidgetVisibility(false);
     qrCode.setWidgetVisibility(false);
   }
 
   @action
   onCollaboratorJoined() {
+    presetIcons.setWidgetVisibility(presetIcons.pastShowWidget);
     primarySmartText.setWidgetVisibility(primarySmartText.pastShowWidget);
     qrCode.setWidgetVisibility(qrCode.pastShowWidget);
   }
