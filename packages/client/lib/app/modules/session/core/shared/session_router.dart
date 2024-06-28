@@ -11,23 +11,34 @@ export './session_router.dart';
 
 mixin SessionRouter {
   BeachWavesStore get beachWaves;
-  initTransition({
-    required SessionScreenTypes phoneType,
-    required Function onTransition,
-  }) {
-    if (phoneType == SessionScreenTypes.speaking) {
+  initTransition(SessionScreenTypes phoneType) {
+    if (phoneType == SessionScreenTypes.speaking ||
+        phoneType == SessionScreenTypes.soloHybrid) {
       beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
       beachWaves.currentStore.initMovie(NoParams());
     } else if (phoneType == SessionScreenTypes.notes) {
       Timer(Seconds.get(1), () {
         Modular.to.navigate(SessionConstants.notes);
       });
-    } else if (phoneType == SessionScreenTypes.groupHybrid ||
-        phoneType == SessionScreenTypes.soloHybrid) {
+    } else if (phoneType == SessionScreenTypes.groupHybrid) {
       beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
       beachWaves.currentStore.initMovie(NoParams());
     }
-    onTransition();
+  }
+
+  route({
+    required bool isACollaborativeSession,
+  }) {
+    if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
+      if (isACollaborativeSession) {
+        Modular.to.navigate(SessionConstants.soloHybrid);
+      } else {
+        Modular.to.navigate(SessionConstants.speaking);
+      }
+    } else if (beachWaves.movieMode ==
+        BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
+      Modular.to.navigate(SessionConstants.groupHybrid);
+    }
   }
 
   beachWavesMovieStatusReactor({
@@ -35,12 +46,7 @@ mixin SessionRouter {
   }) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode ==
-              BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
-            if (isACollaborativeSession) {
-              Modular.to.navigate(SessionConstants.soloHybrid);
-            }
-          }
+          route(isACollaborativeSession: isACollaborativeSession);
         }
       });
 }

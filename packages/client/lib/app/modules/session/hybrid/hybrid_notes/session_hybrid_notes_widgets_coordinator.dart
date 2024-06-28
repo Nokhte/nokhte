@@ -42,6 +42,12 @@ abstract class _SessionHybridNotesWidgetsCoordinatorBase with Store {
   @observable
   bool canSwipeUp = true;
 
+  @observable
+  bool isACollaborativeSession = false;
+
+  @action
+  setIsACollaborativeSession(bool newVal) => isACollaborativeSession = newVal;
+
   @action
   setCanSwipeUp(bool newVal) => canSwipeUp = newVal;
 
@@ -61,7 +67,7 @@ abstract class _SessionHybridNotesWidgetsCoordinatorBase with Store {
         if (textEditor.controller.text.length != (0)) {
           smartText.setWidgetVisibility(true);
         } else {
-          navigateAway();
+          navigateAway(isACollaborativeSession);
         }
       } else {
         smartText.setWidgetVisibility(false);
@@ -69,7 +75,7 @@ abstract class _SessionHybridNotesWidgetsCoordinatorBase with Store {
     });
     Timer(Seconds.get(9, milli: 500), () {
       if (inactivityCount == 0) {
-        navigateAway();
+        navigateAway(isACollaborativeSession);
       }
     });
     base.disposers.add(beachWavesMovieStatusReactor());
@@ -77,12 +83,13 @@ abstract class _SessionHybridNotesWidgetsCoordinatorBase with Store {
   }
 
   @action
-  navigateAway() {
+  navigateAway(isACollaborativeSession) {
     smartText.setWidgetVisibility(false);
     textEditor.setWidgetVisibility(false);
-    beachWaves.setMovieMode(
-      BeachWaveMovieModes.skyToInvertedHalfAndHalf,
-    );
+    final movieMode = isACollaborativeSession
+        ? BeachWaveMovieModes.skyToHalfAndHalf
+        : BeachWaveMovieModes.skyToInvertedHalfAndHalf;
+    beachWaves.setMovieMode(movieMode);
     beachWaves.currentStore.initMovie(NoParams());
 
     setCanSwipeUp(false);
@@ -95,7 +102,7 @@ abstract class _SessionHybridNotesWidgetsCoordinatorBase with Store {
           textEditor.controller.text != lastSubmittedText) {
         lastSubmittedText = textEditor.controller.text;
         await onSwipeUp(textEditor.controller.text);
-        navigateAway();
+        navigateAway(isACollaborativeSession);
       }
     }
   }
@@ -114,10 +121,14 @@ abstract class _SessionHybridNotesWidgetsCoordinatorBase with Store {
 
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            beachWaves.movieMode ==
-                BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
-          Modular.to.navigate(SessionConstants.groupHybrid);
+        if (p0 == MovieStatus.finished) {
+          if (beachWaves.movieMode ==
+              BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
+            Modular.to.navigate(SessionConstants.groupHybrid);
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.skyToHalfAndHalf) {
+            Modular.to.navigate(SessionConstants.soloHybrid);
+          }
         }
       });
 }

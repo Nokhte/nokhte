@@ -213,6 +213,19 @@ class SessionWidgetsModule extends Module {
   }
 
   injectHybrid(i) {
+    i.add<SessionSoloHybridWidgetsCoordinator>(
+      () => SessionSoloHybridWidgetsCoordinator(
+        primarySmartText: SmartTextStore(),
+        secondarySmartText: SmartTextStore(),
+        othersAreTalkingTint: HalfScreenTintStore(),
+        speakLessSmileMore: SpeakLessSmileMoreStore(),
+        touchRipple: TouchRippleStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+        borderGlow: BorderGlowStore(),
+      ),
+    );
     i.add<SessionGroupHybridWidgetsCoordinator>(
       () => SessionGroupHybridWidgetsCoordinator(
         othersAreTalkingTint: HalfScreenTintStore(),

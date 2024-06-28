@@ -3,13 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/session_presence/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/core/core.dart';
 part 'session_collaboration_greeter_widgets_coordinator.g.dart';
 
 class SessionCollaborationGreeterWidgetsCoordinator = _SessionCollaborationGreeterWidgetsCoordinatorBase
     with _$SessionCollaborationGreeterWidgetsCoordinator;
 
-abstract class _SessionCollaborationGreeterWidgetsCoordinatorBase with Store {
+abstract class _SessionCollaborationGreeterWidgetsCoordinatorBase
+    with Store, SessionRouter {
+  @override
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
@@ -28,7 +32,7 @@ abstract class _SessionCollaborationGreeterWidgetsCoordinatorBase with Store {
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToDrySand);
-    primarySmartText.setMessagesData(SessionLists.trialGreeterPrimary);
+    primarySmartText.setMessagesData(SessionLists.collaborationGreeterPrimary);
     secondarySmartText.setMessagesData(SessionLists.singleTapToConfirm);
     primarySmartText.startRotatingText();
     secondarySmartText.startRotatingText();
@@ -38,9 +42,13 @@ abstract class _SessionCollaborationGreeterWidgetsCoordinatorBase with Store {
   bool isFirstTap = true;
 
   @action
-  onTap(Offset tapPosition) async {
-    touchRipple.onTap(tapPosition);
+  onTap({
+    required Offset tapPosition,
+    required SessionScreenTypes phoneType,
+  }) async {
     if (isFirstTap) {
+      touchRipple.onTap(tapPosition);
+      initTransition(phoneType);
       primarySmartText.startRotatingText(isResuming: true);
       secondarySmartText.startRotatingText(isResuming: true);
       isFirstTap = false;

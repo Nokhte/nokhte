@@ -1,15 +1,14 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // import 'dart:async';
 import 'dart:async';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
+import 'package:nokhte_backend/tables/_real_time_disabled/company_presets/queries.dart';
 part 'session_collaboration_greeter_coordinator.g.dart';
 
 class SessionCollaborationGreeterCoordinator = _SessionCollaborationGreeterCoordinatorBase
@@ -81,14 +80,21 @@ abstract class _SessionCollaborationGreeterCoordinatorBase with Store {
   tapReactor() => reaction(
         (p0) => tap.tapCount,
         (p0) => base.ifTouchIsNotDisabled(() {
-          widgets.onTap(tap.currentTapPosition);
+          widgets.onTap(
+            tapPosition: tap.currentTapPosition,
+            phoneType: sessionMetadata.sessionScreenType,
+          );
         }),
       );
 
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          Modular.to.navigate(route);
+          widgets.route(
+            isACollaborativeSession:
+                sessionMetadata.presetType == PresetTypes.collaborative,
+          );
+          // Modular.to.navigate(route);
         }
       });
 
@@ -96,9 +102,4 @@ abstract class _SessionCollaborationGreeterCoordinatorBase with Store {
     base.deconstructor();
     widgets.base.deconstructor();
   }
-
-  @computed
-  String get route => sessionMetadata.numberOfCollaborators.isGreaterThan(2)
-      ? SessionConstants.groupGreeter
-      : SessionConstants.duoGreeter;
 }

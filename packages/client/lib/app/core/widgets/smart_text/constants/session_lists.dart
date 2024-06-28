@@ -356,6 +356,14 @@ class SessionLists {
       mainFontSize: 19.0,
     ),
   ];
+
+  static List<RotatingTextData> tapToTalk = [
+    RotatingTextData(
+      text: "Tap to talk",
+      pauseHere: true,
+      mainFontSize: 19.0,
+    ),
+  ];
   static List<RotatingTextData> tapToTakeANote = [
     RotatingTextData(
       text: "Tap to take a note",

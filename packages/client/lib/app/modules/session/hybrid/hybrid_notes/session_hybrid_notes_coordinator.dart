@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 import 'session_hybrid_notes_widgets_coordinator.dart';
 part 'session_hybrid_notes_coordinator.g.dart';
 
@@ -35,6 +36,9 @@ abstract class _SessionHybridNotesCoordinatorBase with Store {
     widgets.constructor();
     initReactors();
     setBlockPhoneTiltReactor(false);
+    widgets.setIsACollaborativeSession(
+      sessionMetadata.presetType == PresetTypes.collaborative,
+    );
     await presence.updateCurrentPhase(2.0);
     await base.captureScreen(SessionConstants.hybridNotes);
   }

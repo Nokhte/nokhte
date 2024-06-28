@@ -191,9 +191,9 @@ abstract class _SessionLobbyCoordinatorBase with Store, ChooseGreeterType {
 
   @computed
   String get premiumSessionPath {
-    return isConsumingTrialSession
+    return chooseGreeterType(isConsumingTrialSession
         ? SessionConstants.trialGreeter
-        : SessionConstants.groupGreeter;
+        : SessionConstants.groupGreeter);
   }
 
   @computed
@@ -202,6 +202,7 @@ abstract class _SessionLobbyCoordinatorBase with Store, ChooseGreeterType {
 
   @computed
   bool get isConsumingTrialSession =>
+      isAPremiumSession &&
       !userMetadata.hasUsedTrial &&
       !userMetadata.isSubscribed &&
       !sessionMetadata.leaderIsWhitelisted;
