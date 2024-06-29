@@ -12,7 +12,8 @@ part 'presets_instructions_widgets_coordinator.g.dart';
 class PresetsInstructionsWidgetsCoordinator = _PresetsInstructionsWidgetsCoordinatorBase
     with _$PresetsInstructionsWidgetsCoordinator;
 
-abstract class _PresetsInstructionsWidgetsCoordinatorBase with Store {
+abstract class _PresetsInstructionsWidgetsCoordinatorBase
+    with Store, SmartTextPaddingAdjuster {
   final BaseWidgetsCoordinator base;
   final BeachWavesStore beachWaves;
   final SmartTextStore headerText;
@@ -37,9 +38,11 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase with Store {
   })  : condensedPresetCards = presetCards.condensed,
         base = BaseWidgetsCoordinator(
             wifiDisconnectOverlay: wifiDisconnectOverlay) {
-    base.setSmartTextTopPaddingScalar(0);
-    base.setSmartTextBottomPaddingScalar(.1);
-    base.setSmartTextSubMessagePaddingScalar(110);
+    initSmartTextActions();
+    setSmartTextTopPaddingScalar(0);
+
+    setSmartTextBottomPaddingScalar(.1);
+    setSmartTextSubMessagePaddingScalar(110);
   }
 
   @action
@@ -220,7 +223,7 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase with Store {
         smartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte.moveToCenter(base.center);
         Timer(Seconds.get(1, milli: 500), () {
-          base.setSmartTextTopPaddingScalar(.24);
+          setSmartTextTopPaddingScalar(.24);
           instructionalNokhteAreVisible = true;
         });
         // setSmartTextPadding(bottomPadding: .14);

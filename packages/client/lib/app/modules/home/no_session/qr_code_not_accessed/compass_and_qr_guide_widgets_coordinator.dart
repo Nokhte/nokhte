@@ -59,11 +59,14 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
         sessionStarterInstructionalNokhte.setControl(Control.playFromStart);
         primarySmartText.startRotatingText(isResuming: true);
         base.setTouchIsDisabled(true);
-        base.setSmartTextPadding(
-          subMessagePadding: 110,
-          bottomPadding: 0,
-          topPadding: 0,
+        setSmartTextPadding(
+          subMessagePadding: 110.0,
+          bottomPadding: 0.0,
+          topPadding: 0.0,
         );
+        Timer(Seconds.get(1, milli: 500), () {
+          base.setTouchIsDisabled(false);
+        });
       } else if (primarySmartText.currentIndex.equals(5)) {
         prepForNavigation(excludeUnBlur: true);
       }
@@ -92,17 +95,18 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
         primarySmartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte.moveToCenter(base.center);
         touchRipple.onTap(offset);
-        base.setSmartTextPadding(
-          subMessagePadding: 80,
+        setSmartTextPadding(
+          subMessagePadding: 80.0,
           topPadding: 0.1,
-          bottomPadding: 0,
+          bottomPadding: 0.0,
         );
+        delayedEnableTouchFeedback();
       } else if (primarySmartText.currentIndex == 2) {
         base.setTouchIsDisabled(true);
         primarySmartText.startRotatingText(isResuming: true);
         sessionStarterInstructionalNokhte.setWidgetVisibility(true);
         touchRipple.onTap(offset);
-        base.setSmartTextPadding();
+        delayedEnableTouchFeedback();
       } else if (primarySmartText.currentIndex == 4) {
         primarySmartText.startRotatingText(isResuming: true);
         base.setTouchIsDisabled(true);
@@ -150,7 +154,11 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
       beachWaves.currentStore.setControl(Control.stop);
       toggleHasInitiatedBlur();
       primarySmartText.startRotatingText(isResuming: true);
-      base.setSmartTextPadding(subMessagePadding: 110, bottomPadding: .23);
+      setSmartTextPadding(
+        subMessagePadding: 110.0,
+        bottomPadding: 0.23,
+        topPadding: 0.0,
+      );
     }
   }
 }

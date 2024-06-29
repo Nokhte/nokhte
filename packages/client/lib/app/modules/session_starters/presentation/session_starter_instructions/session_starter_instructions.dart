@@ -57,12 +57,12 @@ class SessionStarterInstructionsScreen extends HookWidget {
                   child: SmartText(
                     store: coordinator.widgets.smartText,
                     opacityDuration: Seconds.get(1),
-                    topPadding: height *
-                        coordinator.widgets.base.smartTextTopPaddingScalar,
+                    topPadding:
+                        height * coordinator.widgets.smartTextTopPaddingScalar,
                     bottomPadding: height *
-                        coordinator.widgets.base.smartTextBottomPaddingScalar,
-                    subTextPadding: coordinator
-                        .widgets.base.smartTextSubMessagePaddingScalar,
+                        coordinator.widgets.smartTextBottomPaddingScalar,
+                    subTextPadding:
+                        coordinator.widgets.smartTextSubMessagePaddingScalar,
                   ),
                 ),
                 GestureCross(

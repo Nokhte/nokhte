@@ -84,8 +84,8 @@ abstract class _StorageGuideWidgetsCoordinatorBase
     primarySmartText.startRotatingText(isResuming: true);
     Timer(const Duration(seconds: 1, milliseconds: 500), () {
       storageInstructionalNokhte.setWidgetVisibility(true);
-      base.setSmartTextBottomPaddingScalar(0);
-      base.setSmartTextTopPaddingScalar(.13);
+      setSmartTextBottomPaddingScalar(0);
+      setSmartTextTopPaddingScalar(.13);
     });
     gestureCross.gradientNokhte.setWidgetVisibility(false);
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);

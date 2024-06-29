@@ -8,6 +8,7 @@ export 'constants/constants.dart';
 export 'mobx/smart_text_store.dart';
 export 'movies/movies.dart';
 export 'types/types.dart';
+export 'mixin/mixin.dart';
 
 class SmartText extends StatelessWidget {
   final SmartTextStore store;

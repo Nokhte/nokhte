@@ -47,8 +47,6 @@ class PresetsScreen extends HookWidget {
                   store: coordinator.widgets.headerText,
                   opacityDuration: Seconds.get(1),
                   bottomPadding: height * .75,
-                  subTextPadding:
-                      coordinator.widgets.base.smartTextSubMessagePaddingScalar,
                 ),
                 PresetCards(
                   store: coordinator.widgets.presetCards,
@@ -63,8 +61,8 @@ class PresetsScreen extends HookWidget {
                     store: coordinator.widgets.smartText,
                     opacityDuration: Seconds.get(1),
                     topPadding: height * .15,
-                    subTextPadding: coordinator
-                        .widgets.base.smartTextSubMessagePaddingScalar,
+                    subTextPadding:
+                        coordinator.widgets.smartTextSubMessagePaddingScalar,
                   ),
                 ),
                 GestureCross(

@@ -13,7 +13,8 @@ part 'presets_widgets_coordinator.g.dart';
 class PresetsWidgetsCoordinator = _PresetsWidgetsCoordinatorBase
     with _$PresetsWidgetsCoordinator;
 
-abstract class _PresetsWidgetsCoordinatorBase with Store {
+abstract class _PresetsWidgetsCoordinatorBase
+    with Store, SmartTextPaddingAdjuster {
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final GestureCrossStore gestureCross;
@@ -41,9 +42,8 @@ abstract class _PresetsWidgetsCoordinatorBase with Store {
         base = BaseWidgetsCoordinator(
           wifiDisconnectOverlay: wifiDisconnectOverlay,
         ) {
-    base.setSmartTextTopPaddingScalar(.27);
-    base.setSmartTextBottomPaddingScalar(0);
-    base.setSmartTextSubMessagePaddingScalar(110);
+    initSmartTextActions();
+    setSmartTextSubMessagePaddingScalar(110);
   }
 
   @observable
@@ -281,9 +281,9 @@ abstract class _PresetsWidgetsCoordinatorBase with Store {
             !instructionalNokhteAreVisible) {
           gestureCross.centerCrossNokhte.setWidgetVisibility(true);
           gestureCross.gradientNokhte.setWidgetVisibility(true);
-          base.setSmartTextTopPaddingScalar(.27);
-          base.setSmartTextBottomPaddingScalar(0);
-          base.setSmartTextSubMessagePaddingScalar(110);
+          setSmartTextTopPaddingScalar(.27);
+          setSmartTextBottomPaddingScalar(0);
+          setSmartTextSubMessagePaddingScalar(110);
           smartText.startRotatingText();
           hasSwiped = false;
           base.setTouchIsDisabled(false);

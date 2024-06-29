@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -11,7 +13,8 @@ part 'base_home_screen_widgets_coordinator.g.dart';
 class BaseHomeScreenWidgetsCoordinator = _BaseHomeScreenWidgetsCoordinatorBase
     with _$BaseHomeScreenWidgetsCoordinator;
 
-abstract class _BaseHomeScreenWidgetsCoordinatorBase with Store {
+abstract class _BaseHomeScreenWidgetsCoordinatorBase
+    with Store, SmartTextPaddingAdjuster {
   final NokhteBlurStore nokhteBlur;
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
@@ -38,7 +41,9 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase with Store {
     required this.storageInstructionalNokhte,
   }) : base = BaseWidgetsCoordinator(
           wifiDisconnectOverlay: wifiDisconnectOverlay,
-        );
+        ) {
+    initSmartTextActions();
+  }
 
   @action
   constructor(Offset centerParam) {
@@ -69,6 +74,11 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase with Store {
 
   @action
   toggleHasSwipedUp() => hasSwipedUp = !hasSwipedUp;
+
+  @action
+  delayedEnableTouchFeedback() => Timer(Seconds.get(1, milli: 500), () {
+        base.setTouchIsDisabled(false);
+      });
 
   @action
   onConnected() {

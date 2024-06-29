@@ -77,7 +77,8 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
         hasSwipedUp = true;
         primarySmartText.startRotatingText(isResuming: true);
-        base.setSmartTextPadding(topPadding: 0);
+        setSmartTextPadding(topPadding: 0);
+        delayedEnableTouchFeedback();
       } else if (primarySmartText.currentIndex.isLessThan(1)) {
         gestureCross.centerCrossNokhte.setWidgetVisibility(true);
         gestureCross.gradientNokhte.setWidgetVisibility(true);
@@ -157,7 +158,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
     hasInitiatedBlur = false;
     primarySmartText.reset();
     primarySmartText.startRotatingText();
-    base.setSmartTextPadding();
+    delayedEnableTouchFeedback();
   }
 
   @action
@@ -180,7 +181,8 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
         gestureCross.gradientNokhte.setWidgetVisibility(false);
         primarySmartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte.moveToCenter(base.center);
-        base.setSmartTextPadding(bottomPadding: .14);
+        setSmartTextPadding(bottomPadding: .14);
+        delayedEnableTouchFeedback();
       } else if (hasInitiatedBlur) {
         dismissInstructionalNokhte();
       }

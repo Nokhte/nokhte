@@ -256,7 +256,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
     hasInitiatedBlur = false;
     primarySmartText.reset();
     primarySmartText.startRotatingText();
-    base.setSmartTextPadding();
+    delayedEnableTouchFeedback();
   }
 
   @computed

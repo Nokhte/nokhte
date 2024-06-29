@@ -73,12 +73,12 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
         sessionStarterInstructionalNokhte.setControl(Control.playFromStart);
         storageInstructionalNokhte.setWidgetVisibility(false);
-        base.setSmartTextPadding(
+        setSmartTextPadding(
           subMessagePadding: 110,
           bottomPadding: 0,
           topPadding: 0,
         );
-        base.touchIsDisabled = false;
+        delayedEnableTouchFeedback();
         primarySmartText.startRotatingText(isResuming: true);
       } else if (!hasInitiatedBlur && !hasSwipedUp && hasTappedOnCross) {
         prepForNavigation(excludeUnBlur: !hasInitiatedBlur);
@@ -158,8 +158,8 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
     primarySmartText.startRotatingText(isResuming: true);
 
     Timer(const Duration(seconds: 1, milliseconds: 500), () {
-      base.setSmartTextBottomPaddingScalar(0);
-      base.setSmartTextTopPaddingScalar(.13);
+      setSmartTextBottomPaddingScalar(0);
+      setSmartTextTopPaddingScalar(.13);
       sessionStarterInstructionalNokhte.setWidgetVisibility(true);
     });
 

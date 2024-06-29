@@ -83,12 +83,12 @@ class LoginScreen extends HookWidget {
                   child: SmartText(
                     opacityDuration: Seconds.get(1),
                     store: coordinator.widgets.smartTextStore,
-                    topPadding: height *
-                        coordinator.widgets.base.smartTextTopPaddingScalar,
+                    topPadding:
+                        height * coordinator.widgets.smartTextTopPaddingScalar,
                     bottomPadding: height *
-                        coordinator.widgets.base.smartTextBottomPaddingScalar,
-                    subTextPadding: coordinator
-                        .widgets.base.smartTextSubMessagePaddingScalar,
+                        coordinator.widgets.smartTextBottomPaddingScalar,
+                    subTextPadding:
+                        coordinator.widgets.smartTextSubMessagePaddingScalar,
                   ),
                 ),
                 FullScreen(

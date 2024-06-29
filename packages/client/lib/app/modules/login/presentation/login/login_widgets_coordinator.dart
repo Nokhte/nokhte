@@ -13,7 +13,8 @@ part 'login_widgets_coordinator.g.dart';
 class LoginScreenWidgetsCoordinator = _LoginScreenWidgetsCoordinatorBase
     with _$LoginScreenWidgetsCoordinator;
 
-abstract class _LoginScreenWidgetsCoordinatorBase with Store {
+abstract class _LoginScreenWidgetsCoordinatorBase
+    with Store, SmartTextPaddingAdjuster {
   final BeachWavesStore layer1BeachWaves;
   final BeachWavesStore layer2BeachWaves;
   final GestureCrossStore gestureCross;
@@ -34,7 +35,9 @@ abstract class _LoginScreenWidgetsCoordinatorBase with Store {
     required WifiDisconnectOverlayStore wifiDisconnectOverlay,
   }) : base = BaseWidgetsCoordinator(
           wifiDisconnectOverlay: wifiDisconnectOverlay,
-        );
+        ) {
+    initSmartTextActions();
+  }
 
   constructor(
     Offset center,
@@ -50,7 +53,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase with Store {
     smartTextStore.setMessagesData(LoginList.list);
     smartTextStore.startRotatingText();
     initReactors(loginBusinessLogic);
-    base.setSmartTextSubMessagePaddingScalar(200);
+    setSmartTextSubMessagePaddingScalar(200);
   }
 
   @observable

@@ -16,7 +16,8 @@ part 'session_starter_widgets_coordinator.g.dart';
 class SessionStarterWidgetsCoordinator = _SessionStarterWidgetsCoordinatorBase
     with _$SessionStarterWidgetsCoordinator;
 
-abstract class _SessionStarterWidgetsCoordinatorBase with Store {
+abstract class _SessionStarterWidgetsCoordinatorBase
+    with Store, SmartTextPaddingAdjuster {
   final BeachWavesStore beachWaves;
   final SmartTextStore secondarySmartText;
   final SmartTextStore primarySmartText;
@@ -48,9 +49,10 @@ abstract class _SessionStarterWidgetsCoordinatorBase with Store {
     presetIcons.setContainerSize(.2);
     presetIcons.setWidgetVisibility(false);
     presetIcons.setIsHorizontal(true);
-    base.setSmartTextTopPaddingScalar(.27);
-    base.setSmartTextBottomPaddingScalar(0);
-    base.setSmartTextSubMessagePaddingScalar(110);
+    initSmartTextActions();
+    setSmartTextTopPaddingScalar(.27);
+    setSmartTextBottomPaddingScalar(0);
+    setSmartTextSubMessagePaddingScalar(110);
   }
 
   @observable
@@ -109,6 +111,13 @@ abstract class _SessionStarterWidgetsCoordinatorBase with Store {
   }
 
   @action
+  delayedEnableTouchFeedback() {
+    Timer(Seconds.get(1, milli: 500), () {
+      base.setTouchIsDisabled(false);
+    });
+  }
+
+  @action
   onPreferredPresetReceived({
     required String sessionName,
     required List tags,
@@ -123,14 +132,17 @@ abstract class _SessionStarterWidgetsCoordinatorBase with Store {
   onSwipeDown(Function onLeaving) async {
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
-        hasInitiatedBlur = false;
-        base.setSmartTextBottomPaddingScalar(.1);
-        base.setSmartTextTopPaddingScalar(0);
+        // hasInitiatedBlur = false;
+        setSmartTextBottomPaddingScalar(.1);
+        setSmartTextTopPaddingScalar(0);
         secondarySmartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte
             .initMovie(InstructionalNokhtePositions.bottom);
         presetsInstructionalNokhte.setWidgetVisibility(false);
-        base.setSmartTextPadding();
+
+        delayedEnableTouchFeedback();
+
+        // make a delayed enable feedback or take it out and see what happens
       } else {
         if (!hasSwipedDown) {
           hasSwipedDown = true;
@@ -156,14 +168,14 @@ abstract class _SessionStarterWidgetsCoordinatorBase with Store {
   onSwipeLeft(Function onLeaving) async {
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
-        hasInitiatedBlur = false;
-        base.setSmartTextBottomPaddingScalar(.2);
-        base.setSmartTextTopPaddingScalar(0);
-        secondarySmartText.setCurrentIndex(3);
+        // hasInitiatedBlur = false;
+        setSmartTextBottomPaddingScalar(.2);
+        setSmartTextTopPaddingScalar(0);
+        secondarySmartText.setCurrentIndex(2);
         secondarySmartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.left);
         homeInstructionalNokhte.setWidgetVisibility(false);
-        base.setSmartTextPadding();
+        delayedEnableTouchFeedback();
       } else {
         if (!hasSwipedDown) {
           hasSwipedDown = true;
@@ -209,12 +221,13 @@ abstract class _SessionStarterWidgetsCoordinatorBase with Store {
                 CenterInstructionalNokhteMovieModes.moveBack) {
           gestureCross.centerCrossNokhte.setWidgetVisibility(true);
           gestureCross.gradientNokhte.setWidgetVisibility(true);
-          base.setSmartTextTopPaddingScalar(.27);
-          base.setSmartTextBottomPaddingScalar(0);
-          base.setSmartTextSubMessagePaddingScalar(110);
+          setSmartTextTopPaddingScalar(.27);
+          setSmartTextBottomPaddingScalar(0);
+          setSmartTextSubMessagePaddingScalar(110);
           secondarySmartText.startRotatingText();
           qrCode.setWidgetVisibility(true);
           hasSwipedDown = false;
+          print("are you woking??");
           base.setTouchIsDisabled(false);
         }
       });
@@ -260,7 +273,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase with Store {
   primarySmartTextReactor() => reaction(
         (p0) => primarySmartText.currentIndex,
         (p0) {
-          if (beachWaves.movieMode == BeachWaveMovieModes.invertedOnShore) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.invertedOnShore &&
+              primarySmartText.showWidget) {
             if (p0 == 0) {
               primarySmartText.startRotatingText(isResuming: true);
             } else if (p0 == 2) {
@@ -298,6 +312,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase with Store {
 
   @action
   dismissInstructionalNokhte() {
+    resetSmartText();
     hasSwipedDown = false;
     qrCode.setWidgetVisibility(false);
     centerInstructionalNokhte.moveBackToCross(
@@ -326,7 +341,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase with Store {
     hasInitiatedBlur = false;
     secondarySmartText.reset();
     secondarySmartText.startRotatingText();
-    base.setSmartTextPadding();
+    delayedEnableTouchFeedback();
   }
 
   @action
@@ -360,7 +375,9 @@ abstract class _SessionStarterWidgetsCoordinatorBase with Store {
         );
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         gestureCross.gradientNokhte.setWidgetVisibility(false);
-        secondarySmartText.startRotatingText(isResuming: true);
+        primarySmartText.setWidgetVisibility(false);
+        presetIcons.setWidgetVisibility(false);
+        // secondarySmartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte.moveToCenter(base.center);
       } else if (hasInitiatedBlur) {
         dismissInstructionalNokhte();
@@ -370,9 +387,11 @@ abstract class _SessionStarterWidgetsCoordinatorBase with Store {
 
   @action
   onTap(Offset offset) {
+    print(
+        "is this boy running? $hasInitiatedBlur $readyToInteract? ${base.touchIsDisabled}");
     if (!base.touchIsDisabled) {
-      if (secondarySmartText.currentIndex == 2 ||
-          secondarySmartText.currentIndex == 4) {
+      if (secondarySmartText.currentIndex == 1 ||
+          secondarySmartText.currentIndex == 3) {
         touchRipple.onTap(offset);
         nokhteBlur.reverse();
         base.setTouchIsDisabled(true);
@@ -381,7 +400,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase with Store {
         secondarySmartText.startRotatingText(isResuming: true);
 
         Timer(Seconds.get(1, milli: 500), () {
-          if (secondarySmartText.currentIndex == 2) {
+          if (secondarySmartText.currentIndex == 1) {
             centerInstructionalNokhte.moveBackToCross(
               startingPosition: CenterNokhtePositions.bottom,
             );
@@ -428,8 +447,10 @@ abstract class _SessionStarterWidgetsCoordinatorBase with Store {
           secondarySmartText.reset();
         });
         hasInitiatedBlur = false;
+        resetSmartText();
       }
     } else if (hasInitiatedBlur && readyToInteract) {
+      resetSmartText();
       dismissInstructionalNokhte();
       hasSwipedDown = false;
       qrCode.setWidgetVisibility(false);
@@ -451,8 +472,15 @@ abstract class _SessionStarterWidgetsCoordinatorBase with Store {
       hasInitiatedBlur = false;
       secondarySmartText.reset();
       secondarySmartText.startRotatingText();
-      base.setSmartTextPadding();
+      delayedEnableTouchFeedback();
     }
+  }
+
+  @action
+  resetSmartText() {
+    primarySmartText.reset();
+    primarySmartText.setWidgetVisibility(true);
+    primarySmartText.startRotatingText();
   }
 
   @computed

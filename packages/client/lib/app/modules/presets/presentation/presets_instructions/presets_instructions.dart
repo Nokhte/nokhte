@@ -45,29 +45,27 @@ class PresetsInstructionsScreen extends HookWidget {
               PresetCards(
                 store: coordinator.widgets.presetCards,
               ),
-              FullScreen(
-                child: NokhteBlur(
-                  store: coordinator.widgets.blur,
-                ),
-              ),
               SmartText(
                 store: coordinator.widgets.headerText,
                 opacityDuration: Seconds.get(1),
                 bottomPadding: height * .75,
-                subTextPadding:
-                    coordinator.widgets.base.smartTextSubMessagePaddingScalar,
+              ),
+              FullScreen(
+                child: NokhteBlur(
+                  store: coordinator.widgets.blur,
+                ),
               ),
               Observer(builder: (context) {
                 return Center(
                   child: SmartText(
                     store: coordinator.widgets.smartText,
                     opacityDuration: Seconds.get(1),
-                    topPadding: height *
-                        coordinator.widgets.base.smartTextTopPaddingScalar,
+                    topPadding:
+                        height * coordinator.widgets.smartTextTopPaddingScalar,
                     bottomPadding: height *
-                        coordinator.widgets.base.smartTextBottomPaddingScalar,
-                    subTextPadding: coordinator
-                        .widgets.base.smartTextSubMessagePaddingScalar,
+                        coordinator.widgets.smartTextBottomPaddingScalar,
+                    subTextPadding:
+                        coordinator.widgets.smartTextSubMessagePaddingScalar,
                   ),
                 );
               }),

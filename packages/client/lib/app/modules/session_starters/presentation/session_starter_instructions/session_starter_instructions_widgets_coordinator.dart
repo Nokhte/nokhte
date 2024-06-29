@@ -15,7 +15,8 @@ part 'session_starter_instructions_widgets_coordinator.g.dart';
 class SessionStarterInstructionsWidgetsCoordinator = _SessionStarterInstructionsWidgetsCoordinatorBase
     with _$SessionStarterInstructionsWidgetsCoordinator;
 
-abstract class _SessionStarterInstructionsWidgetsCoordinatorBase with Store {
+abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
+    with Store, SmartTextPaddingAdjuster {
   final BaseWidgetsCoordinator base;
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
@@ -38,9 +39,10 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase with Store {
     required this.presetsInstructionalNokhte,
   }) : base = BaseWidgetsCoordinator(
             wifiDisconnectOverlay: wifiDisconnectOverlay) {
-    base.setSmartTextTopPaddingScalar(0);
-    base.setSmartTextBottomPaddingScalar(.27);
-    base.setSmartTextSubMessagePaddingScalar(110);
+    initSmartTextActions();
+    setSmartTextTopPaddingScalar(0);
+    setSmartTextBottomPaddingScalar(.27);
+    setSmartTextSubMessagePaddingScalar(110);
   }
 
   @observable
@@ -60,6 +62,13 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase with Store {
 
   @action
   bool setHasUnlockedSwipeLeft(bool val) => hasUnlockedSwipeLeft = val;
+
+  @action
+  delayedEnableTouchFeedback() {
+    Timer(Seconds.get(1, milli: 500), () {
+      base.setTouchIsDisabled(false);
+    });
+  }
 
   @action
   constructor(Offset centerParam) {
@@ -87,7 +96,8 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase with Store {
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.left);
         presetsInstructionalNokhte.setControl(Control.play);
         homeInstructionalNokhte.setWidgetVisibility(false);
-        base.setSmartTextPadding();
+        delayedEnableTouchFeedback();
+        // base.setSmartTextPadding();
       } else if (hasUnlockedSwipeLeft) {
         smartText.startRotatingText(isResuming: true);
         gestureCross.cross.initOutlineFadeIn();

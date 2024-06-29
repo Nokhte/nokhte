@@ -65,23 +65,24 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
 
   @action
   onTap(Offset offset) async {
-    if (base.isDisconnected && !base.touchIsDisabled) {
+    if (!base.isDisconnected && !base.touchIsDisabled) {
       if (primarySmartText.currentIndex == 1) {
         base.setTouchIsDisabled(true);
         primarySmartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte.moveToCenter(base.center);
         touchRipple.onTap(offset);
-        base.setSmartTextPadding(
+        setSmartTextPadding(
           subMessagePadding: 80,
           topPadding: 0.1,
           bottomPadding: 0,
         );
+        delayedEnableTouchFeedback();
       } else if (primarySmartText.currentIndex == 2) {
         base.setTouchIsDisabled(true);
         primarySmartText.startRotatingText(isResuming: true);
         sessionStarterInstructionalNokhte.setWidgetVisibility(true);
         touchRipple.onTap(offset);
-        base.setSmartTextPadding();
+        delayedEnableTouchFeedback();
       } else if (primarySmartText.currentIndex == 4) {
         primarySmartText.startRotatingText(isResuming: true);
         hasSwipedUp = false;
@@ -103,10 +104,11 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
         beachWaves.currentStore.setControl(Control.mirror);
         nokhteBlur.reverse();
         touchRipple.onTap(offset);
-        base.setSmartTextPadding(
+        setSmartTextPadding(
           bottomPadding: .2,
           topPadding: 0,
         );
+        delayedEnableTouchFeedback();
         // await onFlowCompleted();
       }
     }
@@ -123,7 +125,8 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
       beachWaves.currentStore.setControl(Control.stop);
       toggleHasInitiatedBlur();
       primarySmartText.startRotatingText(isResuming: true);
-      base.setSmartTextPadding(subMessagePadding: 110, bottomPadding: .23);
+      setSmartTextPadding(subMessagePadding: 110, bottomPadding: .23);
+      delayedEnableTouchFeedback();
       hasTappedOnGestureCross = true;
     }
   }
@@ -140,7 +143,8 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
         );
         sessionStarterInstructionalNokhte.setControl(Control.playFromStart);
         primarySmartText.startRotatingText(isResuming: true);
-        base.setSmartTextPadding(subMessagePadding: 120, topPadding: .15);
+        setSmartTextPadding(subMessagePadding: 120, topPadding: .15);
+        delayedEnableTouchFeedback();
       } else if (!hasSwipedUp && !hasInitiatedBlur && hasTappedOnGestureCross) {
         hasSwipedUp = true;
         beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
