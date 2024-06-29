@@ -129,7 +129,8 @@ abstract class _SessionGroupHybridCoordinatorBase with Store {
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) {
         base.ifTouchIsNotDisabled(() async {
-          if (sessionMetadata.everyoneIsOnline) {
+          if (sessionMetadata.everyoneIsOnline &&
+              sessionMetadata.canStartUsingSession) {
             await presence
                 .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
           }

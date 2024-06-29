@@ -32,7 +32,7 @@ abstract class _SoloHybridInstructionsCoordinatorBase with Store {
   constructor() async {
     widgets.constructor();
     initReactors();
-    await base.captureScreen(SessionConstants.speakingHalfInstructions);
+    await base.captureScreen(SessionConstants.soloHybridInstructions);
   }
 
   initReactors() {

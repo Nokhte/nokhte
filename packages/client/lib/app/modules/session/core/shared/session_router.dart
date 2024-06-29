@@ -33,6 +33,7 @@ mixin SessionRouter {
       if (isACollaborativeSession) {
         Modular.to.navigate(SessionConstants.soloHybrid);
       } else {
+        print("no takers??");
         Modular.to.navigate(SessionConstants.speaking);
       }
     } else if (beachWaves.movieMode ==

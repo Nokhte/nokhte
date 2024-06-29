@@ -36,7 +36,7 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase with Store {
   constructor() async {
     widgets.constructor();
     initReactors();
-    await base.captureScreen(SessionConstants.speakingHalfInstructions);
+    await base.captureScreen(SessionConstants.speakingInstructions);
   }
 
   initReactors() {

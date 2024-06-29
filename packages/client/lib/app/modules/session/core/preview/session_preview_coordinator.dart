@@ -50,21 +50,6 @@ abstract class _SessionPreviewCoordinatorBase with Store {
   }
 
   @action
-  onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-  }
-
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
-  }
-
-  @action
   initReactors() {
     base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => base.setDisableAllTouchFeedback(false),
@@ -96,11 +81,6 @@ abstract class _SessionPreviewCoordinatorBase with Store {
           );
         }),
       );
-
-  deconstructor() {
-    base.deconstructor();
-    widgets.base.deconstructor();
-  }
 
   rippleReactor() => reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
@@ -145,5 +125,10 @@ abstract class _SessionPreviewCoordinatorBase with Store {
         return '';
       }
     }
+  }
+
+  deconstructor() {
+    base.deconstructor();
+    widgets.base.deconstructor();
   }
 }

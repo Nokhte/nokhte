@@ -139,7 +139,7 @@ abstract class _PresetsWidgetsCoordinatorBase with Store {
 
   condensedPresetCardTapReactor() =>
       reaction((p0) => presetCards.currentExpandedPresetCardName, (p0) {
-        if (p0.isNotEmpty) {
+        if (p0.isNotEmpty && firstCardIsSelected) {
           presetCards.onChosenNameChanged();
         }
       });
@@ -282,11 +282,11 @@ abstract class _PresetsWidgetsCoordinatorBase with Store {
           gestureCross.centerCrossNokhte.setWidgetVisibility(true);
           gestureCross.gradientNokhte.setWidgetVisibility(true);
           base.setSmartTextTopPaddingScalar(.27);
-base.          setSmartTextBottomPaddingScalar(0);
-base.          setSmartTextSubMessagePaddingScalar(110);
+          base.setSmartTextBottomPaddingScalar(0);
+          base.setSmartTextSubMessagePaddingScalar(110);
           smartText.startRotatingText();
           hasSwiped = false;
-    base.      setTouchIsDisabled(false);
+          base.setTouchIsDisabled(false);
         }
       });
 

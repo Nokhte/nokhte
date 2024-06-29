@@ -4,14 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'session_duo_greeter_widgets_coordinator.g.dart';
 
 class SessionDuoGreeterWidgetsCoordinator = _SessionDuoGreeterWidgetsCoordinatorBase
     with _$SessionDuoGreeterWidgetsCoordinator;
 
-abstract class _SessionDuoGreeterWidgetsCoordinatorBase with Store {
+abstract class _SessionDuoGreeterWidgetsCoordinatorBase
+    with Store, SessionRouter {
   final BaseWidgetsCoordinator base;
+  @override
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
@@ -41,12 +45,16 @@ abstract class _SessionDuoGreeterWidgetsCoordinatorBase with Store {
   bool isFirstTap = true;
 
   @observable
+bool  hasCompletedInstructions = false;
+
+  @observable
   Stopwatch cooldownStopwatch = Stopwatch();
 
   @action
   onTap(
     Offset tapPosition, {
     required Function onFinalTap,
+    required SessionScreenTypes phoneType,
   }) async {
     if (isFirstTap) {
       touchRipple.onTap(tapPosition);
@@ -61,6 +69,8 @@ abstract class _SessionDuoGreeterWidgetsCoordinatorBase with Store {
       secondarySmartText.startRotatingText(isResuming: true);
       cooldownStopwatch.reset();
       cooldownStopwatch.stop();
+      hasCompletedInstructions = true;
+      initTransition(phoneType);
       await onFinalTap();
     }
   }

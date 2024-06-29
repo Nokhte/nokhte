@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
-import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
 import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
 part 'session_metadata_store.g.dart';
@@ -172,10 +171,11 @@ abstract class _SessionMetadataStoreBase
   }
 
   @computed
-  bool get canStartTheSession => currentPhases.every((e) => e == 1.0);
+  bool get canStartTheSession => currentPhases.every((e) => e >= 1.0);
 
   @computed
-  bool get canMoveIntoSession => currentPhases.every((e) => e == 2);
+  bool get canStartUsingSession =>
+      currentPhases.every((e) => e.isGreaterThanOrEqualTo(2));
 
   @computed
   bool get canExitTheSession => currentPhases.every((e) => e == 3);
@@ -243,22 +243,6 @@ abstract class _SessionMetadataStoreBase
           return fromRawScreenType(evenConfiguration[moduloIndex]);
         }
       }
-    }
-  }
-
-  @computed
-  String get sessionRouterScreen {
-    switch (sessionScreenType) {
-      case SessionScreenTypes.speaking:
-        return SessionConstants.speakingRouter;
-      case SessionScreenTypes.groupHybrid:
-        return SessionConstants.hybridRouter;
-      case SessionScreenTypes.soloHybrid:
-        return SessionConstants.hybridRouter;
-      case SessionScreenTypes.notes:
-        return SessionConstants.notes;
-      case SessionScreenTypes.inital:
-        return '';
     }
   }
 

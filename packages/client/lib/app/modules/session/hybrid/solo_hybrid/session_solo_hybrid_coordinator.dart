@@ -127,7 +127,8 @@ abstract class _SessionSoloHybridCoordinatorBase with Store {
 
   @action
   onTap() async {
-    if (sessionMetadata.everyoneIsOnline) {
+    if (sessionMetadata.everyoneIsOnline &&
+        sessionMetadata.canStartUsingSession) {
       if (sessionMetadata.userIsSpeaking) {
         await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
       } else {

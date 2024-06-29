@@ -9,6 +9,7 @@ import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 part 'session_lobby_coordinator.g.dart';
@@ -54,7 +55,7 @@ abstract class _SessionLobbyCoordinatorBase with Store, ChooseGreeterType {
     }
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionBearer);
     await userMetadata.getMetadata();
-    await presence.updateCurrentPhase(1.0);
+    await updateCurrentPhase();
     await base.captureScreen(SessionConstants.lobby);
   }
 
@@ -102,6 +103,17 @@ abstract class _SessionLobbyCoordinatorBase with Store, ChooseGreeterType {
     base.disposers.add(sessionStartReactor());
     base.disposers.add(widgets.beachWavesMovieStatusReactor(enterGreeter));
     base.disposers.add(sessionPresetReactor());
+  }
+
+  @action
+  updateCurrentPhase() async {
+    Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
+      if (sessionMetadata.userPhase != 1.0) {
+        await presence.updateCurrentPhase(1.0);
+      } else {
+        timer.cancel();
+      }
+    });
   }
 
   canStartTheSessionReactor() =>

@@ -27,7 +27,7 @@ class SessionSpeakingModule extends Module {
   @override
   routes(r) {
     r.child(
-      SessionConstants.relativeSpeaking,
+      SessionConstants.relativeRoot,
       transition: TransitionType.noTransition,
       child: (context) => SessionSpeakingScreen(
         coordinator: Modular.get<SessionSpeakingCoordinator>(),

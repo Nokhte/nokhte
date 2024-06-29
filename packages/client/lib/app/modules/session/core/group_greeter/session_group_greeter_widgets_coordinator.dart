@@ -1,26 +1,27 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:simple_animations/simple_animations.dart';
+import 'package:nokhte/app/modules/session/session.dart';
+import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 part 'session_group_greeter_widgets_coordinator.g.dart';
 
 class SessionGroupGreeterWidgetsCoordinator = _SessionGroupGreeterWidgetsCoordinatorBase
     with _$SessionGroupGreeterWidgetsCoordinator;
 
-abstract class _SessionGroupGreeterWidgetsCoordinatorBase with Store {
+abstract class _SessionGroupGreeterWidgetsCoordinatorBase
+    with Store, SessionRouter {
+  @override
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final TouchRippleStore touchRipple;
   final SessionSeatingGuideStore sessionSeatingGuide;
-  final TintStore tint;
   final SessionPhonePlacementGuideStore sessionPhonePlacementGuide;
   final BaseWidgetsCoordinator base;
 
@@ -32,7 +33,6 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase with Store {
     required this.secondarySmartText,
     required this.touchRipple,
     required this.sessionSeatingGuide,
-    required this.tint,
   }) : base = BaseWidgetsCoordinator(
             wifiDisconnectOverlay: wifiDisconnectOverlay);
 
@@ -96,6 +96,7 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase with Store {
   onTap(
     Offset tapPosition, {
     required Function onFinalTap,
+    required SessionScreenTypes phoneType,
   }) async {
     if (tapCount == 0) {
       touchRipple.onTap(tapPosition);
@@ -126,6 +127,7 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase with Store {
         secondarySmartText.startRotatingText(isResuming: true);
         cooldownStopwatch.stop();
         tapCount++;
+        initTransition(phoneType);
         await onFinalTap();
       }
     }
@@ -135,7 +137,6 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase with Store {
   onCollaboratorLeft() {
     primarySmartText.setWidgetVisibility(false);
     secondarySmartText.setWidgetVisibility(false);
-    tint.setWidgetVisibility(false);
     sessionSeatingGuide.setWidgetVisibility(false);
   }
 
@@ -143,38 +144,9 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase with Store {
   onCollaboratorJoined() {
     primarySmartText.setWidgetVisibility(primarySmartText.pastShowWidget);
     secondarySmartText.setWidgetVisibility(secondarySmartText.pastShowWidget);
-    tint.setWidgetVisibility(tint.pastShowWidget);
     sessionSeatingGuide.setWidgetVisibility(sessionSeatingGuide.pastShowWidget);
   }
 
-  @action
-  initTransition(String route) {
-    Timer.periodic(Seconds.get(0, milli: 500), (timer) {
-      if (hasTriggeredTint) {
-        hasStartedNavigation = false;
-        tint.setControl(Control.playReverse);
-        primarySmartText.setWidgetVisibility(false);
-        Timer(Seconds.get(2), () {
-          Modular.to.navigate(route);
-        });
-        timer.cancel();
-      }
-    });
-  }
-
-  primarySmartTextIndexReactor({
-    required Function onComplete,
-  }) =>
-      reaction((p0) => primarySmartText.currentIndex, (p0) async {
-        if (p0 == 3) {
-          await onComplete();
-          if (!isTheLastOneToFinish) {
-            Timer(Seconds.get(0, milli: 500), () {
-              primarySmartText.startRotatingText(isResuming: true);
-            });
-            tint.setControl(Control.play);
-            hasTriggeredTint = true;
-          }
-        }
-      });
+  @computed
+  bool get hasCompletedInstructions => tapCount == 3;
 }

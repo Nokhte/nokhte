@@ -21,12 +21,6 @@ class SessionPreviewScreen extends HookWidget {
       coordinator.constructor();
       return () => coordinator.deconstructor();
     }, []);
-    useOnAppLifecycleStateChange(
-        (previous, current) => coordinator.base.onAppLifeCycleStateChange(
-              current,
-              onResumed: () => coordinator.onResumed(),
-              onInactive: () => coordinator.onInactive(),
-            ));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Tap(

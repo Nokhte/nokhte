@@ -43,9 +43,6 @@ class SessionGroupGreeterScreen extends HookWidget {
               BorderGlow(
                 store: BorderGlowStore(),
               ),
-              Tint(
-                store: coordinator.widgets.tint,
-              ),
               Center(
                 child: SmartText(
                   store: coordinator.widgets.primarySmartText,

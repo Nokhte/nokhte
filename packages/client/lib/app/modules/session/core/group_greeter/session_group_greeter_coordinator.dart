@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // import 'dart:async';
 import 'dart:async';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
@@ -9,6 +8,7 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 part 'session_group_greeter_coordinator.g.dart';
 
 class SessionGroupGreeterCoordinator = _SessionGroupGreeterCoordinatorBase
@@ -84,22 +84,7 @@ abstract class _SessionGroupGreeterCoordinatorBase with Store {
     ));
     base.disposers.add(tapReactor());
     base.disposers.add(rippleCompletionStatusReactor());
-    base.disposers.add(collaboratorPhaseReactor());
-    base.disposers.add(widgets.primarySmartTextIndexReactor(
-      onComplete: () async => await updateCurrentPhase(),
-    ));
   }
-
-  collaboratorPhaseReactor() =>
-      reaction((p0) => sessionMetadata.currentPhases, (p0) {
-        if (p0.every((e) => e >= 1.0)) {
-          widgets.initTransition(sessionMetadata.sessionRouterScreen);
-        } else if (sessionMetadata.everyoneButUserPhases
-                .every((e) => e >= 1.0) &&
-            sessionMetadata.userPhase != 1.0) {
-          widgets.setIsTheLastOneToFinish(true);
-        }
-      });
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
@@ -107,28 +92,23 @@ abstract class _SessionGroupGreeterCoordinatorBase with Store {
           widgets.onTap(
             tap.currentTapPosition,
             onFinalTap: () async => await presence.updateCurrentPhase(1),
+            phoneType: sessionMetadata.sessionScreenType,
           );
         }),
       );
 
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            sessionMetadata.canMoveIntoSession &&
-            !widgets.hasTriggeredTint) {
-          Modular.to.navigate(sessionMetadata.sessionRouterScreen);
+        print("ropple status");
+        if (p0 == MovieStatus.finished) {
+          print("route it!!!");
+          widgets.route(
+            isACollaborativeSession:
+                sessionMetadata.presetType == PresetTypes.collaborative,
+          );
+          // Modular.to.navigate(sessionMetadata.sessionRouterScreen);
         }
       });
-
-  updateCurrentPhase() async {
-    Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
-      if (sessionMetadata.userPhase != 1.0) {
-        await presence.updateCurrentPhase(1.0);
-      } else {
-        timer.cancel();
-      }
-    });
-  }
 
   deconstructor() {
     base.deconstructor();
