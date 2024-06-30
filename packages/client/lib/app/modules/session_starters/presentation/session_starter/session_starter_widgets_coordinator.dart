@@ -225,6 +225,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
           setSmartTextBottomPaddingScalar(0);
           setSmartTextSubMessagePaddingScalar(110);
           secondarySmartText.startRotatingText();
+          resetSmartText();
           qrCode.setWidgetVisibility(true);
           hasSwipedDown = false;
           print("are you woking??");
@@ -312,7 +313,6 @@ abstract class _SessionStarterWidgetsCoordinatorBase
 
   @action
   dismissInstructionalNokhte() {
-    resetSmartText();
     hasSwipedDown = false;
     qrCode.setWidgetVisibility(false);
     centerInstructionalNokhte.moveBackToCross(
@@ -447,10 +447,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
           secondarySmartText.reset();
         });
         hasInitiatedBlur = false;
-        resetSmartText();
       }
     } else if (hasInitiatedBlur && readyToInteract) {
-      resetSmartText();
       dismissInstructionalNokhte();
       hasSwipedDown = false;
       qrCode.setWidgetVisibility(false);
