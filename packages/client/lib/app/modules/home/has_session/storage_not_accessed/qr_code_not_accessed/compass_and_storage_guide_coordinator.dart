@@ -34,48 +34,47 @@ abstract class _CompassAndStorageGuideCoordinatorBase
   constructor(Offset offset) async {
     widgets.constructor(offset);
     initReactors();
-    await base.captureScreen(HomeConstants.compassAndStorageGuide);
+    await captureScreen(HomeConstants.compassAndStorageGuide);
     await getNokhteSessionArtifacts();
   }
 
   @override
   initReactors() {
     super.initReactors();
-    base.disposers.add(swipeReactor(
+    disposers.add(swipeReactor(
       onSwipeUp: () {},
       onSwipeRight: () {
         widgets.onSwipeRight();
       },
     ));
-    base.disposers.add(widgets.beachWavesMovieStatusReactor(
+    disposers.add(widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
       onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
       onStorageEntry: onSubsequentStorageEntry,
       onAnyToShoreComplete: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
       },
     ));
-    base.disposers
-        .add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
-    base.disposers.add(tapReactor());
+    disposers.add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
+    disposers.add(tapReactor());
   }
 
   @action
   getNokhteSessionArtifacts() async {
     final res = await getNokhteSessionArtifactsLogic(NoParams());
     res.fold(
-      (failure) => base.baseLogic.errorUpdater(failure),
+      (failure) => errorUpdater(failure),
       (artifacts) => nokhteSessionArtifacts = ObservableList.of(artifacts),
     );
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        if (base.isInErrorMode) {
+        if (isInErrorMode) {
           widgets.onErrorResolved(() {
-            base.setIsInErrorMode(true);
+            setIsInErrorMode(true);
           });
         }
-        base.ifTouchIsNotDisabled(() {
+        ifTouchIsNotDisabled(() {
           widgets.onTap(tap.currentTapPosition);
         });
       });

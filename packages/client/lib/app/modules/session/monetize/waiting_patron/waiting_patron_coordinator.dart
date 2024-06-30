@@ -17,7 +17,7 @@ class WaitingPatronCoordinator = _WaitingPatronCoordinatorBase
     with _$WaitingPatronCoordinator;
 
 abstract class _WaitingPatronCoordinatorBase
-    with Store, HomeScreenRouter, ChooseGreeterType {
+    with Store, HomeScreenRouter, ChooseGreeterType, ExpBaseCoordinator {
   final TapDetector tap;
   final WaitingPatronWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
@@ -26,17 +26,19 @@ abstract class _WaitingPatronCoordinatorBase
   final SwipeDetector swipe;
   @override
   final GetUserInfoStore getUserInfo;
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
 
   _WaitingPatronCoordinatorBase({
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
     required this.swipe,
     required this.getUserInfo,
-  })  : sessionMetadata = presence.sessionMetadataStore,
-        base = BaseCoordinator(captureScreen: captureScreen);
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() async {
@@ -45,24 +47,24 @@ abstract class _WaitingPatronCoordinatorBase
       widgets.onSessionUnlocked();
     }
     initReactors();
-    await base.captureScreen(SessionConstants.waitingPatron);
+    await captureScreen(SessionConstants.waitingPatron);
     await getUserInfo(NoParams());
   }
 
   initReactors() {
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {},
       onDisconnected: () {},
     ));
-    base.disposers.add(widgets.beachWaveMovieStatusReactor(
+    disposers.add(widgets.beachWaveMovieStatusReactor(
       onReturnHome: onAnimationComplete,
       onReturnToSession: () =>
           Modular.to.navigate(chooseGreeterType(SessionConstants.groupGreeter)),
       //
     ));
-    base.disposers.add(validSessionReactor());
-    base.disposers.add(phaseReactor());
+    disposers.add(validSessionReactor());
+    disposers.add(phaseReactor());
   }
 
   phaseReactor() => reaction((p0) => sessionMetadata.currentPhases, (p0) async {
@@ -78,6 +80,11 @@ abstract class _WaitingPatronCoordinatorBase
           widgets.onSessionUnlocked();
         }
       });
+
+  deconstructor() {
+    dispose();
+    widgets.base.deconstructor();
+  }
 
   @action
   onInactive() async {}

@@ -21,7 +21,8 @@ part 'session_paywall_coordinator.g.dart';
 class SessionPaywallCoordinator = _SessionPaywallCoordinatorBase
     with _$SessionPaywallCoordinator;
 
-abstract class _SessionPaywallCoordinatorBase with Store, HomeScreenRouter {
+abstract class _SessionPaywallCoordinatorBase
+    with Store, HomeScreenRouter, ExpBaseCoordinator {
   final TapDetector tap;
   final SessionPaywallWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
@@ -31,11 +32,12 @@ abstract class _SessionPaywallCoordinatorBase with Store, HomeScreenRouter {
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final GetUserInfoStore getUserInfo;
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
 
   _SessionPaywallCoordinatorBase({
     required this.cleanUpCollaborationArtifacts,
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
@@ -43,8 +45,9 @@ abstract class _SessionPaywallCoordinatorBase with Store, HomeScreenRouter {
     required this.iap,
     required this.activeMonetizationSession,
     required this.getUserInfo,
-  })  : sessionMetadata = presence.sessionMetadataStore,
-        base = BaseCoordinator(captureScreen: captureScreen);
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() async {
@@ -52,19 +55,19 @@ abstract class _SessionPaywallCoordinatorBase with Store, HomeScreenRouter {
     initReactors();
     await iap.getSubscriptionInfo();
     await activeMonetizationSession.listenToExplanationCompletionStatus();
-    await base.captureScreen(SessionConstants.paywall);
+    await captureScreen(SessionConstants.paywall);
     await getUserInfo(NoParams());
   }
 
   initReactors() {
-    base.disposers.add(tapReactor());
-    base.disposers.add(swipeReactor());
-    base.disposers.add(presence.initReactors(
+    disposers.add(tapReactor());
+    disposers.add(swipeReactor());
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {},
       onCollaboratorLeft: () {},
     ));
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
       },
@@ -72,14 +75,14 @@ abstract class _SessionPaywallCoordinatorBase with Store, HomeScreenRouter {
         widgets.setDisableTouchInput(true);
       },
     ));
-    base.disposers.add(
+    disposers.add(
         widgets.beachWaveMovieStatusReactor(onReturnHome: onAnimationComplete));
-    base.disposers.add(subscriptionInfoReactor());
-    base.disposers.add(purchaseSuccessReactor());
-    base.disposers.add(purchaseErrorReactor());
-    base.disposers.add(phaseReactor());
-    base.disposers.add(validSessionReactor());
-    base.disposers.add(everyoneHasFinishedExplanationReactor());
+    disposers.add(subscriptionInfoReactor());
+    disposers.add(purchaseSuccessReactor());
+    disposers.add(purchaseErrorReactor());
+    disposers.add(phaseReactor());
+    disposers.add(validSessionReactor());
+    disposers.add(everyoneHasFinishedExplanationReactor());
   }
 
   everyoneHasFinishedExplanationReactor() =>
@@ -121,7 +124,7 @@ abstract class _SessionPaywallCoordinatorBase with Store, HomeScreenRouter {
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => base.ifTouchIsNotDisabled(
+        (p0) => ifTouchIsNotDisabled(
           () {
             widgets.onTap(
               tap.currentTapPosition,
@@ -161,7 +164,7 @@ abstract class _SessionPaywallCoordinatorBase with Store, HomeScreenRouter {
   onResumed() async {}
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 }

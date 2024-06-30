@@ -12,16 +12,20 @@ part 'session_starter_entry_coordinator.g.dart';
 class SessionStarterEntryCoordinator = _SessionStarterEntryCoordinatorBase
     with _$SessionStarterEntryCoordinator;
 
-abstract class _SessionStarterEntryCoordinatorBase with Store {
+abstract class _SessionStarterEntryCoordinatorBase
+    with Store, ExpBaseCoordinator {
   final SessionStarterEntryWidgetsCoordinator widgets;
   final GetUserInfoStore getUserInfo;
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
 
   _SessionStarterEntryCoordinatorBase({
     required this.widgets,
     required this.getUserInfo,
-    required CaptureScreen captureScreen,
-  }) : base = BaseCoordinator(captureScreen: captureScreen);
+    required this.captureScreen,
+  }) {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() async {
@@ -31,7 +35,7 @@ abstract class _SessionStarterEntryCoordinatorBase with Store {
   }
 
   initReactors() {
-    base.disposers.add(widgets.beachWavesMovieStatusReactor(
+    disposers.add(widgets.beachWavesMovieStatusReactor(
         onFinished: () => Modular.to.navigate(route)));
   }
 
@@ -41,7 +45,7 @@ abstract class _SessionStarterEntryCoordinatorBase with Store {
       : SessionStarterConstants.sessionStarterInstructions;
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 }

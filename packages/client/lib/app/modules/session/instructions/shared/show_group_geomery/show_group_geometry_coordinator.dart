@@ -11,26 +11,24 @@ part 'show_group_geometry_coordinator.g.dart';
 class ShowGroupGeometryCoordinator = _ShowGroupGeometryCoordinatorBase
     with _$ShowGroupGeometryCoordinator;
 
-abstract class _ShowGroupGeometryCoordinatorBase with Store {
+abstract class _ShowGroupGeometryCoordinatorBase
+    with Store, ExpBaseCoordinator {
   final ShowGroupGeometryWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
   final TapDetector tap;
 
-  final BaseCoordinator base;
-
-  deconstructor() {
-    base.deconstructor();
-    widgets.base.deconstructor();
-  }
+  @override
+  final CaptureScreen captureScreen;
 
   _ShowGroupGeometryCoordinatorBase({
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.presence,
     required this.tap,
-  })  : sessionMetadata = presence.sessionMetadataStore,
-        base = BaseCoordinator(captureScreen: captureScreen);
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() {
@@ -41,14 +39,19 @@ abstract class _ShowGroupGeometryCoordinatorBase with Store {
 
   @action
   initReactors() {
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
       },
     ));
+  }
+
+  deconstructor() {
+    dispose();
+    widgets.base.deconstructor();
   }
 }

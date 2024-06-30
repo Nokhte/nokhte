@@ -14,27 +14,29 @@ part 'session_collaboration_greeter_coordinator.g.dart';
 class SessionCollaborationGreeterCoordinator = _SessionCollaborationGreeterCoordinatorBase
     with _$SessionCollaborationGreeterCoordinator;
 
-abstract class _SessionCollaborationGreeterCoordinatorBase with Store {
+abstract class _SessionCollaborationGreeterCoordinatorBase
+    with Store, ExpBaseCoordinator {
   final SessionCollaborationGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
-
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
 
   _SessionCollaborationGreeterCoordinatorBase({
     required this.widgets,
     required this.tap,
     required this.presence,
-    required CaptureScreen captureScreen,
-  })  : sessionMetadata = presence.sessionMetadataStore,
-        base = BaseCoordinator(captureScreen: captureScreen);
+    required this.captureScreen,
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() async {
     widgets.constructor();
     initReactors();
-    await base.captureScreen(SessionConstants.collaborationGreeter);
+    await captureScreen(SessionConstants.collaborationGreeter);
   }
 
   @action
@@ -54,32 +56,32 @@ abstract class _SessionCollaborationGreeterCoordinatorBase with Store {
 
   @action
   initReactors() {
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
       },
     ));
-    base.disposers.add(presence.initReactors(
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
     ));
-    base.disposers.add(tapReactor());
-    base.disposers.add(rippleCompletionStatusReactor());
+    disposers.add(tapReactor());
+    disposers.add(rippleCompletionStatusReactor());
   }
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => base.ifTouchIsNotDisabled(() {
+        (p0) => ifTouchIsNotDisabled(() {
           widgets.onTap(
             tapPosition: tap.currentTapPosition,
             phoneType: sessionMetadata.sessionScreenType,
@@ -99,7 +101,7 @@ abstract class _SessionCollaborationGreeterCoordinatorBase with Store {
       });
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 }

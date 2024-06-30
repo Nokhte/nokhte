@@ -15,29 +15,32 @@ part 'session_solo_hybrid_coordinator.g.dart';
 class SessionSoloHybridCoordinator = _SessionSoloHybridCoordinatorBase
     with _$SessionSoloHybridCoordinator;
 
-abstract class _SessionSoloHybridCoordinatorBase with Store {
+abstract class _SessionSoloHybridCoordinatorBase
+    with Store, ExpBaseCoordinator {
   final SessionSoloHybridWidgetsCoordinator widgets;
   final TapDetector tap;
   final SwipeDetector swipe;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
 
   _SessionSoloHybridCoordinatorBase({
     required this.widgets,
     required this.swipe,
     required this.tap,
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.presence,
-  })  : sessionMetadata = presence.sessionMetadataStore,
-        base = BaseCoordinator(captureScreen: captureScreen);
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() async {
     widgets.constructor(sessionMetadata.userCanSpeak);
     initReactors();
     // await presence.updateCurrentPhase(2.0);
-    await base.captureScreen(SessionConstants.soloHybrid);
+    await captureScreen(SessionConstants.soloHybrid);
   }
 
   @observable
@@ -47,35 +50,35 @@ abstract class _SessionSoloHybridCoordinatorBase with Store {
   setUserIsSpeaking(bool newValue) => userIsSpeaking = newValue;
 
   initReactors() {
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
         if (widgets.holdCount.isGreaterThan(widgets.letGoCount)) {
           widgets.onLetGo();
         }
       },
     ));
-    base.disposers.add(presence.initReactors(
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
         if (widgets.holdCount.isGreaterThan(widgets.letGoCount)) {
           widgets.onLetGo();
         }
         widgets.onCollaboratorLeft();
       },
     ));
-    base.disposers.add(swipeReactor());
-    base.disposers.add(tapReactor());
-    base.disposers.add(userIsSpeakingReactor());
-    base.disposers.add(userCanSpeakReactor());
+    disposers.add(swipeReactor());
+    disposers.add(tapReactor());
+    disposers.add(userIsSpeakingReactor());
+    disposers.add(userCanSpeakReactor());
   }
 
   userIsSpeakingReactor() =>
@@ -84,7 +87,7 @@ abstract class _SessionSoloHybridCoordinatorBase with Store {
           setUserIsSpeaking(true);
           widgets.adjustSpeakLessSmileMoreRotation(tap.currentTapPlacement);
           widgets.onHold(tap.currentTapPlacement);
-          base.setDisableAllTouchFeedback(true);
+          setDisableAllTouchFeedback(true);
           await presence.updateCurrentPhase(2);
         }
       });
@@ -94,7 +97,7 @@ abstract class _SessionSoloHybridCoordinatorBase with Store {
           widgets.onLetGo();
           setUserIsSpeaking(false);
           Timer(Seconds.get(2), () {
-            base.setDisableAllTouchFeedback(false);
+            setDisableAllTouchFeedback(false);
           });
         } else if (p0 && !userIsSpeaking) {
           widgets.othersAreTalkingTint.reverseMovie(NoParams());
@@ -106,7 +109,7 @@ abstract class _SessionSoloHybridCoordinatorBase with Store {
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.down:
-            base.ifTouchIsNotDisabled(() {
+            ifTouchIsNotDisabled(() {
               widgets.onExit();
             });
           default:
@@ -154,7 +157,7 @@ abstract class _SessionSoloHybridCoordinatorBase with Store {
   }
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 }

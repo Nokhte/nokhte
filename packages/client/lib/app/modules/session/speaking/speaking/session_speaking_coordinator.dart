@@ -14,61 +14,63 @@ part 'session_speaking_coordinator.g.dart';
 class SessionSpeakingCoordinator = _SessionSpeakingCoordinatorBase
     with _$SessionSpeakingCoordinator;
 
-abstract class _SessionSpeakingCoordinatorBase with Store {
+abstract class _SessionSpeakingCoordinatorBase with Store, ExpBaseCoordinator {
   final SessionSpeakingWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final HoldDetector hold;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
   _SessionSpeakingCoordinatorBase({
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.swipe,
     required this.hold,
     required this.presence,
-  })  : sessionMetadata = presence.sessionMetadataStore,
-        base = BaseCoordinator(captureScreen: captureScreen);
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() async {
     widgets.constructor();
     await presence.updateCurrentPhase(2.0);
     initReactors();
-    await base.captureScreen(SessionConstants.speaking);
+    await captureScreen(SessionConstants.speaking);
   }
 
   initReactors() {
-    base.disposers.add(holdReactor());
-    base.disposers.add(letGoReactor());
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.add(holdReactor());
+    disposers.add(letGoReactor());
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
       },
       onDisconnected: () async {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
         if (sessionMetadata.userIsSpeaking) {
           await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
         }
       },
     ));
-    base.disposers.add(presence.initReactors(
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () async {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
         if (sessionMetadata.userIsSpeaking) {
           await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
         }
         widgets.onCollaboratorLeft();
       },
     ));
-    base.disposers.add(swipeReactor());
-    base.disposers.add(userIsSpeakingReactor());
-    base.disposers.add(userCanSpeakReactor());
+    disposers.add(swipeReactor());
+    disposers.add(userIsSpeakingReactor());
+    disposers.add(userCanSpeakReactor());
   }
 
   @observable
@@ -80,7 +82,7 @@ abstract class _SessionSpeakingCoordinatorBase with Store {
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.down:
-            base.ifTouchIsNotDisabled(() {
+            ifTouchIsNotDisabled(() {
               widgets.onExit();
             });
           default:
@@ -94,7 +96,7 @@ abstract class _SessionSpeakingCoordinatorBase with Store {
           setUserIsTalking(true);
           widgets.adjustSpeakLessSmileMoreRotation(hold.placement);
           widgets.onHold(hold.placement);
-          base.setDisableAllTouchFeedback(true);
+          setDisableAllTouchFeedback(true);
           await presence.updateCurrentPhase(2);
         }
       });
@@ -104,7 +106,7 @@ abstract class _SessionSpeakingCoordinatorBase with Store {
           widgets.onLetGo();
           setUserIsTalking(false);
           Timer(Seconds.get(2), () {
-            base.setDisableAllTouchFeedback(false);
+            setDisableAllTouchFeedback(false);
           });
         } else if (p0 && !userIsTalking) {
           widgets.tint.reverseMovie(NoParams());
@@ -114,7 +116,7 @@ abstract class _SessionSpeakingCoordinatorBase with Store {
       });
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) {
-        base.ifTouchIsNotDisabled(() async {
+        ifTouchIsNotDisabled(() async {
           if (sessionMetadata.everyoneIsOnline &&
               sessionMetadata.canStartUsingSession) {
             await presence
@@ -149,6 +151,6 @@ abstract class _SessionSpeakingCoordinatorBase with Store {
 
   deconstructor() {
     widgets.base.deconstructor();
-    base.deconstructor();
+    dispose();
   }
 }

@@ -16,7 +16,8 @@ part 'login_coordinator.g.dart';
 
 class LoginCoordinator = _LoginCoordinatorBase with _$LoginCoordinator;
 
-abstract class _LoginCoordinatorBase with Store, HomeScreenRouter {
+abstract class _LoginCoordinatorBase
+    with Store, HomeScreenRouter, ExpBaseCoordinator {
   final LoginScreenWidgetsCoordinator widgets;
   final SignInWithAuthProviderStore signInWithAuthProvider;
   final AddName addName;
@@ -27,7 +28,8 @@ abstract class _LoginCoordinatorBase with Store, HomeScreenRouter {
   final IdentifyUser identifyUser;
   @override
   final GetUserInfoStore getUserInfo;
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
 
   _LoginCoordinatorBase({
     required this.signInWithAuthProvider,
@@ -39,8 +41,10 @@ abstract class _LoginCoordinatorBase with Store, HomeScreenRouter {
     required this.identifyUser,
     required this.tap,
     required this.swipe,
-    required CaptureScreen captureScreen,
-  }) : base = BaseCoordinator(captureScreen: captureScreen);
+    required this.captureScreen,
+  }) {
+    initBaseCoordinatorActions();
+  }
 
   @observable
   bool isLoggedIn = false;
@@ -63,36 +67,36 @@ abstract class _LoginCoordinatorBase with Store, HomeScreenRouter {
     if (kDebugMode) {
       authProvider = AuthProvider.google;
     }
-    await base.captureScreen(LoginConstants.root);
+    await captureScreen(LoginConstants.root);
   }
 
   initReactors() {
-    base.disposers.add(swipeReactor());
-    base.disposers.add(tapReactor());
+    disposers.add(swipeReactor());
+    disposers.add(tapReactor());
 
-    base.disposers.addAll(
+    disposers.addAll(
         widgets.base.wifiDisconnectOverlay.initReactors(onQuickConnected: () {
-      base.setDisableAllTouchFeedback(false);
+      setDisableAllTouchFeedback(false);
     }, onLongReConnected: () {
       widgets.onLongReConnected();
-      base.setDisableAllTouchFeedback(false);
+      setDisableAllTouchFeedback(false);
     }, onDisconnected: () {
-      base.setDisableAllTouchFeedback(true);
+      setDisableAllTouchFeedback(true);
     }));
-    base.disposers.add(widgets.layer2BeachWavesReactor(onAnimationComplete));
+    disposers.add(widgets.layer2BeachWavesReactor(onAnimationComplete));
   }
 
   @action
   onConnected() {
-    if (base.disableAllTouchFeedback) {
-      base.toggleDisableAllTouchFeedback();
+    if (disableAllTouchFeedback) {
+      toggleDisableAllTouchFeedback();
     }
   }
 
   @action
   onDisconnected() {
-    if (!base.disableAllTouchFeedback) {
-      base.toggleDisableAllTouchFeedback();
+    if (!disableAllTouchFeedback) {
+      toggleDisableAllTouchFeedback();
     }
   }
 
@@ -105,7 +109,7 @@ abstract class _LoginCoordinatorBase with Store, HomeScreenRouter {
       reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
-            base.ifTouchIsNotDisabled(() {
+            ifTouchIsNotDisabled(() {
               toggleHasAttemptedToLogin();
               widgets.onSwipeUp();
             });
@@ -116,7 +120,7 @@ abstract class _LoginCoordinatorBase with Store, HomeScreenRouter {
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => base.ifTouchIsNotDisabled(() => widgets.onTap(
+        (p0) => ifTouchIsNotDisabled(() => widgets.onTap(
               tap.currentTapPosition,
             )),
       );
@@ -141,7 +145,7 @@ abstract class _LoginCoordinatorBase with Store, HomeScreenRouter {
   }
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 }

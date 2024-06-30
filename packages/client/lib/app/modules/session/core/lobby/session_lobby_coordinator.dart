@@ -17,17 +17,19 @@ part 'session_lobby_coordinator.g.dart';
 class SessionLobbyCoordinator = _SessionLobbyCoordinatorBase
     with _$SessionLobbyCoordinator;
 
-abstract class _SessionLobbyCoordinatorBase with Store, ChooseGreeterType {
+abstract class _SessionLobbyCoordinatorBase
+    with Store, ChooseGreeterType, ExpBaseCoordinator {
   final SessionLobbyWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
-  @override
-  final SessionMetadataStore sessionMetadata;
   final UserMetadataCoordinator userMetadata;
   final DeepLinksCoordinator deepLinks;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
   final CaptureNokhteSessionStart captureStart;
-  final BaseCoordinator base;
+  @override
+  final SessionMetadataStore sessionMetadata;
+  @override
+  final CaptureScreen captureScreen;
 
   _SessionLobbyCoordinatorBase({
     required this.widgets,
@@ -37,10 +39,10 @@ abstract class _SessionLobbyCoordinatorBase with Store, ChooseGreeterType {
     required this.presence,
     required this.userMetadata,
     required this.activeMonetizationSession,
-    required CaptureScreen captureScreen,
-  })  : sessionMetadata = presence.sessionMetadataStore,
-        base = BaseCoordinator(captureScreen: captureScreen);
-
+    required this.captureScreen,
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
   @observable
   bool isNavigatingAway = false;
 
@@ -56,7 +58,7 @@ abstract class _SessionLobbyCoordinatorBase with Store, ChooseGreeterType {
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionBearer);
     await userMetadata.getMetadata();
     await updateCurrentPhase();
-    await base.captureScreen(SessionConstants.lobby);
+    await captureScreen(SessionConstants.lobby);
   }
 
   @action
@@ -76,33 +78,33 @@ abstract class _SessionLobbyCoordinatorBase with Store, ChooseGreeterType {
 
   @action
   initReactors() {
-    base.disposers.add(deepLinkReactor());
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.add(deepLinkReactor());
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
       },
     ));
-    base.disposers.add(presence.initReactors(
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
     ));
     if (isTheLeader) {
       tapReactor();
-      base.disposers.add(canStartTheSessionReactor());
+      disposers.add(canStartTheSessionReactor());
     }
-    base.disposers.add(sessionStartReactor());
-    base.disposers.add(widgets.beachWavesMovieStatusReactor(enterGreeter));
-    base.disposers.add(sessionPresetReactor());
+    disposers.add(sessionStartReactor());
+    disposers.add(widgets.beachWavesMovieStatusReactor(enterGreeter));
+    disposers.add(sessionPresetReactor());
   }
 
   @action
@@ -144,7 +146,7 @@ abstract class _SessionLobbyCoordinatorBase with Store, ChooseGreeterType {
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => base.ifTouchIsNotDisabled(() {
+        (p0) => ifTouchIsNotDisabled(() {
           if (sessionMetadata.canStartTheSession) {
             widgets.onTap(
               tap.currentTapPosition,
@@ -188,7 +190,7 @@ abstract class _SessionLobbyCoordinatorBase with Store, ChooseGreeterType {
   }
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 

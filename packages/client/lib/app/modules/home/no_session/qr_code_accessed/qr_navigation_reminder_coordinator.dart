@@ -25,27 +25,27 @@ abstract class _QrNavigationReminderCoordinatorBase
   constructor(Offset offset) async {
     widgets.constructor(offset);
     initReactors();
-    await base.captureScreen(HomeConstants.qrNavigationReminder);
+    await captureScreen(HomeConstants.qrNavigationReminder);
   }
 
   @override
   initReactors() {
-    base.disposers.add(widgets.beachWavesMovieStatusReactor(
+    disposers.add(widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
       onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
       onStorageEntry: () {},
       onAnyToShoreComplete: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
       },
     ));
     super.initReactors();
-base.    disposers.add(swipeReactor(
+    disposers.add(swipeReactor(
         onSwipeUp: () {
           widgets.onSwipeUp();
         },
         onSwipeRight: () {}));
- base.   disposers.add(tapReactor());
-   base. disposers.add(swipeCoordinatesReactor(onSwipeUpCordinatesChanged));
+    disposers.add(tapReactor());
+    disposers.add(swipeCoordinatesReactor(onSwipeUpCordinatesChanged));
   }
 
   onSwipeUpCordinatesChanged(Offset offset) {
@@ -55,12 +55,12 @@ base.    disposers.add(swipeReactor(
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        if (base.isInErrorMode) {
+        if (isInErrorMode) {
           widgets.onErrorResolved(() {
-            base.setIsInErrorMode(true);
+            setIsInErrorMode(true);
           });
         }
-        base.ifTouchIsNotDisabled(() {
+        ifTouchIsNotDisabled(() {
           widgets.onTap(tap.currentTapPosition);
         });
       });

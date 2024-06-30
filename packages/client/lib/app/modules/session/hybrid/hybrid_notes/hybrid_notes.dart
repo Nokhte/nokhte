@@ -22,7 +22,7 @@ class SessionHybridNotesScreen extends HookWidget {
       return () => coordinator.deconstructor();
     }, []);
     useOnAppLifecycleStateChange(
-        (previous, current) => coordinator.base.onAppLifeCycleStateChange(
+        (previous, current) => coordinator.onAppLifeCycleStateChange(
               current,
               onResumed: () => coordinator.onResumed(),
               onInactive: () => coordinator.onInactive(),

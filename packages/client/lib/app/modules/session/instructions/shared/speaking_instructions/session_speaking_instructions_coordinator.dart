@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/mobx/base_coordinator.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -14,35 +14,38 @@ part 'session_speaking_instructions_coordinator.g.dart';
 class SessionSpeakingInstructionsCoordinator = _SessionSpeakingInstructionsCoordinatorBase
     with _$SessionSpeakingInstructionsCoordinator;
 
-abstract class _SessionSpeakingInstructionsCoordinatorBase with Store {
+abstract class _SessionSpeakingInstructionsCoordinatorBase
+    with Store, ExpBaseCoordinator {
   final TapDetector tap;
   final HoldDetector hold;
   final SessionSpeakingInstructionsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
 
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
 
   _SessionSpeakingInstructionsCoordinatorBase({
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
     required this.hold,
-  })  : sessionMetadata = presence.sessionMetadataStore,
-        base = BaseCoordinator(captureScreen: captureScreen);
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() async {
     widgets.constructor();
     initReactors();
-    await base.captureScreen(SessionConstants.speakingInstructions);
+    await captureScreen(SessionConstants.speakingInstructions);
   }
 
   initReactors() {
-    base.disposers.add(tapReactor());
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.add(tapReactor());
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
       },
@@ -50,10 +53,10 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase with Store {
         widgets.setDisableTouchInput(true);
       },
     ));
-    base.disposers.add(holdReactor());
-    base.disposers.add(letGoReactor());
+    disposers.add(holdReactor());
+    disposers.add(letGoReactor());
 
-    base.disposers.add(widgets.beachWavesMovieStatusReactor(onComplete));
+    disposers.add(widgets.beachWavesMovieStatusReactor(onComplete));
   }
 
   @action
@@ -83,7 +86,7 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase with Store {
   holdReactor() => reaction(
         (p0) => hold.holdCount,
         (p0) {
-          base.ifTouchIsNotDisabled(() {
+          ifTouchIsNotDisabled(() {
             widgets.onHold();
           });
         },
@@ -92,19 +95,19 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase with Store {
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
         widgets.onLetGo();
         Timer(Seconds.get(2), () {
-          base.setDisableAllTouchFeedback(false);
+          setDisableAllTouchFeedback(false);
         });
       });
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => base.ifTouchIsNotDisabled(
+        (p0) => ifTouchIsNotDisabled(
           () => widgets.onTap(tap.currentTapPosition),
         ),
       );
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 }

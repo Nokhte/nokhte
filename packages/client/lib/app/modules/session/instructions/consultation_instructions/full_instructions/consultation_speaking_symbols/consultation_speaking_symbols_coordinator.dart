@@ -10,20 +10,23 @@ part 'consultation_speaking_symbols_coordinator.g.dart';
 class ConsultationSpeakingSymbolsCoordinator = _ConsultationSpeakingSymbolsCoordinatorBase
     with _$ConsultationSpeakingSymbolsCoordinator;
 
-abstract class _ConsultationSpeakingSymbolsCoordinatorBase with Store {
+abstract class _ConsultationSpeakingSymbolsCoordinatorBase
+    with Store, ExpBaseCoordinator {
   final ConsultationSpeakingSymbolsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
   final TapDetector tap;
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
 
   _ConsultationSpeakingSymbolsCoordinatorBase({
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.presence,
     required this.tap,
-  })  : sessionMetadata = presence.sessionMetadataStore,
-        base = BaseCoordinator(captureScreen: captureScreen);
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() {
@@ -34,26 +37,26 @@ abstract class _ConsultationSpeakingSymbolsCoordinatorBase with Store {
 
   @action
   initReactors() {
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
       },
     ));
-    base.disposers.add(tapReactor());
+    disposers.add(tapReactor());
   }
 
   tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
-        base.ifTouchIsNotDisabled(() {
+        ifTouchIsNotDisabled(() {
           widgets.onTap(p0);
         });
       });
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 }

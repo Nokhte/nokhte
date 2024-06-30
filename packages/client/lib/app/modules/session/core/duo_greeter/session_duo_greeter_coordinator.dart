@@ -13,20 +13,23 @@ part 'session_duo_greeter_coordinator.g.dart';
 class SessionDuoGreeterCoordinator = _SessionDuoGreeterCoordinatorBase
     with _$SessionDuoGreeterCoordinator;
 
-abstract class _SessionDuoGreeterCoordinatorBase with Store {
+abstract class _SessionDuoGreeterCoordinatorBase
+    with Store, ExpBaseCoordinator {
   final SessionDuoGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
 
   _SessionDuoGreeterCoordinatorBase({
     required this.widgets,
     required this.tap,
     required this.presence,
-    required CaptureScreen captureScreen,
-  })  : base = BaseCoordinator(captureScreen: captureScreen),
-        sessionMetadata = presence.sessionMetadataStore;
+    required this.captureScreen,
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @observable
   Stopwatch stopwatch = Stopwatch();
@@ -38,7 +41,7 @@ abstract class _SessionDuoGreeterCoordinatorBase with Store {
   constructor() async {
     widgets.constructor();
     initReactors();
-    await base.captureScreen(SessionConstants.duoGreeter);
+    await captureScreen(SessionConstants.duoGreeter);
   }
 
   @action
@@ -58,28 +61,28 @@ abstract class _SessionDuoGreeterCoordinatorBase with Store {
 
   @action
   initReactors() {
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
       },
     ));
-    base.disposers.add(presence.initReactors(
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
     ));
-    base.disposers.add(tapReactor());
-    base.disposers.add(rippleCompletionStatusReactor());
-    base.disposers.add(userPhaseReactor());
+    disposers.add(tapReactor());
+    disposers.add(rippleCompletionStatusReactor());
+    disposers.add(userPhaseReactor());
   }
 
   userPhaseReactor() => reaction((p0) => sessionMetadata.userPhase, (p0) {
@@ -94,7 +97,7 @@ abstract class _SessionDuoGreeterCoordinatorBase with Store {
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => base.ifTouchIsNotDisabled(() async {
+        (p0) => ifTouchIsNotDisabled(() async {
           widgets.onTap(
             tap.currentTapPosition,
             onFinalTap: () async => await presence.updateCurrentPhase(1),
@@ -115,7 +118,7 @@ abstract class _SessionDuoGreeterCoordinatorBase with Store {
       });
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 }

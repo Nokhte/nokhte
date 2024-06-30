@@ -21,7 +21,7 @@ class LoginScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     useOnAppLifecycleStateChange(
-        (previous, current) => coordinator.base.onAppLifeCycleStateChange(
+        (previous, current) => coordinator.onAppLifeCycleStateChange(
               current,
               onResumed: () => coordinator.onResumed(),
               onInactive: () => null,

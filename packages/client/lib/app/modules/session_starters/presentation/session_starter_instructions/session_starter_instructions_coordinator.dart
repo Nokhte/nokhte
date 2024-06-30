@@ -12,20 +12,24 @@ part 'session_starter_instructions_coordinator.g.dart';
 class SessionStarterInstructionsCoordinator = _SessionStarterInstructionsCoordinatorBase
     with _$SessionStarterInstructionsCoordinator;
 
-abstract class _SessionStarterInstructionsCoordinatorBase with Store {
+abstract class _SessionStarterInstructionsCoordinatorBase
+    with Store, ExpBaseCoordinator {
   final SessionStarterInstructionsWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final TapDetector tap;
   final SessionStartersLogicCoordinator logic;
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
 
   _SessionStarterInstructionsCoordinatorBase({
     required this.widgets,
     required this.tap,
     required this.swipe,
     required this.logic,
-    required CaptureScreen captureScreen,
-  }) : base = BaseCoordinator(captureScreen: captureScreen);
+    required this.captureScreen,
+  }) {
+    initBaseCoordinatorActions();
+  }
 
   @observable
   ObservableMap additionalRoutingData = ObservableMap.of({});
@@ -45,32 +49,31 @@ abstract class _SessionStarterInstructionsCoordinatorBase with Store {
     widgets.constructor(center);
     widgets.initReactors();
     initReactors();
-    await base
-        .captureScreen(SessionStarterConstants.sessionStarterInstructions);
+    await captureScreen(SessionStarterConstants.sessionStarterInstructions);
   }
 
   swipeCoordinatesReactor() =>
       reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
-        base.ifTouchIsNotDisabled(() {
+        ifTouchIsNotDisabled(() {
           widgets.onSwipeCoordinatesChanged(p0);
         });
       });
 
   initReactors() {
-    base.disposers.add(swipeCoordinatesReactor());
-    base.disposers.add(swipeReactor());
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.add(swipeCoordinatesReactor());
+    disposers.add(swipeReactor());
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
         widgets.base.setIsDisconnected(false);
       },
       onDisconnected: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
         widgets.base.setIsDisconnected(true);
       },
     ));
-    base.disposers.add(tapReactor());
+    disposers.add(tapReactor());
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) => onSwipe(p0));
@@ -80,13 +83,13 @@ abstract class _SessionStarterInstructionsCoordinatorBase with Store {
     if (!isNavigatingAway) {
       switch (direction) {
         case GestureDirections.down:
-          base.ifTouchIsNotDisabled(() {
+          ifTouchIsNotDisabled(() {
             widgets.onSwipeDown(() {
               toggleIsNavigatingAway();
             });
           });
         case GestureDirections.left:
-          base.ifTouchIsNotDisabled(() {
+          ifTouchIsNotDisabled(() {
             widgets.onSwipeLeft();
           });
         default:
@@ -96,7 +99,7 @@ abstract class _SessionStarterInstructionsCoordinatorBase with Store {
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        base.ifTouchIsNotDisabled(() {
+        ifTouchIsNotDisabled(() {
           widgets.onTap(tap.currentTapPosition);
         });
       });
@@ -104,6 +107,6 @@ abstract class _SessionStarterInstructionsCoordinatorBase with Store {
   deconstructor() {
     logic.dispose();
     widgets.base.deconstructor();
-    base.deconstructor();
+    dispose();
   }
 }

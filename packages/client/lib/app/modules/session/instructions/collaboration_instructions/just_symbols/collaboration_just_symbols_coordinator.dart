@@ -11,21 +11,23 @@ part 'collaboration_just_symbols_coordinator.g.dart';
 class CollaborationJustSymbolsCoordinator = _CollaborationJustSymbolsCoordinatorBase
     with _$CollaborationJustSymbolsCoordinator;
 
-abstract class _CollaborationJustSymbolsCoordinatorBase with Store {
+abstract class _CollaborationJustSymbolsCoordinatorBase
+    with Store, ExpBaseCoordinator {
   final CollaborationJustSymbolsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
   final TapDetector tap;
-
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
 
   _CollaborationJustSymbolsCoordinatorBase({
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.presence,
     required this.tap,
-  })  : sessionMetadata = presence.sessionMetadataStore,
-        base = BaseCoordinator(captureScreen: captureScreen);
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() {
@@ -35,17 +37,17 @@ abstract class _CollaborationJustSymbolsCoordinatorBase with Store {
 
   @action
   initReactors() {
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
       },
     ));
-    base.disposers.add(rippleCompletionStatusReactor());
-    base.disposers.add(tapReactor());
+    disposers.add(rippleCompletionStatusReactor());
+    disposers.add(tapReactor());
   }
 
   rippleCompletionStatusReactor() =>
@@ -56,13 +58,13 @@ abstract class _CollaborationJustSymbolsCoordinatorBase with Store {
       });
 
   tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
-        base.ifTouchIsNotDisabled(() {
+        ifTouchIsNotDisabled(() {
           widgets.onTap(p0);
         });
       });
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 }

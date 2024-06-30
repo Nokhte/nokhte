@@ -12,17 +12,20 @@ part 'storage_content_coordinator.g.dart';
 class StorageContentCoordinator = _StorageContentCoordinatorBase
     with _$StorageContentCoordinator;
 
-abstract class _StorageContentCoordinatorBase with Store {
+abstract class _StorageContentCoordinatorBase with Store, ExpBaseCoordinator {
   final StorageContentWidgetsCoordinator widgets;
   final TapDetector tap;
   final SwipeDetector swipe;
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
   _StorageContentCoordinatorBase({
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.tap,
     required this.widgets,
     required this.swipe,
-  }) : base = BaseCoordinator(captureScreen: captureScreen);
+  }) {
+    initBaseCoordinatorActions();
+  }
 
   @observable
   NokhteSessionArtifactEntity nokhteSessionArtifacts =
@@ -37,17 +40,17 @@ abstract class _StorageContentCoordinatorBase with Store {
       nokhteSessionArtifacts = Modular.args.data["content"];
     }
     widgets.constructor(center);
-    await base.captureScreen(StorageConstants.content);
+    await captureScreen(StorageConstants.content);
     initReactors();
   }
 
   initReactors() {
-    base.disposers.add(tapReactor());
-    base.disposers.add(swipeReactor());
+    disposers.add(tapReactor());
+    disposers.add(swipeReactor());
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        base.ifTouchIsNotDisabled(() {
+        ifTouchIsNotDisabled(() {
           widgets.onTap();
         });
       });
@@ -55,7 +58,7 @@ abstract class _StorageContentCoordinatorBase with Store {
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.left:
-            base.ifTouchIsNotDisabled(() {
+            ifTouchIsNotDisabled(() {
               widgets.onSwipeLeft();
             });
           default:
@@ -65,6 +68,6 @@ abstract class _StorageContentCoordinatorBase with Store {
 
   deconstructor() {
     widgets.base.deconstructor();
-    base.deconstructor();
+    dispose();
   }
 }

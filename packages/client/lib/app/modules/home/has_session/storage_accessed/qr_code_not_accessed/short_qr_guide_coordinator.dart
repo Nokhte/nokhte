@@ -34,14 +34,14 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
   constructor(Offset offset) async {
     widgets.constructor(offset);
     initReactors();
-    await base.captureScreen(HomeConstants.shortQrGuide);
+    await captureScreen(HomeConstants.shortQrGuide);
     await getNokhteSessionArtifacts();
   }
 
   @override
   initReactors() {
     super.initReactors();
-    base.disposers.add(swipeReactor(
+    disposers.add(swipeReactor(
       onSwipeUp: () {
         // setDisableAllTouchFeedback(true);
         widgets.onSwipeUp();
@@ -51,26 +51,25 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
         // setDisableAllTouchFeedback(true);
       },
     ));
-    base.disposers.add(tapReactor());
-    base.disposers.add(widgets.beachWavesMovieStatusReactor(
+    disposers.add(tapReactor());
+    disposers.add(widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
       onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
       onStorageEntry: onSubsequentStorageEntry,
       onAnyToShoreComplete: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
       },
     ));
-    base.disposers
-        .add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
+    disposers.add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        if (base.isInErrorMode) {
+        if (isInErrorMode) {
           widgets.onErrorResolved(() {
-            base.setIsInErrorMode(true);
+            setIsInErrorMode(true);
           });
         }
-        base.ifTouchIsNotDisabled(() {
+        ifTouchIsNotDisabled(() {
           widgets.onTap(tap.currentTapPosition);
         });
       });
@@ -79,7 +78,7 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
   getNokhteSessionArtifacts() async {
     final res = await getNokhteSessionArtifactsLogic(NoParams());
     res.fold(
-      (failure) => base.baseLogic.errorUpdater(failure),
+      (failure) => errorUpdater(failure),
       (artifacts) => nokhteSessionArtifacts = ObservableList.of(artifacts),
     );
   }

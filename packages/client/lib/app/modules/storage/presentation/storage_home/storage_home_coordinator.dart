@@ -16,27 +16,31 @@ part 'storage_home_coordinator.g.dart';
 class StorageHomeCoordinator = _StorageHomeCoordinatorBase
     with _$StorageHomeCoordinator;
 
-abstract class _StorageHomeCoordinatorBase with Store, HomeScreenRouter {
+abstract class _StorageHomeCoordinatorBase
+    with Store, HomeScreenRouter, ExpBaseCoordinator, BaseMobxLogic {
   final StorageHomeWidgetsCoordinator widgets;
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
   final UpdateSessionAlias updateSessionAliasLogic;
   final UserInformationCoordinator userInfo;
+  @override
+  final CaptureScreen captureScreen;
   final TapDetector tap;
   @override
   final GetUserInfoStore getUserInfo;
-  final BaseCoordinator base;
 
   final SwipeDetector swipe;
   _StorageHomeCoordinatorBase({
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.getNokhteSessionArtifactsLogic,
     required this.updateSessionAliasLogic,
     required this.widgets,
     required this.swipe,
     required this.userInfo,
     required this.tap,
-  })  : getUserInfo = userInfo.getUserInfoStore,
-        base = BaseCoordinator(captureScreen: captureScreen);
+  }) : getUserInfo = userInfo.getUserInfoStore {
+    initBaseCoordinatorActions();
+    initBaseLogicActions();
+  }
 
   @observable
   ObservableList<NokhteSessionArtifactEntity> nokhteSessionArtifacts =
@@ -58,14 +62,14 @@ abstract class _StorageHomeCoordinatorBase with Store, HomeScreenRouter {
     await getUserInfo(NoParams());
     await getNokhteSessionArtifacts();
     await userInfo.updateHasEnteredStorage(true);
-    await base.captureScreen(StorageConstants.root);
+    await captureScreen(StorageConstants.root);
   }
 
   @action
   getNokhteSessionArtifacts() async {
     final res = await getNokhteSessionArtifactsLogic(NoParams());
     res.fold(
-      (failure) => base.baseLogic.errorUpdater(failure),
+      (failure) => errorUpdater(failure),
       (artifacts) => nokhteSessionArtifacts = ObservableList.of(artifacts),
     );
   }
@@ -74,21 +78,21 @@ abstract class _StorageHomeCoordinatorBase with Store, HomeScreenRouter {
   updateSessionAlias(UpdateSessionAliasParams params) async {
     final res = await updateSessionAliasLogic(params);
     res.fold(
-      (failure) => base.baseLogic.errorUpdater(failure),
+      (failure) => errorUpdater(failure),
       (updateStatus) => aliasIsUpdated = updateStatus,
     );
   }
 
   initReactors() {
-    base.disposers.add(tapReactor());
-    base.disposers.add(swipeReactor());
-    base.disposers.add(beachWavesMovieStatusReactor());
-    base.disposers.add(sessionCardEditReactor());
-    base.disposers.add(sessionCardTapReactor());
+    disposers.add(tapReactor());
+    disposers.add(swipeReactor());
+    disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(sessionCardEditReactor());
+    disposers.add(sessionCardTapReactor());
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        base.ifTouchIsNotDisabled(() {
+        ifTouchIsNotDisabled(() {
           widgets.onTap();
         });
       });
@@ -96,7 +100,7 @@ abstract class _StorageHomeCoordinatorBase with Store, HomeScreenRouter {
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.left:
-            base.ifTouchIsNotDisabled(() {
+            ifTouchIsNotDisabled(() {
               widgets.onSwipeLeft();
             });
           default:
@@ -135,14 +139,14 @@ abstract class _StorageHomeCoordinatorBase with Store, HomeScreenRouter {
 
   sessionCardTapReactor() =>
       reaction((p0) => widgets.sessionCard.lastTappedIndex, (p0) {
-        base.ifTouchIsNotDisabled(() {
+        ifTouchIsNotDisabled(() {
           widgets.onSessionCardTapped();
-          base.setDisableAllTouchFeedback(true);
+          setDisableAllTouchFeedback(true);
         });
       });
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 }

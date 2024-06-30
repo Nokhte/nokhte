@@ -16,28 +16,29 @@ class SessionTrialGreeterCoordinator = _SessionTrialGreeterCoordinatorBase
     with _$SessionTrialGreeterCoordinator;
 
 abstract class _SessionTrialGreeterCoordinatorBase
-    with Store, ChooseGreeterType {
+    with Store, ChooseGreeterType, ExpBaseCoordinator {
   final SessionTrialGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   @override
   final SessionMetadataStore sessionMetadata;
-
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
 
   _SessionTrialGreeterCoordinatorBase({
     required this.widgets,
     required this.tap,
     required this.presence,
-    required CaptureScreen captureScreen,
-  })  : sessionMetadata = presence.sessionMetadataStore,
-        base = BaseCoordinator(captureScreen: captureScreen);
+    required this.captureScreen,
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() async {
     widgets.constructor();
     initReactors();
-    await base.captureScreen(SessionConstants.trialGreeter);
+    await captureScreen(SessionConstants.trialGreeter);
   }
 
   @action
@@ -57,32 +58,32 @@ abstract class _SessionTrialGreeterCoordinatorBase
 
   @action
   initReactors() {
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
       },
     ));
-    base.disposers.add(presence.initReactors(
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
     ));
-    base.disposers.add(tapReactor());
-    base.disposers.add(rippleCompletionStatusReactor());
+    disposers.add(tapReactor());
+    disposers.add(rippleCompletionStatusReactor());
   }
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => base.ifTouchIsNotDisabled(() {
+        (p0) => ifTouchIsNotDisabled(() {
           widgets.onTap(tap.currentTapPosition);
         }),
       );
@@ -96,7 +97,7 @@ abstract class _SessionTrialGreeterCoordinatorBase
       });
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 

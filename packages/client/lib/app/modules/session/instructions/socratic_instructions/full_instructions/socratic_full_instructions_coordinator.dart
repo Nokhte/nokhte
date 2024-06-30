@@ -10,19 +10,23 @@ part 'socratic_full_instructions_coordinator.g.dart';
 class SocraticFullInstructionsCoordinator = _SocraticFullInstructionsCoordinatorBase
     with _$SocraticFullInstructionsCoordinator;
 
-abstract class _SocraticFullInstructionsCoordinatorBase with Store {
-  final BaseCoordinator base;
+abstract class _SocraticFullInstructionsCoordinatorBase
+    with Store, ExpBaseCoordinator {
   final SocraticFullInstructionsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
   final TapDetector tap;
+  @override
+  final CaptureScreen captureScreen;
+
   _SocraticFullInstructionsCoordinatorBase({
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.presence,
     required this.tap,
-  })  : base = BaseCoordinator(captureScreen: captureScreen),
-        sessionMetadata = presence.sessionMetadataStore;
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() {
@@ -32,26 +36,26 @@ abstract class _SocraticFullInstructionsCoordinatorBase with Store {
 
   @action
   initReactors() {
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
       },
     ));
-    base.disposers.add(tapReactor());
+    disposers.add(tapReactor());
   }
 
   tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
-        base.ifTouchIsNotDisabled(() {
+        ifTouchIsNotDisabled(() {
           widgets.onTap(p0);
         });
       });
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 }

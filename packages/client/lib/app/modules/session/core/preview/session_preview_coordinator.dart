@@ -16,7 +16,7 @@ part 'session_preview_coordinator.g.dart';
 class SessionPreviewCoordinator = _SessionPreviewCoordinatorBase
     with _$SessionPreviewCoordinator;
 
-abstract class _SessionPreviewCoordinatorBase with Store {
+abstract class _SessionPreviewCoordinatorBase with Store, ExpBaseCoordinator {
   final SessionPreviewWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
@@ -24,19 +24,20 @@ abstract class _SessionPreviewCoordinatorBase with Store {
   final DeepLinksCoordinator deepLinks;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
   final CaptureNokhteSessionStart captureStart;
-
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
 
   _SessionPreviewCoordinatorBase({
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.deepLinks,
     required this.captureStart,
     required this.tap,
     required this.presence,
     required this.activeMonetizationSession,
-  })  : sessionMetadata = presence.sessionMetadataStore,
-        base = BaseCoordinator(captureScreen: captureScreen);
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @observable
   bool isNavigatingAway = false;
@@ -46,23 +47,23 @@ abstract class _SessionPreviewCoordinatorBase with Store {
     widgets.constructor();
     initReactors();
     await presence.listen();
-    await base.captureScreen(SessionConstants.preview);
+    await captureScreen(SessionConstants.preview);
   }
 
   @action
   initReactors() {
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
       },
     ));
-    base.disposers.add(tapReactor());
-    base.disposers.add(rippleReactor());
-    base.disposers.add(sessionPresetInfoReactor());
+    disposers.add(tapReactor());
+    disposers.add(rippleReactor());
+    disposers.add(sessionPresetInfoReactor());
   }
 
   sessionPresetInfoReactor() =>
@@ -75,7 +76,7 @@ abstract class _SessionPreviewCoordinatorBase with Store {
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => base.ifTouchIsNotDisabled(() async {
+        (p0) => ifTouchIsNotDisabled(() async {
           widgets.onTap(
             tap.currentTapPosition,
           );
@@ -128,7 +129,7 @@ abstract class _SessionPreviewCoordinatorBase with Store {
   }
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 }

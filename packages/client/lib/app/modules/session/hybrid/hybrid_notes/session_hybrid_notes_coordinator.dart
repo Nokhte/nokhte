@@ -13,23 +13,26 @@ part 'session_hybrid_notes_coordinator.g.dart';
 class SessionHybridNotesCoordinator = _SessionHybridNotesCoordinatorBase
     with _$SessionHybridNotesCoordinator;
 
-abstract class _SessionHybridNotesCoordinatorBase with Store {
+abstract class _SessionHybridNotesCoordinatorBase
+    with Store, ExpBaseCoordinator {
   final SessionHybridNotesWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
   final TapDetector tap;
 
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
 
   _SessionHybridNotesCoordinatorBase({
     required this.widgets,
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.tap,
     required this.presence,
     required this.swipe,
-  })  : sessionMetadata = presence.sessionMetadataStore,
-        base = BaseCoordinator(captureScreen: captureScreen);
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() async {
@@ -40,7 +43,7 @@ abstract class _SessionHybridNotesCoordinatorBase with Store {
       sessionMetadata.presetType == PresetTypes.collaborative,
     );
     await presence.updateCurrentPhase(2.0);
-    await base.captureScreen(SessionConstants.hybridNotes);
+    await captureScreen(SessionConstants.hybridNotes);
   }
 
   @observable
@@ -50,25 +53,25 @@ abstract class _SessionHybridNotesCoordinatorBase with Store {
   setBlockPhoneTiltReactor(bool newValue) => blockPhoneTiltReactor = newValue;
 
   initReactors() {
-    base.disposers.add(swipeReactor());
-    base.disposers.add(presence.initReactors(
+    disposers.add(swipeReactor());
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined(() {
           setBlockPhoneTiltReactor(true);
         });
       },
       onCollaboratorLeft: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
     ));
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
-      onLongReConnected: () => base.setDisableAllTouchFeedback(false),
-      onDisconnected: () => base.setDisableAllTouchFeedback(true),
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
+      onLongReConnected: () => setDisableAllTouchFeedback(false),
+      onDisconnected: () => setDisableAllTouchFeedback(true),
     ));
-    base.disposers.add(touchFeedbackStatusReactor());
+    disposers.add(touchFeedbackStatusReactor());
   }
 
   @action
@@ -85,7 +88,7 @@ abstract class _SessionHybridNotesCoordinatorBase with Store {
   }
 
   touchFeedbackStatusReactor() =>
-      reaction((p0) => base.disableAllTouchFeedback, (p0) {
+      reaction((p0) => disableAllTouchFeedback, (p0) {
         if (p0) {
           widgets.textEditor.setIsReadOnly(true);
         } else {
@@ -96,7 +99,7 @@ abstract class _SessionHybridNotesCoordinatorBase with Store {
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
-            base.ifTouchIsNotDisabled(() {
+            ifTouchIsNotDisabled(() {
               widgets.onSwipeUp(onSwipeUp);
             });
           default:
@@ -108,7 +111,7 @@ abstract class _SessionHybridNotesCoordinatorBase with Store {
   onSwipeUp(String param) async => await presence.addContent(param);
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 }

@@ -13,23 +13,26 @@ part 'presets_instructions_coordinator.g.dart';
 class PresetsInstructionsCoordinator = _PresetsInstructionsCoordinatorBase
     with _$PresetsInstructionsCoordinator;
 
-abstract class _PresetsInstructionsCoordinatorBase with Store {
-  final BaseCoordinator base;
-
+abstract class _PresetsInstructionsCoordinatorBase
+    with Store, ExpBaseCoordinator {
   final PresetsInstructionsWidgetsCoordinator widgets;
   final PresetsLogicCoordinator logic;
   final TapDetector tap;
   final SwipeDetector swipe;
   final UserInformationCoordinator userInformation;
+  @override
+  final CaptureScreen captureScreen;
 
   _PresetsInstructionsCoordinatorBase({
     required this.widgets,
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.logic,
     required this.tap,
     required this.swipe,
     required this.userInformation,
-  }) : base = BaseCoordinator(captureScreen: captureScreen);
+  }) {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor(Offset center) async {
@@ -37,25 +40,25 @@ abstract class _PresetsInstructionsCoordinatorBase with Store {
     widgets.initReactors();
     initReactors();
     await logic.getCompanyPresets();
-    await base.captureScreen(PresetsConstants.presetsInstructions);
+    await captureScreen(PresetsConstants.presetsInstructions);
   }
 
   initReactors() {
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
         widgets.base.setIsDisconnected(false);
       },
       onDisconnected: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
         widgets.base.setIsDisconnected(true);
       },
     ));
-    base.disposers.add(companyPresetsReactor());
-    base.disposers.add(tapReactor());
-    base.disposers.add(swipeReactor());
-    base.disposers.add(
+    disposers.add(companyPresetsReactor());
+    disposers.add(tapReactor());
+    disposers.add(swipeReactor());
+    disposers.add(
         widgets.selectionCondensedPresetCardMovieStatusReactor(onSelected));
   }
 
@@ -73,7 +76,7 @@ abstract class _PresetsInstructionsCoordinatorBase with Store {
       });
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        base.ifTouchIsNotDisabled(() {
+        ifTouchIsNotDisabled(() {
           widgets.onTap();
         });
       });
@@ -88,6 +91,6 @@ abstract class _PresetsInstructionsCoordinatorBase with Store {
 
   deconstructor() {
     widgets.base.deconstructor();
-    base.deconstructor();
+    dispose();
   }
 }

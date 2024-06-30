@@ -17,56 +17,67 @@ part 'base_home_screen_coordinator.g.dart';
 class BaseHomeScreenCoordinator = _BaseHomeScreenCoordinatorBase
     with _$BaseHomeScreenCoordinator;
 
-abstract class _BaseHomeScreenCoordinatorBase with Store {
+abstract class _BaseHomeScreenCoordinatorBase
+    with Store, ExpBaseCoordinator, BaseMobxLogic {
   final BaseHomeScreenWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final SessionStartersLogicCoordinator sessionStarters;
   final DeepLinksCoordinator deepLinks;
   final TapDetector tap;
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
 
   _BaseHomeScreenCoordinatorBase({
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.sessionStarters,
     required this.swipe,
     required this.tap,
     required this.widgets,
     required this.deepLinks,
-  }) : base = BaseCoordinator(captureScreen: captureScreen);
+  }) {
+    initBaseCoordinatorActions();
+    initBaseLogicActions();
+  }
 
   @action
   constructor(Offset center) {}
 
   initReactors() {
     deepLinks.listen();
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.onLongReconnected();
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
         widgets.onDisconnected();
       },
     ));
-    base.disposers.add(openedDeepLinksReactor());
-    base.disposers.add(collaboratorPoolEntryErrorReactor());
+    disposers.add(openedDeepLinksReactor());
+    disposers.add(collaboratorPoolEntryErrorReactor());
   }
 
   @action
   onResumed() {
-    base.ifTouchIsNotDisabled(() {
+    ifTouchIsNotDisabled(() {
       widgets.onResumed();
     });
   }
 
   @action
   onInactive() {
-    base.ifTouchIsNotDisabled(() {
+    ifTouchIsNotDisabled(() {
       widgets.onInactive();
     });
   }
+
+  @observable
+  bool isInErrorMode = false;
+
+  @action
+  setIsInErrorMode(bool value) => isInErrorMode = value;
 
   @action
   onShoreToOceanDiveComplete() {
@@ -117,8 +128,8 @@ abstract class _BaseHomeScreenCoordinatorBase with Store {
   collaboratorPoolEntryErrorReactor() =>
       reaction((p0) => sessionStarters.errorMessage, (p0) async {
         if (p0.isNotEmpty) {
-          base.setDisableAllTouchFeedback(true);
-          base.setIsInErrorMode(true);
+          setDisableAllTouchFeedback(true);
+          setIsInErrorMode(true);
           widgets.onError(p0);
           deepLinks.reset();
           sessionStarters.resetErrorMessage();
@@ -136,7 +147,7 @@ abstract class _BaseHomeScreenCoordinatorBase with Store {
                 widgets.beachWaves.movieStatus != MovieStatus.inProgress) {
               timer.cancel();
               if (!widgets.isInErrorMode) {
-                base.setDisableAllTouchFeedback(true);
+                setDisableAllTouchFeedback(true);
                 final additionalMetadata =
                     deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
                 await sessionStarters.join(additionalMetadata["deepLinkUID"]);
@@ -144,7 +155,7 @@ abstract class _BaseHomeScreenCoordinatorBase with Store {
                 widgets.onDeepLinkOpened();
               } else {
                 timer.cancel();
-                base.setDisableAllTouchFeedback(true);
+                setDisableAllTouchFeedback(true);
                 final additionalMetadata =
                     deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
                 await sessionStarters.join(additionalMetadata["deepLinkUID"]);
@@ -160,7 +171,7 @@ abstract class _BaseHomeScreenCoordinatorBase with Store {
       });
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     deepLinks.dispose();
     widgets.base.deconstructor();
   }

@@ -17,26 +17,29 @@ part 'session_exit_coordinator.g.dart';
 class SessionExitCoordinator = _SessionExitCoordinatorBase
     with _$SessionExitCoordinator;
 
-abstract class _SessionExitCoordinatorBase with Store, HomeScreenRouter {
+abstract class _SessionExitCoordinatorBase
+    with Store, HomeScreenRouter, ExpBaseCoordinator {
   final SessionExitWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final CaptureNokhteSessionEnd captureEnd;
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
   final GetUserInfoStore getUserInfo;
 
   _SessionExitCoordinatorBase({
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.swipe,
     required this.captureEnd,
     required this.presence,
     required this.cleanUpCollaborationArtifacts,
     required this.getUserInfo,
-  })  : base = BaseCoordinator(captureScreen: captureScreen),
-        sessionMetadata = presence.sessionMetadataStore;
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @observable
   bool showCollaboratorIncidents = true;
@@ -54,7 +57,7 @@ abstract class _SessionExitCoordinatorBase with Store, HomeScreenRouter {
     widgets.constructor();
     initReactors();
     await presence.updateCurrentPhase(4.0);
-    await base.captureScreen(SessionConstants.exit);
+    await captureScreen(SessionConstants.exit);
   }
 
   @observable
@@ -86,26 +89,26 @@ abstract class _SessionExitCoordinatorBase with Store, HomeScreenRouter {
 
   @action
   initReactors() {
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
       },
     ));
-    base.disposers.add(presence.initReactors(
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
-        base.setDisableAllTouchFeedback(false);
+        setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
-        base.setDisableAllTouchFeedback(true);
+        setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
     ));
-    base.disposers.add(widgets.beachWavesMovieStatusReactor(
+    disposers.add(widgets.beachWavesMovieStatusReactor(
         onToHomeComplete: onAnimationComplete,
         onReturnToTalkingComplete: () {
           if (phoneRole == SessionScreenTypes.speaking) {
@@ -115,11 +118,11 @@ abstract class _SessionExitCoordinatorBase with Store, HomeScreenRouter {
         onReturnToHybridComplete: () {
           Modular.to.navigate(SessionConstants.groupHybrid);
         }));
-    base.disposers.add(swipeReactor());
-    base.disposers.add(userPhaseReactor());
-    base.disposers.add(
+    disposers.add(swipeReactor());
+    disposers.add(userPhaseReactor());
+    disposers.add(
       widgets.sessionExitStatusCompletionReactor(
-        onInitialized: () => base.disposers.add(numberOfAffirmativeReactor()),
+        onInitialized: () => disposers.add(numberOfAffirmativeReactor()),
         onReadyToGoHome: () async => await onReturnHome(),
       ),
     );
@@ -128,9 +131,9 @@ abstract class _SessionExitCoordinatorBase with Store, HomeScreenRouter {
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.down:
-            base.ifTouchIsNotDisabled(() async {
+            ifTouchIsNotDisabled(() async {
               widgets.onReadyToGoBack(phoneRole);
-              base.setDisableAllTouchFeedback(true);
+              setDisableAllTouchFeedback(true);
             });
           default:
             break;
@@ -190,7 +193,7 @@ abstract class _SessionExitCoordinatorBase with Store, HomeScreenRouter {
   SessionScreenTypes get phoneRole => sessionMetadata.sessionScreenType;
 
   deconstructor() {
+    dispose();
     widgets.base.deconstructor();
-    base.deconstructor();
   }
 }

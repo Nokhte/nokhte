@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/mobx/base_coordinator.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/movie_status.dart';
@@ -13,31 +13,34 @@ part 'solo_hybrid_instructions_coordinator.g.dart';
 class SoloHybridInstructionsCoordinator = _SoloHybridInstructionsCoordinatorBase
     with _$SoloHybridInstructionsCoordinator;
 
-abstract class _SoloHybridInstructionsCoordinatorBase with Store {
-  final BaseCoordinator base;
+abstract class _SoloHybridInstructionsCoordinatorBase
+    with Store, ExpBaseCoordinator {
   final TapDetector tap;
   final SoloHybridInstructionsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
+  @override
+  final CaptureScreen captureScreen;
 
   _SoloHybridInstructionsCoordinatorBase({
-    required CaptureScreen captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
-  })  : sessionMetadata = presence.sessionMetadataStore,
-        base = BaseCoordinator(captureScreen: captureScreen);
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() async {
     widgets.constructor();
     initReactors();
-    await base.captureScreen(SessionConstants.soloHybridInstructions);
+    await captureScreen(SessionConstants.soloHybridInstructions);
   }
 
   initReactors() {
-    base.disposers.add(tapReactor());
-    base.disposers.add(presence.initReactors(
+    disposers.add(tapReactor());
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
         widgets.setDisableTouchInput(false);
       },
@@ -45,8 +48,8 @@ abstract class _SoloHybridInstructionsCoordinatorBase with Store {
         widgets.setDisableTouchInput(true);
       },
     ));
-    base.disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => base.setDisableAllTouchFeedback(false),
+    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
       },
@@ -54,7 +57,7 @@ abstract class _SoloHybridInstructionsCoordinatorBase with Store {
         widgets.setDisableTouchInput(true);
       },
     ));
-    base.disposers.add(rippleCompletionStatusReactor());
+    disposers.add(rippleCompletionStatusReactor());
   }
 
   rippleCompletionStatusReactor() =>
@@ -81,13 +84,13 @@ abstract class _SoloHybridInstructionsCoordinatorBase with Store {
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => base.ifTouchIsNotDisabled(
+        (p0) => ifTouchIsNotDisabled(
           () => widgets.onTap(tap.currentTapPosition),
         ),
       );
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 }

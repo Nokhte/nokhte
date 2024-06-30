@@ -11,17 +11,21 @@ part 'session_starter_exit_coordinator.g.dart';
 class SessionStarterExitCoordinator = _SessionStarterExitCoordinatorBase
     with _$SessionStarterExitCoordinator;
 
-abstract class _SessionStarterExitCoordinatorBase with Store, HomeScreenRouter {
+abstract class _SessionStarterExitCoordinatorBase
+    with Store, HomeScreenRouter, ExpBaseCoordinator {
   final SessionStarterExitWidgetsCoordinator widgets;
   @override
   final GetUserInfoStore getUserInfo;
-  final BaseCoordinator base;
+  @override
+  final CaptureScreen captureScreen;
 
   _SessionStarterExitCoordinatorBase({
     required this.widgets,
     required this.getUserInfo,
-    required CaptureScreen captureScreen,
-  }) : base = BaseCoordinator(captureScreen: captureScreen);
+    required this.captureScreen,
+  }) {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() async {
@@ -31,12 +35,11 @@ abstract class _SessionStarterExitCoordinatorBase with Store, HomeScreenRouter {
   }
 
   initReactors() {
-    base.disposers
-        .add(widgets.beachWavesMovieStatusReactor(onAnimationComplete));
+    disposers.add(widgets.beachWavesMovieStatusReactor(onAnimationComplete));
   }
 
   deconstructor() {
-    base.deconstructor();
+    dispose();
     widgets.base.deconstructor();
   }
 }
