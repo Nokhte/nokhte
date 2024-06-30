@@ -11,7 +11,7 @@ class ConsultationNotesSymbolsCoordinator = _ConsultationNotesSymbolsCoordinator
     with _$ConsultationNotesSymbolsCoordinator;
 
 abstract class _ConsultationNotesSymbolsCoordinatorBase
-    with Store, BaseCoordinator , Reactions{
+    with Store, BaseCoordinator, Reactions {
   final ConsultationNotesSymbolsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
@@ -37,7 +37,7 @@ abstract class _ConsultationNotesSymbolsCoordinatorBase
 
   @action
   initReactors() {
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -57,6 +57,6 @@ abstract class _ConsultationNotesSymbolsCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
+    widgets.dispose();
   }
 }

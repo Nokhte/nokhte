@@ -13,23 +13,25 @@ part 'session_lobby_widgets_coordinator.g.dart';
 class SessionLobbyWidgetsCoordinator = _SessionLobbyWidgetsCoordinatorBase
     with _$SessionLobbyWidgetsCoordinator;
 
-abstract class _SessionLobbyWidgetsCoordinatorBase with Store {
+abstract class _SessionLobbyWidgetsCoordinatorBase
+    with Store, BaseWidgetsCoordinator {
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
   final NokhteQrCodeStore qrCode;
   final TouchRippleStore touchRipple;
-  final BaseWidgetsCoordinator base;
   final PresetIconsStore presetIcons;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionLobbyWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.presetIcons,
     required this.primarySmartText,
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.qrCode,
     required this.touchRipple,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay) {
+  }) {
+    initBaseWidgetsCoordinatorActions();
     presetIcons.setContainerSize(.2);
     presetIcons.setIsHorizontal(true);
   }

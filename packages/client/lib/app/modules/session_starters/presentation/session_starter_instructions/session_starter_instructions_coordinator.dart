@@ -62,15 +62,15 @@ abstract class _SessionStarterInstructionsCoordinatorBase
   initReactors() {
     disposers.add(swipeCoordinatesReactor());
     disposers.add(swipeReactor());
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
-        widgets.base.setIsDisconnected(false);
+        widgets.setIsDisconnected(false);
       },
       onDisconnected: () {
         setDisableAllTouchFeedback(true);
-        widgets.base.setIsDisconnected(true);
+        widgets.setIsDisconnected(true);
       },
     ));
     disposers.add(tapReactor());
@@ -106,7 +106,7 @@ abstract class _SessionStarterInstructionsCoordinatorBase
 
   deconstructor() {
     logic.dispose();
-    widgets.base.deconstructor();
+    widgets.dispose();
     dispose();
   }
 }

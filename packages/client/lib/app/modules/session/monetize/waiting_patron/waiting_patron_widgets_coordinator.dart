@@ -2,7 +2,6 @@
 import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -17,16 +16,15 @@ abstract class _WaitingPatronWidgetsCoordinatorBase
   final TintStore tint;
   final GestureCrossStore gestureCross;
   final NokhteGradientTextStore nokhteGradientText;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
-  final BaseWidgetsCoordinator base;
   _WaitingPatronWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.nokhteGradientText,
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.tint,
     required this.gestureCross,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay) {
+  }) {
     initSmartTextActions();
   }
 

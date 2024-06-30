@@ -17,7 +17,7 @@ class SessionStarterWidgetsCoordinator = _SessionStarterWidgetsCoordinatorBase
     with _$SessionStarterWidgetsCoordinator;
 
 abstract class _SessionStarterWidgetsCoordinatorBase
-    with Store, SmartTextPaddingAdjuster {
+    with Store, SmartTextPaddingAdjuster, Reactions, BaseWidgetsCoordinator {
   final BeachWavesStore beachWaves;
   final SmartTextStore secondarySmartText;
   final SmartTextStore primarySmartText;
@@ -29,7 +29,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   final PresetIconsStore presetIcons;
   final NokhteBlurStore nokhteBlur;
   final NokhteQrCodeStore qrCode;
-  final BaseWidgetsCoordinator base;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionStarterWidgetsCoordinatorBase({
     required this.beachWaves,
@@ -38,14 +39,14 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     required this.gestureCross,
     required this.primarySmartText,
     required this.secondarySmartText,
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.centerInstructionalNokhte,
     required this.homeInstructionalNokhte,
     required this.presetsInstructionalNokhte,
     required this.nokhteBlur,
     required this.qrCode,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay) {
+  }) {
+    initBaseWidgetsCoordinatorActions();
     presetIcons.setContainerSize(.2);
     presetIcons.setWidgetVisibility(false);
     presetIcons.setIsHorizontal(true);
@@ -91,7 +92,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
 
   @action
   constructor(Offset centerParam) {
-    base.center = centerParam;
+    setCenter(centerParam);
     qrCode.setWidgetVisibility(false);
     gestureCross.setCollaborationHomeScreen();
     primarySmartText.setMessagesData(SharedLists.emptyList);
@@ -99,8 +100,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
     beachWaves.currentStore.setControl(Control.playFromStart);
     secondarySmartText.startRotatingText();
-    base.disposers.add(centerCrossNokhteReactor());
-    base.disposers.add(gestureCrossTapReactor());
+    disposers.add(centerCrossNokhteReactor());
+    disposers.add(gestureCrossTapReactor());
     initReactors();
   }
 
@@ -113,7 +114,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   @action
   delayedEnableTouchFeedback() {
     Timer(Seconds.get(1, milli: 500), () {
-      base.setTouchIsDisabled(false);
+      setTouchIsDisabled(false);
     });
   }
 
@@ -132,17 +133,13 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   onSwipeDown(Function onLeaving) async {
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
-        // hasInitiatedBlur = false;
         setSmartTextBottomPaddingScalar(.1);
         setSmartTextTopPaddingScalar(0);
         secondarySmartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte
             .initMovie(InstructionalNokhtePositions.bottom);
         presetsInstructionalNokhte.setWidgetVisibility(false);
-
         delayedEnableTouchFeedback();
-
-        // make a delayed enable feedback or take it out and see what happens
       } else {
         if (!hasSwipedDown) {
           hasSwipedDown = true;
@@ -168,7 +165,6 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   onSwipeLeft(Function onLeaving) async {
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
-        // hasInitiatedBlur = false;
         setSmartTextBottomPaddingScalar(.2);
         setSmartTextTopPaddingScalar(0);
         secondarySmartText.setCurrentIndex(2);
@@ -209,9 +205,9 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   }
 
   initReactors() {
-    base.disposers.add(beachWavesMovieStatusReactor());
-    base.disposers.add(centerInstructionalNokhteReactor());
-    base.disposers.add(primarySmartTextReactor());
+    disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(centerInstructionalNokhteReactor());
+    disposers.add(primarySmartTextReactor());
   }
 
   centerInstructionalNokhteReactor() =>
@@ -228,8 +224,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
           resetSmartText();
           qrCode.setWidgetVisibility(true);
           hasSwipedDown = false;
-          print("are you woking??");
-          base.setTouchIsDisabled(false);
+          setTouchIsDisabled(false);
         }
       });
 
@@ -251,8 +246,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
             beachWaves.currentStore.setControl(Control.playFromStart);
             qrCode.setWidgetVisibility(true);
             secondarySmartText.startRotatingText();
-            base.disposers.add(centerCrossNokhteReactor());
-            base.disposers.add(gestureCrossTapReactor());
+            disposers.add(centerCrossNokhteReactor());
+            disposers.add(gestureCrossTapReactor());
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedOnShore) {
             beachWaves.currentStore.setControl(Control.mirror);
@@ -322,7 +317,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     gestureCross.strokeCrossNokhte.setWidgetVisibility(true);
     homeInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
-        center: base.center,
+        center: center,
         colorway: GradientNokhteColorways.beachWave,
         direction: InstructionalGradientDirections.shrink,
         position: InstructionalNokhtePositions.bottom,
@@ -330,7 +325,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     );
     presetsInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
-        center: base.center,
+        center: center,
         colorway: GradientNokhteColorways.deeperBlue,
         direction: InstructionalGradientDirections.shrink,
         position: InstructionalNokhtePositions.left,
@@ -346,9 +341,9 @@ abstract class _SessionStarterWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!base.isDisconnected && readyToInteract) {
+    if (!isDisconnected && readyToInteract) {
       if (!hasInitiatedBlur) {
-        base.setTouchIsDisabled(true);
+        setTouchIsDisabled(true);
         hasSwipedDown = false;
         nokhteBlur.init();
         beachWaves.currentStore.setControl(Control.stop);
@@ -359,7 +354,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         presetsInstructionalNokhte.setWidgetVisibility(true);
         homeInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: base.center,
+            center: center,
             colorway: GradientNokhteColorways.beachWave,
             direction: InstructionalGradientDirections.enlarge,
             position: InstructionalNokhtePositions.bottom,
@@ -367,7 +362,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         );
         presetsInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: base.center,
+            center: center,
             colorway: GradientNokhteColorways.deeperBlue,
             direction: InstructionalGradientDirections.enlarge,
             position: InstructionalNokhtePositions.left,
@@ -378,7 +373,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         primarySmartText.setWidgetVisibility(false);
         presetIcons.setWidgetVisibility(false);
         // secondarySmartText.startRotatingText(isResuming: true);
-        centerInstructionalNokhte.moveToCenter(base.center);
+        centerInstructionalNokhte.moveToCenter(center);
       } else if (hasInitiatedBlur) {
         dismissInstructionalNokhte();
       }
@@ -387,14 +382,12 @@ abstract class _SessionStarterWidgetsCoordinatorBase
 
   @action
   onTap(Offset offset) {
-    print(
-        "is this boy running? $hasInitiatedBlur $readyToInteract? ${base.touchIsDisabled}");
-    if (!base.touchIsDisabled) {
+    if (!touchIsDisabled) {
       if (secondarySmartText.currentIndex == 1 ||
           secondarySmartText.currentIndex == 3) {
         touchRipple.onTap(offset);
         nokhteBlur.reverse();
-        base.setTouchIsDisabled(true);
+        setTouchIsDisabled(true);
         beachWaves.currentStore.setControl(Control.mirror);
         hasInitiatedBlur = false;
         secondarySmartText.startRotatingText(isResuming: true);
@@ -407,7 +400,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
             presetsInstructionalNokhte.setWidgetVisibility(true);
             presetsInstructionalNokhte.initMovie(
               InstructionalGradientMovieParams(
-                center: base.center,
+                center: center,
                 colorway: GradientNokhteColorways.deeperBlue,
                 direction: InstructionalGradientDirections.shrink,
                 position: InstructionalNokhtePositions.left,
@@ -415,7 +408,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
             );
             homeInstructionalNokhte.initMovie(
               InstructionalGradientMovieParams(
-                center: base.center,
+                center: center,
                 colorway: GradientNokhteColorways.beachWave,
                 direction: InstructionalGradientDirections.shrink,
                 position: InstructionalNokhtePositions.bottom,
@@ -427,7 +420,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
             );
             presetsInstructionalNokhte.initMovie(
               InstructionalGradientMovieParams(
-                center: base.center,
+                center: center,
                 colorway: GradientNokhteColorways.deeperBlue,
                 direction: InstructionalGradientDirections.shrink,
                 position: InstructionalNokhtePositions.left,
@@ -436,7 +429,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
             homeInstructionalNokhte.setWidgetVisibility(true);
             homeInstructionalNokhte.initMovie(
               InstructionalGradientMovieParams(
-                center: base.center,
+                center: center,
                 colorway: GradientNokhteColorways.beachWave,
                 direction: InstructionalGradientDirections.shrink,
                 position: InstructionalNokhtePositions.bottom,
@@ -459,7 +452,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
       gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
       homeInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
-          center: base.center,
+          center: center,
           colorway: GradientNokhteColorways.beachWave,
           direction: InstructionalGradientDirections.shrink,
           position: InstructionalNokhtePositions.bottom,

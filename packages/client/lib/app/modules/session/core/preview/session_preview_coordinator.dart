@@ -53,7 +53,7 @@ abstract class _SessionPreviewCoordinatorBase
 
   @action
   initReactors() {
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -131,6 +131,5 @@ abstract class _SessionPreviewCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
   }
 }

@@ -15,7 +15,11 @@ class SessionGroupGreeterWidgetsCoordinator = _SessionGroupGreeterWidgetsCoordin
     with _$SessionGroupGreeterWidgetsCoordinator;
 
 abstract class _SessionGroupGreeterWidgetsCoordinatorBase
-    with Store, SessionRouter, SmartTextPaddingAdjuster {
+    with
+        Store,
+        SessionRouter,
+        SmartTextPaddingAdjuster,
+        BaseWidgetsCoordinator {
   @override
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
@@ -23,18 +27,19 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
   final TouchRippleStore touchRipple;
   final SessionSeatingGuideStore sessionSeatingGuide;
   final SessionPhonePlacementGuideStore sessionPhonePlacementGuide;
-  final BaseWidgetsCoordinator base;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionGroupGreeterWidgetsCoordinatorBase({
     required this.beachWaves,
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.sessionPhonePlacementGuide,
     required this.secondarySmartText,
     required this.touchRipple,
     required this.sessionSeatingGuide,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay) {
+  }) {
+    initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
   }
 

@@ -11,20 +11,22 @@ part 'socratic_just_symbols_widgets_coordinator.g.dart';
 class SocraticJustSymbolsWidgetsCoordinator = _SocraticJustSymbolsWidgetsCoordinatorBase
     with _$SocraticJustSymbolsWidgetsCoordinator;
 
-abstract class _SocraticJustSymbolsWidgetsCoordinatorBase with Store {
-  final BaseWidgetsCoordinator base;
+abstract class _SocraticJustSymbolsWidgetsCoordinatorBase
+    with Store, BaseWidgetsCoordinator, Reactions {
   final PresetDiagramStore presetDiagram;
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final TouchRippleStore touchRipple;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   _SocraticJustSymbolsWidgetsCoordinatorBase({
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.presetDiagram,
     required this.beachWaves,
     required this.smartText,
     required this.touchRipple,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+  }) {
+    initBaseWidgetsCoordinatorActions();
+  }
 
   @action
   constructor() {
@@ -35,8 +37,8 @@ abstract class _SocraticJustSymbolsWidgetsCoordinatorBase with Store {
     presetDiagram.initMovie(PresetDiagramMovieModes.appear);
     presetDiagram.setIsASocraticSession(true);
 
-    base.disposers.add(rippleCompletionStatusReactor());
-    base.disposers.add(presetDiagramsMovieStatusReactor());
+    disposers.add(rippleCompletionStatusReactor());
+    disposers.add(presetDiagramsMovieStatusReactor());
   }
 
   @observable

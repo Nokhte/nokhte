@@ -15,7 +15,7 @@ class SessionCollaborationGreeterCoordinator = _SessionCollaborationGreeterCoord
     with _$SessionCollaborationGreeterCoordinator;
 
 abstract class _SessionCollaborationGreeterCoordinatorBase
-    with Store, BaseCoordinator , Reactions{
+    with Store, BaseCoordinator, Reactions {
   final SessionCollaborationGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
@@ -56,7 +56,7 @@ abstract class _SessionCollaborationGreeterCoordinatorBase
 
   @action
   initReactors() {
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -102,6 +102,5 @@ abstract class _SessionCollaborationGreeterCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
   }
 }

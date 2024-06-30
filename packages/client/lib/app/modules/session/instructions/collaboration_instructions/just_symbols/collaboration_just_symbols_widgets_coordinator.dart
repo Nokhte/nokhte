@@ -11,21 +11,23 @@ part 'collaboration_just_symbols_widgets_coordinator.g.dart';
 class CollaborationJustSymbolsWidgetsCoordinator = _CollaborationJustSymbolsWidgetsCoordinatorBase
     with _$CollaborationJustSymbolsWidgetsCoordinator;
 
-abstract class _CollaborationJustSymbolsWidgetsCoordinatorBase with Store {
+abstract class _CollaborationJustSymbolsWidgetsCoordinatorBase
+    with Store, BaseWidgetsCoordinator, Reactions {
   final PresetDiagramStore presetDiagram;
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final TouchRippleStore touchRipple;
-  final BaseWidgetsCoordinator base;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   _CollaborationJustSymbolsWidgetsCoordinatorBase({
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.presetDiagram,
     required this.beachWaves,
     required this.smartText,
     required this.touchRipple,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
-
+  }) {
+    initBaseWidgetsCoordinatorActions();
+  }
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.deepSeaToBorealis);
@@ -33,8 +35,8 @@ abstract class _CollaborationJustSymbolsWidgetsCoordinatorBase with Store {
     smartText.setStaticAltMovie(SessionConstants.blue);
     presetDiagram.initMovie(PresetDiagramMovieModes.appear);
 
-    base.disposers.add(rippleCompletionStatusReactor());
-    base.disposers.add(presetDiagramsMovieStatusReactor());
+    disposers.add(rippleCompletionStatusReactor());
+    disposers.add(presetDiagramsMovieStatusReactor());
   }
 
   @observable

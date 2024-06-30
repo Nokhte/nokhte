@@ -37,7 +37,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
     primarySmartText.startRotatingText();
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
     storageInstructionalNokhte.prepareYellowDiamond(
-      base.center,
+      center,
       position: InstructionalNokhtePositions.right,
       colorway: GradientNokhteColorways.vibrantBlue,
     );
@@ -46,9 +46,9 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   initReactors() {
-    base.disposers.add(gestureCrossTapReactor());
-    base.disposers.add(centerInstructionalNokhteMovieReactor());
-    base.disposers.add(centerCrossNokhteReactor(() {
+    disposers.add(gestureCrossTapReactor());
+    disposers.add(centerInstructionalNokhteMovieReactor());
+    disposers.add(centerCrossNokhteReactor(() {
       sessionStarterInstructionalNokhte.setWidgetVisibility(false);
       storageInstructionalNokhte.setWidgetVisibility(false);
     }));
@@ -92,18 +92,18 @@ abstract class _StorageGuideWidgetsCoordinatorBase
     sessionStarterInstructionalNokhte.setWidgetVisibility(true);
     sessionStarterInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
-        center: base.center,
+        center: center,
         colorway: GradientNokhteColorways.invertedBeachWave,
         direction: InstructionalGradientDirections.enlarge,
         position: InstructionalNokhtePositions.top,
       ),
     );
-    centerInstructionalNokhte.moveToCenter(base.center);
+    centerInstructionalNokhte.moveToCenter(center);
   }
 
   @action
   onGestureCrossTap() {
-    if (!base.isDisconnected &&
+    if (!isDisconnected &&
         isAllowedToMakeAGesture &&
         !swipeRightIsUnlocked &&
         canTapOnGestureCross) {
@@ -114,7 +114,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   onSwipeUp() {
-    if (!base.isDisconnected && isAllowedToMakeAGesture) {
+    if (!isDisconnected && isAllowedToMakeAGesture) {
       if (!hasInitiatedBlur) {
         centerInstructionalNokhte.setWidgetVisibility(false);
         gestureCross.centerCrossNokhte.setWidgetVisibility(true);
@@ -126,7 +126,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   onSwipeRight() {
-    if (!base.isDisconnected && isAllowedToMakeAGesture) {
+    if (!isDisconnected && isAllowedToMakeAGesture) {
       if (hasInitiatedBlur && !hasSwipedUp) {
         hasSwipedUp = true;
         centerNokhtePosition = InstructionalNokhtePositions.right;
@@ -152,7 +152,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   onTap(Offset tapPosition) {
-    if (!base.isDisconnected && canTap) {
+    if (!isDisconnected && canTap) {
       touchRipple.onTap(tapPosition);
       hasInitiatedBlur = false;
       canTap = false;
@@ -162,7 +162,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
       );
       storageInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
-          center: base.center,
+          center: center,
           colorway: GradientNokhteColorways.vibrantBlue,
           direction: InstructionalGradientDirections.shrink,
           position: InstructionalNokhtePositions.right,
@@ -172,7 +172,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
       sessionStarterInstructionalNokhte.setWidgetVisibility(true);
       sessionStarterInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
-          center: base.center,
+          center: center,
           colorway: GradientNokhteColorways.invertedBeachWave,
           direction: InstructionalGradientDirections.shrink,
           position: InstructionalNokhtePositions.top,

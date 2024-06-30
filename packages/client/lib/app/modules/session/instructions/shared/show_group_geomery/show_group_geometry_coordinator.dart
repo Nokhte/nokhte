@@ -39,7 +39,7 @@ abstract class _ShowGroupGeometryCoordinatorBase
 
   @action
   initReactors() {
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -52,6 +52,6 @@ abstract class _ShowGroupGeometryCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
+    widgets.dispose();
   }
 }

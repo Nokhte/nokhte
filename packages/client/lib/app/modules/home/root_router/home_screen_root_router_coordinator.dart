@@ -55,7 +55,7 @@ abstract class _HomeScreenRootRouterCoordinatorBase
   }
 
   initReactors() {
-    widgets.base.wifiDisconnectOverlay.initReactors(
+    widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () async {
         widgets.onConnected();
         setIsConnected(true);

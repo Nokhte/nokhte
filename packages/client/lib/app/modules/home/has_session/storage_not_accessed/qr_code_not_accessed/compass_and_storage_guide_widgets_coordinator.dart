@@ -46,7 +46,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
     primarySmartText.setMessagesData(HomeLists.compassAndStorageGuide);
     sessionStarterInstructionalNokhte.prepareYellowDiamond(
-      base.center,
+      center,
       position: InstructionalNokhtePositions.right,
       colorway: GradientNokhteColorways.vibrantBlue,
     );
@@ -56,20 +56,20 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
 
   @action
   initReactors() {
-    base.disposers.add(gestureCrossTapReactor());
-    base.disposers.add(centerInstructionalNokhteReactor());
-    base.disposers.add(centerCrossNokhteReactor(() {
+    disposers.add(gestureCrossTapReactor());
+    disposers.add(centerInstructionalNokhteReactor());
+    disposers.add(centerCrossNokhteReactor(() {
       sessionStarterInstructionalNokhte.setWidgetVisibility(false);
     }));
   }
 
   @action
   onTap(Offset offset) async {
-    if (!base.isDisconnected && !base.touchIsDisabled) {
+    if (!isDisconnected && !touchIsDisabled) {
       if (primarySmartText.currentIndex == 1) {
-        base.setTouchIsDisabled(true);
+        setTouchIsDisabled(true);
         primarySmartText.startRotatingText(isResuming: true);
-        centerInstructionalNokhte.moveToCenter(base.center);
+        centerInstructionalNokhte.moveToCenter(center);
         touchRipple.onTap(offset);
         setSmartTextPadding(
           subMessagePadding: 80,
@@ -78,7 +78,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
         );
         delayedEnableTouchFeedback();
       } else if (primarySmartText.currentIndex == 2) {
-        base.setTouchIsDisabled(true);
+        setTouchIsDisabled(true);
         primarySmartText.startRotatingText(isResuming: true);
         sessionStarterInstructionalNokhte.setWidgetVisibility(true);
         touchRipple.onTap(offset);
@@ -86,11 +86,11 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
       } else if (primarySmartText.currentIndex == 4) {
         primarySmartText.startRotatingText(isResuming: true);
         hasSwipedUp = false;
-        base.setTouchIsDisabled(true);
+        setTouchIsDisabled(true);
         Timer(Seconds.get(1, milli: 500), () {
           sessionStarterInstructionalNokhte.initMovie(
             InstructionalGradientMovieParams(
-              center: base.center,
+              center: center,
               colorway: GradientNokhteColorways.vibrantBlue,
               direction: InstructionalGradientDirections.shrink,
               position: InstructionalNokhtePositions.right,
@@ -116,7 +116,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!base.isDisconnected &&
+    if (!isDisconnected &&
         !hasInitiatedBlur &&
         !isEnteringNokhteSession &&
         !isInErrorMode &&
@@ -133,7 +133,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
 
   @action
   onSwipeRight() {
-    if (!base.isDisconnected && isAllowedToMakeAGesture) {
+    if (!isDisconnected && isAllowedToMakeAGesture) {
       if (!hasSwipedUp &&
           primarySmartText.currentIndex == 3 &&
           hasInitiatedBlur) {
@@ -173,7 +173,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
           Timer(Seconds.get(1), () {
             centerInstructionalNokhte.setWidgetVisibility(false);
             sessionStarterInstructionalNokhte.setWidgetVisibility(false);
-            base.setTouchIsDisabled(false);
+            setTouchIsDisabled(false);
           });
         }
       });

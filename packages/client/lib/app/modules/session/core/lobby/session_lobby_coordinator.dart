@@ -79,7 +79,7 @@ abstract class _SessionLobbyCoordinatorBase
   @action
   initReactors() {
     disposers.add(deepLinkReactor());
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -191,7 +191,6 @@ abstract class _SessionLobbyCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
   }
 
   @computed

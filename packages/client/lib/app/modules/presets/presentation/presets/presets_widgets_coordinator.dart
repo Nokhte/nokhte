@@ -14,7 +14,7 @@ class PresetsWidgetsCoordinator = _PresetsWidgetsCoordinatorBase
     with _$PresetsWidgetsCoordinator;
 
 abstract class _PresetsWidgetsCoordinatorBase
-    with Store, SmartTextPaddingAdjuster {
+    with Store, SmartTextPaddingAdjuster, BaseWidgetsCoordinator, Reactions {
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final GestureCrossStore gestureCross;
@@ -25,7 +25,8 @@ abstract class _PresetsWidgetsCoordinatorBase
   final NokhteBlurStore nokhteBlur;
   final PresetCardsStore presetCards;
   final CondensedPresetCardsStore condensedPresetCards;
-  final BaseWidgetsCoordinator base;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _PresetsWidgetsCoordinatorBase({
     required this.beachWaves,
@@ -34,14 +35,12 @@ abstract class _PresetsWidgetsCoordinatorBase
     required this.headerText,
     required this.smartText,
     required this.presetCards,
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.centerInstructionalNokhte,
     required this.sessionStarterInstructionalNokhte,
     required this.nokhteBlur,
-  })  : condensedPresetCards = presetCards.condensed,
-        base = BaseWidgetsCoordinator(
-          wifiDisconnectOverlay: wifiDisconnectOverlay,
-        ) {
+  }) : condensedPresetCards = presetCards.condensed {
+    initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
     setSmartTextSubMessagePaddingScalar(110);
   }
@@ -69,7 +68,7 @@ abstract class _PresetsWidgetsCoordinatorBase
 
   @action
   constructor(Offset centerParam) {
-    base.center = centerParam;
+    setCenter(centerParam);
     beachWaves.setMovieMode(BeachWaveMovieModes.staticInvertedDeeperBlue);
     gestureCross.fadeIn();
     gestureCross.cross.initStaticGlow();
@@ -81,13 +80,13 @@ abstract class _PresetsWidgetsCoordinatorBase
   }
 
   initReactors() {
-    base.disposers.add(beachWavesMovieStatusReactor());
-    base.disposers.add(centerInstructionalNokhteReactor());
-    base.disposers.add(centerCrossNokhteReactor());
-    base.disposers.add(gestureCrossTapReactor());
-    base.disposers.add(transitionsCondensedPresetCardMovieStatusReactor());
-    base.disposers.add(condensedPresetCardHoldReactor());
-    base.disposers.add(condensedPresetCardTapReactor());
+    disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(centerInstructionalNokhteReactor());
+    disposers.add(centerCrossNokhteReactor());
+    disposers.add(gestureCrossTapReactor());
+    disposers.add(transitionsCondensedPresetCardMovieStatusReactor());
+    disposers.add(condensedPresetCardHoldReactor());
+    disposers.add(condensedPresetCardTapReactor());
   }
 
   @action
@@ -113,7 +112,7 @@ abstract class _PresetsWidgetsCoordinatorBase
 
   @action
   onSwipeRight() {
-    if (!base.isDisconnected &&
+    if (!isDisconnected &&
         centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (instructionalNokhteAreVisible) {
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.right);
@@ -202,7 +201,7 @@ abstract class _PresetsWidgetsCoordinatorBase
       );
       sessionStarterInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
-          center: base.center,
+          center: center,
           colorway: GradientNokhteColorways.invertedBeachWave,
           direction: InstructionalGradientDirections.shrink,
           position: InstructionalNokhtePositions.right,
@@ -215,7 +214,7 @@ abstract class _PresetsWidgetsCoordinatorBase
       );
       sessionStarterInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
-          center: base.center,
+          center: center,
           colorway: GradientNokhteColorways.invertedBeachWave,
           direction: InstructionalGradientDirections.shrink,
           position: InstructionalNokhtePositions.right,
@@ -230,16 +229,16 @@ abstract class _PresetsWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!base.isDisconnected && readyToInteract) {
+    if (!isDisconnected && readyToInteract) {
       if (!instructionalNokhteAreVisible) {
-        base.setTouchIsDisabled(true);
+        setTouchIsDisabled(true);
         nokhteBlur.init();
         beachWaves.currentStore.setControl(Control.stop);
         instructionalNokhteAreVisible = true;
         sessionStarterInstructionalNokhte.setWidgetVisibility(true);
         sessionStarterInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: base.center,
+            center: center,
             colorway: GradientNokhteColorways.invertedBeachWave,
             direction: InstructionalGradientDirections.enlarge,
             position: InstructionalNokhtePositions.right,
@@ -247,7 +246,7 @@ abstract class _PresetsWidgetsCoordinatorBase
         );
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         gestureCross.gradientNokhte.setWidgetVisibility(false);
-        centerInstructionalNokhte.moveToCenter(base.center);
+        centerInstructionalNokhte.moveToCenter(center);
       } else if (instructionalNokhteAreVisible) {
         dismissInstructionalNokhte();
       }
@@ -286,7 +285,7 @@ abstract class _PresetsWidgetsCoordinatorBase
           setSmartTextSubMessagePaddingScalar(110);
           smartText.startRotatingText();
           hasSwiped = false;
-          base.setTouchIsDisabled(false);
+          setTouchIsDisabled(false);
         }
       });
 

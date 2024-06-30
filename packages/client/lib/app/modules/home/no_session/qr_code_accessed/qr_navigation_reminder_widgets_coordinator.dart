@@ -48,7 +48,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
     gestureCross.fadeIn(onFadeIn: Left(() {
       sessionStarterInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
-          center: base.center,
+          center: center,
           colorway: GradientNokhteColorways.invertedBeachWave,
           direction: InstructionalGradientDirections.enlarge,
           position: InstructionalNokhtePositions.top,
@@ -63,14 +63,14 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
 
   @action
   initReactors() {
-    base.disposers.add(gestureCrossTapReactor());
-    base.disposers.add(centerInstructionalNokhteReactor());
-    base.disposers.add(centerCrossNokhteReactor(() {}));
+    disposers.add(gestureCrossTapReactor());
+    disposers.add(centerInstructionalNokhteReactor());
+    disposers.add(centerCrossNokhteReactor(() {}));
   }
 
   @action
   onSwipeUp() {
-    if (!base.isDisconnected &&
+    if (!isDisconnected &&
         centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
         hasInitiatedBlur = false;
@@ -92,12 +92,12 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
 
   @action
   onTap(Offset offset) {
-    if (!base.isDisconnected && !base.touchIsDisabled) {
+    if (!isDisconnected && !touchIsDisabled) {
       if (primarySmartText.currentIndex == 2) {
         primarySmartText.startRotatingText(isResuming: true);
         touchRipple.onTap(offset);
         nokhteBlur.reverse();
-        base.setTouchIsDisabled(true);
+        setTouchIsDisabled(true);
         beachWaves.currentStore.setControl(Control.mirror);
         toggleHasInitiatedBlur();
         Timer(Seconds.get(1, milli: 500), () {
@@ -106,7 +106,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
           );
           sessionStarterInstructionalNokhte.initMovie(
             InstructionalGradientMovieParams(
-              center: base.center,
+              center: center,
               colorway: GradientNokhteColorways.invertedBeachWave,
               direction: InstructionalGradientDirections.shrink,
               position: InstructionalNokhtePositions.top,
@@ -130,7 +130,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
           gestureCross.centerCrossNokhte.setWidgetVisibility(true);
           gestureCross.gradientNokhte.setWidgetVisibility(true);
           hasSwipedUp = false;
-          base.setTouchIsDisabled(false);
+          setTouchIsDisabled(false);
         }
       });
 
@@ -147,7 +147,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
     );
     sessionStarterInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
-        center: base.center,
+        center: center,
         colorway: GradientNokhteColorways.invertedBeachWave,
         direction: InstructionalGradientDirections.shrink,
         position: InstructionalNokhtePositions.top,
@@ -163,7 +163,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!base.isDisconnected && readyToInteract) {
+    if (!isDisconnected && readyToInteract) {
       if (!hasInitiatedBlur) {
         hasSwipedUp = false;
         nokhteBlur.init();
@@ -171,7 +171,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
         hasInitiatedBlur = true;
         sessionStarterInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: base.center,
+            center: center,
             colorway: GradientNokhteColorways.invertedBeachWave,
             direction: InstructionalGradientDirections.enlarge,
             position: InstructionalNokhtePositions.top,
@@ -180,7 +180,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         gestureCross.gradientNokhte.setWidgetVisibility(false);
         primarySmartText.startRotatingText(isResuming: true);
-        centerInstructionalNokhte.moveToCenter(base.center);
+        centerInstructionalNokhte.moveToCenter(center);
         setSmartTextPadding(bottomPadding: .14);
         delayedEnableTouchFeedback();
       } else if (hasInitiatedBlur) {

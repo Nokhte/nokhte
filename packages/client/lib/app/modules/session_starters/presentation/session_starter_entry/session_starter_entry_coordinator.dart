@@ -46,6 +46,5 @@ abstract class _SessionStarterEntryCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
   }
 }

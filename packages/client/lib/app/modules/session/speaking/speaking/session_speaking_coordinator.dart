@@ -14,7 +14,8 @@ part 'session_speaking_coordinator.g.dart';
 class SessionSpeakingCoordinator = _SessionSpeakingCoordinatorBase
     with _$SessionSpeakingCoordinator;
 
-abstract class _SessionSpeakingCoordinatorBase with Store, BaseCoordinator, Reactions {
+abstract class _SessionSpeakingCoordinatorBase
+    with Store, BaseCoordinator, Reactions {
   final SessionSpeakingWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final HoldDetector hold;
@@ -43,7 +44,7 @@ abstract class _SessionSpeakingCoordinatorBase with Store, BaseCoordinator, Reac
   initReactors() {
     disposers.add(holdReactor());
     disposers.add(letGoReactor());
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -150,7 +151,7 @@ abstract class _SessionSpeakingCoordinatorBase with Store, BaseCoordinator, Reac
   }
 
   deconstructor() {
-    widgets.base.deconstructor();
     dispose();
+    widgets.dispose();
   }
 }

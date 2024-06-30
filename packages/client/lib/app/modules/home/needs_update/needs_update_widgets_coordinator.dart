@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/mobx/base_widgets_coordinator.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'needs_update_widgets_coordinator.g.dart';
@@ -11,21 +11,24 @@ part 'needs_update_widgets_coordinator.g.dart';
 class NeedsUpdateWidgetsCoordinator = _NeedsUpdateWidgetsCoordinatorBase
     with _$NeedsUpdateWidgetsCoordinator;
 
-abstract class _NeedsUpdateWidgetsCoordinatorBase with Store {
-  final BaseWidgetsCoordinator base;
+abstract class _NeedsUpdateWidgetsCoordinatorBase
+    with Store, Reactions, BaseWidgetsCoordinator {
   final GestureCrossStore gestureCross;
   final BeachWavesStore beachWaves;
   final TintStore tint;
   final NokhteGradientTextStore gradientText;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _NeedsUpdateWidgetsCoordinatorBase({
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
-    required this.tint,
-    required this.beachWaves,
     required this.gestureCross,
+    required this.beachWaves,
+    required this.tint,
     required this.gradientText,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+    required this.wifiDisconnectOverlay,
+  }) {
+    initBaseWidgetsCoordinatorActions();
+  }
 
   @observable
   ResumeOnShoreParams params = ResumeOnShoreParams.initial();
@@ -38,7 +41,7 @@ abstract class _NeedsUpdateWidgetsCoordinatorBase with Store {
     gestureCross.fadeInTheCross();
     beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
     beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
-    base.disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(beachWavesMovieStatusReactor());
     tint.initMovie(NoParams());
     gradientText.setWidgetVisibility(false);
     Timer(Seconds.get(1), () {

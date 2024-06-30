@@ -42,7 +42,7 @@ abstract class SessionNotesInstructionsCoordinatorBase
   @action
   initReactors() {
     disposers.add(tapReactor());
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => widgets.setDisableTouchInput(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
@@ -81,6 +81,5 @@ abstract class SessionNotesInstructionsCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
   }
 }

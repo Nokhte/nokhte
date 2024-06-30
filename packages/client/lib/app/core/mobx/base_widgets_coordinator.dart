@@ -1,39 +1,43 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:flutter/material.dart';
+import 'dart:ui';
+
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-part 'base_widgets_coordinator.g.dart';
 
-class BaseWidgetsCoordinator = _BaseWidgetsCoordinatorBase
-    with _$BaseWidgetsCoordinator;
+mixin BaseWidgetsCoordinator {
+  WifiDisconnectOverlayStore get wifiDisconnectOverlay;
 
-abstract class _BaseWidgetsCoordinatorBase with Store {
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
+  final _center = Observable(Offset.zero);
+  final _isDisconnected = Observable(false);
+  final _touchIsDisabled = Observable(false);
 
-  _BaseWidgetsCoordinatorBase({
-    required this.wifiDisconnectOverlay,
-  });
+  Offset get center => _center.value;
+  bool get touchIsDisabled => _touchIsDisabled.value;
+  bool get isDisconnected => _isDisconnected.value;
 
-  List<ReactionDisposer> disposers = [];
+  _setCenter(Offset value) => _center.value = value;
+  _setIsDisconnected(bool value) => _isDisconnected.value = value;
+  _setTouchIsDisabled(bool value) => _touchIsDisabled.value = value;
 
-  @observable
-  Offset center = Offset.zero;
+  Action actionSetCenter = Action(() {});
+  Action actionSetIsDisconnected = Action(() {});
+  Action actionSetTouchIsDisabled = Action(() {});
 
-  @observable
-  bool isDisconnected = false;
+  setIsDisconnected(bool value) {
+    actionSetIsDisconnected([value]);
+  }
 
-  @observable
-  bool touchIsDisabled = false;
+  setCenter(Offset value) {
+    actionSetCenter([value]);
+  }
 
-  @action
-  setIsDisconnected(bool newValue) => isDisconnected = newValue;
+  setTouchIsDisabled(bool value) {
+    actionSetTouchIsDisabled([value]);
+  }
 
-  @action
-  setTouchIsDisabled(bool value) => touchIsDisabled = value;
-
-  deconstructor() {
-    for (var disposer in disposers) {
-      disposer.call();
-    }
+  initBaseWidgetsCoordinatorActions() {
+    actionSetCenter = Action(_setCenter);
+    actionSetIsDisconnected = Action(_setIsDisconnected);
+    actionSetTouchIsDisabled = Action(_setTouchIsDisabled);
   }
 }

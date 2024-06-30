@@ -45,7 +45,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
 
   @action
   onSwipeUp() {
-    if (!base.isDisconnected && isAllowedToMakeAGesture) {
+    if (!isDisconnected && isAllowedToMakeAGesture) {
       if (hasInitiatedBlur && !hasSwipedUp) {
         hasSwipedUp = true;
         canTap = true;
@@ -66,8 +66,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
 
   @action
   initReactors() {
-    base.disposers.add(gestureCrossTapReactor());
-    base.disposers.add(centerCrossNokhteReactor(() {
+    disposers.add(gestureCrossTapReactor());
+    disposers.add(centerCrossNokhteReactor(() {
       sessionStarterInstructionalNokhte.setWidgetVisibility(false);
       storageInstructionalNokhte.setWidgetVisibility(false);
     }));
@@ -88,7 +88,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
 
   @action
   onSwipeRight() {
-    if (!base.isDisconnected && isAllowedToMakeAGesture) {
+    if (!isDisconnected && isAllowedToMakeAGesture) {
       if (hasInitiatedBlur && !hasSwipedUp) {
         hasSwipedUp = true;
         canTap = true;
@@ -120,7 +120,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
 
   @action
   onTap(Offset offset) {
-    if (!base.isDisconnected &&
+    if (!isDisconnected &&
         canTap &&
         centerInstructionalNokhte.movieStatus == MovieStatus.finished) {
       canTap = false;
@@ -132,7 +132,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         sessionStarterInstructionalNokhte.setWidgetVisibility(true);
         sessionStarterInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: base.center,
+            center: center,
             colorway: GradientNokhteColorways.invertedBeachWave,
             direction: InstructionalGradientDirections.shrink,
             position: InstructionalNokhtePositions.top,
@@ -141,7 +141,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         storageInstructionalNokhte.setWidgetVisibility(true);
         storageInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: base.center,
+            center: center,
             colorway: GradientNokhteColorways.vibrantBlue,
             direction: InstructionalGradientDirections.shrink,
             position: InstructionalNokhtePositions.right,
@@ -157,7 +157,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         sessionStarterInstructionalNokhte.setWidgetVisibility(true);
         sessionStarterInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: base.center,
+            center: center,
             colorway: GradientNokhteColorways.invertedBeachWave,
             direction: InstructionalGradientDirections.shrink,
             position: InstructionalNokhtePositions.top,
@@ -166,7 +166,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         storageInstructionalNokhte.setWidgetVisibility(true);
         storageInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: base.center,
+            center: center,
             colorway: GradientNokhteColorways.vibrantBlue,
             direction: InstructionalGradientDirections.shrink,
             position: InstructionalNokhtePositions.right,
@@ -185,7 +185,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!base.isDisconnected &&
+    if (!isDisconnected &&
         !isEnteringNokhteSession &&
         canTapOnGestureCross &&
         isAllowedToMakeAGesture) {
@@ -195,12 +195,12 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         toggleHasInitiatedBlur();
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         gestureCross.gradientNokhte.setWidgetVisibility(false);
-        centerInstructionalNokhte.moveToCenter(base.center);
+        centerInstructionalNokhte.moveToCenter(center);
         sessionStarterInstructionalNokhte.setWidgetVisibility(true);
         storageInstructionalNokhte.setWidgetVisibility(true);
         sessionStarterInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: base.center,
+            center: center,
             colorway: GradientNokhteColorways.invertedBeachWave,
             direction: InstructionalGradientDirections.enlarge,
             position: InstructionalNokhtePositions.top,
@@ -208,7 +208,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         );
         storageInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: base.center,
+            center: center,
             colorway: GradientNokhteColorways.vibrantBlue,
             direction: InstructionalGradientDirections.enlarge,
             position: InstructionalNokhtePositions.right,
@@ -228,7 +228,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
     );
     sessionStarterInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
-        center: base.center,
+        center: center,
         colorway: GradientNokhteColorways.invertedBeachWave,
         direction: InstructionalGradientDirections.shrink,
         position: InstructionalNokhtePositions.top,
@@ -236,7 +236,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
     );
     sessionStarterInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
-        center: base.center,
+        center: center,
         colorway: GradientNokhteColorways.invertedBeachWave,
         direction: InstructionalGradientDirections.shrink,
         position: InstructionalNokhtePositions.top,
@@ -244,7 +244,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
     );
     storageInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
-        center: base.center,
+        center: center,
         colorway: GradientNokhteColorways.vibrantBlue,
         direction: InstructionalGradientDirections.shrink,
         position: InstructionalNokhtePositions.right,

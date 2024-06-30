@@ -12,23 +12,26 @@ part 'session_hybrid_notes_widgets_coordinator.g.dart';
 class SessionHybridNotesWidgetsCoordinator = _SessionHybridNotesWidgetsCoordinatorBase
     with _$SessionHybridNotesWidgetsCoordinator;
 
-abstract class _SessionHybridNotesWidgetsCoordinatorBase with Store {
+abstract class _SessionHybridNotesWidgetsCoordinatorBase
+    with Store, Reactions, BaseWidgetsCoordinator {
   final BeachWavesStore beachWaves;
   final TouchRippleStore touchRipple;
   final TextEditorStore textEditor;
   final SmartTextStore smartText;
   final BorderGlowStore borderGlow;
-  final BaseWidgetsCoordinator base;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionHybridNotesWidgetsCoordinatorBase({
     required this.beachWaves,
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.textEditor,
     required this.smartText,
     required this.borderGlow,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+  }) {
+    initBaseWidgetsCoordinatorActions();
+  }
 
   @observable
   String lastSubmittedText = '';
@@ -78,7 +81,7 @@ abstract class _SessionHybridNotesWidgetsCoordinatorBase with Store {
         navigateAway(isACollaborativeSession);
       }
     });
-    base.disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(beachWavesMovieStatusReactor());
     setCanSwipeUp(true);
   }
 

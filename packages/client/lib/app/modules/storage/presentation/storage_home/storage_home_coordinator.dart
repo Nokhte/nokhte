@@ -147,6 +147,6 @@ abstract class _StorageHomeCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
+    widgets.dispose();
   }
 }

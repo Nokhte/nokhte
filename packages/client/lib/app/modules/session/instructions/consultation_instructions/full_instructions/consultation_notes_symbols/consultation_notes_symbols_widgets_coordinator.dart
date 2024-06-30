@@ -12,20 +12,23 @@ part 'consultation_notes_symbols_widgets_coordinator.g.dart';
 class ConsultationNotesSymbolsWidgetsCoordinator = _ConsultationNotesSymbolsWidgetsCoordinatorBase
     with _$ConsultationNotesSymbolsWidgetsCoordinator;
 
-abstract class _ConsultationNotesSymbolsWidgetsCoordinatorBase with Store {
+abstract class _ConsultationNotesSymbolsWidgetsCoordinatorBase
+    with Store, BaseWidgetsCoordinator, Reactions {
   final PresetDiagramStore presetDiagram;
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final TouchRippleStore touchRipple;
-  final BaseWidgetsCoordinator base;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   _ConsultationNotesSymbolsWidgetsCoordinatorBase({
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.presetDiagram,
     required this.beachWaves,
     required this.smartText,
     required this.touchRipple,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+  }) {
+    initBaseWidgetsCoordinatorActions();
+  }
 
   @observable
   bool canTap = false;
@@ -41,8 +44,8 @@ abstract class _ConsultationNotesSymbolsWidgetsCoordinatorBase with Store {
 
   @action
   initReactors() {
-    base.disposers.add(presetDiagramsMovieStatusReactor());
-    base.disposers.add(rippleCompletionStatusReactor());
+    disposers.add(presetDiagramsMovieStatusReactor());
+    disposers.add(rippleCompletionStatusReactor());
   }
 
   @action

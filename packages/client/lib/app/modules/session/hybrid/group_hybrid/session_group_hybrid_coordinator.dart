@@ -54,7 +54,7 @@ abstract class _SessionGroupHybridCoordinatorBase
   initReactors() {
     disposers.add(holdReactor());
     disposers.add(letGoReactor());
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -163,6 +163,5 @@ abstract class _SessionGroupHybridCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
   }
 }

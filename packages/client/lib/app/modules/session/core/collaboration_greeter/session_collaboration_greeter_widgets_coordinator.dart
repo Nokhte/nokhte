@@ -12,22 +12,24 @@ class SessionCollaborationGreeterWidgetsCoordinator = _SessionCollaborationGreet
     with _$SessionCollaborationGreeterWidgetsCoordinator;
 
 abstract class _SessionCollaborationGreeterWidgetsCoordinatorBase
-    with Store, SessionRouter {
-  @override
-  final BeachWavesStore beachWaves;
+    with Store, SessionRouter, BaseWidgetsCoordinator {
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final TouchRippleStore touchRipple;
-  final BaseWidgetsCoordinator base;
+  @override
+  final BeachWavesStore beachWaves;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionCollaborationGreeterWidgetsCoordinatorBase({
     required this.beachWaves,
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.touchRipple,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+  }) {
+    initBaseWidgetsCoordinatorActions();
+  }
 
   @action
   constructor() {

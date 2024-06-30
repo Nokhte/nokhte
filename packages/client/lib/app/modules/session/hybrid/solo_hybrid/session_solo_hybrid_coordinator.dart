@@ -16,7 +16,7 @@ class SessionSoloHybridCoordinator = _SessionSoloHybridCoordinatorBase
     with _$SessionSoloHybridCoordinator;
 
 abstract class _SessionSoloHybridCoordinatorBase
-    with Store, BaseCoordinator  , Reactions{
+    with Store, BaseCoordinator, Reactions {
   final SessionSoloHybridWidgetsCoordinator widgets;
   final TapDetector tap;
   final SwipeDetector swipe;
@@ -50,7 +50,7 @@ abstract class _SessionSoloHybridCoordinatorBase
   setUserIsSpeaking(bool newValue) => userIsSpeaking = newValue;
 
   initReactors() {
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -158,6 +158,6 @@ abstract class _SessionSoloHybridCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
+    widgets.dispose();
   }
 }

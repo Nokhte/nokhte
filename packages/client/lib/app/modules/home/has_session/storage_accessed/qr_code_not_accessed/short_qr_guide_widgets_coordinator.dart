@@ -42,13 +42,13 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
   @action
   constructor(Offset offset) {
     super.constructor(offset);
-    base.touchIsDisabled = true;
+    setTouchIsDisabled(true);
     gestureCross.fadeIn();
     primarySmartText.setMessagesData(HomeLists.shortQrGuide);
     primarySmartText.startRotatingText();
     sessionStarterInstructionalNokhte.setWidgetVisibility(false);
     sessionStarterInstructionalNokhte.prepareYellowDiamond(
-      base.center,
+      center,
       position: InstructionalNokhtePositions.top,
       colorway: GradientNokhteColorways.invertedBeachWave,
     );
@@ -57,17 +57,17 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
 
   @action
   initReactors() {
-    base.disposers.add(gestureCrossTapReactor());
-    base.disposers.add(centerCrossNokhteReactor(() {
+    disposers.add(gestureCrossTapReactor());
+    disposers.add(centerCrossNokhteReactor(() {
       sessionStarterInstructionalNokhte.setWidgetVisibility(false);
       storageInstructionalNokhte.setWidgetVisibility(false);
     }));
-    base.disposers.add(centerInstructionalNokhteMovieReactor());
+    disposers.add(centerInstructionalNokhteMovieReactor());
   }
 
   @action
   onSwipeUp() {
-    if (!base.isDisconnected && isAllowedToMakeAGesture) {
+    if (!isDisconnected && isAllowedToMakeAGesture) {
       if (hasInitiatedBlur && !hasSwipedUp) {
         hasSwipedUp = true;
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
@@ -88,11 +88,11 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
 
   @action
   onTap(Offset offset) {
-    if (!base.isDisconnected && isAllowedToMakeAGesture) {
-      if (!base.touchIsDisabled) {
+    if (!isDisconnected && isAllowedToMakeAGesture) {
+      if (!touchIsDisabled) {
         touchRipple.onTap(offset);
         hasInitiatedBlur = false;
-        base.touchIsDisabled = true;
+        setTouchIsDisabled(true);
         hasSwipedUp = false;
         primarySmartText.startRotatingText(isResuming: true);
         nokhteBlur.reverse();
@@ -100,7 +100,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
         Timer(Seconds.get(1, milli: 500), () {
           sessionStarterInstructionalNokhte.initMovie(
             InstructionalGradientMovieParams(
-              center: base.center,
+              center: center,
               colorway: GradientNokhteColorways.invertedBeachWave,
               direction: InstructionalGradientDirections.shrink,
               position: InstructionalNokhtePositions.top,
@@ -112,7 +112,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
           storageInstructionalNokhte.setWidgetVisibility(true);
           storageInstructionalNokhte.initMovie(
             InstructionalGradientMovieParams(
-              center: base.center,
+              center: center,
               colorway: GradientNokhteColorways.vibrantBlue,
               direction: InstructionalGradientDirections.shrink,
               position: InstructionalNokhtePositions.right,
@@ -137,7 +137,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
 
   @action
   onSwipeRight() {
-    if (!base.isDisconnected && !hasInitiatedBlur && !hasSwipedUp) {
+    if (!isDisconnected && !hasInitiatedBlur && !hasSwipedUp) {
       hasSwipedUp = true;
       beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
       beachWaves.currentStore.initMovie(
@@ -166,7 +166,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
     storageInstructionalNokhte.setWidgetVisibility(true);
     storageInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
-        center: base.center,
+        center: center,
         colorway: GradientNokhteColorways.vibrantBlue,
         direction: InstructionalGradientDirections.enlarge,
         position: InstructionalNokhtePositions.right,
@@ -174,12 +174,12 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
     );
     gestureCross.gradientNokhte.setWidgetVisibility(false);
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-    centerInstructionalNokhte.moveToCenter(base.center);
+    centerInstructionalNokhte.moveToCenter(center);
   }
 
   @action
   onGestureCrossTap() {
-    if (!base.isDisconnected &&
+    if (!isDisconnected &&
         isAllowedToMakeAGesture &&
         !hasInitiatedBlur &&
         !hasTappedOnCross) {

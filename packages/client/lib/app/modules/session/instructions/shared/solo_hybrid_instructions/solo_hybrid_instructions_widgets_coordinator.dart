@@ -15,23 +15,24 @@ class SoloHybridInstructionsWidgetsCoordinator = _SoloHybridInstructionsWidgetsC
     with _$SoloHybridInstructionsWidgetsCoordinator;
 
 abstract class _SoloHybridInstructionsWidgetsCoordinatorBase
-    with Store, SmartTextPaddingAdjuster {
+    with Store, SmartTextPaddingAdjuster, BaseWidgetsCoordinator, Reactions {
   final SmartTextStore smartText;
   final BeachWavesStore beachWaves;
   final TouchRippleStore touchRipple;
   final BorderGlowStore borderGlow;
   final HoldTimerIndicatorStore holdTimerIndicator;
-  final BaseWidgetsCoordinator base;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SoloHybridInstructionsWidgetsCoordinatorBase({
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.smartText,
     required this.beachWaves,
     required this.touchRipple,
     required this.borderGlow,
     required this.holdTimerIndicator,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay) {
+  }) {
+    initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
     setSmartTextTopPaddingScalar(.15);
     setSmartTextBottomPaddingScalar(0);
@@ -86,8 +87,8 @@ abstract class _SoloHybridInstructionsWidgetsCoordinatorBase
   }
 
   initReactors() {
-    base.disposers.add(smartTextIndexReactor());
-    base.disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(smartTextIndexReactor());
+    disposers.add(beachWavesMovieStatusReactor());
   }
 
   setDisableTouchInput(bool newValue) => disableTouchInput = newValue;

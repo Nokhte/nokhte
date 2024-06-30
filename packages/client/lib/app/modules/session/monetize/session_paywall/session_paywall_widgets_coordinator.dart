@@ -18,7 +18,7 @@ class SessionPaywallWidgetsCoordinator = _SessionPaywallWidgetsCoordinatorBase
     with _$SessionPaywallWidgetsCoordinator;
 
 abstract class _SessionPaywallWidgetsCoordinatorBase
-    with Store, SmartTextPaddingAdjuster {
+    with Store, SmartTextPaddingAdjuster, BaseWidgetsCoordinator, Reactions {
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final SmartTextStore tertiarySmartText;
@@ -26,18 +26,19 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   final TouchRippleStore touchRipple;
   final GestureCrossStore gestureCross;
   final MultiplyingNokhteStore multiplyingNokhte;
-  final BaseWidgetsCoordinator base;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   _SessionPaywallWidgetsCoordinatorBase({
     required this.beachWaves,
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.gestureCross,
     required this.tertiarySmartText,
     required this.multiplyingNokhte,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay) {
+  }) {
+    initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
   }
 
@@ -70,7 +71,7 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
     secondarySmartText.setMessagesData(SessionLists.swipeUpToPay);
     tertiarySmartText.setMessagesData(SessionLists.swipeToDecide);
     setSmartTextBottomPaddingScalar(.1);
-    base.disposers.add(multiplyNokhteReactor());
+    disposers.add(multiplyNokhteReactor());
     setCanSwipe(false);
   }
 

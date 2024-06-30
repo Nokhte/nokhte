@@ -11,7 +11,7 @@ class SocraticFullInstructionsCoordinator = _SocraticFullInstructionsCoordinator
     with _$SocraticFullInstructionsCoordinator;
 
 abstract class _SocraticFullInstructionsCoordinatorBase
-    with Store, BaseCoordinator, Reactions  {
+    with Store, BaseCoordinator, Reactions {
   final SocraticFullInstructionsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
@@ -36,7 +36,7 @@ abstract class _SocraticFullInstructionsCoordinatorBase
 
   @action
   initReactors() {
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -56,6 +56,6 @@ abstract class _SocraticFullInstructionsCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
+    widgets.dispose();
   }
 }

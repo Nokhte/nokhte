@@ -44,7 +44,7 @@ abstract class _BaseHomeScreenCoordinatorBase
 
   initReactors() {
     deepLinks.listen();
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.onLongReconnected();
@@ -173,6 +173,6 @@ abstract class _BaseHomeScreenCoordinatorBase
   deconstructor() {
     dispose();
     deepLinks.dispose();
-    widgets.base.deconstructor();
+    widgets.dispose();
   }
 }

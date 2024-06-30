@@ -12,7 +12,7 @@ class CollaborationJustSymbolsCoordinator = _CollaborationJustSymbolsCoordinator
     with _$CollaborationJustSymbolsCoordinator;
 
 abstract class _CollaborationJustSymbolsCoordinatorBase
-    with Store, BaseCoordinator  , Reactions{
+    with Store, BaseCoordinator, Reactions {
   final CollaborationJustSymbolsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
@@ -37,7 +37,7 @@ abstract class _CollaborationJustSymbolsCoordinatorBase
 
   @action
   initReactors() {
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -65,6 +65,6 @@ abstract class _CollaborationJustSymbolsCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
+    widgets.dispose();
   }
 }

@@ -8,18 +8,20 @@ part 'home_screen_root_router_widgets_coordinator.g.dart';
 class HomeScreenRootRouterWidgetsCoordinator = _HomeScreenRootRouterWidgetsCoordinatorBase
     with _$HomeScreenRootRouterWidgetsCoordinator;
 
-abstract class _HomeScreenRootRouterWidgetsCoordinatorBase with Store {
+abstract class _HomeScreenRootRouterWidgetsCoordinatorBase
+    with Store, BaseWidgetsCoordinator {
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
-  final BaseWidgetsCoordinator base;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _HomeScreenRootRouterWidgetsCoordinatorBase({
     required this.beachWaves,
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.gestureCross,
-  }) : base = BaseWidgetsCoordinator(
-          wifiDisconnectOverlay: wifiDisconnectOverlay,
-        );
+  }) {
+    initBaseWidgetsCoordinatorActions();
+  }
 
   @observable
   WaterDirection waterDirection = WaterDirection.down;

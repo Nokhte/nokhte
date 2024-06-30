@@ -10,7 +10,8 @@ part 'socratic_just_symbols_coordinator.g.dart';
 class SocraticJustSymbolsCoordinator = _SocraticJustSymbolsCoordinatorBase
     with _$SocraticJustSymbolsCoordinator;
 
-abstract class _SocraticJustSymbolsCoordinatorBase with Store, BaseCoordinator , Reactions{
+abstract class _SocraticJustSymbolsCoordinatorBase
+    with Store, BaseCoordinator, Reactions {
   final SocraticJustSymbolsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
@@ -22,7 +23,9 @@ abstract class _SocraticJustSymbolsCoordinatorBase with Store, BaseCoordinator ,
     required this.widgets,
     required this.presence,
     required this.tap,
-  }) : sessionMetadata = presence.sessionMetadataStore;
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() {
@@ -32,7 +35,7 @@ abstract class _SocraticJustSymbolsCoordinatorBase with Store, BaseCoordinator ,
 
   @action
   initReactors() {
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -52,6 +55,6 @@ abstract class _SocraticJustSymbolsCoordinatorBase with Store, BaseCoordinator ,
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
+    widgets.dispose();
   }
 }

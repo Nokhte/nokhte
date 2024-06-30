@@ -34,7 +34,7 @@ class HomeScreenRootRouterScreen extends HookWidget {
             store: coordinator.widgets.gestureCross,
           ),
           WifiDisconnectOverlay(
-            store: coordinator.widgets.base.wifiDisconnectOverlay,
+            store: coordinator.widgets.wifiDisconnectOverlay,
           ),
         ],
       ),

@@ -98,7 +98,7 @@ class LoginScreen extends HookWidget {
                 ),
                 FullScreen(
                   child: WifiDisconnectOverlay(
-                    store: coordinator.widgets.base.wifiDisconnectOverlay,
+                    store: coordinator.widgets.wifiDisconnectOverlay,
                   ),
                 ),
               ],

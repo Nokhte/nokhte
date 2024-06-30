@@ -11,7 +11,8 @@ part 'session_notes_coordinator.g.dart';
 class SessionNotesCoordinator = _SessionNotesCoordinatorBase
     with _$SessionNotesCoordinator;
 
-abstract class _SessionNotesCoordinatorBase with Store, BaseCoordinator, Reactions {
+abstract class _SessionNotesCoordinatorBase
+    with Store, BaseCoordinator, Reactions {
   final SessionNotesWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
@@ -51,7 +52,7 @@ abstract class _SessionNotesCoordinatorBase with Store, BaseCoordinator, Reactio
         widgets.onCollaboratorLeft();
       },
     ));
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () => setDisableAllTouchFeedback(false),
       onDisconnected: () => setDisableAllTouchFeedback(true),
@@ -104,6 +105,5 @@ abstract class _SessionNotesCoordinatorBase with Store, BaseCoordinator, Reactio
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
   }
 }

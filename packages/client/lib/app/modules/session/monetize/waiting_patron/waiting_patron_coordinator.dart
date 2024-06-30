@@ -57,7 +57,7 @@ abstract class _WaitingPatronCoordinatorBase
   }
 
   initReactors() {
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {},
       onDisconnected: () {},
@@ -88,7 +88,6 @@ abstract class _WaitingPatronCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
   }
 
   @action

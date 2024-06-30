@@ -12,20 +12,23 @@ part 'socratic_full_instructions_widgets_coordinator.g.dart';
 class SocraticFullInstructionsWidgetsCoordinator = _SocraticFullInstructionsWidgetsCoordinatorBase
     with _$SocraticFullInstructionsWidgetsCoordinator;
 
-abstract class _SocraticFullInstructionsWidgetsCoordinatorBase with Store {
+abstract class _SocraticFullInstructionsWidgetsCoordinatorBase
+    with Store, BaseWidgetsCoordinator, Reactions {
   final PresetDiagramStore presetDiagram;
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final TouchRippleStore touchRipple;
-  final BaseWidgetsCoordinator base;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   _SocraticFullInstructionsWidgetsCoordinatorBase({
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.presetDiagram,
     required this.beachWaves,
     required this.smartText,
     required this.touchRipple,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+  }) {
+    initBaseWidgetsCoordinatorActions();
+  }
 
   @observable
   bool canTap = false;
@@ -45,7 +48,7 @@ abstract class _SocraticFullInstructionsWidgetsCoordinatorBase with Store {
 
   @action
   initReactors() {
-    base.disposers.add(rippleCompletionStatusReactor());
+    disposers.add(rippleCompletionStatusReactor());
   }
 
   @action

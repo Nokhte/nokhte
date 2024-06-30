@@ -8,7 +8,8 @@ part 'needs_update_coordinator.g.dart';
 class NeedsUpdateCoordinator = _NeedsUpdateCoordinatorBase
     with _$NeedsUpdateCoordinator;
 
-abstract class _NeedsUpdateCoordinatorBase with Store, BaseCoordinator, Reactions {
+abstract class _NeedsUpdateCoordinatorBase
+    with Store, BaseCoordinator, Reactions {
   final NeedsUpdateWidgetsCoordinator widgets;
   @override
   final CaptureScreen captureScreen;
@@ -28,6 +29,6 @@ abstract class _NeedsUpdateCoordinatorBase with Store, BaseCoordinator, Reaction
   @action
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
+    widgets.dispose();
   }
 }

@@ -13,25 +13,28 @@ part 'session_group_hybrid_widgets_coordinator.g.dart';
 class SessionGroupHybridWidgetsCoordinator = _SessionGroupHybridWidgetsCoordinatorBase
     with _$SessionGroupHybridWidgetsCoordinator;
 
-abstract class _SessionGroupHybridWidgetsCoordinatorBase with Store {
+abstract class _SessionGroupHybridWidgetsCoordinatorBase
+    with Store, BaseWidgetsCoordinator, Reactions {
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
   final BorderGlowStore borderGlow;
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
   final HalfScreenTintStore othersAreTalkingTint;
-  final BaseWidgetsCoordinator base;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionGroupHybridWidgetsCoordinatorBase({
     required this.othersAreTalkingTint,
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.mirroredText,
     required this.beachWaves,
     required this.borderGlow,
     required this.touchRipple,
     required this.speakLessSmileMore,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+  }) {
+    initBaseWidgetsCoordinatorActions();
+  }
 
   @action
   constructor(bool userCanSpeak) {
@@ -196,8 +199,8 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase with Store {
 
   @action
   initReactors() {
-    base.disposers.add(borderGlowReactor());
-    base.disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(borderGlowReactor());
+    disposers.add(beachWavesMovieStatusReactor());
   }
 
   onBorderGlowComplete(MovieStatus p0, BorderGlowStore store) {

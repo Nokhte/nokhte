@@ -13,22 +13,24 @@ class SessionDuoGreeterWidgetsCoordinator = _SessionDuoGreeterWidgetsCoordinator
     with _$SessionDuoGreeterWidgetsCoordinator;
 
 abstract class _SessionDuoGreeterWidgetsCoordinatorBase
-    with Store, SessionRouter {
-  final BaseWidgetsCoordinator base;
-  @override
-  final BeachWavesStore beachWaves;
+    with Store, SessionRouter, BaseWidgetsCoordinator {
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final TouchRippleStore touchRipple;
+  @override
+  final BeachWavesStore beachWaves;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionDuoGreeterWidgetsCoordinatorBase({
     required this.beachWaves,
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.touchRipple,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+  }) {
+    initBaseWidgetsCoordinatorActions();
+  }
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToDrySand);
@@ -45,7 +47,7 @@ abstract class _SessionDuoGreeterWidgetsCoordinatorBase
   bool isFirstTap = true;
 
   @observable
-bool  hasCompletedInstructions = false;
+  bool hasCompletedInstructions = false;
 
   @observable
   Stopwatch cooldownStopwatch = Stopwatch();

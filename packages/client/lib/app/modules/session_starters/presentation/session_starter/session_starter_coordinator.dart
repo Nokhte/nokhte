@@ -82,15 +82,15 @@ abstract class _SessionStarterCoordinatorBase
     disposers.add(deepLinkReactor());
     disposers.add(swipeCoordinatesReactor());
     disposers.add(swipeReactor());
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
-        widgets.base.setIsDisconnected(false);
+        widgets.setIsDisconnected(false);
       },
       onDisconnected: () {
         setDisableAllTouchFeedback(true);
-        widgets.base.setIsDisconnected(true);
+        widgets.setIsDisconnected(true);
       },
     ));
     disposers.add(nokhteSearchStatusReactor());

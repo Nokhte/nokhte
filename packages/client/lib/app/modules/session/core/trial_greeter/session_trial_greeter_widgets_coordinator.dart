@@ -8,21 +8,24 @@ part 'session_trial_greeter_widgets_coordinator.g.dart';
 class SessionTrialGreeterWidgetsCoordinator = _SessionTrialGreeterWidgetsCoordinatorBase
     with _$SessionTrialGreeterWidgetsCoordinator;
 
-abstract class _SessionTrialGreeterWidgetsCoordinatorBase with Store {
+abstract class _SessionTrialGreeterWidgetsCoordinatorBase
+    with Store, BaseWidgetsCoordinator {
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final TouchRippleStore touchRipple;
-  final BaseWidgetsCoordinator base;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionTrialGreeterWidgetsCoordinatorBase({
     required this.beachWaves,
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.touchRipple,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+  }){
+    initBaseWidgetsCoordinatorActions();
+  }
 
   @action
   constructor() {

@@ -13,24 +13,26 @@ part 'session_speaking_instructions_widgets_coordinator.g.dart';
 class SessionSpeakingInstructionsWidgetsCoordinator = _SessionSpeakingInstructionsWidgetsCoordinatorBase
     with _$SessionSpeakingInstructionsWidgetsCoordinator;
 
-abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase with Store {
+abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
+    with Store, BaseWidgetsCoordinator, Reactions {
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
   final TouchRippleStore touchRipple;
   final BorderGlowStore borderGlow;
   final HoldTimerIndicatorStore holdTimerIndicator;
-
-  final BaseWidgetsCoordinator base;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionSpeakingInstructionsWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.borderGlow,
     required this.holdTimerIndicator,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+  }) {
+    initBaseWidgetsCoordinatorActions();
+  }
 
   @observable
   Stopwatch cooldownStopwatch = Stopwatch();
@@ -72,8 +74,8 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase with Store {
   }
 
   initReactors() {
-    base.disposers.add(rightSideUpIndexReactor());
-    base.disposers.add(upsideDownIndexReactor());
+    disposers.add(rightSideUpIndexReactor());
+    disposers.add(upsideDownIndexReactor());
   }
 
   setDisableTouchInput(bool newValue) => disableTouchInput = newValue;

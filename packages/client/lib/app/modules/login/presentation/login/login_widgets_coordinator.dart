@@ -14,15 +14,16 @@ class LoginScreenWidgetsCoordinator = _LoginScreenWidgetsCoordinatorBase
     with _$LoginScreenWidgetsCoordinator;
 
 abstract class _LoginScreenWidgetsCoordinatorBase
-    with Store, SmartTextPaddingAdjuster {
+    with Store, SmartTextPaddingAdjuster, BaseWidgetsCoordinator, Reactions {
   final BeachWavesStore layer1BeachWaves;
   final BeachWavesStore layer2BeachWaves;
   final GestureCrossStore gestureCross;
   final SmartTextStore smartTextStore;
   final NokhteStore nokhte;
   final TrailingTextStore bottomTrailingText;
-  final BaseWidgetsCoordinator base;
   final TrailingTextStore topTrailingText;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _LoginScreenWidgetsCoordinatorBase({
     required this.layer1BeachWaves,
@@ -32,10 +33,9 @@ abstract class _LoginScreenWidgetsCoordinatorBase
     required this.nokhte,
     required this.bottomTrailingText,
     required this.topTrailingText,
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
-  }) : base = BaseWidgetsCoordinator(
-          wifiDisconnectOverlay: wifiDisconnectOverlay,
-        ) {
+    required this.wifiDisconnectOverlay,
+  }) {
+    initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
   }
 
@@ -169,9 +169,9 @@ abstract class _LoginScreenWidgetsCoordinatorBase
   }
 
   initReactors(Function loginBusinessLogic) {
-    base.disposers.add(nokhteReactor(loginBusinessLogic));
-    base.disposers.add(trailingTextReactor());
-    base.disposers.add(layer1BeachWavesReactor());
+    disposers.add(nokhteReactor(loginBusinessLogic));
+    disposers.add(trailingTextReactor());
+    disposers.add(layer1BeachWavesReactor());
   }
 
   nokhteReactor(Function loginBusinessLogic) =>

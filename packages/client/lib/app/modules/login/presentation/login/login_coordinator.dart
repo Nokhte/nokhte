@@ -75,7 +75,7 @@ abstract class _LoginCoordinatorBase
     disposers.add(tapReactor());
 
     disposers.addAll(
-        widgets.base.wifiDisconnectOverlay.initReactors(onQuickConnected: () {
+        widgets.wifiDisconnectOverlay.initReactors(onQuickConnected: () {
       setDisableAllTouchFeedback(false);
     }, onLongReConnected: () {
       widgets.onLongReConnected();
@@ -146,6 +146,6 @@ abstract class _LoginCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
+    widgets.dispose();
   }
 }

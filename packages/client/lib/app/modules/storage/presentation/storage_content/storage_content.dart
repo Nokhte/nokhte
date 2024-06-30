@@ -82,7 +82,7 @@ class StorageContentScreen extends HookWidget {
                   store: coordinator.widgets.primaryInstructionalGradientNokhte,
                 ),
                 WifiDisconnectOverlay(
-                  store: coordinator.widgets.base.wifiDisconnectOverlay,
+                  store: coordinator.widgets.wifiDisconnectOverlay,
                 ),
               ],
             ),

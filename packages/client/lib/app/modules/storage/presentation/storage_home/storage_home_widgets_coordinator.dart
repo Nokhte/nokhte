@@ -10,8 +10,8 @@ part 'storage_home_widgets_coordinator.g.dart';
 class StorageHomeWidgetsCoordinator = _StorageHomeWidgetsCoordinatorBase
     with _$StorageHomeWidgetsCoordinator;
 
-abstract class _StorageHomeWidgetsCoordinatorBase with Store, SmartTextPaddingAdjuster {
-  final BaseWidgetsCoordinator base;
+abstract class _StorageHomeWidgetsCoordinatorBase
+    with Store, SmartTextPaddingAdjuster, BaseWidgetsCoordinator, Reactions {
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
   final SessionCardStore sessionCard;
@@ -20,8 +20,10 @@ abstract class _StorageHomeWidgetsCoordinatorBase with Store, SmartTextPaddingAd
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final InstructionalGradientNokhteStore primaryInstructionalGradientNokhte;
   final NokhteBlurStore blur;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   _StorageHomeWidgetsCoordinatorBase({
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.beachWaves,
     required this.gestureCross,
     required this.primarySmartText,
@@ -30,14 +32,14 @@ abstract class _StorageHomeWidgetsCoordinatorBase with Store, SmartTextPaddingAd
     required this.centerInstructionalNokhte,
     required this.primaryInstructionalGradientNokhte,
     required this.blur,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay) {
+  }) {
+    initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
   }
 
   @action
   constructor(Offset offset) {
-    base.center = offset;
+    setCenter(offset);
     sessionCard.initFadeIn();
     primarySmartText.setMessagesData(StorageLists.homeHeader);
     setSmartTextBottomPaddingScalar(0);
@@ -52,9 +54,9 @@ abstract class _StorageHomeWidgetsCoordinatorBase with Store, SmartTextPaddingAd
   }
 
   initReactors() {
-    base.disposers.add(centerCrossNokhteReactor());
-    base.disposers.add(gestureCrossTapReactor());
-    base.disposers.add(centerInstructionalNokhteReactor());
+    disposers.add(centerCrossNokhteReactor());
+    disposers.add(gestureCrossTapReactor());
+    disposers.add(centerInstructionalNokhteReactor());
   }
 
   @observable
@@ -108,7 +110,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase with Store, SmartTextPaddingAd
         sessionCard.setDisableTouchInput(false);
         primaryInstructionalGradientNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: base.center,
+            center: center,
             colorway: GradientNokhteColorways.beachWave,
             direction: InstructionalGradientDirections.shrink,
             position: InstructionalNokhtePositions.left,
@@ -130,11 +132,11 @@ abstract class _StorageHomeWidgetsCoordinatorBase with Store, SmartTextPaddingAd
         hasInitiatedBlur = true;
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         gestureCross.gradientNokhte.setWidgetVisibility(false);
-        centerInstructionalNokhte.moveToCenter(base.center);
+        centerInstructionalNokhte.moveToCenter(center);
         primaryInstructionalGradientNokhte.setWidgetVisibility(true);
         primaryInstructionalGradientNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: base.center,
+            center: center,
             colorway: GradientNokhteColorways.beachWave,
             direction: InstructionalGradientDirections.enlarge,
             position: InstructionalNokhtePositions.left,
@@ -155,7 +157,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase with Store, SmartTextPaddingAd
         startingPosition: CenterNokhtePositions.center);
     primaryInstructionalGradientNokhte.initMovie(
       InstructionalGradientMovieParams(
-        center: base.center,
+        center: center,
         colorway: GradientNokhteColorways.beachWave,
         direction: InstructionalGradientDirections.shrink,
         position: InstructionalNokhtePositions.left,
@@ -198,9 +200,9 @@ abstract class _StorageHomeWidgetsCoordinatorBase with Store, SmartTextPaddingAd
     primaryInstructionalGradientNokhte.setWidgetVisibility(false);
   }
 
-  @action
-  dispose() {
+  deconstructor() {
     sessionCard.dispose();
+    dispose();
   }
 
   @computed

@@ -66,7 +66,7 @@ abstract class _SessionPaywallCoordinatorBase
       onCollaboratorJoined: () {},
       onCollaboratorLeft: () {},
     ));
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
@@ -165,6 +165,6 @@ abstract class _SessionPaywallCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
+    widgets.dispose();
   }
 }

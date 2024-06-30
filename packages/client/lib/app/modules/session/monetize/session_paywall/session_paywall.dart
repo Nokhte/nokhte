@@ -48,8 +48,8 @@ class SessionPaywallScreen extends HookWidget {
                 SmartText(
                   opacityDuration: Seconds.get(1),
                   store: coordinator.widgets.primarySmartText,
-                  bottomPadding: height *
-                      coordinator.widgets.smartTextBottomPaddingScalar,
+                  bottomPadding:
+                      height * coordinator.widgets.smartTextBottomPaddingScalar,
                   subTextPadding: height * .2,
                 ),
                 SmartText(
@@ -72,7 +72,7 @@ class SessionPaywallScreen extends HookWidget {
                   config: GestureCrossConfiguration(),
                 ),
                 WifiDisconnectOverlay(
-                  store: coordinator.widgets.base.wifiDisconnectOverlay,
+                  store: coordinator.widgets.wifiDisconnectOverlay,
                 ),
               ],
             ),

@@ -87,7 +87,7 @@ class BaseHomeScreen extends HookWidget {
                 ),
                 instructionalNokhtes,
                 WifiDisconnectOverlay(
-                  store: coordinator.widgets.base.wifiDisconnectOverlay,
+                  store: coordinator.widgets.wifiDisconnectOverlay,
                 ),
               ],
             ),

@@ -10,22 +10,24 @@ part 'session_preview_widgets_coordinator.g.dart';
 class SessionPreviewWidgetsCoordinator = _SessionPreviewWidgetsCoordinatorBase
     with _$SessionPreviewWidgetsCoordinator;
 
-abstract class _SessionPreviewWidgetsCoordinatorBase with Store {
+abstract class _SessionPreviewWidgetsCoordinatorBase
+    with Store, BaseWidgetsCoordinator {
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
   final TouchRippleStore touchRipple;
   final ExpandedPresetCardsStore presetCard;
-
-  final BaseWidgetsCoordinator base;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionPreviewWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.primarySmartText,
     required this.presetCard,
     required this.touchRipple,
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+    required this.wifiDisconnectOverlay,
+  }) {
+    initBaseWidgetsCoordinatorActions();
+  }
 
   @action
   constructor() {

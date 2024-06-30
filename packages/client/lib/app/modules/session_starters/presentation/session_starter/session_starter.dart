@@ -111,7 +111,7 @@ class SessionStarterScreen extends HookWidget {
                   store: coordinator.widgets.homeInstructionalNokhte,
                 ),
                 WifiDisconnectOverlay(
-                  store: coordinator.widgets.base.wifiDisconnectOverlay,
+                  store: coordinator.widgets.wifiDisconnectOverlay,
                 ),
               ],
             ),

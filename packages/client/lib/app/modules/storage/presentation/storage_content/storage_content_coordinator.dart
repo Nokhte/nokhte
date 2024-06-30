@@ -12,7 +12,8 @@ part 'storage_content_coordinator.g.dart';
 class StorageContentCoordinator = _StorageContentCoordinatorBase
     with _$StorageContentCoordinator;
 
-abstract class _StorageContentCoordinatorBase with Store, BaseCoordinator, Reactions {
+abstract class _StorageContentCoordinatorBase
+    with Store, BaseCoordinator, Reactions {
   final StorageContentWidgetsCoordinator widgets;
   final TapDetector tap;
   final SwipeDetector swipe;
@@ -67,7 +68,7 @@ abstract class _StorageContentCoordinatorBase with Store, BaseCoordinator, React
       });
 
   deconstructor() {
-    widgets.base.deconstructor();
     dispose();
+    widgets.dispose();
   }
 }

@@ -16,8 +16,7 @@ class SessionStarterInstructionsWidgetsCoordinator = _SessionStarterInstructions
     with _$SessionStarterInstructionsWidgetsCoordinator;
 
 abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
-    with Store, SmartTextPaddingAdjuster {
-  final BaseWidgetsCoordinator base;
+    with Store, SmartTextPaddingAdjuster, BaseWidgetsCoordinator, Reactions {
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final GestureCrossStore gestureCross;
@@ -26,19 +25,21 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
   final NokhteBlurStore nokhteBlur;
   final InstructionalGradientNokhteStore homeInstructionalNokhte;
   final InstructionalGradientNokhteStore presetsInstructionalNokhte;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionStarterInstructionsWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.touchRipple,
     required this.gestureCross,
     required this.smartText,
-    required WifiDisconnectOverlayStore wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.centerInstructionalNokhte,
     required this.nokhteBlur,
     required this.homeInstructionalNokhte,
     required this.presetsInstructionalNokhte,
-  }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay) {
+  }) {
+    initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
     setSmartTextTopPaddingScalar(0);
     setSmartTextBottomPaddingScalar(.27);
@@ -66,13 +67,13 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
   @action
   delayedEnableTouchFeedback() {
     Timer(Seconds.get(1, milli: 500), () {
-      base.setTouchIsDisabled(false);
+      setTouchIsDisabled(false);
     });
   }
 
   @action
   constructor(Offset centerParam) {
-    base.center = centerParam;
+    setCenter(centerParam);
     gestureCross.fadeIn(onFadeIn: Left(() {
       gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
     }));
@@ -81,7 +82,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
     beachWaves.currentStore.setControl(Control.playFromStart);
     smartText.startRotatingText();
     presetsInstructionalNokhte.prepareYellowDiamond(
-      base.center,
+      center,
       position: InstructionalNokhtePositions.left,
       colorway: GradientNokhteColorways.deeperBlue,
     );
@@ -97,7 +98,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
         presetsInstructionalNokhte.setControl(Control.play);
         homeInstructionalNokhte.setWidgetVisibility(false);
         delayedEnableTouchFeedback();
-        // base.setSmartTextPadding();
+        // setSmartTextPadding();
       } else if (hasUnlockedSwipeLeft) {
         smartText.startRotatingText(isResuming: true);
         gestureCross.cross.initOutlineFadeIn();
@@ -139,24 +140,24 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
   }
 
   initReactors() {
-    base.disposers.add(centerCrossNokhteReactor());
-    base.disposers.add(gestureCrossTapReactor());
-    base.disposers.add(beachWavesMovieStatusReactor());
-    base.disposers.add(centerInstructionalNokhteReactor());
+    disposers.add(centerCrossNokhteReactor());
+    disposers.add(gestureCrossTapReactor());
+    disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(centerInstructionalNokhteReactor());
   }
 
   @action
   onGestureCrossTap() {
-    if (!base.isDisconnected && readyToInteract) {
+    if (!isDisconnected && readyToInteract) {
       if (!hasInitiatedBlur && !hasUnlockedSwipeLeft) {
-        base.setTouchIsDisabled(true);
+        setTouchIsDisabled(true);
         hasSwipedDown = false;
         nokhteBlur.init();
         beachWaves.currentStore.setControl(Control.stop);
         homeInstructionalNokhte.setWidgetVisibility(true);
         homeInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
-            center: base.center,
+            center: center,
             colorway: GradientNokhteColorways.beachWave,
             direction: InstructionalGradientDirections.enlarge,
             position: InstructionalNokhtePositions.bottom,
@@ -167,18 +168,18 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         gestureCross.gradientNokhte.setWidgetVisibility(false);
         smartText.startRotatingText(isResuming: true);
-        centerInstructionalNokhte.moveToCenter(base.center);
+        centerInstructionalNokhte.moveToCenter(center);
       }
     }
   }
 
   @action
   onTap(Offset offset) {
-    if (!base.touchIsDisabled) {
+    if (!touchIsDisabled) {
       if (smartText.currentIndex == 2) {
         touchRipple.onTap(offset);
         nokhteBlur.reverse();
-        base.setTouchIsDisabled(true);
+        setTouchIsDisabled(true);
         beachWaves.currentStore.setControl(Control.mirror);
         setHasUnlockedSwipeLeft(true);
 
@@ -189,7 +190,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
           );
           presetsInstructionalNokhte.initMovie(
             InstructionalGradientMovieParams(
-              center: base.center,
+              center: center,
               colorway: GradientNokhteColorways.deeperBlue,
               direction: InstructionalGradientDirections.shrink,
               position: InstructionalNokhtePositions.left,
@@ -198,7 +199,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
           homeInstructionalNokhte.setWidgetVisibility(true);
           homeInstructionalNokhte.initMovie(
             InstructionalGradientMovieParams(
-              center: base.center,
+              center: center,
               colorway: GradientNokhteColorways.beachWave,
               direction: InstructionalGradientDirections.shrink,
               position: InstructionalNokhtePositions.bottom,
@@ -219,7 +220,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
           gestureCross.gradientNokhte.setWidgetVisibility(true);
           smartText.startRotatingText();
           hasSwipedDown = false;
-          base.setTouchIsDisabled(false);
+          setTouchIsDisabled(false);
         }
       });
 

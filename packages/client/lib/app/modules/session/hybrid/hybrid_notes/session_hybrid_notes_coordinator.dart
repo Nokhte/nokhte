@@ -66,7 +66,7 @@ abstract class _SessionHybridNotesCoordinatorBase
         widgets.onCollaboratorLeft();
       },
     ));
-    disposers.addAll(widgets.base.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () => setDisableAllTouchFeedback(false),
       onDisconnected: () => setDisableAllTouchFeedback(true),
@@ -112,6 +112,6 @@ abstract class _SessionHybridNotesCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.base.deconstructor();
+    widgets.dispose();
   }
 }

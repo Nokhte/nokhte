@@ -51,7 +51,7 @@ class SessionPreviewScreen extends HookWidget {
               ),
             ),
             WifiDisconnectOverlay(
-              store: coordinator.widgets.base.wifiDisconnectOverlay,
+              store: coordinator.widgets.wifiDisconnectOverlay,
             ),
           ],
         ),
