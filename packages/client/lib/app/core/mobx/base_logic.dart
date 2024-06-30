@@ -7,9 +7,6 @@ import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 
 mixin BaseMobxLogic<Params, T> {
-  // @observable
-  // StoreState state = StoreState.initial;
-
   final _state = Observable(StoreState.initial);
 
   StoreState get state => _state.value;

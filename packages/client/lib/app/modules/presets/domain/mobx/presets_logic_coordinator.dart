@@ -8,12 +8,14 @@ part 'presets_logic_coordinator.g.dart';
 class PresetsLogicCoordinator = _PresetsLogicCoordinatorBase
     with _$PresetsLogicCoordinator;
 
-abstract class _PresetsLogicCoordinatorBase extends BaseMobxDBStore with Store {
+abstract class _PresetsLogicCoordinatorBase with Store, BaseMobxLogic {
   final GetCompanyPresets getCompanyPresetsLogic;
 
   _PresetsLogicCoordinatorBase({
     required this.getCompanyPresetsLogic,
-  });
+  }) {
+    initBaseLogicActions();
+  }
 
   @observable
   ObservableList unifiedUIDs = ObservableList();

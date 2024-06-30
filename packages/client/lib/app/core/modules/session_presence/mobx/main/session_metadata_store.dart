@@ -13,8 +13,7 @@ class SessionMetadataStore = _SessionMetadataStoreBase
     with _$SessionMetadataStore;
 
 abstract class _SessionMetadataStoreBase
-    extends BaseMobxDBStore<NoParams, Stream<NokhteSessionMetadata>>
-    with Store {
+    with Store, BaseMobxLogic<NoParams, Stream<NokhteSessionMetadata>> {
   final ListenToSessionMetadata listenLogic;
   final GetStaticSessionMetadata getterLogic;
   final GetSessionPresetInfo presetLogic;
@@ -24,7 +23,9 @@ abstract class _SessionMetadataStoreBase
     required this.getInstructionTypeLogic,
     required this.getterLogic,
     required this.presetLogic,
-  });
+  }) {
+    initBaseLogicActions();
+  }
 
   @observable
   int userIndex = -1;
@@ -119,8 +120,8 @@ abstract class _SessionMetadataStoreBase
     final result = await listenLogic(params);
     result.fold(
       (failure) {
-        errorMessage = mapFailureToMessage(failure);
-        state = StoreState.initial;
+        setErrorMessage(mapFailureToMessage(failure));
+        setState(StoreState.initial);
       },
       (stream) {
         sessionMetadata = ObservableStream(stream);
@@ -136,7 +137,7 @@ abstract class _SessionMetadataStoreBase
           userIsSpeaking = value.userIsSpeaking;
           userCanSpeak = value.userCanSpeak;
         });
-        state = StoreState.loaded;
+        setState(StoreState.loaded);
       },
     );
   }

@@ -25,15 +25,6 @@ abstract class _BaseWidgetsCoordinatorBase with Store {
   bool isDisconnected = false;
 
   @observable
-  double smartTextTopPaddingScalar = 0;
-
-  @observable
-  double smartTextBottomPaddingScalar = .2;
-
-  @observable
-  double smartTextSubMessagePaddingScalar = 110;
-
-  @observable
   bool touchIsDisabled = false;
 
   @action
@@ -41,37 +32,6 @@ abstract class _BaseWidgetsCoordinatorBase with Store {
 
   @action
   setTouchIsDisabled(bool value) => touchIsDisabled = value;
-
-  @action
-  setSmartTextTopPaddingScalar(double value) =>
-      smartTextTopPaddingScalar = value;
-
-  @action
-  setSmartTextBottomPaddingScalar(double value) =>
-      smartTextBottomPaddingScalar = value;
-
-  @action
-  setSmartTextSubMessagePaddingScalar(double value) =>
-      smartTextSubMessagePaddingScalar = value;
-
-  @action
-  void setSmartTextPadding({
-    double? topPadding,
-    double? bottomPadding,
-    double? subMessagePadding,
-  }) =>
-      Timer(Seconds.get(1, milli: 500), () {
-        if (topPadding != null) {
-          setSmartTextTopPaddingScalar(topPadding);
-        }
-        if (bottomPadding != null) {
-          setSmartTextBottomPaddingScalar(bottomPadding);
-        }
-        if (subMessagePadding != null) {
-          setSmartTextSubMessagePaddingScalar(subMessagePadding);
-        }
-        setTouchIsDisabled(false);
-      });
 
   deconstructor() {
     for (var disposer in disposers) {
