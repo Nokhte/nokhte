@@ -17,7 +17,7 @@ class WaitingPatronCoordinator = _WaitingPatronCoordinatorBase
     with _$WaitingPatronCoordinator;
 
 abstract class _WaitingPatronCoordinatorBase
-    with Store, HomeScreenRouter, ChooseGreeterType, ExpBaseCoordinator {
+    with Store, HomeScreenRouter, ChooseGreeterType, BaseCoordinator {
   final TapDetector tap;
   final WaitingPatronWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;

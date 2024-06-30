@@ -15,7 +15,7 @@ class SessionCollaborationGreeterCoordinator = _SessionCollaborationGreeterCoord
     with _$SessionCollaborationGreeterCoordinator;
 
 abstract class _SessionCollaborationGreeterCoordinatorBase
-    with Store, ExpBaseCoordinator {
+    with Store, BaseCoordinator {
   final SessionCollaborationGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;

@@ -17,7 +17,7 @@ class StorageHomeCoordinator = _StorageHomeCoordinatorBase
     with _$StorageHomeCoordinator;
 
 abstract class _StorageHomeCoordinatorBase
-    with Store, HomeScreenRouter, ExpBaseCoordinator, BaseMobxLogic {
+    with Store, HomeScreenRouter, BaseCoordinator, BaseMobxLogic {
   final StorageHomeWidgetsCoordinator widgets;
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
   final UpdateSessionAlias updateSessionAliasLogic;

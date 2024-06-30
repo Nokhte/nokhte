@@ -18,7 +18,7 @@ class SessionLobbyCoordinator = _SessionLobbyCoordinatorBase
     with _$SessionLobbyCoordinator;
 
 abstract class _SessionLobbyCoordinatorBase
-    with Store, ChooseGreeterType, ExpBaseCoordinator {
+    with Store, ChooseGreeterType, BaseCoordinator {
   final SessionLobbyWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;

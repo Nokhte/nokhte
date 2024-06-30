@@ -18,7 +18,7 @@ class SessionExitCoordinator = _SessionExitCoordinatorBase
     with _$SessionExitCoordinator;
 
 abstract class _SessionExitCoordinatorBase
-    with Store, HomeScreenRouter, ExpBaseCoordinator {
+    with Store, HomeScreenRouter, BaseCoordinator {
   final SessionExitWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final SessionPresenceCoordinator presence;

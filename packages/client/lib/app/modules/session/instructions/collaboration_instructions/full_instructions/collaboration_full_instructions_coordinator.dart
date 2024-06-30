@@ -11,7 +11,7 @@ class CollaborationFullInstructionsCoordinator = _CollaborationFullInstructionsC
     with _$CollaborationFullInstructionsCoordinator;
 
 abstract class _CollaborationFullInstructionsCoordinatorBase
-    with Store, ExpBaseCoordinator {
+    with Store, BaseCoordinator {
   final CollaborationFullInstructionsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;

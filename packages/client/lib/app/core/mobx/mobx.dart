@@ -6,4 +6,3 @@ export './error.dart';
 export './store_state.dart';
 export 'base_widget_store.dart';
 export "./base_widgets_coordinator.dart";
-export './exp_base_coordinator.dart';

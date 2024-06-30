@@ -15,7 +15,7 @@ class SessionSpeakingInstructionsCoordinator = _SessionSpeakingInstructionsCoord
     with _$SessionSpeakingInstructionsCoordinator;
 
 abstract class _SessionSpeakingInstructionsCoordinatorBase
-    with Store, ExpBaseCoordinator {
+    with Store, BaseCoordinator {
   final TapDetector tap;
   final HoldDetector hold;
   final SessionSpeakingInstructionsWidgetsCoordinator widgets;

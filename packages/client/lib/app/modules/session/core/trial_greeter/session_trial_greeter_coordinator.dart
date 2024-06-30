@@ -16,7 +16,7 @@ class SessionTrialGreeterCoordinator = _SessionTrialGreeterCoordinatorBase
     with _$SessionTrialGreeterCoordinator;
 
 abstract class _SessionTrialGreeterCoordinatorBase
-    with Store, ChooseGreeterType, ExpBaseCoordinator {
+    with Store, ChooseGreeterType, BaseCoordinator {
   final SessionTrialGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;

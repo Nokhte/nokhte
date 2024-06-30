@@ -15,7 +15,7 @@ class SessionGroupGreeterCoordinator = _SessionGroupGreeterCoordinatorBase
     with _$SessionGroupGreeterCoordinator;
 
 abstract class _SessionGroupGreeterCoordinatorBase
-    with Store, ExpBaseCoordinator, SmartTextPaddingAdjuster {
+    with Store, BaseCoordinator, SmartTextPaddingAdjuster {
   final SessionGroupGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;

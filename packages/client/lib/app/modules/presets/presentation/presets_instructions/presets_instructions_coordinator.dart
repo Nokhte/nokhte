@@ -14,7 +14,7 @@ class PresetsInstructionsCoordinator = _PresetsInstructionsCoordinatorBase
     with _$PresetsInstructionsCoordinator;
 
 abstract class _PresetsInstructionsCoordinatorBase
-    with Store, ExpBaseCoordinator {
+    with Store, BaseCoordinator {
   final PresetsInstructionsWidgetsCoordinator widgets;
   final PresetsLogicCoordinator logic;
   final TapDetector tap;

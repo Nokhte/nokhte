@@ -14,7 +14,7 @@ part 'session_speaking_coordinator.g.dart';
 class SessionSpeakingCoordinator = _SessionSpeakingCoordinatorBase
     with _$SessionSpeakingCoordinator;
 
-abstract class _SessionSpeakingCoordinatorBase with Store, ExpBaseCoordinator {
+abstract class _SessionSpeakingCoordinatorBase with Store, BaseCoordinator {
   final SessionSpeakingWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final HoldDetector hold;

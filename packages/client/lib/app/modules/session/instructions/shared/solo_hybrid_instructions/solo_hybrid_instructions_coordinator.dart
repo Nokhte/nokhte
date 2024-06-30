@@ -14,7 +14,7 @@ class SoloHybridInstructionsCoordinator = _SoloHybridInstructionsCoordinatorBase
     with _$SoloHybridInstructionsCoordinator;
 
 abstract class _SoloHybridInstructionsCoordinatorBase
-    with Store, ExpBaseCoordinator {
+    with Store, BaseCoordinator {
   final TapDetector tap;
   final SoloHybridInstructionsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;

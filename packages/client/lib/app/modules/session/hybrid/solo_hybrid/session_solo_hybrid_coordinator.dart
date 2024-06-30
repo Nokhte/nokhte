@@ -16,7 +16,7 @@ class SessionSoloHybridCoordinator = _SessionSoloHybridCoordinatorBase
     with _$SessionSoloHybridCoordinator;
 
 abstract class _SessionSoloHybridCoordinatorBase
-    with Store, ExpBaseCoordinator {
+    with Store, BaseCoordinator {
   final SessionSoloHybridWidgetsCoordinator widgets;
   final TapDetector tap;
   final SwipeDetector swipe;

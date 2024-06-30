@@ -11,7 +11,7 @@ class SocraticFullInstructionsCoordinator = _SocraticFullInstructionsCoordinator
     with _$SocraticFullInstructionsCoordinator;
 
 abstract class _SocraticFullInstructionsCoordinatorBase
-    with Store, ExpBaseCoordinator {
+    with Store, BaseCoordinator {
   final SocraticFullInstructionsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;

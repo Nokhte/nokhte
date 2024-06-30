@@ -12,7 +12,7 @@ part 'storage_content_coordinator.g.dart';
 class StorageContentCoordinator = _StorageContentCoordinatorBase
     with _$StorageContentCoordinator;
 
-abstract class _StorageContentCoordinatorBase with Store, ExpBaseCoordinator {
+abstract class _StorageContentCoordinatorBase with Store, BaseCoordinator {
   final StorageContentWidgetsCoordinator widgets;
   final TapDetector tap;
   final SwipeDetector swipe;

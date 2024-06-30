@@ -14,7 +14,7 @@ class SessionHybridNotesCoordinator = _SessionHybridNotesCoordinatorBase
     with _$SessionHybridNotesCoordinator;
 
 abstract class _SessionHybridNotesCoordinatorBase
-    with Store, ExpBaseCoordinator {
+    with Store, BaseCoordinator {
   final SessionHybridNotesWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;

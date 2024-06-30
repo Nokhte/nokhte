@@ -18,7 +18,7 @@ class BaseHomeScreenCoordinator = _BaseHomeScreenCoordinatorBase
     with _$BaseHomeScreenCoordinator;
 
 abstract class _BaseHomeScreenCoordinatorBase
-    with Store, ExpBaseCoordinator, BaseMobxLogic {
+    with Store, BaseCoordinator, BaseMobxLogic {
   final BaseHomeScreenWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final SessionStartersLogicCoordinator sessionStarters;

@@ -1,37 +1,38 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:flutter/material.dart';
+import 'dart:ui';
+
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
-part 'base_coordinator.g.dart';
 
-class BaseCoordinator<P, T> = _BaseCoordinatorBase<P, T>
-    with _$BaseCoordinator<P, T>;
-
-abstract class _BaseCoordinatorBase<P, T> with Store {
-  final CaptureScreen captureScreen;
-
-  _BaseCoordinatorBase({
-    required this.captureScreen,
-  });
+mixin BaseCoordinator {
+  CaptureScreen get captureScreen;
 
   List<ReactionDisposer> disposers = [];
 
-  @observable
-  bool isInErrorMode = false;
+  final _disableAllTouchFeedback = Observable(false);
+  bool get disableAllTouchFeedback => _disableAllTouchFeedback.value;
 
-  @action
-  setIsInErrorMode(bool p0) => isInErrorMode = p0;
+  Action actionToggleDisableAllTouchFeedback = Action(() {});
+  Action actionSetDisableAllTouchFeedback = Action(() {});
 
-  @observable
-  bool disableAllTouchFeedback = false;
+  initBaseCoordinatorActions() {
+    actionToggleDisableAllTouchFeedback =
+        Action(_toggleDisableAllTouchFeedback);
+    actionSetDisableAllTouchFeedback = Action(_setDisableAllTouchFeedback);
+  }
 
-  @action
-  toggleDisableAllTouchFeedback() =>
-      disableAllTouchFeedback = !disableAllTouchFeedback;
+  _toggleDisableAllTouchFeedback() =>
+      _disableAllTouchFeedback.value = !_disableAllTouchFeedback.value;
 
-  @action
-  setDisableAllTouchFeedback(bool newValue) =>
-      disableAllTouchFeedback = newValue;
+  _setDisableAllTouchFeedback(bool value) =>
+      _disableAllTouchFeedback.value = value;
+
+  toggleDisableAllTouchFeedback() {
+    actionToggleDisableAllTouchFeedback.call();
+  }
+
+  setDisableAllTouchFeedback(bool value) {
+    actionSetDisableAllTouchFeedback.call([value]);
+  }
 
   ifTouchIsNotDisabled(Function callback) async {
     if (!disableAllTouchFeedback) await callback();
@@ -56,7 +57,7 @@ abstract class _BaseCoordinatorBase<P, T> with Store {
     }
   }
 
-  deconstructor() {
+  dispose() {
     for (var disposer in disposers) {
       disposer.call();
     }

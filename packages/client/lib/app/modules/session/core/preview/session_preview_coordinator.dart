@@ -16,7 +16,7 @@ part 'session_preview_coordinator.g.dart';
 class SessionPreviewCoordinator = _SessionPreviewCoordinatorBase
     with _$SessionPreviewCoordinator;
 
-abstract class _SessionPreviewCoordinatorBase with Store, ExpBaseCoordinator {
+abstract class _SessionPreviewCoordinatorBase with Store, BaseCoordinator {
   final SessionPreviewWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;

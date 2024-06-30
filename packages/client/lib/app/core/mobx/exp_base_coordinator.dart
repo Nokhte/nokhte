@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 
-mixin ExpBaseCoordinator {
+mixin BaseCoordinator {
   CaptureScreen get captureScreen;
 
   List<ReactionDisposer> disposers = [];
