@@ -14,7 +14,8 @@ part 'solo_hybrid_instructions_widgets_coordinator.g.dart';
 class SoloHybridInstructionsWidgetsCoordinator = _SoloHybridInstructionsWidgetsCoordinatorBase
     with _$SoloHybridInstructionsWidgetsCoordinator;
 
-abstract class _SoloHybridInstructionsWidgetsCoordinatorBase with Store {
+abstract class _SoloHybridInstructionsWidgetsCoordinatorBase
+    with Store, SmartTextPaddingAdjuster {
   final SmartTextStore smartText;
   final BeachWavesStore beachWaves;
   final TouchRippleStore touchRipple;
@@ -31,9 +32,10 @@ abstract class _SoloHybridInstructionsWidgetsCoordinatorBase with Store {
     required this.holdTimerIndicator,
   }) : base = BaseWidgetsCoordinator(
             wifiDisconnectOverlay: wifiDisconnectOverlay) {
-    base.setSmartTextTopPaddingScalar(.15);
-    base.setSmartTextBottomPaddingScalar(0);
-    base.setSmartTextSubMessagePaddingScalar(.2);
+    initSmartTextActions();
+    setSmartTextTopPaddingScalar(.15);
+    setSmartTextBottomPaddingScalar(0);
+    setSmartTextSubMessagePaddingScalar(.2);
   }
 
   @observable
@@ -113,8 +115,8 @@ abstract class _SoloHybridInstructionsWidgetsCoordinatorBase with Store {
                 }
               });
             } else {
-              base.setSmartTextTopPaddingScalar(0);
-              base.setSmartTextBottomPaddingScalar(0.4);
+              setSmartTextTopPaddingScalar(0);
+              setSmartTextBottomPaddingScalar(0.4);
               smartText.startRotatingText(isResuming: true);
               smartText.setStaticAltMovie(SessionConstants.blue);
             }
@@ -125,22 +127,22 @@ abstract class _SoloHybridInstructionsWidgetsCoordinatorBase with Store {
   @action
   adjustSmartTextToNotesPadding() {
     Timer(Seconds.get(0, milli: 500), () {
-      base.setSmartTextTopPaddingScalar(0);
-      base.setSmartTextBottomPaddingScalar(0.4);
+      setSmartTextTopPaddingScalar(0);
+      setSmartTextBottomPaddingScalar(0.4);
     });
   }
 
   @action
   adjustSmartTextToHoldingPadding() {
     Timer(Seconds.get(0, milli: 500), () {
-      base.setSmartTextTopPaddingScalar(0);
-      base.setSmartTextBottomPaddingScalar(0.2);
+      setSmartTextTopPaddingScalar(0);
+      setSmartTextBottomPaddingScalar(0.2);
     });
   }
 
   @action
   resetSmartTextHoldingPadding() {
-    base.setSmartTextPadding(
+    setSmartTextPadding(
       topPadding: 0.15,
       bottomPadding: 0,
       subMessagePadding: .2,

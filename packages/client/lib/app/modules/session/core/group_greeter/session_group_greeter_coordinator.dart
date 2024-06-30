@@ -15,7 +15,7 @@ class SessionGroupGreeterCoordinator = _SessionGroupGreeterCoordinatorBase
     with _$SessionGroupGreeterCoordinator;
 
 abstract class _SessionGroupGreeterCoordinatorBase
-    with Store, ExpBaseCoordinator {
+    with Store, ExpBaseCoordinator, SmartTextPaddingAdjuster {
   final SessionGroupGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
@@ -30,6 +30,7 @@ abstract class _SessionGroupGreeterCoordinatorBase
     required this.captureScreen,
   }) : sessionMetadata = presence.sessionMetadataStore {
     initBaseCoordinatorActions();
+    initSmartTextActions();
   }
 
   @observable

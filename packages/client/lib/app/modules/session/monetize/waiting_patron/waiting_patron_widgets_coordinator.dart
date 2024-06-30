@@ -11,7 +11,8 @@ part 'waiting_patron_widgets_coordinator.g.dart';
 class WaitingPatronWidgetsCoordinator = _WaitingPatronWidgetsCoordinatorBase
     with _$WaitingPatronWidgetsCoordinator;
 
-abstract class _WaitingPatronWidgetsCoordinatorBase with Store {
+abstract class _WaitingPatronWidgetsCoordinatorBase
+    with Store, SmartTextPaddingAdjuster {
   final BeachWavesStore beachWaves;
   final TintStore tint;
   final GestureCrossStore gestureCross;
@@ -25,7 +26,9 @@ abstract class _WaitingPatronWidgetsCoordinatorBase with Store {
     required this.tint,
     required this.gestureCross,
   }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+            wifiDisconnectOverlay: wifiDisconnectOverlay) {
+    initSmartTextActions();
+  }
 
   @observable
   bool isNavigatingAway = false;
@@ -34,7 +37,7 @@ abstract class _WaitingPatronWidgetsCoordinatorBase with Store {
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.borealisToSky);
     tint.setControl(Control.play);
-    base.setSmartTextBottomPaddingScalar(.15);
+    setSmartTextBottomPaddingScalar(.15);
     nokhteGradientText.setWidgetVisibility(false);
     Timer(Seconds.get(1), () {
       if (!isNavigatingAway) {

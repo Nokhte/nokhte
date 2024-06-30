@@ -17,7 +17,8 @@ part 'session_paywall_widgets_coordinator.g.dart';
 class SessionPaywallWidgetsCoordinator = _SessionPaywallWidgetsCoordinatorBase
     with _$SessionPaywallWidgetsCoordinator;
 
-abstract class _SessionPaywallWidgetsCoordinatorBase with Store {
+abstract class _SessionPaywallWidgetsCoordinatorBase
+    with Store, SmartTextPaddingAdjuster {
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final SmartTextStore tertiarySmartText;
@@ -36,7 +37,9 @@ abstract class _SessionPaywallWidgetsCoordinatorBase with Store {
     required this.tertiarySmartText,
     required this.multiplyingNokhte,
   }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+            wifiDisconnectOverlay: wifiDisconnectOverlay) {
+    initSmartTextActions();
+  }
 
   @observable
   int tapCount = 0;
@@ -66,7 +69,7 @@ abstract class _SessionPaywallWidgetsCoordinatorBase with Store {
     primarySmartText.setMessagesData(SharedLists.emptyList);
     secondarySmartText.setMessagesData(SessionLists.swipeUpToPay);
     tertiarySmartText.setMessagesData(SessionLists.swipeToDecide);
-    base.setSmartTextBottomPaddingScalar(.1);
+    setSmartTextBottomPaddingScalar(.1);
     base.disposers.add(multiplyNokhteReactor());
     setCanSwipe(false);
   }

@@ -43,12 +43,12 @@ class SoloHybridInstructionsScreen extends HookWidget {
             Observer(builder: (context) {
               return Center(
                 child: SmartText(
-                  topPadding: height *
-                      coordinator.widgets.base.smartTextTopPaddingScalar,
-                  bottomPadding: height *
-                      coordinator.widgets.base.smartTextBottomPaddingScalar,
+                  topPadding:
+                      height * coordinator.widgets.smartTextTopPaddingScalar,
+                  bottomPadding:
+                      height * coordinator.widgets.smartTextBottomPaddingScalar,
                   subTextPadding: height *
-                      coordinator.widgets.base.smartTextSubMessagePaddingScalar,
+                      coordinator.widgets.smartTextSubMessagePaddingScalar,
                   store: coordinator.widgets.smartText,
                 ),
               );

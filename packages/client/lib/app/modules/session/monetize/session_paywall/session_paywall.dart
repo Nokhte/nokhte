@@ -49,7 +49,7 @@ class SessionPaywallScreen extends HookWidget {
                   opacityDuration: Seconds.get(1),
                   store: coordinator.widgets.primarySmartText,
                   bottomPadding: height *
-                      coordinator.widgets.base.smartTextBottomPaddingScalar,
+                      coordinator.widgets.smartTextBottomPaddingScalar,
                   subTextPadding: height * .2,
                 ),
                 SmartText(

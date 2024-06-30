@@ -12,7 +12,8 @@ part 'storage_content_widgets_coordinator.g.dart';
 class StorageContentWidgetsCoordinator = _StorageContentWidgetsCoordinatorBase
     with _$StorageContentWidgetsCoordinator;
 
-abstract class _StorageContentWidgetsCoordinatorBase with Store {
+abstract class _StorageContentWidgetsCoordinatorBase
+    with Store, SmartTextPaddingAdjuster {
   final BaseWidgetsCoordinator base;
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
@@ -31,7 +32,9 @@ abstract class _StorageContentWidgetsCoordinatorBase with Store {
     required this.primaryInstructionalGradientNokhte,
     required this.blur,
   }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+            wifiDisconnectOverlay: wifiDisconnectOverlay) {
+    initSmartTextActions();
+  }
 
   @action
   constructor(Offset offset) {

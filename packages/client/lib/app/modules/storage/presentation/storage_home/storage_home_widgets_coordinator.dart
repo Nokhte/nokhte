@@ -10,7 +10,7 @@ part 'storage_home_widgets_coordinator.g.dart';
 class StorageHomeWidgetsCoordinator = _StorageHomeWidgetsCoordinatorBase
     with _$StorageHomeWidgetsCoordinator;
 
-abstract class _StorageHomeWidgetsCoordinatorBase with Store {
+abstract class _StorageHomeWidgetsCoordinatorBase with Store, SmartTextPaddingAdjuster {
   final BaseWidgetsCoordinator base;
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
@@ -31,15 +31,17 @@ abstract class _StorageHomeWidgetsCoordinatorBase with Store {
     required this.primaryInstructionalGradientNokhte,
     required this.blur,
   }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+            wifiDisconnectOverlay: wifiDisconnectOverlay) {
+    initSmartTextActions();
+  }
 
   @action
   constructor(Offset offset) {
     base.center = offset;
     sessionCard.initFadeIn();
     primarySmartText.setMessagesData(StorageLists.homeHeader);
-    base.setSmartTextBottomPaddingScalar(0);
-    base.setSmartTextTopPaddingScalar(.15);
+    setSmartTextBottomPaddingScalar(0);
+    setSmartTextTopPaddingScalar(.15);
     secondarySmartText.setMessagesData(StorageLists.homeSecondary);
     secondarySmartText.startRotatingText();
     primarySmartText.startRotatingText();

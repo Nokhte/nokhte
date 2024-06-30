@@ -15,7 +15,7 @@ class SessionGroupGreeterWidgetsCoordinator = _SessionGroupGreeterWidgetsCoordin
     with _$SessionGroupGreeterWidgetsCoordinator;
 
 abstract class _SessionGroupGreeterWidgetsCoordinatorBase
-    with Store, SessionRouter {
+    with Store, SessionRouter, SmartTextPaddingAdjuster {
   @override
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
@@ -34,7 +34,9 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
     required this.touchRipple,
     required this.sessionSeatingGuide,
   }) : base = BaseWidgetsCoordinator(
-            wifiDisconnectOverlay: wifiDisconnectOverlay);
+            wifiDisconnectOverlay: wifiDisconnectOverlay) {
+    initSmartTextActions();
+  }
 
   @action
   constructor({
@@ -52,8 +54,8 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
         userIndex: userIndex,
       ),
     );
-    base.setSmartTextBottomPaddingScalar(.3);
-    base.setSmartTextTopPaddingScalar(0);
+    setSmartTextBottomPaddingScalar(.3);
+    setSmartTextTopPaddingScalar(0);
     sessionPhonePlacementGuide.setValues(
       AdjacentNumbers.getAdjacentNumbers(
         numberOfCollaborators,
@@ -110,7 +112,7 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
         cooldownStopwatch.reset();
         touchRipple.onTap(tapPosition);
         Timer(Seconds.get(0, milli: 500), () {
-          base.setSmartTextBottomPaddingScalar(0.1);
+          setSmartTextBottomPaddingScalar(0.1);
         });
         primarySmartText.startRotatingText(isResuming: true);
         secondarySmartText.startRotatingText(isResuming: true);
@@ -119,7 +121,7 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
         tapCount++;
       } else if (tapCount == 2) {
         Timer(Seconds.get(0, milli: 500), () {
-          base.setSmartTextBottomPaddingScalar(.3);
+          setSmartTextBottomPaddingScalar(.3);
         });
         sessionPhonePlacementGuide.setWidgetVisibility(false);
         touchRipple.onTap(tapPosition);

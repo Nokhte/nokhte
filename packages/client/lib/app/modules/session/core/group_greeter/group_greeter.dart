@@ -46,8 +46,8 @@ class SessionGroupGreeterScreen extends HookWidget {
               Center(
                 child: SmartText(
                   store: coordinator.widgets.primarySmartText,
-                  bottomPadding: height *
-                      coordinator.widgets.base.smartTextBottomPaddingScalar,
+                  bottomPadding:
+                      height * coordinator.smartTextBottomPaddingScalar,
                   opacityDuration: Seconds.get(1),
                 ),
               ),
