@@ -17,7 +17,7 @@ part 'login_coordinator.g.dart';
 class LoginCoordinator = _LoginCoordinatorBase with _$LoginCoordinator;
 
 abstract class _LoginCoordinatorBase
-    with Store, HomeScreenRouter, BaseCoordinator {
+    with Store, HomeScreenRouter, BaseCoordinator, Reactions {
   final LoginScreenWidgetsCoordinator widgets;
   final SignInWithAuthProviderStore signInWithAuthProvider;
   final AddName addName;

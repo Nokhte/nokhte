@@ -11,7 +11,7 @@ part 'session_notes_coordinator.g.dart';
 class SessionNotesCoordinator = _SessionNotesCoordinatorBase
     with _$SessionNotesCoordinator;
 
-abstract class _SessionNotesCoordinatorBase with Store, BaseCoordinator {
+abstract class _SessionNotesCoordinatorBase with Store, BaseCoordinator, Reactions {
   final SessionNotesWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;

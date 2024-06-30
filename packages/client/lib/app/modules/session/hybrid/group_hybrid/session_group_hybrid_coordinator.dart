@@ -16,7 +16,7 @@ class SessionGroupHybridCoordinator = _SessionGroupHybridCoordinatorBase
     with _$SessionGroupHybridCoordinator;
 
 abstract class _SessionGroupHybridCoordinatorBase
-    with Store, BaseCoordinator {
+    with Store, BaseCoordinator, Reactions {
   final SessionGroupHybridWidgetsCoordinator widgets;
   final TapDetector tap;
   final SwipeDetector swipe;

@@ -12,7 +12,7 @@ class ShowGroupGeometryCoordinator = _ShowGroupGeometryCoordinatorBase
     with _$ShowGroupGeometryCoordinator;
 
 abstract class _ShowGroupGeometryCoordinatorBase
-    with Store, BaseCoordinator {
+    with Store, BaseCoordinator, Reactions {
   final ShowGroupGeometryWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;

@@ -8,7 +8,7 @@ part 'needs_update_coordinator.g.dart';
 class NeedsUpdateCoordinator = _NeedsUpdateCoordinatorBase
     with _$NeedsUpdateCoordinator;
 
-abstract class _NeedsUpdateCoordinatorBase with Store, BaseCoordinator {
+abstract class _NeedsUpdateCoordinatorBase with Store, BaseCoordinator, Reactions {
   final NeedsUpdateWidgetsCoordinator widgets;
   @override
   final CaptureScreen captureScreen;

@@ -22,7 +22,7 @@ class SessionPaywallCoordinator = _SessionPaywallCoordinatorBase
     with _$SessionPaywallCoordinator;
 
 abstract class _SessionPaywallCoordinatorBase
-    with Store, HomeScreenRouter, BaseCoordinator {
+    with Store, HomeScreenRouter, BaseCoordinator, Reactions {
   final TapDetector tap;
   final SessionPaywallWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;

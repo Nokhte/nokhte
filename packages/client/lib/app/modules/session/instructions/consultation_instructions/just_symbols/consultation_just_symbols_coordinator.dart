@@ -11,7 +11,7 @@ class ConsultationJustSymbolsCoordinator = _ConsultationJustSymbolsCoordinatorBa
     with _$ConsultationJustSymbolsCoordinator;
 
 abstract class _ConsultationJustSymbolsCoordinatorBase
-    with Store, BaseCoordinator {
+    with Store, BaseCoordinator, Reactions {
   final ConsultationJustSymbolsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;

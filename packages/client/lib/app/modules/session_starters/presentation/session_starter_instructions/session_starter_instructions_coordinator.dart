@@ -13,7 +13,7 @@ class SessionStarterInstructionsCoordinator = _SessionStarterInstructionsCoordin
     with _$SessionStarterInstructionsCoordinator;
 
 abstract class _SessionStarterInstructionsCoordinatorBase
-    with Store, BaseCoordinator {
+    with Store, BaseCoordinator, Reactions {
   final SessionStarterInstructionsWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final TapDetector tap;

@@ -14,7 +14,8 @@ part 'session_starter_coordinator.g.dart';
 class SessionStarterCoordinator = _SessionStarterCoordinatorBase
     with _$SessionStarterCoordinator;
 
-abstract class _SessionStarterCoordinatorBase with Store, BaseCoordinator {
+abstract class _SessionStarterCoordinatorBase
+    with Store, BaseCoordinator, Reactions {
   final SessionStarterWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final TapDetector tap;

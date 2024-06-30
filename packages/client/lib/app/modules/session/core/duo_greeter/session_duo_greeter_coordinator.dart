@@ -14,7 +14,7 @@ class SessionDuoGreeterCoordinator = _SessionDuoGreeterCoordinatorBase
     with _$SessionDuoGreeterCoordinator;
 
 abstract class _SessionDuoGreeterCoordinatorBase
-    with Store, BaseCoordinator {
+    with Store, BaseCoordinator, Reactions {
   final SessionDuoGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;

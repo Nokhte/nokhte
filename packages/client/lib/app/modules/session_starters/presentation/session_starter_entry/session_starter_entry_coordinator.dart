@@ -13,7 +13,7 @@ class SessionStarterEntryCoordinator = _SessionStarterEntryCoordinatorBase
     with _$SessionStarterEntryCoordinator;
 
 abstract class _SessionStarterEntryCoordinatorBase
-    with Store, BaseCoordinator {
+    with Store, BaseCoordinator, Reactions {
   final SessionStarterEntryWidgetsCoordinator widgets;
   final GetUserInfoStore getUserInfo;
   @override

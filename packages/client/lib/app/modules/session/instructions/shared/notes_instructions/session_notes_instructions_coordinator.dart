@@ -14,7 +14,7 @@ class SessionNotesInstructionsCoordinator = SessionNotesInstructionsCoordinatorB
     with _$SessionNotesInstructionsCoordinator;
 
 abstract class SessionNotesInstructionsCoordinatorBase
-    with Store, BaseCoordinator {
+    with Store, BaseCoordinator, Reactions {
   final SessionNotesInstructionsWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;

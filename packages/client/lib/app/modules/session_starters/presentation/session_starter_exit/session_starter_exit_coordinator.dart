@@ -12,7 +12,7 @@ class SessionStarterExitCoordinator = _SessionStarterExitCoordinatorBase
     with _$SessionStarterExitCoordinator;
 
 abstract class _SessionStarterExitCoordinatorBase
-    with Store, HomeScreenRouter, BaseCoordinator {
+    with Store, HomeScreenRouter, BaseCoordinator, Reactions {
   final SessionStarterExitWidgetsCoordinator widgets;
   @override
   final GetUserInfoStore getUserInfo;

@@ -11,7 +11,7 @@ class ConsultationSpeakingSymbolsCoordinator = _ConsultationSpeakingSymbolsCoord
     with _$ConsultationSpeakingSymbolsCoordinator;
 
 abstract class _ConsultationSpeakingSymbolsCoordinatorBase
-    with Store, BaseCoordinator {
+    with Store, BaseCoordinator , Reactions {
   final ConsultationSpeakingSymbolsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;

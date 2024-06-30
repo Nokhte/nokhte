@@ -6,8 +6,6 @@ import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 mixin BaseCoordinator {
   CaptureScreen get captureScreen;
 
-  List<ReactionDisposer> disposers = [];
-
   final _disableAllTouchFeedback = Observable(false);
   bool get disableAllTouchFeedback => _disableAllTouchFeedback.value;
 
@@ -54,12 +52,6 @@ mixin BaseCoordinator {
         onDetached?.call();
       default:
         break;
-    }
-  }
-
-  dispose() {
-    for (var disposer in disposers) {
-      disposer.call();
     }
   }
 }

@@ -10,7 +10,7 @@ part 'socratic_just_symbols_coordinator.g.dart';
 class SocraticJustSymbolsCoordinator = _SocraticJustSymbolsCoordinatorBase
     with _$SocraticJustSymbolsCoordinator;
 
-abstract class _SocraticJustSymbolsCoordinatorBase with Store, BaseCoordinator {
+abstract class _SocraticJustSymbolsCoordinatorBase with Store, BaseCoordinator , Reactions{
   final SocraticJustSymbolsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;

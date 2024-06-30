@@ -11,7 +11,7 @@ part 'presets_coordinator.g.dart';
 
 class PresetsCoordinator = _PresetsCoordinatorBase with _$PresetsCoordinator;
 
-abstract class _PresetsCoordinatorBase with Store, BaseCoordinator {
+abstract class _PresetsCoordinatorBase with Store, BaseCoordinator, Reactions {
   final PresetsWidgetsCoordinator widgets;
   final PresetsLogicCoordinator logic;
   final SwipeDetector swipe;

@@ -12,7 +12,7 @@ class CollaborationJustSymbolsCoordinator = _CollaborationJustSymbolsCoordinator
     with _$CollaborationJustSymbolsCoordinator;
 
 abstract class _CollaborationJustSymbolsCoordinatorBase
-    with Store, BaseCoordinator {
+    with Store, BaseCoordinator  , Reactions{
   final CollaborationJustSymbolsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
