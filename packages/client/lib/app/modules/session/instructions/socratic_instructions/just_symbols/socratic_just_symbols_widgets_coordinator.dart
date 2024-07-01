@@ -17,6 +17,7 @@ abstract class _SocraticJustSymbolsWidgetsCoordinatorBase
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final TouchRippleStore touchRipple;
+  @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   _SocraticJustSymbolsWidgetsCoordinatorBase({
     required this.wifiDisconnectOverlay,

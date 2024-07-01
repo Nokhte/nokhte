@@ -18,14 +18,15 @@ class SessionLobbyCoordinator = _SessionLobbyCoordinatorBase
     with _$SessionLobbyCoordinator;
 
 abstract class _SessionLobbyCoordinatorBase
-    with Store, ChooseGreeterType, BaseCoordinator, Reactions {
+    with Store, ChooseGreeterType, BaseCoordinator, Reactions, SessionPresence {
   final SessionLobbyWidgetsCoordinator widgets;
   final TapDetector tap;
-  final SessionPresenceCoordinator presence;
   final UserMetadataCoordinator userMetadata;
   final DeepLinksCoordinator deepLinks;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
   final CaptureNokhteSessionStart captureStart;
+  @override
+  final SessionPresenceCoordinator presence;
   @override
   final SessionMetadataStore sessionMetadata;
   @override
@@ -59,21 +60,6 @@ abstract class _SessionLobbyCoordinatorBase
     await userMetadata.getMetadata();
     await updateCurrentPhase();
     await captureScreen(SessionConstants.lobby);
-  }
-
-  @action
-  onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-  }
-
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
   }
 
   @action

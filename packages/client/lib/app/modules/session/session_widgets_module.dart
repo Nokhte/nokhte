@@ -184,6 +184,14 @@ class SessionWidgetsModule extends Module {
         beachWaves: BeachWavesStore(),
       ),
     );
+    i.add<SocraticSpeakingExitWidgetsCoordinator>(
+      () => SocraticSpeakingExitWidgetsCoordinator(
+        sessionExitStatusIndicator: SessionExitStatusIndicatorStore(),
+        smartText: SmartTextStore(),
+        beachWaves: BeachWavesStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+      ),
+    );
     i.add<SessionExitWidgetsCoordinator>(
       () => SessionExitWidgetsCoordinator(
         sessionExitStatusIndicator: SessionExitStatusIndicatorStore(),

@@ -15,11 +15,12 @@ class SessionGroupGreeterCoordinator = _SessionGroupGreeterCoordinatorBase
     with _$SessionGroupGreeterCoordinator;
 
 abstract class _SessionGroupGreeterCoordinatorBase
-    with Store, BaseCoordinator, SmartTextPaddingAdjuster, Reactions {
+    with Store, BaseCoordinator, Reactions, SessionPresence {
   final SessionGroupGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
-  final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
+  @override
+  final SessionPresenceCoordinator presence;
   @override
   final CaptureScreen captureScreen;
 
@@ -30,7 +31,6 @@ abstract class _SessionGroupGreeterCoordinatorBase
     required this.captureScreen,
   }) : sessionMetadata = presence.sessionMetadataStore {
     initBaseCoordinatorActions();
-    initSmartTextActions();
   }
 
   @observable
@@ -47,21 +47,6 @@ abstract class _SessionGroupGreeterCoordinatorBase
     );
     initReactors();
     await captureScreen(SessionConstants.groupGreeter);
-  }
-
-  @action
-  onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-  }
-
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
   }
 
   @action

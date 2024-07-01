@@ -16,9 +16,10 @@ class SessionTrialGreeterCoordinator = _SessionTrialGreeterCoordinatorBase
     with _$SessionTrialGreeterCoordinator;
 
 abstract class _SessionTrialGreeterCoordinatorBase
-    with Store, ChooseGreeterType, BaseCoordinator, Reactions {
+    with Store, ChooseGreeterType, BaseCoordinator, Reactions, SessionPresence {
   final SessionTrialGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
+  @override
   final SessionPresenceCoordinator presence;
   @override
   final SessionMetadataStore sessionMetadata;
@@ -39,21 +40,6 @@ abstract class _SessionTrialGreeterCoordinatorBase
     widgets.constructor();
     initReactors();
     await captureScreen(SessionConstants.trialGreeter);
-  }
-
-  @action
-  onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-  }
-
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
   }
 
   @action

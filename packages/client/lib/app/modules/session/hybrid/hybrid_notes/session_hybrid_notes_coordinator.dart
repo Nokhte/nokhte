@@ -5,22 +5,22 @@ import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session/constants/constants.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
-import 'session_hybrid_notes_widgets_coordinator.dart';
 part 'session_hybrid_notes_coordinator.g.dart';
 
 class SessionHybridNotesCoordinator = _SessionHybridNotesCoordinatorBase
     with _$SessionHybridNotesCoordinator;
 
 abstract class _SessionHybridNotesCoordinatorBase
-    with Store, BaseCoordinator, Reactions {
+    with Store, BaseCoordinator, Reactions, SessionPresence {
   final SessionHybridNotesWidgetsCoordinator widgets;
-  final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
   final TapDetector tap;
 
+  @override
+  final SessionPresenceCoordinator presence;
   @override
   final CaptureScreen captureScreen;
 
@@ -72,19 +72,6 @@ abstract class _SessionHybridNotesCoordinatorBase
       onDisconnected: () => setDisableAllTouchFeedback(true),
     ));
     disposers.add(touchFeedbackStatusReactor());
-  }
-
-  @action
-  onInactive() async => await presence
-      .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
   }
 
   touchFeedbackStatusReactor() =>

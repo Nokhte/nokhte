@@ -15,11 +15,12 @@ class SessionCollaborationGreeterCoordinator = _SessionCollaborationGreeterCoord
     with _$SessionCollaborationGreeterCoordinator;
 
 abstract class _SessionCollaborationGreeterCoordinatorBase
-    with Store, BaseCoordinator, Reactions {
+    with Store, BaseCoordinator, Reactions, SessionPresence {
   final SessionCollaborationGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
-  final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
+  @override
+  final SessionPresenceCoordinator presence;
   @override
   final CaptureScreen captureScreen;
 
@@ -37,21 +38,6 @@ abstract class _SessionCollaborationGreeterCoordinatorBase
     widgets.constructor();
     initReactors();
     await captureScreen(SessionConstants.collaborationGreeter);
-  }
-
-  @action
-  onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-  }
-
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
   }
 
   @action

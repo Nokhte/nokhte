@@ -21,6 +21,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
   final TintStore tint;
+  @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionSpeakingWidgetsCoordinatorBase({

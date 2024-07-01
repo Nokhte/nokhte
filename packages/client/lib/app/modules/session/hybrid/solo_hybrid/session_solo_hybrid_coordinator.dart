@@ -8,20 +8,20 @@ import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session/constants/constants.dart';
-import 'session_solo_hybrid_widgets_coordinator.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'session_solo_hybrid_coordinator.g.dart';
 
 class SessionSoloHybridCoordinator = _SessionSoloHybridCoordinatorBase
     with _$SessionSoloHybridCoordinator;
 
 abstract class _SessionSoloHybridCoordinatorBase
-    with Store, BaseCoordinator, Reactions {
+    with Store, BaseCoordinator, Reactions, SessionPresence {
   final SessionSoloHybridWidgetsCoordinator widgets;
   final TapDetector tap;
   final SwipeDetector swipe;
-  final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
+  @override
+  final SessionPresenceCoordinator presence;
   @override
   final CaptureScreen captureScreen;
 
@@ -140,22 +140,6 @@ abstract class _SessionSoloHybridCoordinatorBase
       }
     }
   }
-
-  @action
-  onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-  }
-
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
-  }
-
   deconstructor() {
     dispose();
     widgets.dispose();

@@ -14,11 +14,12 @@ class SessionDuoGreeterCoordinator = _SessionDuoGreeterCoordinatorBase
     with _$SessionDuoGreeterCoordinator;
 
 abstract class _SessionDuoGreeterCoordinatorBase
-    with Store, BaseCoordinator, Reactions {
+    with Store, BaseCoordinator, Reactions, SessionPresence {
   final SessionDuoGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
-  final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
+  @override
+  final SessionPresenceCoordinator presence;
   @override
   final CaptureScreen captureScreen;
 
@@ -42,21 +43,6 @@ abstract class _SessionDuoGreeterCoordinatorBase
     widgets.constructor();
     initReactors();
     await captureScreen(SessionConstants.duoGreeter);
-  }
-
-  @action
-  onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-  }
-
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
   }
 
   @action

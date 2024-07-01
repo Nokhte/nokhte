@@ -21,12 +21,6 @@ class WaitingPatronScreen extends HookWidget {
       coordinator.constructor();
       return () => coordinator.deconstructor();
     }, []);
-    useOnAppLifecycleStateChange(
-        (previous, current) => coordinator.onAppLifeCycleStateChange(
-              current,
-              onResumed: () => coordinator.onResumed(),
-              onInactive: () => coordinator.onInactive(),
-            ));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Tap(

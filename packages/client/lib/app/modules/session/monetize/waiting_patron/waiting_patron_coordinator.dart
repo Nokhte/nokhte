@@ -89,10 +89,4 @@ abstract class _WaitingPatronCoordinatorBase
   deconstructor() {
     dispose();
   }
-
-  @action
-  onInactive() async {}
-
-  @action
-  onResumed() async {}
 }

@@ -14,11 +14,12 @@ class SoloHybridInstructionsCoordinator = _SoloHybridInstructionsCoordinatorBase
     with _$SoloHybridInstructionsCoordinator;
 
 abstract class _SoloHybridInstructionsCoordinatorBase
-    with Store, BaseCoordinator, Reactions {
+    with Store, BaseCoordinator, Reactions, SessionPresence {
   final TapDetector tap;
   final SoloHybridInstructionsWidgetsCoordinator widgets;
-  final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
+  @override
+  final SessionPresenceCoordinator presence;
   @override
   final CaptureScreen captureScreen;
 
@@ -66,21 +67,6 @@ abstract class _SoloHybridInstructionsCoordinatorBase
           Modular.to.navigate(SessionConstants.lobby, arguments: {});
         }
       });
-
-  @action
-  onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-  }
-
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
-  }
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,

@@ -12,11 +12,12 @@ class SessionNotesCoordinator = _SessionNotesCoordinatorBase
     with _$SessionNotesCoordinator;
 
 abstract class _SessionNotesCoordinatorBase
-    with Store, BaseCoordinator, Reactions {
+    with Store, BaseCoordinator, Reactions, SessionPresence {
   final SessionNotesWidgetsCoordinator widgets;
-  final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
+  @override
+  final SessionPresenceCoordinator presence;
   @override
   final CaptureScreen captureScreen;
 
@@ -58,19 +59,6 @@ abstract class _SessionNotesCoordinatorBase
       onDisconnected: () => setDisableAllTouchFeedback(true),
     ));
     disposers.add(touchFeedbackStatusReactor());
-  }
-
-  @action
-  onInactive() async => await presence
-      .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
   }
 
   touchFeedbackStatusReactor() =>

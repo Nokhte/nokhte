@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api,
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -31,6 +31,7 @@ abstract class _SessionPaywallCoordinatorBase
   final InAppPurchaseCoordinator iap;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
+  @override
   final GetUserInfoStore getUserInfo;
   @override
   final CaptureScreen captureScreen;
@@ -156,12 +157,6 @@ abstract class _SessionPaywallCoordinatorBase
           }
         }
       });
-
-  @action
-  onInactive() async {}
-
-  @action
-  onResumed() async {}
 
   deconstructor() {
     dispose();

@@ -7,20 +7,20 @@ import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session/constants/constants.dart';
-import 'session_speaking_widgets_coordinator.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'session_speaking_coordinator.g.dart';
 
 class SessionSpeakingCoordinator = _SessionSpeakingCoordinatorBase
     with _$SessionSpeakingCoordinator;
 
 abstract class _SessionSpeakingCoordinatorBase
-    with Store, BaseCoordinator, Reactions {
+    with Store, BaseCoordinator, Reactions, SessionPresence {
   final SessionSpeakingWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final HoldDetector hold;
-  final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
+  @override
+  final SessionPresenceCoordinator presence;
   @override
   final CaptureScreen captureScreen;
   _SessionSpeakingCoordinatorBase({
@@ -132,23 +132,7 @@ abstract class _SessionSpeakingCoordinatorBase
         }
       });
 
-  @action
-  onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-    if (sessionMetadata.userIsSpeaking) {
-      await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
-    }
-  }
-
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
-  }
+ 
 
   deconstructor() {
     dispose();

@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api,
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -18,15 +18,17 @@ class SessionExitCoordinator = _SessionExitCoordinatorBase
     with _$SessionExitCoordinator;
 
 abstract class _SessionExitCoordinatorBase
-    with Store, HomeScreenRouter, BaseCoordinator, Reactions {
+    with Store, HomeScreenRouter, BaseCoordinator, Reactions, SessionPresence {
   final SessionExitWidgetsCoordinator widgets;
   final SwipeDetector swipe;
-  final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final CaptureNokhteSessionEnd captureEnd;
   @override
+  final SessionPresenceCoordinator presence;
+  @override
   final CaptureScreen captureScreen;
+  @override
   final GetUserInfoStore getUserInfo;
 
   _SessionExitCoordinatorBase({
@@ -71,21 +73,6 @@ abstract class _SessionExitCoordinatorBase
 
   @action
   setBlockUserPhaseReactor(bool newVal) => blockUserPhaseReactor = newVal;
-
-  @action
-  onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-  }
-
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
-  }
 
   @action
   initReactors() {

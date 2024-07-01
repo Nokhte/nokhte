@@ -15,13 +15,14 @@ class SessionSpeakingInstructionsCoordinator = _SessionSpeakingInstructionsCoord
     with _$SessionSpeakingInstructionsCoordinator;
 
 abstract class _SessionSpeakingInstructionsCoordinatorBase
-    with Store, BaseCoordinator, Reactions {
+    with Store, BaseCoordinator, Reactions, SessionPresence {
   final TapDetector tap;
   final HoldDetector hold;
   final SessionSpeakingInstructionsWidgetsCoordinator widgets;
-  final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
 
+  @override
+  final SessionPresenceCoordinator presence;
   @override
   final CaptureScreen captureScreen;
 
@@ -65,21 +66,6 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase
       Modular.to.navigate(SessionConstants.consultationNotesSymbols);
     } else {
       Modular.to.navigate(SessionConstants.showGroupGeometry);
-    }
-  }
-
-  @action
-  onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-  }
-
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
     }
   }
 
