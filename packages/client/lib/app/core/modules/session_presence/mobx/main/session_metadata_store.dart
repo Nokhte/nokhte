@@ -49,6 +49,9 @@ abstract class _SessionMetadataStoreBase
   bool sessionHasBegun = false;
 
   @observable
+  double affirmativePhase = -1.0;
+
+  @observable
   bool leaderIsWhitelisted = false;
 
   @observable
@@ -71,6 +74,9 @@ abstract class _SessionMetadataStoreBase
 
   @observable
   SessionInstructionTypes instructionType = SessionInstructionTypes.initial;
+
+  @action
+  setAffirmativePhase(double value) => affirmativePhase = value;
 
   @observable
   ObservableStream<NokhteSessionMetadata> sessionMetadata =
@@ -195,7 +201,7 @@ abstract class _SessionMetadataStoreBase
   int get numberOfAffirmative {
     int count = 0;
     for (double value in currentPhases) {
-      if (value == 4.0) {
+      if (value == affirmativePhase) {
         count++;
       }
     }
