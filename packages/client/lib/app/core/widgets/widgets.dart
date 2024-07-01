@@ -22,7 +22,7 @@ export 'preset_diagram/preset_diagram.dart';
 export 'preset_cards/preset_cards.dart';
 export 'preset_icons/preset_icons.dart';
 export 'session_seating_guide/session_seating_guide.dart';
-export 'session_exit_status_indicator/session_exit_status_indicator.dart';
+export 'exit_status_indicator/exit_status_indicator.dart';
 export 'speak_less_smile_more/speak_less_smile_more.dart';
 export 'smart_text/smart_text.dart';
 export "text_editor/text_editor.dart";
