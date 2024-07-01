@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides, overridden_fields
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api,  overridden_fields
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -12,8 +12,9 @@ class CompassAndStorageGuideCoordinator = _CompassAndStorageGuideCoordinatorBase
 
 abstract class _CompassAndStorageGuideCoordinatorBase
     extends BaseHomeScreenCoordinator with Store {
-  final CompassAndStorageGuideWidgetsCoordinator widgets;
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
+  @override
+  final CompassAndStorageGuideWidgetsCoordinator widgets;
 
   _CompassAndStorageGuideCoordinatorBase({
     required super.sessionStarters,
