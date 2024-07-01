@@ -29,12 +29,14 @@ abstract class _CollaboratorPresenceIncidentsOverlayStoreBase
 
   collaboratorPresenceReactor(Function onJoined, Function onLeft) =>
       reaction((p0) => sessionMetadataStore.everyoneIsOnline, (p0) {
-        if (p0) {
-          onCollaboratorJoined();
-          onJoined();
-        } else {
-          onCollaboratorLeft();
-          onLeft();
+        if (sessionMetadataStore.userPhase != -1.0) {
+          if (p0) {
+            onCollaboratorJoined();
+            onJoined();
+          } else {
+            onCollaboratorLeft();
+            onLeft();
+          }
         }
       });
 }
