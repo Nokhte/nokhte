@@ -18,9 +18,17 @@ class SessionExitCoordinator = _SessionExitCoordinatorBase
     with _$SessionExitCoordinator;
 
 abstract class _SessionExitCoordinatorBase
-    with Store, HomeScreenRouter, BaseCoordinator, Reactions, SessionPresence {
+    with
+        Store,
+        HomeScreenRouter,
+        BaseCoordinator,
+        Reactions,
+        SessionPresence,
+        BaseExitCoordinator {
   final SessionExitWidgetsCoordinator widgets;
+  @override
   final SwipeDetector swipe;
+  @override
   final SessionMetadataStore sessionMetadata;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final CaptureNokhteSessionEnd captureEnd;
@@ -41,6 +49,7 @@ abstract class _SessionExitCoordinatorBase
     required this.getUserInfo,
   }) : sessionMetadata = presence.sessionMetadataStore {
     initBaseCoordinatorActions();
+    initBaseExitCoordinatorActions();
   }
 
   @observable
@@ -59,6 +68,7 @@ abstract class _SessionExitCoordinatorBase
     widgets.constructor();
     initReactors();
     await presence.updateCurrentPhase(4.0);
+    sessionMetadata.setAffirmativePhase(4.0);
     await captureScreen(SessionConstants.exit);
   }
 
@@ -68,11 +78,11 @@ abstract class _SessionExitCoordinatorBase
   @action
   setIsGoingHome(bool newVal) => isGoingHome = newVal;
 
-  @observable
-  bool blockUserPhaseReactor = false;
+  // @observable
+  // bool blockUserPhaseReactor = false;
 
-  @action
-  setBlockUserPhaseReactor(bool newVal) => blockUserPhaseReactor = newVal;
+  // @action
+  // setBlockUserPhaseReactor(bool newVal) => blockUserPhaseReactor = newVal;
 
   @action
   initReactors() {
@@ -105,27 +115,41 @@ abstract class _SessionExitCoordinatorBase
         onReturnToHybridComplete: () {
           Modular.to.navigate(SessionConstants.groupHybrid);
         }));
-    disposers.add(swipeReactor());
-    disposers.add(userPhaseReactor());
+    disposers.add(
+        swipeReactor(onSwipeDown: () => widgets.onReadyToGoBack(phoneRole)));
+    disposers.add(
+      userPhaseReactor(
+        initShowStatus: () => widgets.initStartingMovie(
+          totalAffirmative: sessionMetadata.numberOfAffirmative,
+          totalNumberOfCollaborators: sessionMetadata.numberOfCollaborators,
+        ),
+        initWrapUp: () async => await onReturnHome(),
+      ),
+    );
     disposers.add(
       widgets.sessionExitStatusCompletionReactor(
-        onInitialized: () => disposers.add(numberOfAffirmativeReactor()),
+        onInitialized: () async {
+          if (sessionMetadata.userPhase == -1.0) {
+            setBlockUserPhaseReactor(true);
+            widgets.onNumOfAffirmativeChanged(
+              totalNumberOfCollaborators: widgets.totalNumberOfCollaborators,
+              totalAffirmative: widgets.totalNumberOfCollaborators,
+            );
+          } else {
+            disposers.add(
+              numberOfAffirmativeReactor(
+                onInit: widgets.onNumOfAffirmativeChanged,
+                onComplete: () {
+                  setShowCollaboratorIncidents(false);
+                },
+              ),
+            );
+          }
+        },
         onReadyToGoHome: () async => await onReturnHome(),
       ),
     );
   }
-
-  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
-        switch (p0) {
-          case GestureDirections.down:
-            ifTouchIsNotDisabled(() async {
-              widgets.onReadyToGoBack(phoneRole);
-              setDisableAllTouchFeedback(true);
-            });
-          default:
-            break;
-        }
-      });
 
   @action
   onReturnHome() async {
@@ -140,41 +164,6 @@ abstract class _SessionExitCoordinatorBase
     });
     widgets.initHomeTransition();
   }
-
-  numberOfAffirmativeReactor() =>
-      reaction((p0) => sessionMetadata.numberOfAffirmative, (p0) {
-        if (!blockUserPhaseReactor) {
-          if (p0 == sessionMetadata.numberOfCollaborators) {
-            setBlockUserPhaseReactor(true);
-            setShowCollaboratorIncidents(false);
-          }
-          widgets.onNumOfAffirmativeChanged(
-            totalNumberOfCollaborators: sessionMetadata.numberOfCollaborators,
-            totalAffirmative: p0,
-          );
-        }
-      });
-
-  userPhaseReactor() => reaction((p0) => sessionMetadata.userPhase, (p0) async {
-        if (p0 == 4.0) {
-          if (sessionMetadata.numberOfAffirmative ==
-              sessionMetadata.numberOfCollaborators) {
-            await onReturnHome();
-          } else {
-            widgets.initStartingMovie(
-              totalAffirmative: sessionMetadata.numberOfAffirmative,
-              totalNumberOfCollaborators: sessionMetadata.numberOfCollaborators,
-            );
-          }
-        } else if (p0 == -1.0) {
-          setShowCollaboratorIncidents(false);
-          widgets.onNumOfAffirmativeChanged(
-            totalNumberOfCollaborators: sessionMetadata.numberOfAffirmative,
-            totalAffirmative: sessionMetadata.numberOfAffirmative,
-          );
-          //
-        }
-      });
 
   @computed
   SessionScreenTypes get phoneRole => sessionMetadata.sessionScreenType;

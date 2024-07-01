@@ -186,15 +186,16 @@ class SessionWidgetsModule extends Module {
     );
     i.add<SocraticSpeakingExitWidgetsCoordinator>(
       () => SocraticSpeakingExitWidgetsCoordinator(
-        sessionExitStatusIndicator: SessionExitStatusIndicatorStore(),
-        smartText: SmartTextStore(),
+        exitStatusIndicator: ExitStatusIndicatorStore(),
+        primarySmartText: SmartTextStore(),
+        secondarySmartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
     );
     i.add<SessionExitWidgetsCoordinator>(
       () => SessionExitWidgetsCoordinator(
-        sessionExitStatusIndicator: SessionExitStatusIndicatorStore(),
+        exitStatusIndicator: ExitStatusIndicatorStore(),
         tint: TintStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         primarySmartText: SmartTextStore(),

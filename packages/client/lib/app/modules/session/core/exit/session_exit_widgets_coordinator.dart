@@ -14,19 +14,22 @@ class SessionExitWidgetsCoordinator = _SessionExitWidgetsCoordinatorBase
     with _$SessionExitWidgetsCoordinator;
 
 abstract class _SessionExitWidgetsCoordinatorBase
-    with Store, BaseWidgetsCoordinator {
+    with Store, BaseWidgetsCoordinator, BaseExitWidgetsCoordinator {
   final BeachWavesStore beachWaves;
-  final SessionExitStatusIndicatorStore sessionExitStatusIndicator;
-  final SmartTextStore primarySmartText;
-  final SmartTextStore secondarySmartText;
   final GestureCrossStore gestureCross;
   final TintStore tint;
+  @override
+  final ExitStatusIndicatorStore exitStatusIndicator;
+  @override
+  final SmartTextStore primarySmartText;
+  @override
+  final SmartTextStore secondarySmartText;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionExitWidgetsCoordinatorBase({
     required this.beachWaves,
-    required this.sessionExitStatusIndicator,
+    required this.exitStatusIndicator,
     required this.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
@@ -34,6 +37,7 @@ abstract class _SessionExitWidgetsCoordinatorBase
     required this.tint,
   }) {
     initBaseWidgetsCoordinatorActions();
+    initBaseExitWidgetsCoordinatorActions();
   }
 
   @action
@@ -49,23 +53,12 @@ abstract class _SessionExitWidgetsCoordinatorBase
   }
 
   @action
-  initStartingMovie({
-    required int totalNumberOfCollaborators,
-    required int totalAffirmative,
-  }) {
-    sessionExitStatusIndicator.initStartingMovie(
-      numberOfAffirmative: totalAffirmative,
-      total: totalNumberOfCollaborators,
-    );
-  }
-
-  @action
   initHomeTransition() {
     primarySmartText.setWidgetVisibility(false);
     secondarySmartText.setWidgetVisibility(false);
     tint.reverseMovie(NoParams());
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
-    beachWaves.currentStore.reverseMovie(NoParams());
+    beachWaves.currentStore.reverseMovie(-10.0);
     gestureCross.fadeInTheCross();
   }
 
@@ -86,46 +79,15 @@ abstract class _SessionExitWidgetsCoordinatorBase
     }
   }
 
-  @action
-  onCollaboratorLeft() {
-    primarySmartText.setWidgetVisibility(false);
-    secondarySmartText.setWidgetVisibility(false);
-  }
-
-  @action
-  onNumOfAffirmativeChanged({
-    required int totalNumberOfCollaborators,
-    required int totalAffirmative,
-  }) {
-    Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
-      if (sessionExitStatusIndicator.movieStatus != MovieStatus.inProgress) {
-        if (totalAffirmative == totalNumberOfCollaborators) {
-          sessionExitStatusIndicator.initComplete();
-          timer.cancel();
-        } else {
-          sessionExitStatusIndicator.initAdjust(totalAffirmative);
-          timer.cancel();
-        }
-      }
-    });
-  }
-
-  @action
-  onCollaboratorJoined() {
-    primarySmartText.setWidgetVisibility(primarySmartText.pastShowWidget);
-    secondarySmartText.setWidgetVisibility(secondarySmartText.pastShowWidget);
-  }
-
   sessionExitStatusCompletionReactor({
     required Function onInitialized,
     required Function onReadyToGoHome,
   }) =>
-      reaction((p0) => sessionExitStatusIndicator.movieStatus, (p0) async {
+      reaction((p0) => exitStatusIndicator.movieStatus, (p0) async {
         if (p0 == MovieStatus.finished) {
-          if (sessionExitStatusIndicator.movieMode ==
-              ExitStatusMovieModes.show) {
+          if (exitStatusIndicator.movieMode == ExitStatusMovieModes.show) {
             onInitialized();
-          } else if (sessionExitStatusIndicator.movieMode ==
+          } else if (exitStatusIndicator.movieMode ==
               ExitStatusMovieModes.complete) {
             await onReadyToGoHome();
           }

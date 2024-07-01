@@ -103,6 +103,7 @@ abstract class _PresetsWidgetsCoordinatorBase
     presetCards.showAllCondensedPresets(
       showTags: false,
     );
+    condensedPresetCards.disableAllTouchFeedback();
   }
 
   @action
@@ -138,7 +139,7 @@ abstract class _PresetsWidgetsCoordinatorBase
 
   condensedPresetCardTapReactor() =>
       reaction((p0) => presetCards.currentExpandedPresetCardName, (p0) {
-        if (p0.isNotEmpty && firstCardIsSelected) {
+        if (p0.isNotEmpty) {
           presetCards.onChosenNameChanged();
         }
       });
@@ -153,6 +154,7 @@ abstract class _PresetsWidgetsCoordinatorBase
                 presetCards.preferredPresetIndex,
                 override: true,
               );
+
               fadeInCount++;
             }
           } else if (condensedPresetCards.movieModes.first ==

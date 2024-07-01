@@ -8,6 +8,7 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
+import 'package:nokhte_backend/tables/_real_time_disabled/company_presets/queries.dart';
 part 'session_speaking_coordinator.g.dart';
 
 class SessionSpeakingCoordinator = _SessionSpeakingCoordinatorBase
@@ -84,7 +85,10 @@ abstract class _SessionSpeakingCoordinatorBase
         switch (p0) {
           case GestureDirections.down:
             ifTouchIsNotDisabled(() {
-              widgets.onExit();
+              widgets.onExit(
+                isASocraticSession:
+                    sessionMetadata.presetType == PresetTypes.socratic,
+              );
             });
           default:
             break;
@@ -131,8 +135,6 @@ abstract class _SessionSpeakingCoordinatorBase
           await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
         }
       });
-
- 
 
   deconstructor() {
     dispose();

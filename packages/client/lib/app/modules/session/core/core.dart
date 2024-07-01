@@ -16,6 +16,7 @@ export 'group_greeter/group_greeter.dart';
 export 'lobby/lobby.dart';
 export './shared/shared.dart';
 export 'trial_greeter/trial_greeter.dart';
+export 'socratic_speaking_exit/socratic_speaking_exit.dart';
 export 'collaboration_greeter/collaboration_greeter.dart';
 
 class SessionCoreModule extends Module {
@@ -101,10 +102,26 @@ class SessionCoreModule extends Module {
         captureScreen: Modular.get<CaptureScreen>(),
       ),
     );
+
+    i.add<SocraticSpeakingExitCoordinator>(
+      () => SocraticSpeakingExitCoordinator(
+        swipe: SwipeDetector(),
+        widgets: Modular.get<SocraticSpeakingExitWidgetsCoordinator>(),
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+      ),
+    );
   }
 
   @override
   routes(r) {
+    r.child(
+      SessionConstants.relativeSocraticSpeakingExit,
+      transition: TransitionType.noTransition,
+      child: (context) => SocraticSpeakingExitScreen(
+        coordinator: Modular.get<SocraticSpeakingExitCoordinator>(),
+      ),
+    );
     r.child(
       SessionConstants.relativePreview,
       transition: TransitionType.noTransition,

@@ -489,6 +489,15 @@ class SessionLists {
     ),
   ];
 
+  static List<RotatingTextData> waitingToTakeFinalNote = [
+    RotatingTextData(
+      text: "Waiting to take final note",
+      subFontSize: 22.0,
+      pauseHere: true,
+      mainFontSize: 22.0,
+    ),
+  ];
+
   static List<RotatingTextData> waitingToLeave = [
     RotatingTextData(
       text: "Waiting to leave",

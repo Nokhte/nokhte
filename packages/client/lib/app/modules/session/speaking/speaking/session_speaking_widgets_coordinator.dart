@@ -41,7 +41,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
     mirroredText.setMessagesData(MirroredTextContent.sessionSpeaking);
     mirroredText.startBothRotatingText();
-    setIsPickingUp(false);
+    setIsLeaving(false);
     initReactors();
   }
 
@@ -52,13 +52,13 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   bool isHolding = false;
 
   @observable
-  bool isPickingUp = false;
+  bool isLeaving = false;
 
   @action
   setIsHolding(bool newBool) => isHolding = newBool;
 
   @action
-  setIsPickingUp(bool newBool) => isPickingUp = newBool;
+  setIsLeaving(bool newBool) => isLeaving = newBool;
 
   @observable
   bool collaboratorHasLeft = false;
@@ -137,10 +137,16 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   }
 
   @action
-  onExit() {
-    setIsPickingUp(true);
+  onExit({
+    required bool isASocraticSession,
+  }) {
+    setIsLeaving(true);
     mirroredText.setWidgetVisibility(false);
-    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
+    if (isASocraticSession) {
+      beachWaves.setMovieMode(BeachWaveMovieModes.orangeSandToHalfAndHalf);
+    } else {
+      beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
+    }
     beachWaves.currentStore.reverseMovie(NoParams());
   }
 
@@ -168,7 +174,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
-            if (isPickingUp) {
+            if (isLeaving) {
               Modular.to.navigate(SessionConstants.exit);
             } else if (isLettingGo) {
               onLetGoCompleted();
@@ -180,6 +186,9 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
               beachWaves.movieMode ==
                   BeachWaveMovieModes.halfAndHalfToDrySand) {
             initBorderGlow();
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.orangeSandToHalfAndHalf) {
+            Modular.to.navigate(SessionConstants.socraticSpeakingExit);
           }
         }
       });

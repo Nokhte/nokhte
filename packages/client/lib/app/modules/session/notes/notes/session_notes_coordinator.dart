@@ -37,7 +37,7 @@ abstract class _SessionNotesCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
-    await presence.updateCurrentPhase(2.0);
+    // await presence.updateCurrentPhase(2.0);
     await captureScreen(SessionConstants.notes);
   }
 
