@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:equatable/equatable.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -9,56 +8,9 @@ part 'beach_waves_store.g.dart';
 
 class BeachWavesStore = _BeachWavesStoreBase with _$BeachWavesStore;
 
-abstract class _BeachWavesStoreBase extends Equatable with Store {
+abstract class _BeachWavesStoreBase with Store {
   _BeachWavesStoreBase() {
-    movieModeToStoreLookup = {
-      BeachWaveMovieModes.anyToOnShore: AnyToOnShoreMovieStore(),
-      BeachWaveMovieModes.anyToSky: AnyToSkyMovieStore(),
-      BeachWaveMovieModes.anyToHalfAndHalf: AnyToHalfAndHalfMovieStore(),
-      BeachWaveMovieModes.anyToInvertedHalfAndHalf:
-          AnyToInvertedHalfAndHalfMovieStore(),
-      BeachWaveMovieModes.borealisToSky: BorealisToSkyMovieStore(),
-      BeachWaveMovieModes.blackOut: StaticBlackOutMovieStore(),
-      BeachWaveMovieModes.blackOutToDrySand: BlackOutToDrySandMovieStore(),
-      BeachWaveMovieModes.deepSeaToBorealis: DeepSeaToBorealisMovieStore(),
-      BeachWaveMovieModes.deepSeaToSky: DeepSeaToSkyMovieStore(),
-      BeachWaveMovieModes.deepSeaToHalfAndHalf:
-          DeepSeaToHalfAndHalfMovieStore(),
-      BeachWaveMovieModes.deepSeaToInvertedHalfAndHalf:
-          DeepSeaToInvertedHalfAndHalfMovieStore(),
-      BeachWaveMovieModes.drySandToSky: DrySandToSkyMovieStore(),
-      BeachWaveMovieModes.halfAndHalfToDrySand:
-          HalfAndHalfToDrySandMovieStore(),
-      BeachWaveMovieModes.invertedOnShore: InvertedOnShoreMovieStore(),
-      BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea:
-          InvertedOnShoreToInvertedDeepSeaMovieStore(),
-      BeachWaveMovieModes.invertedOnShoreToInvertedOceanDive:
-          InvertedOnShoreToInvertedOceanDiveMovieStore(),
-      BeachWaveMovieModes.invertedOnShoreToInvertedDeeperBlue:
-          InvertedOnShoreToInvertedDeeperBlueMovieStore(),
-      BeachWaveMovieModes.invertedHalfAndHalfToDrySand:
-          InvertedHalfAndHalfToDrySandMovieStore(),
-      BeachWaveMovieModes.none: BaseBeachWaveMovieStore(),
-      BeachWaveMovieModes.oceanDiveToSky: OceanDiveToSkyMovieStore(),
-      BeachWaveMovieModes.onShore: OnShoreMovieStore(),
-      BeachWaveMovieModes.onShoreToDeepSea: OnShoreToDeepSeaMovieStore(),
-      BeachWaveMovieModes.onShoreToDrySand: OnShoreToDrySandMovieStore(),
-      BeachWaveMovieModes.onShoreToOceanDive: OnShoreToOceanDiveMovieStore(),
-      BeachWaveMovieModes.onShoreToSky: OnShoreToSkyMovieStore(),
-      BeachWaveMovieModes.resumeOnShore: ResumeOnShoreMovieStore(),
-      BeachWaveMovieModes.staticHalfAndHalf: StaticHalfAndHalfMovieStore(),
-      BeachWaveMovieModes.staticInvertedDeeperBlue:
-          StaticInvertedDeeperBlueMovieStore(),
-      BeachWaveMovieModes.staticOceanDive: StaticOceanDiveStore(),
-      BeachWaveMovieModes.skyToHalfAndHalf: SkyToHalfAndHalfMovieStore(),
-      BeachWaveMovieModes.skyToInvertedHalfAndHalf:
-          SkyToInvertedHalfAndHalfMovieStore(),
-      BeachWaveMovieModes.skyToDrySand: SkyToDrySandMovieStore(),
-      BeachWaveMovieModes.waterFromTopToOnShorePt1:
-          WaterFromTopToOnShoreMoviePart1Store(),
-      BeachWaveMovieModes.waterFromTopToOnShorePt2:
-          WaterFromTopToOnShoreMoviePart2Store(),
-    };
+    movieModeToStoreLookup = BeachWaveMovies.getMap();
   }
 
   Map<BeachWaveMovieModes, BaseBeachWaveMovieStore> movieModeToStoreLookup = {};
@@ -151,7 +103,4 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
   @computed
   MovieTween get currentMovie =>
       movieModeToStoreLookup[movieMode]?.movie ?? MovieTween();
-
-  @override
-  List<Object> get props => [];
 }

@@ -9,6 +9,8 @@ export 'dry_sand_to_sky_movie_store.dart';
 export 'inverted_half_and_half_to_dry_sand_movie_store.dart';
 export 'half_and_half_to_dry_sand_movie_store.dart';
 export 'sky_to_dry_sand_movie_store.dart';
+export 'orange_sand_to_half_and_half_movie_store.dart';
+export 'orange_sand_to_sky_movie_store.dart';
 export 'sky_to_inverted_half_and_half_movie_store.dart';
 export 'ocean_dive_to_sky_movie_store.dart';
 export 'sky_to_half_and_half_movie_store.dart';
