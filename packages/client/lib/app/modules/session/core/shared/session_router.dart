@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -16,10 +15,6 @@ mixin SessionRouter {
         phoneType == SessionScreenTypes.soloHybrid) {
       beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
       beachWaves.currentStore.initMovie(NoParams());
-    } else if (phoneType == SessionScreenTypes.notes) {
-      Timer(Seconds.get(1), () {
-        Modular.to.navigate(SessionConstants.notes);
-      });
     } else if (phoneType == SessionScreenTypes.groupHybrid) {
       beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
       beachWaves.currentStore.initMovie(NoParams());
@@ -38,6 +33,8 @@ mixin SessionRouter {
     } else if (beachWaves.movieMode ==
         BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
       Modular.to.navigate(SessionConstants.groupHybrid);
+    } else if (beachWaves.movieMode == BeachWaveMovieModes.skyToDrySand) {
+      Modular.to.navigate(SessionConstants.notes);
     }
   }
 
