@@ -79,7 +79,6 @@ abstract class _SessionGroupGreeterCoordinatorBase
         (p0) => ifTouchIsNotDisabled(() async {
           widgets.onTap(
             tap.currentTapPosition,
-            onFinalTap: () async => await presence.updateCurrentPhase(1),
             phoneType: sessionMetadata.sessionScreenType,
           );
         }),
@@ -87,7 +86,7 @@ abstract class _SessionGroupGreeterCoordinatorBase
 
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
+        if (p0 == MovieStatus.finished && widgets.tapCount == 3) {
           widgets.route(
             isACollaborativeSession:
                 sessionMetadata.presetType == PresetTypes.collaborative,

@@ -74,6 +74,7 @@ abstract class _SessionNotesWidgetsCoordinatorBase
     if (isAHybridScreen) {
       Timer(Seconds.get(9, milli: 500), () {
         if (inactivityCount == 0) {
+          textEditor.setWidgetVisibility(false);
           afterSwipeUp(includeTimer: false);
         }
       });
@@ -113,6 +114,7 @@ abstract class _SessionNotesWidgetsCoordinatorBase
     inactivityCount++;
     if (!textEditor.focusNode.hasFocus) {
       if (textEditor.controller.text.length != (0)) {
+        print("is the length not zero?? ${textEditor.controller.text.length}");
         smartText.setWidgetVisibility(true);
       } else {
         textEditor.setWidgetVisibility(false);
@@ -163,6 +165,7 @@ abstract class _SessionNotesWidgetsCoordinatorBase
             textEditor.setWidgetVisibility(true);
             canSwipeUp = true;
           } else {
+            textEditor.setWidgetVisibility(false);
             beachWaves.setMovieMode(
               BeachWaveMovieModes.skyToInvertedHalfAndHalf,
             );

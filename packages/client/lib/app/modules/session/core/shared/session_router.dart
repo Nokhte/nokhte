@@ -5,6 +5,7 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
+import 'package:simple_animations/simple_animations.dart';
 export './choose_greeter_type.dart';
 export './session_router.dart';
 
@@ -17,7 +18,7 @@ mixin SessionRouter {
       beachWaves.currentStore.initMovie(NoParams());
     } else if (phoneType == SessionScreenTypes.groupHybrid) {
       beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
-      beachWaves.currentStore.initMovie(NoParams());
+      beachWaves.currentStore.setControl(Control.play);
     }
   }
 

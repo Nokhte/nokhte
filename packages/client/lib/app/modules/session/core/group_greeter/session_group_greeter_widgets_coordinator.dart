@@ -102,7 +102,6 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
   @action
   onTap(
     Offset tapPosition, {
-    required Function onFinalTap,
     required SessionScreenTypes phoneType,
   }) async {
     if (tapCount == 0) {
@@ -135,7 +134,6 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
         cooldownStopwatch.stop();
         tapCount++;
         initTransition(phoneType);
-        await onFinalTap();
       }
     }
   }
