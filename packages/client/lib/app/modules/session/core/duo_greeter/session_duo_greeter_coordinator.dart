@@ -68,18 +68,7 @@ abstract class _SessionDuoGreeterCoordinatorBase
     ));
     disposers.add(tapReactor());
     disposers.add(rippleCompletionStatusReactor());
-    disposers.add(userPhaseReactor());
   }
-
-  userPhaseReactor() => reaction((p0) => sessionMetadata.userPhase, (p0) {
-        if (sessionMetadata.userPhase == 1.0) {
-          Timer(Seconds.get(10), () {
-            if (!isNavigatingAway) {
-              widgets.onTenSecondLapse();
-            }
-          });
-        }
-      });
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
