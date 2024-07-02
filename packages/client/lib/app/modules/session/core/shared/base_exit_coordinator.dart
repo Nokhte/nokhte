@@ -29,7 +29,6 @@ mixin BaseExitCoordinator on BaseCoordinator {
             ifTouchIsNotDisabled(() async {
               await presence.updateCurrentPhase(2.0);
               onSwipeDown();
-              // widgets.initBackToSpeaking();
               setDisableAllTouchFeedback(true);
             });
           default:
@@ -59,15 +58,13 @@ mixin BaseExitCoordinator on BaseCoordinator {
     required Function initShowStatus,
   }) =>
       reaction((p0) => sessionMetadata.userPhase, (p0) async {
-        if (!blockUserPhaseReactor) {
-          if (p0 == sessionMetadata.affirmativePhase) {
-            if ((sessionMetadata.numberOfAffirmative ==
-                sessionMetadata.numberOfCollaborators)) {
-              await initWrapUp();
-              setBlockUserPhaseReactor(true);
-            } else {
-              initShowStatus();
-            }
+        if (p0 == sessionMetadata.affirmativePhase) {
+          if ((sessionMetadata.numberOfAffirmative ==
+              sessionMetadata.numberOfCollaborators)) {
+            await initWrapUp();
+            setBlockUserPhaseReactor(true);
+          } else {
+            initShowStatus();
           }
         }
       });

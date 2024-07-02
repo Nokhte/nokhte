@@ -41,12 +41,14 @@ abstract class _SessionExitWidgetsCoordinatorBase
   }
 
   @action
-  constructor() {
+  constructor(bool isNotASocraticSession) {
     tint.initMovie(NoParams());
     primarySmartText.setMessagesData(SessionLists.waitingToLeave);
     secondarySmartText.setMessagesData(SessionLists.exitBottomText);
     primarySmartText.startRotatingText();
-    secondarySmartText.startRotatingText();
+    if (isNotASocraticSession) {
+      secondarySmartText.startRotatingText();
+    }
     beachWaves.setMovieMode(
       BeachWaveMovieModes.skyToDrySand,
     );
@@ -89,6 +91,7 @@ abstract class _SessionExitWidgetsCoordinatorBase
             onInitialized();
           } else if (exitStatusIndicator.movieMode ==
               ExitStatusMovieModes.complete) {
+            exitStatusIndicator.setWidgetVisibility(false);
             await onReadyToGoHome();
           }
         }
@@ -101,11 +104,10 @@ abstract class _SessionExitWidgetsCoordinatorBase
   }) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (p0 == MovieStatus.finished &&
-              beachWaves.movieMode == BeachWaveMovieModes.onShoreToSky) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToSky) {
             onToHomeComplete();
-          } else if (p0 == MovieStatus.finished &&
-              beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.skyToHalfAndHalf) {
             onReturnToTalkingComplete();
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.skyToInvertedHalfAndHalf) {

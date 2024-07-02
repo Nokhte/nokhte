@@ -12,6 +12,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/modules/session/session.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 part 'session_exit_coordinator.g.dart';
 
 class SessionExitCoordinator = _SessionExitCoordinatorBase
@@ -65,7 +66,7 @@ abstract class _SessionExitCoordinatorBase
   @action
   constructor() async {
     phaseHasBeenSet = false;
-    widgets.constructor();
+    widgets.constructor(isNotASocraticSession);
     initReactors();
     await presence.updateCurrentPhase(4.0);
     sessionMetadata.setAffirmativePhase(4.0);
@@ -115,8 +116,10 @@ abstract class _SessionExitCoordinatorBase
         onReturnToHybridComplete: () {
           Modular.to.navigate(SessionConstants.groupHybrid);
         }));
-    disposers.add(
-        swipeReactor(onSwipeDown: () => widgets.onReadyToGoBack(phoneRole)));
+    if (isNotASocraticSession) {
+      disposers.add(
+          swipeReactor(onSwipeDown: () => widgets.onReadyToGoBack(phoneRole)));
+    }
     disposers.add(
       userPhaseReactor(
         initShowStatus: () => widgets.initStartingMovie(
@@ -167,6 +170,10 @@ abstract class _SessionExitCoordinatorBase
 
   @computed
   SessionScreenTypes get phoneRole => sessionMetadata.sessionScreenType;
+
+  @computed
+  bool get isNotASocraticSession =>
+      sessionMetadata.presetType != PresetTypes.socratic;
 
   deconstructor() {
     dispose();
