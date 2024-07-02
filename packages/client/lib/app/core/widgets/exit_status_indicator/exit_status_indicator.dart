@@ -22,9 +22,8 @@ class ExitStatusIndicator extends HookWidget {
     final height = useFullScreenSize().height;
     final size = useFullScreenSize();
     return Observer(
-        builder: (context) => AnimatedOpacity(
+        builder: (context) => Opacity(
               opacity: useWidgetOpacity(store.showWidget),
-              duration: Seconds.get(1),
               child: CustomAnimationBuilder(
                 control: store.control,
                 tween: store.movie,
