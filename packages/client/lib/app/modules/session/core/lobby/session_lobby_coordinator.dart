@@ -108,6 +108,8 @@ abstract class _SessionLobbyCoordinatorBase
       reaction((p0) => sessionMetadata.canStartTheSession, (p0) {
         if (p0) {
           widgets.onCanStartTheSession();
+        } else {
+          widgets.onRevertCanStartSession();
         }
       });
 
@@ -177,6 +179,7 @@ abstract class _SessionLobbyCoordinatorBase
 
   deconstructor() {
     dispose();
+    widgets.dispose();
   }
 
   @computed
