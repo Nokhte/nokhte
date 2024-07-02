@@ -245,24 +245,12 @@ class SessionWidgetsModule extends Module {
         borderGlow: BorderGlowStore(),
       ),
     );
-    i.add<SessionHybridNotesWidgetsCoordinator>(
-      () => SessionHybridNotesWidgetsCoordinator(
-        smartText: SmartTextStore(),
-        borderGlow: BorderGlowStore(),
-        touchRipple: TouchRippleStore(),
-        textEditor: TextEditorStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
-    //
   }
 
   injectNotes(i) {
     i.add<SessionNotesWidgetsCoordinator>(
       () => SessionNotesWidgetsCoordinator(
         smartText: SmartTextStore(),
-        touchRipple: TouchRippleStore(),
         textEditor: TextEditorStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         beachWaves: BeachWavesStore(),

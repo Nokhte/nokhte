@@ -85,7 +85,6 @@ mixin SessionConstants {
   static const relativeSoloHybrid = '/solo_hybrid';
   static const groupHybrid = '$module$hybridModule$relativeGroupHybrid';
   static const soloHybrid = '$module$hybridModule$relativeSoloHybrid';
-  static const hybridNotes = '$module$hybridModule$relativeNotes';
 
   static const monetizeModule = '/monetize';
 
