@@ -176,7 +176,6 @@ abstract class _SessionNotesWidgetsCoordinatorBase
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          print('did we complete $p0');
           if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
             Modular.to.navigate(SessionConstants.soloHybrid);
           } else if (beachWaves.movieMode ==
