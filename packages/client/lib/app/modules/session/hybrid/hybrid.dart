@@ -6,7 +6,6 @@ import 'package:nokhte/app/modules/session/session.dart';
 
 export './solo_hybrid/solo_hybrid.dart';
 export 'group_hybrid/group_hybrid.dart';
-export 'hybrid_notes/hybrid_notes.dart';
 
 class SessionHybridModule extends Module {
   @override
@@ -35,14 +34,7 @@ class SessionHybridModule extends Module {
         swipe: SwipeDetector(),
       ),
     );
-    i.add<SessionHybridNotesCoordinator>(
-      () => SessionHybridNotesCoordinator(
-          tap: TapDetector(),
-          captureScreen: Modular.get<CaptureScreen>(),
-          widgets: Modular.get<SessionHybridNotesWidgetsCoordinator>(),
-          presence: Modular.get<SessionPresenceCoordinator>(),
-          swipe: SwipeDetector()),
-    );
+
   }
 
   @override
@@ -61,12 +53,6 @@ class SessionHybridModule extends Module {
         coordinator: Modular.get<SessionGroupHybridCoordinator>(),
       ),
     );
-    r.child(
-      SessionConstants.relativeNotes,
-      transition: TransitionType.noTransition,
-      child: (context) => SessionHybridNotesScreen(
-        coordinator: Modular.get<SessionHybridNotesCoordinator>(),
-      ),
-    );
+
   }
 }

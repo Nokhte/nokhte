@@ -254,7 +254,7 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
             if (isExiting) {
               Modular.to.navigate(SessionConstants.exit);
             } else if (isGoingToNotes) {
-              Modular.to.navigate(SessionConstants.hybridNotes);
+              Modular.to.navigate(SessionConstants.notes);
             }
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.anyToHalfAndHalf) {

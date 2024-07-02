@@ -40,9 +40,6 @@ class SessionNotesScreen extends HookWidget {
                   store: coordinator.widgets.beachWaves,
                 ),
               ),
-              TouchRipple(
-                store: coordinator.widgets.touchRipple,
-              ),
               Center(
                 child: SmartText(
                   store: coordinator.widgets.smartText,

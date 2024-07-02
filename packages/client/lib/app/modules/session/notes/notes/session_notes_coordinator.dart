@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 part 'session_notes_coordinator.g.dart';
 
 class SessionNotesCoordinator = _SessionNotesCoordinatorBase
@@ -35,9 +36,13 @@ abstract class _SessionNotesCoordinatorBase
 
   @action
   constructor() async {
+    widgets.setScreenType(sessionMetadata.sessionScreenType);
+    widgets.setPresetType(sessionMetadata.presetType);
     widgets.constructor();
     initReactors();
-    // await presence.updateCurrentPhase(2.0);
+    if (isNotASocraticSession) {
+      await presence.updateCurrentPhase(2.0);
+    }
     await captureScreen(SessionConstants.notes);
   }
 
@@ -81,17 +86,24 @@ abstract class _SessionNotesCoordinatorBase
               if (widgets.textEditor.controller.text.isNotEmpty) {
                 await onSwipeUp(widgets.textEditor.controller.text);
               }
-              widgets.onExit();
+              widgets.onSwipeDown();
             });
           default:
             break;
         }
       });
 
+  swipeUpCallback() {}
+
   @action
   onSwipeUp(String param) async => await presence.addContent(param);
 
   deconstructor() {
     dispose();
+    widgets.deconstructor();
   }
+
+  @computed
+  bool get isNotASocraticSession =>
+      sessionMetadata.presetType != PresetTypes.socratic;
 }
