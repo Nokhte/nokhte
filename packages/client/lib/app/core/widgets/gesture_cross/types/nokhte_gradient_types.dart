@@ -2,5 +2,5 @@ enum NokhteGradientTypes {
   storage,
   home,
   sessionStarter,
-presets,
+  presets,
 }
