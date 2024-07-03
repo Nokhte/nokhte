@@ -33,7 +33,7 @@ void main() {
       tSetup.secondUserUID,
       tSetup.thirdUserUID,
       tSetup.fourthUserUID
-    ]..sort();
+    ];
     user1RTQueries =
         RTActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user2RTQueries =

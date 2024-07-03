@@ -23,7 +23,7 @@ void main() {
   setUpAll(() async {
     await tSetup.setUp();
     sortedArr = [tSetup.firstUserUID, tSetup.secondUserUID];
-    sortedArr.sort();
+    sortedArr;
     user1RTQueries =
         RTActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user2RTQueries =

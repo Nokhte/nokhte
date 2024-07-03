@@ -25,7 +25,6 @@ void main() {
       tSetup.secondUserUID,
       tSetup.thirdUserUID
     ];
-    sortedArr.sort();
     user1RTQueries =
         RTActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user2RTQueries =
