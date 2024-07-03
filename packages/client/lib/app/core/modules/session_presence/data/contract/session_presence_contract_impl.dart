@@ -1,4 +1,4 @@
-// ignore_for_file: overridden_fields, annotate_overrides
+// ignore_for_file: overridden_fields
 
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/constants/constants.dart';
@@ -9,7 +9,7 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 
 class SessionPresenceContractImpl
-    with ResponseToStatus
+    with ResponseToStatus, FromFinishedSessions
     implements SessionPresenceContract {
   final SessionPresenceRemoteSource remoteSource;
   final NetworkInfo networkInfo;
@@ -39,17 +39,7 @@ class SessionPresenceContractImpl
   }
 
   @override
-  updateHasGyroscope(params) async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource.updateHasGyroscope(params);
-      return fromSupabase(res);
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
-  listenToSessionMetadata(NoParams params) async {
+  listenToRTSessionMetadata(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = remoteSource.listenToSessionMetadata();
       return Right(res);
@@ -103,6 +93,43 @@ class SessionPresenceContractImpl
     if (await networkInfo.isConnected) {
       final res = await remoteSource.startTheSession();
       return fromFunctionResponse(res);
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  getSTSessionMetadata(params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.getStaticSessionMetadata();
+      final uid = remoteSource.getUserUID();
+      return Right(StaticSessionMetadataModel.fromSupabase(res, uid));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  getSessionPresetInfo(unifiedUID) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.getPresetInformation(unifiedUID);
+      return Right(SessionPresetInfoModel.fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  getInstructionType(params) async {
+    if (await networkInfo.isConnected) {
+      final otherSessionsRes =
+          await remoteSource.checkIfHasDoneSessionBesides(params);
+      final currentPresetSessionsRes =
+          await remoteSource.checkIfHasDoneSessionSessionType(params);
+      return Right(toInstructionType(
+        otherSessions: otherSessionsRes,
+        currentPresetSessions: currentPresetSessionsRes,
+      ));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

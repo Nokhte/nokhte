@@ -24,8 +24,8 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
     required super.secondaryErrorSmartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
-    required super.primaryInstructionalGradientNokhte,
-    required super.secondaryInstructionalGradientNokhte,
+    required super.sessionStarterInstructionalNokhte,
+    required super.storageInstructionalNokhte,
   });
 
   @observable
@@ -45,7 +45,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
     gestureCross.fadeInTheCross();
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
     primarySmartText.setMessagesData(HomeLists.compassAndStorageGuide);
-    primaryInstructionalGradientNokhte.prepareYellowDiamond(
+    sessionStarterInstructionalNokhte.prepareYellowDiamond(
       center,
       position: InstructionalNokhtePositions.right,
       colorway: GradientNokhteColorways.vibrantBlue,
@@ -59,7 +59,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
     disposers.add(gestureCrossTapReactor());
     disposers.add(centerInstructionalNokhteReactor());
     disposers.add(centerCrossNokhteReactor(() {
-      primaryInstructionalGradientNokhte.setWidgetVisibility(false);
+      sessionStarterInstructionalNokhte.setWidgetVisibility(false);
     }));
   }
 
@@ -76,18 +76,19 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
           topPadding: 0.1,
           bottomPadding: 0,
         );
+        delayedEnableTouchFeedback();
       } else if (primarySmartText.currentIndex == 2) {
         setTouchIsDisabled(true);
         primarySmartText.startRotatingText(isResuming: true);
-        primaryInstructionalGradientNokhte.setWidgetVisibility(true);
+        sessionStarterInstructionalNokhte.setWidgetVisibility(true);
         touchRipple.onTap(offset);
-        setSmartTextPadding();
+        delayedEnableTouchFeedback();
       } else if (primarySmartText.currentIndex == 4) {
         primarySmartText.startRotatingText(isResuming: true);
         hasSwipedUp = false;
         setTouchIsDisabled(true);
         Timer(Seconds.get(1, milli: 500), () {
-          primaryInstructionalGradientNokhte.initMovie(
+          sessionStarterInstructionalNokhte.initMovie(
             InstructionalGradientMovieParams(
               center: center,
               colorway: GradientNokhteColorways.vibrantBlue,
@@ -107,6 +108,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
           bottomPadding: .2,
           topPadding: 0,
         );
+        delayedEnableTouchFeedback();
         // await onFlowCompleted();
       }
     }
@@ -124,6 +126,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
       toggleHasInitiatedBlur();
       primarySmartText.startRotatingText(isResuming: true);
       setSmartTextPadding(subMessagePadding: 110, bottomPadding: .23);
+      delayedEnableTouchFeedback();
       hasTappedOnGestureCross = true;
     }
   }
@@ -138,9 +141,10 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
         centerInstructionalNokhte.initMovie(
           InstructionalNokhtePositions.right,
         );
-        primaryInstructionalGradientNokhte.setControl(Control.playFromStart);
+        sessionStarterInstructionalNokhte.setControl(Control.playFromStart);
         primarySmartText.startRotatingText(isResuming: true);
         setSmartTextPadding(subMessagePadding: 120, topPadding: .15);
+        delayedEnableTouchFeedback();
       } else if (!hasSwipedUp && !hasInitiatedBlur && hasTappedOnGestureCross) {
         hasSwipedUp = true;
         beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
@@ -168,7 +172,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
           hasSwipedUp = false;
           Timer(Seconds.get(1), () {
             centerInstructionalNokhte.setWidgetVisibility(false);
-            primaryInstructionalGradientNokhte.setWidgetVisibility(false);
+            sessionStarterInstructionalNokhte.setWidgetVisibility(false);
             setTouchIsDisabled(false);
           });
         }

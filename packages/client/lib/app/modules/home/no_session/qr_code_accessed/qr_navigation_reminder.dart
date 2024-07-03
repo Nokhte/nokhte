@@ -14,7 +14,7 @@ class QrNavigationReminderScreen extends BaseHomeScreen {
           gestureCrossConfig: GestureCrossConfiguration(
             top: Right(
               NokhteGradientConfig(
-                gradientType: NokhteGradientTypes.invertedShore,
+                gradientType: NokhteGradientTypes.sessionStarter,
               ),
             ),
           ),
@@ -24,7 +24,7 @@ class QrNavigationReminderScreen extends BaseHomeScreen {
                 store: coordinator.widgets.centerInstructionalNokhte,
               ),
               InstructionalGradientNokhte(
-                store: coordinator.widgets.primaryInstructionalGradientNokhte,
+                store: coordinator.widgets.sessionStarterInstructionalNokhte,
               ),
             ],
           ),

@@ -32,7 +32,6 @@ class LoginScreen extends HookWidget {
       coordinator.constructor(center);
       return () => coordinator.deconstructor();
     }, []);
-    final size = useSquareSize(relativeLength: .20);
 
     return Observer(builder: (context) {
       return Scaffold(
@@ -78,7 +77,6 @@ class LoginScreen extends HookWidget {
                 ),
                 GestureCross(
                   config: GestureCrossConfiguration(),
-                  size: size,
                   store: coordinator.widgets.gestureCross,
                 ),
                 Center(

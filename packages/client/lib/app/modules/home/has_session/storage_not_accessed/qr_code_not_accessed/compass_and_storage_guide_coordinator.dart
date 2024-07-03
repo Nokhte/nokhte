@@ -1,9 +1,8 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides, overridden_fields
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api,  overridden_fields
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 part 'compass_and_storage_guide_coordinator.g.dart';
@@ -13,9 +12,9 @@ class CompassAndStorageGuideCoordinator = _CompassAndStorageGuideCoordinatorBase
 
 abstract class _CompassAndStorageGuideCoordinatorBase
     extends BaseHomeScreenCoordinator with Store {
-  final CompassAndStorageGuideWidgetsCoordinator widgets;
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
-  final UserInformationCoordinator userInformation;
+  @override
+  final CompassAndStorageGuideWidgetsCoordinator widgets;
 
   _CompassAndStorageGuideCoordinatorBase({
     required super.sessionStarters,
@@ -23,7 +22,6 @@ abstract class _CompassAndStorageGuideCoordinatorBase
     required super.deepLinks,
     required this.widgets,
     required this.getNokhteSessionArtifactsLogic,
-    required this.userInformation,
     required super.captureScreen,
     required super.tap,
   }) : super(widgets: widgets);

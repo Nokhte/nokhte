@@ -2,7 +2,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
@@ -12,9 +11,13 @@ import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'core.dart';
 export 'duo_greeter/duo_greeter.dart';
 export 'exit/exit.dart';
+export 'preview/preview.dart';
 export 'group_greeter/group_greeter.dart';
 export 'lobby/lobby.dart';
+export './shared/shared.dart';
 export 'trial_greeter/trial_greeter.dart';
+export 'socratic_speaking_exit/socratic_speaking_exit.dart';
+export 'collaboration_greeter/collaboration_greeter.dart';
 
 class SessionCoreModule extends Module {
   @override
@@ -23,7 +26,6 @@ class SessionCoreModule extends Module {
         PosthogModule(),
         SessionPresenceModule(),
         UserMetadataModule(),
-        GyroscopicModule(),
         UserInformationModule(),
         DeepLinksModule(),
         ActiveMonetizationSessionModule(),
@@ -31,6 +33,18 @@ class SessionCoreModule extends Module {
 
   @override
   void exportedBinds(i) {
+    i.add<SessionPreviewCoordinator>(
+      () => SessionPreviewCoordinator(
+        captureStart: Modular.get<CaptureNokhteSessionStart>(),
+        activeMonetizationSession:
+            Modular.get<ActiveMonetizationSessionCoordinator>(),
+        deepLinks: Modular.get<DeepLinksCoordinator>(),
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        tap: TapDetector(),
+        widgets: Modular.get<SessionPreviewWidgetsCoordinator>(),
+      ),
+    );
     i.add<SessionLobbyCoordinator>(
       () => SessionLobbyCoordinator(
         captureStart: Modular.get<CaptureNokhteSessionStart>(),
@@ -46,10 +60,17 @@ class SessionCoreModule extends Module {
     );
     i.add<SessionDuoGreeterCoordinator>(
       () => SessionDuoGreeterCoordinator(
-        gyroscopic: Modular.get<GyroscopicCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<SessionDuoGreeterWidgetsCoordinator>(),
+        tap: TapDetector(),
+      ),
+    );
+    i.add<SessionCollaborationGreeterCoordinator>(
+      () => SessionCollaborationGreeterCoordinator(
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<SessionCollaborationGreeterWidgetsCoordinator>(),
         tap: TapDetector(),
       ),
     );
@@ -63,7 +84,6 @@ class SessionCoreModule extends Module {
     );
     i.add<SessionGroupGreeterCoordinator>(
       () => SessionGroupGreeterCoordinator(
-        gyroscopic: Modular.get<GyroscopicCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<SessionGroupGreeterWidgetsCoordinator>(),
@@ -82,10 +102,33 @@ class SessionCoreModule extends Module {
         captureScreen: Modular.get<CaptureScreen>(),
       ),
     );
+
+    i.add<SocraticSpeakingExitCoordinator>(
+      () => SocraticSpeakingExitCoordinator(
+        swipe: SwipeDetector(),
+        widgets: Modular.get<SocraticSpeakingExitWidgetsCoordinator>(),
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+      ),
+    );
   }
 
   @override
   routes(r) {
+    r.child(
+      SessionConstants.relativeSocraticSpeakingExit,
+      transition: TransitionType.noTransition,
+      child: (context) => SocraticSpeakingExitScreen(
+        coordinator: Modular.get<SocraticSpeakingExitCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionConstants.relativePreview,
+      transition: TransitionType.noTransition,
+      child: (context) => SessionPreviewScreen(
+        coordinator: Modular.get<SessionPreviewCoordinator>(),
+      ),
+    );
     r.child(
       SessionConstants.relativeLobby,
       transition: TransitionType.noTransition,
@@ -98,6 +141,13 @@ class SessionCoreModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => SessionGroupGreeterScreen(
         coordinator: Modular.get<SessionGroupGreeterCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionConstants.relativeCollaborationGreeter,
+      transition: TransitionType.noTransition,
+      child: (context) => SessionCollaborationGreeterScreen(
+        coordinator: Modular.get<SessionCollaborationGreeterCoordinator>(),
       ),
     );
     r.child(

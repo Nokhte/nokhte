@@ -9,6 +9,7 @@ import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 part 'session_lobby_coordinator.g.dart';
@@ -16,18 +17,22 @@ part 'session_lobby_coordinator.g.dart';
 class SessionLobbyCoordinator = _SessionLobbyCoordinatorBase
     with _$SessionLobbyCoordinator;
 
-abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
+abstract class _SessionLobbyCoordinatorBase
+    with Store, ChooseGreeterType, BaseCoordinator, Reactions, SessionPresence {
   final SessionLobbyWidgetsCoordinator widgets;
   final TapDetector tap;
-  final SessionPresenceCoordinator presence;
-  final ListenToSessionMetadataStore sessionMetadata;
   final UserMetadataCoordinator userMetadata;
   final DeepLinksCoordinator deepLinks;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
   final CaptureNokhteSessionStart captureStart;
+  @override
+  final SessionPresenceCoordinator presence;
+  @override
+  final SessionMetadataStore sessionMetadata;
+  @override
+  final CaptureScreen captureScreen;
 
   _SessionLobbyCoordinatorBase({
-    required super.captureScreen,
     required this.widgets,
     required this.deepLinks,
     required this.captureStart,
@@ -35,8 +40,10 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
     required this.presence,
     required this.userMetadata,
     required this.activeMonetizationSession,
-  }) : sessionMetadata = presence.listenToSessionMetadataStore;
-
+    required this.captureScreen,
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
   @observable
   bool isNavigatingAway = false;
 
@@ -44,25 +51,15 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
   constructor() async {
     widgets.constructor();
     initReactors();
-    await presence.listen();
+    if (isTheLeader) {
+      await presence.listen();
+    } else {
+      showPresetInfo();
+    }
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionBearer);
     await userMetadata.getMetadata();
+    await updateCurrentPhase();
     await captureScreen(SessionConstants.lobby);
-  }
-
-  @action
-  onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-  }
-
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
   }
 
   @action
@@ -89,10 +86,46 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
     ));
     if (isTheLeader) {
       tapReactor();
+      disposers.add(canStartTheSessionReactor());
     }
     disposers.add(sessionStartReactor());
     disposers.add(widgets.beachWavesMovieStatusReactor(enterGreeter));
+    disposers.add(sessionPresetReactor());
   }
+
+  @action
+  updateCurrentPhase() async {
+    Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
+      if (sessionMetadata.userPhase != 1.0) {
+        await presence.updateCurrentPhase(1.0);
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
+  canStartTheSessionReactor() =>
+      reaction((p0) => sessionMetadata.canStartTheSession, (p0) {
+        if (p0) {
+          widgets.onCanStartTheSession();
+        } else {
+          widgets.onRevertCanStartSession();
+        }
+      });
+
+  sessionPresetReactor() => reaction((p0) => sessionMetadata.presetTags, (p0) {
+        showPresetInfo();
+      });
+
+  @action
+  showPresetInfo() {
+    widgets.onPresetInfoRecieved(
+      presetName: sessionMetadata.presetName,
+      presetTags: sessionMetadata.presetTags,
+    );
+    //
+  }
+  // add the on ready to start reactor too
 
   deepLinkReactor() => reaction(
         (p0) => deepLinks.link,
@@ -101,17 +134,19 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => ifTouchIsNotDisabled(() async {
-          widgets.onTap(
-            tap.currentTapPosition,
-            onTap: () async {
-              await presence.startTheSession();
-              await captureStart(sessionMetadata.numberOfCollaborators);
-              if (isTheLeader && !sessionMetadata.isAValidSession) {
-                await activeMonetizationSession.startMonetizationSession();
-              }
-            },
-          );
+        (p0) => ifTouchIsNotDisabled(() {
+          if (sessionMetadata.canStartTheSession) {
+            widgets.onTap(
+              tap.currentTapPosition,
+              onTap: () async {
+                await presence.startTheSession();
+                await captureStart(sessionMetadata.numberOfCollaborators);
+                if (isTheLeader && !sessionMetadata.isAValidSession) {
+                  await activeMonetizationSession.startMonetizationSession();
+                }
+              },
+            );
+          }
         }),
       );
 
@@ -135,11 +170,16 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
           return monetizationSessionPath;
         }
       } else {
-        return SessionConstants.groupGreeter;
+        return chooseGreeterType(SessionConstants.groupGreeter);
       }
     } else {
-      return SessionConstants.duoGreeter;
+      return chooseGreeterType(SessionConstants.duoGreeter);
     }
+  }
+
+  deconstructor() {
+    dispose();
+    widgets.dispose();
   }
 
   @computed
@@ -153,9 +193,9 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
 
   @computed
   String get premiumSessionPath {
-    return isConsumingTrialSession
+    return chooseGreeterType(isConsumingTrialSession
         ? SessionConstants.trialGreeter
-        : SessionConstants.groupGreeter;
+        : SessionConstants.groupGreeter);
   }
 
   @computed
@@ -164,6 +204,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
 
   @computed
   bool get isConsumingTrialSession =>
+      isAPremiumSession &&
       !userMetadata.hasUsedTrial &&
       !userMetadata.isSubscribed &&
       !sessionMetadata.leaderIsWhitelisted;

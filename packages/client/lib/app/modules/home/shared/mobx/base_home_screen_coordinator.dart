@@ -5,34 +5,39 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte/app/modules/storage/constants/constants.dart';
-
 import 'base_home_screen_widgets_coordinator.dart';
 part 'base_home_screen_coordinator.g.dart';
 
 class BaseHomeScreenCoordinator = _BaseHomeScreenCoordinatorBase
     with _$BaseHomeScreenCoordinator;
 
-abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _BaseHomeScreenCoordinatorBase
+    with Store, BaseCoordinator, BaseMobxLogic, Reactions {
   final BaseHomeScreenWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final SessionStartersLogicCoordinator sessionStarters;
   final DeepLinksCoordinator deepLinks;
   final TapDetector tap;
+  @override
+  final CaptureScreen captureScreen;
 
   _BaseHomeScreenCoordinatorBase({
+    required this.captureScreen,
     required this.sessionStarters,
     required this.swipe,
     required this.tap,
     required this.widgets,
     required this.deepLinks,
-    required super.captureScreen,
-  });
+  }) {
+    initBaseCoordinatorActions();
+    initBaseLogicActions();
+  }
 
   @action
   constructor(Offset center) {}
@@ -68,14 +73,17 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
     });
   }
 
+  @observable
+  bool isInErrorMode = false;
+
+  @action
+  setIsInErrorMode(bool value) => isInErrorMode = value;
+
   @action
   onShoreToOceanDiveComplete() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
       if (widgets.touchRipple.movieStatus == MovieStatus.finished) {
-        Modular.to.navigate(
-          SessionStarterConstants.root,
-          arguments: deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
-        );
+        Modular.to.navigate(SessionStarterConstants.sessionStarterEntry);
         timer.cancel();
       }
     });
@@ -83,7 +91,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
 
   @action
   onShoreToDeepSeaComplete() => Modular.to.navigate(
-        SessionConstants.lobby,
+        SessionConstants.preview,
         arguments: deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
       );
 
@@ -154,7 +162,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
                 widgets.errorSmartText.setWidgetVisibility(false);
                 widgets.secondaryErrorSmartText.setWidgetVisibility(false);
                 Timer(Seconds.get(2), () {
-                  Modular.to.navigate(SessionConstants.lobby, arguments: {});
+                  Modular.to.navigate(SessionConstants.preview, arguments: {});
                 });
               }
             }
@@ -162,10 +170,9 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
         }
       });
 
-  @override
   deconstructor() {
+    dispose();
     deepLinks.dispose();
-    widgets.deconstructor();
-    super.deconstructor();
+    widgets.dispose();
   }
 }

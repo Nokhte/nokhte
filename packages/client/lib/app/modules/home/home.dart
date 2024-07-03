@@ -24,7 +24,6 @@ class HomeModule extends Module {
         HomeWidgetsModule(),
         SessionStartersLogicModule(),
         CleanUpCollaborationArtifactsModule(),
-        UserInformationModule(),
         DeepLinksModule(),
         LegacyConnectivityModule(),
         PosthogModule(),
@@ -36,7 +35,6 @@ class HomeModule extends Module {
     i.add<HomeScreenRootRouterCoordinator>(
       () => HomeScreenRootRouterCoordinator(
         userMetadata: Modular.get<UserMetadataCoordinator>(),
-        captureScreen: Modular.get<CaptureScreen>(),
         cleanUpCollaborationArtifacts:
             Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
@@ -46,7 +44,6 @@ class HomeModule extends Module {
     );
     i.add<CompassAndQrGuideCoordinator>(
       () => CompassAndQrGuideCoordinator(
-        userInformation: Modular.get<UserInformationCoordinator>(),
         tap: TapDetector(),
         sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
@@ -75,7 +72,6 @@ class HomeModule extends Module {
         swipe: SwipeDetector(),
         widgets: Modular.get<StorageGuideWidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
-        userInformation: Modular.get<UserInformationCoordinator>(),
       ),
     );
     i.add<CompassAndStorageGuideCoordinator>(
@@ -88,7 +84,6 @@ class HomeModule extends Module {
         swipe: SwipeDetector(),
         widgets: Modular.get<CompassAndStorageGuideWidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
-        userInformation: Modular.get<UserInformationCoordinator>(),
       ),
     );
     i.add<ShortQrGuideCoordinator>(

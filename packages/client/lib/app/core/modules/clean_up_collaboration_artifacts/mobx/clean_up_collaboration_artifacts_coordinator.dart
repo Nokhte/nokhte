@@ -11,7 +11,7 @@ class CleanUpCollaborationArtifactsCoordinator = _CleanUpCollaborationArtifactsC
     with _$CleanUpCollaborationArtifactsCoordinator;
 
 abstract class _CleanUpCollaborationArtifactsCoordinatorBase
-    extends BaseMobxDBStore<NoParams, bool> with Store {
+    with Store, BaseMobxLogic<NoParams, bool> {
   final SessionStartersLogicCoordinator sessionStarters;
   final CleanUpNokhteSession cleanUpNokhteSession;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
@@ -20,15 +20,17 @@ abstract class _CleanUpCollaborationArtifactsCoordinatorBase
     required this.sessionStarters,
     required this.cleanUpNokhteSession,
     required this.activeMonetizationSession,
-  });
+  }) {
+    initBaseLogicActions();
+  }
 
   @override
   @action
   Future<void> call(NoParams params) async {
-    state = StoreState.loading;
+    setState(StoreState.loading);
     await sessionStarters.nuke();
     await activeMonetizationSession.delete();
     await cleanUpNokhteSession(NoParams());
-    state = StoreState.loaded;
+    setState(StoreState.loaded);
   }
 }

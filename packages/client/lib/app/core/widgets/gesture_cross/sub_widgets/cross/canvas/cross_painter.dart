@@ -7,17 +7,13 @@ class CrossPainter extends CustomPainter {
   final bool showGlowAndOutline;
   late double height;
   late double width;
-  late Paint myPaint;
   final double outlineOpacity;
   final double outlineBlur;
   ColorsAndStops crossGradient;
-  List<CircleInformation> circleInformation;
 
   CrossPainter(
     this.path,
-    this.pathBounds,
-   {
-    required this.circleInformation,
+    this.pathBounds, {
     required this.outlineBlur,
     required this.crossGradient,
     required this.showGlowAndOutline,

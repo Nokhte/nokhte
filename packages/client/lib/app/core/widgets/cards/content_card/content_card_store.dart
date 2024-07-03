@@ -8,7 +8,7 @@ part 'content_card_store.g.dart';
 
 class ContentCardStore = _ContentCardStoreBase with _$ContentCardStore;
 
-abstract class _ContentCardStoreBase extends BaseCustomAnimatedWidgetStore
+abstract class _ContentCardStoreBase extends BaseWidgetStore
     with Store {
   @action
   initFadeIn() {

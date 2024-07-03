@@ -5,6 +5,7 @@ import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'session_presence.dart';
 export 'data/data.dart';
+export 'types/types.dart';
 export 'domain/domain.dart';
 export 'mobx/mobx.dart';
 
@@ -15,7 +16,7 @@ class SessionPresenceModule extends Module {
         LegacyConnectivityModule(),
       ];
   @override
-  void exportedBinds(Injector i) {
+  void exportedBinds(i) {
     i.add<SessionPresenceRemoteSourceImpl>(
       () => SessionPresenceRemoteSourceImpl(
         supabase: Modular.get<SupabaseClient>(),
@@ -29,6 +30,16 @@ class SessionPresenceModule extends Module {
     );
     i.add<StartTheSession>(
       () => StartTheSession(
+        contract: i<SessionPresenceContractImpl>(),
+      ),
+    );
+    i.add<GetStaticSessionMetadata>(
+      () => GetStaticSessionMetadata(
+        contract: i<SessionPresenceContractImpl>(),
+      ),
+    );
+    i.add<GetSessionPresetInfo>(
+      () => GetSessionPresetInfo(
         contract: i<SessionPresenceContractImpl>(),
       ),
     );
@@ -52,6 +63,11 @@ class SessionPresenceModule extends Module {
         contract: i<SessionPresenceContractImpl>(),
       ),
     );
+    i.add<GetInstructionType>(
+      () => GetInstructionType(
+        contract: i<SessionPresenceContractImpl>(),
+      ),
+    );
     i.add<UpdateWhoIsTalking>(
       () => UpdateWhoIsTalking(
         contract: i<SessionPresenceContractImpl>(),
@@ -67,25 +83,22 @@ class SessionPresenceModule extends Module {
         contract: i<SessionPresenceContractImpl>(),
       ),
     );
-    i.add<UpdateHasGyroscope>(
-      () => UpdateHasGyroscope(
-        contract: i<SessionPresenceContractImpl>(),
-      ),
-    );
-    i.addSingleton<ListenToSessionMetadataStore>(
-      () => ListenToSessionMetadataStore(
-        logic: i<ListenToSessionMetadata>(),
+    i.addSingleton<SessionMetadataStore>(
+      () => SessionMetadataStore(
+        presetLogic: i<GetSessionPresetInfo>(),
+        listenLogic: i<ListenToSessionMetadata>(),
+        getterLogic: i<GetStaticSessionMetadata>(),
+        getInstructionTypeLogic: i<GetInstructionType>(),
       ),
     );
     i.add<SessionPresenceCoordinator>(
       () => SessionPresenceCoordinator(
         updateWhoIsTalkingLogic: Modular.get<UpdateWhoIsTalking>(),
-        updateHasGyroscopeLogic: Modular.get<UpdateHasGyroscope>(),
         addContentLogic: Modular.get<AddContent>(),
         completeTheSessionLogic: Modular.get<CompleteTheSession>(),
         cancelSessionMetadataStreamLogic: i<CancelSessionMetadataStream>(),
         updateCurrentPhaseLogic: i<UpdateCurrentPhase>(),
-        listenToSessionMetadataStore: i<ListenToSessionMetadataStore>(),
+        sessionMetadataStore: i<SessionMetadataStore>(),
         updateOnlineStatusLogic: i<UpdateOnlineStatus>(),
         startTheSessionLogic: i<StartTheSession>(),
       ),

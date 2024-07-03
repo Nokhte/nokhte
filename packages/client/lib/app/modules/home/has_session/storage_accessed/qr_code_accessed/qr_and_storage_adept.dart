@@ -14,12 +14,12 @@ class QrAndStorageAdeptScreen extends BaseHomeScreen {
           gestureCrossConfig: GestureCrossConfiguration(
             top: Right(
               NokhteGradientConfig(
-                gradientType: NokhteGradientTypes.invertedShore,
+                gradientType: NokhteGradientTypes.sessionStarter,
               ),
             ),
             right: Right(
               NokhteGradientConfig(
-                gradientType: NokhteGradientTypes.vibrantBlue,
+                gradientType: NokhteGradientTypes.storage,
               ),
             ),
           ),
@@ -29,10 +29,10 @@ class QrAndStorageAdeptScreen extends BaseHomeScreen {
                 store: coordinator.widgets.centerInstructionalNokhte,
               ),
               InstructionalGradientNokhte(
-                store: coordinator.widgets.primaryInstructionalGradientNokhte,
+                store: coordinator.widgets.sessionStarterInstructionalNokhte,
               ),
               InstructionalGradientNokhte(
-                store: coordinator.widgets.secondaryInstructionalGradientNokhte,
+                store: coordinator.widgets.storageInstructionalNokhte,
               ),
             ],
           ),

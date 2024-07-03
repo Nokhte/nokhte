@@ -6,8 +6,8 @@ part 'base_beach_wave_movie_store.g.dart';
 class BaseBeachWaveMovieStore<T> = _BaseBeachWaveMovieStore<T>
     with _$BaseBeachWaveMovieStore<T>;
 
-abstract class _BaseBeachWaveMovieStore<T>
-    extends BaseCustomAnimatedWidgetStore<T> with Store {
+abstract class _BaseBeachWaveMovieStore<T> extends BaseWidgetStore<T>
+    with Store {
   final bool shouldPaintSand;
   _BaseBeachWaveMovieStore({
     this.shouldPaintSand = true,

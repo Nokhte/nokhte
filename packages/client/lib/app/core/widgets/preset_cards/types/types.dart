@@ -1,0 +1,1 @@
+enum ActivePresetType { condensed, expanded }

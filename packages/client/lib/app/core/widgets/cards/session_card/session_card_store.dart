@@ -9,8 +9,7 @@ part 'session_card_store.g.dart';
 
 class SessionCardStore = _SessionCardStoreBase with _$SessionCardStore;
 
-abstract class _SessionCardStoreBase extends BaseCustomAnimatedWidgetStore
-    with Store {
+abstract class _SessionCardStoreBase extends BaseWidgetStore with Store {
   @action
   initFadeIn() {
     setWidgetVisibility(false);

@@ -27,13 +27,13 @@ void main() {
   List sortedArr = [];
 
   setUpAll(() async {
-    await tSetup.setUp(shouldMakeCollaboration: false);
+    await tSetup.setUp();
     sortedArr = [
       tSetup.firstUserUID,
       tSetup.secondUserUID,
       tSetup.thirdUserUID,
       tSetup.fourthUserUID
-    ]..sort();
+    ];
     user1RTQueries =
         RTActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user2RTQueries =
@@ -137,15 +137,6 @@ void main() {
       expect(onlineStatus4[sortedArr.indexOf(tSetup.secondUserUID)], false);
       expect(onlineStatus4[sortedArr.indexOf(tSetup.thirdUserUID)], false);
       expect(onlineStatus4[sortedArr.indexOf(tSetup.fourthUserUID)], false);
-    });
-
-    test("updateHasGyroscope", () async {
-      await user1STQueries.updateHasGyroscope(false);
-      await user2STQueries.updateHasGyroscope(false);
-      await user3STQueries.updateHasGyroscope(false);
-      await user4STQueries.updateHasGyroscope(false);
-      final gyroscopesRes = await user1STQueries.getHaveGyroscopes();
-      expect(gyroscopesRes, [false, false, false, false]);
     });
 
     test("addContent", () async {
@@ -277,15 +268,6 @@ void main() {
       await user4RTQueries.updateOnlineStatus(false);
       final onlineStatus4 = await user1RTQueries.getWhoIsOnline();
       expect(onlineStatus4, [true, true, true, true]);
-    });
-
-    test("updateHasGyroscope", () async {
-      await user1STQueries.updateHasGyroscope(false);
-      await user2STQueries.updateHasGyroscope(false);
-      await user3STQueries.updateHasGyroscope(false);
-      await user4STQueries.updateHasGyroscope(false);
-      final gyroscopesRes = await user1STQueries.getHaveGyroscopes();
-      expect(gyroscopesRes, [true, true, true, true]);
     });
 
     test("addContent", () async {

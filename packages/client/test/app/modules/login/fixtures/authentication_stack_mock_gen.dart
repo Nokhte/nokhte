@@ -8,6 +8,7 @@ import 'package:nokhte/app/modules/login/login.dart';
   LoginRemoteSourceImpl,
   LoginRemoteSource,
   LoginContract,
+  CaptureScreen,
 ])
 @GenerateNiceMocks([
   MockSpec<IdentifyUser>(),

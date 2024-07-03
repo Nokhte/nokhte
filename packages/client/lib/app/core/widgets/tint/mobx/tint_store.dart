@@ -8,8 +8,7 @@ part 'tint_store.g.dart';
 
 class TintStore = _TintStoreBase with _$TintStore;
 
-abstract class _TintStoreBase extends BaseCustomAnimatedWidgetStore<NoParams>
-    with Store {
+abstract class _TintStoreBase extends BaseWidgetStore<NoParams> with Store {
   _TintStoreBase() {
     setMovie(TintMovie.movie);
   }

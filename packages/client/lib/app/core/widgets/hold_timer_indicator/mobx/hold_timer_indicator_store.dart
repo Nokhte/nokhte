@@ -10,7 +10,7 @@ class HoldTimerIndicatorStore = _HoldTimerIndicatorStoreBase
     with _$HoldTimerIndicatorStore;
 
 abstract class _HoldTimerIndicatorStoreBase
-    extends BaseCustomAnimatedWidgetStore<GesturePlacement> with Store {
+    extends BaseWidgetStore<GesturePlacement> with Store {
   _HoldTimerIndicatorStoreBase() {
     setMovie(ArcToCircleMovie.movie);
   }

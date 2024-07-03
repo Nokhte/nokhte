@@ -22,8 +22,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
     required super.secondaryErrorSmartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
-    required super.primaryInstructionalGradientNokhte,
-    required super.secondaryInstructionalGradientNokhte,
+    required super.sessionStarterInstructionalNokhte,
+    required super.storageInstructionalNokhte,
   });
 
   @observable
@@ -50,8 +50,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         hasSwipedUp = true;
         canTap = true;
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
-        secondaryInstructionalGradientNokhte.setWidgetVisibility(false);
-        primarySmartText.setCurrentIndex(2);
+        storageInstructionalNokhte.setWidgetVisibility(false);
+        primarySmartText.setCurrentIndex(0);
         primarySmartText.startRotatingText(isResuming: true);
         currentCenterNokhtePosition = InstructionalNokhtePositions.top;
       } else if (!hasInitiatedBlur && !hasSwipedUp) {
@@ -68,8 +68,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
   initReactors() {
     disposers.add(gestureCrossTapReactor());
     disposers.add(centerCrossNokhteReactor(() {
-      primaryInstructionalGradientNokhte.setWidgetVisibility(false);
-      secondaryInstructionalGradientNokhte.setWidgetVisibility(false);
+      sessionStarterInstructionalNokhte.setWidgetVisibility(false);
+      storageInstructionalNokhte.setWidgetVisibility(false);
     }));
   }
 
@@ -93,8 +93,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         hasSwipedUp = true;
         canTap = true;
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.right);
-        primaryInstructionalGradientNokhte.setWidgetVisibility(false);
-        primarySmartText.setCurrentIndex(0);
+        sessionStarterInstructionalNokhte.setWidgetVisibility(false);
+        primarySmartText.setCurrentIndex(2);
         primarySmartText.startRotatingText(isResuming: true);
         currentCenterNokhtePosition = InstructionalNokhtePositions.right;
       } else if (!hasInitiatedBlur && !hasSwipedUp) {
@@ -129,8 +129,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
       hasSwipedUp = false;
       primarySmartText.startRotatingText(isResuming: true);
       if (currentCenterNokhtePosition == InstructionalNokhtePositions.right) {
-        primaryInstructionalGradientNokhte.setWidgetVisibility(true);
-        primaryInstructionalGradientNokhte.initMovie(
+        sessionStarterInstructionalNokhte.setWidgetVisibility(true);
+        sessionStarterInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
             center: center,
             colorway: GradientNokhteColorways.invertedBeachWave,
@@ -138,8 +138,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
             position: InstructionalNokhtePositions.top,
           ),
         );
-        secondaryInstructionalGradientNokhte.setWidgetVisibility(true);
-        secondaryInstructionalGradientNokhte.initMovie(
+        storageInstructionalNokhte.setWidgetVisibility(true);
+        storageInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
             center: center,
             colorway: GradientNokhteColorways.vibrantBlue,
@@ -154,8 +154,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         beachWaves.currentStore.setControl(Control.mirror);
       } else if (currentCenterNokhtePosition ==
           InstructionalNokhtePositions.top) {
-        primaryInstructionalGradientNokhte.setWidgetVisibility(true);
-        primaryInstructionalGradientNokhte.initMovie(
+        sessionStarterInstructionalNokhte.setWidgetVisibility(true);
+        sessionStarterInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
             center: center,
             colorway: GradientNokhteColorways.invertedBeachWave,
@@ -163,8 +163,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
             position: InstructionalNokhtePositions.top,
           ),
         );
-        secondaryInstructionalGradientNokhte.setWidgetVisibility(true);
-        secondaryInstructionalGradientNokhte.initMovie(
+        storageInstructionalNokhte.setWidgetVisibility(true);
+        storageInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
             center: center,
             colorway: GradientNokhteColorways.vibrantBlue,
@@ -196,9 +196,9 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         gestureCross.gradientNokhte.setWidgetVisibility(false);
         centerInstructionalNokhte.moveToCenter(center);
-        primaryInstructionalGradientNokhte.setWidgetVisibility(true);
-        secondaryInstructionalGradientNokhte.setWidgetVisibility(true);
-        primaryInstructionalGradientNokhte.initMovie(
+        sessionStarterInstructionalNokhte.setWidgetVisibility(true);
+        storageInstructionalNokhte.setWidgetVisibility(true);
+        sessionStarterInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
             center: center,
             colorway: GradientNokhteColorways.invertedBeachWave,
@@ -206,7 +206,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
             position: InstructionalNokhtePositions.top,
           ),
         );
-        secondaryInstructionalGradientNokhte.initMovie(
+        storageInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
             center: center,
             colorway: GradientNokhteColorways.vibrantBlue,
@@ -226,7 +226,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
     centerInstructionalNokhte.moveBackToCross(
       startingPosition: CenterNokhtePositions.center,
     );
-    primaryInstructionalGradientNokhte.initMovie(
+    sessionStarterInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
         center: center,
         colorway: GradientNokhteColorways.invertedBeachWave,
@@ -234,7 +234,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         position: InstructionalNokhtePositions.top,
       ),
     );
-    primaryInstructionalGradientNokhte.initMovie(
+    sessionStarterInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
         center: center,
         colorway: GradientNokhteColorways.invertedBeachWave,
@@ -242,7 +242,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         position: InstructionalNokhtePositions.top,
       ),
     );
-    secondaryInstructionalGradientNokhte.initMovie(
+    storageInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
         center: center,
         colorway: GradientNokhteColorways.vibrantBlue,
@@ -256,7 +256,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
     hasInitiatedBlur = false;
     primarySmartText.reset();
     primarySmartText.startRotatingText();
-    setSmartTextPadding();
+    delayedEnableTouchFeedback();
   }
 
   @computed
@@ -264,8 +264,6 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
       !isEnteringNokhteSession &&
       !isInErrorMode &&
       centerInstructionalNokhte.movieStatus != MovieStatus.inProgress &&
-      primaryInstructionalGradientNokhte.movieStatus !=
-          MovieStatus.inProgress &&
-      secondaryInstructionalGradientNokhte.movieStatus !=
-          MovieStatus.inProgress;
+      sessionStarterInstructionalNokhte.movieStatus != MovieStatus.inProgress &&
+      storageInstructionalNokhte.movieStatus != MovieStatus.inProgress;
 }

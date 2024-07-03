@@ -17,7 +17,6 @@ class NeedsUpdateScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final height = useFullScreenSize().height;
-    final size = useSquareSize(relativeLength: .20);
     useEffect(() {
       coordinator.constructor();
       return null;
@@ -36,7 +35,6 @@ class NeedsUpdateScreen extends HookWidget {
             ),
             GestureCross(
               store: coordinator.widgets.gestureCross,
-              size: size,
               config: GestureCrossConfiguration(),
             ),
             Tint(

@@ -18,7 +18,6 @@ class SessionStarterScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = useSquareSize(relativeLength: .20);
     final height = useFullScreenSize().height;
     final center = useCenterOffset();
     useEffect(() {
@@ -40,17 +39,7 @@ class SessionStarterScreen extends HookWidget {
                   child: FullScreen(
                     child: BeachWaves(
                       sandType: SandTypes.collaboration,
-                      store: coordinator.widgets.primaryBeachWaves,
-                    ),
-                  ),
-                ),
-                Opacity(
-                  opacity: useWidgetOpacity(
-                      coordinator.widgets.showSecondaryBeachWaves),
-                  child: FullScreen(
-                    child: BeachWaves(
-                      sandType: SandTypes.home,
-                      store: coordinator.widgets.secondaryBeachWaves,
+                      store: coordinator.widgets.beachWaves,
                     ),
                   ),
                 ),
@@ -69,7 +58,24 @@ class SessionStarterScreen extends HookWidget {
                 ),
                 Center(
                   child: SmartText(
-                    store: coordinator.widgets.smartText,
+                    store: coordinator.widgets.primarySmartText,
+                    opacityDuration: Seconds.get(1),
+                    topPadding: height * .23,
+                  ),
+                ),
+                FullScreen(
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: height * .33),
+                      child: PresetIcons(
+                        store: coordinator.widgets.presetIcons,
+                      ),
+                    ),
+                  ),
+                ),
+                Center(
+                  child: SmartText(
+                    store: coordinator.widgets.secondarySmartText,
                     opacityDuration: Seconds.get(1),
                     topPadding:
                         height * coordinator.widgets.smartTextTopPaddingScalar,
@@ -80,21 +86,29 @@ class SessionStarterScreen extends HookWidget {
                   ),
                 ),
                 GestureCross(
+                  showGlowAndOutline: true,
                   config: GestureCrossConfiguration(
                     bottom: Right(
                       NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.onShore,
+                        gradientType: NokhteGradientTypes.home,
+                      ),
+                    ),
+                    left: Right(
+                      NokhteGradientConfig(
+                        gradientType: NokhteGradientTypes.presets,
                       ),
                     ),
                   ),
-                  size: size,
                   store: coordinator.widgets.gestureCross,
                 ),
                 CenterInstructionalNokhte(
                   store: coordinator.widgets.centerInstructionalNokhte,
                 ),
                 InstructionalGradientNokhte(
-                  store: coordinator.widgets.instructionalGradientNokhte,
+                  store: coordinator.widgets.presetsInstructionalNokhte,
+                ),
+                InstructionalGradientNokhte(
+                  store: coordinator.widgets.homeInstructionalNokhte,
                 ),
                 WifiDisconnectOverlay(
                   store: coordinator.widgets.wifiDisconnectOverlay,

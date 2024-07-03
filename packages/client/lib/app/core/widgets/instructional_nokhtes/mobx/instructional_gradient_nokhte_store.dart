@@ -12,8 +12,7 @@ class InstructionalGradientNokhteStore = _InstructionalGradientNokhteStoreBase
     with _$InstructionalGradientNokhteStore;
 
 abstract class _InstructionalGradientNokhteStoreBase
-    extends BaseCustomAnimatedWidgetStore<InstructionalGradientMovieParams>
-    with Store {
+    extends BaseWidgetStore<InstructionalGradientMovieParams> with Store {
   _InstructionalGradientNokhteStoreBase() {
     setWidgetVisibility(false);
     setMovie(

@@ -47,7 +47,6 @@ class Cross extends StatelessWidget {
                   0,
                   value.get('stop'),
                 ]),
-                circleInformation: store.circleInformation,
               ),
             ),
           ),

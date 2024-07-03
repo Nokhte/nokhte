@@ -24,8 +24,8 @@ abstract class _StorageGuideWidgetsCoordinatorBase
     required super.secondaryErrorSmartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
-    required super.primaryInstructionalGradientNokhte,
-    required super.secondaryInstructionalGradientNokhte,
+    required super.sessionStarterInstructionalNokhte,
+    required super.storageInstructionalNokhte,
   });
 
   @override
@@ -36,7 +36,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
     primarySmartText.setMessagesData(HomeLists.storageGuide);
     primarySmartText.startRotatingText();
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-    secondaryInstructionalGradientNokhte.prepareYellowDiamond(
+    storageInstructionalNokhte.prepareYellowDiamond(
       center,
       position: InstructionalNokhtePositions.right,
       colorway: GradientNokhteColorways.vibrantBlue,
@@ -49,8 +49,8 @@ abstract class _StorageGuideWidgetsCoordinatorBase
     disposers.add(gestureCrossTapReactor());
     disposers.add(centerInstructionalNokhteMovieReactor());
     disposers.add(centerCrossNokhteReactor(() {
-      primaryInstructionalGradientNokhte.setWidgetVisibility(false);
-      secondaryInstructionalGradientNokhte.setWidgetVisibility(false);
+      sessionStarterInstructionalNokhte.setWidgetVisibility(false);
+      storageInstructionalNokhte.setWidgetVisibility(false);
     }));
   }
 
@@ -58,7 +58,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
   GestureCrossConfiguration gestureCrossConfig = GestureCrossConfiguration(
     top: Right(
       NokhteGradientConfig(
-        gradientType: NokhteGradientTypes.invertedShore,
+        gradientType: NokhteGradientTypes.sessionStarter,
       ),
     ),
   );
@@ -83,14 +83,14 @@ abstract class _StorageGuideWidgetsCoordinatorBase
     beachWaves.currentStore.setControl(Control.stop);
     primarySmartText.startRotatingText(isResuming: true);
     Timer(const Duration(seconds: 1, milliseconds: 500), () {
-      secondaryInstructionalGradientNokhte.setWidgetVisibility(true);
+      storageInstructionalNokhte.setWidgetVisibility(true);
       setSmartTextBottomPaddingScalar(0);
       setSmartTextTopPaddingScalar(.13);
     });
     gestureCross.gradientNokhte.setWidgetVisibility(false);
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-    primaryInstructionalGradientNokhte.setWidgetVisibility(true);
-    primaryInstructionalGradientNokhte.initMovie(
+    sessionStarterInstructionalNokhte.setWidgetVisibility(true);
+    sessionStarterInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
         center: center,
         colorway: GradientNokhteColorways.invertedBeachWave,
@@ -131,8 +131,8 @@ abstract class _StorageGuideWidgetsCoordinatorBase
         hasSwipedUp = true;
         centerNokhtePosition = InstructionalNokhtePositions.right;
         centerInstructionalNokhte.initMovie(centerNokhtePosition);
-        secondaryInstructionalGradientNokhte.setControl(Control.playFromStart);
-        primaryInstructionalGradientNokhte.setWidgetVisibility(false);
+        storageInstructionalNokhte.setControl(Control.playFromStart);
+        sessionStarterInstructionalNokhte.setWidgetVisibility(false);
         primarySmartText.startRotatingText(isResuming: true);
       } else if (!hasInitiatedBlur && !hasSwipedUp && swipeRightIsUnlocked) {
         hasSwipedUp = true;
@@ -160,7 +160,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
       centerInstructionalNokhte.moveBackToCross(
         startingPosition: CenterNokhtePositions.right,
       );
-      secondaryInstructionalGradientNokhte.initMovie(
+      storageInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
           center: center,
           colorway: GradientNokhteColorways.vibrantBlue,
@@ -169,8 +169,8 @@ abstract class _StorageGuideWidgetsCoordinatorBase
         ),
       );
       swipeRightIsUnlocked = true;
-      primaryInstructionalGradientNokhte.setWidgetVisibility(true);
-      primaryInstructionalGradientNokhte.initMovie(
+      sessionStarterInstructionalNokhte.setWidgetVisibility(true);
+      sessionStarterInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
           center: center,
           colorway: GradientNokhteColorways.invertedBeachWave,

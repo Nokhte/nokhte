@@ -1,38 +1,57 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api,
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/modules/session/session.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 part 'session_exit_coordinator.g.dart';
 
 class SessionExitCoordinator = _SessionExitCoordinatorBase
     with _$SessionExitCoordinator;
 
 abstract class _SessionExitCoordinatorBase
-    extends BaseHomeScreenRouterCoordinator with Store {
+    with
+        Store,
+        HomeScreenRouter,
+        BaseCoordinator,
+        Reactions,
+        SessionPresence,
+        BaseExitCoordinator {
   final SessionExitWidgetsCoordinator widgets;
+  @override
   final SwipeDetector swipe;
-  final SessionPresenceCoordinator presence;
-  final ListenToSessionMetadataStore sessionMetadata;
+  @override
+  final SessionMetadataStore sessionMetadata;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final CaptureNokhteSessionEnd captureEnd;
+  @override
+  final SessionPresenceCoordinator presence;
+  @override
+  final CaptureScreen captureScreen;
+  @override
+  final GetUserInfoStore getUserInfo;
 
   _SessionExitCoordinatorBase({
-    required super.captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.swipe,
     required this.captureEnd,
     required this.presence,
     required this.cleanUpCollaborationArtifacts,
-    required super.getUserInfo,
-  }) : sessionMetadata = presence.listenToSessionMetadataStore;
+    required this.getUserInfo,
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+    initBaseExitCoordinatorActions();
+  }
 
   @observable
   bool showCollaboratorIncidents = true;
@@ -47,9 +66,10 @@ abstract class _SessionExitCoordinatorBase
   @action
   constructor() async {
     phaseHasBeenSet = false;
-    widgets.constructor();
+    widgets.constructor(isNotASocraticSession);
     initReactors();
     await presence.updateCurrentPhase(4.0);
+    sessionMetadata.setAffirmativePhase(4.0);
     await captureScreen(SessionConstants.exit);
   }
 
@@ -59,20 +79,11 @@ abstract class _SessionExitCoordinatorBase
   @action
   setIsGoingHome(bool newVal) => isGoingHome = newVal;
 
-  @action
-  onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-  }
+  // @observable
+  // bool blockUserPhaseReactor = false;
 
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
-  }
+  // @action
+  // setBlockUserPhaseReactor(bool newVal) => blockUserPhaseReactor = newVal;
 
   @action
   initReactors() {
@@ -98,103 +109,73 @@ abstract class _SessionExitCoordinatorBase
     disposers.add(widgets.beachWavesMovieStatusReactor(
         onToHomeComplete: onAnimationComplete,
         onReturnToTalkingComplete: () {
-          if (phoneRole == SessionPhoneRole.speaking) {
+          if (phoneRole == SessionScreenTypes.speaking) {
             Modular.to.navigate(SessionConstants.speaking);
           }
         },
         onReturnToHybridComplete: () {
-          Modular.to.navigate(SessionConstants.hybrid);
+          Modular.to.navigate(SessionConstants.groupHybrid);
         }));
-    disposers.add(swipeReactor());
-    disposers.add(collaboratorPhaseReactor());
+    if (isNotASocraticSession) {
+      disposers.add(
+          swipeReactor(onSwipeDown: () => widgets.onReadyToGoBack(phoneRole)));
+    }
+    disposers.add(
+      userPhaseReactor(
+        initShowStatus: () => widgets.initStartingMovie(
+          totalAffirmative: sessionMetadata.numberOfAffirmative,
+          totalNumberOfCollaborators: sessionMetadata.numberOfCollaborators,
+        ),
+        initWrapUp: () async => await onReturnHome(),
+      ),
+    );
+    disposers.add(
+      widgets.sessionExitStatusCompletionReactor(
+        onInitialized: () async {
+          if (sessionMetadata.userPhase == -1.0) {
+            setBlockUserPhaseReactor(true);
+            widgets.onNumOfAffirmativeChanged(
+              totalNumberOfCollaborators: widgets.totalNumberOfCollaborators,
+              totalAffirmative: widgets.totalNumberOfCollaborators,
+            );
+          } else {
+            disposers.add(
+              numberOfAffirmativeReactor(
+                onInit: widgets.onNumOfAffirmativeChanged,
+                onComplete: () {
+                  setShowCollaboratorIncidents(false);
+                },
+              ),
+            );
+          }
+        },
+        onReadyToGoHome: () async => await onReturnHome(),
+      ),
+    );
   }
-
-  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
-        switch (p0) {
-          case GestureDirections.up:
-            ifTouchIsNotDisabled(() async {
-              await presence.updateCurrentPhase(5.0);
-              widgets.onSwipeUp();
-              setDisableAllTouchFeedback(true);
-              Timer(Seconds.get(9), () async {
-                if (!isGoingHome) {
-                  await presence.updateCurrentPhase(4);
-                  widgets.onNineSecondsLapsed();
-                  setDisableAllTouchFeedback(false);
-                }
-              });
-            });
-          case GestureDirections.down:
-            ifTouchIsNotDisabled(() async {
-              if (!phaseHasBeenSet) {
-                await presence.updateCurrentPhase(3.5);
-                phaseHasBeenSet = true;
-              }
-              setDisableAllTouchFeedback(true);
-            });
-          default:
-            break;
-        }
-      });
 
   @action
   onReturnHome() async {
-    if (showCollaboratorIncidents) {
-      showCollaboratorIncidents = false;
-      await presence.dispose();
-      sessionMetadata;
-      if (sessionMetadata.currentPhases.every((e) => e == 5.0) &&
-          sessionMetadata.userIndex == 0) {
-        await presence.completeTheSession();
-        await captureEnd(NoParams());
-      }
-      Timer(Seconds.get(1), () async {
-        await getUserInfo(NoParams());
-      });
-      widgets.onReadyToGoHome();
+    showCollaboratorIncidents = false;
+    presence.dispose();
+    if (sessionMetadata.userIndex == 0) {
+      await presence.completeTheSession();
+      await captureEnd(NoParams());
     }
+    Timer(Seconds.get(1), () async {
+      await getUserInfo(NoParams());
+    });
+    widgets.initHomeTransition();
   }
-
-  collaboratorPhaseReactor() => reaction(
-        (p0) => sessionMetadata.currentPhases,
-        (p0) async {
-          if (p0.contains(3.5)) {
-            setIsGoingHome(true);
-            if (!phaseHasBeenSet) {
-              await presence.updateCurrentPhase(3.5);
-              phaseHasBeenSet = true;
-            }
-            widgets.onReadyToGoBack(phoneRole);
-          } else if (p0.every((e) => e == 5.0)) {
-            await onReturnHome();
-          } else if (p0.contains(-1.0)) {
-            await onReturnHome();
-          }
-        },
-      );
 
   @computed
-  SessionPhoneRole get phoneRole {
-    if (sessionMetadata.numberOfCollaborators.isOdd) {
-      if (sessionMetadata.userIndex == 0) {
-        return SessionPhoneRole.hybrid;
-      } else if (sessionMetadata.userIndex.isOdd) {
-        return SessionPhoneRole.speaking;
-      } else {
-        return SessionPhoneRole.notes;
-      }
-    } else {
-      if (sessionMetadata.userIndex.isEven) {
-        return SessionPhoneRole.speaking;
-      } else {
-        return SessionPhoneRole.notes;
-      }
-    }
-  }
+  SessionScreenTypes get phoneRole => sessionMetadata.sessionScreenType;
 
-  @override
+  @computed
+  bool get isNotASocraticSession =>
+      sessionMetadata.presetType != PresetTypes.socratic;
+
   deconstructor() {
-    widgets.deconstructor();
-    super.deconstructor();
+    dispose();
   }
 }

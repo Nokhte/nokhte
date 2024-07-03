@@ -8,24 +8,26 @@ part 'deep_links_coordinator.g.dart';
 class DeepLinksCoordinator = _DeepLinksCoordinatorBase
     with _$DeepLinksCoordinator;
 
-abstract class _DeepLinksCoordinatorBase extends BaseMobxDBStore with Store {
+abstract class _DeepLinksCoordinatorBase with Store, BaseMobxLogic {
   final GetDeepLinkURL getDeepLinkUrlLogic;
   final ListenForOpenedDeepLinkStore listenForOpenedDeepLinkStore;
 
   _DeepLinksCoordinatorBase({
     required this.getDeepLinkUrlLogic,
     required this.listenForOpenedDeepLinkStore,
-  });
+  }) {
+    initBaseLogicActions();
+  }
 
   @observable
   String link = "";
 
   @action
   getDeepLink(DeepLinkTypes params) async {
-    state = StoreState.loading;
+    setState(StoreState.loading);
     final res = await getDeepLinkUrlLogic(params);
     res.fold((failure) => errorUpdater(failure), (url) => link = url);
-    state = StoreState.loaded;
+    setState(StoreState.loaded);
   }
 
   @action

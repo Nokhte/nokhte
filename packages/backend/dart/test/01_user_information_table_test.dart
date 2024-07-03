@@ -27,8 +27,6 @@ void main() {
     adminUserInfoQueries.userUID = firstUserUID ?? '';
   });
 
-  tearDown(() async {});
-
   tearDownAll(() async {
     await adminUserInfoQueries.deleteUserInfo();
     await UserSetupConstants.setUpUserNamesTableForSubsequentTests(

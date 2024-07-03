@@ -11,7 +11,7 @@ part 'touch_ripple_store.g.dart';
 
 class TouchRippleStore = _TouchRippleStoreBase with _$TouchRippleStore;
 
-abstract class _TouchRippleStoreBase extends BaseCustomAnimatedWidgetStore
+abstract class _TouchRippleStoreBase extends BaseWidgetStore
     with Store {
   @observable
   Offset currentPosition = Offset.zero;

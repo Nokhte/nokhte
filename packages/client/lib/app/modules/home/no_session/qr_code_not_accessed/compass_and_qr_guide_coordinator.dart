@@ -1,7 +1,6 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, overridden_fields, annotate_overrides
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, overridden_fields
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 part 'compass_and_qr_guide_coordinator.g.dart';
 
@@ -10,7 +9,7 @@ class CompassAndQrGuideCoordinator = _CompassAndQrGuideCoordinatorBase
 
 abstract class _CompassAndQrGuideCoordinatorBase
     extends BaseHomeScreenCoordinator with Store {
-  final UserInformationCoordinator userInformation;
+  @override
   final CompassAndQrGuideWidgetsCoordinator widgets;
   _CompassAndQrGuideCoordinatorBase({
     required super.sessionStarters,
@@ -19,7 +18,6 @@ abstract class _CompassAndQrGuideCoordinatorBase
     required super.deepLinks,
     required super.captureScreen,
     required super.tap,
-    required this.userInformation,
   }) : super(widgets: widgets);
 
   @override
@@ -64,11 +62,7 @@ abstract class _CompassAndQrGuideCoordinatorBase
           });
         }
         ifTouchIsNotDisabled(() {
-          widgets.onTap(
-            tap.currentTapPosition,
-            onFlowCompleted: () async =>
-                await userInformation.updateHasAccessedQrCode(true),
-          );
+          widgets.onTap(tap.currentTapPosition);
         });
       });
 }
