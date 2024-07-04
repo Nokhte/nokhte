@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:nokhte/app/core/widgets/gestures/mobx/tap_detector.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:nokhte/app/core/hooks/hooks.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 
-class Tap extends StatelessWidget {
+class Tap extends HookWidget {
   final TapDetector store;
   final Widget child;
   const Tap({
@@ -12,6 +14,11 @@ class Tap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = useFullScreenSize().height;
+    useEffect(() {
+      store.setScreenHeight(height);
+      return null;
+    }, []);
     return GestureDetector(
       onTap: () => store.onTap(),
       onTapDown: (details) => store.onTapDown(details.globalPosition),

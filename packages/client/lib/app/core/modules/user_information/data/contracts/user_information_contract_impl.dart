@@ -36,20 +36,9 @@ class UserInformationContractImpl
   }
 
   @override
-  updateHasAccessedQrCode(param) async {
+  updatePreferredPreset(param) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.updateHasAccessedQrCode(param);
-      return fromSupabase(res);
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
-  updateHasSentAnInvitation(bool hasSentAnInvitationParam) async {
-    if (await networkInfo.isConnected) {
-      final res =
-          await remoteSource.updateHasAccessedQrCode(hasSentAnInvitationParam);
+      final res = await remoteSource.updatePreferredPreset(param);
       return fromSupabase(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
@@ -61,6 +50,16 @@ class UserInformationContractImpl
     if (await networkInfo.isConnected) {
       final res = await remoteSource.updateHasEnteredStorage(newEntryStatus);
       return fromSupabase(res);
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  getPreferredPreset(params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.getPreferredPreset();
+      return Right(PreferredPresetModel.fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

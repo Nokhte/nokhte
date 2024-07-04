@@ -8,8 +8,8 @@ class CollaboratorPresenceIncidentsOverlayStore = _CollaboratorPresenceIncidents
     with _$CollaboratorPresenceIncidentsOverlayStore;
 
 abstract class _CollaboratorPresenceIncidentsOverlayStoreBase
-    extends BaseCustomAnimatedWidgetStore with Store {
-  final ListenToSessionMetadataStore sessionMetadataStore;
+    extends BaseWidgetStore with Store {
+  final SessionMetadataStore sessionMetadataStore;
 
   _CollaboratorPresenceIncidentsOverlayStoreBase({
     required this.sessionMetadataStore,
@@ -29,12 +29,14 @@ abstract class _CollaboratorPresenceIncidentsOverlayStoreBase
 
   collaboratorPresenceReactor(Function onJoined, Function onLeft) =>
       reaction((p0) => sessionMetadataStore.everyoneIsOnline, (p0) {
-        if (p0) {
-          onCollaboratorJoined();
-          onJoined();
-        } else {
-          onCollaboratorLeft();
-          onLeft();
+        if (sessionMetadataStore.userPhase != -1.0) {
+          if (p0) {
+            onCollaboratorJoined();
+            onJoined();
+          } else {
+            onCollaboratorLeft();
+            onLeft();
+          }
         }
       });
 }

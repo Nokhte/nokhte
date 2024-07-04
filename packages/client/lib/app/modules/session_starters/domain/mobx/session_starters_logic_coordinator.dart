@@ -11,8 +11,7 @@ part 'session_starters_logic_coordinator.g.dart';
 class SessionStartersLogicCoordinator = _SessionStartersLogicCoordinatorBase
     with _$SessionStartersLogicCoordinator;
 
-abstract class _SessionStartersLogicCoordinatorBase extends BaseMobxDBStore
-    with Store {
+abstract class _SessionStartersLogicCoordinatorBase with Store, BaseMobxLogic {
   final CancelSessionActivationStream cancelStreamLogic;
   final InitializeSession initializeSessionLogic;
   final JoinSession joinSessionLogic;
@@ -25,7 +24,9 @@ abstract class _SessionStartersLogicCoordinatorBase extends BaseMobxDBStore
     required this.joinSessionLogic,
     required this.nukeSessionLogic,
     required this.listenToSessionActivationLogic,
-  });
+  }) {
+    initBaseLogicActions();
+  }
 
   @override
   String mapFailureToMessage(Failure failure) {
@@ -41,7 +42,7 @@ abstract class _SessionStartersLogicCoordinatorBase extends BaseMobxDBStore
 
   @action
   resetErrorMessage() {
-    errorMessage = "";
+    setErrorMessage("");
   }
 
   @observable
@@ -76,8 +77,12 @@ abstract class _SessionStartersLogicCoordinatorBase extends BaseMobxDBStore
       Stream.value(false).listen((event) {});
 
   @action
-  dispose() async {
-    await nuke();
+  dispose({
+    bool shouldNuke = false,
+  }) async {
+    if (shouldNuke) {
+      await nuke();
+    }
     nokhteSessionSearchStatusIsListening = cancelStreamLogic(NoParams());
     await collaboratorSearchStatus.close();
     await searchSubscription.cancel();

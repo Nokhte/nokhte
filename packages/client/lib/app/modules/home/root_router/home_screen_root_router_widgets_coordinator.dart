@@ -9,15 +9,19 @@ class HomeScreenRootRouterWidgetsCoordinator = _HomeScreenRootRouterWidgetsCoord
     with _$HomeScreenRootRouterWidgetsCoordinator;
 
 abstract class _HomeScreenRootRouterWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, BaseWidgetsCoordinator {
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _HomeScreenRootRouterWidgetsCoordinatorBase({
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.gestureCross,
-  });
+  }) {
+    initBaseWidgetsCoordinatorActions();
+  }
 
   @observable
   WaterDirection waterDirection = WaterDirection.down;

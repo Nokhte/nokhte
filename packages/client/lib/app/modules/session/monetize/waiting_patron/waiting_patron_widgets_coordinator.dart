@@ -1,12 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'waiting_patron_widgets_coordinator.g.dart';
 
@@ -14,18 +11,22 @@ class WaitingPatronWidgetsCoordinator = _WaitingPatronWidgetsCoordinatorBase
     with _$WaitingPatronWidgetsCoordinator;
 
 abstract class _WaitingPatronWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, SmartTextPaddingAdjuster {
   final BeachWavesStore beachWaves;
   final TintStore tint;
   final GestureCrossStore gestureCross;
   final NokhteGradientTextStore nokhteGradientText;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
+
   _WaitingPatronWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.nokhteGradientText,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.tint,
     required this.gestureCross,
-  });
+  }) {
+    initSmartTextActions();
+  }
 
   @observable
   bool isNavigatingAway = false;
@@ -65,6 +66,7 @@ abstract class _WaitingPatronWidgetsCoordinatorBase
 
   beachWaveMovieStatusReactor({
     required Function onReturnHome,
+    required Function onReturnToSession,
   }) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
@@ -72,7 +74,7 @@ abstract class _WaitingPatronWidgetsCoordinatorBase
             onReturnHome();
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.borealisToSky) {
-            Modular.to.navigate(SessionConstants.groupGreeter);
+            onReturnToSession();
           }
         }
       });

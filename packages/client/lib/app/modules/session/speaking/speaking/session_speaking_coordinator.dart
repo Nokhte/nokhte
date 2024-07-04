@@ -1,55 +1,48 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session/constants/constants.dart';
-import 'session_speaking_widgets_coordinator.dart';
+import 'package:nokhte/app/modules/session/session.dart';
+import 'package:nokhte_backend/tables/_real_time_disabled/company_presets/queries.dart';
 part 'session_speaking_coordinator.g.dart';
 
 class SessionSpeakingCoordinator = _SessionSpeakingCoordinatorBase
     with _$SessionSpeakingCoordinator;
 
-abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _SessionSpeakingCoordinatorBase
+    with Store, BaseCoordinator, Reactions, SessionPresence {
   final SessionSpeakingWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final HoldDetector hold;
+  final SessionMetadataStore sessionMetadata;
+  @override
   final SessionPresenceCoordinator presence;
-  final ListenToSessionMetadataStore sessionMetadata;
-  final GyroscopicCoordinator gyroscopic;
+  @override
+  final CaptureScreen captureScreen;
   _SessionSpeakingCoordinatorBase({
-    required super.captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.swipe,
     required this.hold,
-    required this.gyroscopic,
     required this.presence,
-  }) : sessionMetadata = presence.listenToSessionMetadataStore;
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() async {
     widgets.constructor();
     await presence.updateCurrentPhase(2.0);
-    initReactors(sessionMetadata.shouldAdjustToFallbackExitProtocol);
-    gyroscopic.listen(NoParams());
-    setBlockPhoneTiltReactor(false);
+    initReactors();
     await captureScreen(SessionConstants.speaking);
   }
 
-  @observable
-  bool blockPhoneTiltReactor = false;
-
-  @action
-  setBlockPhoneTiltReactor(bool newValue) => blockPhoneTiltReactor = newValue;
-
-  initReactors(bool shouldAdjustToFallbackExitProtocol) {
+  initReactors() {
     disposers.add(holdReactor());
     disposers.add(letGoReactor());
     disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
@@ -77,22 +70,25 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
         widgets.onCollaboratorLeft();
       },
     ));
-    if (shouldAdjustToFallbackExitProtocol) {
-      disposers.add(swipeReactor());
-    } else {
-      disposers.add(phoneTiltStateReactor());
-    }
-    disposers.add(userPhaseReactor());
-    disposers.add(collaboratorPhaseReactor());
+    disposers.add(swipeReactor());
     disposers.add(userIsSpeakingReactor());
     disposers.add(userCanSpeakReactor());
   }
 
+  @observable
+  bool userIsTalking = false;
+
+  @action
+  setUserIsTalking(bool newValue) => userIsTalking = newValue;
+
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.down:
-            ifTouchIsNotDisabled(() async {
-              await presence.updateCurrentPhase(3);
+            ifTouchIsNotDisabled(() {
+              widgets.onExit(
+                isASocraticSession:
+                    sessionMetadata.presetType == PresetTypes.socratic,
+              );
             });
           default:
             break;
@@ -102,7 +98,7 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
   userIsSpeakingReactor() =>
       reaction((p0) => sessionMetadata.userIsSpeaking, (p0) async {
         if (p0) {
-          setBlockPhoneTiltReactor(true);
+          setUserIsTalking(true);
           widgets.adjustSpeakLessSmileMoreRotation(hold.placement);
           widgets.onHold(hold.placement);
           setDisableAllTouchFeedback(true);
@@ -111,22 +107,23 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
       });
 
   userCanSpeakReactor() => reaction((p0) => sessionMetadata.userCanSpeak, (p0) {
-        if (p0 && blockPhoneTiltReactor) {
+        if (p0 && userIsTalking) {
           widgets.onLetGo();
-          setBlockPhoneTiltReactor(false);
+          setUserIsTalking(false);
           Timer(Seconds.get(2), () {
             setDisableAllTouchFeedback(false);
           });
-        } else if (p0 && !blockPhoneTiltReactor) {
+        } else if (p0 && !userIsTalking) {
           widgets.tint.reverseMovie(NoParams());
-        } else if (!p0 && !blockPhoneTiltReactor) {
+        } else if (!p0 && !userIsTalking) {
           widgets.tint.initMovie(NoParams());
         }
       });
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) {
         ifTouchIsNotDisabled(() async {
-          if (sessionMetadata.everyoneIsOnline) {
+          if (sessionMetadata.everyoneIsOnline &&
+              sessionMetadata.canStartUsingSession) {
             await presence
                 .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
           }
@@ -139,62 +136,8 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
         }
       });
 
-  phoneTiltStateReactor() =>
-      reaction((p0) => gyroscopic.holdingState, (p0) async {
-        if (!blockPhoneTiltReactor &&
-            sessionMetadata.currentPhases
-                .every((e) => e.isGreaterThanOrEqualTo(2))) {
-          if (p0 == PhoneHoldingState.isPickedUp) {
-            await presence.updateCurrentPhase(3);
-          } else if (p0 == PhoneHoldingState.isDown) {
-            await presence.updateCurrentPhase(2);
-          }
-        }
-      });
-
-  collaboratorPhaseReactor() => reaction(
-        (p0) => sessionMetadata.currentPhases,
-        (p0) async {
-          if (sessionMetadata.canExitTheSession) {
-            await gyroscopic.dispose();
-            widgets.onExit();
-            setBlockPhoneTiltReactor(true);
-          }
-        },
-      );
-
-  userPhaseReactor() => reaction(
-        (p0) => sessionMetadata.userPhase,
-        (p0) async {
-          if (sessionMetadata.canExitTheSession) {
-            await gyroscopic.dispose();
-            widgets.onExit();
-            setBlockPhoneTiltReactor(true);
-          }
-        },
-      );
-
-  @action
-  onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-    if (sessionMetadata.userIsSpeaking) {
-      await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
-    }
-  }
-
-  @action
-  onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
-  }
-
-  @override
   deconstructor() {
-    widgets.deconstructor();
-    super.deconstructor();
+    dispose();
+    widgets.dispose();
   }
 }

@@ -13,8 +13,8 @@ part 'login_widgets_coordinator.g.dart';
 class LoginScreenWidgetsCoordinator = _LoginScreenWidgetsCoordinatorBase
     with _$LoginScreenWidgetsCoordinator;
 
-abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
-    with Store {
+abstract class _LoginScreenWidgetsCoordinatorBase
+    with Store, SmartTextPaddingAdjuster, BaseWidgetsCoordinator, Reactions {
   final BeachWavesStore layer1BeachWaves;
   final BeachWavesStore layer2BeachWaves;
   final GestureCrossStore gestureCross;
@@ -22,6 +22,8 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   final NokhteStore nokhte;
   final TrailingTextStore bottomTrailingText;
   final TrailingTextStore topTrailingText;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _LoginScreenWidgetsCoordinatorBase({
     required this.layer1BeachWaves,
@@ -31,8 +33,11 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     required this.nokhte,
     required this.bottomTrailingText,
     required this.topTrailingText,
-    required super.wifiDisconnectOverlay,
-  });
+    required this.wifiDisconnectOverlay,
+  }) {
+    initBaseWidgetsCoordinatorActions();
+    initSmartTextActions();
+  }
 
   constructor(
     Offset center,
@@ -120,8 +125,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onTap(Offset currentTapPosition) {
-    if (Gestures.tap == smartTextStore.currentUnlockGesture &&
-        hasNotMadeTheDot) {
+    if (smartTextStore.currentIndex == 1 && hasNotMadeTheDot) {
       smartTextStore.startRotatingText(isResuming: true);
       toggleHasMadeTheDot();
       nokhte.initPositionMovie(
@@ -238,7 +242,4 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       layer2BeachWaves.movieMode ==
           BeachWaveMovieModes.waterFromTopToOnShorePt1 &&
       hasCompletedSandTransition;
-
-  @override
-  List<Object> get props => [];
 }

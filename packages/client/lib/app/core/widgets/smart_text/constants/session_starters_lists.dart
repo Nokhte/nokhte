@@ -1,28 +1,36 @@
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/core/types/types.dart';
 
 class SessionStartersList {
-  static List<RotatingTextData> get list => [
+  static List<RotatingTextData> get hasDoneInstructions => [
+        SharedLists.emptyItem,
+        InstructionItems.homeExplanation,
+        SharedLists.emptyItem,
+        InstructionItems.presetsExplanation,
+        SharedLists.emptyItem,
+      ];
+
+  static List<RotatingTextData> getQrCodeSubtitle(String sessionName) => [
         RotatingTextData(
-          mainMessage: "Scan to join",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(1),
-          mainMessage: "That is where you go to get home",
-          subMessage: "Tap anywhere to confirm",
+          text: "",
           onScreenTime: Seconds.get(0),
-          pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
+          text: "Scan to join",
+          onScreenTime: Seconds.get(3),
         ),
+        RotatingTextData(
+          text: sessionName,
+          onScreenTime: Seconds.get(3),
+        ),
+        SharedLists.emptyItem,
+      ];
+
+  static List<RotatingTextData> get hasNotDoneInstructions => [
+        InstructionItems.tapOnTheCompass,
+        InstructionItems.swipeLeft,
+        InstructionItems.presetsExplanation,
+        InstructionItems.swipeLeft,
+        SharedLists.emptyItem,
       ];
 }

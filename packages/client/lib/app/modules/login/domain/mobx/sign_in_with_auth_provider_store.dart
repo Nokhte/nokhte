@@ -11,14 +11,16 @@ class SignInWithAuthProviderStore = _SignInWithAuthProviderStoreBase
     with _$SignInWithAuthProviderStore;
 
 abstract class _SignInWithAuthProviderStoreBase
-    extends BaseMobxDBStore<AuthProvider, AuthProviderEntity> with Store {
+    with Store, BaseMobxLogic<AuthProvider, AuthProviderEntity> {
   final SignInWithApple signInWithApple;
   final SignInWithGoogle signInWithGoogle;
 
   _SignInWithAuthProviderStoreBase({
     required this.signInWithApple,
     required this.signInWithGoogle,
-  });
+  }) {
+    initBaseLogicActions();
+  }
 
   @observable
   bool authProviderRequestStatus = false;
@@ -37,18 +39,15 @@ abstract class _SignInWithAuthProviderStoreBase
   @override
   @action
   Future<void> call(AuthProvider authProvider) async {
-    state = StoreState.loading;
+    setState(StoreState.loading);
     Either<Failure, AuthProviderEntity> res =
         await routeAuthProviderRequest(authProvider);
     res.fold((failure) {
-      errorMessage = mapFailureToMessage(failure);
-      state = StoreState.initial;
+      setErrorMessage(mapFailureToMessage(failure));
+      setState(StoreState.initial);
     }, (authProviderEntity) {
       authProviderRequestStatus = authProviderEntity.authProviderStatus;
-      state = StoreState.loaded;
+      setState(StoreState.loaded);
     });
   }
-
-  @override
-  List<Object> get props => [errorMessage, state];
 }

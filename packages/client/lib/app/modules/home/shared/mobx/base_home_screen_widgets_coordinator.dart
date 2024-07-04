@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -12,7 +14,7 @@ class BaseHomeScreenWidgetsCoordinator = _BaseHomeScreenWidgetsCoordinatorBase
     with _$BaseHomeScreenWidgetsCoordinator;
 
 abstract class _BaseHomeScreenWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, SmartTextPaddingAdjuster, Reactions, BaseWidgetsCoordinator {
   final NokhteBlurStore nokhteBlur;
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
@@ -21,22 +23,27 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   final SmartTextStore secondaryErrorSmartText;
   final TouchRippleStore touchRipple;
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
-  final InstructionalGradientNokhteStore primaryInstructionalGradientNokhte;
-  final InstructionalGradientNokhteStore secondaryInstructionalGradientNokhte;
+  final InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
+  final InstructionalGradientNokhteStore storageInstructionalNokhte;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _BaseHomeScreenWidgetsCoordinatorBase({
     required this.nokhteBlur,
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.gestureCross,
     required this.primarySmartText,
     required this.errorSmartText,
     required this.secondaryErrorSmartText,
     required this.touchRipple,
     required this.centerInstructionalNokhte,
-    required this.primaryInstructionalGradientNokhte,
-    required this.secondaryInstructionalGradientNokhte,
-  });
+    required this.sessionStarterInstructionalNokhte,
+    required this.storageInstructionalNokhte,
+  }) {
+    initBaseWidgetsCoordinatorActions();
+    initSmartTextActions();
+  }
 
   @action
   constructor(Offset centerParam) {
@@ -45,9 +52,9 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     }
     beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
     beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
-    errorSmartText.setMessagesData(SharedLists.empty);
+    errorSmartText.setMessagesData(SharedLists.emptyList);
     secondaryErrorSmartText.setMessagesData(SharedLists.errorConfirmList);
-    center = centerParam;
+    setCenter(centerParam);
   }
 
   @observable
@@ -67,6 +74,11 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @action
   toggleHasSwipedUp() => hasSwipedUp = !hasSwipedUp;
+
+  @action
+  delayedEnableTouchFeedback() => Timer(Seconds.get(1, milli: 500), () {
+        setTouchIsDisabled(false);
+      });
 
   @action
   onConnected() {
@@ -132,8 +144,8 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     secondaryErrorSmartText.setMessagesData(SharedLists.errorConfirmList);
     errorSmartText.startRotatingText();
     centerInstructionalNokhte.setWidgetVisibility(false);
-    primaryInstructionalGradientNokhte.setWidgetVisibility(false);
-    secondaryInstructionalGradientNokhte.setWidgetVisibility(false);
+    sessionStarterInstructionalNokhte.setWidgetVisibility(false);
+    storageInstructionalNokhte.setWidgetVisibility(false);
     secondaryErrorSmartText.startRotatingText();
     setIsInErrorMode(true);
   }
@@ -163,10 +175,10 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
         primarySmartText.startRotatingText();
         secondaryErrorSmartText.setWidgetVisibility(false);
         centerInstructionalNokhte.setWidgetVisibility(true);
-        primaryInstructionalGradientNokhte.setWidgetVisibility(
-            primaryInstructionalGradientNokhte.pastShowWidget);
-        secondaryInstructionalGradientNokhte.setWidgetVisibility(
-          secondaryInstructionalGradientNokhte.pastShowWidget,
+        sessionStarterInstructionalNokhte.setWidgetVisibility(
+            sessionStarterInstructionalNokhte.pastShowWidget);
+        storageInstructionalNokhte.setWidgetVisibility(
+          storageInstructionalNokhte.pastShowWidget,
         );
         isEnteringNokhteSession = false;
       }
@@ -258,13 +270,13 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     hasSwipedUp = true;
     isEnteringNokhteSession = true;
     primarySmartText.toggleWidgetVisibility();
-    touchIsDisabled = true;
+    setTouchIsDisabled(true);
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToDeepSea);
     beachWaves.currentStore.initMovie(
       beachWaves.currentAnimationValues.first,
     );
     centerInstructionalNokhte.setWidgetVisibility(false);
-    primaryInstructionalGradientNokhte.setWidgetVisibility(false);
+    sessionStarterInstructionalNokhte.setWidgetVisibility(false);
     gestureCross.fadeAllOut();
   }
 }

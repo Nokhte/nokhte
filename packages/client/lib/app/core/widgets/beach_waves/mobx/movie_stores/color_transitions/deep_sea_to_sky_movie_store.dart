@@ -25,4 +25,10 @@ abstract class _DeepSeaToSkyMovieStoreBase
   initMovie(NoParams params) {
     control = Control.playFromStart;
   }
+
+  @override
+  @action
+  reverseMovie(NoParams params) {
+    control = Control.playReverseFromEnd;
+  }
 }

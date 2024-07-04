@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
+import 'package:nokhte/app/core/mobx/base_widget_store.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'half_screen_tint_movie.dart';
 part 'half_screen_tint_store.g.dart';
@@ -10,7 +10,7 @@ part 'half_screen_tint_store.g.dart';
 class HalfScreenTintStore = _HalfScreenTintStoreBase with _$HalfScreenTintStore;
 
 abstract class _HalfScreenTintStoreBase
-    extends BaseCustomAnimatedWidgetStore<NoParams> with Store {
+    extends BaseWidgetStore<NoParams> with Store {
   _HalfScreenTintStoreBase() {
     setMovie(HalfScreenTintMovie.movie);
   }

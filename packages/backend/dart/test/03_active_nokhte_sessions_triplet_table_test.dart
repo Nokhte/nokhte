@@ -19,13 +19,12 @@ void main() {
   List sortedArr = [];
 
   setUpAll(() async {
-    await tSetup.setUp(shouldMakeCollaboration: false);
+    await tSetup.setUp();
     sortedArr = [
       tSetup.firstUserUID,
       tSetup.secondUserUID,
       tSetup.thirdUserUID
     ];
-    sortedArr.sort();
     user1RTQueries =
         RTActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user2RTQueries =
@@ -78,14 +77,6 @@ void main() {
     await user3RTQueries.updateOnlineStatus(false);
     final onlineStatus3 = await user1RTQueries.getWhoIsOnline();
     expect(onlineStatus3, [false, false, false]);
-  });
-
-  test("updateHasGyroscope", () async {
-    await user1STQueries.updateHasGyroscope(false);
-    await user2STQueries.updateHasGyroscope(false);
-    await user3STQueries.updateHasGyroscope(false);
-    final gyroscopesRes = await user1STQueries.getHaveGyroscopes();
-    expect(gyroscopesRes, [false, false, false]);
   });
 
   test("addContent", () async {

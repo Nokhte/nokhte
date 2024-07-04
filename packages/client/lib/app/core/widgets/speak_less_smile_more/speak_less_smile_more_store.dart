@@ -7,7 +7,7 @@ class SpeakLessSmileMoreStore = _SpeakLessSmileMoreStoreBase
     with _$SpeakLessSmileMoreStore;
 
 abstract class _SpeakLessSmileMoreStoreBase
-    extends BaseCustomAnimatedWidgetStore with Store {
+    extends BaseWidgetStore with Store {
   @observable
   bool showSpeakLess = false;
 

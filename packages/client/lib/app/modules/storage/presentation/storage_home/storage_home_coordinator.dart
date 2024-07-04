@@ -4,6 +4,8 @@ import 'dart:ui';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -15,23 +17,30 @@ class StorageHomeCoordinator = _StorageHomeCoordinatorBase
     with _$StorageHomeCoordinator;
 
 abstract class _StorageHomeCoordinatorBase
-    extends BaseHomeScreenRouterCoordinator with Store {
+    with Store, HomeScreenRouter, BaseCoordinator, BaseMobxLogic, Reactions {
   final StorageHomeWidgetsCoordinator widgets;
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
   final UpdateSessionAlias updateSessionAliasLogic;
   final UserInformationCoordinator userInfo;
+  @override
+  final CaptureScreen captureScreen;
   final TapDetector tap;
+  @override
+  final GetUserInfoStore getUserInfo;
 
   final SwipeDetector swipe;
   _StorageHomeCoordinatorBase({
-    required super.captureScreen,
+    required this.captureScreen,
     required this.getNokhteSessionArtifactsLogic,
     required this.updateSessionAliasLogic,
     required this.widgets,
     required this.swipe,
     required this.userInfo,
     required this.tap,
-  }) : super(getUserInfo: userInfo.getUserInfoStore);
+  }) : getUserInfo = userInfo.getUserInfoStore {
+    initBaseCoordinatorActions();
+    initBaseLogicActions();
+  }
 
   @observable
   ObservableList<NokhteSessionArtifactEntity> nokhteSessionArtifacts =
@@ -136,9 +145,8 @@ abstract class _StorageHomeCoordinatorBase
         });
       });
 
-  @override
   deconstructor() {
-    widgets.deconstructor();
-    super.deconstructor();
+    dispose();
+    widgets.dispose();
   }
 }

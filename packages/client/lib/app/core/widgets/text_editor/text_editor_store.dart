@@ -9,7 +9,7 @@ part 'text_editor_store.g.dart';
 
 class TextEditorStore = _TextEditorStoreBase with _$TextEditorStore;
 
-abstract class _TextEditorStoreBase extends BaseCustomAnimatedWidgetStore
+abstract class _TextEditorStoreBase extends BaseWidgetStore
     with Store {
   @observable
   TextEditingController controller = TextEditingController();

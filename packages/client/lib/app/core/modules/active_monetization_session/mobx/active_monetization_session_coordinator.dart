@@ -8,8 +8,9 @@ part 'active_monetization_session_coordinator.g.dart';
 class ActiveMonetizationSessionCoordinator = _ActiveMonetizationSessionCoordinatorBase
     with _$ActiveMonetizationSessionCoordinator;
 
-abstract class _ActiveMonetizationSessionCoordinatorBase extends BaseMobxDBStore
-    with Store {
+
+abstract class _ActiveMonetizationSessionCoordinatorBase
+    with Store, BaseMobxLogic {
   final StartMonetizationSession startMonetizationSessionLogic;
   final UpdateHasFinishedExplanation updateHasFinishedExplanationLogic;
   final ListenToExplanationCompletionStatus
@@ -23,7 +24,9 @@ abstract class _ActiveMonetizationSessionCoordinatorBase extends BaseMobxDBStore
     required this.listenToExplanationCompletionStatusLogic,
     required this.deleteActiveMonetizationSessionLogic,
     required this.disposeLogic,
-  });
+  }) {
+    initBaseLogicActions();
+  }
 
   @observable
   bool everyoneHasFinishedExplanation = false;
@@ -53,8 +56,8 @@ abstract class _ActiveMonetizationSessionCoordinatorBase extends BaseMobxDBStore
     final result = await startMonetizationSessionLogic(NoParams());
     result.fold(
       (failure) {
-        errorMessage = mapFailureToMessage(failure);
-        state = StoreState.initial;
+        setErrorMessage(mapFailureToMessage(failure));
+        setState(StoreState.initial);
       },
       (value) async => sessionHasStarted = value,
     );
@@ -65,8 +68,8 @@ abstract class _ActiveMonetizationSessionCoordinatorBase extends BaseMobxDBStore
     final result = await updateHasFinishedExplanationLogic(NoParams());
     result.fold(
       (failure) {
-        errorMessage = mapFailureToMessage(failure);
-        state = StoreState.initial;
+        setErrorMessage(mapFailureToMessage(failure));
+        setState(StoreState.initial);
       },
       (value) async => hasUpdatedHasFinishedExplanation = value,
     );
@@ -77,8 +80,8 @@ abstract class _ActiveMonetizationSessionCoordinatorBase extends BaseMobxDBStore
     final result = await listenToExplanationCompletionStatusLogic(NoParams());
     result.fold(
       (failure) {
-        errorMessage = mapFailureToMessage(failure);
-        state = StoreState.initial;
+        setErrorMessage(mapFailureToMessage(failure));
+        setState(StoreState.initial);
       },
       (stream) {
         this.stream = ObservableStream(stream);

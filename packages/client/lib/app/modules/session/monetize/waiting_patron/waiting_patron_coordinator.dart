@@ -1,7 +1,11 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
@@ -13,21 +17,33 @@ class WaitingPatronCoordinator = _WaitingPatronCoordinatorBase
     with _$WaitingPatronCoordinator;
 
 abstract class _WaitingPatronCoordinatorBase
-    extends BaseHomeScreenRouterCoordinator with Store {
+    with
+        Store,
+        HomeScreenRouter,
+        ChooseGreeterType,
+        BaseCoordinator,
+        Reactions {
   final TapDetector tap;
   final WaitingPatronWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
-  final ListenToSessionMetadataStore sessionMetadata;
+  @override
+  final SessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
+  @override
+  final GetUserInfoStore getUserInfo;
+  @override
+  final CaptureScreen captureScreen;
 
   _WaitingPatronCoordinatorBase({
-    required super.captureScreen,
+    required this.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
     required this.swipe,
-    required super.getUserInfo,
-  }) : sessionMetadata = presence.listenToSessionMetadataStore;
+    required this.getUserInfo,
+  }) : sessionMetadata = presence.sessionMetadataStore {
+    initBaseCoordinatorActions();
+  }
 
   @action
   constructor() async {
@@ -46,8 +62,12 @@ abstract class _WaitingPatronCoordinatorBase
       onLongReConnected: () {},
       onDisconnected: () {},
     ));
-    disposers.add(
-        widgets.beachWaveMovieStatusReactor(onReturnHome: onAnimationComplete));
+    disposers.add(widgets.beachWaveMovieStatusReactor(
+      onReturnHome: onAnimationComplete,
+      onReturnToSession: () =>
+          Modular.to.navigate(chooseGreeterType(SessionConstants.groupGreeter)),
+      //
+    ));
     disposers.add(validSessionReactor());
     disposers.add(phaseReactor());
   }
@@ -66,9 +86,7 @@ abstract class _WaitingPatronCoordinatorBase
         }
       });
 
-  @action
-  onInactive() async {}
-
-  @action
-  onResumed() async {}
+  deconstructor() {
+    dispose();
+  }
 }

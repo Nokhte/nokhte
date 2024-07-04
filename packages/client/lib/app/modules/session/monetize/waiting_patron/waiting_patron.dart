@@ -21,13 +21,6 @@ class WaitingPatronScreen extends HookWidget {
       coordinator.constructor();
       return () => coordinator.deconstructor();
     }, []);
-    useOnAppLifecycleStateChange(
-        (previous, current) => coordinator.onAppLifeCycleStateChange(
-              current,
-              onResumed: () => coordinator.onResumed(),
-              onInactive: () => coordinator.onInactive(),
-            ));
-    final size = useSquareSize(relativeLength: .20);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Tap(
@@ -54,7 +47,6 @@ class WaitingPatronScreen extends HookWidget {
               ),
               GestureCross(
                 store: coordinator.widgets.gestureCross,
-                size: size,
                 config: GestureCrossConfiguration(),
               ),
               WifiDisconnectOverlay(

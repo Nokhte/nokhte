@@ -4,27 +4,33 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'session_duo_greeter_widgets_coordinator.g.dart';
 
 class SessionDuoGreeterWidgetsCoordinator = _SessionDuoGreeterWidgetsCoordinatorBase
     with _$SessionDuoGreeterWidgetsCoordinator;
 
 abstract class _SessionDuoGreeterWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
-  final BeachWavesStore beachWaves;
+    with Store, SessionRouter, BaseWidgetsCoordinator {
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final TouchRippleStore touchRipple;
+  @override
+  final BeachWavesStore beachWaves;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionDuoGreeterWidgetsCoordinatorBase({
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.touchRipple,
-  });
-
+  }) {
+    initBaseWidgetsCoordinatorActions();
+  }
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToDrySand);
@@ -41,12 +47,16 @@ abstract class _SessionDuoGreeterWidgetsCoordinatorBase
   bool isFirstTap = true;
 
   @observable
+  bool hasCompletedInstructions = false;
+
+  @observable
   Stopwatch cooldownStopwatch = Stopwatch();
 
   @action
   onTap(
     Offset tapPosition, {
     required Function onFinalTap,
+    required SessionScreenTypes phoneType,
   }) async {
     if (isFirstTap) {
       touchRipple.onTap(tapPosition);
@@ -61,6 +71,8 @@ abstract class _SessionDuoGreeterWidgetsCoordinatorBase
       secondarySmartText.startRotatingText(isResuming: true);
       cooldownStopwatch.reset();
       cooldownStopwatch.stop();
+      hasCompletedInstructions = true;
+      initTransition(phoneType);
       await onFinalTap();
     }
   }

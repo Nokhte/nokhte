@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
+import 'package:nokhte/app/core/mobx/base_widget_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/border_glow/border_glow.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -10,8 +10,8 @@ part 'border_glow_store.g.dart';
 
 class BorderGlowStore = _BorderGlowStoreBase with _$BorderGlowStore;
 
-abstract class _BorderGlowStoreBase
-    extends BaseCustomAnimatedWidgetStore<NoParams> with Store {
+abstract class _BorderGlowStoreBase extends BaseWidgetStore<NoParams>
+    with Store {
   _BorderGlowStoreBase() {
     setMovie(BorderGlowUpMovie.movie);
   }

@@ -1,3 +1,6 @@
+import 'package:nokhte_backend/tables/_real_time_disabled/company_presets/queries.dart';
+import 'package:nokhte_backend/tables/_real_time_disabled/unified_presets/constants.dart';
+
 import 'constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -25,37 +28,31 @@ class UserInformationQueries with UserInformationConstants {
   Future<List> deleteUserInfo() async =>
       await supabase.from(TABLE).delete().eq(UID, userUID).select();
 
-  Future<List> updateHasSentAnInvitation(bool hasSentAnInvitation) async {
-    final getRes = await getUserInfo();
-    if (getRes.first[HAS_SENT_AN_INVITATION] == hasSentAnInvitation) {
-      return getRes;
+  Future<List> updatePreferredPreset(
+    String presetUID,
+  ) async {
+    return await supabase
+        .from(TABLE)
+        .update({PREFERRED_PRESET: presetUID})
+        .eq(UID, userUID)
+        .select();
+  }
+
+  Future<String?> getPreferredPresetUID() async {
+    final res = await supabase.from(TABLE).select().eq(UID, userUID);
+    if (res.isNotEmpty) {
+      return res.first[PREFERRED_PRESET];
     } else {
-      return await supabase
-          .from(TABLE)
-          .update({
-            HAS_SENT_AN_INVITATION: hasSentAnInvitation,
-          })
-          .eq(UID, userUID)
-          .select();
+      return '';
     }
   }
 
-  Future<List> updateHasAccessedQrCode(
-    bool hasGoneThroughInvitationFlow,
-  ) async {
-    final getRes = await getUserInfo();
-    if (getRes.first[HAS_ACCESSED_QR_CODE] == hasGoneThroughInvitationFlow) {
-      return getRes;
-    } else {
-      return await supabase
-          .from(TABLE)
-          .update({
-            HAS_ACCESSED_QR_CODE: hasGoneThroughInvitationFlow,
-          })
-          .eq(UID, userUID)
-          .select();
-    }
-  }
+  Future<List> getPreferredPresetInfo() async =>
+      await supabase.from(TABLE).select('''
+        $PREFERRED_PRESET, ${UnifiedPresetsConstants.TABLE}(
+          ${UnifiedPresetsConstants.COMPANY_PRESET_ID}, ${UnifiedPresetsConstants.UID},
+           ${CompanyPresetsQueries.TABLE}(*))
+           ''').eq(UID, userUID);
 
   Future<List> updateHasEnteredStorage(bool hasEnteredStorage) async {
     final getRes = await getUserInfo();

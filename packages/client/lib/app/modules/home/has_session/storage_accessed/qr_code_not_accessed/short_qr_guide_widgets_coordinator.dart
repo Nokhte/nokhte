@@ -24,8 +24,8 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
     required super.secondaryErrorSmartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
-    required super.primaryInstructionalGradientNokhte,
-    required super.secondaryInstructionalGradientNokhte,
+    required super.sessionStarterInstructionalNokhte,
+    required super.storageInstructionalNokhte,
   });
 
   @observable
@@ -42,12 +42,12 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
   @action
   constructor(Offset offset) {
     super.constructor(offset);
-    touchIsDisabled = true;
+    setTouchIsDisabled(true);
     gestureCross.fadeIn();
     primarySmartText.setMessagesData(HomeLists.shortQrGuide);
     primarySmartText.startRotatingText();
-    primaryInstructionalGradientNokhte.setWidgetVisibility(false);
-    primaryInstructionalGradientNokhte.prepareYellowDiamond(
+    sessionStarterInstructionalNokhte.setWidgetVisibility(false);
+    sessionStarterInstructionalNokhte.prepareYellowDiamond(
       center,
       position: InstructionalNokhtePositions.top,
       colorway: GradientNokhteColorways.invertedBeachWave,
@@ -59,8 +59,8 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
   initReactors() {
     disposers.add(gestureCrossTapReactor());
     disposers.add(centerCrossNokhteReactor(() {
-      primaryInstructionalGradientNokhte.setWidgetVisibility(false);
-      secondaryInstructionalGradientNokhte.setWidgetVisibility(false);
+      sessionStarterInstructionalNokhte.setWidgetVisibility(false);
+      storageInstructionalNokhte.setWidgetVisibility(false);
     }));
     disposers.add(centerInstructionalNokhteMovieReactor());
   }
@@ -71,14 +71,14 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
       if (hasInitiatedBlur && !hasSwipedUp) {
         hasSwipedUp = true;
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
-        primaryInstructionalGradientNokhte.setControl(Control.playFromStart);
-        secondaryInstructionalGradientNokhte.setWidgetVisibility(false);
+        sessionStarterInstructionalNokhte.setControl(Control.playFromStart);
+        storageInstructionalNokhte.setWidgetVisibility(false);
         setSmartTextPadding(
           subMessagePadding: 110,
           bottomPadding: 0,
           topPadding: 0,
         );
-        touchIsDisabled = false;
+        delayedEnableTouchFeedback();
         primarySmartText.startRotatingText(isResuming: true);
       } else if (!hasInitiatedBlur && !hasSwipedUp && hasTappedOnCross) {
         prepForNavigation(excludeUnBlur: !hasInitiatedBlur);
@@ -92,13 +92,13 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
       if (!touchIsDisabled) {
         touchRipple.onTap(offset);
         hasInitiatedBlur = false;
-        touchIsDisabled = true;
+        setTouchIsDisabled(true);
         hasSwipedUp = false;
         primarySmartText.startRotatingText(isResuming: true);
         nokhteBlur.reverse();
         beachWaves.currentStore.setControl(Control.mirror);
         Timer(Seconds.get(1, milli: 500), () {
-          primaryInstructionalGradientNokhte.initMovie(
+          sessionStarterInstructionalNokhte.initMovie(
             InstructionalGradientMovieParams(
               center: center,
               colorway: GradientNokhteColorways.invertedBeachWave,
@@ -109,8 +109,8 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
           centerInstructionalNokhte.moveBackToCross(
             startingPosition: CenterNokhtePositions.top,
           );
-          secondaryInstructionalGradientNokhte.setWidgetVisibility(true);
-          secondaryInstructionalGradientNokhte.initMovie(
+          storageInstructionalNokhte.setWidgetVisibility(true);
+          storageInstructionalNokhte.initMovie(
             InstructionalGradientMovieParams(
               center: center,
               colorway: GradientNokhteColorways.vibrantBlue,
@@ -160,11 +160,11 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
     Timer(const Duration(seconds: 1, milliseconds: 500), () {
       setSmartTextBottomPaddingScalar(0);
       setSmartTextTopPaddingScalar(.13);
-      primaryInstructionalGradientNokhte.setWidgetVisibility(true);
+      sessionStarterInstructionalNokhte.setWidgetVisibility(true);
     });
 
-    secondaryInstructionalGradientNokhte.setWidgetVisibility(true);
-    secondaryInstructionalGradientNokhte.initMovie(
+    storageInstructionalNokhte.setWidgetVisibility(true);
+    storageInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
         center: center,
         colorway: GradientNokhteColorways.vibrantBlue,

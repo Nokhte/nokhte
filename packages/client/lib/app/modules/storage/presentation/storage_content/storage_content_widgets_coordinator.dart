@@ -13,7 +13,7 @@ class StorageContentWidgetsCoordinator = _StorageContentWidgetsCoordinatorBase
     with _$StorageContentWidgetsCoordinator;
 
 abstract class _StorageContentWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, SmartTextPaddingAdjuster, BaseWidgetsCoordinator, Reactions {
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
   final ContentCardStore contentCard;
@@ -21,8 +21,10 @@ abstract class _StorageContentWidgetsCoordinatorBase
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final InstructionalGradientNokhteStore primaryInstructionalGradientNokhte;
   final NokhteBlurStore blur;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   _StorageContentWidgetsCoordinatorBase({
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.beachWaves,
     required this.gestureCross,
     required this.smartText,
@@ -30,11 +32,14 @@ abstract class _StorageContentWidgetsCoordinatorBase
     required this.centerInstructionalNokhte,
     required this.primaryInstructionalGradientNokhte,
     required this.blur,
-  });
+  }) {
+    initBaseWidgetsCoordinatorActions();
+    initSmartTextActions();
+  }
 
   @action
   constructor(Offset offset) {
-    center = offset;
+    setCenter(offset);
     contentCard.initFadeIn();
     smartText.setMessagesData(StorageLists.contentSecondary);
     smartText.startRotatingText();

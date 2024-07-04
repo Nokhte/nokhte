@@ -2,10 +2,10 @@ import { serve } from "std/server";
 import { supabaseAdmin } from "../constants/supabase.ts";
 import { getSessionUID } from "../utils/get-session-uid.ts";
 import { isNotEmptyOrNull } from "../utils/array-utils.ts";
-import { checkIfHasDoneASession } from "../utils/check-if-has-done-a-session.ts";
 
 serve(async (req) => {
-  const { userUID, shouldInitialize, shouldStart } = await req.json();
+  const { userUID, shouldInitialize, shouldStart, presetUID } =
+    await req.json();
   let returnRes = {
     status: 200,
     message: shouldInitialize ? "successful initialization" : "successful nuke",
@@ -17,14 +17,13 @@ serve(async (req) => {
     const hasPremiumAccess =
       metadataRes?.["is_subscribed"] || !metadataRes?.["has_used_trial"];
     const isWhiteListed = await metadataRes?.["is_whitelisted"];
-    const hasDoneASessionBefore = await checkIfHasDoneASession(userUID);
     const { data } = await supabaseAdmin
       .from("st_active_nokhte_sessions")
       .insert({
         leader_uid: userUID,
         collaborator_uids: [userUID],
         has_premium_access: [hasPremiumAccess],
-        should_skip_instructions: [hasDoneASessionBefore],
+        preset_uid: presetUID,
         is_whitelisted: isWhiteListed,
       })
       .select();

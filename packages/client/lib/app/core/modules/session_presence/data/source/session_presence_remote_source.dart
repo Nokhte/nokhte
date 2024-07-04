@@ -1,4 +1,6 @@
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
+import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/st_active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -11,9 +13,13 @@ abstract class SessionPresenceRemoteSource {
   Stream<NokhteSessionMetadata> listenToSessionMetadata();
   bool cancelSessionMetadataStream();
   Future<List> addContent(String content);
+  String getUserUID();
+  Future<List> getPresetInformation(String unifiedUID);
+  Future<List> getStaticSessionMetadata();
   Future<FunctionResponse> completeTheSession();
-  Future<List> updateHasGyroscope(bool hasGyroscope);
   Future<FunctionResponse> startTheSession();
+  Future<List> checkIfHasDoneSessionBesides(String presetUID);
+  Future<List> checkIfHasDoneSessionSessionType(String presetUID);
 }
 
 class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
@@ -21,9 +27,13 @@ class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
   final RTActiveNokhteSessionQueries rtQueries;
   final STActiveNokhteSessionQueries stQueries;
   final RTActiveNokhteSessionsStream stream;
+  final CompanyPresetsQueries presetsQueries;
+  final FinishedNokhteSessionQueries finishedQueries;
   SessionPresenceRemoteSourceImpl({required this.supabase})
       : rtQueries = RTActiveNokhteSessionQueries(supabase: supabase),
         stQueries = STActiveNokhteSessionQueries(supabase: supabase),
+        finishedQueries = FinishedNokhteSessionQueries(supabase: supabase),
+        presetsQueries = CompanyPresetsQueries(supabase: supabase),
         stream = RTActiveNokhteSessionsStream(supabase: supabase);
 
   @override
@@ -57,9 +67,26 @@ class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
   addContent(content) async => await stQueries.addContent(content);
 
   @override
-  updateHasGyroscope(hasGyroscope) async =>
-      await stQueries.updateHasGyroscope(hasGyroscope);
+  startTheSession() async => await rtQueries.startTheSession();
 
   @override
-  startTheSession() async => await rtQueries.startTheSession();
+  getUserUID() => supabase.auth.currentUser?.id ?? '';
+
+  @override
+  getStaticSessionMetadata() async => await stQueries.select();
+
+  @override
+  getPresetInformation(unifiedUID) async =>
+      await presetsQueries.getInfoFromUnifiedUID(unifiedUID);
+
+  @override
+  checkIfHasDoneSessionBesides(presetUID) async =>
+      await finishedQueries.selectOne(
+        unifiedUID: presetUID,
+        invertToNeq: true,
+      );
+
+  @override
+  checkIfHasDoneSessionSessionType(presetUID) async =>
+      await finishedQueries.selectOne(unifiedUID: presetUID);
 }

@@ -9,16 +9,14 @@ part 'session_presence_coordinator.g.dart';
 class SessionPresenceCoordinator = _SessionPresenceCoordinatorBase
     with _$SessionPresenceCoordinator;
 
-abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
-    with Store {
+abstract class _SessionPresenceCoordinatorBase with Store, BaseMobxLogic {
   final UpdateOnlineStatus updateOnlineStatusLogic;
   final UpdateCurrentPhase updateCurrentPhaseLogic;
   final CancelSessionMetadataStream cancelSessionMetadataStreamLogic;
-  final ListenToSessionMetadataStore listenToSessionMetadataStore;
+  final SessionMetadataStore sessionMetadataStore;
   final CollaboratorPresenceIncidentsOverlayStore incidentsOverlayStore;
   final AddContent addContentLogic;
   final CompleteTheSession completeTheSessionLogic;
-  final UpdateHasGyroscope updateHasGyroscopeLogic;
   final StartTheSession startTheSessionLogic;
   final UpdateWhoIsTalking updateWhoIsTalkingLogic;
 
@@ -27,14 +25,15 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
     required this.updateWhoIsTalkingLogic,
     required this.updateCurrentPhaseLogic,
     required this.updateOnlineStatusLogic,
-    required this.listenToSessionMetadataStore,
+    required this.sessionMetadataStore,
     required this.addContentLogic,
     required this.startTheSessionLogic,
     required this.completeTheSessionLogic,
-    required this.updateHasGyroscopeLogic,
   }) : incidentsOverlayStore = CollaboratorPresenceIncidentsOverlayStore(
-          sessionMetadataStore: listenToSessionMetadataStore,
-        );
+          sessionMetadataStore: sessionMetadataStore,
+        ) {
+    initBaseLogicActions();
+  }
 
   @observable
   bool contentIsUpdated = false;
@@ -73,16 +72,33 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
 
   @action
   dispose() async {
-    state = StoreState.loading;
+    setState(StoreState.loading);
     final res = cancelSessionMetadataStreamLogic(NoParams());
-    await listenToSessionMetadataStore.dispose();
+    await sessionMetadataStore.dispose();
     isListening = res;
+    setState(StoreState.loaded);
   }
+
+  // @action
+  // checkIfHasDoneSession() async {
+  //   final res = await checkIfHasDoneSessionLogic(NoParams());
+  //   res.fold(
+  //     (failure) => errorUpdater(failure),
+  //     (hasDoneASession) {
+  //       if (hasDoneASession) {
+  //         instructionType = SessionInstructionTypes.justSymbols;
+  //       } else {
+  //         instructionType = SessionInstructionTypes.fullInstructions;
+  //       }
+  //     },
+  //   );
+  // }
 
   @action
   listen() {
-    state = StoreState.loading;
-    listenToSessionMetadataStore.get(NoParams());
+    setState(StoreState.loading);
+    sessionMetadataStore.get(NoParams());
+    setState(StoreState.loaded);
   }
 
   @action
@@ -92,6 +108,7 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
       (failure) => errorUpdater(failure),
       (contentUpdateStatus) => contentIsUpdated = contentUpdateStatus,
     );
+    setState(StoreState.loaded);
   }
 
   @action
@@ -101,16 +118,7 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
       (failure) => errorUpdater(failure),
       (sessionUpdateStatus) => sessionIsFinished = sessionUpdateStatus,
     );
-  }
-
-  @action
-  updateHasGyroscope(bool param) async {
-    final res = await updateHasGyroscopeLogic(param);
-    res.fold(
-      (failure) => errorUpdater(failure),
-      (gyroscopeUpdateStatus) =>
-          gyroscopeAvailabilityIsUpdated = gyroscopeUpdateStatus,
-    );
+    setState(StoreState.loaded);
   }
 
   @action
@@ -121,33 +129,37 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
       (gyroscopeUpdateStatus) =>
           speakerSpotlightIsUpdated = gyroscopeUpdateStatus,
     );
+    setState(StoreState.loaded);
   }
 
   @action
   updateOnlineStatus(UpdatePresencePropertyParams params) async {
     onlineStatusIsUpdated = false;
-    state = StoreState.loading;
+    setState(StoreState.loading);
     final res = await updateOnlineStatusLogic(params);
     res.fold((failure) => errorUpdater(failure),
         (status) => onlineStatusIsUpdated = status);
+    setState(StoreState.loaded);
   }
 
   @action
   updateCurrentPhase(double params) async {
     currentPhaseIsUpdated = false;
-    state = StoreState.loading;
+    setState(StoreState.loading);
     final res = await updateCurrentPhaseLogic(params);
     res.fold((failure) => errorUpdater(failure),
         (status) => currentPhaseIsUpdated = status);
+    setState(StoreState.loaded);
   }
 
   @action
   startTheSession() async {
-    state = StoreState.loading;
+    setState(StoreState.loading);
     final res = await startTheSessionLogic(NoParams());
     res.fold(
       (failure) => errorUpdater(failure),
       (status) => sessionStartStatusIsUpdated = status,
     );
+    setState(StoreState.loaded);
   }
 }

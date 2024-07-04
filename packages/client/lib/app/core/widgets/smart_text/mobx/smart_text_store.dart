@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
+import 'package:nokhte/app/core/mobx/base_widget_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -10,8 +10,7 @@ part 'smart_text_store.g.dart';
 
 class SmartTextStore = _SmartTextStoreBase with _$SmartTextStore;
 
-abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
-    with Store {
+abstract class _SmartTextStoreBase extends BaseWidgetStore with Store {
   _SmartTextStoreBase() {
     setAltMovie(Seconds.get(500));
   }
@@ -106,21 +105,19 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
   }
 
   @computed
-  String get currentSubText => messagesData[currentIndex].subMessage;
+  String get currentSubText => messagesData[currentIndex].subText;
 
   @computed
-  String get currentMainText => messagesData[currentIndex].mainMessage;
+  String get currentMainText => messagesData[currentIndex].text;
 
   @computed
   bool get currentShouldPauseHere => messagesData[currentIndex].pauseHere;
 
   @computed
-  double get currentMainTextFontSize =>
-      messagesData[currentIndex].mainMessageFontSize;
+  double get currentMainTextFontSize => messagesData[currentIndex].mainFontSize;
 
   @computed
-  double get currentSubTextFontSize =>
-      messagesData[currentIndex].subMessageFontSize;
+  double get currentSubTextFontSize => messagesData[currentIndex].subFontSize;
 
   @computed
   Duration get currentInitialFadeInDelay =>
@@ -128,7 +125,4 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
 
   @computed
   Duration get currentOnScreenTime => messagesData[currentIndex].onScreenTime;
-
-  @computed
-  Gestures get currentUnlockGesture => messagesData[currentIndex].unlockGesture;
 }

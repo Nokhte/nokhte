@@ -18,7 +18,6 @@ class SessionExitScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final height = useFullScreenSize().height;
-    final size = useSquareSize(relativeLength: .20);
     useEffect(() {
       coordinator.constructor();
       return () => coordinator.deconstructor();
@@ -41,31 +40,30 @@ class SessionExitScreen extends HookWidget {
                   store: coordinator.widgets.beachWaves,
                 ),
               ),
+              Tint(
+                store: coordinator.widgets.tint,
+              ),
+              GestureCross(
+                config: GestureCrossConfiguration(),
+                store: coordinator.widgets.gestureCross,
+              ),
+              ExitStatusIndicator(
+                store: coordinator.widgets.exitStatusIndicator,
+              ),
               Center(
                 child: SmartText(
                   store: coordinator.widgets.primarySmartText,
-                  bottomPadding: height * .7,
+                  bottomPadding: height * .5,
                   opacityDuration: Seconds.get(1),
                 ),
               ),
               Center(
                 child: SmartText(
                   store: coordinator.widgets.secondarySmartText,
-                  topPadding: height * .8,
+                  topPadding: height * .75,
                   bottomPadding: 0,
                   opacityDuration: Seconds.get(1),
                 ),
-              ),
-              Center(
-                child: SmartText(
-                  store: coordinator.widgets.tertiarySmartText,
-                  opacityDuration: Seconds.get(1),
-                ),
-              ),
-              GestureCross(
-                config: GestureCrossConfiguration(),
-                size: size,
-                store: coordinator.widgets.gestureCross,
               ),
               Opacity(
                 opacity:

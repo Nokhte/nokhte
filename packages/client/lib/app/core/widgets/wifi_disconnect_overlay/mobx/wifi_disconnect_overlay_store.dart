@@ -11,8 +11,8 @@ part 'wifi_disconnect_overlay_store.g.dart';
 class WifiDisconnectOverlayStore = _WifiDisconnectOverlayStoreBase
     with _$WifiDisconnectOverlayStore;
 
-abstract class _WifiDisconnectOverlayStoreBase
-    extends BaseCustomAnimatedWidgetStore with Store {
+abstract class _WifiDisconnectOverlayStoreBase extends BaseWidgetStore
+    with Store {
   final GetOnConnectivityChangedStore getOnConnectivityChanged;
 
   _WifiDisconnectOverlayStoreBase({

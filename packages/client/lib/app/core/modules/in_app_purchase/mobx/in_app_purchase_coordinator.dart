@@ -10,15 +10,16 @@ part 'in_app_purchase_coordinator.g.dart';
 class InAppPurchaseCoordinator = _InAppPurchaseCoordinatorBase
     with _$InAppPurchaseCoordinator;
 
-abstract class _InAppPurchaseCoordinatorBase extends BaseMobxDBStore
-    with Store {
+abstract class _InAppPurchaseCoordinatorBase with Store, BaseMobxLogic {
   final BuySubscription buySubscriptionLogic;
   final GetSubscriptionInfo getSubscriptionInfoLogic;
 
   _InAppPurchaseCoordinatorBase({
     required this.buySubscriptionLogic,
     required this.getSubscriptionInfoLogic,
-  });
+  }) {
+    initBaseLogicActions();
+  }
 
   @observable
   SkuProductEntity skuProductEntity = SkuProductEntity.initial();

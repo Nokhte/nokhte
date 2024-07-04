@@ -9,14 +9,16 @@ class UserMetadataCoordinator = _UserMetadataCoordinatorBase
     with _$UserMetadataCoordinator;
 
 abstract class _UserMetadataCoordinatorBase
-    extends BaseMobxDBStore<NoParams, bool> with Store {
+    with Store, BaseMobxLogic<NoParams, bool> {
   final AddUserMetadata addUserMetadataLogic;
   final GetUserMetadata getUserMetadataLogic;
 
   _UserMetadataCoordinatorBase({
     required this.addUserMetadataLogic,
     required this.getUserMetadataLogic,
-  });
+  }) {
+    initBaseLogicActions();
+  }
 
   @observable
   bool hasAddedMetadata = false;
@@ -31,25 +33,25 @@ abstract class _UserMetadataCoordinatorBase
   getMetadata() async {
     final res = await getUserMetadataLogic(NoParams());
     res.fold((failure) {
-      errorMessage = mapFailureToMessage(failure);
-      state = StoreState.initial;
+      setErrorMessage(mapFailureToMessage(failure));
+      setState(StoreState.initial);
     }, (metadataEntity) {
       hasUsedTrial = metadataEntity.hasUsedTrial;
       isSubscribed = metadataEntity.isSubscribed;
     });
-    state = StoreState.loaded;
+    setState(StoreState.loaded);
   }
 
   @action
   Future<void> addMetadata(NoParams param) async {
-    state = StoreState.loading;
+    setState(StoreState.loading);
     final res = await addUserMetadataLogic(NoParams());
     res.fold((failure) {
-      errorMessage = mapFailureToMessage(failure);
-      state = StoreState.initial;
+      setErrorMessage(mapFailureToMessage(failure));
+      setState(StoreState.initial);
     }, (status) {
       hasAddedMetadata = status;
     });
-    state = StoreState.loaded;
+    setState(StoreState.loaded);
   }
 }

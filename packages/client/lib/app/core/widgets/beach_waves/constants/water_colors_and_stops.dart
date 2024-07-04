@@ -101,15 +101,15 @@ class WaterColorsAndStops {
     ColorAndStop(Color(0xFF6BE9BB), 1.0),
   ];
 
-  static const List<ColorAndStop> invertedSky = [
-    ColorAndStop(Color(0xFF6BE9BB), 0),
-    ColorAndStop(Color(0xFF6BE9BB), 0),
-    ColorAndStop(Color(0xFF6BE9BB), 0),
-    ColorAndStop(Color(0xFF6BE9BB), 0),
-    ColorAndStop(Color(0xFF6BE9BB), 0),
-    ColorAndStop(Color(0xFF6BE9BB), 0),
-    ColorAndStop(Color(0xFF44D3FE), .7),
-    ColorAndStop(Color(0xFF44D3FE), 1.0),
+  static const List<ColorAndStop> invertedDeeperBlue = [
+    ColorAndStop(Color(0xFF4072F3), 0),
+    ColorAndStop(Color(0xFF4986F3), .18),
+    ColorAndStop(Color(0xFF409DF3), .33),
+    ColorAndStop(Color(0xFF40A5F3), .49),
+    ColorAndStop(Color(0xFF40ACF3), .63),
+    ColorAndStop(Color(0xFF40B4F3), .77),
+    ColorAndStop(Color(0xFF40BDF3), .89),
+    ColorAndStop(Color(0xFF40F3F3), 1.00),
   ];
 
   static const List<ColorAndStop> drySand = [
@@ -154,6 +154,17 @@ class WaterColorsAndStops {
     ColorAndStop(Color(0xFFFFFFE3), 0.0),
     ColorAndStop(Color(0xFFFFFFE3), 0.0),
     ColorAndStop(Color(0xFFF5DC91), 1.00)
+  ];
+
+  static const List<ColorAndStop> orangeSand = [
+    ColorAndStop(Color(0xFFFFE6C4), 0.0),
+    ColorAndStop(Color(0xFFFFBC78), 0.3),
+    ColorAndStop(Color(0xFFFFBC78), 0.4),
+    ColorAndStop(Color(0xFFFFBC78), 0.5),
+    ColorAndStop(Color(0xFFFFBC78), 0.6),
+    ColorAndStop(Color(0xFFFFBC78), 0.7),
+    ColorAndStop(Color(0xFFFFBC78), 0.8),
+    ColorAndStop(Color(0xFFFFBC78), 1.0),
   ];
   static const List<ColorAndStop> bottomHeavyDrySand = [
     ColorAndStop(Color(0xFFFFFFE3), 0.0),

@@ -9,5 +9,5 @@ class ListenToSessionMetadata
   ListenToSessionMetadata({required this.contract});
 
   @override
-  call(params) async => await contract.listenToSessionMetadata(params);
+  call(params) async => await contract.listenToRTSessionMetadata(params);
 }
