@@ -41,6 +41,7 @@ class SocraticSpeakingExitScreen extends HookWidget {
                   store: coordinator.widgets.beachWaves,
                 ),
               ),
+              BorderGlow(store: BorderGlowStore()),
               ExitStatusIndicator(
                 // useGradientRing: true,
                 store: coordinator.widgets.exitStatusIndicator,

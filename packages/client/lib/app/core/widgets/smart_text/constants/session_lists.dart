@@ -33,7 +33,8 @@ class SessionLists {
     SharedLists.emptyItem,
   ];
 
-  static List<RotatingTextData> leaderLobby(String presetName) => [
+  static List<RotatingTextData> lobby(String presetName) => [
+        SharedLists.emptyItem,
         RotatingTextData(
           text: presetName,
           pauseHere: true,
@@ -44,15 +45,6 @@ class SessionLists {
         ),
         SharedLists.emptyItem,
       ];
-
-  static List<RotatingTextData> followerLobby = [
-    RotatingTextData(
-      text: "Wait for the session to start",
-      mainFontSize: 23.0,
-      pauseHere: true,
-    ),
-    SharedLists.emptyItem,
-  ];
 
   static List<RotatingTextData> tapWhenYouHaveDoneSo(int length) => List.filled(
         length,

@@ -68,6 +68,7 @@ abstract class _SessionExitCoordinatorBase
     phaseHasBeenSet = false;
     widgets.constructor(isNotASocraticSession);
     initReactors();
+    setDisableAllTouchFeedback(true);
     await presence.updateCurrentPhase(4.0);
     sessionMetadata.setAffirmativePhase(4.0);
     await captureScreen(SessionConstants.exit);
@@ -111,14 +112,17 @@ abstract class _SessionExitCoordinatorBase
         onReturnToTalkingComplete: () {
           if (phoneRole == SessionScreenTypes.speaking) {
             Modular.to.navigate(SessionConstants.speaking);
+          } else {
+            Modular.to.navigate(SessionConstants.soloHybrid);
           }
         },
         onReturnToHybridComplete: () {
           Modular.to.navigate(SessionConstants.groupHybrid);
         }));
     if (isNotASocraticSession) {
-      disposers.add(
-          swipeReactor(onSwipeDown: () => widgets.onReadyToGoBack(phoneRole)));
+      disposers.add(swipeReactor(onSwipeDown: () {
+        widgets.onReadyToGoBack(phoneRole);
+      }));
     }
     disposers.add(
       userPhaseReactor(
@@ -131,7 +135,8 @@ abstract class _SessionExitCoordinatorBase
     );
     disposers.add(
       widgets.sessionExitStatusCompletionReactor(
-        onInitialized: () async {
+        onInitialized: () {
+          setDisableAllTouchFeedback(false);
           if (sessionMetadata.userPhase == -1.0) {
             setBlockUserPhaseReactor(true);
             widgets.onNumOfAffirmativeChanged(
