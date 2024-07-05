@@ -77,9 +77,10 @@ abstract class _SoloHybridInstructionsWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.invertedHalfAndHalfToDrySand);
+    beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
     smartText.setMessagesData(SessionLists.soloHybridInstructions);
     initReactors();
+    smartText.setStaticAltMovie(SessionConstants.blue);
     smartText.startRotatingText();
     cooldownStopwatch.start();
     disableTouchInput = false;
@@ -97,11 +98,11 @@ abstract class _SoloHybridInstructionsWidgetsCoordinatorBase
       reaction((p0) => beachWaves.movieStatus, (p0) async {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode ==
-              BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
+              BeachWaveMovieModes.halfAndHalfToDrySand) {
             borderGlow.initMovie(NoParams());
-            holdTimerIndicator.initMovie(GesturePlacement.topHalf);
+            holdTimerIndicator.initMovie(GesturePlacement.bottomHalf);
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.anyToInvertedHalfAndHalf) {
+              BeachWaveMovieModes.anyToHalfAndHalf) {
             hasReturnedToHome = true;
             canHold = true;
             smartText.setWidgetVisibility(true);
@@ -119,7 +120,7 @@ abstract class _SoloHybridInstructionsWidgetsCoordinatorBase
               setSmartTextTopPaddingScalar(0);
               setSmartTextBottomPaddingScalar(0.4);
               smartText.startRotatingText(isResuming: true);
-              smartText.setStaticAltMovie(SessionConstants.blue);
+              smartText.setStaticAltMovie(Colors.white);
             }
           }
         }
@@ -199,7 +200,7 @@ abstract class _SoloHybridInstructionsWidgetsCoordinatorBase
       }
       touchRipple.onTap(
         tapPosition,
-        adjustColorBasedOnPosition: false,
+        adjustColorBasedOnPosition: true,
       );
       if (hasTappedOnTheRightSide && textIsDoneFadingInOrOut && tapCount < 2) {
         smartText.startRotatingText(isResuming: true);
@@ -213,8 +214,7 @@ abstract class _SoloHybridInstructionsWidgetsCoordinatorBase
         smartText.startRotatingText(isResuming: true);
         if (tapCount == 3) {
           hasFinishedAllInstructions = true;
-          beachWaves
-              .setMovieMode(BeachWaveMovieModes.deepSeaToInvertedHalfAndHalf);
+          beachWaves.setMovieMode(BeachWaveMovieModes.deepSeaToHalfAndHalf);
           beachWaves.currentStore.reverseMovie(NoParams());
         }
         tapCount++;
@@ -240,8 +240,8 @@ abstract class _SoloHybridInstructionsWidgetsCoordinatorBase
       holdCount++;
       if (!speakingInstructionsComplete) {
         smartText.startRotatingText(isResuming: true);
-        beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
-        beachWaves.currentStore.reverseMovie(NoParams());
+        beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
+        beachWaves.currentStore.initMovie(NoParams());
       }
     }
   }
@@ -255,7 +255,7 @@ abstract class _SoloHybridInstructionsWidgetsCoordinatorBase
       abortTheTextRotation = true;
       borderGlow.initGlowDown();
       holdTimerIndicator.onLetGo();
-      beachWaves.setMovieMode(BeachWaveMovieModes.anyToInvertedHalfAndHalf);
+      beachWaves.setMovieMode(BeachWaveMovieModes.anyToHalfAndHalf);
       beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
       if (!speakingInstructionsComplete) {
         smartText.setWidgetVisibility(false);
