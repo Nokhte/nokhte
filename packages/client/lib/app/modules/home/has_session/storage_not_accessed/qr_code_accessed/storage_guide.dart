@@ -13,6 +13,10 @@ class StorageGuideScreen extends BaseHomeScreen {
           gestureCrossConfig: coordinator.widgets.gestureCrossConfig,
           instructionalNokhtes: Stack(
             children: [
+              SwipeGuide(
+                toTheRight: false,
+                store: coordinator.widgets.swipeGuide,
+              ),
               CenterInstructionalNokhte(
                 store: coordinator.widgets.centerInstructionalNokhte,
               ),

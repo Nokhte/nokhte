@@ -51,6 +51,7 @@ class HomeWidgetsModule extends Module {
     );
     i.add<StorageGuideWidgetsCoordinator>(
       () => StorageGuideWidgetsCoordinator(
+        swipeGuide: SwipeGuideStore(),
         secondaryErrorSmartText: SmartTextStore(),
         errorSmartText: SmartTextStore(),
         nokhteBlur: NokhteBlurStore(),
@@ -66,6 +67,7 @@ class HomeWidgetsModule extends Module {
     );
     i.add<CompassAndStorageGuideWidgetsCoordinator>(
       () => CompassAndStorageGuideWidgetsCoordinator(
+        swipeGuide: SwipeGuideStore(),
         secondaryErrorSmartText: SmartTextStore(),
         errorSmartText: SmartTextStore(),
         nokhteBlur: NokhteBlurStore(),

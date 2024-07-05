@@ -17,6 +17,7 @@ class SessionStarterInstructionsWidgetsCoordinator = _SessionStarterInstructions
 
 abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
     with Store, SmartTextPaddingAdjuster, BaseWidgetsCoordinator, Reactions {
+  final SwipeGuideStore swipeGuide;
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final GestureCrossStore gestureCross;
@@ -29,6 +30,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionStarterInstructionsWidgetsCoordinatorBase({
+    required this.swipeGuide,
     required this.beachWaves,
     required this.touchRipple,
     required this.gestureCross,
@@ -74,6 +76,8 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
   @action
   constructor(Offset centerParam) {
     setCenter(centerParam);
+
+    swipeGuide.setWidgetVisibility(false);
     gestureCross.fadeIn(onFadeIn: Left(() {
       gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
     }));
@@ -95,6 +99,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
       if (hasInitiatedBlur) {
         smartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.left);
+        swipeGuide.setWidgetVisibility(false);
         presetsInstructionalNokhte.setControl(Control.play);
         homeInstructionalNokhte.setWidgetVisibility(false);
         delayedEnableTouchFeedback();
@@ -213,14 +218,18 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
 
   centerInstructionalNokhteReactor() =>
       reaction((p0) => centerInstructionalNokhte.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            centerInstructionalNokhte.movieMode ==
-                CenterInstructionalNokhteMovieModes.moveBack) {
-          gestureCross.centerCrossNokhte.setWidgetVisibility(true);
-          gestureCross.gradientNokhte.setWidgetVisibility(true);
-          smartText.startRotatingText();
-          hasSwipedDown = false;
-          setTouchIsDisabled(false);
+        if (p0 == MovieStatus.finished) {
+          if (centerInstructionalNokhte.movieMode ==
+              CenterInstructionalNokhteMovieModes.moveBack) {
+            gestureCross.centerCrossNokhte.setWidgetVisibility(true);
+            gestureCross.gradientNokhte.setWidgetVisibility(true);
+            smartText.startRotatingText();
+            hasSwipedDown = false;
+            setTouchIsDisabled(false);
+          } else if (centerInstructionalNokhte.movieMode ==
+              CenterInstructionalNokhteMovieModes.moveToCenter) {
+            swipeGuide.setWidgetVisibility(true);
+          }
         }
       });
 

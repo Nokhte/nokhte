@@ -14,7 +14,9 @@ class StorageGuideWidgetsCoordinator = _StorageGuideWidgetsCoordinatorBase
 
 abstract class _StorageGuideWidgetsCoordinatorBase
     extends BaseHomeScreenWidgetsCoordinator with Store {
+  final SwipeGuideStore swipeGuide;
   _StorageGuideWidgetsCoordinatorBase({
+    required this.swipeGuide,
     required super.nokhteBlur,
     required super.beachWaves,
     required super.wifiDisconnectOverlay,
@@ -32,6 +34,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
   @action
   constructor(Offset offset) {
     super.constructor(offset);
+    swipeGuide.setWidgetVisibility(false);
     gestureCross.fadeIn();
     primarySmartText.setMessagesData(HomeLists.storageGuide);
     primarySmartText.startRotatingText();
@@ -134,6 +137,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
         storageInstructionalNokhte.setControl(Control.playFromStart);
         sessionStarterInstructionalNokhte.setWidgetVisibility(false);
         primarySmartText.startRotatingText(isResuming: true);
+        swipeGuide.setWidgetVisibility(false);
       } else if (!hasInitiatedBlur && !hasSwipedUp && swipeRightIsUnlocked) {
         hasSwipedUp = true;
         beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
@@ -186,10 +190,14 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   centerInstructionalNokhteMovieReactor() =>
       reaction((p0) => centerInstructionalNokhte.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            centerInstructionalNokhte.movieMode ==
-                CenterInstructionalNokhteMovieModes.moveAround) {
-          canTap = true;
+        if (p0 == MovieStatus.finished) {
+          if (centerInstructionalNokhte.movieMode ==
+              CenterInstructionalNokhteMovieModes.moveAround) {
+            canTap = true;
+          } else if (centerInstructionalNokhte.movieMode ==
+              CenterInstructionalNokhteMovieModes.moveToCenter) {
+            swipeGuide.setWidgetVisibility(true);
+          }
         }
       });
 

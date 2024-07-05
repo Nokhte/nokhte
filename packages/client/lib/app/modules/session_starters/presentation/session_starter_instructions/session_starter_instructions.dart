@@ -53,6 +53,10 @@ class SessionStarterInstructionsScreen extends HookWidget {
                     store: coordinator.widgets.touchRipple,
                   ),
                 ),
+                SwipeGuide(
+                  toTheRight: true,
+                  store: coordinator.widgets.swipeGuide,
+                ),
                 Center(
                   child: SmartText(
                     store: coordinator.widgets.smartText,

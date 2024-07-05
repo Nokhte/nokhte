@@ -14,7 +14,9 @@ class CompassAndStorageGuideWidgetsCoordinator = _CompassAndStorageGuideWidgetsC
 
 abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
     extends BaseHomeScreenWidgetsCoordinator with Store {
+  final SwipeGuideStore swipeGuide;
   _CompassAndStorageGuideWidgetsCoordinatorBase({
+    required this.swipeGuide,
     required super.nokhteBlur,
     required super.beachWaves,
     required super.wifiDisconnectOverlay,
@@ -42,6 +44,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
   @action
   constructor(Offset offset) {
     super.constructor(offset);
+    swipeGuide.setWidgetVisibility(false);
     gestureCross.fadeInTheCross();
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
     primarySmartText.setMessagesData(HomeLists.compassAndStorageGuide);
@@ -81,6 +84,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
         setTouchIsDisabled(true);
         primarySmartText.startRotatingText(isResuming: true);
         sessionStarterInstructionalNokhte.setWidgetVisibility(true);
+        swipeGuide.setWidgetVisibility(true);
         touchRipple.onTap(offset);
         delayedEnableTouchFeedback();
       } else if (primarySmartText.currentIndex == 4) {
@@ -138,6 +142,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
           primarySmartText.currentIndex == 3 &&
           hasInitiatedBlur) {
         hasSwipedUp = true;
+        swipeGuide.setWidgetVisibility(false);
         centerInstructionalNokhte.initMovie(
           InstructionalNokhtePositions.right,
         );

@@ -19,6 +19,7 @@ class SessionStartersWidgetsModule extends Module {
   void binds(Injector i) {
     i.add<SessionStarterInstructionsWidgetsCoordinator>(
       () => SessionStarterInstructionsWidgetsCoordinator(
+        swipeGuide: SwipeGuideStore(),
         homeInstructionalNokhte: InstructionalGradientNokhteStore(),
         presetsInstructionalNokhte: InstructionalGradientNokhteStore(),
         nokhteBlur: NokhteBlurStore(),
