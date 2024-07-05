@@ -47,11 +47,12 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
     if (isTheLeader) {
       qrCode.setQrCodeData(Modular.args.data["qrCodeData"]);
       primarySmartText.setMessagesData(SharedLists.emptyList);
-      primarySmartText.startRotatingText();
     } else {
       primarySmartText.setMessagesData(SharedLists.emptyList);
       qrCode.setWidgetVisibility(false);
     }
+    primarySmartText.startRotatingText();
+
     presetIcons.setWidgetVisibility(false);
     constructorHasBeenCalled = true;
     disposers.add(smartTextIndexReactor());
@@ -81,7 +82,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
 
   @action
   onQrCodeReady(String data) {
-    if (!isTheLeader) {
+    if (!isTheLeader && constructorHasBeenCalled) {
       // primarySmartText.setMessagesData(SessionLists.followerLobby);
       // primarySmartText.startRotatingText();
       Timer.periodic(Seconds.get(0, milli: 100), (timer) {
@@ -103,10 +104,11 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
     required List presetTags,
   }) {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
+      print('constructorHasBeenCalled: $constructorHasBeenCalled');
       if (constructorHasBeenCalled) {
-        primarySmartText.setMessagesData(SessionLists.leaderLobby(presetName));
+        primarySmartText.setMessagesData(SessionLists.lobby(presetName));
         presetInfoRecieved = true;
-        primarySmartText.startRotatingText();
+        primarySmartText.startRotatingText(isResuming: true);
         presetIcons.setTags(tags: presetTags);
         presetIcons.setWidgetVisibility(true);
         timer.cancel();
@@ -118,7 +120,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
   onCanStartTheSession() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
       print('current index: ${primarySmartText.currentIndex}');
-      if (primarySmartText.currentIndex == 0) {
+      if (primarySmartText.currentIndex == 1 && presetInfoRecieved) {
         presetIcons.setWidgetVisibility(false);
         primarySmartText.startRotatingText(isResuming: true);
         timer.cancel();
@@ -129,7 +131,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
   @action
   onRevertCanStartSession() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      if (primarySmartText.currentIndex == 1) {
+      if (primarySmartText.currentIndex == 2) {
         primarySmartText.startRotatingText(isResuming: true);
         timer.cancel();
       }
@@ -174,7 +176,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
   smartTextIndexReactor() =>
       reaction((p0) => primarySmartText.currentIndex, (p0) {
         if (isFirstTap) {
-          if (p0 == 2) {
+          if (p0 == 3) {
             primarySmartText.reset();
             primarySmartText.startRotatingText();
             presetIcons.setWidgetVisibility(true);
