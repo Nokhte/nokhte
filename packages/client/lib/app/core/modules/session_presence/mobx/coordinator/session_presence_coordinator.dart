@@ -1,7 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 part 'session_presence_coordinator.g.dart';
@@ -79,21 +82,6 @@ abstract class _SessionPresenceCoordinatorBase with Store, BaseMobxLogic {
     setState(StoreState.loaded);
   }
 
-  // @action
-  // checkIfHasDoneSession() async {
-  //   final res = await checkIfHasDoneSessionLogic(NoParams());
-  //   res.fold(
-  //     (failure) => errorUpdater(failure),
-  //     (hasDoneASession) {
-  //       if (hasDoneASession) {
-  //         instructionType = SessionInstructionTypes.justSymbols;
-  //       } else {
-  //         instructionType = SessionInstructionTypes.fullInstructions;
-  //       }
-  //     },
-  //   );
-  // }
-
   @action
   listen() {
     setState(StoreState.loading);
@@ -144,12 +132,18 @@ abstract class _SessionPresenceCoordinatorBase with Store, BaseMobxLogic {
 
   @action
   updateCurrentPhase(double params) async {
-    currentPhaseIsUpdated = false;
-    setState(StoreState.loading);
-    final res = await updateCurrentPhaseLogic(params);
-    res.fold((failure) => errorUpdater(failure),
-        (status) => currentPhaseIsUpdated = status);
-    setState(StoreState.loaded);
+    Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
+      if (sessionMetadataStore.userPhase != params) {
+        currentPhaseIsUpdated = false;
+        setState(StoreState.loading);
+        final res = await updateCurrentPhaseLogic(params);
+        res.fold((failure) => errorUpdater(failure),
+            (status) => currentPhaseIsUpdated = status);
+        setState(StoreState.loaded);
+      } else {
+        timer.cancel();
+      }
+    });
   }
 
   @action

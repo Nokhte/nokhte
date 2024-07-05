@@ -42,7 +42,7 @@ abstract class _SocraticSpeakingExitCoordinatorBase
     widgets.constructor();
     await presence.updateCurrentPhase(3.0);
     sessionMetadata.setAffirmativePhase(3.0);
-    //
+    setDisableAllTouchFeedback(true);
     initReactors();
   }
 
@@ -87,11 +87,12 @@ abstract class _SocraticSpeakingExitCoordinatorBase
       ),
     );
     disposers.add(swipeReactor(onSwipeDown: () {
-      widgets.initBackToSpeaking();
+      widgets.onSwipeDown();
     }));
     disposers.add(
       widgets.sessionExitStatusCompletionReactor(
         onInitialized: () {
+          setDisableAllTouchFeedback(false);
           if (sessionMetadata.numberOfAffirmative ==
               sessionMetadata.numberOfCollaborators) {
             widgets.onNumOfAffirmativeChanged(

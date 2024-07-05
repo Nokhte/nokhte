@@ -61,8 +61,7 @@ abstract class _CollaborationFullInstructionsWidgetsCoordinatorBase
       } else if (smartText.currentIndex == 1) {
         smartText.startRotatingText(isResuming: true);
         presetDiagram.setWidgetVisibility(false);
-        beachWaves
-            .setMovieMode(BeachWaveMovieModes.deepSeaToInvertedHalfAndHalf);
+        beachWaves.setMovieMode(BeachWaveMovieModes.deepSeaToHalfAndHalf);
         beachWaves.currentStore.initMovie(NoParams());
         canTap = false;
       }

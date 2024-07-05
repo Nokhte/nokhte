@@ -52,6 +52,10 @@ abstract class _SocraticSpeakingExitWidgetsCoordinatorBase
     disposers.add(beachWavesMovieStatusReactor());
   }
 
+  onSwipeDown() {
+    exitStatusIndicator.initHide();
+  }
+
   initBackToSpeaking() {
     exitStatusIndicator.setWidgetVisibility(false);
     beachWaves.setMovieMode(BeachWaveMovieModes.orangeSandToHalfAndHalf);
@@ -74,12 +78,14 @@ abstract class _SocraticSpeakingExitWidgetsCoordinatorBase
   }) =>
       reaction((p0) => exitStatusIndicator.movieStatus, (p0) async {
         if (p0 == MovieStatus.finished) {
-          if (exitStatusIndicator.movieMode ==
-              ExitStatusMovieModes.show) {
+          if (exitStatusIndicator.movieMode == ExitStatusMovieModes.show) {
             onInitialized();
           } else if (exitStatusIndicator.movieMode ==
               ExitStatusMovieModes.complete) {
             initNotesTransition();
+          } else if (exitStatusIndicator.movieMode ==
+              ExitStatusMovieModes.hide) {
+            initBackToSpeaking();
           }
         }
       });

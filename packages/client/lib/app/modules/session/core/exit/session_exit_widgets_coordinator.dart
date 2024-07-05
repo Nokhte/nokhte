@@ -27,6 +27,9 @@ abstract class _SessionExitWidgetsCoordinatorBase
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
+  @observable
+  SessionScreenTypes phoneRole = SessionScreenTypes.inital;
+
   _SessionExitWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.exitStatusIndicator,
@@ -65,10 +68,13 @@ abstract class _SessionExitWidgetsCoordinatorBase
   }
 
   @action
-  onReadyToGoBack(SessionScreenTypes phoneRole) {
+  initReturnToSession() {
+    tint.reverseMovie(NoParams());
+    exitStatusIndicator.setWidgetVisibility(false);
     primarySmartText.setWidgetVisibility(false);
     secondarySmartText.setWidgetVisibility(false);
-    if (phoneRole == SessionScreenTypes.speaking) {
+    if (phoneRole == SessionScreenTypes.speaking ||
+        phoneRole == SessionScreenTypes.soloHybrid) {
       beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
       beachWaves.currentStore.initMovie(NoParams());
     } else if (phoneRole == SessionScreenTypes.notes) {
@@ -79,6 +85,12 @@ abstract class _SessionExitWidgetsCoordinatorBase
       beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
       beachWaves.currentStore.initMovie(NoParams());
     }
+  }
+
+  @action
+  onReadyToGoBack(SessionScreenTypes phoneRole) {
+    exitStatusIndicator.initHide();
+    this.phoneRole = phoneRole;
   }
 
   sessionExitStatusCompletionReactor({
@@ -93,6 +105,9 @@ abstract class _SessionExitWidgetsCoordinatorBase
               ExitStatusMovieModes.complete) {
             exitStatusIndicator.setWidgetVisibility(false);
             await onReadyToGoHome();
+          } else if (exitStatusIndicator.movieMode ==
+              ExitStatusMovieModes.hide) {
+            initReturnToSession();
           }
         }
       });

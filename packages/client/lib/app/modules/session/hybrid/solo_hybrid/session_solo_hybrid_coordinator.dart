@@ -39,7 +39,7 @@ abstract class _SessionSoloHybridCoordinatorBase
   constructor() async {
     widgets.constructor(sessionMetadata.userCanSpeak);
     initReactors();
-    // await presence.updateCurrentPhase(2.0);
+    await presence.updateCurrentPhase(2.0);
     await captureScreen(SessionConstants.soloHybrid);
   }
 
@@ -140,6 +140,7 @@ abstract class _SessionSoloHybridCoordinatorBase
       }
     }
   }
+
   deconstructor() {
     dispose();
     widgets.dispose();

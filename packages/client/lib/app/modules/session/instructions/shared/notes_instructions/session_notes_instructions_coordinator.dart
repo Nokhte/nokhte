@@ -69,15 +69,6 @@ abstract class SessionNotesInstructionsCoordinatorBase
           },
         ),
       );
-  updateCurrentPhase() async {
-    Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
-      if (sessionMetadata.userPhase != 2.0) {
-        await presence.updateCurrentPhase(2.0);
-      } else {
-        timer.cancel();
-      }
-    });
-  }
 
   deconstructor() {
     dispose();
