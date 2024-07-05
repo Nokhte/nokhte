@@ -24,6 +24,7 @@ export 'preset_icons/preset_icons.dart';
 export 'session_seating_guide/session_seating_guide.dart';
 export 'exit_status_indicator/exit_status_indicator.dart';
 export 'speak_less_smile_more/speak_less_smile_more.dart';
+export 'swipe_guide/swipe_guide.dart';
 export 'smart_text/smart_text.dart';
 export "text_editor/text_editor.dart";
 export './tint/tint.dart';
