@@ -57,6 +57,17 @@ abstract class _ExitStatusIndicatorStoreBase extends BaseWidgetStore
     setControl(Control.playFromStart);
   }
 
+  initHide() {
+    setMovieMode(ExitStatusMovieModes.hide);
+    setMovieStatus(MovieStatus.inProgress);
+    setMovie(
+      ExitStatusIndicatorMovies.hide(
+        startingPercent: percent,
+      ),
+    );
+    setControl(Control.playFromStart);
+  }
+
   @action
   initAdjust(int newNumberOfAffirmative) {
     setMovieMode(ExitStatusMovieModes.adjust);
