@@ -138,8 +138,8 @@ abstract class _PresetsWidgetsCoordinatorBase
   }
 
   condensedPresetCardTapReactor() =>
-      reaction((p0) => presetCards.currentExpandedPresetCardName, (p0) {
-        if (p0.isNotEmpty) {
+      reaction((p0) => presetCards.condensedTapCount, (p0) {
+        if (presetCards.currentExpandedPresetCardName.isNotEmpty) {
           presetCards.onChosenNameChanged();
         }
       });
@@ -177,6 +177,9 @@ abstract class _PresetsWidgetsCoordinatorBase
                   CondensedPresetCardMovieModes.selectionInProgress &&
               condensedPresetCards.movieStatuses[currentHeldIndex] ==
                   MovieStatus.finished) {
+            if (firstCardIsSelected) {
+              onSwipeRight();
+            }
             Timer(Seconds.get(firstCardIsSelected ? 0 : 1), () {
               condensedPresetCards.initSelectionMovie(currentHeldIndex);
               firstCardIsSelected = true;
