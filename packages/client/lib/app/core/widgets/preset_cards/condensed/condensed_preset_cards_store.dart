@@ -39,7 +39,6 @@ abstract class _CondensedPresetCardsStoreBase extends BaseWidgetStore
 
   @observable
   bool showTags = true;
-
   @action
   setShowTags(bool val) => showTags = val;
 
@@ -47,7 +46,8 @@ abstract class _CondensedPresetCardsStoreBase extends BaseWidgetStore
   int currentTappedIndex = -1;
 
   @action
-  setCurrentTappedIndex(int i) {
+  onTap(int i) {
+    tapCount++;
     if (isEnabled[i]) {
       currentTappedIndex = i;
     }

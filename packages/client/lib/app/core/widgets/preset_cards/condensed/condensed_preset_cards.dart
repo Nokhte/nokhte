@@ -126,7 +126,7 @@ class CondensedPresetsCards extends HookWidget with PresetTags {
               );
             }
             return GestureDetector(
-              onTap: () => store.setCurrentTappedIndex(i),
+              onTap: () => store.onTap(i),
               onLongPressStart: (details) {
                 store.setCurrentHeldIndex(i);
               },

@@ -102,6 +102,9 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
   }
 
   @computed
+  int get condensedTapCount => condensed.tapCount;
+
+  @computed
   String get currentExpandedPresetCardName => condensed.currentTappedIndex == -1
       ? ''
       : names[condensed.currentTappedIndex];
