@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/presets/presets.dart';
 part 'presets_instructions_coordinator.g.dart';
@@ -18,7 +17,6 @@ abstract class _PresetsInstructionsCoordinatorBase
   final PresetsInstructionsWidgetsCoordinator widgets;
   final PresetsLogicCoordinator logic;
   final TapDetector tap;
-  final SwipeDetector swipe;
   final UserInformationCoordinator userInformation;
   @override
   final CaptureScreen captureScreen;
@@ -28,7 +26,6 @@ abstract class _PresetsInstructionsCoordinatorBase
     required this.captureScreen,
     required this.logic,
     required this.tap,
-    required this.swipe,
     required this.userInformation,
   }) {
     initBaseCoordinatorActions();
@@ -57,7 +54,6 @@ abstract class _PresetsInstructionsCoordinatorBase
     ));
     disposers.add(companyPresetsReactor());
     disposers.add(tapReactor());
-    disposers.add(swipeReactor());
     disposers.add(
         widgets.selectionCondensedPresetCardMovieStatusReactor(onSelected));
   }
@@ -65,15 +61,6 @@ abstract class _PresetsInstructionsCoordinatorBase
   @action
   onSelected(String presetUID) async =>
       await userInformation.updatePreferredPreset(presetUID);
-
-  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
-        switch (p0) {
-          case GestureDirections.right:
-            widgets.onSwipeRight();
-          default:
-            break;
-        }
-      });
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
         ifTouchIsNotDisabled(() {
