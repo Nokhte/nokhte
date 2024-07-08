@@ -114,7 +114,6 @@ abstract class _SessionNotesWidgetsCoordinatorBase
     inactivityCount++;
     if (!textEditor.focusNode.hasFocus) {
       if (textEditor.controller.text.length != (0)) {
-        print("is the length not zero?? ${textEditor.controller.text.length}");
         smartText.setWidgetVisibility(true);
       } else {
         textEditor.setWidgetVisibility(false);

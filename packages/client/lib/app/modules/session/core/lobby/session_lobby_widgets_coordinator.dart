@@ -104,7 +104,6 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
     required List presetTags,
   }) {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      print('constructorHasBeenCalled: $constructorHasBeenCalled');
       if (constructorHasBeenCalled) {
         primarySmartText.setMessagesData(SessionLists.lobby(presetName));
         presetInfoRecieved = true;
@@ -119,7 +118,6 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
   @action
   onCanStartTheSession() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      print('current index: ${primarySmartText.currentIndex}');
       if (primarySmartText.currentIndex == 1 && presetInfoRecieved) {
         presetIcons.setWidgetVisibility(false);
         primarySmartText.startRotatingText(isResuming: true);
