@@ -10,6 +10,8 @@ export 'data/data.dart';
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';
 export 'session_starters_widgets.dart';
+export 'types/types.dart';
+export './widgets/widgets.dart';
 export 'session_starters_logic.dart';
 
 class SessionStartersModule extends Module {
@@ -25,6 +27,31 @@ class SessionStartersModule extends Module {
 
   @override
   void binds(i) {
+    i.add<SessionJoinerCoordinator>(
+      () => SessionJoinerCoordinator(
+        tap: TapDetector(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        logic: Modular.get<SessionStartersLogicCoordinator>(),
+        swipe: SwipeDetector(),
+        widgets: Modular.get<SessionJoinerWidgetsCoordinator>(),
+      ),
+    );
+    i.add<SessionJoinerInstructionsCoordinator>(
+      () => SessionJoinerInstructionsCoordinator(
+        tap: TapDetector(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        logic: Modular.get<SessionStartersLogicCoordinator>(),
+        swipe: SwipeDetector(),
+        widgets: Modular.get<SessionJoinerInstructionsWidgetsCoordinator>(),
+      ),
+    );
+
+    i.add<SessionInstructionsPickerCoordinator>(
+      () => SessionInstructionsPickerCoordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<SessionInstructionsPickerWidgetsCoordinator>(),
+      ),
+    );
     i.add<SessionStarterInstructionsCoordinator>(
       () => SessionStarterInstructionsCoordinator(
         tap: TapDetector(),
@@ -63,6 +90,29 @@ class SessionStartersModule extends Module {
 
   @override
   void routes(r) {
+    r.child(
+      SessionStarterConstants.relativeSessionInstructionsPicker,
+      transition: TransitionType.noTransition,
+      child: (context) => SessionInstructionsPickerScreen(
+        coordinator: Modular.get<SessionInstructionsPickerCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionStarterConstants.relativeSessionJoiner,
+      transition: TransitionType.noTransition,
+      child: (context) => SessionJoinerScreen(
+        coordinator: Modular.get<SessionJoinerCoordinator>(),
+      ),
+    );
+
+    r.child(
+      SessionStarterConstants.relativeSessionJoiner,
+      transition: TransitionType.noTransition,
+      child: (context) => SessionJoinerScreen(
+        coordinator: Modular.get<SessionJoinerCoordinator>(),
+      ),
+    );
+
     r.child(
       SessionStarterConstants.relativeSessionStarterEntry,
       transition: TransitionType.noTransition,

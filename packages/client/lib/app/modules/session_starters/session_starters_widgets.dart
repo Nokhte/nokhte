@@ -17,6 +17,44 @@ class SessionStartersWidgetsModule extends Module {
 
   @override
   void binds(Injector i) {
+    i.add<SessionInstructionsPickerWidgetsCoordinator>(
+      () => SessionInstructionsPickerWidgetsCoordinator(
+        choiceText: ChoiceTextStore(),
+        tint: TintStore(),
+        gestureCross: Modular.get<GestureCrossStore>(),
+        beachWaves: BeachWavesStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        choiceButtons: ChoiceButtonsStore(),
+      ),
+    );
+    i.add<SessionJoinerWidgetsCoordinator>(
+      () => SessionJoinerWidgetsCoordinator(
+        swipeGuide: SwipeGuideStore(),
+        homeInstructionalNokhte: InstructionalGradientNokhteStore(),
+        presetsInstructionalNokhte: InstructionalGradientNokhteStore(),
+        nokhteBlur: NokhteBlurStore(),
+        touchRipple: TouchRippleStore(),
+        gestureCross: Modular.get<GestureCrossStore>(),
+        beachWaves: BeachWavesStore(),
+        smartText: SmartTextStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
+      ),
+    );
+    i.add<SessionJoinerInstructionsWidgetsCoordinator>(
+      () => SessionJoinerInstructionsWidgetsCoordinator(
+        swipeGuide: SwipeGuideStore(),
+        homeInstructionalNokhte: InstructionalGradientNokhteStore(),
+        presetsInstructionalNokhte: InstructionalGradientNokhteStore(),
+        nokhteBlur: NokhteBlurStore(),
+        touchRipple: TouchRippleStore(),
+        gestureCross: Modular.get<GestureCrossStore>(),
+        beachWaves: BeachWavesStore(),
+        smartText: SmartTextStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
+      ),
+    );
     i.add<SessionStarterInstructionsWidgetsCoordinator>(
       () => SessionStarterInstructionsWidgetsCoordinator(
         swipeGuide: SwipeGuideStore(),
