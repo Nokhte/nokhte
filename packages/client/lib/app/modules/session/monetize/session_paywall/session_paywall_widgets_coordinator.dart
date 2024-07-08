@@ -8,10 +8,11 @@ import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/modules/in_app_purchase/in_app_purchase.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session/constants/constants.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'session_paywall_widgets_coordinator.g.dart';
 
 class SessionPaywallWidgetsCoordinator = _SessionPaywallWidgetsCoordinatorBase

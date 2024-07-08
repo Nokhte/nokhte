@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/presets/presets.dart';
@@ -65,7 +66,6 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
 
   @action
   bool setHasUnlockedSwipeLeft(bool val) => hasUnlockedSwipeLeft = val;
-
 
   @action
   constructor(Offset centerParam) {

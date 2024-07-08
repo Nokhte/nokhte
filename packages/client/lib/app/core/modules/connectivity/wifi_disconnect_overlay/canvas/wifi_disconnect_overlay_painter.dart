@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
-import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 
 class WifiDisconnectOverlayPainter extends CustomPainter {
   final OpacityAndRadius circle,

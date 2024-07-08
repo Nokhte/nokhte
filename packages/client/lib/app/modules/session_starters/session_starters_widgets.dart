@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'session_starters.dart';
@@ -11,7 +12,7 @@ export 'session_starters_logic.dart';
 class SessionStartersWidgetsModule extends Module {
   @override
   List<Module> get imports => [
-        WifiDisconnectOverlayModule(),
+        ConnectivityModule(),
         GestureCrossModule(),
       ];
 

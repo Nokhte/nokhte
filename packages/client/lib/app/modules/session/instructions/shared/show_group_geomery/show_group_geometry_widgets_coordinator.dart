@@ -6,9 +6,11 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
+import 'package:nokhte/app/modules/session/widgets/widgets.dart';
 part 'show_group_geometry_widgets_coordinator.g.dart';
 
 class ShowGroupGeometryWidgetsCoordinator = _ShowGroupGeometryWidgetsCoordinatorBase

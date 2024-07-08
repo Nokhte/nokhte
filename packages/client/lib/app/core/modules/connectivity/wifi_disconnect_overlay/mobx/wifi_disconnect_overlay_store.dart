@@ -4,7 +4,6 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
-import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'wifi_disconnect_overlay_store.g.dart';
 
@@ -19,7 +18,7 @@ abstract class _WifiDisconnectOverlayStoreBase extends BaseWidgetStore
     required this.getOnConnectivityChanged,
   }) {
     getOnConnectivityChanged.callAndListen();
-    setMovie(PlaceTheCircleMovie.movie);
+    setMovie(WifiDisconnectOverlayMovies.placeTheCircle);
     toggleWidgetVisibility();
   }
 
@@ -87,21 +86,22 @@ abstract class _WifiDisconnectOverlayStoreBase extends BaseWidgetStore
   @action
   initPlaceTheCircle({Control theControl = Control.playFromStart}) {
     setMovieStatus(MovieStatus.inProgress);
-    setMovie(PlaceTheCircleMovie.movie);
+    setMovie(WifiDisconnectOverlayMovies.placeTheCircle);
     setControl(theControl);
     setMovieMode(WifiDisconnectMovieModes.placeTheCircle);
   }
 
   initLoopMovie({Control theControl = Control.loop}) {
     setMovieStatus(MovieStatus.inProgress);
-    setMovie(WifiRippleMovie.movie);
+    setMovie(WifiDisconnectOverlayMovies.liveRipple);
     setMovieMode(WifiDisconnectMovieModes.rippleLoop);
     setControl(theControl);
   }
 
   initRemoveTheCircle() {
     setMovieStatus(MovieStatus.inProgress);
-    setMovie(RemoveTheCircleMovie.movie);
+    setMovie(WifiDisconnectOverlayMovies.removeTheCircle);
+    setMovie(WifiDisconnectOverlayMovies.removeTheCircle);
     setMovieMode(WifiDisconnectMovieModes.removeTheCircle);
     setControl(Control.playFromStart);
   }
