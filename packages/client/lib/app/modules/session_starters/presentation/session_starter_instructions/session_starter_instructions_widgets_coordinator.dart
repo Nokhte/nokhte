@@ -67,13 +67,6 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
   bool setHasUnlockedSwipeLeft(bool val) => hasUnlockedSwipeLeft = val;
 
   @action
-  delayedEnableTouchFeedback() {
-    Timer(Seconds.get(1, milli: 500), () {
-      setTouchIsDisabled(false);
-    });
-  }
-
-  @action
   constructor(Offset centerParam) {
     setCenter(centerParam);
 

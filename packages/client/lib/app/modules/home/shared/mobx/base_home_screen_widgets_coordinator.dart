@@ -1,6 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -74,11 +72,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @action
   toggleHasSwipedUp() => hasSwipedUp = !hasSwipedUp;
-
-  @action
-  delayedEnableTouchFeedback() => Timer(Seconds.get(1, milli: 500), () {
-        setTouchIsDisabled(false);
-      });
 
   @action
   onConnected() {

@@ -112,13 +112,6 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   }
 
   @action
-  delayedEnableTouchFeedback() {
-    Timer(Seconds.get(1, milli: 500), () {
-      setTouchIsDisabled(false);
-    });
-  }
-
-  @action
   onPreferredPresetReceived({
     required String sessionName,
     required List tags,
