@@ -3,18 +3,20 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'water_from_top_to_on_shore_movie_part_2_store.g.dart';
+export 'water_from_top_to_on_shore_movie_part_1.dart';
+part 'water_from_top_to_on_shore_part_1.g.dart';
 
-class WaterFromTopToOnShoreMoviePart2Store = _WaterFromTopToOnShorePart2MovieStoreBase
-    with _$WaterFromTopToOnShoreMoviePart2Store;
+class WaterFromTopToOnShorePart1 = _WaterFromTopToOnShorePart1Base
+    with _$WaterFromTopToOnShorePart1;
 
-abstract class _WaterFromTopToOnShorePart2MovieStoreBase
+abstract class _WaterFromTopToOnShorePart1Base
     extends BaseBeachWaveMovieStore<NoParams> with Store {
-  _WaterFromTopToOnShorePart2MovieStoreBase()
+  _WaterFromTopToOnShorePart1Base()
       : super(
-          shouldPaintSand: WaterFromTopToOnShoreMoviePart2.shouldPaintSand,
+          shouldPaintSand: WaterFromTopToOnShoreMoviePart1.shouldPaintSand,
+          callsOnCompleteTwice: true,
         ) {
-    movie = WaterFromTopToOnShoreMoviePart2.movie;
+    movie = WaterFromTopToOnShoreMoviePart1.movie;
   }
 
   @override
