@@ -3,43 +3,48 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'on_shore_to_ocean_dive_movie_store.g.dart';
+part 'inverted_on_shore_to_inverted_deeper_blue.g.dart';
 
-class OnShoreToOceanDiveMovieStore = _OnShoreToOceanDiveMovieStoreBase
-    with _$OnShoreToOceanDiveMovieStore;
+class InvertedOnShoreToInvertedDeeperBlue = _InvertedOnShoreToOceanInvertedDeeperBlueBase
+    with _$InvertedOnShoreToInvertedDeeperBlue;
 
-abstract class _OnShoreToOceanDiveMovieStoreBase
+abstract class _InvertedOnShoreToOceanInvertedDeeperBlueBase
     extends BaseBeachWaveMovieStore<double> with Store {
-  _OnShoreToOceanDiveMovieStoreBase()
+  _InvertedOnShoreToOceanInvertedDeeperBlueBase()
       : super(
           callsOnCompleteTwice: true,
           shouldPaintSand: OnShoreToAny.shouldPaintSand,
         ) {
-    movie = OnShoreMovie.movie;
+    movie = OnShoreToAny.getMovie(
+      startingColors: WaterColorsAndStops.invertedBeachWater,
+      startingWaterMovement: -10.0,
+      endingColors: WaterColorsAndStops.invertedDeeperBlue,
+    );
   }
 
   @override
   @action
   initMovie(double startingWaterPosition) {
-    callsOnCompleteTwice = true;
     setMovie(
       OnShoreToAny.getMovie(
+        startingColors: WaterColorsAndStops.invertedBeachWater,
         startingWaterMovement: startingWaterPosition,
-        endingColors: WaterColorsAndStops.invertedOceanDiveWater,
+        endingColors: WaterColorsAndStops.invertedDeeperBlue,
       ),
     );
     setControl(Control.playFromStart);
     setMovieStatus(MovieStatus.inProgress);
   }
 
-  @action
   @override
-  reverseMovie(params) {
+  @action
+  reverseMovie(double startingWaterPosition) {
     callsOnCompleteTwice = false;
     setMovie(
       OnShoreToAny.getMovie(
-        startingWaterMovement: -10,
-        endingColors: WaterColorsAndStops.oceanDiveWater,
+        startingColors: WaterColorsAndStops.invertedBeachWater,
+        startingWaterMovement: startingWaterPosition,
+        endingColors: WaterColorsAndStops.invertedDeeperBlue,
       ),
     );
     setControl(Control.playReverseFromEnd);

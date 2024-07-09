@@ -3,14 +3,14 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'on_shore_to_deep_sea_movie_store.g.dart';
+part 'inverted_on_shore_to_inverted_ocean_dive.g.dart';
 
-class OnShoreToDeepSeaMovieStore = _OnShoreToOceanDeepSeaStoreBase
-    with _$OnShoreToDeepSeaMovieStore;
+class InvertedOnShoreToInvertedOceanDive = _InvertedOnShoreToOceanInvertedDiveBase
+    with _$InvertedOnShoreToInvertedOceanDive;
 
-abstract class _OnShoreToOceanDeepSeaStoreBase
+abstract class _InvertedOnShoreToOceanInvertedDiveBase
     extends BaseBeachWaveMovieStore<double> with Store {
-  _OnShoreToOceanDeepSeaStoreBase()
+  _InvertedOnShoreToOceanInvertedDiveBase()
       : super(
           callsOnCompleteTwice: true,
           shouldPaintSand: OnShoreToAny.shouldPaintSand,
@@ -23,8 +23,9 @@ abstract class _OnShoreToOceanDeepSeaStoreBase
   initMovie(double startingWaterPosition) {
     setMovie(
       OnShoreToAny.getMovie(
+        startingColors: WaterColorsAndStops.invertedBeachWater,
         startingWaterMovement: startingWaterPosition,
-        endingColors: WaterColorsAndStops.deepSeaWater,
+        endingColors: WaterColorsAndStops.invertedOceanDiveWater,
       ),
     );
     setControl(Control.playFromStart);

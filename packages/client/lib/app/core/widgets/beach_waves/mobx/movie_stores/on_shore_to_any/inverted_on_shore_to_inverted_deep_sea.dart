@@ -3,14 +3,14 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'inverted_on_shore_to_inverted_deep_sea_movie_store.g.dart';
+part 'inverted_on_shore_to_inverted_deep_sea.g.dart';
 
-class InvertedOnShoreToInvertedDeepSeaMovieStore = _InvertedOnShoreToOceanInvertedDeepSeaStoreBase
-    with _$InvertedOnShoreToInvertedDeepSeaMovieStore;
+class InvertedOnShoreToInvertedDeepSea = _InvertedOnShoreToOceanInvertedDeepSeaBase
+    with _$InvertedOnShoreToInvertedDeepSea;
 
-abstract class _InvertedOnShoreToOceanInvertedDeepSeaStoreBase
+abstract class _InvertedOnShoreToOceanInvertedDeepSeaBase
     extends BaseBeachWaveMovieStore<double> with Store {
-  _InvertedOnShoreToOceanInvertedDeepSeaStoreBase()
+  _InvertedOnShoreToOceanInvertedDeepSeaBase()
       : super(
           callsOnCompleteTwice: true,
           shouldPaintSand: OnShoreToAny.shouldPaintSand,

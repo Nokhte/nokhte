@@ -3,14 +3,13 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'on_shore_to_sky_movie_store.g.dart';
+part 'on_shore_to_sky.g.dart';
 
-class OnShoreToSkyMovieStore = _OnShoreToSkyMovieStoreBase
-    with _$OnShoreToSkyMovieStore;
+class OnShoreToSky = _OnShoreToSkyBase with _$OnShoreToSky;
 
-abstract class _OnShoreToSkyMovieStoreBase
-    extends BaseBeachWaveMovieStore<double> with Store {
-  _OnShoreToSkyMovieStoreBase()
+abstract class _OnShoreToSkyBase extends BaseBeachWaveMovieStore<double>
+    with Store {
+  _OnShoreToSkyBase()
       : super(
           callsOnCompleteTwice: true,
           shouldPaintSand: OnShoreToAny.shouldPaintSand,

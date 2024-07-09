@@ -3,14 +3,13 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'on_shore_to_dry_sand_movie_store.g.dart';
+part 'on_shore_to_ocean_dive.g.dart';
 
-class OnShoreToDrySandMovieStore = _OnShoreToDrySandMovieStoreBase
-    with _$OnShoreToDrySandMovieStore;
+class OnShoreToOceanDive = _OnShoreToOceanDiveBase with _$OnShoreToOceanDive;
 
-abstract class _OnShoreToDrySandMovieStoreBase
-    extends BaseBeachWaveMovieStore<double> with Store {
-  _OnShoreToDrySandMovieStoreBase()
+abstract class _OnShoreToOceanDiveBase extends BaseBeachWaveMovieStore<double>
+    with Store {
+  _OnShoreToOceanDiveBase()
       : super(
           callsOnCompleteTwice: true,
           shouldPaintSand: OnShoreToAny.shouldPaintSand,
@@ -21,13 +20,28 @@ abstract class _OnShoreToDrySandMovieStoreBase
   @override
   @action
   initMovie(double startingWaterPosition) {
+    callsOnCompleteTwice = true;
     setMovie(
       OnShoreToAny.getMovie(
         startingWaterMovement: startingWaterPosition,
-        endingColors: WaterColorsAndStops.drySand,
+        endingColors: WaterColorsAndStops.invertedOceanDiveWater,
       ),
     );
     setControl(Control.playFromStart);
+    setMovieStatus(MovieStatus.inProgress);
+  }
+
+  @action
+  @override
+  reverseMovie(params) {
+    callsOnCompleteTwice = false;
+    setMovie(
+      OnShoreToAny.getMovie(
+        startingWaterMovement: -10,
+        endingColors: WaterColorsAndStops.oceanDiveWater,
+      ),
+    );
+    setControl(Control.playReverseFromEnd);
     setMovieStatus(MovieStatus.inProgress);
   }
 }
