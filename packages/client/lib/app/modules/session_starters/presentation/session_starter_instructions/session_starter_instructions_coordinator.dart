@@ -88,9 +88,9 @@ abstract class _SessionStarterInstructionsCoordinatorBase
               toggleIsNavigatingAway();
             });
           });
-        case GestureDirections.left:
+        case GestureDirections.right:
           ifTouchIsNotDisabled(() {
-            widgets.onSwipeLeft();
+            widgets.onSwipeRight();
           });
         default:
           break;

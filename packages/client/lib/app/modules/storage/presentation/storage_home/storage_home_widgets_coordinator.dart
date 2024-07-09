@@ -74,7 +74,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase
   bool canTap = false;
 
   @action
-  onSwipeLeft() {
+  onSwipeRight() {
     if (isAllowedToInteract) {
       if (!hasInitiatedBlur && !hasSwiped) {
         hasSwiped = true;

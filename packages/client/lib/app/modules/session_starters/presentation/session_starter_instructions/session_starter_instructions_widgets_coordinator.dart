@@ -75,7 +75,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
     gestureCross.fadeIn(onFadeIn: Left(() {
       gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
     }));
-    smartText.setMessagesData(SessionStartersList.hasNotDoneInstructions);
+    smartText.setMessagesData(SessionStartersList.sessionJoinerInstructions);
     beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
     beachWaves.currentStore.setControl(Control.playFromStart);
     smartText.startRotatingText();
@@ -88,11 +88,11 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
   }
 
   @action
-  onSwipeLeft() {
+  onSwipeRight() {
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
         smartText.startRotatingText(isResuming: true);
-        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.left);
+        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.right);
         swipeGuide.setWidgetVisibility(false);
         presetsInstructionalNokhte.setControl(Control.play);
         homeInstructionalNokhte.setWidgetVisibility(false);

@@ -70,7 +70,9 @@ abstract class _PresetsWidgetsCoordinatorBase
   @action
   constructor(Offset centerParam) {
     setCenter(centerParam);
-    beachWaves.setMovieMode(BeachWaveMovieModes.staticInvertedDeeperBlue);
+    beachWaves
+        .setMovieMode(BeachWaveMovieModes.invertedOnShoreToInvertedDeeperBlue);
+    beachWaves.currentStore.initStaticEnd();
     gestureCross.fadeIn();
     gestureCross.cross.initStaticGlow();
     headerText.setMessagesData(PresetsLists.presetsHeader);
@@ -113,7 +115,7 @@ abstract class _PresetsWidgetsCoordinatorBase
   }
 
   @action
-  onSwipeRight() {
+  onSwipeLeft() {
     if (!isDisconnected &&
         centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (instructionalNokhteAreVisible) {
@@ -179,7 +181,7 @@ abstract class _PresetsWidgetsCoordinatorBase
               condensedPresetCards.movieStatuses[currentHeldIndex] ==
                   MovieStatus.finished) {
             if (firstCardIsSelected) {
-              onSwipeRight();
+              onSwipeLeft();
             }
             Timer(Seconds.get(firstCardIsSelected ? 0 : 1), () {
               condensedPresetCards.initSelectionMovie(currentHeldIndex);

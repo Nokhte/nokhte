@@ -107,14 +107,14 @@ abstract class _BaseHomeScreenCoordinatorBase
 
   swipeReactor({
     required Function onSwipeUp,
-    required Function onSwipeRight,
+    required Function onSwipeLeft,
   }) =>
       reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
             onSwipeUp();
-          case GestureDirections.right:
-            onSwipeRight();
+          case GestureDirections.left:
+            onSwipeLeft();
           default:
             break;
         }

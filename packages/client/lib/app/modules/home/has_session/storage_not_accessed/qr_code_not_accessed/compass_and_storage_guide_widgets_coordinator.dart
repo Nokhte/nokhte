@@ -136,7 +136,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
   }
 
   @action
-  onSwipeRight() {
+  onSwipeLeft() {
     if (!isDisconnected && isAllowedToMakeAGesture) {
       if (!hasSwipedUp &&
           primarySmartText.currentIndex == 3 &&

@@ -87,7 +87,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
       InstructionalNokhtePositions.initial;
 
   @action
-  onSwipeRight() {
+  onSwipeLeft() {
     if (!isDisconnected && isAllowedToMakeAGesture) {
       if (hasInitiatedBlur && !hasSwipedUp) {
         hasSwipedUp = true;

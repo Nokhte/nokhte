@@ -136,7 +136,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
       });
 
   @action
-  onSwipeRight() {
+  onSwipeLeft() {
     if (!isDisconnected && !hasInitiatedBlur && !hasSwipedUp) {
       hasSwipedUp = true;
       beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);

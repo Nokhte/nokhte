@@ -110,9 +110,9 @@ abstract class _SessionStarterCoordinatorBase
               await logic.dispose(shouldNuke: true);
             });
           });
-        case GestureDirections.left:
+        case GestureDirections.right:
           ifTouchIsNotDisabled(() {
-            widgets.onSwipeLeft(() async {
+            widgets.onSwipeRight(() async {
               toggleIsNavigatingAway();
               await logic.dispose(shouldNuke: true);
             });

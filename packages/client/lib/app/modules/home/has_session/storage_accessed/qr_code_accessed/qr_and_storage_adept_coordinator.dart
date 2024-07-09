@@ -44,7 +44,7 @@ abstract class _QrAndStorageAdeptCoordinatorBase
     super.initReactors();
     disposers.add(swipeReactor(
       onSwipeUp: () => widgets.onSwipeUp(),
-      onSwipeRight: () => widgets.onSwipeRight(),
+      onSwipeLeft: () => widgets.onSwipeLeft(),
     ));
     disposers.add(widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,

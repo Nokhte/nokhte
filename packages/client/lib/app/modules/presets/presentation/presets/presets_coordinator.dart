@@ -69,8 +69,8 @@ abstract class _PresetsCoordinatorBase with Store, BaseCoordinator, Reactions {
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
-          case GestureDirections.right:
-            widgets.onSwipeRight();
+          case GestureDirections.left:
+            widgets.onSwipeLeft();
           default:
             break;
         }

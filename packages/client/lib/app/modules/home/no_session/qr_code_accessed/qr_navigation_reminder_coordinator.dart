@@ -44,7 +44,7 @@ abstract class _QrNavigationReminderCoordinatorBase
         onSwipeUp: () {
           widgets.onSwipeUp();
         },
-        onSwipeRight: () {}));
+        onSwipeLeft: () {}));
     disposers.add(tapReactor());
     disposers.add(swipeCoordinatesReactor(onSwipeUpCordinatesChanged));
   }

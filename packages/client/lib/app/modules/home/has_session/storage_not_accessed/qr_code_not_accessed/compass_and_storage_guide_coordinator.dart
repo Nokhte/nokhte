@@ -44,8 +44,8 @@ abstract class _CompassAndStorageGuideCoordinatorBase
     super.initReactors();
     disposers.add(swipeReactor(
       onSwipeUp: () {},
-      onSwipeRight: () {
-        widgets.onSwipeRight();
+      onSwipeLeft: () {
+        widgets.onSwipeLeft();
       },
     ));
     disposers.add(widgets.beachWavesMovieStatusReactor(

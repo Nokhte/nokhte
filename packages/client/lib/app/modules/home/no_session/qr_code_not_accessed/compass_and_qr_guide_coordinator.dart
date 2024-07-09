@@ -35,7 +35,7 @@ abstract class _CompassAndQrGuideCoordinatorBase
       onSwipeUp: () {
         widgets.onSwipeUp();
       },
-      onSwipeRight: () {},
+      onSwipeLeft: () {},
     ));
     disposers.add(swipeCoordinatesReactor(onSwipeUpCordinatesChanged));
     disposers.add(widgets.beachWavesMovieStatusReactor(

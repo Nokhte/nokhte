@@ -42,12 +42,8 @@ abstract class _StorageGuideCoordinatorBase extends BaseHomeScreenCoordinator
   initReactors() {
     super.initReactors();
     disposers.add(swipeReactor(
-      onSwipeUp: () {
-        widgets.onSwipeUp();
-      },
-      onSwipeRight: () async {
-        widgets.onSwipeRight();
-      },
+      onSwipeUp: () => widgets.onSwipeUp(),
+      onSwipeLeft: () => widgets.onSwipeLeft(),
     ));
     disposers.add(widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,

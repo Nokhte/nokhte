@@ -128,7 +128,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
   }
 
   @action
-  onSwipeRight() {
+  onSwipeLeft() {
     if (!isDisconnected && isAllowedToMakeAGesture) {
       if (hasInitiatedBlur && !hasSwipedUp) {
         hasSwipedUp = true;

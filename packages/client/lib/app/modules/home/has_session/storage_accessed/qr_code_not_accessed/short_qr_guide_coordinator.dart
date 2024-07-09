@@ -42,14 +42,8 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
   initReactors() {
     super.initReactors();
     disposers.add(swipeReactor(
-      onSwipeUp: () {
-        // setDisableAllTouchFeedback(true);
-        widgets.onSwipeUp();
-      },
-      onSwipeRight: () {
-        widgets.onSwipeRight();
-        // setDisableAllTouchFeedback(true);
-      },
+      onSwipeUp: () => widgets.onSwipeUp(),
+      onSwipeLeft: () => widgets.onSwipeLeft(),
     ));
     disposers.add(tapReactor());
     disposers.add(widgets.beachWavesMovieStatusReactor(

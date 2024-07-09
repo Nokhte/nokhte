@@ -157,7 +157,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   }
 
   @action
-  onSwipeLeft(Function onLeaving) async {
+  onSwipeRight(Function onLeaving) async {
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
         setSmartTextBottomPaddingScalar(.2);

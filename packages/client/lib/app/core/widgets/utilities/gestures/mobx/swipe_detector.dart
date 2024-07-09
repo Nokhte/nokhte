@@ -50,7 +50,7 @@ abstract class _SwipeDetector extends Equatable with Store {
       final firstVal = mostRecentCoordinates.first.dx;
       final lastVal = mostRecentCoordinates.last.dx;
       final directionsComparison =
-          firstVal < lastVal ? GestureDirections.left : GestureDirections.right;
+          firstVal < lastVal ? GestureDirections.right : GestureDirections.left;
       if (resetTheDirectionType) {
         setDirectionsType(GestureDirections.initial);
         resetTheDirectionType = false;
