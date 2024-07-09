@@ -395,44 +395,6 @@ class SessionLists {
     SharedLists.emptyItem,
   ];
 
-  static List<RotatingTextData> getNotesInstructionsPrimary(
-      MirroredTextOrientations orientation) {
-    final arr = [
-      SharedLists.emptyItem,
-      RotatingTextData(
-        text: "This phone will be used for notes",
-        pauseHere: true,
-        mainFontSize: 22.0,
-      ),
-      SharedLists.emptyItem,
-      RotatingTextData(
-        text: "To complete the session swipe down on both phones", // !! REPEAT
-        pauseHere: true,
-        mainFontSize: 22.0,
-      ),
-      SharedLists.emptyItem,
-    ];
-    if (orientation == MirroredTextOrientations.rightSideUp) {
-      arr.removeAt(0);
-    }
-    return arr;
-  }
-
-  static List<RotatingTextData> getNotesInstructionsSecondary(
-      MirroredTextOrientations orientation) {
-    final arr = [
-      SharedLists.emptyItem,
-      SharedLists.tapToConfirm(19),
-      SharedLists.emptyItem,
-      SharedLists.tapToConfirm(19),
-      SharedLists.emptyItem,
-    ];
-    if (orientation == MirroredTextOrientations.rightSideUp) {
-      arr.removeAt(0);
-    }
-    return arr;
-  }
-
   static List<RotatingTextData> paywallPrimaryList({
     required num price,
     required String period,
