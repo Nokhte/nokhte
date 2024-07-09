@@ -26,10 +26,10 @@ class SessionStartersList {
         SharedLists.emptyItem,
       ];
 
-  static List<RotatingTextData> get hasNotDoneInstructions => [
+  static List<RotatingTextData> get sessionJoinerInstructions => [
         InstructionItems.tapOnTheCompass,
         InstructionItems.swipeLeft,
-        InstructionItems.presetsExplanation,
+        InstructionItems.sessionJoinerExplanation,
         InstructionItems.swipeLeft,
         SharedLists.emptyItem,
       ];

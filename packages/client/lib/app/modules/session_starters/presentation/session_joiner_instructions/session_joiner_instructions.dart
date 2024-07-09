@@ -55,7 +55,7 @@ class SessionJoinerInstructionsScreen extends HookWidget {
                   ),
                 ),
                 SwipeGuide(
-                  toTheRight: true,
+                  toTheRight: false,
                   store: coordinator.widgets.swipeGuide,
                 ),
                 Center(
@@ -88,7 +88,7 @@ class SessionJoinerInstructionsScreen extends HookWidget {
                   store: coordinator.widgets.homeInstructionalNokhte,
                 ),
                 InstructionalGradientNokhte(
-                  store: coordinator.widgets.presetsInstructionalNokhte,
+                  store: coordinator.widgets.sessionJoinerInstructionalNokhte,
                 ),
                 WifiDisconnectOverlay(
                   store: coordinator.widgets.wifiDisconnectOverlay,

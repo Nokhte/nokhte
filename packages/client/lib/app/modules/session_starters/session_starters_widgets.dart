@@ -46,7 +46,7 @@ class SessionStartersWidgetsModule extends Module {
       () => SessionJoinerInstructionsWidgetsCoordinator(
         swipeGuide: SwipeGuideStore(),
         homeInstructionalNokhte: InstructionalGradientNokhteStore(),
-        presetsInstructionalNokhte: InstructionalGradientNokhteStore(),
+        sessionJoinerInstructionalNokhte: InstructionalGradientNokhteStore(),
         nokhteBlur: NokhteBlurStore(),
         touchRipple: TouchRippleStore(),
         gestureCross: Modular.get<GestureCrossStore>(),

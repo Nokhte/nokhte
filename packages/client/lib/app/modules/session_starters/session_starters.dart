@@ -98,10 +98,10 @@ class SessionStartersModule extends Module {
       ),
     );
     r.child(
-      SessionStarterConstants.relativeSessionJoiner,
+      SessionStarterConstants.relativeSessionJoinerInstructions,
       transition: TransitionType.noTransition,
-      child: (context) => SessionJoinerScreen(
-        coordinator: Modular.get<SessionJoinerCoordinator>(),
+      child: (context) => SessionJoinerInstructionsScreen(
+        coordinator: Modular.get<SessionJoinerInstructionsCoordinator>(),
       ),
     );
 

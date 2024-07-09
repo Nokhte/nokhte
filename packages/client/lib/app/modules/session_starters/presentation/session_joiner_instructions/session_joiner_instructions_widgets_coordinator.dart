@@ -8,7 +8,6 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/presets/presets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'session_joiner_instructions_widgets_coordinator.g.dart';
@@ -26,7 +25,7 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final NokhteBlurStore nokhteBlur;
   final InstructionalGradientNokhteStore homeInstructionalNokhte;
-  final InstructionalGradientNokhteStore presetsInstructionalNokhte;
+  final InstructionalGradientNokhteStore sessionJoinerInstructionalNokhte;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
@@ -40,7 +39,7 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
     required this.centerInstructionalNokhte,
     required this.nokhteBlur,
     required this.homeInstructionalNokhte,
-    required this.presetsInstructionalNokhte,
+    required this.sessionJoinerInstructionalNokhte,
   }) {
     initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
@@ -58,9 +57,6 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
   @observable
   bool hasInitiatedBlur = false;
 
-  @action
-  setShowSecondaryBeachWaves(bool value) => showSecondaryBeachWaves = value;
-
   @observable
   bool hasUnlockedSwipeLeft = false;
 
@@ -75,14 +71,13 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
     gestureCross.fadeIn(onFadeIn: Left(() {
       gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
     }));
-    smartText.setMessagesData(SessionStartersList.hasNotDoneInstructions);
+    smartText.setMessagesData(SessionStartersList.sessionJoinerInstructions);
     beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
-    beachWaves.currentStore.setControl(Control.playFromStart);
     smartText.startRotatingText();
-    presetsInstructionalNokhte.prepareYellowDiamond(
+    sessionJoinerInstructionalNokhte.prepareYellowDiamond(
       center,
-      position: InstructionalNokhtePositions.left,
-      colorway: GradientNokhteColorways.deeperBlue,
+      position: InstructionalNokhtePositions.right,
+      colorway: GradientNokhteColorways.orangeSand,
     );
     initReactors();
   }
@@ -92,19 +87,18 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
         smartText.startRotatingText(isResuming: true);
-        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.left);
+        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.right);
         swipeGuide.setWidgetVisibility(false);
-        presetsInstructionalNokhte.setControl(Control.play);
+        sessionJoinerInstructionalNokhte.setControl(Control.play);
         homeInstructionalNokhte.setWidgetVisibility(false);
         delayedEnableTouchFeedback();
-        // setSmartTextPadding();
       } else if (hasUnlockedSwipeLeft) {
         smartText.startRotatingText(isResuming: true);
         gestureCross.cross.initOutlineFadeIn();
         centerInstructionalNokhte.setWidgetVisibility(false);
-        gestureCross.initMoveAndRegenerate(CircleOffsets.left);
+        gestureCross.initMoveAndRegenerate(CircleOffsets.right);
         beachWaves.setMovieMode(
-          BeachWaveMovieModes.invertedOnShoreToInvertedDeeperBlue,
+          BeachWaveMovieModes.emptyTheOcean,
         );
         beachWaves.currentStore.initMovie(
           beachWaves.currentAnimationValues.first,
@@ -162,7 +156,7 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
             position: InstructionalNokhtePositions.bottom,
           ),
         );
-        presetsInstructionalNokhte.setWidgetVisibility(true);
+        sessionJoinerInstructionalNokhte.setWidgetVisibility(true);
         hasInitiatedBlur = true;
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         gestureCross.gradientNokhte.setWidgetVisibility(false);
@@ -185,14 +179,14 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
         Timer(Seconds.get(1, milli: 500), () {
           smartText.startRotatingText(isResuming: true);
           centerInstructionalNokhte.moveBackToCross(
-            startingPosition: CenterNokhtePositions.left,
+            startingPosition: CenterNokhtePositions.right,
           );
-          presetsInstructionalNokhte.initMovie(
+          sessionJoinerInstructionalNokhte.initMovie(
             InstructionalGradientMovieParams(
               center: center,
-              colorway: GradientNokhteColorways.deeperBlue,
+              colorway: GradientNokhteColorways.orangeSand,
               direction: InstructionalGradientDirections.shrink,
-              position: InstructionalNokhtePositions.left,
+              position: InstructionalNokhtePositions.right,
             ),
           );
           homeInstructionalNokhte.setWidgetVisibility(true);
@@ -233,7 +227,7 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
           gestureCross.gradientNokhte.setWidgetVisibility(false);
           gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
           homeInstructionalNokhte.setWidgetVisibility(false);
-          presetsInstructionalNokhte.setWidgetVisibility(false);
+          sessionJoinerInstructionalNokhte.setWidgetVisibility(false);
         }
       });
 
@@ -245,13 +239,7 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode ==
-              BeachWaveMovieModes.invertedOnShoreToInvertedOceanDive) {
-            Modular.to.navigate(SessionStarterConstants.sessionStarterExit);
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.invertedOnShoreToInvertedDeeperBlue) {
-            Modular.to.navigate(PresetsConstants.presetsInstructions);
-          }
+          Modular.to.navigate(SessionStarterConstants.sessionJoiner);
         }
       });
   @computed
