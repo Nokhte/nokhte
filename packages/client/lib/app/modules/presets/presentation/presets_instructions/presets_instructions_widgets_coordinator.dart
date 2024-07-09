@@ -45,7 +45,9 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
   @action
   constructor(Offset centerParam) {
     setCenter(centerParam);
-    beachWaves.setMovieMode(BeachWaveMovieModes.staticInvertedDeeperBlue);
+    beachWaves
+        .setMovieMode(BeachWaveMovieModes.invertedOnShoreToInvertedDeeperBlue);
+    beachWaves.currentStore.initStaticEnd();
     gestureCross.fadeIn();
     gestureCross.cross.initStaticGlow();
     smartText.setMessagesData(PresetsLists.presetsInstructions);

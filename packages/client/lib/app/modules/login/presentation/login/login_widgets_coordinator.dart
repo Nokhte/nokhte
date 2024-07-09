@@ -50,7 +50,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase
     loginNokhtes.setCenterCoordinates(center);
     setCenterScreenCoordinates(center);
 
-    layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOut);
+    layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOutToDrySand);
     layer2BeachWaves.currentStore.setWidgetVisibility(false);
     smartTextStore.setMessagesData(LoginList.list);
     smartTextStore.startRotatingText();
