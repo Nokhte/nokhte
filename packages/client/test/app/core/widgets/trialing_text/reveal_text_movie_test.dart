@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/login/login.dart';
 
 void main() {
   group("getPadding", () {

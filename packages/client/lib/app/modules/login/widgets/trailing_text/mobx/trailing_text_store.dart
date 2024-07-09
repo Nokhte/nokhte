@@ -4,14 +4,14 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/login/login.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'trailing_text_store.g.dart';
 
 class TrailingTextStore = _TrailingTextStoreBase with _$TrailingTextStore;
 
-abstract class _TrailingTextStoreBase
-    extends BaseWidgetStore<NoParams> with Store {
+abstract class _TrailingTextStoreBase extends BaseWidgetStore<NoParams>
+    with Store {
   @observable
   Size textSize = Size.zero;
 
