@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -13,9 +13,14 @@ class BaseHomeScreenWidgetsCoordinator = _BaseHomeScreenWidgetsCoordinatorBase
     with _$BaseHomeScreenWidgetsCoordinator;
 
 abstract class _BaseHomeScreenWidgetsCoordinatorBase
-    with Store, SmartTextPaddingAdjuster, Reactions, BaseWidgetsCoordinator {
+    with
+        Store,
+        EnRoute,
+        EnRouteConsumer,
+        SmartTextPaddingAdjuster,
+        Reactions,
+        BaseWidgetsCoordinator {
   final NokhteBlurStore nokhteBlur;
-  final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
   final SmartTextStore primarySmartText;
   final SmartTextStore errorSmartText;
@@ -24,6 +29,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
   final InstructionalGradientNokhteStore storageInstructionalNokhte;
+  final BeachWavesStore beachWaves;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
@@ -40,17 +46,16 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     required this.sessionStarterInstructionalNokhte,
     required this.storageInstructionalNokhte,
   }) {
+    initEnRouteActions();
     initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
   }
 
   @action
   constructor(Offset centerParam) {
-    if (Modular.args.data["resumeOnShoreParams"] != null) {
-      params = Modular.args.data["resumeOnShoreParams"];
-    }
+    consumeRoutingArgs();
     beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
-    beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
+    beachWaves.currentStore.initMovie(params);
     errorSmartText.setMessagesData(SharedLists.emptyList);
     secondaryErrorSmartText.setMessagesData(SharedLists.errorConfirmList);
     setCenter(centerParam);
@@ -67,9 +72,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @observable
   bool hasSwipedUp = false;
-
-  @observable
-  ResumeOnShoreParams params = ResumeOnShoreParams.initial();
 
   @action
   toggleHasSwipedUp() => hasSwipedUp = !hasSwipedUp;

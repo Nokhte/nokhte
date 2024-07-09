@@ -10,6 +10,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/presets/presets.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
+import 'package:nokhte/app/modules/session_starters/constants/constants.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'session_starter_widgets_coordinator.g.dart';
@@ -251,7 +252,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea) {
             Modular.to.navigate(SessionConstants.lobby, arguments: {
-              "qrCodeData": qrCode.qrCodeData,
+              SessionStarterConstants.QR_CODE_DATA: qrCode.qrCodeData,
             });
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedOnShoreToInvertedDeeperBlue) {

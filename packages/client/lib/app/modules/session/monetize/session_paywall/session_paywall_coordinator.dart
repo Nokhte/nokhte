@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
@@ -21,7 +22,13 @@ class SessionPaywallCoordinator = _SessionPaywallCoordinatorBase
     with _$SessionPaywallCoordinator;
 
 abstract class _SessionPaywallCoordinatorBase
-    with Store, HomeScreenRouter, BaseCoordinator, Reactions {
+    with
+        Store,
+        EnRoute,
+        EnRouteRouter,
+        HomeScreenRouter,
+        BaseCoordinator,
+        Reactions {
   final TapDetector tap;
   final SessionPaywallWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
@@ -46,6 +53,7 @@ abstract class _SessionPaywallCoordinatorBase
     required this.activeMonetizationSession,
     required this.getUserInfo,
   }) : sessionMetadata = presence.sessionMetadataStore {
+    initEnRouteActions();
     initBaseCoordinatorActions();
   }
 

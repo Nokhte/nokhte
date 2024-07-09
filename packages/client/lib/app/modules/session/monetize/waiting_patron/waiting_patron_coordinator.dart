@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
@@ -18,6 +19,8 @@ class WaitingPatronCoordinator = _WaitingPatronCoordinatorBase
 abstract class _WaitingPatronCoordinatorBase
     with
         Store,
+        EnRoute,
+        EnRouteRouter,
         HomeScreenRouter,
         ChooseGreeterType,
         BaseCoordinator,
@@ -41,6 +44,7 @@ abstract class _WaitingPatronCoordinatorBase
     required this.swipe,
     required this.getUserInfo,
   }) : sessionMetadata = presence.sessionMetadataStore {
+    initEnRouteActions();
     initBaseCoordinatorActions();
   }
 

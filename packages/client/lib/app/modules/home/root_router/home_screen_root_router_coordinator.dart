@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
@@ -13,7 +14,7 @@ class HomeScreenRootRouterCoordinator = _HomeScreenRootRouterCoordinatorBase
     with _$HomeScreenRootRouterCoordinator;
 
 abstract class _HomeScreenRootRouterCoordinatorBase
-    with Store, HomeScreenRouter {
+    with Store, EnRoute, EnRouteRouter, HomeScreenRouter {
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final HomeScreenRootRouterWidgetsCoordinator widgets;
   final SessionStartersLogicCoordinator sessionStarters;
@@ -33,7 +34,9 @@ abstract class _HomeScreenRootRouterCoordinatorBase
     required this.getUserInfo,
     required this.sessionStarters,
     required this.widgets,
-  });
+  }) {
+    initEnRouteActions();
+  }
 
   @action
   constructor() async {
@@ -42,15 +45,17 @@ abstract class _HomeScreenRootRouterCoordinatorBase
     await cleanUpCollaborationArtifacts(NoParams());
     await userMetadata.addMetadata(NoParams());
     if (isConnected) {
-      await decideAndRoute(setParams);
+      await decideAndRoute(setRoutingParams);
     }
   }
 
   @action
-  setParams() {
-    params = ResumeOnShoreParams(
-      direction: widgets.waterDirection,
-      position: widgets.beachWaves.currentAnimationValues.first,
+  setRoutingParams() {
+    setParams(
+      ResumeOnShoreParams(
+        direction: widgets.waterDirection,
+        position: widgets.beachWaves.currentAnimationValues.first,
+      ),
     );
   }
 

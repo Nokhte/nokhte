@@ -162,7 +162,7 @@ abstract class _BaseHomeScreenCoordinatorBase
                 widgets.errorSmartText.setWidgetVisibility(false);
                 widgets.secondaryErrorSmartText.setWidgetVisibility(false);
                 Timer(Seconds.get(2), () {
-                  Modular.to.navigate(SessionConstants.preview, arguments: {});
+                  Modular.to.navigate(SessionConstants.preview);
                 });
               }
             }

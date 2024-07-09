@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 mixin SessionStarterConstants {
@@ -34,4 +36,6 @@ mixin SessionStarterConstants {
     Color(0xFFFFBC78),
     Color(0xFFFFE6C4),
   ];
+
+  static const QR_CODE_DATA = 'qrCodeData';
 }

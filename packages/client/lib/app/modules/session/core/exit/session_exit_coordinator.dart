@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
@@ -20,6 +21,8 @@ class SessionExitCoordinator = _SessionExitCoordinatorBase
 abstract class _SessionExitCoordinatorBase
     with
         Store,
+        EnRoute,
+        EnRouteRouter,
         HomeScreenRouter,
         BaseCoordinator,
         Reactions,
@@ -48,6 +51,7 @@ abstract class _SessionExitCoordinatorBase
     required this.cleanUpCollaborationArtifacts,
     required this.getUserInfo,
   }) : sessionMetadata = presence.sessionMetadataStore {
+    initEnRouteActions();
     initBaseCoordinatorActions();
     initBaseExitCoordinatorActions();
   }

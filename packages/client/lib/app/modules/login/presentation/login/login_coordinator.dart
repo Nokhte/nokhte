@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
@@ -17,7 +18,13 @@ part 'login_coordinator.g.dart';
 class LoginCoordinator = _LoginCoordinatorBase with _$LoginCoordinator;
 
 abstract class _LoginCoordinatorBase
-    with Store, HomeScreenRouter, BaseCoordinator, Reactions {
+    with
+        Store,
+        EnRoute,
+        EnRouteRouter,
+        HomeScreenRouter,
+        BaseCoordinator,
+        Reactions {
   final LoginScreenWidgetsCoordinator widgets;
   final SignInWithAuthProviderStore signInWithAuthProvider;
   final AddName addName;
@@ -43,6 +50,7 @@ abstract class _LoginCoordinatorBase
     required this.swipe,
     required this.captureScreen,
   }) {
+    initEnRouteActions();
     initBaseCoordinatorActions();
   }
 
