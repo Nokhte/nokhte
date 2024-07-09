@@ -13,8 +13,7 @@ import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
-import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
-import 'package:nokhte/app/modules/session/constants/constants.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 import 'session_paywall_widgets_coordinator.dart';
 part 'session_paywall_coordinator.g.dart';
 
