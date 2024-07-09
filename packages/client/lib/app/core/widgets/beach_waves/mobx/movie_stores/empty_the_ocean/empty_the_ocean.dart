@@ -2,6 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'empty_the_ocean_movie.dart';
 part 'empty_the_ocean.g.dart';
 
 class EmptyTheOcean = _EmptyTheOceanBase with _$EmptyTheOcean;
