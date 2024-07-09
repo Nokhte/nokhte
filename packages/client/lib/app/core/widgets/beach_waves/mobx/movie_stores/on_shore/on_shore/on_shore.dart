@@ -3,25 +3,25 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-part 'inverted_on_shore_movie_store.g.dart';
+export 'on_shore_movie.dart';
+part 'on_shore.g.dart';
 
-class InvertedOnShoreMovieStore = _InvertedOnShoreMovieStoreBase
-    with _$InvertedOnShoreMovieStore;
+class OnShore = _OnShoreBase with _$OnShore;
 
-abstract class _InvertedOnShoreMovieStoreBase
-    extends BaseBeachWaveMovieStore<NoParams> with Store {
-  _InvertedOnShoreMovieStoreBase()
+abstract class _OnShoreBase extends BaseBeachWaveMovieStore<NoParams>
+    with Store {
+  _OnShoreBase()
       : super(
           shouldPaintSand: OnShoreMovie.shouldPaintSand,
         ) {
-    movie = InvertedOnShoreMovie.movie;
+    movie = OnShoreMovie.movie;
     control = Control.mirror;
   }
 
   @action
   @override
   initMovie(params) {
-    movie = InvertedOnShoreMovie.movie;
+    movie = OnShoreMovie.movie;
     control = Control.mirror;
   }
 }
