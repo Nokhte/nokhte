@@ -28,9 +28,9 @@ class SessionStartersList {
 
   static List<RotatingTextData> get sessionJoinerInstructions => [
         InstructionItems.tapOnTheCompass,
-        InstructionItems.swipeLeft,
+        InstructionItems.swipeRight,
         InstructionItems.sessionJoinerExplanation,
-        InstructionItems.swipeLeft,
+        InstructionItems.swipeRight,
         SharedLists.emptyItem,
       ];
 }
