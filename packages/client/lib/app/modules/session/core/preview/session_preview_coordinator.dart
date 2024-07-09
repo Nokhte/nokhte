@@ -85,7 +85,7 @@ abstract class _SessionPreviewCoordinatorBase
 
   rippleReactor() => reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          Modular.to.navigate(route, arguments: {});
+          Modular.to.navigate(route);
         }
       });
 

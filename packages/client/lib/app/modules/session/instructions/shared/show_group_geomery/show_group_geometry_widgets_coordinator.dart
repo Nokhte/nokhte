@@ -110,7 +110,7 @@ abstract class _ShowGroupGeometryWidgetsCoordinatorBase
             presetDiagram.initMovie(PresetDiagramMovieModes.hideSingleCircle);
           } else if (presetDiagram.movieMode ==
               PresetDiagramMovieModes.hideSingleCircle) {
-            Modular.to.navigate(SessionConstants.lobby, arguments: {});
+            Modular.to.navigate(SessionConstants.lobby);
           }
         }
       });

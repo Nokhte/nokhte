@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
@@ -16,7 +17,13 @@ class SessionLobbyCoordinator = _SessionLobbyCoordinatorBase
     with _$SessionLobbyCoordinator;
 
 abstract class _SessionLobbyCoordinatorBase
-    with Store, ChooseGreeterType, BaseCoordinator, Reactions, SessionPresence {
+    with
+        Store,
+        RoutingArgs,
+        ChooseGreeterType,
+        BaseCoordinator,
+        Reactions,
+        SessionPresence {
   final SessionLobbyWidgetsCoordinator widgets;
   final TapDetector tap;
   final UserMetadataCoordinator userMetadata;
@@ -49,7 +56,7 @@ abstract class _SessionLobbyCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
-    if (isTheLeader) {
+    if (hasReceivedRoutingArgs) {
       await presence.listen();
     } else {
       showPresetInfo();
@@ -82,7 +89,7 @@ abstract class _SessionLobbyCoordinatorBase
         widgets.onCollaboratorLeft();
       },
     ));
-    if (isTheLeader) {
+    if (hasReceivedRoutingArgs) {
       tapReactor();
       disposers.add(canStartTheSessionReactor());
     }
@@ -128,7 +135,8 @@ abstract class _SessionLobbyCoordinatorBase
               onTap: () async {
                 await presence.startTheSession();
                 await captureStart(sessionMetadata.numberOfCollaborators);
-                if (isTheLeader && !sessionMetadata.isAValidSession) {
+                if (hasReceivedRoutingArgs &&
+                    !sessionMetadata.isAValidSession) {
                   await activeMonetizationSession.startMonetizationSession();
                 }
               },
@@ -199,7 +207,4 @@ abstract class _SessionLobbyCoordinatorBase
   @computed
   bool get isAPremiumSession =>
       sessionMetadata.numberOfCollaborators.isGreaterThanOrEqualTo(4);
-
-  @computed
-  bool get isTheLeader => Modular.args.data["qrCodeData"] != null;
 }

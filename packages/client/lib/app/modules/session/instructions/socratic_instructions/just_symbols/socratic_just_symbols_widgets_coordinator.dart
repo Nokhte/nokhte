@@ -78,7 +78,7 @@ abstract class _SocraticJustSymbolsWidgetsCoordinatorBase
   rippleCompletionStatusReactor() =>
       reaction((p0) => touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished && !isAllowedToTap) {
-          Modular.to.navigate(SessionConstants.lobby, arguments: {});
+          Modular.to.navigate(SessionConstants.lobby);
         }
       });
 

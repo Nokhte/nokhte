@@ -63,7 +63,7 @@ abstract class _SoloHybridInstructionsCoordinatorBase
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished && widgets.hasFinishedAllInstructions) {
-          Modular.to.navigate(SessionConstants.lobby, arguments: {});
+          Modular.to.navigate(SessionConstants.lobby);
         }
       });
 
