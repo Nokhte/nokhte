@@ -5,15 +5,17 @@ import 'package:nokhte/app/core/mobx/base_widget_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/modules/login/login.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'nokhte_store.g.dart';
+part 'login_nokhtes_store.g.dart';
 
-class NokhteStore = _NokhteStoreBase with _$NokhteStore;
+class LoginNokhtesStore = _LoginNokhtesStoreBase with _$LoginNokhtesStore;
 
-abstract class _NokhteStoreBase extends BaseWidgetStore with Store {
-  _NokhteStoreBase() {
+abstract class _LoginNokhtesStoreBase extends BaseWidgetStore with Store {
+  _LoginNokhtesStoreBase() {
     setMovie(
-      SetNokhtePositionMovie.getMovie(
-          const Offset(-10, -10), const Offset(-10, 10)),
+      LoginNokhteMovies.setCenterPosition(
+        const Offset(-10, -10),
+        const Offset(-10, 10),
+      ),
     );
   }
 
@@ -21,41 +23,42 @@ abstract class _NokhteStoreBase extends BaseWidgetStore with Store {
   Offset centerCoordinates = Offset.zero;
 
   @observable
-  NokhteMovieModes movieMode = NokhteMovieModes.initial;
+  LoginNokhtesMovieModes movieMode = LoginNokhtesMovieModes.initial;
 
   @action
-  setMovieModes(NokhteMovieModes newMovieMode) => movieMode = newMovieMode;
+  setMovieModes(LoginNokhtesMovieModes newMovieMode) =>
+      movieMode = newMovieMode;
 
   @action
   setCenterCoordinates(Offset newCenter) => centerCoordinates = newCenter;
 
   @action
   reset() {
-    setMovieModes(NokhteMovieModes.setPosition);
+    setMovieModes(LoginNokhtesMovieModes.setPosition);
     setMovieStatus(MovieStatus.inProgress);
-    setMovie(MoveBackToCenterMovie.getMovie(centerCoordinates));
+    setMovie(LoginNokhteMovies.moveBackToCenter(centerCoordinates));
     setControl(Control.playFromStart);
   }
 
   @action
   initMoveUpAndApparateMovie() {
-    setMovieModes(NokhteMovieModes.setPosition);
-    setMovieModes(NokhteMovieModes.moveUpAndApparate);
+    setMovieModes(LoginNokhtesMovieModes.setPosition);
+    setMovieModes(LoginNokhtesMovieModes.moveUpAndApparate);
     setMovieStatus(MovieStatus.inProgress);
-    setMovie(MoveUpAndApparateMovie.getMovie(centerCoordinates));
+    setMovie(LoginNokhteMovies.moveUpAndDisappear(centerCoordinates));
     setControl(Control.playFromStart);
   }
 
   @action
   initPositionMovie(Offset touchPoint, Offset centerPoint) {
-    setMovieModes(NokhteMovieModes.setPosition);
+    setMovieModes(LoginNokhtesMovieModes.setPosition);
     setCenterCoordinates(centerPoint);
-    setMovie(SetNokhtePositionMovie.getMovie(touchPoint, centerPoint));
+    setMovie(LoginNokhteMovies.setCenterPosition(touchPoint, centerPoint));
     setControl(Control.playFromStart);
     setMovieStatus(MovieStatus.inProgress);
   }
 
   @computed
   bool get isAboutToApparate =>
-      movieMode == NokhteMovieModes.moveUpAndApparate ? true : false;
+      movieMode == LoginNokhtesMovieModes.moveUpAndApparate ? true : false;
 }

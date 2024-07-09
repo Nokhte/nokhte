@@ -21,7 +21,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase
   final BeachWavesStore layer2BeachWaves;
   final GestureCrossStore gestureCross;
   final SmartTextStore smartTextStore;
-  final NokhteStore nokhte;
+  final LoginNokhtesStore loginNokhtes;
   final TrailingTextStore bottomTrailingText;
   final TrailingTextStore topTrailingText;
   @override
@@ -32,7 +32,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase
     required this.layer2BeachWaves,
     required this.gestureCross,
     required this.smartTextStore,
-    required this.nokhte,
+    required this.loginNokhtes,
     required this.bottomTrailingText,
     required this.topTrailingText,
     required this.wifiDisconnectOverlay,
@@ -47,7 +47,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase
     Function onConnected,
     Function onDisconnected,
   ) {
-    nokhte.setCenterCoordinates(center);
+    loginNokhtes.setCenterCoordinates(center);
     setCenterScreenCoordinates(center);
 
     layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOut);
@@ -110,7 +110,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase
   loggedOutOnResumed() {
     if (!hasNotMadeTheDot && !canSwipeUp) {
       Timer(Seconds.get(1), () {
-        nokhte.reset();
+        loginNokhtes.reset();
         Timer(Seconds.get(2), () {
           bottomTrailingText.initMovie(NoParams());
           topTrailingText.initMovie(NoParams());
@@ -130,7 +130,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase
     if (smartTextStore.currentIndex == 1 && hasNotMadeTheDot) {
       smartTextStore.startRotatingText(isResuming: true);
       toggleHasMadeTheDot();
-      nokhte.initPositionMovie(
+      loginNokhtes.initPositionMovie(
         currentTapPosition,
         centerScreenCoordinates,
       );
@@ -150,7 +150,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase
     bottomTrailingText.setWidgetVisibility(false);
     topTrailingText.setWidgetVisibility(false);
     smartTextStore.setWidgetVisibility(false);
-    nokhte.setWidgetVisibility(false);
+    loginNokhtes.setWidgetVisibility(false);
     toggleHasTriggeredLoginAnimation();
     Timer(Seconds.get(0, milli: 500), () {
       layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOutToDrySand);
@@ -177,16 +177,17 @@ abstract class _LoginScreenWidgetsCoordinatorBase
   }
 
   nokhteReactor(Function loginBusinessLogic) =>
-      reaction((p0) => nokhte.movieStatus, (p0) {
+      reaction((p0) => loginNokhtes.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (nokhte.movieMode == NokhteMovieModes.setPosition) {
+          if (loginNokhtes.movieMode == LoginNokhtesMovieModes.setPosition) {
             if (!bottomTrailingText.showWidget) {
               bottomTrailingText.setWidgetVisibility(false);
               topTrailingText.setWidgetVisibility(false);
             }
             bottomTrailingText.initMovie(NoParams());
             topTrailingText.initMovie(NoParams());
-          } else if (nokhte.movieMode == NokhteMovieModes.moveUpAndApparate) {
+          } else if (loginNokhtes.movieMode ==
+              LoginNokhtesMovieModes.moveUpAndApparate) {
             loginBusinessLogic();
           }
         }
@@ -196,7 +197,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase
       reaction((p0) => bottomTrailingText.movieStatus, (p0) {
         if (bottomTrailingText.movieStatus == MovieStatus.finished &&
             bottomTrailingText.pastControl == Control.playReverseFromEnd) {
-          nokhte.initMoveUpAndApparateMovie();
+          loginNokhtes.initMoveUpAndApparateMovie();
         } else if (bottomTrailingText.movieStatus == MovieStatus.finished &&
             bottomTrailingText.pastControl == Control.playFromStart) {
           setCanSwipeUp(true);

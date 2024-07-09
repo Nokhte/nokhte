@@ -93,8 +93,8 @@ class LoginScreen extends HookWidget {
                   ),
                 ),
                 FullScreen(
-                  child: Nokhte(
-                    store: coordinator.widgets.nokhte,
+                  child: LoginNokhtes(
+                    store: coordinator.widgets.loginNokhtes,
                   ),
                 ),
                 FullScreen(

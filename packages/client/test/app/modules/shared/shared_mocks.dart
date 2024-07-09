@@ -12,7 +12,7 @@ import 'package:nokhte/app/modules/login/login.dart';
   MockSpec<GetUserInfoStore>(),
   MockSpec<TrailingTextStore>(),
   MockSpec<NokhteBlurStore>(),
-  MockSpec<NokhteStore>(),
+  MockSpec<LoginNokhtesStore>(),
   MockSpec<TapDetector>(),
 ])
 void main() {}

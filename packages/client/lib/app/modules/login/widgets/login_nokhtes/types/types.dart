@@ -1,4 +1,4 @@
-enum NokhteMovieModes {
+enum LoginNokhtesMovieModes {
   moveUpAndApparate,
   setPosition,
   initial,

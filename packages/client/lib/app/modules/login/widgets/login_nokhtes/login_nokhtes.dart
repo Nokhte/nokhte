@@ -4,15 +4,15 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
-import 'canvas/nokhte_painter.dart';
-import 'nokhte.dart';
-export 'mobx/nokhte_store.dart';
+import 'canvas/login_nokhtes_painter.dart';
+import 'login_nokhtes.dart';
+export 'mobx/login_nokhtes_store.dart';
 export 'movies/movies.dart';
 export 'types/types.dart';
 
-class Nokhte extends HookWidget {
-  final NokhteStore store;
-  const Nokhte({super.key, required this.store});
+class LoginNokhtes extends HookWidget {
+  final LoginNokhtesStore store;
+  const LoginNokhtes({super.key, required this.store});
 
   @override
   Widget build(BuildContext context) {
