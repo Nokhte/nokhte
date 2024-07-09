@@ -38,12 +38,6 @@ void main() {
     });
 
     group('movieModeToStoreLookup', () {
-      test("blackOut key", () {
-        final res =
-            testStore.movieModeToStoreLookup[BeachWaveMovieModes.blackOut];
-        expect(res?.movie.duration, Seconds.get(1));
-      });
-
       test("blackOutToDrySand key", () {
         final res = testStore
             .movieModeToStoreLookup[BeachWaveMovieModes.blackOutToDrySand];
@@ -69,11 +63,6 @@ void main() {
         final noneRes =
             testStore.movieModeToStoreLookup[BeachWaveMovieModes.none];
         expect(noneRes?.movie.duration, Seconds.get(0));
-      });
-      test("suspendedAtOceanDive key", () {
-        final res = testStore
-            .movieModeToStoreLookup[BeachWaveMovieModes.staticOceanDive];
-        expect(res?.movie.duration, Seconds.get(1));
       });
     });
 
@@ -119,7 +108,7 @@ void main() {
     });
 
     test('currentStore', () {
-      expect(testStore.currentStore, isA<OnShoreMovieStore>());
+      expect(testStore.currentStore, isA<OnShore>());
     });
     test('currentMovieStatus', () {
       expect(testStore.currentMovieStatus, MovieStatus.idle);

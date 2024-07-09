@@ -101,7 +101,8 @@ void main() {
     test("connstructor", () {
       testStore.constructor(tCoordinates, () {}, () {}, () {});
       expect(testStore.centerScreenCoordinates, tCoordinates);
-      expect(layer1BeachWavesStore.movieMode, BeachWaveMovieModes.blackOut);
+      expect(layer1BeachWavesStore.movieMode,
+          BeachWaveMovieModes.blackOutToDrySand);
       expect(layer2BeachWavesStore.movieMode, BeachWaveMovieModes.onShore);
     });
   });
