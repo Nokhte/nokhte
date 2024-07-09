@@ -3,19 +3,20 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'sky_to_inverted_half_and_half_movie_store.g.dart';
+part 'deep_sea_to_inverted_half_and_half.g.dart';
 
-class SkyToInvertedHalfAndHalfMovieStore = _SkyToInvertedHalfAndHalfMovieStoreBase
-    with _$SkyToInvertedHalfAndHalfMovieStore;
+class DeepSeaToInvertedHalfAndHalf = _DeepSeaToInvertedHalfAndHalfBase
+    with _$DeepSeaToInvertedHalfAndHalf;
 
-abstract class _SkyToInvertedHalfAndHalfMovieStoreBase
+abstract class _DeepSeaToInvertedHalfAndHalfBase
     extends BaseBeachWaveMovieStore<NoParams> with Store {
-  _SkyToInvertedHalfAndHalfMovieStoreBase()
+  _DeepSeaToInvertedHalfAndHalfBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
+          callsOnCompleteTwice: false,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
-      WaterColorsAndStops.sky,
+      WaterColorsAndStops.deepSeaWater,
       WaterColorsAndStops.invertedHalfWaterAndSand,
     );
   }
@@ -28,7 +29,7 @@ abstract class _SkyToInvertedHalfAndHalfMovieStoreBase
 
   @override
   @action
-  reverseMovie(params) {
+  reverseMovie(NoParams params) {
     control = Control.playReverseFromEnd;
   }
 }

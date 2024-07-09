@@ -2,14 +2,13 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'any_to_half_and_and_half_movie_store.g.dart';
+part 'any_to_half_and_half.g.dart';
 
-class AnyToHalfAndHalfMovieStore = _AnyToHalfAndHlafMovieStoreBase
-    with _$AnyToHalfAndHalfMovieStore;
+class AnyToHalfAndHalf = _AnyToHalfAndHalfBase with _$AnyToHalfAndHalf;
 
-abstract class _AnyToHalfAndHlafMovieStoreBase
+abstract class _AnyToHalfAndHalfBase
     extends BaseBeachWaveMovieStore<List<ColorAndStop>> with Store {
-  _AnyToHalfAndHlafMovieStoreBase()
+  _AnyToHalfAndHalfBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {

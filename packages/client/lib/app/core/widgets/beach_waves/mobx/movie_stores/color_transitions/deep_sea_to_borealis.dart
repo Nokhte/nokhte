@@ -3,20 +3,19 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'sky_to_dry_sand_movie_store.g.dart';
+part 'deep_sea_to_borealis.g.dart';
 
-class SkyToDrySandMovieStore = _SkyToDrySandMovieStoreBase
-    with _$SkyToDrySandMovieStore;
+class DeepSeaToBorealis = _DeepSeaToBorealisBase with _$DeepSeaToBorealis;
 
-abstract class _SkyToDrySandMovieStoreBase
-    extends BaseBeachWaveMovieStore<NoParams> with Store {
-  _SkyToDrySandMovieStoreBase()
+abstract class _DeepSeaToBorealisBase extends BaseBeachWaveMovieStore<NoParams>
+    with Store {
+  _DeepSeaToBorealisBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
-      WaterColorsAndStops.sky,
-      WaterColorsAndStops.drySand,
+      WaterColorsAndStops.deepSeaWater,
+      WaterColorsAndStops.borealis,
     );
   }
 

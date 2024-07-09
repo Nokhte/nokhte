@@ -3,14 +3,14 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'deep_sea_to_half_and_half_movie_store.g.dart';
+part 'deep_sea_to_half_and_half.g.dart';
 
-class DeepSeaToHalfAndHalfMovieStore = _DeepSeaToHalfAndHalfMovieStoreBase
-    with _$DeepSeaToHalfAndHalfMovieStore;
+class DeepSeaToHalfAndHalf = _DeepSeaToHalfAndHalfBase
+    with _$DeepSeaToHalfAndHalf;
 
-abstract class _DeepSeaToHalfAndHalfMovieStoreBase
+abstract class _DeepSeaToHalfAndHalfBase
     extends BaseBeachWaveMovieStore<NoParams> with Store {
-  _DeepSeaToHalfAndHalfMovieStoreBase()
+  _DeepSeaToHalfAndHalfBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
           callsOnCompleteTwice: false,

@@ -3,21 +3,19 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'orange_sand_to_half_and_half_movie_store.g.dart';
+part 'sky_to_dry_sand.g.dart';
 
-class OrangeSandToHalfAndHalfMovieStore = _OrangeSandToHalfAndHalfMovieStoreBase
-    with _$OrangeSandToHalfAndHalfMovieStore;
+class SkyToDrySand = _SkyToDrySandBase with _$SkyToDrySand;
 
-abstract class _OrangeSandToHalfAndHalfMovieStoreBase
-    extends BaseBeachWaveMovieStore<NoParams> with Store {
-  _OrangeSandToHalfAndHalfMovieStoreBase()
+abstract class _SkyToDrySandBase extends BaseBeachWaveMovieStore<NoParams>
+    with Store {
+  _SkyToDrySandBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
-          callsOnCompleteTwice: false,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
-      WaterColorsAndStops.orangeSand,
-      WaterColorsAndStops.halfWaterAndSand,
+      WaterColorsAndStops.sky,
+      WaterColorsAndStops.drySand,
     );
   }
 
@@ -29,7 +27,7 @@ abstract class _OrangeSandToHalfAndHalfMovieStoreBase
 
   @override
   @action
-  reverseMovie(NoParams params) {
+  reverseMovie(params) {
     control = Control.playReverseFromEnd;
   }
 }

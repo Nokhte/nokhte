@@ -3,24 +3,25 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'ocean_dive_to_sky_movie_store.g.dart';
+part 'dry_sand_to_sky.g.dart';
 
-class OceanDiveToSkyMovieStore = _OceanDiveToSkyMovieStoreBase
-    with _$OceanDiveToSkyMovieStore;
+class DrySandToSky = _DrySandToSkyBase with _$DrySandToSky;
 
-abstract class _OceanDiveToSkyMovieStoreBase
-    extends BaseBeachWaveMovieStore<NoParams> with Store {
-  _OceanDiveToSkyMovieStoreBase()
+abstract class _DrySandToSkyBase extends BaseBeachWaveMovieStore<NoParams>
+    with Store {
+  _DrySandToSkyBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
+          callsOnCompleteTwice: true,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
-      WaterColorsAndStops.oceanDiveWater,
+      WaterColorsAndStops.drySand,
       WaterColorsAndStops.sky,
     );
   }
 
   @override
+  @action
   initMovie(NoParams params) {
     control = Control.playFromStart;
   }

@@ -2,13 +2,13 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'any_to_sky_movie_store.g.dart';
+part 'any_to_sky.g.dart';
 
-class AnyToSkyMovieStore = _AnyToSkyMovieStoreBase with _$AnyToSkyMovieStore;
+class AnyToSky = _AnyToSkyBase with _$AnyToSky;
 
-abstract class _AnyToSkyMovieStoreBase
+abstract class _AnyToSkyBase
     extends BaseBeachWaveMovieStore<DurationAndGradient> with Store {
-  _AnyToSkyMovieStoreBase()
+  _AnyToSkyBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {

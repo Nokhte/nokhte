@@ -3,32 +3,24 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'deep_sea_to_sky_movie_store.g.dart';
+part 'ocean_dive_to_sky.g.dart';
 
-class DeepSeaToSkyMovieStore = _DeepSeaToSkyMovieStoreBase
-    with _$DeepSeaToSkyMovieStore;
+class OceanDiveToSky = _OceanDiveToSkyBase with _$OceanDiveToSky;
 
-abstract class _DeepSeaToSkyMovieStoreBase
-    extends BaseBeachWaveMovieStore<NoParams> with Store {
-  _DeepSeaToSkyMovieStoreBase()
+abstract class _OceanDiveToSkyBase extends BaseBeachWaveMovieStore<NoParams>
+    with Store {
+  _OceanDiveToSkyBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
-      WaterColorsAndStops.deepSeaWater,
+      WaterColorsAndStops.oceanDiveWater,
       WaterColorsAndStops.sky,
     );
   }
 
   @override
-  @action
   initMovie(NoParams params) {
     control = Control.playFromStart;
-  }
-
-  @override
-  @action
-  reverseMovie(NoParams params) {
-    control = Control.playReverseFromEnd;
   }
 }

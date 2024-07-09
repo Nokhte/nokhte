@@ -3,21 +3,21 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'dry_sand_to_sky_movie_store.g.dart';
+part 'inverted_half_and_half_to_dry_sand.g.dart';
 
-class DrySandToSkyMovieStore = _DrySandToSkyMovieStoreBase
-    with _$DrySandToSkyMovieStore;
+class InvertedHalfAndHalfToDrySand = _InvertedHalfAndHalfToDrySandBase
+    with _$InvertedHalfAndHalfToDrySand;
 
-abstract class _DrySandToSkyMovieStoreBase
+abstract class _InvertedHalfAndHalfToDrySandBase
     extends BaseBeachWaveMovieStore<NoParams> with Store {
-  _DrySandToSkyMovieStoreBase()
+  _InvertedHalfAndHalfToDrySandBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
-          callsOnCompleteTwice: true,
+          callsOnCompleteTwice: false,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
-      WaterColorsAndStops.drySand,
-      WaterColorsAndStops.sky,
+      WaterColorsAndStops.invertedHalfWaterAndSand,
+      WaterColorsAndStops.bottomHeavyDrySand,
     );
   }
 
