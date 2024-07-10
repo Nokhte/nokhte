@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -17,16 +18,24 @@ class SessionStarterInstructionsWidgetsCoordinator = _SessionStarterInstructions
     with _$SessionStarterInstructionsWidgetsCoordinator;
 
 abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
-    with Store, SmartTextPaddingAdjuster, BaseWidgetsCoordinator, Reactions {
+    with
+        Store,
+        SmartTextPaddingAdjuster,
+        BaseWidgetsCoordinator,
+        Reactions,
+        EnRoute,
+        EnRouteConsumer {
   final SwipeGuideStore swipeGuide;
-  final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
+  final NokhteQrCodeStore qrCode;
   final GestureCrossStore gestureCross;
   final TouchRippleStore touchRipple;
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final NokhteBlurStore nokhteBlur;
   final InstructionalGradientNokhteStore homeInstructionalNokhte;
   final InstructionalGradientNokhteStore presetsInstructionalNokhte;
+  @override
+  final BeachWavesStore beachWaves;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
@@ -41,11 +50,13 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
     required this.nokhteBlur,
     required this.homeInstructionalNokhte,
     required this.presetsInstructionalNokhte,
+    required this.qrCode,
   }) {
+    initEnRouteActions();
     initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
-    setSmartTextTopPaddingScalar(0);
-    setSmartTextBottomPaddingScalar(.27);
+    setSmartTextTopPaddingScalar(0.2);
+    setSmartTextBottomPaddingScalar(0);
     setSmartTextSubMessagePaddingScalar(110);
   }
 
@@ -69,15 +80,16 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
 
   @action
   constructor(Offset centerParam) {
+    consumeRoutingArgs();
     setCenter(centerParam);
-
     swipeGuide.setWidgetVisibility(false);
     gestureCross.fadeIn(onFadeIn: Left(() {
       gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
     }));
+    qrCode.setQrCodeData(SessionStarterConstants.inactiveQrCodeData);
+    qrCode.initFadeIn();
     smartText.setMessagesData(SessionStartersList.sessionJoinerInstructions);
-    beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
-    beachWaves.currentStore.setControl(Control.playFromStart);
+
     smartText.startRotatingText();
     presetsInstructionalNokhte.prepareYellowDiamond(
       center,
@@ -92,16 +104,18 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
         smartText.startRotatingText(isResuming: true);
-        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.right);
+        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.left);
         swipeGuide.setWidgetVisibility(false);
         presetsInstructionalNokhte.setControl(Control.play);
         homeInstructionalNokhte.setWidgetVisibility(false);
         delayedEnableTouchFeedback();
+        setSmartTextPadding(topPadding: 0.2);
         // setSmartTextPadding();
       } else if (hasUnlockedSwipeLeft) {
         smartText.startRotatingText(isResuming: true);
         gestureCross.cross.initOutlineFadeIn();
         centerInstructionalNokhte.setWidgetVisibility(false);
+        qrCode.setWidgetVisibility(false);
         gestureCross.initMoveAndRegenerate(CircleOffsets.left);
         beachWaves.setMovieMode(
           BeachWaveMovieModes.invertedOnShoreToInvertedDeeperBlue,
@@ -167,6 +181,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         gestureCross.gradientNokhte.setWidgetVisibility(false);
         smartText.startRotatingText(isResuming: true);
+        setSmartTextPadding(topPadding: 0.1);
         centerInstructionalNokhte.moveToCenter(center);
       }
     }
@@ -181,7 +196,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
         setTouchIsDisabled(true);
         beachWaves.currentStore.setControl(Control.mirror);
         setHasUnlockedSwipeLeft(true);
-
+        setSmartTextPadding(topPadding: 0.2);
         Timer(Seconds.get(1, milli: 500), () {
           smartText.startRotatingText(isResuming: true);
           centerInstructionalNokhte.moveBackToCross(
@@ -251,6 +266,10 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedOnShoreToInvertedDeeperBlue) {
             Modular.to.navigate(PresetsConstants.presetsInstructions);
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.resumeOnShore) {
+            beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
+            beachWaves.currentStore.initMovie(params.direction);
           }
         }
       });

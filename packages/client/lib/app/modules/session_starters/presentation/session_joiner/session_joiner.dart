@@ -44,19 +44,8 @@ class SessionJoinerScreen extends HookWidget {
                     ),
                   ),
                 ),
-                FullScreen(
-                  child: NokhteBlur(
-                    store: coordinator.widgets.nokhteBlur,
-                  ),
-                ),
-                FullScreen(
-                  child: TouchRipple(
-                    store: coordinator.widgets.touchRipple,
-                  ),
-                ),
-                SwipeGuide(
-                  toTheRight: true,
-                  store: coordinator.widgets.swipeGuide,
+                Tint(
+                  store: coordinator.widgets.tint,
                 ),
                 Center(
                   child: SmartText(
@@ -73,9 +62,9 @@ class SessionJoinerScreen extends HookWidget {
                 GestureCross(
                   showGlowAndOutline: true,
                   config: GestureCrossConfiguration(
-                    bottom: Right(
+                    left: Right(
                       NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.home,
+                        gradientType: NokhteGradientTypes.sessionStarter,
                       ),
                     ),
                   ),
@@ -85,10 +74,7 @@ class SessionJoinerScreen extends HookWidget {
                   store: coordinator.widgets.centerInstructionalNokhte,
                 ),
                 InstructionalGradientNokhte(
-                  store: coordinator.widgets.homeInstructionalNokhte,
-                ),
-                InstructionalGradientNokhte(
-                  store: coordinator.widgets.presetsInstructionalNokhte,
+                  store: coordinator.widgets.sessionStarterInstructionalNokhte,
                 ),
                 WifiDisconnectOverlay(
                   store: coordinator.widgets.wifiDisconnectOverlay,

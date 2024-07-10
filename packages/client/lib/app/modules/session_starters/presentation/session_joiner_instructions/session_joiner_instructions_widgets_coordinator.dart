@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -16,9 +17,14 @@ class SessionJoinerInstructionsWidgetsCoordinator = _SessionJoinerInstructionsWi
     with _$SessionJoinerInstructionsWidgetsCoordinator;
 
 abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
-    with Store, SmartTextPaddingAdjuster, BaseWidgetsCoordinator, Reactions {
+    with
+        Store,
+        SmartTextPaddingAdjuster,
+        BaseWidgetsCoordinator,
+        Reactions,
+        EnRoute,
+        EnRouteConsumer {
   final SwipeGuideStore swipeGuide;
-  final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final GestureCrossStore gestureCross;
   final TouchRippleStore touchRipple;
@@ -26,6 +32,8 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
   final NokhteBlurStore nokhteBlur;
   final InstructionalGradientNokhteStore homeInstructionalNokhte;
   final InstructionalGradientNokhteStore sessionJoinerInstructionalNokhte;
+  @override
+  final BeachWavesStore beachWaves;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
@@ -41,6 +49,7 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
     required this.homeInstructionalNokhte,
     required this.sessionJoinerInstructionalNokhte,
   }) {
+    initEnRouteActions();
     initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
     setSmartTextTopPaddingScalar(0);
@@ -66,13 +75,12 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
   @action
   constructor(Offset centerParam) {
     setCenter(centerParam);
-
     swipeGuide.setWidgetVisibility(false);
     gestureCross.fadeIn(onFadeIn: Left(() {
       gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
     }));
+    consumeRoutingArgs();
     smartText.setMessagesData(SessionStartersList.sessionJoinerInstructions);
-    beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
     smartText.startRotatingText();
     sessionJoinerInstructionalNokhte.prepareYellowDiamond(
       center,
@@ -239,7 +247,16 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          Modular.to.navigate(SessionStarterConstants.sessionJoiner);
+          if (beachWaves.movieMode == BeachWaveMovieModes.emptyTheOcean) {
+            Modular.to.navigate(SessionStarterConstants.sessionJoiner);
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.invertedOnShoreToInvertedOceanDive) {
+            Modular.to.navigate(SessionStarterConstants.sessionStarterExit);
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.resumeOnShore) {
+            beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
+            beachWaves.currentStore.initMovie(params.direction);
+          }
         }
       });
   @computed

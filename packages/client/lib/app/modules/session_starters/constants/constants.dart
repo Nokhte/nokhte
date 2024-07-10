@@ -38,4 +38,7 @@ mixin SessionStarterConstants {
   ];
 
   static const QR_CODE_DATA = 'qrCodeData';
+
+  static const inactiveQrCodeData =
+      'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 }

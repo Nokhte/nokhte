@@ -21,7 +21,7 @@ class SessionInstructionsPickerScreen extends HookWidget {
     final center = useCenterOffset();
     useEffect(() {
       coordinator.constructor(center);
-      return () => coordinator.deconstructor();
+      return () => coordinator.dispose();
     }, []);
 
     return Observer(builder: (context) {

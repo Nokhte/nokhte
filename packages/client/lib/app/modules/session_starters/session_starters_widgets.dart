@@ -30,11 +30,8 @@ class SessionStartersWidgetsModule extends Module {
     );
     i.add<SessionJoinerWidgetsCoordinator>(
       () => SessionJoinerWidgetsCoordinator(
-        swipeGuide: SwipeGuideStore(),
-        homeInstructionalNokhte: InstructionalGradientNokhteStore(),
-        presetsInstructionalNokhte: InstructionalGradientNokhteStore(),
-        nokhteBlur: NokhteBlurStore(),
-        touchRipple: TouchRippleStore(),
+        tint: TintStore(),
+        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: BeachWavesStore(),
         smartText: SmartTextStore(),
@@ -58,6 +55,7 @@ class SessionStartersWidgetsModule extends Module {
     );
     i.add<SessionStarterInstructionsWidgetsCoordinator>(
       () => SessionStarterInstructionsWidgetsCoordinator(
+        qrCode: NokhteQrCodeStore(),
         swipeGuide: SwipeGuideStore(),
         homeInstructionalNokhte: InstructionalGradientNokhteStore(),
         presetsInstructionalNokhte: InstructionalGradientNokhteStore(),

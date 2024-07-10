@@ -26,39 +26,45 @@ class SessionStarterInstructionsScreen extends HookWidget {
       return () => coordinator.deconstructor();
     }, []);
 
-    return Observer(builder: (context) {
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Tap(
-          store: coordinator.tap,
-          child: Swipe(
-            store: coordinator.swipe,
-            child: MultiHitStack(
-              children: [
-                RotatedBox(
-                  quarterTurns: 2,
-                  child: FullScreen(
-                    child: BeachWaves(
-                      sandType: SandTypes.collaboration,
-                      store: coordinator.widgets.beachWaves,
-                    ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Tap(
+        store: coordinator.tap,
+        child: Swipe(
+          store: coordinator.swipe,
+          child: MultiHitStack(
+            children: [
+              RotatedBox(
+                quarterTurns: 2,
+                child: FullScreen(
+                  child: BeachWaves(
+                    sandType: SandTypes.collaboration,
+                    store: coordinator.widgets.beachWaves,
                   ),
                 ),
-                FullScreen(
-                  child: NokhteBlur(
-                    store: coordinator.widgets.nokhteBlur,
-                  ),
+              ),
+              Opacity(
+                opacity: .4,
+                child: NokhteQrCode(
+                  store: coordinator.widgets.qrCode,
                 ),
-                FullScreen(
-                  child: TouchRipple(
-                    store: coordinator.widgets.touchRipple,
-                  ),
+              ),
+              FullScreen(
+                child: NokhteBlur(
+                  store: coordinator.widgets.nokhteBlur,
                 ),
-                SwipeGuide(
-                  toTheRight: true,
-                  store: coordinator.widgets.swipeGuide,
+              ),
+              FullScreen(
+                child: TouchRipple(
+                  store: coordinator.widgets.touchRipple,
                 ),
-                Center(
+              ),
+              SwipeGuide(
+                toTheRight: true,
+                store: coordinator.widgets.swipeGuide,
+              ),
+              Observer(builder: (context) {
+                return Center(
                   child: SmartText(
                     store: coordinator.widgets.smartText,
                     opacityDuration: Seconds.get(1),
@@ -69,36 +75,36 @@ class SessionStarterInstructionsScreen extends HookWidget {
                     subTextPadding:
                         coordinator.widgets.smartTextSubMessagePaddingScalar,
                   ),
-                ),
-                GestureCross(
-                  showGlowAndOutline: true,
-                  config: GestureCrossConfiguration(
-                    bottom: Right(
-                      NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.home,
-                      ),
+                );
+              }),
+              GestureCross(
+                showGlowAndOutline: true,
+                config: GestureCrossConfiguration(
+                  bottom: Right(
+                    NokhteGradientConfig(
+                      gradientType: NokhteGradientTypes.home,
                     ),
                   ),
-                  store: coordinator.widgets.gestureCross,
                 ),
-                CenterInstructionalNokhte(
-                  store: coordinator.widgets.centerInstructionalNokhte,
-                ),
-                InstructionalGradientNokhte(
-                  store: coordinator.widgets.homeInstructionalNokhte,
-                ),
-                InstructionalGradientNokhte(
-                  store: coordinator.widgets.presetsInstructionalNokhte,
-                ),
-                WifiDisconnectOverlay(
-                  store: coordinator.widgets.wifiDisconnectOverlay,
-                ),
-              ],
-            ),
+                store: coordinator.widgets.gestureCross,
+              ),
+              CenterInstructionalNokhte(
+                store: coordinator.widgets.centerInstructionalNokhte,
+              ),
+              InstructionalGradientNokhte(
+                store: coordinator.widgets.homeInstructionalNokhte,
+              ),
+              InstructionalGradientNokhte(
+                store: coordinator.widgets.presetsInstructionalNokhte,
+              ),
+              WifiDisconnectOverlay(
+                store: coordinator.widgets.wifiDisconnectOverlay,
+              ),
+            ],
           ),
         ),
-        // ),
-      );
-    });
+      ),
+      // ),
+    );
   }
 }

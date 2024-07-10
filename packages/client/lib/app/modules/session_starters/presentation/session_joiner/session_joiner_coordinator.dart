@@ -32,13 +32,6 @@ abstract class _SessionJoinerCoordinatorBase
   }
 
   @observable
-  ObservableMap additionalRoutingData = ObservableMap.of({});
-
-  @action
-  setAdditionalRoutingData(Map? newMap) =>
-      additionalRoutingData = ObservableMap.of(newMap ?? {});
-
-  @observable
   bool isNavigatingAway = false;
 
   @action
@@ -47,20 +40,11 @@ abstract class _SessionJoinerCoordinatorBase
   @action
   constructor(Offset center) async {
     widgets.constructor(center);
-    widgets.initReactors();
     initReactors();
     await captureScreen(SessionStarterConstants.sessionStarterInstructions);
   }
 
-  swipeCoordinatesReactor() =>
-      reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
-        ifTouchIsNotDisabled(() {
-          widgets.onSwipeCoordinatesChanged(p0);
-        });
-      });
-
   initReactors() {
-    disposers.add(swipeCoordinatesReactor());
     disposers.add(swipeReactor());
     disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
@@ -84,14 +68,14 @@ abstract class _SessionJoinerCoordinatorBase
       switch (direction) {
         case GestureDirections.down:
           ifTouchIsNotDisabled(() {
-            widgets.onSwipeDown(() {
-              toggleIsNavigatingAway();
-            });
+            // widgets.onSwipeDown(() {
+            // toggleIsNavigatingAway();
+            // });
           });
-        case GestureDirections.left:
-          ifTouchIsNotDisabled(() {
-            widgets.onSwipeLeft();
-          });
+        // case GestureDirections.left:
+        //   ifTouchIsNotDisabled(() {
+        //     widgets.onSwipeLeft();
+        //   });
         default:
           break;
       }
@@ -100,7 +84,7 @@ abstract class _SessionJoinerCoordinatorBase
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
         ifTouchIsNotDisabled(() {
-          widgets.onTap(tap.currentTapPosition);
+          // widgets.onTap(tap.currentTapPosition);
         });
       });
 
