@@ -15,7 +15,8 @@ abstract class _InvertedOnShoreToOceanInvertedDeepSeaBase
           callsOnCompleteTwice: true,
           shouldPaintSand: OnShoreToAny.shouldPaintSand,
         ) {
-    movie = OnShoreMovie.movie;
+    movie = OnShoreMovie.getMovie(
+        shouldInvert: false, startingDirection: WaterDirection.up);
   }
 
   @override

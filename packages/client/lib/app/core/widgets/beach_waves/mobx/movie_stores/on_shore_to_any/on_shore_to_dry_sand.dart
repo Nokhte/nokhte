@@ -14,7 +14,8 @@ abstract class _OnShoreToDrySandBase extends BaseBeachWaveMovieStore<double>
           callsOnCompleteTwice: true,
           shouldPaintSand: OnShoreToAny.shouldPaintSand,
         ) {
-    movie = OnShoreMovie.movie;
+    movie = OnShoreMovie.getMovie(
+        shouldInvert: false, startingDirection: WaterDirection.up);
   }
 
   @override

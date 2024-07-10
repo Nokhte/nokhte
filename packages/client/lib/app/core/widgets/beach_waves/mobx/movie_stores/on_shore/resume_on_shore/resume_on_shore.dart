@@ -16,7 +16,8 @@ abstract class _ResumeOnShoreBase
           callsOnCompleteTwice: false,
           shouldPaintSand: OnShoreMovie.shouldPaintSand,
         ) {
-    movie = OnShoreMovie.movie;
+    movie = OnShoreMovie.getMovie(
+        shouldInvert: false, startingDirection: WaterDirection.up);
   }
 
   @override
