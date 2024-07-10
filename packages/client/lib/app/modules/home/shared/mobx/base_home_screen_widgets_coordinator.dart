@@ -29,6 +29,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
   final InstructionalGradientNokhteStore storageInstructionalNokhte;
+  @override
   final BeachWavesStore beachWaves;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
@@ -54,8 +55,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   @action
   constructor(Offset centerParam) {
     consumeRoutingArgs();
-    beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
-    beachWaves.currentStore.initMovie(params);
     errorSmartText.setMessagesData(SharedLists.emptyList);
     secondaryErrorSmartText.setMessagesData(SharedLists.errorConfirmList);
     setCenter(centerParam);

@@ -17,6 +17,7 @@ abstract class _NeedsUpdateWidgetsCoordinatorBase
   final GestureCrossStore gestureCross;
   final TintStore tint;
   final NokhteGradientTextStore gradientText;
+  @override
   final BeachWavesStore beachWaves;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
@@ -36,8 +37,6 @@ abstract class _NeedsUpdateWidgetsCoordinatorBase
   constructor() {
     consumeRoutingArgs();
     gestureCross.fadeInTheCross();
-    beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
-    beachWaves.currentStore.initMovie(params);
     disposers.add(beachWavesMovieStatusReactor());
     tint.initMovie(NoParams());
     gradientText.setWidgetVisibility(false);
