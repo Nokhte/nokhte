@@ -16,9 +16,9 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     with
         Store,
         EnRoute,
+        Reactions,
         EnRouteConsumer,
         SmartTextPaddingAdjuster,
-        Reactions,
         BaseWidgetsCoordinator {
   final NokhteBlurStore nokhteBlur;
   final GestureCrossStore gestureCross;
@@ -243,6 +243,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.resumeOnShore) {
             beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
+            beachWaves.currentStore.initMovie(params.direction);
           } else if (beachWaves.movieMode == BeachWaveMovieModes.anyToOnShore) {
             beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
             beachWaves.currentStore.initMovie(ResumeOnShoreParams.initial());

@@ -100,7 +100,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     primarySmartText.setMessagesData(SharedLists.emptyList);
     secondarySmartText.setMessagesData(SessionStartersList.hasDoneInstructions);
     beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
-    beachWaves.currentStore.setControl(Control.playFromStart);
+    beachWaves.currentStore.initMovie(WaterDirection.down);
     secondarySmartText.startRotatingText();
     disposers.add(centerCrossNokhteReactor());
     disposers.add(gestureCrossTapReactor());

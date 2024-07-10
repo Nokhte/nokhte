@@ -13,7 +13,7 @@ class NeedsUpdateWidgetsCoordinator = _NeedsUpdateWidgetsCoordinatorBase
     with _$NeedsUpdateWidgetsCoordinator;
 
 abstract class _NeedsUpdateWidgetsCoordinatorBase
-    with Store, EnRoute, EnRouteConsumer, Reactions, BaseWidgetsCoordinator {
+    with Store, EnRoute, Reactions, EnRouteConsumer, BaseWidgetsCoordinator {
   final GestureCrossStore gestureCross;
   final TintStore tint;
   final NokhteGradientTextStore gradientText;
