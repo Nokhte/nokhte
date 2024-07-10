@@ -28,9 +28,13 @@ mixin EnRoute {
 }
 
 mixin EnRouteConsumer on EnRoute {
+  BeachWavesStore get beachWaves;
+
   consumeRoutingArgs() {
     if (hasReceivedRoutingArgs) {
       setParams(Modular.args.data[HomeConstants.RESUME_ON_SHORE_PARAMS]);
     }
+    beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
+    beachWaves.currentStore.initMovie(params);
   }
 }
