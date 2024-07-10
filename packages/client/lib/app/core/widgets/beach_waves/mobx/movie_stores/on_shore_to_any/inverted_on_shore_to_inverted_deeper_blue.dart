@@ -39,7 +39,6 @@ abstract class _InvertedOnShoreToOceanInvertedDeeperBlueBase
   @override
   @action
   reverseMovie(double startingWaterPosition) {
-    callsOnCompleteTwice = false;
     setMovie(
       OnShoreToAny.getMovie(
         startingColors: WaterColorsAndStops.invertedBeachWater,
