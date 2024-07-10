@@ -1,9 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -16,12 +15,18 @@ class SessionInstructionsPickerWidgetsCoordinator = _SessionInstructionsPickerWi
     with _$SessionInstructionsPickerWidgetsCoordinator;
 
 abstract class _SessionInstructionsPickerWidgetsCoordinatorBase
-    with Store, BaseWidgetsCoordinator, Reactions {
-  final BeachWavesStore beachWaves;
+    with
+        Store,
+        BaseWidgetsCoordinator,
+        Reactions,
+        EnRoute,
+        EnRouteWidgetsRouter {
   final TintStore tint;
   final ChoiceButtonsStore choiceButtons;
   final GestureCrossStore gestureCross;
   final ChoiceTextStore choiceText;
+  @override
+  final BeachWavesStore beachWaves;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
@@ -37,8 +42,8 @@ abstract class _SessionInstructionsPickerWidgetsCoordinatorBase
   }
 
   @action
-  constructor(Offset centerParam) {
-    setCenter(centerParam);
+  constructor() {
+    setupEnRouteWidgets();
     tint.initMovie(NoParams());
     gestureCross.fadeInTheCross();
     choiceText.fadeIn();
@@ -46,20 +51,10 @@ abstract class _SessionInstructionsPickerWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
     beachWaves.currentStore.initMovie(WaterDirection.down);
     beachWaves.currentStore.setControl(Control.playFromStart);
-    disposers.add(beachWavesMovieStatusReactor());
   }
-
-  @observable
-  WaterDirection waterDirecton = WaterDirection.down;
-
-  @observable
-  int tapCount = 0;
-
-  Stopwatch transitionTimer = Stopwatch();
 
   choiceButtonReactor(Function(ChoiceButtonType choiceButtonType) onTapped) =>
       reaction((p0) => choiceButtons.choiceButtonType, (p0) {
-        transitionTimer.start();
         tint.reverseMovie(NoParams());
         choiceButtons.setWidgetVisibility(false);
         choiceText.setWidgetVisibility(false);
@@ -68,17 +63,5 @@ abstract class _SessionInstructionsPickerWidgetsCoordinatorBase
         });
       });
 
-  beachWavesMovieStatusReactor() =>
-      reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (beachWaves.movieStatus == MovieStatus.finished) {
-          beachWaves.setMovieStatus(MovieStatus.inProgress);
-          if (waterDirecton == WaterDirection.up) {
-            beachWaves.currentStore.setControl(Control.playFromStart);
-            waterDirecton = WaterDirection.down;
-          } else {
-            beachWaves.currentStore.setControl(Control.playReverseFromEnd);
-            waterDirecton = WaterDirection.up;
-          }
-        }
-      });
+
 }

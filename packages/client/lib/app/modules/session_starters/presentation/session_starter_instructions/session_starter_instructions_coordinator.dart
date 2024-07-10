@@ -32,13 +32,6 @@ abstract class _SessionStarterInstructionsCoordinatorBase
   }
 
   @observable
-  ObservableMap additionalRoutingData = ObservableMap.of({});
-
-  @action
-  setAdditionalRoutingData(Map? newMap) =>
-      additionalRoutingData = ObservableMap.of(newMap ?? {});
-
-  @observable
   bool isNavigatingAway = false;
 
   @action

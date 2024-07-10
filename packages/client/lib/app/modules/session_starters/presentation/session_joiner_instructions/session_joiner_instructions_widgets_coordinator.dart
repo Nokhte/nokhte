@@ -61,9 +61,6 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
   bool hasSwipedDown = false;
 
   @observable
-  bool showSecondaryBeachWaves = false;
-
-  @observable
   bool hasInitiatedBlur = false;
 
   @observable

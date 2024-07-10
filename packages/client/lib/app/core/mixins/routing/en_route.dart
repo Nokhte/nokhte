@@ -1,12 +1,53 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
+import 'package:simple_animations/simple_animations.dart';
 
 mixin EnRouteRouter on EnRoute {
   getModularArgs(ResumeOnShoreParams params) => {
         HomeConstants.RESUME_ON_SHORE_PARAMS: params,
       };
+}
+
+mixin EnRouteWidgetsRouter on EnRoute, Reactions {
+  BeachWavesStore get beachWaves;
+
+  final _waterDirection = Observable(WaterDirection.down);
+
+  WaterDirection get waterDirecton => _waterDirection.value;
+
+  _setWaterDirection(WaterDirection params) => _waterDirection.value = params;
+
+  Action actionSetWaterDirection = Action(() {});
+
+  initEnRouteWidgetsActions() {
+    actionSetWaterDirection = Action(_setWaterDirection);
+  }
+
+  setWaterDirection(WaterDirection params) => actionSetWaterDirection([params]);
+
+  beachWavesMovieStatusReactor() =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (beachWaves.movieStatus == MovieStatus.finished) {
+          beachWaves.setMovieStatus(MovieStatus.inProgress);
+          if (waterDirecton == WaterDirection.up) {
+            beachWaves.currentStore.setControl(Control.playFromStart);
+            setWaterDirection(WaterDirection.down);
+          } else {
+            beachWaves.currentStore.setControl(Control.playReverseFromEnd);
+            setWaterDirection(WaterDirection.up);
+          }
+        }
+      });
+
+  setupEnRouteWidgets() {
+    initEnRouteActions();
+    initEnRouteWidgetsActions();
+    disposers.add(beachWavesMovieStatusReactor());
+  }
 }
 
 mixin EnRoute {
@@ -27,7 +68,7 @@ mixin EnRoute {
   bool get hasReceivedRoutingArgs => Modular.args.data.toString() != 'null';
 }
 
-mixin EnRouteConsumer on EnRoute {
+mixin EnRouteConsumer on EnRoute, Reactions {
   BeachWavesStore get beachWaves;
 
   consumeRoutingArgs() {
