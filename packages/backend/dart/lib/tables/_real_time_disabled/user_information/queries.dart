@@ -54,16 +54,16 @@ class UserInformationQueries with UserInformationConstants {
            ${CompanyPresetsQueries.TABLE}(*))
            ''').eq(UID, userUID);
 
-  Future<List> updateHasEnteredStorage(bool hasEnteredStorage) async {
+  Future<List> updateUserFlag(String key, bool value) async {
     final getRes = await getUserInfo();
-    if (getRes.first[HAS_ENTERED_STORAGE] == hasEnteredStorage) {
+    final Map flags = getRes.first[FLAGS];
+    if (flags[key] == value) {
       return getRes;
     } else {
+      flags[key] = value;
       return await supabase
           .from(TABLE)
-          .update({
-            HAS_ENTERED_STORAGE: hasEnteredStorage,
-          })
+          .update({FLAGS: flags})
           .eq(UID, userUID)
           .select();
     }
