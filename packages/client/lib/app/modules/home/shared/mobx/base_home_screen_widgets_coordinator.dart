@@ -16,8 +16,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   final NokhteBlurStore nokhteBlur;
   final GestureCrossStore gestureCross;
   final SmartTextStore primarySmartText;
-  final SmartTextStore errorSmartText;
-  final SmartTextStore secondaryErrorSmartText;
   final TouchRippleStore touchRipple;
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
@@ -32,8 +30,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     required this.wifiDisconnectOverlay,
     required this.gestureCross,
     required this.primarySmartText,
-    required this.errorSmartText,
-    required this.secondaryErrorSmartText,
     required this.touchRipple,
     required this.centerInstructionalNokhte,
     required this.sessionStarterInstructionalNokhte,
@@ -46,9 +42,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @action
   constructor(Offset centerParam) {
-    // consumeRoutingArgs();
-    errorSmartText.setMessagesData(SharedLists.emptyList);
-    secondaryErrorSmartText.setMessagesData(SharedLists.errorConfirmList);
     setCenter(centerParam);
   }
 
@@ -93,55 +86,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
       beachWaves.currentStore
           .initMovie(beachWaves.currentAnimationValues.first);
       gestureCross.initMoveAndRegenerate(CircleOffsets.top);
-    }
-  }
-
-  @action
-  onError(String errorMessage) {
-    errorSmartText.reset();
-    secondaryErrorSmartText.reset();
-    errorSmartText.setMessagesData(SharedLists.getErrorList(errorMessage));
-    secondaryErrorSmartText.setMessagesData(SharedLists.errorConfirmList);
-    errorSmartText.startRotatingText();
-    centerInstructionalNokhte.setWidgetVisibility(false);
-    sessionStarterInstructionalNokhte.setWidgetVisibility(false);
-    storageInstructionalNokhte.setWidgetVisibility(false);
-    secondaryErrorSmartText.startRotatingText();
-    setIsInErrorMode(true);
-  }
-
-  @action
-  onErrorResolved(Function onErrorResolved) {
-    if (isInErrorMode) {
-      if (beachWaves.movieStatus == MovieStatus.finished) {
-        onErrorResolved();
-        hasSwipedUp = false;
-        beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
-        beachWaves.currentStore.initMovie(
-          AnyToOnShoreParams(startingColors: beachWaves.currentColorsAndStops),
-        );
-        beachWaves.setMovieStatus(MovieStatus.inProgress);
-        gestureCross.cross
-            .setWidgetVisibility(gestureCross.cross.pastShowWidget);
-        gestureCross.centerCrossNokhte
-            .setWidgetVisibility(gestureCross.centerCrossNokhte.pastShowWidget);
-        gestureCross.gradientNokhte
-            .setWidgetVisibility(gestureCross.gradientNokhte.pastShowWidget);
-        gestureCross.strokeCrossNokhte
-            .setWidgetVisibility(gestureCross.strokeCrossNokhte.pastShowWidget);
-        errorSmartText.setWidgetVisibility(false);
-        primarySmartText.reset();
-        primarySmartText.setWidgetVisibility(true);
-        primarySmartText.startRotatingText();
-        secondaryErrorSmartText.setWidgetVisibility(false);
-        centerInstructionalNokhte.setWidgetVisibility(true);
-        sessionStarterInstructionalNokhte.setWidgetVisibility(
-            sessionStarterInstructionalNokhte.pastShowWidget);
-        storageInstructionalNokhte.setWidgetVisibility(
-          storageInstructionalNokhte.pastShowWidget,
-        );
-        isEnteringNokhteSession = false;
-      }
     }
   }
 

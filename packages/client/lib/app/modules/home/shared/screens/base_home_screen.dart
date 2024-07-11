@@ -56,21 +56,6 @@ class BaseHomeScreen extends HookWidget {
                 ),
                 Center(
                   child: SmartText(
-                    store: coordinator.widgets.secondaryErrorSmartText,
-                    topPadding: height * .86,
-                    bottomPadding: 0,
-                    opacityDuration: Seconds.get(1),
-                  ),
-                ),
-                Center(
-                  child: SmartText(
-                    store: coordinator.widgets.errorSmartText,
-                    bottomPadding: 180,
-                    opacityDuration: Seconds.get(1),
-                  ),
-                ),
-                Center(
-                  child: SmartText(
                     store: coordinator.widgets.primarySmartText,
                     topPadding:
                         height * coordinator.widgets.smartTextTopPaddingScalar,

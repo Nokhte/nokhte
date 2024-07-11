@@ -22,11 +22,9 @@ class HomeWidgetsModule extends Module {
     );
     i.add<CompassAndQrGuideWidgetsCoordinator>(
       () => CompassAndQrGuideWidgetsCoordinator(
-        errorSmartText: SmartTextStore(),
         nokhteBlur: NokhteBlurStore(),
         primarySmartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
-        secondaryErrorSmartText: SmartTextStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
         touchRipple: TouchRippleStore(),
@@ -37,8 +35,6 @@ class HomeWidgetsModule extends Module {
     );
     i.add<QrNavigationReminderWidgetsCoordinator>(
       () => QrNavigationReminderWidgetsCoordinator(
-        secondaryErrorSmartText: SmartTextStore(),
-        errorSmartText: SmartTextStore(),
         nokhteBlur: NokhteBlurStore(),
         primarySmartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
@@ -53,8 +49,6 @@ class HomeWidgetsModule extends Module {
     i.add<StorageGuideWidgetsCoordinator>(
       () => StorageGuideWidgetsCoordinator(
         swipeGuide: SwipeGuideStore(),
-        secondaryErrorSmartText: SmartTextStore(),
-        errorSmartText: SmartTextStore(),
         nokhteBlur: NokhteBlurStore(),
         primarySmartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
@@ -69,8 +63,6 @@ class HomeWidgetsModule extends Module {
     i.add<CompassAndStorageGuideWidgetsCoordinator>(
       () => CompassAndStorageGuideWidgetsCoordinator(
         swipeGuide: SwipeGuideStore(),
-        secondaryErrorSmartText: SmartTextStore(),
-        errorSmartText: SmartTextStore(),
         nokhteBlur: NokhteBlurStore(),
         primarySmartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
@@ -84,8 +76,6 @@ class HomeWidgetsModule extends Module {
     );
     i.add<ShortQrGuideWidgetsCoordinator>(
       () => ShortQrGuideWidgetsCoordinator(
-        secondaryErrorSmartText: SmartTextStore(),
-        errorSmartText: SmartTextStore(),
         nokhteBlur: NokhteBlurStore(),
         primarySmartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
@@ -99,8 +89,6 @@ class HomeWidgetsModule extends Module {
     );
     i.add<QrAndStorageAdeptWidgetsCoordinator>(
       () => QrAndStorageAdeptWidgetsCoordinator(
-        secondaryErrorSmartText: SmartTextStore(),
-        errorSmartText: SmartTextStore(),
         nokhteBlur: NokhteBlurStore(),
         primarySmartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),

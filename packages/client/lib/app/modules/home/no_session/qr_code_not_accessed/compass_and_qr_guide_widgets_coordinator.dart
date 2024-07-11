@@ -23,8 +23,6 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
     required super.wifiDisconnectOverlay,
     required super.gestureCross,
     required super.primarySmartText,
-    required super.errorSmartText,
-    required super.secondaryErrorSmartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
     required super.sessionStarterInstructionalNokhte,
@@ -81,15 +79,6 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
         (p0) => gestureCross.tapCount,
         (p0) => onGestureCrossTap(),
       );
-
-  @action
-  @override
-  onError(String errorMessage) {
-    super.onError(errorMessage);
-    gestureCross.gradientNokhte.setWidgetVisibility(false);
-    gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-    gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-  }
 
   @action
   onTap(Offset offset) async {

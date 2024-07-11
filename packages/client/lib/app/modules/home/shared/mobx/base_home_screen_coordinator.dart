@@ -89,7 +89,6 @@ abstract class _BaseHomeScreenCoordinatorBase
         if (p0.isNotEmpty) {
           setDisableAllTouchFeedback(true);
           setIsInErrorMode(true);
-          widgets.onError(p0);
           deepLinks.reset();
           sessionStarters.resetErrorMessage();
         }
@@ -118,8 +117,6 @@ abstract class _BaseHomeScreenCoordinatorBase
                 final additionalMetadata =
                     deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
                 await sessionStarters.join(additionalMetadata["deepLinkUID"]);
-                widgets.errorSmartText.setWidgetVisibility(false);
-                widgets.secondaryErrorSmartText.setWidgetVisibility(false);
                 Timer(Seconds.get(2), () {
                   Modular.to.navigate(SessionConstants.preview);
                 });

@@ -48,11 +48,6 @@ abstract class _QrNavigationReminderCoordinatorBase
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        if (isInErrorMode) {
-          widgets.onErrorResolved(() {
-            setIsInErrorMode(true);
-          });
-        }
         ifTouchIsNotDisabled(() {
           widgets.onTap(tap.currentTapPosition);
         });

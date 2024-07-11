@@ -25,10 +25,8 @@ abstract class _StorageGuideWidgetsCoordinatorBase
     required super.wifiDisconnectOverlay,
     required super.gestureCross,
     required super.primarySmartText,
-    required super.errorSmartText,
-    required super.secondaryErrorSmartText,
     required super.touchRipple,
-    required super.centerInstructionalNokhte,
+   required super.centerInstructionalNokhte,
     required super.sessionStarterInstructionalNokhte,
     required super.storageInstructionalNokhte,
   });
