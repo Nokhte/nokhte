@@ -17,9 +17,7 @@ abstract class _CompassAndStorageGuideCoordinatorBase
   final CompassAndStorageGuideWidgetsCoordinator widgets;
 
   _CompassAndStorageGuideCoordinatorBase({
-    required super.sessionStarters,
     required super.swipe,
-    required super.deepLinks,
     required this.widgets,
     required this.getNokhteSessionArtifactsLogic,
     required super.captureScreen,

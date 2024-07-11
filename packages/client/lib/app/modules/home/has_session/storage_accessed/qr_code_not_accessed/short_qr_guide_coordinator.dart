@@ -16,9 +16,7 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
 
   _ShortQrGuideCoordinatorBase({
-    required super.sessionStarters,
     required super.swipe,
-    required super.deepLinks,
     required this.widgets,
     required this.getNokhteSessionArtifactsLogic,
     required super.captureScreen,

@@ -13,10 +13,8 @@ abstract class _QrNavigationReminderCoordinatorBase
   @override
   final QrNavigationReminderWidgetsCoordinator widgets;
   _QrNavigationReminderCoordinatorBase({
-    required super.sessionStarters,
     required super.swipe,
     required this.widgets,
-    required super.deepLinks,
     required super.captureScreen,
     required super.tap,
   }) : super(widgets: widgets);

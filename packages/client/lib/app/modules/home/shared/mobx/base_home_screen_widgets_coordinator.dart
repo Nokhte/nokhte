@@ -34,7 +34,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     required this.sessionStarterInstructionalNokhte,
     required this.storageInstructionalNokhte,
   }) {
-    // initEnRouteActions();
     initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
   }
@@ -58,16 +57,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @action
   toggleHasSwipedUp() => hasSwipedUp = !hasSwipedUp;
-
-  @action
-  onConnected() {
-    setIsDisconnected(false);
-  }
-
-  @action
-  onDisconnected() {
-    setIsDisconnected(true);
-  }
 
   @action
   prepForNavigation({bool excludeUnBlur = false}) {
@@ -116,22 +105,4 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
           onFinished();
         }
       });
-
-  @observable
-  int onCompleteCount = 0;
-
-  @action
-  onDeepLinkOpened() {
-    hasSwipedUp = true;
-    isEnteringNokhteSession = true;
-    primarySmartText.toggleWidgetVisibility();
-    setTouchIsDisabled(true);
-    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToDeepSea);
-    beachWaves.currentStore.initMovie(
-      beachWaves.currentAnimationValues.first,
-    );
-    centerInstructionalNokhte.setWidgetVisibility(false);
-    sessionStarterInstructionalNokhte.setWidgetVisibility(false);
-    gestureCross.fadeAllOut();
-  }
 }

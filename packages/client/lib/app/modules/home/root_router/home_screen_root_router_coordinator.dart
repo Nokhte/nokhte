@@ -6,7 +6,6 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 part 'home_screen_root_router_coordinator.g.dart';
 
@@ -17,7 +16,6 @@ abstract class _HomeScreenRootRouterCoordinatorBase
     with Store, EnRoute, EnRouteRouter, HomeScreenRouter {
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final HomeScreenRootRouterWidgetsCoordinator widgets;
-  final SessionStartersLogicCoordinator sessionStarters;
   final UserMetadataCoordinator userMetadata;
   @override
   final GetUserInfoStore getUserInfo;
@@ -32,7 +30,6 @@ abstract class _HomeScreenRootRouterCoordinatorBase
     required this.cleanUpCollaborationArtifacts,
     required this.userMetadata,
     required this.getUserInfo,
-    required this.sessionStarters,
     required this.widgets,
   }) {
     initEnRouteActions();

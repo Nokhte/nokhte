@@ -12,10 +12,8 @@ abstract class _CompassAndQrGuideCoordinatorBase
   @override
   final CompassAndQrGuideWidgetsCoordinator widgets;
   _CompassAndQrGuideCoordinatorBase({
-    required super.sessionStarters,
     required super.swipe,
     required this.widgets,
-    required super.deepLinks,
     required super.captureScreen,
     required super.tap,
   }) : super(widgets: widgets);

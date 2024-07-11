@@ -17,9 +17,7 @@ abstract class _QrAndStorageAdeptCoordinatorBase
   final QrAndStorageAdeptWidgetsCoordinator widgets;
 
   _QrAndStorageAdeptCoordinatorBase({
-    required super.sessionStarters,
     required super.swipe,
-    required super.deepLinks,
     required this.widgets,
     required this.getNokhteSessionArtifactsLogic,
     required super.captureScreen,
