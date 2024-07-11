@@ -58,20 +58,6 @@ abstract class _BaseHomeScreenCoordinatorBase
     disposers.add(collaboratorPoolEntryErrorReactor());
   }
 
-  @action
-  onResumed() {
-    ifTouchIsNotDisabled(() {
-      widgets.onResumed();
-    });
-  }
-
-  @action
-  onInactive() {
-    ifTouchIsNotDisabled(() {
-      widgets.onInactive();
-    });
-  }
-
   @observable
   bool isInErrorMode = false;
 

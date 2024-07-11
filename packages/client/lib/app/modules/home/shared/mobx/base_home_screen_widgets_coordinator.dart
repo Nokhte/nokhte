@@ -69,39 +69,12 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @action
   onConnected() {
-    onResumed();
     setIsDisconnected(false);
   }
 
   @action
   onDisconnected() {
     setIsDisconnected(true);
-    onInactive();
-    if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToSky) {
-      isEnteringNokhteSession = false;
-      beachWaves.currentStore.setControl(Control.playReverse);
-    }
-  }
-
-  @action
-  onResumed() {
-    if (!hasInitiatedBlur) {
-      primarySmartText.startRotatingText();
-      if (hasInitiatedBlur) {
-        nokhteBlur.reverse();
-        toggleHasInitiatedBlur();
-      }
-    }
-  }
-
-  @action
-  onInactive() {
-    if (!hasInitiatedBlur) {
-      primarySmartText.reset();
-      if (!hasSwipedUp && beachWaves.movieMode == BeachWaveMovieModes.onShore) {
-        beachWaves.currentStore.setControl(Control.mirror);
-      }
-    }
   }
 
   @action
