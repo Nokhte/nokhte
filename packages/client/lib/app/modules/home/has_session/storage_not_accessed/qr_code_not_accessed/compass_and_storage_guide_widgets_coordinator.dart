@@ -139,9 +139,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
   @action
   onSwipeLeft() {
     if (!isDisconnected && isAllowedToMakeAGesture) {
-      if (!hasSwiped() &&
-          primarySmartText.currentIndex == 3 &&
-          hasInitiatedBlur) {
+      if (primarySmartText.currentIndex == 3) {
         setSwipeDirection(GestureDirections.left);
         swipeGuide.setWidgetVisibility(false);
         centerInstructionalNokhte.initMovie(
@@ -151,7 +149,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
         primarySmartText.startRotatingText(isResuming: true);
         setSmartTextPadding(subMessagePadding: 120, topPadding: .15);
         delayedEnableTouchFeedback();
-      } else if (!hasSwiped() && !hasInitiatedBlur && hasTappedOnGestureCross) {
+      } else if (primarySmartText.currentIndex == 5) {
         setSwipeDirection(GestureDirections.left);
         beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
         beachWaves.currentStore.initMovie(
