@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:simple_animations/simple_animations.dart';
 part 'base_home_screen_widgets_coordinator.g.dart';
 
 class BaseHomeScreenWidgetsCoordinator = _BaseHomeScreenWidgetsCoordinatorBase
@@ -117,25 +116,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
           onFinished();
         }
       });
-
-  @action
-  onLongReconnected() {
-    if (wifiDisconnectOverlay.movieMode ==
-        WifiDisconnectMovieModes.removeTheCircle) {
-      if (isDisconnected) setIsDisconnected(false);
-      if (primarySmartText.isPaused) {
-        primarySmartText.resume();
-      }
-      if (hasSwipedUp) {
-        beachWaves.currentStore.setControl(Control.playFromStart);
-        beachWaves.setMovieStatus(MovieStatus.inProgress);
-      }
-      if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToSky) {
-        isEnteringNokhteSession = true;
-        beachWaves.currentStore.setControl(Control.playFromStart);
-      }
-    }
-  }
 
   @observable
   int onCompleteCount = 0;

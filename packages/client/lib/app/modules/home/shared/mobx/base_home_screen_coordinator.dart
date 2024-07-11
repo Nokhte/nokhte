@@ -44,14 +44,17 @@ abstract class _BaseHomeScreenCoordinatorBase
   initReactors() {
     deepLinks.listen();
     disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => setDisableAllTouchFeedback(false),
+      onQuickConnected: () {
+        widgets.setIsDisconnected(false);
+        setDisableAllTouchFeedback(false);
+      },
       onLongReConnected: () {
-        widgets.onLongReconnected();
+        widgets.setIsDisconnected(false);
         setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
         setDisableAllTouchFeedback(true);
-        widgets.onDisconnected();
+        widgets.setIsDisconnected(true);
       },
     ));
     disposers.add(openedDeepLinksReactor());
@@ -69,19 +72,23 @@ abstract class _BaseHomeScreenCoordinatorBase
     required Function onSwipeLeft,
   }) =>
       reaction((p0) => swipe.directionsType, (p0) {
-        switch (p0) {
-          case GestureDirections.up:
-            onSwipeUp();
-          case GestureDirections.left:
-            onSwipeLeft();
-          default:
-            break;
-        }
+        ifTouchIsNotDisabled(() {
+          switch (p0) {
+            case GestureDirections.up:
+              onSwipeUp();
+            case GestureDirections.left:
+              onSwipeLeft();
+            default:
+              break;
+          }
+        });
       });
 
   swipeCoordinatesReactor(Function(Offset) onSwipeUpCoordinatesChanged) =>
       reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
-        onSwipeUpCoordinatesChanged(p0);
+        ifTouchIsNotDisabled(() {
+          onSwipeUpCoordinatesChanged(p0);
+        });
       });
 
   collaboratorPoolEntryErrorReactor() =>
