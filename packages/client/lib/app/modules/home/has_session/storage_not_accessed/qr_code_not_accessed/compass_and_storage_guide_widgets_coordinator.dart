@@ -22,8 +22,12 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
         InstructionalNokhteWidgetUtils,
         EnRoute,
         EnRouteConsumer,
-        HomeScreenWidgetsUtils {
+        HomeScreenWidgetsUtils,
+        CompassInstructionUtils {
+  @override
   final SwipeGuideStore swipeGuide;
+  @override
+  final InstructionalGradientNokhteStore focusInstructionalNokhte;
   _CompassAndStorageGuideWidgetsCoordinatorBase({
     required this.swipeGuide,
     required super.nokhteBlur,
@@ -35,7 +39,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
     required super.centerInstructionalNokhte,
     required super.sessionStarterInstructionalNokhte,
     required super.storageInstructionalNokhte,
-  });
+  }) : focusInstructionalNokhte = storageInstructionalNokhte;
 
   @observable
   bool hasTappedOnGestureCross = false;
@@ -49,7 +53,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
     gestureCross.fadeInTheCross();
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
     primarySmartText.setMessagesData(HomeLists.compassAndStorageGuide);
-    sessionStarterInstructionalNokhte.prepareYellowDiamond(
+    focusInstructionalNokhte.prepareYellowDiamond(
       center,
       position: InstructionalNokhtePositions.right,
       colorway: GradientNokhteColorways.vibrantBlue,
@@ -63,61 +67,61 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
     disposers.add(gestureCrossTapReactor());
     disposers.add(centerInstructionalNokhteReactor());
     disposers.add(centerCrossNokhteReactor(() {
-      sessionStarterInstructionalNokhte.setWidgetVisibility(false);
+      focusInstructionalNokhte.setWidgetVisibility(false);
     }));
   }
 
-  @action
-  onTap(Offset offset) async {
-    if (!isDisconnected && !touchIsDisabled) {
-      if (primarySmartText.currentIndex == 1) {
-        setTouchIsDisabled(true);
-        primarySmartText.startRotatingText(isResuming: true);
-        centerInstructionalNokhte.moveToCenter(center);
-        touchRipple.onTap(offset);
-        setSmartTextPadding(
-          subMessagePadding: 80,
-          topPadding: 0.1,
-          bottomPadding: 0,
-        );
-        delayedEnableTouchFeedback();
-      } else if (primarySmartText.currentIndex == 2) {
-        setTouchIsDisabled(true);
-        primarySmartText.startRotatingText(isResuming: true);
-        sessionStarterInstructionalNokhte.setWidgetVisibility(true);
-        swipeGuide.setWidgetVisibility(true);
-        touchRipple.onTap(offset);
-        delayedEnableTouchFeedback();
-      } else if (primarySmartText.currentIndex == 4) {
-        primarySmartText.startRotatingText(isResuming: true);
-        setSwipeDirection(GestureDirections.initial);
-        setTouchIsDisabled(true);
-        Timer(Seconds.get(1, milli: 500), () {
-          sessionStarterInstructionalNokhte.initMovie(
-            InstructionalGradientMovieParams(
-              center: center,
-              colorway: GradientNokhteColorways.vibrantBlue,
-              direction: InstructionalGradientDirections.shrink,
-              position: InstructionalNokhtePositions.right,
-            ),
-          );
-          centerInstructionalNokhte.moveBackToCross(
-            startingPosition: CenterNokhtePositions.right,
-          );
-        });
-        setHasInitiatedBlur(false);
-        beachWaves.currentStore.setControl(Control.mirror);
-        nokhteBlur.reverse();
-        touchRipple.onTap(offset);
-        setSmartTextPadding(
-          bottomPadding: .2,
-          topPadding: 0,
-        );
-        delayedEnableTouchFeedback();
-        // await onFlowCompleted();
-      }
-    }
-  }
+  // @action
+  // onTap(Offset offset) async {
+  //   if (!isDisconnected && !touchIsDisabled) {
+  //     if (primarySmartText.currentIndex == 1) {
+  //       setTouchIsDisabled(true);
+  //       primarySmartText.startRotatingText(isResuming: true);
+  //       centerInstructionalNokhte.moveToCenter(center);
+  //       touchRipple.onTap(offset);
+  //       setSmartTextPadding(
+  //         subMessagePadding: 80,
+  //         topPadding: 0.1,
+  //         bottomPadding: 0,
+  //       );
+  //       delayedEnableTouchFeedback();
+  //     } else if (primarySmartText.currentIndex == 2) {
+  //       setTouchIsDisabled(true);
+  //       primarySmartText.startRotatingText(isResuming: true);
+  //       sessionStarterInstructionalNokhte.setWidgetVisibility(true);
+  //       swipeGuide.setWidgetVisibility(true);
+  //       touchRipple.onTap(offset);
+  //       delayedEnableTouchFeedback();
+  //     } else if (primarySmartText.currentIndex == 4) {
+  //       primarySmartText.startRotatingText(isResuming: true);
+  //       setSwipeDirection(GestureDirections.initial);
+  //       setTouchIsDisabled(true);
+  //       Timer(Seconds.get(1, milli: 500), () {
+  //         sessionStarterInstructionalNokhte.initMovie(
+  //           InstructionalGradientMovieParams(
+  //             center: center,
+  //             colorway: GradientNokhteColorways.vibrantBlue,
+  //             direction: InstructionalGradientDirections.shrink,
+  //             position: InstructionalNokhtePositions.right,
+  //           ),
+  //         );
+  //         centerInstructionalNokhte.moveBackToCross(
+  //           startingPosition: CenterNokhtePositions.right,
+  //         );
+  //       });
+  //       setHasInitiatedBlur(false);
+  //       beachWaves.currentStore.setControl(Control.mirror);
+  //       nokhteBlur.reverse();
+  //       touchRipple.onTap(offset);
+  //       setSmartTextPadding(
+  //         bottomPadding: .2,
+  //         topPadding: 0,
+  //       );
+  //       delayedEnableTouchFeedback();
+  //       // await onFlowCompleted();
+  //     }
+  //   }
+  // }
 
   @action
   onGestureCrossTap() {
@@ -145,7 +149,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
         centerInstructionalNokhte.initMovie(
           InstructionalNokhtePositions.right,
         );
-        sessionStarterInstructionalNokhte.setControl(Control.playFromStart);
+        focusInstructionalNokhte.setControl(Control.playFromStart);
         primarySmartText.startRotatingText(isResuming: true);
         setSmartTextPadding(subMessagePadding: 120, topPadding: .15);
         delayedEnableTouchFeedback();
@@ -176,7 +180,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
           setSwipeDirection(GestureDirections.initial);
           Timer(Seconds.get(1), () {
             centerInstructionalNokhte.setWidgetVisibility(false);
-            sessionStarterInstructionalNokhte.setWidgetVisibility(false);
+            focusInstructionalNokhte.setWidgetVisibility(false);
             setTouchIsDisabled(false);
           });
         }

@@ -61,7 +61,7 @@ class HomeLists {
   static List<RotatingTextData> get compassAndQrGuide => [
         ...compassGuide(GestureDirections.up),
         InstructionItems.sessionStarterExplanation,
-        SharedLists.emptyItem,
+        InstructionItems.swipeUp,
       ];
 
   static List<RotatingTextData> get qrNavigationReminder => [

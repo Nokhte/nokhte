@@ -28,7 +28,7 @@ class CompassAndStorageGuideScreen extends BaseHomeScreen {
                 store: coordinator.widgets.centerInstructionalNokhte,
               ),
               InstructionalGradientNokhte(
-                store: coordinator.widgets.sessionStarterInstructionalNokhte,
+                store: coordinator.widgets.focusInstructionalNokhte,
               ),
             ],
           ),
