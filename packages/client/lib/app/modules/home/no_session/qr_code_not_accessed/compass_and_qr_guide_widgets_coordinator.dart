@@ -44,6 +44,7 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
   @action
   constructor(Offset center) {
     initHomeUtils();
+    initCompassInstructionUtils();
     initInstructionalNokhteUtils(center);
     primarySmartText.setMessagesData(HomeLists.compassAndQrGuide);
     primarySmartText.startRotatingText();
@@ -59,8 +60,6 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
 
   @action
   initReactors() {
-    disposers.add(gestureCrossTapReactor());
-    disposers.add(centerInstructionalNokhteReactor());
     disposers.add(centerCrossNokhteReactor(() {}));
   }
 
@@ -81,84 +80,9 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
           setTouchIsDisabled(false);
         });
       } else if (primarySmartText.currentIndex.equals(5)) {
+        focusInstructionalNokhte.setWidgetVisibility(false);
         prepForNavigation(excludeUnBlur: true);
       }
-    }
-  }
-
-  gestureCrossTapReactor() => reaction(
-        (p0) => gestureCross.tapCount,
-        (p0) => onGestureCrossTap(),
-      );
-
-  // @action
-  // onTap(Offset offset) async {
-  //   if (!isDisconnected && !touchIsDisabled) {
-  //     if (primarySmartText.currentIndex == 1) {
-  //       setTouchIsDisabled(true);
-  //       primarySmartText.startRotatingText(isResuming: true);
-  //       centerInstructionalNokhte.moveToCenter(center);
-  //       touchRipple.onTap(offset);
-  //       setSmartTextPadding(
-  //         subMessagePadding: 80.0,
-  //         topPadding: 0.1,
-  //         bottomPadding: 0.0,
-  //       );
-  //       delayedEnableTouchFeedback();
-  //     } else if (primarySmartText.currentIndex == 2) {
-  //       setTouchIsDisabled(true);
-  //       primarySmartText.startRotatingText(isResuming: true);
-  //       sessionStarterInstructionalNokhte.setWidgetVisibility(true);
-  //       touchRipple.onTap(offset);
-  //       delayedEnableTouchFeedback();
-  //     } else if (primarySmartText.currentIndex == 4) {
-  //       primarySmartText.startRotatingText(isResuming: true);
-  //       setTouchIsDisabled(true);
-  //       Timer(Seconds.get(1, milli: 500), () {
-  //         sessionStarterInstructionalNokhte.initMovie(
-  //           InstructionalGradientMovieParams(
-  //             center: center,
-  //             colorway: GradientNokhteColorways.invertedBeachWave,
-  //             direction: InstructionalGradientDirections.shrink,
-  //             position: InstructionalNokhtePositions.top,
-  //           ),
-  //         );
-  //         centerInstructionalNokhte.moveBackToCross(
-  //           startingPosition: CenterNokhtePositions.top,
-  //         );
-  //       });
-  //       beachWaves.currentStore.setControl(Control.mirror);
-  //       nokhteBlur.reverse();
-  //       touchRipple.onTap(offset);
-  //     }
-  //   }
-  // }
-
-  centerInstructionalNokhteReactor() =>
-      reaction((p0) => centerInstructionalNokhte.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            centerInstructionalNokhte.movieMode ==
-                CenterInstructionalNokhteMovieModes.moveBack) {
-          gestureCross.fadeIn();
-          Timer(Seconds.get(1), () {
-            centerInstructionalNokhte.setWidgetVisibility(false);
-            focusInstructionalNokhte.setWidgetVisibility(false);
-            setTouchIsDisabled(false);
-          });
-        }
-      });
-
-  @action
-  onGestureCrossTap() {
-    if (!isDisconnected &&
-        !hasInitiatedBlur &&
-        !isEnteringNokhteSession &&
-        !isInErrorMode) {
-      nokhteBlur.init();
-      beachWaves.currentStore.setControl(Control.stop);
-      setHasInitiatedBlur(true);
-      primarySmartText.startRotatingText(isResuming: true);
-      setSmartTextPadding(subMessagePadding: 110.0, bottomPadding: 0.23);
     }
   }
 }

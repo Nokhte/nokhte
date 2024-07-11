@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -11,15 +12,15 @@ mixin CompassInstructionUtils
     on
         SmartTextPaddingAdjuster,
         BaseWidgetsCoordinator,
-        HomeScreenWidgetsUtils {
+        HomeScreenWidgetsUtils,
+        Reactions {
   SmartTextStore get primarySmartText;
   CenterInstructionalNokhteStore get centerInstructionalNokhte;
   InstructionalGradientNokhteStore get focusInstructionalNokhte;
   TouchRippleStore get touchRipple;
   SwipeGuideStore? get swipeGuide;
   NokhteBlurStore get nokhteBlur;
-
-  //
+  GestureCrossStore get gestureCross;
 
   onTap(
     Offset offset, {
@@ -72,8 +73,42 @@ mixin CompassInstructionUtils
           topPadding: 0,
         );
         delayedEnableTouchFeedback();
-        // await onFlowCompleted();
       }
     }
   }
+
+  initCompassInstructionUtils() {
+    disposers.add(gestureCrossTapReactor());
+    disposers.add(centerInstructionalNokhteReactor());
+  }
+
+  onGestureCrossTap() {
+    if (!isDisconnected && !hasInitiatedBlur) {
+      nokhteBlur.init();
+      beachWaves.currentStore.setControl(Control.stop);
+      setHasInitiatedBlur(true);
+      primarySmartText.startRotatingText(isResuming: true);
+      setSmartTextPadding(subMessagePadding: 110, bottomPadding: .23);
+      delayedEnableTouchFeedback();
+    }
+  }
+
+  centerInstructionalNokhteReactor() =>
+      reaction((p0) => centerInstructionalNokhte.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished &&
+            centerInstructionalNokhte.movieMode ==
+                CenterInstructionalNokhteMovieModes.moveBack) {
+          gestureCross.fadeIn();
+          Timer(Seconds.get(1), () {
+            centerInstructionalNokhte.setWidgetVisibility(false);
+            focusInstructionalNokhte.setWidgetVisibility(false);
+            setTouchIsDisabled(false);
+          });
+        }
+      });
+
+  gestureCrossTapReactor() => reaction(
+        (p0) => gestureCross.tapCount,
+        (p0) => onGestureCrossTap(),
+      );
 }
