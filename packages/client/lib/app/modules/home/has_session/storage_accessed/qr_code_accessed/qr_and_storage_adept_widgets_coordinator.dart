@@ -36,7 +36,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
   @override
   @action
   constructor(Offset offset) {
-    initUtils();
+    initHomeUtils();
     super.constructor(offset);
     gestureCross.fadeIn();
     primarySmartText.setMessagesData(HomeLists.qrAndStorageAdept);
@@ -76,9 +76,6 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
 
   @observable
   bool canTapOnGestureCross = true;
-
-  @observable
-  bool hasSwiped = false;
 
   @observable
   bool canTap = false;

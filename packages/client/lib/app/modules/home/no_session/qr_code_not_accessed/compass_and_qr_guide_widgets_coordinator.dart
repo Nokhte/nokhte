@@ -16,7 +16,13 @@ class CompassAndQrGuideWidgetsCoordinator = _CompassAndQrGuideWidgetsCoordinator
 
 abstract class _CompassAndQrGuideWidgetsCoordinatorBase
     extends BaseHomeScreenWidgetsCoordinator
-    with Store, Reactions, EnRoute, EnRouteConsumer, HomeScreenWidgetsUtils {
+    with
+        Store,
+        Reactions,
+        InstructionalNokhteWidgetUtils,
+        EnRoute,
+        EnRouteConsumer,
+        HomeScreenWidgetsUtils {
   _CompassAndQrGuideWidgetsCoordinatorBase({
     required super.nokhteBlur,
     required super.beachWaves,
@@ -31,9 +37,10 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
 
   @override
   @action
-  constructor(Offset centerParam) {
-    initUtils();
-    super.constructor(centerParam);
+  constructor(Offset center) {
+    initHomeUtils();
+    initInstructionalNokhteUtils(center);
+    // super.constructor(centerParam);
     primarySmartText.setMessagesData(HomeLists.compassAndQrGuide);
     primarySmartText.startRotatingText();
     gestureCross.fadeInTheCross();
@@ -145,13 +152,9 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
         !isInErrorMode) {
       nokhteBlur.init();
       beachWaves.currentStore.setControl(Control.stop);
-      toggleHasInitiatedBlur();
+      setHasInitiatedBlur(true);
       primarySmartText.startRotatingText(isResuming: true);
-      setSmartTextPadding(
-        subMessagePadding: 110.0,
-        bottomPadding: 0.23,
-        topPadding: 0.0,
-      );
+      setSmartTextPadding(subMessagePadding: 110.0, bottomPadding: 0.23);
     }
   }
 }

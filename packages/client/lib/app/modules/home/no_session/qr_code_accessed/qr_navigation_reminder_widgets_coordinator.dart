@@ -43,7 +43,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
   @override
   @action
   constructor(Offset offset) {
-    initUtils();
+    initHomeUtils();
     super.constructor(offset);
     primarySmartText.setMessagesData(HomeLists.qrNavigationReminder);
     primarySmartText.startRotatingText();

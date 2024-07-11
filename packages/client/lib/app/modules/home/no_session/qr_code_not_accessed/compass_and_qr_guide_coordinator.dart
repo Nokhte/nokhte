@@ -9,7 +9,6 @@ class CompassAndQrGuideCoordinator = _CompassAndQrGuideCoordinatorBase
 
 abstract class _CompassAndQrGuideCoordinatorBase
     extends BaseHomeScreenCoordinator with Store {
-  @override
   final CompassAndQrGuideWidgetsCoordinator widgets;
   _CompassAndQrGuideCoordinatorBase({
     required super.swipe,

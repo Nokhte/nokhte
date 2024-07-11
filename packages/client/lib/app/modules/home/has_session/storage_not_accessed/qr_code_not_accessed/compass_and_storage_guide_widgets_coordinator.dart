@@ -16,7 +16,13 @@ class CompassAndStorageGuideWidgetsCoordinator = _CompassAndStorageGuideWidgetsC
 
 abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
     extends BaseHomeScreenWidgetsCoordinator
-    with Store, Reactions, EnRoute, EnRouteConsumer, HomeScreenWidgetsUtils {
+    with
+        Store,
+        Reactions,
+        InstructionalNokhteWidgetUtils,
+        EnRoute,
+        EnRouteConsumer,
+        HomeScreenWidgetsUtils {
   final SwipeGuideStore swipeGuide;
   _CompassAndStorageGuideWidgetsCoordinatorBase({
     required this.swipeGuide,
@@ -32,20 +38,13 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
   });
 
   @observable
-  bool gracePeriodHasExpired = false;
-
-  @action
-  toggleGracePeriodHasExpired() =>
-      gracePeriodHasExpired = !gracePeriodHasExpired;
-
-  @observable
   bool hasTappedOnGestureCross = false;
 
   @override
   @action
-  constructor(Offset offset) {
-    initUtils();
-    super.constructor(offset);
+  constructor(Offset center) {
+    initHomeUtils();
+    initInstructionalNokhteUtils(center);
     swipeGuide.setWidgetVisibility(false);
     gestureCross.fadeInTheCross();
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
@@ -91,7 +90,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
         delayedEnableTouchFeedback();
       } else if (primarySmartText.currentIndex == 4) {
         primarySmartText.startRotatingText(isResuming: true);
-        hasSwipedUp = false;
+        setSwipeDirection(GestureDirections.initial);
         setTouchIsDisabled(true);
         Timer(Seconds.get(1, milli: 500), () {
           sessionStarterInstructionalNokhte.initMovie(
@@ -106,7 +105,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
             startingPosition: CenterNokhtePositions.right,
           );
         });
-        hasInitiatedBlur = false;
+        setHasInitiatedBlur(false);
         beachWaves.currentStore.setControl(Control.mirror);
         nokhteBlur.reverse();
         touchRipple.onTap(offset);
@@ -129,7 +128,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
         !hasTappedOnGestureCross) {
       nokhteBlur.init();
       beachWaves.currentStore.setControl(Control.stop);
-      toggleHasInitiatedBlur();
+      setHasInitiatedBlur(true);
       primarySmartText.startRotatingText(isResuming: true);
       setSmartTextPadding(subMessagePadding: 110, bottomPadding: .23);
       delayedEnableTouchFeedback();
@@ -140,10 +139,10 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
   @action
   onSwipeLeft() {
     if (!isDisconnected && isAllowedToMakeAGesture) {
-      if (!hasSwipedUp &&
+      if (!hasSwiped() &&
           primarySmartText.currentIndex == 3 &&
           hasInitiatedBlur) {
-        hasSwipedUp = true;
+        setSwipeDirection(GestureDirections.left);
         swipeGuide.setWidgetVisibility(false);
         centerInstructionalNokhte.initMovie(
           InstructionalNokhtePositions.right,
@@ -152,8 +151,8 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
         primarySmartText.startRotatingText(isResuming: true);
         setSmartTextPadding(subMessagePadding: 120, topPadding: .15);
         delayedEnableTouchFeedback();
-      } else if (!hasSwipedUp && !hasInitiatedBlur && hasTappedOnGestureCross) {
-        hasSwipedUp = true;
+      } else if (!hasSwiped() && !hasInitiatedBlur && hasTappedOnGestureCross) {
+        setSwipeDirection(GestureDirections.left);
         beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
         beachWaves.currentStore.initMovie(
           beachWaves.currentAnimationValues.first,
@@ -176,7 +175,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
             centerInstructionalNokhte.movieMode ==
                 CenterInstructionalNokhteMovieModes.moveBack) {
           gestureCross.fadeIn();
-          hasSwipedUp = false;
+          setSwipeDirection(GestureDirections.initial);
           Timer(Seconds.get(1), () {
             centerInstructionalNokhte.setWidgetVisibility(false);
             sessionStarterInstructionalNokhte.setWidgetVisibility(false);

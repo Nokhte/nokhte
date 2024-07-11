@@ -42,7 +42,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
   @override
   @action
   constructor(Offset offset) {
-    initUtils();
+    initHomeUtils();
     super.constructor(offset);
     setTouchIsDisabled(true);
     gestureCross.fadeIn();

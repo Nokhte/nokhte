@@ -34,7 +34,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
   @override
   @action
   constructor(Offset offset) {
-    initUtils();
+    initHomeUtils();
     super.constructor(offset);
     swipeGuide.setWidgetVisibility(false);
     gestureCross.fadeIn();

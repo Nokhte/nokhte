@@ -8,7 +8,8 @@ import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 
 mixin HomeScreenWidgetsUtils on Reactions, EnRoute, EnRouteConsumer {
-  initUtils() {
+  initHomeUtils() {
+    initHomeWidgetActions();
     initEnRouteActions();
     consumeRoutingArgs();
     disposers.add(beachWavesMovieStatusReactor());
@@ -28,4 +29,49 @@ mixin HomeScreenWidgetsUtils on Reactions, EnRoute, EnRouteConsumer {
           }
         }
       });
+
+  final _swipeDirection = Observable(GestureDirections.initial);
+  final _hasInitiatedBlur = Observable(false);
+  final _isDisconnected = Observable(false);
+  final _touchIsDisabled = Observable(false);
+
+  hasSwiped() => _swipeDirection.value != GestureDirections.initial;
+
+  GestureDirections get swipeDirection => _swipeDirection.value;
+  bool get hasInitiatedBlur => _hasInitiatedBlur.value;
+  bool get isDisconnected => _isDisconnected.value;
+  bool get touchIsDisabled => _touchIsDisabled.value;
+
+  _setSwipeDirection(GestureDirections value) => _swipeDirection.value = value;
+  _setHasInitiatedBlur(bool value) => _hasInitiatedBlur.value = value;
+  _setIsDisconnected(bool value) => _isDisconnected.value = value;
+  _setTouchIsDisabled(bool value) => _touchIsDisabled.value = value;
+
+  Action actionSetSwipeDirection = Action(() {});
+  Action actionSetHasInitiatedBlur = Action(() {});
+  Action actionSetIsDisconnected = Action(() {});
+  Action actionSetTouchIsDisabled = Action(() {});
+
+  initHomeWidgetActions() {
+    actionSetSwipeDirection = Action(_setSwipeDirection);
+    actionSetHasInitiatedBlur = Action(_setHasInitiatedBlur);
+    actionSetIsDisconnected = Action(_setIsDisconnected);
+    actionSetTouchIsDisabled = Action(_setTouchIsDisabled);
+  }
+
+  setTouchIsDisabled(bool value) {
+    actionSetTouchIsDisabled([value]);
+  }
+
+  setIsDisconnected(bool value) {
+    actionSetIsDisconnected([value]);
+  }
+
+  setHasInitiatedBlur(bool value) {
+    actionSetHasInitiatedBlur([value]);
+  }
+
+  setSwipeDirection(GestureDirections value) {
+    actionSetSwipeDirection([value]);
+  }
 }
