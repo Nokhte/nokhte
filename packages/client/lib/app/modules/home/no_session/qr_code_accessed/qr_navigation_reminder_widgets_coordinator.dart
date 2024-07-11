@@ -4,6 +4,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -14,7 +16,8 @@ class QrNavigationReminderWidgetsCoordinator = _QrNavigationReminderWidgetsCoord
     with _$QrNavigationReminderWidgetsCoordinator;
 
 abstract class _QrNavigationReminderWidgetsCoordinatorBase
-    extends BaseHomeScreenWidgetsCoordinator with Store {
+    extends BaseHomeScreenWidgetsCoordinator
+    with Store, Reactions, EnRoute, EnRouteConsumer, HomeScreenWidgetsUtils {
   _QrNavigationReminderWidgetsCoordinatorBase({
     required super.nokhteBlur,
     required super.beachWaves,
@@ -42,6 +45,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
   @override
   @action
   constructor(Offset offset) {
+    initUtils();
     super.constructor(offset);
     primarySmartText.setMessagesData(HomeLists.qrNavigationReminder);
     primarySmartText.startRotatingText();

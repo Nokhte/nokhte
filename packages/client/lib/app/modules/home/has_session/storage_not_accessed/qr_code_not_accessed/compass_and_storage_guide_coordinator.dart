@@ -48,14 +48,6 @@ abstract class _CompassAndStorageGuideCoordinatorBase
         widgets.onSwipeLeft();
       },
     ));
-    disposers.add(widgets.beachWavesMovieStatusReactor(
-      onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
-      onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
-      onStorageEntry: onSubsequentStorageEntry,
-      onAnyToShoreComplete: () {
-        setDisableAllTouchFeedback(false);
-      },
-    ));
     disposers.add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
     disposers.add(tapReactor());
   }

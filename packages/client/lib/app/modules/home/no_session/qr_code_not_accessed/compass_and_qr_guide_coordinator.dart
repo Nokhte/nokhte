@@ -38,13 +38,6 @@ abstract class _CompassAndQrGuideCoordinatorBase
       onSwipeLeft: () {},
     ));
     disposers.add(swipeCoordinatesReactor(onSwipeUpCordinatesChanged));
-    disposers.add(widgets.beachWavesMovieStatusReactor(
-        onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
-        onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
-        onStorageEntry: () {},
-        onAnyToShoreComplete: () {
-          setDisableAllTouchFeedback(false);
-        }));
     disposers.add(tapReactor());
   }
 

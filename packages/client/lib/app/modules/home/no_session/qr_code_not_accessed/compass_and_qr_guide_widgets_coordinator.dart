@@ -2,6 +2,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -13,7 +15,8 @@ class CompassAndQrGuideWidgetsCoordinator = _CompassAndQrGuideWidgetsCoordinator
     with _$CompassAndQrGuideWidgetsCoordinator;
 
 abstract class _CompassAndQrGuideWidgetsCoordinatorBase
-    extends BaseHomeScreenWidgetsCoordinator with Store {
+    extends BaseHomeScreenWidgetsCoordinator
+    with Store, Reactions, EnRoute, EnRouteConsumer, HomeScreenWidgetsUtils {
   _CompassAndQrGuideWidgetsCoordinatorBase({
     required super.nokhteBlur,
     required super.beachWaves,
@@ -31,6 +34,7 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
   @override
   @action
   constructor(Offset centerParam) {
+    initUtils();
     super.constructor(centerParam);
     primarySmartText.setMessagesData(HomeLists.compassAndQrGuide);
     primarySmartText.startRotatingText();

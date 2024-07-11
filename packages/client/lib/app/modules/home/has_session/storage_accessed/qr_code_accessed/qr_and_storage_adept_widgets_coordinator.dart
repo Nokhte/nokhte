@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -11,7 +12,8 @@ class QrAndStorageAdeptWidgetsCoordinator = _QrAndStorageAdeptWidgetsCoordinator
     with _$QrAndStorageAdeptWidgetsCoordinator;
 
 abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
-    extends BaseHomeScreenWidgetsCoordinator with Store {
+    extends BaseHomeScreenWidgetsCoordinator
+    with Store, EnRoute, EnRouteConsumer, HomeScreenWidgetsUtils {
   _QrAndStorageAdeptWidgetsCoordinatorBase({
     required super.nokhteBlur,
     required super.beachWaves,
@@ -36,6 +38,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
   @override
   @action
   constructor(Offset offset) {
+    initUtils();
     super.constructor(offset);
     gestureCross.fadeIn();
     primarySmartText.setMessagesData(HomeLists.qrAndStorageAdept);

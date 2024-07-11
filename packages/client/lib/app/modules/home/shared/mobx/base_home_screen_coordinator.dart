@@ -10,7 +10,6 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
-import 'package:nokhte/app/modules/storage/constants/constants.dart';
 import 'base_home_screen_widgets_coordinator.dart';
 part 'base_home_screen_coordinator.g.dart';
 
@@ -78,32 +77,6 @@ abstract class _BaseHomeScreenCoordinatorBase
 
   @action
   setIsInErrorMode(bool value) => isInErrorMode = value;
-
-  @action
-  onShoreToOceanDiveComplete() {
-    Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      if (widgets.touchRipple.movieStatus == MovieStatus.finished) {
-        Modular.to.navigate(SessionStarterConstants.sessionStarterEntry);
-        timer.cancel();
-      }
-    });
-  }
-
-  @action
-  onShoreToDeepSeaComplete() => Modular.to.navigate(
-        SessionConstants.preview,
-        arguments: deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
-      );
-
-  @action
-  onSubsequentStorageEntry() {
-    Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      if (widgets.touchRipple.movieStatus == MovieStatus.finished) {
-        Modular.to.navigate(StorageConstants.root);
-        timer.cancel();
-      }
-    });
-  }
 
   swipeReactor({
     required Function onSwipeUp,

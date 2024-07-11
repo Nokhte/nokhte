@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -13,13 +12,7 @@ class BaseHomeScreenWidgetsCoordinator = _BaseHomeScreenWidgetsCoordinatorBase
     with _$BaseHomeScreenWidgetsCoordinator;
 
 abstract class _BaseHomeScreenWidgetsCoordinatorBase
-    with
-        Store,
-        EnRoute,
-        Reactions,
-        EnRouteConsumer,
-        SmartTextPaddingAdjuster,
-        BaseWidgetsCoordinator {
+    with Store, Reactions, SmartTextPaddingAdjuster, BaseWidgetsCoordinator {
   final NokhteBlurStore nokhteBlur;
   final GestureCrossStore gestureCross;
   final SmartTextStore primarySmartText;
@@ -29,7 +22,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
   final InstructionalGradientNokhteStore storageInstructionalNokhte;
-  @override
   final BeachWavesStore beachWaves;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
@@ -47,14 +39,14 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     required this.sessionStarterInstructionalNokhte,
     required this.storageInstructionalNokhte,
   }) {
-    initEnRouteActions();
+    // initEnRouteActions();
     initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
   }
 
   @action
   constructor(Offset centerParam) {
-    consumeRoutingArgs();
+    // consumeRoutingArgs();
     errorSmartText.setMessagesData(SharedLists.emptyList);
     secondaryErrorSmartText.setMessagesData(SharedLists.errorConfirmList);
     setCenter(centerParam);
@@ -227,36 +219,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
       }
     }
   }
-
-  beachWavesMovieStatusReactor({
-    required Function onShoreToOceanDiveComplete,
-    required Function onShoreToDeepSeaComplete,
-    required Function onStorageEntry,
-    required Function onAnyToShoreComplete,
-  }) =>
-      reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
-            onShoreToOceanDiveComplete();
-          } else if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToSky) {
-            onStorageEntry();
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.resumeOnShore) {
-            beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
-            beachWaves.currentStore.initMovie(params.direction);
-          } else if (beachWaves.movieMode == BeachWaveMovieModes.anyToOnShore) {
-            beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
-            beachWaves.currentStore.initMovie(ResumeOnShoreParams.initial());
-            onAnyToShoreComplete();
-            setIsInErrorMode(false);
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.onShoreToDeepSea) {
-            if (!isInErrorMode) {
-              onShoreToDeepSeaComplete();
-            }
-          }
-        }
-      });
 
   @observable
   int onCompleteCount = 0;

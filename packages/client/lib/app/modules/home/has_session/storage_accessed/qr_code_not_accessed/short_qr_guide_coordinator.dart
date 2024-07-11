@@ -46,14 +46,6 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
       onSwipeLeft: () => widgets.onSwipeLeft(),
     ));
     disposers.add(tapReactor());
-    disposers.add(widgets.beachWavesMovieStatusReactor(
-      onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
-      onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
-      onStorageEntry: onSubsequentStorageEntry,
-      onAnyToShoreComplete: () {
-        setDisableAllTouchFeedback(false);
-      },
-    ));
     disposers.add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
   }
 

@@ -3,6 +3,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -13,7 +15,8 @@ class ShortQrGuideWidgetsCoordinator = _ShortQrGuideWidgetsCoordinatorBase
     with _$ShortQrGuideWidgetsCoordinator;
 
 abstract class _ShortQrGuideWidgetsCoordinatorBase
-    extends BaseHomeScreenWidgetsCoordinator with Store {
+    extends BaseHomeScreenWidgetsCoordinator
+    with Store, Reactions, EnRoute, EnRouteConsumer, HomeScreenWidgetsUtils {
   _ShortQrGuideWidgetsCoordinatorBase({
     required super.nokhteBlur,
     required super.beachWaves,
@@ -41,6 +44,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
   @override
   @action
   constructor(Offset offset) {
+    initUtils();
     super.constructor(offset);
     setTouchIsDisabled(true);
     gestureCross.fadeIn();

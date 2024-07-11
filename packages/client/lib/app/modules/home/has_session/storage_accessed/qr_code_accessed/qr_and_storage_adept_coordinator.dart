@@ -46,14 +46,7 @@ abstract class _QrAndStorageAdeptCoordinatorBase
       onSwipeUp: () => widgets.onSwipeUp(),
       onSwipeLeft: () => widgets.onSwipeLeft(),
     ));
-    disposers.add(widgets.beachWavesMovieStatusReactor(
-      onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
-      onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
-      onAnyToShoreComplete: () {
-        setDisableAllTouchFeedback(false);
-      },
-      onStorageEntry: onSubsequentStorageEntry,
-    ));
+    disposers.add(widgets.beachWavesMovieStatusReactor());
     disposers.add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
     disposers.add(tapReactor());
   }

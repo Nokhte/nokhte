@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -13,7 +15,8 @@ class StorageGuideWidgetsCoordinator = _StorageGuideWidgetsCoordinatorBase
     with _$StorageGuideWidgetsCoordinator;
 
 abstract class _StorageGuideWidgetsCoordinatorBase
-    extends BaseHomeScreenWidgetsCoordinator with Store {
+    extends BaseHomeScreenWidgetsCoordinator
+    with Store, Reactions, EnRoute, EnRouteConsumer, HomeScreenWidgetsUtils {
   final SwipeGuideStore swipeGuide;
   _StorageGuideWidgetsCoordinatorBase({
     required this.swipeGuide,
@@ -33,6 +36,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
   @override
   @action
   constructor(Offset offset) {
+    initUtils();
     super.constructor(offset);
     swipeGuide.setWidgetVisibility(false);
     gestureCross.fadeIn();
