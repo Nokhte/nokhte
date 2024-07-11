@@ -12,12 +12,12 @@ abstract class _UserInformationCoordinatorBase with Store, BaseMobxLogic {
   final GetPreferredPreset getPreferredPresetLogic;
   final GetUserInfoStore getUserInfoStore;
   final UpdatePreferredPreset updatePreferredPresetLogic;
-  final UpdateHasEnteredStorage updateHasEnteredStorageLogic;
+  final UpdateUserFlag updateUserFlagLogic;
 
   _UserInformationCoordinatorBase({
     required this.getUserInfoStore,
     required this.updatePreferredPresetLogic,
-    required this.updateHasEnteredStorageLogic,
+    required this.updateUserFlagLogic,
     required this.getPreferredPresetLogic,
   }) {
     initBaseLogicActions();
@@ -57,9 +57,9 @@ abstract class _UserInformationCoordinatorBase with Store, BaseMobxLogic {
   }
 
   @action
-  updateHasEnteredStorage(bool newStatus) async {
+  updateUserFlag(UserFlagParam params) async {
     setState(StoreState.loading);
-    final res = await updateHasEnteredStorageLogic(newStatus);
+    final res = await updateUserFlagLogic(params);
     res.fold((failure) => errorUpdater(failure),
         (status) => storageStatusIsUpdated = status);
     setState(StoreState.loaded);

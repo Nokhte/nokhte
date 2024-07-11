@@ -70,7 +70,12 @@ abstract class _StorageHomeCoordinatorBase
     initReactors();
     await getUserInfo(NoParams());
     await getNokhteSessionArtifacts();
-    await userInfo.updateHasEnteredStorage(true);
+    await userInfo.updateUserFlag(
+      const UserFlagParam(
+        key: UserFlagKeys.hasAccessedQrCodeScanner,
+        value: true,
+      ),
+    );
     await captureScreen(StorageConstants.root);
   }
 

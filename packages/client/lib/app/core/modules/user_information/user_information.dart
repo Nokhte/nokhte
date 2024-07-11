@@ -31,8 +31,8 @@ class UserInformationModule extends Module {
         contract: i<UserInformationContractImpl>(),
       ),
     );
-    i.add<UpdateHasEnteredStorage>(
-      () => UpdateHasEnteredStorage(
+    i.add<UpdateUserFlag>(
+      () => UpdateUserFlag(
         contract: i<UserInformationContractImpl>(),
       ),
     );
@@ -52,7 +52,7 @@ class UserInformationModule extends Module {
         getPreferredPresetLogic: i<GetPreferredPreset>(),
         getUserInfoStore: i<GetUserInfoStore>(),
         updatePreferredPresetLogic: i<UpdatePreferredPreset>(),
-        updateHasEnteredStorageLogic: i<UpdateHasEnteredStorage>(),
+        updateUserFlagLogic: i<UpdateUserFlag>(),
       ),
     );
   }
