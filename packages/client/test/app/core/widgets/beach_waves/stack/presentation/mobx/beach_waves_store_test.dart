@@ -47,17 +47,17 @@ void main() {
       test("onShore key", () {
         final onShoreRes =
             testStore.movieModeToStoreLookup[BeachWaveMovieModes.onShore];
-        expect(onShoreRes?.movie.duration, Seconds.get(2, milli: 1));
+        expect(onShoreRes?.movie.duration, Seconds.get(2));
       });
       test("onShoreToOceanDive key", () {
         final res = testStore
             .movieModeToStoreLookup[BeachWaveMovieModes.onShoreToOceanDive];
-        expect(res?.movie.duration, Seconds.get(2, milli: 1));
+        expect(res?.movie.duration, Seconds.get(2));
       });
       test("onShoreToOceanDive key", () {
         final oceanDiveRes = testStore
             .movieModeToStoreLookup[BeachWaveMovieModes.onShoreToOceanDive];
-        expect(oceanDiveRes?.movie.duration, Seconds.get(2, milli: 1));
+        expect(oceanDiveRes?.movie.duration, Seconds.get(2));
       });
       test("none key", () {
         final noneRes =
@@ -78,7 +78,7 @@ void main() {
       });
       test("currentMovie", () {
         final currentMovieDuration = testStore.currentMovie.duration;
-        expect(currentMovieDuration, Seconds.get(2, milli: 1));
+        expect(currentMovieDuration, Seconds.get(2));
       });
     });
   });
@@ -104,7 +104,7 @@ void main() {
     });
 
     test("currentMovie", () {
-      expect(testStore.currentMovie.duration, Seconds.get(2, milli: 1));
+      expect(testStore.currentMovie.duration, Seconds.get(2));
     });
 
     test('currentStore', () {
