@@ -1,13 +1,12 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
-import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 part 'home_screen_root_router_coordinator.g.dart';
 
 class HomeScreenRootRouterCoordinator = _HomeScreenRootRouterCoordinatorBase
@@ -40,12 +39,11 @@ abstract class _HomeScreenRootRouterCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
-    Modular.to.navigate(SessionStarterConstants.sessionInstructionsPicker);
-    // await cleanUpCollaborationArtifacts(NoParams());
-    // await userMetadata.addMetadata(NoParams());
-    // if (isConnected) {
-    //   await decideAndRoute(setRoutingParams);
-    // }
+    await cleanUpCollaborationArtifacts(NoParams());
+    await userMetadata.addMetadata(NoParams());
+    if (isConnected) {
+      await decideAndRoute(setRoutingParams);
+    }
   }
 
   @action
