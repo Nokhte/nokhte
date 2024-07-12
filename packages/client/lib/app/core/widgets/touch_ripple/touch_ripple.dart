@@ -8,6 +8,7 @@ import 'package:simple_animations/simple_animations.dart';
 import 'canvas/touch_ripple_painter.dart';
 export 'constants/constants.dart';
 export 'mobx/touch_ripple_store.dart';
+export 'mixin/mixin.dart';
 export 'movies/movies.dart';
 export 'types/types.dart';
 

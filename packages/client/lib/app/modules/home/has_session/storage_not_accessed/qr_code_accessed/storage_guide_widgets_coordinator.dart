@@ -21,6 +21,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
         EnRouteConsumer,
         SwipeNavigationUtils,
         InstructionWidgetsUtils,
+        TouchRippleUtils,
         HomeScreenWidgetsUtils,
         SingleInstructionalNokhteWidgetUtils {
   @override

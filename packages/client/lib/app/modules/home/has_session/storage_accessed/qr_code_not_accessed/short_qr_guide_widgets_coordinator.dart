@@ -20,6 +20,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
         EnRouteConsumer,
         SwipeNavigationUtils,
         InstructionWidgetsUtils,
+        TouchRippleUtils,
         HomeScreenWidgetsUtils,
         InstructionalNokhteWidgetUtils,
         SingleInstructionalNokhteWidgetUtils {

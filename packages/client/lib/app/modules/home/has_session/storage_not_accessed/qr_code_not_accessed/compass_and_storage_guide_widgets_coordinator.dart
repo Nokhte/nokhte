@@ -22,6 +22,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
         EnRouteConsumer,
         SwipeNavigationUtils,
         InstructionWidgetsUtils,
+        TouchRippleUtils,
         HomeScreenWidgetsUtils,
         CompassInstructionUtils {
   @override

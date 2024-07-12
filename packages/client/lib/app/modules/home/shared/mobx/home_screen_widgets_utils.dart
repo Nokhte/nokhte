@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:ui';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -14,10 +11,10 @@ mixin HomeScreenWidgetsUtils
         Reactions,
         EnRoute,
         EnRouteConsumer,
+        TouchRippleUtils,
         SmartTextPaddingAdjuster,
         SwipeNavigationUtils,
         InstructionWidgetsUtils {
-  TouchRippleStore get touchRipple;
   SmartTextStore get smartText;
   GestureCrossStore get gestureCross;
   initHomeUtils() {
@@ -26,15 +23,6 @@ mixin HomeScreenWidgetsUtils
     initEnRouteActions();
     consumeRoutingArgs();
     disposers.add(beachWavesMovieStatusReactor());
-  }
-
-  onReadyToNavigate(Function onReadyToNavigate) {
-    Timer.periodic(Seconds.get(0, milli: 500), (timer) {
-      if (touchRipple.movieStatus == MovieStatus.finished) {
-        onReadyToNavigate();
-        timer.cancel();
-      }
-    });
   }
 
   @action
@@ -70,25 +58,13 @@ mixin HomeScreenWidgetsUtils
     }
   }
 
-  initWaterWake(Offset offset) {
-    if (beachWaves.movieStatus != MovieStatus.finished ||
-        beachWaves.movieMode == BeachWaveMovieModes.onShore ||
-        beachWaves.movieMode == BeachWaveMovieModes.resumeOnShore) {
-      touchRipple.onSwipe(offset);
-    }
-  }
-
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
-            onReadyToNavigate(() {
-              Modular.to.navigate(SessionStarterConstants.sessionStarterEntry);
-            });
+            onReadyToNavigate(SessionStarterConstants.sessionStarterEntry);
           } else if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToSky) {
-            onReadyToNavigate(() {
-              Modular.to.navigate(StorageConstants.root);
-            });
+            onReadyToNavigate(StorageConstants.root);
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.resumeOnShore) {
             beachWaves.setMovieMode(BeachWaveMovieModes.onShore);

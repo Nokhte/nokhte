@@ -21,6 +21,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         EnRouteConsumer,
         SwipeNavigationUtils,
         InstructionWidgetsUtils,
+        TouchRippleUtils,
         HomeScreenWidgetsUtils,
         InstructionalNokhteWidgetUtils,
         SingleInstructionalNokhteWidgetUtils {
