@@ -24,7 +24,7 @@ mixin SingleInstructionalNokhteWidgetUtils
     nokhteBlur.init();
     beachWaves.currentStore.setControl(Control.stop);
     if (!excldeSmartTextRotation) {
-      primarySmartText.startRotatingText(isResuming: true);
+      smartText.startRotatingText(isResuming: true);
     }
     Timer(const Duration(seconds: 1, milliseconds: 500), () {
       focusInstructionalNokhte?.setWidgetVisibility(true);
@@ -53,7 +53,7 @@ mixin SingleInstructionalNokhteWidgetUtils
         );
       }
       delayedEnableTouchFeedback();
-      primarySmartText.startRotatingText(isResuming: true);
+      smartText.startRotatingText(isResuming: true);
     }
   }
 
@@ -62,7 +62,7 @@ mixin SingleInstructionalNokhteWidgetUtils
       setSwipeDirection(GestureDirections.left);
       centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.right);
       focusInstructionalNokhte?.setControl(Control.playFromStart);
-      primarySmartText.startRotatingText(isResuming: true);
+      smartText.startRotatingText(isResuming: true);
     }
   }
 
@@ -77,7 +77,7 @@ mixin SingleInstructionalNokhteWidgetUtils
     setHasInitiatedBlur(false);
     setTouchIsDisabled(true);
     setSwipeDirection(GestureDirections.initial);
-    primarySmartText.startRotatingText(isResuming: true);
+    smartText.startRotatingText(isResuming: true);
     nokhteBlur.reverse();
     beachWaves.currentStore.setControl(Control.mirror);
     Timer(Seconds.get(1, milli: 500), () {

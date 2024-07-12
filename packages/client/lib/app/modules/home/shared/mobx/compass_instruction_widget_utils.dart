@@ -16,7 +16,7 @@ mixin CompassInstructionWidgetUtils
       nokhteBlur.init();
       beachWaves.currentStore.setControl(Control.stop);
       setHasInitiatedBlur(true);
-      primarySmartText.startRotatingText(isResuming: true);
+      smartText.startRotatingText(isResuming: true);
       setSmartTextPadding(subMessagePadding: 110.0, bottomPadding: 0.23);
     }
   }

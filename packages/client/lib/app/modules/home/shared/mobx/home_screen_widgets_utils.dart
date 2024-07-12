@@ -12,7 +12,7 @@ import 'package:nokhte/app/modules/storage/storage.dart';
 mixin HomeScreenWidgetsUtils
     on Reactions, EnRoute, EnRouteConsumer, SmartTextPaddingAdjuster {
   TouchRippleStore get touchRipple;
-  SmartTextStore get primarySmartText;
+  SmartTextStore get smartText;
   GestureCrossStore get gestureCross;
   CenterInstructionalNokhteStore get centerInstructionalNokhte;
   initHomeUtils() {
@@ -35,10 +35,10 @@ mixin HomeScreenWidgetsUtils
   initSessionStarterTransition() {
     if (!hasSwiped() && isAllowedToMakeGesture()) {
       setSwipeDirection(GestureDirections.up);
-      if (primarySmartText.currentIndex == 0) {
-        primarySmartText.toggleWidgetVisibility();
+      if (smartText.currentIndex == 0) {
+        smartText.toggleWidgetVisibility();
       } else {
-        primarySmartText.startRotatingText(isResuming: true);
+        smartText.startRotatingText(isResuming: true);
       }
       centerInstructionalNokhte.setWidgetVisibility(false);
       gestureCross.centerCrossNokhte.setWidgetVisibility(true);
@@ -60,7 +60,7 @@ mixin HomeScreenWidgetsUtils
       centerInstructionalNokhte.setWidgetVisibility(false);
       gestureCross.initMoveAndRegenerate(CircleOffsets.right);
       gestureCross.cross.initOutlineFadeIn();
-      primarySmartText.setWidgetVisibility(false);
+      smartText.setWidgetVisibility(false);
     }
   }
 

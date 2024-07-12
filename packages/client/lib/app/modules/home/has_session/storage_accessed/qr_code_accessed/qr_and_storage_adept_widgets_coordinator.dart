@@ -32,7 +32,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
     required super.beachWaves,
     required super.wifiDisconnectOverlay,
     required super.gestureCross,
-    required super.primarySmartText,
+    required super.smartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
     required this.sessionStarterInstructionalNokhte,
@@ -44,8 +44,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
     initHomeUtils();
     initInstructionalNokhteUtils(center);
     gestureCross.fadeIn();
-    primarySmartText.setMessagesData(HomeLists.qrAndStorageAdept);
-    primarySmartText.startRotatingText();
+    smartText.setMessagesData(HomeLists.qrAndStorageAdept);
+    smartText.startRotatingText();
     initReactors();
   }
 
@@ -53,7 +53,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
   onSwipeUp() {
     if (!isDisconnected && isAllowedToMakeGesture()) {
       if (hasInitiatedBlur && !hasSwiped()) {
-        primarySmartText.setCurrentIndex(0);
+        smartText.setCurrentIndex(0);
         initToTopInstructionalNokhte(excludePaddingAdjuster: true);
         storageInstructionalNokhte.setWidgetVisibility(false);
       } else if (!hasInitiatedBlur && !hasSwiped()) {
@@ -75,7 +75,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
   onSwipeLeft() {
     if (!isDisconnected && isAllowedToMakeGesture()) {
       if (hasInitiatedBlur && !hasSwiped()) {
-        primarySmartText.setCurrentIndex(2);
+        smartText.setCurrentIndex(2);
         initToRightInstructionalNokhte();
         sessionStarterInstructionalNokhte.setWidgetVisibility(false);
       } else if (!hasInitiatedBlur) {
@@ -94,7 +94,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
     if (!isDisconnected && hasInitiatedBlur && isAllowedToMakeGesture()) {
       touchRipple.onTap(offset);
       setHasInitiatedBlur(false);
-      primarySmartText.startRotatingText(isResuming: true);
+      smartText.startRotatingText(isResuming: true);
       if (swipeDirection == GestureDirections.left) {
         sessionStarterInstructionalNokhte.setWidgetVisibility(true);
         moveGradInstructionalNokhtes(shouldExpand: false);
@@ -147,8 +147,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
     moveGradInstructionalNokhtes(shouldExpand: false);
     nokhteBlur.reverse();
     beachWaves.currentStore.setControl(Control.mirror);
-    primarySmartText.reset();
-    primarySmartText.startRotatingText();
+    smartText.reset();
+    smartText.startRotatingText();
     delayedEnableTouchFeedback();
   }
 

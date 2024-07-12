@@ -56,7 +56,7 @@ class BaseHomeScreen extends HookWidget {
                 ),
                 Center(
                   child: SmartText(
-                    store: coordinator.widgets.primarySmartText,
+                    store: coordinator.widgets.smartText,
                     topPadding:
                         height * coordinator.widgets.smartTextTopPaddingScalar,
                     bottomPadding: height *

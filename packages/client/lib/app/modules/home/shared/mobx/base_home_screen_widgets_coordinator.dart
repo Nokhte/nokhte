@@ -12,7 +12,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     with Store, Reactions, SmartTextPaddingAdjuster, BaseWidgetsCoordinator {
   final NokhteBlurStore nokhteBlur;
   final GestureCrossStore gestureCross;
-  final SmartTextStore primarySmartText;
+  final SmartTextStore smartText;
   final TouchRippleStore touchRipple;
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final BeachWavesStore beachWaves;
@@ -24,7 +24,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     required this.beachWaves,
     required this.wifiDisconnectOverlay,
     required this.gestureCross,
-    required this.primarySmartText,
+    required this.smartText,
     required this.touchRipple,
     required this.centerInstructionalNokhte,
   }) {

@@ -33,7 +33,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
     required super.beachWaves,
     required super.wifiDisconnectOverlay,
     required super.gestureCross,
-    required super.primarySmartText,
+    required super.smartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
     required this.sessionStarterInstructionalNokhte,
@@ -44,8 +44,8 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
     initHomeUtils();
     consumeRoutingArgs();
     initInstructionalNokhteUtils(center);
-    primarySmartText.setMessagesData(HomeLists.qrNavigationReminder);
-    primarySmartText.startRotatingText();
+    smartText.setMessagesData(HomeLists.qrNavigationReminder);
+    smartText.startRotatingText();
     gestureCross.fadeIn(onFadeIn: Left(() {
       sessionStarterInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
@@ -76,7 +76,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
     if (!isDisconnected && isAllowedToMakeGesture()) {
       if (hasInitiatedBlur) {
         initToTopInstructionalNokhte(excludePaddingAdjuster: true);
-      } else if (primarySmartText.currentIndex.isLessThan(1)) {
+      } else if (smartText.currentIndex.isLessThan(1)) {
         initSessionStarterTransition();
       }
     }
@@ -85,8 +85,8 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
   @action
   onTap(Offset offset) {
     if (!isDisconnected && isAllowedToMakeGesture() && hasInitiatedBlur) {
-      if (primarySmartText.currentIndex == 2) {
-        primarySmartText.startRotatingText(isResuming: true);
+      if (smartText.currentIndex == 2) {
+        smartText.startRotatingText(isResuming: true);
         touchRipple.onTap(offset);
         nokhteBlur.reverse();
         setTouchIsDisabled(true);
@@ -104,8 +104,8 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
               position: InstructionalNokhtePositions.top,
             ),
           );
-          primarySmartText.reset();
-          primarySmartText.startRotatingText();
+          smartText.reset();
+          smartText.startRotatingText();
         });
       } else {
         dismissInstructionalNokhte();
@@ -147,8 +147,8 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
     nokhteBlur.reverse();
     beachWaves.currentStore.setControl(Control.mirror);
     setHasInitiatedBlur(false);
-    primarySmartText.reset();
-    primarySmartText.startRotatingText();
+    smartText.reset();
+    smartText.startRotatingText();
     delayedEnableTouchFeedback();
   }
 

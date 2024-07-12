@@ -23,7 +23,7 @@ class HomeWidgetsModule extends Module {
     i.add<CompassAndQrGuideWidgetsCoordinator>(
       () => CompassAndQrGuideWidgetsCoordinator(
         nokhteBlur: NokhteBlurStore(),
-        primarySmartText: SmartTextStore(),
+        smartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
@@ -35,7 +35,7 @@ class HomeWidgetsModule extends Module {
     i.add<QrNavigationReminderWidgetsCoordinator>(
       () => QrNavigationReminderWidgetsCoordinator(
         nokhteBlur: NokhteBlurStore(),
-        primarySmartText: SmartTextStore(),
+        smartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
@@ -48,7 +48,7 @@ class HomeWidgetsModule extends Module {
       () => StorageGuideWidgetsCoordinator(
         swipeGuide: SwipeGuideStore(),
         nokhteBlur: NokhteBlurStore(),
-        primarySmartText: SmartTextStore(),
+        smartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
@@ -62,7 +62,7 @@ class HomeWidgetsModule extends Module {
       () => CompassAndStorageGuideWidgetsCoordinator(
         swipeGuide: SwipeGuideStore(),
         nokhteBlur: NokhteBlurStore(),
-        primarySmartText: SmartTextStore(),
+        smartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
@@ -75,7 +75,7 @@ class HomeWidgetsModule extends Module {
     i.add<ShortQrGuideWidgetsCoordinator>(
       () => ShortQrGuideWidgetsCoordinator(
         nokhteBlur: NokhteBlurStore(),
-        primarySmartText: SmartTextStore(),
+        smartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
@@ -88,7 +88,7 @@ class HomeWidgetsModule extends Module {
     i.add<QrAndStorageAdeptWidgetsCoordinator>(
       () => QrAndStorageAdeptWidgetsCoordinator(
         nokhteBlur: NokhteBlurStore(),
-        primarySmartText: SmartTextStore(),
+        smartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),

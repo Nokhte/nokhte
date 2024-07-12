@@ -34,7 +34,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
     required super.beachWaves,
     required super.wifiDisconnectOverlay,
     required super.gestureCross,
-    required super.primarySmartText,
+    required super.smartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
     required this.sessionStarterInstructionalNokhte,
@@ -52,13 +52,13 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
     swipeGuide.setWidgetVisibility(false);
     gestureCross.fadeInTheCross();
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-    primarySmartText.setMessagesData(HomeLists.compassAndStorageGuide);
+    smartText.setMessagesData(HomeLists.compassAndStorageGuide);
     focusInstructionalNokhte.prepareYellowDiamond(
       center,
       position: InstructionalNokhtePositions.right,
       colorway: GradientNokhteColorways.vibrantBlue,
     );
-    primarySmartText.startRotatingText();
+    smartText.startRotatingText();
     initReactors();
   }
 
@@ -72,17 +72,17 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
   @action
   onSwipeLeft() {
     if (!isDisconnected && isAllowedToMakeAGesture) {
-      if (primarySmartText.currentIndex == 3) {
+      if (smartText.currentIndex == 3) {
         setSwipeDirection(GestureDirections.left);
         swipeGuide.setWidgetVisibility(false);
         centerInstructionalNokhte.initMovie(
           InstructionalNokhtePositions.right,
         );
         focusInstructionalNokhte.setControl(Control.playFromStart);
-        primarySmartText.startRotatingText(isResuming: true);
+        smartText.startRotatingText(isResuming: true);
         setSmartTextPadding(subMessagePadding: 120, topPadding: .15);
         delayedEnableTouchFeedback();
-      } else if (primarySmartText.currentIndex == 5) {
+      } else if (smartText.currentIndex == 5) {
         initStorageTransition();
       }
     }

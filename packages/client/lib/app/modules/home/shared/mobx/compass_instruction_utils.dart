@@ -25,9 +25,9 @@ mixin CompassInstructionUtils
     required CenterNokhtePositions centerPosition,
   }) async {
     if (!isDisconnected && !touchIsDisabled) {
-      if (primarySmartText.currentIndex == 1) {
+      if (smartText.currentIndex == 1) {
         setTouchIsDisabled(true);
-        primarySmartText.startRotatingText(isResuming: true);
+        smartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte.moveToCenter(center);
         touchRipple.onTap(offset);
         setSmartTextPadding(
@@ -36,15 +36,15 @@ mixin CompassInstructionUtils
           bottomPadding: 0,
         );
         delayedEnableTouchFeedback();
-      } else if (primarySmartText.currentIndex == 2) {
+      } else if (smartText.currentIndex == 2) {
         setTouchIsDisabled(true);
-        primarySmartText.startRotatingText(isResuming: true);
+        smartText.startRotatingText(isResuming: true);
         focusInstructionalNokhte.setWidgetVisibility(true);
         swipeGuide?.setWidgetVisibility(true);
         touchRipple.onTap(offset);
         delayedEnableTouchFeedback();
-      } else if (primarySmartText.currentIndex == 4) {
-        primarySmartText.startRotatingText(isResuming: true);
+      } else if (smartText.currentIndex == 4) {
+        smartText.startRotatingText(isResuming: true);
         setSwipeDirection(GestureDirections.initial);
         setTouchIsDisabled(true);
         Timer(Seconds.get(1, milli: 500), () {
@@ -83,7 +83,7 @@ mixin CompassInstructionUtils
       nokhteBlur.init();
       beachWaves.currentStore.setControl(Control.stop);
       setHasInitiatedBlur(true);
-      primarySmartText.startRotatingText(isResuming: true);
+      smartText.startRotatingText(isResuming: true);
       setSmartTextPadding(subMessagePadding: 110, bottomPadding: .23);
       delayedEnableTouchFeedback();
     }

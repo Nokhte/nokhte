@@ -32,7 +32,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
     required super.beachWaves,
     required super.wifiDisconnectOverlay,
     required super.gestureCross,
-    required super.primarySmartText,
+    required super.smartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
     required this.sessionStarterInstructionalNokhte,
@@ -45,8 +45,8 @@ abstract class _StorageGuideWidgetsCoordinatorBase
     initInstructionalNokhteUtils(center);
     swipeGuide.setWidgetVisibility(false);
     gestureCross.fadeIn();
-    primarySmartText.setMessagesData(HomeLists.storageGuide);
-    primarySmartText.startRotatingText();
+    smartText.setMessagesData(HomeLists.storageGuide);
+    smartText.startRotatingText();
     focusInstructionalNokhte.prepareYellowDiamond(
       center,
       position: InstructionalNokhtePositions.right,
@@ -89,8 +89,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
   @action
   onSwipeUp() {
     if (!isDisconnected && isAllowedToMakeAGesture) {
-      if ((!hasInitiatedBlur && !hasSwiped()) ||
-          primarySmartText.currentIndex == 3) {
+      if ((!hasInitiatedBlur && !hasSwiped()) || smartText.currentIndex == 3) {
         initSessionStarterTransition();
       }
     }
@@ -99,11 +98,11 @@ abstract class _StorageGuideWidgetsCoordinatorBase
   @action
   onSwipeLeft() {
     if (!isDisconnected && isAllowedToMakeAGesture) {
-      if (primarySmartText.currentIndex == 1) {
+      if (smartText.currentIndex == 1) {
         initToRightInstructionalNokhte();
         sessionStarterInstructionalNokhte.setWidgetVisibility(false);
         swipeGuide.setWidgetVisibility(false);
-      } else if (primarySmartText.currentIndex == 3) {
+      } else if (smartText.currentIndex == 3) {
         initStorageTransition();
       }
 
@@ -113,7 +112,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   onTap(Offset tapPosition) {
-    if (!isDisconnected && primarySmartText.currentIndex == 2 && hasSwiped()) {
+    if (!isDisconnected && smartText.currentIndex == 2 && hasSwiped()) {
       setSwipeDirection(GestureDirections.initial);
       dismissMovedInstructionalNokhte(tapPosition,
           colorway: GradientNokhteColorways.vibrantBlue,

@@ -30,7 +30,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
     required super.beachWaves,
     required super.wifiDisconnectOverlay,
     required super.gestureCross,
-    required super.primarySmartText,
+    required super.smartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
     required this.storageInstructionalNokhte,
@@ -43,8 +43,8 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
     initInstructionalNokhteUtils(center);
     setTouchIsDisabled(true);
     gestureCross.fadeIn();
-    primarySmartText.setMessagesData(HomeLists.shortQrGuide);
-    primarySmartText.startRotatingText();
+    smartText.setMessagesData(HomeLists.shortQrGuide);
+    smartText.startRotatingText();
     focusInstructionalNokhte.setWidgetVisibility(false);
     focusInstructionalNokhte.prepareYellowDiamond(
       center,
@@ -67,10 +67,10 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
   @action
   onSwipeUp() {
     if (!isDisconnected) {
-      if (primarySmartText.currentIndex == 1) {
+      if (smartText.currentIndex == 1) {
         initToTopInstructionalNokhte();
         storageInstructionalNokhte.setWidgetVisibility(false);
-      } else if (primarySmartText.currentIndex == 3 && !hasSwiped()) {
+      } else if (smartText.currentIndex == 3 && !hasSwiped()) {
         initSessionStarterTransition();
       }
     }
@@ -80,7 +80,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
   onTap(Offset offset) {
     if (!isDisconnected &&
         isAllowedToMakeGesture() &&
-        primarySmartText.currentIndex == 2 &&
+        smartText.currentIndex == 2 &&
         !touchIsDisabled) {
       dismissMovedInstructionalNokhte(offset,
           colorway: GradientNokhteColorways.invertedBeachWave,
