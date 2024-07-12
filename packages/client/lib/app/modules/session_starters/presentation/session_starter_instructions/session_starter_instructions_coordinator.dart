@@ -17,7 +17,6 @@ abstract class _SessionStarterInstructionsCoordinatorBase
   final SessionStarterInstructionsWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final TapDetector tap;
-  final SessionStartersLogicCoordinator logic;
   @override
   final CaptureScreen captureScreen;
 
@@ -25,7 +24,6 @@ abstract class _SessionStarterInstructionsCoordinatorBase
     required this.widgets,
     required this.tap,
     required this.swipe,
-    required this.logic,
     required this.captureScreen,
   }) {
     initBaseCoordinatorActions();
@@ -48,7 +46,7 @@ abstract class _SessionStarterInstructionsCoordinatorBase
   swipeCoordinatesReactor() =>
       reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
         ifTouchIsNotDisabled(() {
-          widgets.onSwipeCoordinatesChanged(p0);
+          widgets.initWaterWake(p0);
         });
       });
 
@@ -98,7 +96,6 @@ abstract class _SessionStarterInstructionsCoordinatorBase
       });
 
   deconstructor() {
-    logic.dispose();
     widgets.dispose();
     dispose();
   }

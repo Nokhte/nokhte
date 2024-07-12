@@ -95,7 +95,7 @@ class SessionStarterInstructionsScreen extends HookWidget {
                 store: coordinator.widgets.homeInstructionalNokhte,
               ),
               InstructionalGradientNokhte(
-                store: coordinator.widgets.presetsInstructionalNokhte,
+                store: coordinator.widgets.focusInstructionalNokhte,
               ),
               WifiDisconnectOverlay(
                 store: coordinator.widgets.wifiDisconnectOverlay,

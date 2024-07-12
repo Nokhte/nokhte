@@ -58,7 +58,7 @@ class SessionStartersWidgetsModule extends Module {
         qrCode: NokhteQrCodeStore(),
         swipeGuide: SwipeGuideStore(),
         homeInstructionalNokhte: InstructionalGradientNokhteStore(),
-        presetsInstructionalNokhte: InstructionalGradientNokhteStore(),
+        focusInstructionalNokhte: InstructionalGradientNokhteStore(),
         nokhteBlur: NokhteBlurStore(),
         touchRipple: TouchRippleStore(),
         gestureCross: Modular.get<GestureCrossStore>(),

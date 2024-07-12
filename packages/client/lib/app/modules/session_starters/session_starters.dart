@@ -56,7 +56,6 @@ class SessionStartersModule extends Module {
       () => SessionStarterInstructionsCoordinator(
         tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
-        logic: Modular.get<SessionStartersLogicCoordinator>(),
         swipe: SwipeDetector(),
         widgets: Modular.get<SessionStarterInstructionsWidgetsCoordinator>(),
       ),
