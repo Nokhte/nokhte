@@ -22,6 +22,8 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
         Reactions,
         EnRoute,
         EnRouteConsumer,
+        SwipeNavigationUtils,
+        InstructionWidgetsUtils,
         HomeScreenWidgetsUtils,
         InstructionalNokhteWidgetUtils,
         SingleInstructionalNokhteWidgetUtils {

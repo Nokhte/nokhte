@@ -10,13 +10,19 @@ import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 
 mixin HomeScreenWidgetsUtils
-    on Reactions, EnRoute, EnRouteConsumer, SmartTextPaddingAdjuster {
+    on
+        Reactions,
+        EnRoute,
+        EnRouteConsumer,
+        SmartTextPaddingAdjuster,
+        SwipeNavigationUtils,
+        InstructionWidgetsUtils {
   TouchRippleStore get touchRipple;
   SmartTextStore get smartText;
   GestureCrossStore get gestureCross;
-  CenterInstructionalNokhteStore get centerInstructionalNokhte;
   initHomeUtils() {
-    initHomeWidgetActions();
+    initInstructionWidgetsUtils();
+    initSwipeNavigationUtils();
     initEnRouteActions();
     consumeRoutingArgs();
     disposers.add(beachWavesMovieStatusReactor());
@@ -99,35 +105,4 @@ mixin HomeScreenWidgetsUtils
           onFinished();
         }
       });
-
-  final _swipeDirection = Observable(GestureDirections.initial);
-  final _hasInitiatedBlur = Observable(false);
-
-  bool hasSwiped() => _swipeDirection.value != GestureDirections.initial;
-
-  bool isAllowedToMakeGesture() =>
-      centerInstructionalNokhte.movieStatus != MovieStatus.inProgress;
-
-  GestureDirections get swipeDirection => _swipeDirection.value;
-  bool get hasInitiatedBlur => _hasInitiatedBlur.value;
-
-  _setSwipeDirection(GestureDirections value) => _swipeDirection.value = value;
-
-  _setHasInitiatedBlur(bool value) => _hasInitiatedBlur.value = value;
-
-  Action actionSetSwipeDirection = Action(() {});
-  Action actionSetHasInitiatedBlur = Action(() {});
-
-  initHomeWidgetActions() {
-    actionSetSwipeDirection = Action(_setSwipeDirection);
-    actionSetHasInitiatedBlur = Action(_setHasInitiatedBlur);
-  }
-
-  setHasInitiatedBlur(bool value) {
-    actionSetHasInitiatedBlur([value]);
-  }
-
-  setSwipeDirection(GestureDirections value) {
-    actionSetSwipeDirection([value]);
-  }
 }

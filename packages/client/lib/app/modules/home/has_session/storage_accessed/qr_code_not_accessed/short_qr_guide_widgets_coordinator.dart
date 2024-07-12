@@ -18,6 +18,8 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
         Reactions,
         EnRoute,
         EnRouteConsumer,
+        SwipeNavigationUtils,
+        InstructionWidgetsUtils,
         HomeScreenWidgetsUtils,
         InstructionalNokhteWidgetUtils,
         SingleInstructionalNokhteWidgetUtils {

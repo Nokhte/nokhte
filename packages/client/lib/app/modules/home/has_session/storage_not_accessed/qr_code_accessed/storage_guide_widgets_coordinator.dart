@@ -19,6 +19,8 @@ abstract class _StorageGuideWidgetsCoordinatorBase
         EnRoute,
         InstructionalNokhteWidgetUtils,
         EnRouteConsumer,
+        SwipeNavigationUtils,
+        InstructionWidgetsUtils,
         HomeScreenWidgetsUtils,
         SingleInstructionalNokhteWidgetUtils {
   @override

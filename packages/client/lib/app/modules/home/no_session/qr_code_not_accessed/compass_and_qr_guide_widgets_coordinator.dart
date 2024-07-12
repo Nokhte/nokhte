@@ -20,6 +20,8 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
         InstructionalNokhteWidgetUtils,
         EnRoute,
         EnRouteConsumer,
+        SwipeNavigationUtils,
+        InstructionWidgetsUtils,
         HomeScreenWidgetsUtils,
         CompassInstructionUtils {
   @override
