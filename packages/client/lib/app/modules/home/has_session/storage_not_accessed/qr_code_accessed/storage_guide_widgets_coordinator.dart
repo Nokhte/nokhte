@@ -163,7 +163,5 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @computed
   bool get isAllowedToMakeAGesture =>
-      !isEnteringNokhteSession &&
-      !isInErrorMode &&
       centerInstructionalNokhte.movieStatus != MovieStatus.inProgress;
 }

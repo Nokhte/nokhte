@@ -36,16 +36,6 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
     required super.storageInstructionalNokhte,
   }) : focusInstructionalNokhte = sessionStarterInstructionalNokhte;
 
-  @observable
-  bool gracePeriodHasExpired = false;
-
-  @observable
-  bool hasTappedOnCross = false;
-
-  @action
-  toggleGracePeriodHasExpired() =>
-      gracePeriodHasExpired = !gracePeriodHasExpired;
-
   @override
   @action
   constructor(Offset center) {
@@ -126,7 +116,6 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
       beachWaves.currentStore.initMovie(
         beachWaves.currentAnimationValues.first,
       );
-      hasTappedOnCross = true;
       gestureCross.initMoveAndRegenerate(CircleOffsets.right);
       gestureCross.cross.initOutlineFadeIn();
       primarySmartText.setWidgetVisibility(false);
@@ -136,7 +125,6 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
   @action
   onInitInstructionMode() {
     baseOnInitInstructionMode();
-
     storageInstructionalNokhte.setWidgetVisibility(true);
     storageInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
