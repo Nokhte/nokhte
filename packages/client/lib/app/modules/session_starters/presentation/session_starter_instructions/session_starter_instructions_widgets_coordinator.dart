@@ -88,7 +88,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
     }));
     qrCode.setQrCodeData(SessionStarterConstants.inactiveQrCodeData);
     qrCode.initFadeIn();
-    smartText.setMessagesData(SessionStartersList.sessionJoinerInstructions);
+    smartText.setMessagesData(SessionStartersList.sessionStarterInstructions);
 
     smartText.startRotatingText();
     presetsInstructionalNokhte.prepareYellowDiamond(
