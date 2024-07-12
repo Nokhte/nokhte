@@ -11,10 +11,15 @@ mixin SingleInstructionalNokhteWidgetUtils
     on
         BaseWidgetsCoordinator,
         InstructionalNokhteWidgetUtils,
-        HomeScreenWidgetsUtils,
+        SwipeNavigationUtils,
+        InstructionWidgetsUtils,
         SmartTextPaddingAdjuster {
   NokhteBlurStore get nokhteBlur;
   InstructionalGradientNokhteStore? get focusInstructionalNokhte;
+  BeachWavesStore get beachWaves;
+  SmartTextStore get smartText;
+  GestureCrossStore get gestureCross;
+  TouchRippleStore get touchRipple;
 
   baseOnInitInstructionMode({
     bool excludePaddingAdjuster = false,
@@ -61,6 +66,15 @@ mixin SingleInstructionalNokhteWidgetUtils
     if (isAllowedToMakeGesture()) {
       setSwipeDirection(GestureDirections.left);
       centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.right);
+      focusInstructionalNokhte?.setControl(Control.playFromStart);
+      smartText.startRotatingText(isResuming: true);
+    }
+  }
+
+  initToLeftInstructionalNokhte() {
+    if (isAllowedToMakeGesture()) {
+      setSwipeDirection(GestureDirections.right);
+      centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.left);
       focusInstructionalNokhte?.setControl(Control.playFromStart);
       smartText.startRotatingText(isResuming: true);
     }
