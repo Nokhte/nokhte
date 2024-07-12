@@ -1,6 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
@@ -16,7 +14,16 @@ class StorageGuideWidgetsCoordinator = _StorageGuideWidgetsCoordinatorBase
 
 abstract class _StorageGuideWidgetsCoordinatorBase
     extends BaseHomeScreenWidgetsCoordinator
-    with Store, Reactions, EnRoute, EnRouteConsumer, HomeScreenWidgetsUtils {
+    with
+        Store,
+        Reactions,
+        EnRoute,
+        InstructionalNokhteWidgetUtils,
+        EnRouteConsumer,
+        HomeScreenWidgetsUtils,
+        SingleInstructionalNokhteWidgetUtils {
+  @override
+  final InstructionalGradientNokhteStore focusInstructionalNokhte;
   final SwipeGuideStore swipeGuide;
   _StorageGuideWidgetsCoordinatorBase({
     required this.swipeGuide,
@@ -26,22 +33,22 @@ abstract class _StorageGuideWidgetsCoordinatorBase
     required super.gestureCross,
     required super.primarySmartText,
     required super.touchRipple,
-   required super.centerInstructionalNokhte,
+    required super.centerInstructionalNokhte,
     required super.sessionStarterInstructionalNokhte,
     required super.storageInstructionalNokhte,
-  });
+  }) : focusInstructionalNokhte = storageInstructionalNokhte;
 
   @override
   @action
-  constructor(Offset offset) {
+  constructor(Offset center) {
     initHomeUtils();
-    super.constructor(offset);
+    initInstructionalNokhteUtils(center);
     swipeGuide.setWidgetVisibility(false);
     gestureCross.fadeIn();
     primarySmartText.setMessagesData(HomeLists.storageGuide);
     primarySmartText.startRotatingText();
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-    storageInstructionalNokhte.prepareYellowDiamond(
+    focusInstructionalNokhte.prepareYellowDiamond(
       center,
       position: InstructionalNokhtePositions.right,
       colorway: GradientNokhteColorways.vibrantBlue,
@@ -55,45 +62,13 @@ abstract class _StorageGuideWidgetsCoordinatorBase
     disposers.add(centerInstructionalNokhteMovieReactor());
     disposers.add(centerCrossNokhteReactor(() {
       sessionStarterInstructionalNokhte.setWidgetVisibility(false);
-      storageInstructionalNokhte.setWidgetVisibility(false);
+      focusInstructionalNokhte.setWidgetVisibility(false);
     }));
   }
 
-  @observable
-  GestureCrossConfiguration gestureCrossConfig = GestureCrossConfiguration(
-    top: Right(
-      NokhteGradientConfig(
-        gradientType: NokhteGradientTypes.sessionStarter,
-      ),
-    ),
-  );
-
-  @observable
-  InstructionalNokhtePositions centerNokhtePosition =
-      InstructionalNokhtePositions.initial;
-
-  @observable
-  bool canTapOnGestureCross = true;
-
-  @observable
-  bool swipeRightIsUnlocked = false;
-
-  @observable
-  bool canTap = false;
-
   @action
   onInitInstructionMode() {
-    hasInitiatedBlur = true;
-    nokhteBlur.init();
-    beachWaves.currentStore.setControl(Control.stop);
-    primarySmartText.startRotatingText(isResuming: true);
-    Timer(const Duration(seconds: 1, milliseconds: 500), () {
-      storageInstructionalNokhte.setWidgetVisibility(true);
-      setSmartTextBottomPaddingScalar(0);
-      setSmartTextTopPaddingScalar(.13);
-    });
-    gestureCross.gradientNokhte.setWidgetVisibility(false);
-    gestureCross.centerCrossNokhte.setWidgetVisibility(false);
+    baseOnInitInstructionMode();
     sessionStarterInstructionalNokhte.setWidgetVisibility(true);
     sessionStarterInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
@@ -103,28 +78,24 @@ abstract class _StorageGuideWidgetsCoordinatorBase
         position: InstructionalNokhtePositions.top,
       ),
     );
-    centerInstructionalNokhte.moveToCenter(center);
   }
 
   @action
   onGestureCrossTap() {
-    if (!isDisconnected &&
-        isAllowedToMakeAGesture &&
-        !swipeRightIsUnlocked &&
-        canTapOnGestureCross) {
+    if (!isDisconnected && !hasInitiatedBlur) {
       onInitInstructionMode();
-      canTapOnGestureCross = false;
     }
   }
 
   @action
   onSwipeUp() {
     if (!isDisconnected && isAllowedToMakeAGesture) {
-      if (!hasInitiatedBlur) {
+      if ((!hasInitiatedBlur && !hasSwiped()) ||
+          primarySmartText.currentIndex == 3) {
         centerInstructionalNokhte.setWidgetVisibility(false);
         gestureCross.centerCrossNokhte.setWidgetVisibility(true);
         prepForNavigation(excludeUnBlur: !hasInitiatedBlur);
-        canTapOnGestureCross = false;
+        setSwipeDirection(GestureDirections.up);
       }
     }
   }
@@ -132,61 +103,46 @@ abstract class _StorageGuideWidgetsCoordinatorBase
   @action
   onSwipeLeft() {
     if (!isDisconnected && isAllowedToMakeAGesture) {
-      if (hasInitiatedBlur && !hasSwipedUp) {
-        hasSwipedUp = true;
-        centerNokhtePosition = InstructionalNokhtePositions.right;
-        centerInstructionalNokhte.initMovie(centerNokhtePosition);
-        storageInstructionalNokhte.setControl(Control.playFromStart);
+      if (primarySmartText.currentIndex == 1) {
+        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.right);
+        focusInstructionalNokhte.setControl(Control.playFromStart);
         sessionStarterInstructionalNokhte.setWidgetVisibility(false);
         primarySmartText.startRotatingText(isResuming: true);
         swipeGuide.setWidgetVisibility(false);
-      } else if (!hasInitiatedBlur && !hasSwipedUp && swipeRightIsUnlocked) {
-        hasSwipedUp = true;
+      } else if (primarySmartText.currentIndex == 3 && !hasSwiped()) {
         beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
         beachWaves.currentStore.initMovie(
           beachWaves.currentAnimationValues.first,
         );
-
         gestureCross.centerCrossNokhte.setWidgetVisibility(true);
         centerInstructionalNokhte.setWidgetVisibility(false);
         gestureCross.initMoveAndRegenerate(CircleOffsets.right);
         gestureCross.cross.initOutlineFadeIn();
         primarySmartText.setWidgetVisibility(false);
       }
+
+      setSwipeDirection(GestureDirections.left);
     }
   }
 
   @action
   onTap(Offset tapPosition) {
-    if (!isDisconnected && canTap) {
-      touchRipple.onTap(tapPosition);
-      hasInitiatedBlur = false;
-      canTap = false;
-      primarySmartText.startRotatingText(isResuming: true);
-      centerInstructionalNokhte.moveBackToCross(
-        startingPosition: CenterNokhtePositions.right,
-      );
-      storageInstructionalNokhte.initMovie(
-        InstructionalGradientMovieParams(
-          center: center,
+    if (!isDisconnected && primarySmartText.currentIndex == 2 && hasSwiped()) {
+      setSwipeDirection(GestureDirections.initial);
+      dismissInstructionalNokhte(tapPosition,
           colorway: GradientNokhteColorways.vibrantBlue,
-          direction: InstructionalGradientDirections.shrink,
-          position: InstructionalNokhtePositions.right,
-        ),
-      );
-      swipeRightIsUnlocked = true;
-      sessionStarterInstructionalNokhte.setWidgetVisibility(true);
-      sessionStarterInstructionalNokhte.initMovie(
-        InstructionalGradientMovieParams(
-          center: center,
-          colorway: GradientNokhteColorways.invertedBeachWave,
-          direction: InstructionalGradientDirections.shrink,
-          position: InstructionalNokhtePositions.top,
-        ),
-      );
-      toggleHasSwipedUp();
-      nokhteBlur.reverse();
-      beachWaves.currentStore.setControl(Control.mirror);
+          gradPosition: InstructionalNokhtePositions.right,
+          centerPosition: CenterNokhtePositions.right, onDismiss: () {
+        sessionStarterInstructionalNokhte.setWidgetVisibility(true);
+        sessionStarterInstructionalNokhte.initMovie(
+          InstructionalGradientMovieParams(
+            center: center,
+            colorway: GradientNokhteColorways.invertedBeachWave,
+            direction: InstructionalGradientDirections.shrink,
+            position: InstructionalNokhtePositions.top,
+          ),
+        );
+      });
     }
   }
 
@@ -194,9 +150,6 @@ abstract class _StorageGuideWidgetsCoordinatorBase
       reaction((p0) => centerInstructionalNokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (centerInstructionalNokhte.movieMode ==
-              CenterInstructionalNokhteMovieModes.moveAround) {
-            canTap = true;
-          } else if (centerInstructionalNokhte.movieMode ==
               CenterInstructionalNokhteMovieModes.moveToCenter) {
             swipeGuide.setWidgetVisibility(true);
           }

@@ -1,11 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -76,9 +74,7 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
           bottomPadding: 0.0,
           topPadding: 0.0,
         );
-        Timer(Seconds.get(1, milli: 500), () {
-          setTouchIsDisabled(false);
-        });
+        delayedEnableTouchFeedback();
       } else if (primarySmartText.currentIndex.equals(5)) {
         focusInstructionalNokhte.setWidgetVisibility(false);
         prepForNavigation(excludeUnBlur: true);

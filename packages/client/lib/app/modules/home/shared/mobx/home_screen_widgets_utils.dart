@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
@@ -8,6 +10,7 @@ import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 
 mixin HomeScreenWidgetsUtils on Reactions, EnRoute, EnRouteConsumer {
+  TouchRippleStore get touchRipple;
   initHomeUtils() {
     initHomeWidgetActions();
     initEnRouteActions();
@@ -18,15 +21,24 @@ mixin HomeScreenWidgetsUtils on Reactions, EnRoute, EnRouteConsumer {
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
-            Modular.to.navigate(SessionStarterConstants.sessionStarterEntry);
-          } else if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToSky) {
-            Modular.to.navigate(StorageConstants.root);
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.resumeOnShore) {
-            beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
-            beachWaves.currentStore.initMovie(params.direction);
-          }
+          Timer.periodic(Seconds.get(0, milli: 500), (timer) {
+            if (touchRipple.movieStatus == MovieStatus.finished) {
+              timer.cancel();
+              if (beachWaves.movieMode ==
+                  BeachWaveMovieModes.onShoreToOceanDive) {
+                Modular.to
+                    .navigate(SessionStarterConstants.sessionStarterEntry);
+              } else if (beachWaves.movieMode ==
+                  BeachWaveMovieModes.onShoreToSky) {
+                Modular.to.navigate(StorageConstants.root);
+              } else if (beachWaves.movieMode ==
+                  BeachWaveMovieModes.resumeOnShore) {
+                beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
+                beachWaves.currentStore.initMovie(params.direction);
+              }
+            }
+            //
+          });
         }
       });
 

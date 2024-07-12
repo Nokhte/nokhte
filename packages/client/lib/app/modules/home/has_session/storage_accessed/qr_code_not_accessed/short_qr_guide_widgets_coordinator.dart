@@ -1,6 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
@@ -8,7 +6,6 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
-import 'package:simple_animations/simple_animations.dart';
 part 'short_qr_guide_widgets_coordinator.g.dart';
 
 class ShortQrGuideWidgetsCoordinator = _ShortQrGuideWidgetsCoordinatorBase
@@ -16,7 +13,17 @@ class ShortQrGuideWidgetsCoordinator = _ShortQrGuideWidgetsCoordinatorBase
 
 abstract class _ShortQrGuideWidgetsCoordinatorBase
     extends BaseHomeScreenWidgetsCoordinator
-    with Store, Reactions, EnRoute, EnRouteConsumer, HomeScreenWidgetsUtils {
+    with
+        Store,
+        Reactions,
+        EnRoute,
+        EnRouteConsumer,
+        HomeScreenWidgetsUtils,
+        InstructionalNokhteWidgetUtils,
+        // SmartTextPaddingAdjuster,
+        SingleInstructionalNokhteWidgetUtils {
+  @override
+  final InstructionalGradientNokhteStore focusInstructionalNokhte;
   _ShortQrGuideWidgetsCoordinatorBase({
     required super.nokhteBlur,
     required super.beachWaves,
@@ -27,7 +34,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
     required super.centerInstructionalNokhte,
     required super.sessionStarterInstructionalNokhte,
     required super.storageInstructionalNokhte,
-  });
+  }) : focusInstructionalNokhte = sessionStarterInstructionalNokhte;
 
   @observable
   bool gracePeriodHasExpired = false;
@@ -41,15 +48,15 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
 
   @override
   @action
-  constructor(Offset offset) {
+  constructor(Offset center) {
     initHomeUtils();
-    super.constructor(offset);
+    initInstructionalNokhteUtils(center);
     setTouchIsDisabled(true);
     gestureCross.fadeIn();
     primarySmartText.setMessagesData(HomeLists.shortQrGuide);
     primarySmartText.startRotatingText();
-    sessionStarterInstructionalNokhte.setWidgetVisibility(false);
-    sessionStarterInstructionalNokhte.prepareYellowDiamond(
+    focusInstructionalNokhte.setWidgetVisibility(false);
+    focusInstructionalNokhte.prepareYellowDiamond(
       center,
       position: InstructionalNokhtePositions.top,
       colorway: GradientNokhteColorways.invertedBeachWave,
@@ -61,7 +68,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
   initReactors() {
     disposers.add(gestureCrossTapReactor());
     disposers.add(centerCrossNokhteReactor(() {
-      sessionStarterInstructionalNokhte.setWidgetVisibility(false);
+      focusInstructionalNokhte.setWidgetVisibility(false);
       storageInstructionalNokhte.setWidgetVisibility(false);
     }));
     disposers.add(centerInstructionalNokhteMovieReactor());
@@ -70,19 +77,10 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
   @action
   onSwipeUp() {
     if (!isDisconnected && isAllowedToMakeAGesture) {
-      if (hasInitiatedBlur && !hasSwipedUp) {
-        hasSwipedUp = true;
-        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
-        sessionStarterInstructionalNokhte.setControl(Control.playFromStart);
+      if (primarySmartText.currentIndex == 1) {
+        initToTopInstructionalNokhte();
         storageInstructionalNokhte.setWidgetVisibility(false);
-        setSmartTextPadding(
-          subMessagePadding: 110,
-          bottomPadding: 0,
-          topPadding: 0,
-        );
-        delayedEnableTouchFeedback();
-        primarySmartText.startRotatingText(isResuming: true);
-      } else if (!hasInitiatedBlur && !hasSwipedUp && hasTappedOnCross) {
+      } else if (primarySmartText.currentIndex == 3) {
         prepForNavigation(excludeUnBlur: !hasInitiatedBlur);
       }
     }
@@ -90,41 +88,25 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
 
   @action
   onTap(Offset offset) {
-    if (!isDisconnected && isAllowedToMakeAGesture) {
-      if (!touchIsDisabled) {
-        touchRipple.onTap(offset);
-        hasInitiatedBlur = false;
-        setTouchIsDisabled(true);
-        hasSwipedUp = false;
-        primarySmartText.startRotatingText(isResuming: true);
-        nokhteBlur.reverse();
-        beachWaves.currentStore.setControl(Control.mirror);
-        Timer(Seconds.get(1, milli: 500), () {
-          sessionStarterInstructionalNokhte.initMovie(
-            InstructionalGradientMovieParams(
-              center: center,
-              colorway: GradientNokhteColorways.invertedBeachWave,
-              direction: InstructionalGradientDirections.shrink,
-              position: InstructionalNokhtePositions.top,
-            ),
-          );
-          centerInstructionalNokhte.moveBackToCross(
-            startingPosition: CenterNokhtePositions.top,
-          );
-          storageInstructionalNokhte.setWidgetVisibility(true);
-          storageInstructionalNokhte.initMovie(
-            InstructionalGradientMovieParams(
-              center: center,
-              colorway: GradientNokhteColorways.vibrantBlue,
-              direction: InstructionalGradientDirections.shrink,
-              position: InstructionalNokhtePositions.right,
-            ),
-          );
-        });
-        //
-      }
+    if (!isDisconnected &&
+        isAllowedToMakeAGesture &&
+        primarySmartText.currentIndex == 2 &&
+        !touchIsDisabled) {
+      dismissInstructionalNokhte(offset,
+          colorway: GradientNokhteColorways.invertedBeachWave,
+          gradPosition: InstructionalNokhtePositions.top,
+          centerPosition: CenterNokhtePositions.top, onDismiss: () {
+        storageInstructionalNokhte.setWidgetVisibility(true);
+        storageInstructionalNokhte.initMovie(
+          InstructionalGradientMovieParams(
+            center: center,
+            colorway: GradientNokhteColorways.vibrantBlue,
+            direction: InstructionalGradientDirections.shrink,
+            position: InstructionalNokhtePositions.right,
+          ),
+        );
+      });
     }
-    //
   }
 
   centerInstructionalNokhteMovieReactor() =>
@@ -133,14 +115,13 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
             centerInstructionalNokhte.movieMode ==
                 CenterInstructionalNokhteMovieModes.moveBack) {
           gestureCross.centerCrossNokhte.setWidgetVisibility(true);
-          //
         }
       });
 
   @action
   onSwipeLeft() {
-    if (!isDisconnected && !hasInitiatedBlur && !hasSwipedUp) {
-      hasSwipedUp = true;
+    if (!isDisconnected && !hasInitiatedBlur && !hasSwiped()) {
+      setSwipeDirection(GestureDirections.left);
       beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
       beachWaves.currentStore.initMovie(
         beachWaves.currentAnimationValues.first,
@@ -154,16 +135,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
 
   @action
   onInitInstructionMode() {
-    hasInitiatedBlur = true;
-    nokhteBlur.init();
-    beachWaves.currentStore.setControl(Control.stop);
-    primarySmartText.startRotatingText(isResuming: true);
-
-    Timer(const Duration(seconds: 1, milliseconds: 500), () {
-      setSmartTextBottomPaddingScalar(0);
-      setSmartTextTopPaddingScalar(.13);
-      sessionStarterInstructionalNokhte.setWidgetVisibility(true);
-    });
+    baseOnInitInstructionMode();
 
     storageInstructionalNokhte.setWidgetVisibility(true);
     storageInstructionalNokhte.initMovie(
@@ -174,19 +146,12 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
         position: InstructionalNokhtePositions.right,
       ),
     );
-    gestureCross.gradientNokhte.setWidgetVisibility(false);
-    gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-    centerInstructionalNokhte.moveToCenter(center);
   }
 
   @action
   onGestureCrossTap() {
-    if (!isDisconnected &&
-        isAllowedToMakeAGesture &&
-        !hasInitiatedBlur &&
-        !hasTappedOnCross) {
+    if (!isDisconnected && !hasInitiatedBlur) {
       onInitInstructionMode();
-      hasTappedOnCross = true;
     }
   }
 
@@ -197,7 +162,5 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
 
   @computed
   bool get isAllowedToMakeAGesture =>
-      !isEnteringNokhteSession &&
-      !isInErrorMode &&
       centerInstructionalNokhte.movieStatus != MovieStatus.inProgress;
 }

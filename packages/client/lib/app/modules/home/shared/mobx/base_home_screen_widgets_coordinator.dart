@@ -11,7 +11,12 @@ class BaseHomeScreenWidgetsCoordinator = _BaseHomeScreenWidgetsCoordinatorBase
     with _$BaseHomeScreenWidgetsCoordinator;
 
 abstract class _BaseHomeScreenWidgetsCoordinatorBase
-    with Store, Reactions, SmartTextPaddingAdjuster, BaseWidgetsCoordinator {
+    with
+        Store,
+        Reactions,
+        // HomeScreenWidgetsUtils,
+        SmartTextPaddingAdjuster,
+        BaseWidgetsCoordinator {
   final NokhteBlurStore nokhteBlur;
   final GestureCrossStore gestureCross;
   final SmartTextStore primarySmartText;
@@ -79,7 +84,9 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @action
   onSwipeCoordinatesChanged(Offset offset) {
-    if (beachWaves.movieStatus != MovieStatus.finished) {
+    if (beachWaves.movieStatus != MovieStatus.finished ||
+        beachWaves.movieMode == BeachWaveMovieModes.onShore ||
+        beachWaves.movieMode == BeachWaveMovieModes.resumeOnShore) {
       touchRipple.onSwipe(offset);
     }
   }

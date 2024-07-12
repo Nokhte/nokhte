@@ -24,7 +24,7 @@ class ShortQrGuideScreen extends BaseHomeScreen {
                 store: coordinator.widgets.centerInstructionalNokhte,
               ),
               InstructionalGradientNokhte(
-                store: coordinator.widgets.sessionStarterInstructionalNokhte,
+                store: coordinator.widgets.focusInstructionalNokhte,
               ),
               InstructionalGradientNokhte(
                 store: coordinator.widgets.storageInstructionalNokhte,

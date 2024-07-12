@@ -17,10 +17,11 @@ mixin CompassInstructionUtils
   SmartTextStore get primarySmartText;
   CenterInstructionalNokhteStore get centerInstructionalNokhte;
   InstructionalGradientNokhteStore get focusInstructionalNokhte;
-  TouchRippleStore get touchRipple;
   SwipeGuideStore? get swipeGuide;
   NokhteBlurStore get nokhteBlur;
   GestureCrossStore get gestureCross;
+  @override
+  TouchRippleStore get touchRipple;
 
   onTap(
     Offset offset, {
