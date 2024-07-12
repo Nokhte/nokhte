@@ -14,14 +14,9 @@ mixin CompassInstructionUtils
         BaseWidgetsCoordinator,
         HomeScreenWidgetsUtils,
         Reactions {
-  SmartTextStore get primarySmartText;
-  CenterInstructionalNokhteStore get centerInstructionalNokhte;
   InstructionalGradientNokhteStore get focusInstructionalNokhte;
   SwipeGuideStore? get swipeGuide;
   NokhteBlurStore get nokhteBlur;
-  GestureCrossStore get gestureCross;
-  @override
-  TouchRippleStore get touchRipple;
 
   onTap(
     Offset offset, {

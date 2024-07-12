@@ -26,6 +26,8 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
   final SwipeGuideStore swipeGuide;
   @override
   final InstructionalGradientNokhteStore focusInstructionalNokhte;
+
+  InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
   _CompassAndStorageGuideWidgetsCoordinatorBase({
     required this.swipeGuide,
     required super.nokhteBlur,
@@ -35,14 +37,13 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
     required super.primarySmartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
-    required super.sessionStarterInstructionalNokhte,
-    required super.storageInstructionalNokhte,
-  }) : focusInstructionalNokhte = storageInstructionalNokhte;
+    required this.sessionStarterInstructionalNokhte,
+    required this.focusInstructionalNokhte,
+  });
 
   @observable
   bool hasTappedOnGestureCross = false;
 
-  @override
   @action
   constructor(Offset center) {
     initHomeUtils();
@@ -82,22 +83,12 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
         setSmartTextPadding(subMessagePadding: 120, topPadding: .15);
         delayedEnableTouchFeedback();
       } else if (primarySmartText.currentIndex == 5) {
-        setSwipeDirection(GestureDirections.left);
-        beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
-        focusInstructionalNokhte.setWidgetVisibility(false);
-        beachWaves.currentStore.initMovie(
-          beachWaves.currentAnimationValues.first,
-        );
-        gestureCross.initMoveAndRegenerate(CircleOffsets.right);
-        gestureCross.cross.initOutlineFadeIn();
-        primarySmartText.setWidgetVisibility(false);
+        initStorageTransition();
       }
     }
   }
 
   @computed
   bool get isAllowedToMakeAGesture =>
-      !isEnteringNokhteSession &&
-      !isInErrorMode &&
       centerInstructionalNokhte.movieStatus != MovieStatus.inProgress;
 }

@@ -20,10 +20,11 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
         EnRouteConsumer,
         HomeScreenWidgetsUtils,
         InstructionalNokhteWidgetUtils,
-        // SmartTextPaddingAdjuster,
         SingleInstructionalNokhteWidgetUtils {
   @override
   final InstructionalGradientNokhteStore focusInstructionalNokhte;
+
+  final InstructionalGradientNokhteStore storageInstructionalNokhte;
   _ShortQrGuideWidgetsCoordinatorBase({
     required super.nokhteBlur,
     required super.beachWaves,
@@ -32,11 +33,10 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
     required super.primarySmartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
-    required super.sessionStarterInstructionalNokhte,
-    required super.storageInstructionalNokhte,
-  }) : focusInstructionalNokhte = sessionStarterInstructionalNokhte;
+    required this.storageInstructionalNokhte,
+    required this.focusInstructionalNokhte,
+  });
 
-  @override
   @action
   constructor(Offset center) {
     initHomeUtils();
@@ -66,12 +66,12 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
 
   @action
   onSwipeUp() {
-    if (!isDisconnected && isAllowedToMakeAGesture) {
+    if (!isDisconnected) {
       if (primarySmartText.currentIndex == 1) {
         initToTopInstructionalNokhte();
         storageInstructionalNokhte.setWidgetVisibility(false);
-      } else if (primarySmartText.currentIndex == 3) {
-        prepForNavigation(excludeUnBlur: !hasInitiatedBlur);
+      } else if (primarySmartText.currentIndex == 3 && !hasSwiped()) {
+        initSessionStarterTransition();
       }
     }
   }
@@ -79,10 +79,10 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
   @action
   onTap(Offset offset) {
     if (!isDisconnected &&
-        isAllowedToMakeAGesture &&
+        isAllowedToMakeGesture() &&
         primarySmartText.currentIndex == 2 &&
         !touchIsDisabled) {
-      dismissInstructionalNokhte(offset,
+      dismissMovedInstructionalNokhte(offset,
           colorway: GradientNokhteColorways.invertedBeachWave,
           gradPosition: InstructionalNokhtePositions.top,
           centerPosition: CenterNokhtePositions.top, onDismiss: () {
@@ -110,15 +110,8 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
 
   @action
   onSwipeLeft() {
-    if (!isDisconnected && !hasInitiatedBlur && !hasSwiped()) {
-      setSwipeDirection(GestureDirections.left);
-      beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
-      beachWaves.currentStore.initMovie(
-        beachWaves.currentAnimationValues.first,
-      );
-      gestureCross.initMoveAndRegenerate(CircleOffsets.right);
-      gestureCross.cross.initOutlineFadeIn();
-      primarySmartText.setWidgetVisibility(false);
+    if (!isDisconnected && !hasInitiatedBlur) {
+      initStorageTransition();
     }
   }
 
@@ -147,8 +140,4 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
         (p0) => gestureCross.tapCount,
         (p0) => onGestureCrossTap(),
       );
-
-  @computed
-  bool get isAllowedToMakeAGesture =>
-      centerInstructionalNokhte.movieStatus != MovieStatus.inProgress;
 }

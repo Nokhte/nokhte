@@ -44,7 +44,7 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
       onSwipeLeft: () => widgets.onSwipeLeft(),
     ));
     disposers.add(tapReactor());
-    disposers.add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
+    disposers.add(swipeCoordinatesReactor(widgets.initWaterWake));
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {

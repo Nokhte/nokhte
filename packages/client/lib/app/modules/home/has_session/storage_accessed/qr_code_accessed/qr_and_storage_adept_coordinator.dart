@@ -45,7 +45,7 @@ abstract class _QrAndStorageAdeptCoordinatorBase
       onSwipeLeft: () => widgets.onSwipeLeft(),
     ));
     disposers.add(widgets.beachWavesMovieStatusReactor());
-    disposers.add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
+    disposers.add(swipeCoordinatesReactor(widgets.initWaterWake));
     disposers.add(tapReactor());
   }
 

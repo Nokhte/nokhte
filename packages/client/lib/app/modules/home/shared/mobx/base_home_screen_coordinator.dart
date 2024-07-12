@@ -75,6 +75,6 @@ abstract class _BaseHomeScreenCoordinatorBase
 
   deconstructor() {
     dispose();
-    widgets.dispose();
+    // widgets.dispose();
   }
 }

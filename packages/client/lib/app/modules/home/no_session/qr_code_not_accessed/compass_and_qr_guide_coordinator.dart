@@ -36,15 +36,8 @@ abstract class _CompassAndQrGuideCoordinatorBase
       },
       onSwipeLeft: () {},
     ));
-    disposers.add(swipeCoordinatesReactor(onSwipeUpCordinatesChanged));
+    disposers.add(swipeCoordinatesReactor(widgets.initWaterWake));
     disposers.add(tapReactor());
-  }
-
-  onSwipeUpCordinatesChanged(Offset offset) {
-    if (widgets.primarySmartText.currentIndex == 3 ||
-        widgets.primarySmartText.currentIndex == 5) {
-      widgets.onSwipeCoordinatesChanged(offset);
-    }
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {

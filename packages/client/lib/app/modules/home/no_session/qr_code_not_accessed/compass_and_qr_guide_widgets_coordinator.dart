@@ -34,15 +34,13 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
     required super.primarySmartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
-    required super.sessionStarterInstructionalNokhte,
-    required super.storageInstructionalNokhte,
-  }) : focusInstructionalNokhte = storageInstructionalNokhte;
+    required this.focusInstructionalNokhte,
+  });
 
-  @override
   @action
   constructor(Offset center) {
-    initHomeUtils();
     initCompassInstructionUtils();
+    initHomeUtils();
     initInstructionalNokhteUtils(center);
     primarySmartText.setMessagesData(HomeLists.compassAndQrGuide);
     primarySmartText.startRotatingText();
@@ -63,7 +61,7 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
 
   @action
   onSwipeUp() {
-    if (!isDisconnected && !touchIsDisabled) {
+    if (!isDisconnected && !touchIsDisabled && isAllowedToMakeGesture()) {
       if (primarySmartText.currentIndex.equals(3)) {
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
         focusInstructionalNokhte.setControl(Control.playFromStart);
@@ -77,7 +75,7 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
         delayedEnableTouchFeedback();
       } else if (primarySmartText.currentIndex.equals(5)) {
         focusInstructionalNokhte.setWidgetVisibility(false);
-        prepForNavigation(excludeUnBlur: true);
+        initSessionStarterTransition();
       }
     }
   }

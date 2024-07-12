@@ -43,7 +43,7 @@ abstract class _StorageGuideCoordinatorBase extends BaseHomeScreenCoordinator
       onSwipeUp: () => widgets.onSwipeUp(),
       onSwipeLeft: () => widgets.onSwipeLeft(),
     ));
-    disposers.add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
+    disposers.add(swipeCoordinatesReactor(widgets.initWaterWake));
     disposers.add(tapReactor());
   }
 

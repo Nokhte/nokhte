@@ -29,8 +29,7 @@ class HomeWidgetsModule extends Module {
         gestureCross: Modular.get<GestureCrossStore>(),
         touchRipple: TouchRippleStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
-        storageInstructionalNokhte: InstructionalGradientNokhteStore(),
+        focusInstructionalNokhte: InstructionalGradientNokhteStore(),
       ),
     );
     i.add<QrNavigationReminderWidgetsCoordinator>(
@@ -43,7 +42,6 @@ class HomeWidgetsModule extends Module {
         touchRipple: TouchRippleStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
         sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
-        storageInstructionalNokhte: InstructionalGradientNokhteStore(),
       ),
     );
     i.add<StorageGuideWidgetsCoordinator>(
@@ -57,7 +55,7 @@ class HomeWidgetsModule extends Module {
         touchRipple: TouchRippleStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
         sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
-        storageInstructionalNokhte: InstructionalGradientNokhteStore(),
+        focusInstructionalNokhte: InstructionalGradientNokhteStore(),
       ),
     );
     i.add<CompassAndStorageGuideWidgetsCoordinator>(
@@ -71,7 +69,7 @@ class HomeWidgetsModule extends Module {
         touchRipple: TouchRippleStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
         sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
-        storageInstructionalNokhte: InstructionalGradientNokhteStore(),
+        focusInstructionalNokhte: InstructionalGradientNokhteStore(),
       ),
     );
     i.add<ShortQrGuideWidgetsCoordinator>(
@@ -83,7 +81,7 @@ class HomeWidgetsModule extends Module {
         gestureCross: Modular.get<GestureCrossStore>(),
         touchRipple: TouchRippleStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
+        focusInstructionalNokhte: InstructionalGradientNokhteStore(),
         storageInstructionalNokhte: InstructionalGradientNokhteStore(),
       ),
     );

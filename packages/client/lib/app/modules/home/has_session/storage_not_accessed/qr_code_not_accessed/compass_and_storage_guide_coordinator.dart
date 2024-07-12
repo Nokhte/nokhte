@@ -40,14 +40,13 @@ abstract class _CompassAndStorageGuideCoordinatorBase
 
   @override
   initReactors() {
-    super.initReactors();
     disposers.add(swipeReactor(
       onSwipeUp: () {},
       onSwipeLeft: () {
         widgets.onSwipeLeft();
       },
     ));
-    disposers.add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
+    disposers.add(swipeCoordinatesReactor(widgets.initWaterWake));
     disposers.add(tapReactor());
   }
 
