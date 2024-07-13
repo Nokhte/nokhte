@@ -13,8 +13,9 @@ class SessionStarterEntryCoordinator = _SessionStarterEntryCoordinatorBase
     with _$SessionStarterEntryCoordinator;
 
 abstract class _SessionStarterEntryCoordinatorBase
-    with Store, BaseCoordinator, Reactions {
+    with Store, BaseCoordinator, Reactions, SessionStarterNavigationUtils {
   final SessionStarterEntryWidgetsCoordinator widgets;
+  @override
   final GetUserInfoStore getUserInfo;
   @override
   final CaptureScreen captureScreen;
@@ -36,13 +37,8 @@ abstract class _SessionStarterEntryCoordinatorBase
 
   initReactors() {
     disposers.add(widgets.beachWavesMovieStatusReactor(
-        onFinished: () => Modular.to.navigate(route)));
+        onFinished: () => Modular.to.navigate(getRoute())));
   }
-
-  @computed
-  String get route => getUserInfo.hasAccessedQrCode
-      ? SessionStarterConstants.sessionStarter
-      : SessionStarterConstants.sessionStarterInstructions;
 
   deconstructor() {
     dispose();

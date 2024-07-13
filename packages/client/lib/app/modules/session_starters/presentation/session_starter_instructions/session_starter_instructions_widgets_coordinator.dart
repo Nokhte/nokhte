@@ -126,7 +126,9 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
   initReactors() {
     disposers.add(centerCrossNokhteReactor());
     disposers.add(gestureCrossTapReactor());
-    disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(beachWavesMovieStatusReactor(
+      hasDonePresetInstructions: false,
+    ));
     disposers.add(centerInstructionalNokhteReactor());
   }
 

@@ -65,7 +65,9 @@ mixin SessionStarterWidgetsUtils
     }
   }
 
-  beachWavesMovieStatusReactor() =>
+  beachWavesMovieStatusReactor({
+    bool hasDonePresetInstructions = true,
+  }) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode ==
@@ -73,7 +75,9 @@ mixin SessionStarterWidgetsUtils
             onReadyToNavigate(SessionStarterConstants.sessionStarterExit);
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedOnShoreToInvertedDeeperBlue) {
-            onReadyToNavigate(PresetsConstants.presetsInstructions);
+            onReadyToNavigate(hasDonePresetInstructions
+                ? PresetsConstants.presets
+                : PresetsConstants.presetsInstructions);
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.resumeOnShore) {
             beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
