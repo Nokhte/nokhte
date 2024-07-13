@@ -55,6 +55,9 @@ abstract class _SessionMetadataStoreBase
   bool leaderIsWhitelisted = false;
 
   @observable
+  String leaderUID = '';
+
+  @observable
   bool isAValidSession = false;
 
   @observable
@@ -106,6 +109,7 @@ abstract class _SessionMetadataStoreBase
       leaderIsWhitelisted = entity.leaderIsWhitelisted;
       isAPremiumSession = entity.isAPremiumSession;
       isAValidSession = entity.isAValidSession;
+      leaderUID = entity.leaderUID;
       userIndex = entity.userIndex;
       presetUID = entity.presetUID;
       if (presetName.isEmpty) {

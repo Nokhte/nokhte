@@ -6,7 +6,6 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
-import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -27,7 +26,6 @@ abstract class _SessionLobbyCoordinatorBase
   final SessionLobbyWidgetsCoordinator widgets;
   final TapDetector tap;
   final UserMetadataCoordinator userMetadata;
-  final DeepLinksCoordinator deepLinks;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
   final CaptureNokhteSessionStart captureStart;
   @override
@@ -39,7 +37,6 @@ abstract class _SessionLobbyCoordinatorBase
 
   _SessionLobbyCoordinatorBase({
     required this.widgets,
-    required this.deepLinks,
     required this.captureStart,
     required this.tap,
     required this.presence,
@@ -61,7 +58,6 @@ abstract class _SessionLobbyCoordinatorBase
     } else {
       showPresetInfo();
     }
-    await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionBearer);
     await userMetadata.getMetadata();
     await presence.updateCurrentPhase(1.0);
     await captureScreen(SessionConstants.lobby);
@@ -69,7 +65,6 @@ abstract class _SessionLobbyCoordinatorBase
 
   @action
   initReactors() {
-    disposers.add(deepLinkReactor());
     disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
@@ -108,6 +103,7 @@ abstract class _SessionLobbyCoordinatorBase
       });
 
   sessionPresetReactor() => reaction((p0) => sessionMetadata.presetTags, (p0) {
+        widgets.onQrCodeReady(sessionMetadata.leaderUID);
         showPresetInfo();
       });
 
@@ -117,14 +113,7 @@ abstract class _SessionLobbyCoordinatorBase
       presetName: sessionMetadata.presetName,
       presetTags: sessionMetadata.presetTags,
     );
-    //
   }
-  // add the on ready to start reactor too
-
-  deepLinkReactor() => reaction(
-        (p0) => deepLinks.link,
-        (p0) => widgets.onQrCodeReady(p0),
-      );
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
