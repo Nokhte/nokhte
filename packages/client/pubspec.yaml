@@ -24,6 +24,7 @@ dependencies:
   google_fonts: ^5.1.0
   gradient_borders: ^1.0.0
   intl: ^0.18.1
+  mobile_scanner: ^5.1.1
   mobx: ^2.2.1
   nokhte_backend:
     path: ../backend/dart
