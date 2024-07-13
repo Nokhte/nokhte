@@ -32,6 +32,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   final SmartTextStore smartText;
   final SmartTextStore qrSubtitleSmartText;
   final InstructionalGradientNokhteStore presetsInstructionalNokhte;
+  final InstructionalGradientNokhteStore sessionJoinerInstructionalNokhte;
   final InstructionalGradientNokhteStore homeInstructionalNokhte;
   final PresetIconsStore presetIcons;
   @override
@@ -62,6 +63,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     required this.wifiDisconnectOverlay,
     required this.centerInstructionalNokhte,
     required this.homeInstructionalNokhte,
+    required this.sessionJoinerInstructionalNokhte,
     required this.presetsInstructionalNokhte,
     required this.nokhteBlur,
     required this.qrCode,
@@ -106,6 +108,11 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     qrCode.setWidgetVisibility(true);
   }
 
+  adjustToHorizontalInstructionPadding() {
+    setSmartTextBottomPaddingScalar(.2);
+    setSmartTextTopPaddingScalar(0);
+  }
+
   @action
   onPreferredPresetReceived({
     required String sessionName,
@@ -118,20 +125,28 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   }
 
   @action
+  initExtraNavCleanUp() {
+    smartText.setWidgetVisibility(false);
+    qrSubtitleSmartText.setWidgetVisibility(false);
+    presetIcons.setWidgetVisibility(false);
+    sessionJoinerInstructionalNokhte.setWidgetVisibility(false);
+    homeInstructionalNokhte.setWidgetVisibility(false);
+    centerInstructionalNokhte.setWidgetVisibility(false);
+    qrCode.setWidgetVisibility(false);
+  }
+
+  @action
   onSwipeDown(Function onLeaving) async {
-    if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
+    if (isAllowedToMakeGesture()) {
       if (hasInitiatedBlur) {
         smartText.setCurrentIndex(0);
         initToBottomInstructionalNokhte();
         presetsInstructionalNokhte.setWidgetVisibility(false);
+        sessionJoinerInstructionalNokhte.setWidgetVisibility(false);
       } else {
         if (!hasSwiped()) {
-          smartText.setWidgetVisibility(false);
-          qrSubtitleSmartText.setWidgetVisibility(false);
-          presetIcons.setWidgetVisibility(false);
+          initExtraNavCleanUp();
           initExitSessionStarter();
-          homeInstructionalNokhte.setWidgetVisibility(false);
-          qrCode.setWidgetVisibility(false);
           await onLeaving();
         }
       }
@@ -140,22 +155,36 @@ abstract class _SessionStarterWidgetsCoordinatorBase
 
   @action
   onSwipeRight(Function onLeaving) async {
-    if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
+    if (isAllowedToMakeGesture()) {
       if (hasInitiatedBlur) {
-        setSmartTextBottomPaddingScalar(.2);
-        setSmartTextTopPaddingScalar(0);
+        adjustToHorizontalInstructionPadding();
         smartText.setCurrentIndex(2);
         homeInstructionalNokhte.setWidgetVisibility(false);
+        sessionJoinerInstructionalNokhte.setWidgetVisibility(false);
         initToLeftInstructionalNokhte();
       } else {
         if (!hasSwiped()) {
           initEnterPresets();
-          qrSubtitleSmartText.setWidgetVisibility(false);
-          presetIcons.setWidgetVisibility(false);
-          smartText.setWidgetVisibility(false);
-          homeInstructionalNokhte.setWidgetVisibility(false);
-          centerInstructionalNokhte.setWidgetVisibility(false);
-          qrCode.setWidgetVisibility(false);
+          initExtraNavCleanUp();
+          await onLeaving();
+        }
+      }
+    }
+  }
+
+  @action
+  onSwipeLeft(Function onLeaving) async {
+    if (isAllowedToMakeGesture()) {
+      if (hasInitiatedBlur) {
+        adjustToHorizontalInstructionPadding();
+        smartText.setCurrentIndex(4);
+        homeInstructionalNokhte.setWidgetVisibility(false);
+        presetsInstructionalNokhte.setWidgetVisibility(false);
+        initToRightInstructionalNokhte();
+      } else {
+        if (!hasSwiped()) {
+          initExtraNavCleanUp();
+          initEnterSessionJoiner();
           await onLeaving();
         }
       }
@@ -337,6 +366,15 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         : InstructionalGradientDirections.shrink;
     presetsInstructionalNokhte.setWidgetVisibility(true);
     homeInstructionalNokhte.setWidgetVisibility(true);
+    sessionJoinerInstructionalNokhte.setWidgetVisibility(true);
+    sessionJoinerInstructionalNokhte.initMovie(
+      InstructionalGradientMovieParams(
+        center: center,
+        colorway: GradientNokhteColorways.orangeSand,
+        direction: dir,
+        position: InstructionalNokhtePositions.right,
+      ),
+    );
     presetsInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
         center: center,

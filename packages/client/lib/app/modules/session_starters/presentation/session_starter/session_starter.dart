@@ -89,21 +89,28 @@ class SessionStarterScreen extends HookWidget {
                 GestureCross(
                   showGlowAndOutline: true,
                   config: GestureCrossConfiguration(
-                    bottom: Right(
-                      NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.home,
+                      bottom: Right(
+                        NokhteGradientConfig(
+                          gradientType: NokhteGradientTypes.home,
+                        ),
                       ),
-                    ),
-                    left: Right(
-                      NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.presets,
+                      left: Right(
+                        NokhteGradientConfig(
+                          gradientType: NokhteGradientTypes.presets,
+                        ),
                       ),
-                    ),
-                  ),
+                      right: Right(
+                        NokhteGradientConfig(
+                          gradientType: NokhteGradientTypes.sessionJoiner,
+                        ),
+                      )),
                   store: coordinator.widgets.gestureCross,
                 ),
                 CenterInstructionalNokhte(
                   store: coordinator.widgets.centerInstructionalNokhte,
+                ),
+                InstructionalGradientNokhte(
+                  store: coordinator.widgets.sessionJoinerInstructionalNokhte,
                 ),
                 InstructionalGradientNokhte(
                   store: coordinator.widgets.presetsInstructionalNokhte,

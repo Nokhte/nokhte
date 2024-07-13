@@ -115,6 +115,13 @@ abstract class _SessionStarterCoordinatorBase
               await logic.dispose(shouldNuke: true);
             });
           });
+        case GestureDirections.left:
+          ifTouchIsNotDisabled(() {
+            widgets.onSwipeLeft(() async {
+              toggleIsNavigatingAway();
+              await logic.dispose(shouldNuke: true);
+            });
+          });
         default:
           break;
       }

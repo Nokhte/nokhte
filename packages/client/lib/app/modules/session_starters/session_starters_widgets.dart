@@ -82,6 +82,7 @@ class SessionStartersWidgetsModule extends Module {
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         homeInstructionalNokhte: InstructionalGradientNokhteStore(),
         presetsInstructionalNokhte: InstructionalGradientNokhteStore(),
+        sessionJoinerInstructionalNokhte: InstructionalGradientNokhteStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
       ),
     );

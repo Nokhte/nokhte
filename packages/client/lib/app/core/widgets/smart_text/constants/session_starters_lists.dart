@@ -8,6 +8,8 @@ class SessionStartersList {
         SharedLists.emptyItem,
         InstructionItems.presetsExplanation,
         SharedLists.emptyItem,
+        InstructionItems.sessionJoinerExplanation,
+        SharedLists.emptyItem,
       ];
 
   static List<RotatingTextData> getQrCodeSubtitle(String sessionName) => [
