@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -110,14 +109,12 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
   }
 
   @action
-  onSwipeDown(Function onLeaving) async {
+  onSwipeDown() {
     if (!hasInitiatedBlur && !hasSwiped()) {
       initExitSessionStarter();
       homeInstructionalNokhte.setWidgetVisibility(false);
-      await onLeaving();
     }
   }
-
 
   initReactors() {
     disposers.add(centerCrossNokhteReactor());

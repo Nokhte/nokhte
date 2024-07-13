@@ -73,7 +73,7 @@ abstract class _SessionStarterCoordinatorBase
   swipeCoordinatesReactor() =>
       reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
         ifTouchIsNotDisabled(() {
-          widgets.onSwipeCoordinatesChanged(p0);
+          widgets.initWaterWake(p0);
         });
       });
 

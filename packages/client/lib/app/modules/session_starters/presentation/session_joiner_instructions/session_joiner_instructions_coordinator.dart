@@ -48,7 +48,7 @@ abstract class _SessionJoinerInstructionsCoordinatorBase
   swipeCoordinatesReactor() =>
       reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
         ifTouchIsNotDisabled(() {
-          widgets.onSwipeCoordinatesChanged(p0);
+          widgets.initWaterWake(p0);
         });
       });
 
@@ -77,9 +77,7 @@ abstract class _SessionJoinerInstructionsCoordinatorBase
       switch (direction) {
         case GestureDirections.down:
           ifTouchIsNotDisabled(() {
-            widgets.onSwipeDown(() {
-              toggleIsNavigatingAway();
-            });
+            widgets.onSwipeDown();
           });
         case GestureDirections.left:
           ifTouchIsNotDisabled(() {

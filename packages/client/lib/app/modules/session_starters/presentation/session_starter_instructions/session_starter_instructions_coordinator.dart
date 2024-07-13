@@ -75,9 +75,7 @@ abstract class _SessionStarterInstructionsCoordinatorBase
       switch (direction) {
         case GestureDirections.down:
           ifTouchIsNotDisabled(() {
-            widgets.onSwipeDown(() {
-              toggleIsNavigatingAway();
-            });
+            widgets.onSwipeDown();
           });
         case GestureDirections.right:
           ifTouchIsNotDisabled(() {

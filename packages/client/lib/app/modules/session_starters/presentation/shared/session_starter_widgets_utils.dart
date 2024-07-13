@@ -4,16 +4,17 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/presets/presets.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 
 mixin SessionStarterWidgetsUtils
-    on SwipeNavigationUtils, EnRoute, EnRouteConsumer, TouchRippleUtils {
+    on SwipeNavigationUtils, EnRoute, TouchRippleUtils {
   SmartTextStore get smartText;
   GestureCrossStore get gestureCross;
   CenterInstructionalNokhteStore get centerInstructionalNokhte;
   @override
   BeachWavesStore get beachWaves;
-  NokhteQrCodeStore get qrCode;
+  NokhteQrCodeStore? get qrCode;
 
   initEnterSessionJoiner() {
     if (!hasSwiped()) {
@@ -53,7 +54,7 @@ mixin SessionStarterWidgetsUtils
       smartText.startRotatingText(isResuming: true);
       gestureCross.cross.initOutlineFadeIn();
       centerInstructionalNokhte.setWidgetVisibility(false);
-      qrCode.setWidgetVisibility(false);
+      qrCode?.setWidgetVisibility(false);
       gestureCross.initMoveAndRegenerate(CircleOffsets.left);
       beachWaves.setMovieMode(
         BeachWaveMovieModes.invertedOnShoreToInvertedDeeperBlue,
@@ -77,6 +78,11 @@ mixin SessionStarterWidgetsUtils
               BeachWaveMovieModes.resumeOnShore) {
             beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
             beachWaves.currentStore.initMovie(params.direction);
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea) {
+            onReadyToNavigate(SessionConstants.lobby, args: {
+              SessionStarterConstants.QR_CODE_DATA: qrCode?.qrCodeData,
+            });
           }
         }
       });

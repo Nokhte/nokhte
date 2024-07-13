@@ -59,7 +59,7 @@ class SessionStarterScreen extends HookWidget {
                 ),
                 Center(
                   child: SmartText(
-                    store: coordinator.widgets.primarySmartText,
+                    store: coordinator.widgets.qrSubtitleSmartText,
                     opacityDuration: Seconds.get(1),
                     topPadding: height * .23,
                   ),
@@ -76,7 +76,7 @@ class SessionStarterScreen extends HookWidget {
                 ),
                 Center(
                   child: SmartText(
-                    store: coordinator.widgets.secondarySmartText,
+                    store: coordinator.widgets.smartText,
                     opacityDuration: Seconds.get(1),
                     topPadding:
                         height * coordinator.widgets.smartTextTopPaddingScalar,

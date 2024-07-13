@@ -62,6 +62,14 @@ mixin SingleInstructionalNokhteWidgetUtils
     }
   }
 
+  initToBottomInstructionalNokhte() {
+    setSwipeDirection(GestureDirections.down);
+    setSmartTextBottomPaddingScalar(.1);
+    smartText.startRotatingText(isResuming: true);
+    setSmartTextTopPaddingScalar(0);
+    centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.bottom);
+  }
+
   initToRightInstructionalNokhte() {
     if (isAllowedToMakeGesture()) {
       setSwipeDirection(GestureDirections.left);

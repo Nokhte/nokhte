@@ -8,10 +8,13 @@ mixin TouchRippleUtils {
   TouchRippleStore get touchRipple;
   BeachWavesStore get beachWaves;
 
-  onReadyToNavigate(String route) {
+  onReadyToNavigate(
+    String route, {
+    Map args = const {},
+  }) {
     Timer.periodic(Seconds.get(0, milli: 500), (timer) {
       if (touchRipple.movieStatus == MovieStatus.finished) {
-        Modular.to.navigate(route);
+        Modular.to.navigate(route, arguments: args.isNotEmpty ? args : null);
         timer.cancel();
       }
     });
