@@ -23,6 +23,7 @@ class HomeModule extends Module {
         HomeWidgetsModule(),
         SessionStartersLogicModule(),
         CleanUpCollaborationArtifactsModule(),
+        UserInformationModule(),
         LegacyConnectivityModule(),
         PosthogModule(),
         StorageLogicModule(),
