@@ -75,12 +75,10 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
 
   @action
   constructor(Offset center) {
-    consumeRoutingArgs();
+    consumeRoutingArgs(isInverted: true);
     initInstructionalNokhteUtils(center);
     swipeGuide.setWidgetVisibility(false);
-    gestureCross.fadeIn(onFadeIn: Left(() {
-      gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-    }));
+    gestureCross.fadeInTheCross();
     qrCode.setQrCodeData(SessionStarterConstants.inactiveQrCodeData);
     qrCode.initFadeIn();
     smartText.setMessagesData(SessionStartersList.sessionStarterInstructions);
@@ -105,6 +103,15 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
       } else if (smartText.currentIndex == 3) {
         initEnterPresets();
       }
+    }
+  }
+
+  @action
+  onSwipeLeft() {
+    if (!hasInitiatedBlur && !hasSwiped()) {
+      smartText.setWidgetVisibility(false);
+      qrCode.setWidgetVisibility(false);
+      initEnterSessionJoiner();
     }
   }
 
@@ -139,6 +146,34 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
         );
       }
     }
+  }
+
+  @observable
+  GestureCrossConfiguration gestureCrossConfig = GestureCrossConfiguration();
+
+  @action
+  onUserInfoLoaded(bool hasAssessedQrCodeScanner) {
+    Either<StrokeConfig, NokhteGradientConfig> homeConfig = Right(
+      NokhteGradientConfig(
+        gradientType: NokhteGradientTypes.home,
+      ),
+    );
+    if (hasAssessedQrCodeScanner) {
+      gestureCrossConfig = GestureCrossConfiguration(
+        right: Right(
+          NokhteGradientConfig(
+            gradientType: NokhteGradientTypes.sessionJoiner,
+          ),
+        ),
+        bottom: homeConfig,
+      );
+      //
+    } else {
+      gestureCrossConfig = GestureCrossConfiguration(
+        bottom: homeConfig,
+      );
+    }
+    gestureCross.fadeIn();
   }
 
   @action

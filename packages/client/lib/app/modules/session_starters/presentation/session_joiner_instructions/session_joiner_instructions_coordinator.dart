@@ -2,8 +2,10 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
@@ -18,6 +20,7 @@ abstract class _SessionJoinerInstructionsCoordinatorBase
   final SwipeDetector swipe;
   final TapDetector tap;
   final SessionStartersLogicCoordinator logic;
+  final GetUserInfoStore getUserInfo;
   @override
   final CaptureScreen captureScreen;
 
@@ -25,6 +28,7 @@ abstract class _SessionJoinerInstructionsCoordinatorBase
     required this.widgets,
     required this.tap,
     required this.swipe,
+    required this.getUserInfo,
     required this.logic,
     required this.captureScreen,
   }) {
@@ -42,18 +46,13 @@ abstract class _SessionJoinerInstructionsCoordinatorBase
     widgets.constructor(center);
     widgets.initReactors();
     initReactors();
+    await getUserInfo(NoParams());
     await captureScreen(SessionStarterConstants.sessionStarterInstructions);
   }
 
-  swipeCoordinatesReactor() =>
-      reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
-        ifTouchIsNotDisabled(() {
-          widgets.initWaterWake(p0);
-        });
-      });
-
   initReactors() {
     disposers.add(swipeCoordinatesReactor());
+    disposers.add(userInfoReactor());
     disposers.add(swipeReactor());
     disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
@@ -69,6 +68,22 @@ abstract class _SessionJoinerInstructionsCoordinatorBase
     disposers.add(tapReactor());
   }
 
+  swipeCoordinatesReactor() =>
+      reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
+        ifTouchIsNotDisabled(() {
+          widgets.initWaterWake(p0);
+        });
+      });
+
+  userInfoReactor() => reaction((p0) => getUserInfo.state, (p0) {
+        if (p0 == StoreState.loaded) {
+          widgets.onUserInfoLoaded(
+            getUserInfo.hasAccessedQrCodeScanner,
+            getUserInfo.userUID,
+          );
+        }
+      });
+
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) => onSwipe(p0));
 
   @action
@@ -82,6 +97,12 @@ abstract class _SessionJoinerInstructionsCoordinatorBase
         case GestureDirections.left:
           ifTouchIsNotDisabled(() {
             widgets.onSwipeLeft();
+          });
+        case GestureDirections.right:
+          ifTouchIsNotDisabled(() {
+            if (getUserInfo.hasAccessedQrCode) {
+              widgets.onSwipeRight();
+            }
           });
         default:
           break;

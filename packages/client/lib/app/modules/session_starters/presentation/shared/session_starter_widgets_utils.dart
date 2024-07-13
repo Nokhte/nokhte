@@ -83,6 +83,9 @@ mixin SessionStarterWidgetsUtils
             onReadyToNavigate(SessionConstants.lobby, args: {
               SessionStarterConstants.QR_CODE_DATA: qrCode?.qrCodeData,
             });
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.emptyTheOcean) {
+            onReadyToNavigate(SessionStarterConstants.sessionJoiner);
           }
         }
       });

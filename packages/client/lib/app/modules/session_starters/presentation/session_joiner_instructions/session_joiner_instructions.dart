@@ -1,6 +1,5 @@
 export "session_joiner_instructions_coordinator.dart";
 export "session_joiner_instructions_widgets_coordinator.dart";
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -43,6 +42,9 @@ class SessionJoinerInstructionsScreen extends HookWidget {
                   ),
                 ),
               ),
+              NokhteQrCode(
+                store: coordinator.widgets.qrCode,
+              ),
               FullScreen(
                 child: NokhteBlur(
                   store: coordinator.widgets.nokhteBlur,
@@ -57,30 +59,29 @@ class SessionJoinerInstructionsScreen extends HookWidget {
                 toTheRight: false,
                 store: coordinator.widgets.swipeGuide,
               ),
-              Observer(
-                  builder: (context) => Center(
-                        child: SmartText(
-                          store: coordinator.widgets.smartText,
-                          opacityDuration: Seconds.get(1),
-                          topPadding: height *
-                              coordinator.widgets.smartTextTopPaddingScalar,
-                          bottomPadding: height *
-                              coordinator.widgets.smartTextBottomPaddingScalar,
-                          subTextPadding: coordinator
-                              .widgets.smartTextSubMessagePaddingScalar,
-                        ),
-                      )),
-              GestureCross(
-                showGlowAndOutline: true,
-                config: GestureCrossConfiguration(
-                  bottom: Right(
-                    NokhteGradientConfig(
-                      gradientType: NokhteGradientTypes.home,
+              Observer(builder: (context) {
+                return Stack(
+                  children: [
+                    Center(
+                      child: SmartText(
+                        store: coordinator.widgets.smartText,
+                        opacityDuration: Seconds.get(1),
+                        topPadding: height *
+                            coordinator.widgets.smartTextTopPaddingScalar,
+                        bottomPadding: height *
+                            coordinator.widgets.smartTextBottomPaddingScalar,
+                        subTextPadding: coordinator
+                            .widgets.smartTextSubMessagePaddingScalar,
+                      ),
                     ),
-                  ),
-                ),
-                store: coordinator.widgets.gestureCross,
-              ),
+                    GestureCross(
+                      showGlowAndOutline: true,
+                      config: coordinator.widgets.gestureCrossConfig,
+                      store: coordinator.widgets.gestureCross,
+                    ),
+                  ],
+                );
+              }),
               CenterInstructionalNokhte(
                 store: coordinator.widgets.centerInstructionalNokhte,
               ),

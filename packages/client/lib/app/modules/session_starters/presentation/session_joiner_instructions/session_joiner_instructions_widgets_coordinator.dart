@@ -30,7 +30,7 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
         SessionStarterWidgetsUtils {
   final SwipeGuideStore swipeGuide;
   @override
-  NokhteQrCodeStore? qrCode;
+  NokhteQrCodeStore qrCode;
   final InstructionalGradientNokhteStore homeInstructionalNokhte;
   @override
   final SmartTextStore smartText;
@@ -55,6 +55,7 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
     required this.touchRipple,
     required this.gestureCross,
     required this.smartText,
+    required this.qrCode,
     required this.wifiDisconnectOverlay,
     required this.centerInstructionalNokhte,
     required this.nokhteBlur,
@@ -66,8 +67,8 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
     initEnRouteActions();
     initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
-    setSmartTextTopPaddingScalar(0);
-    setSmartTextBottomPaddingScalar(.27);
+    setSmartTextTopPaddingScalar(0.2);
+    setSmartTextBottomPaddingScalar(0);
     setSmartTextSubMessagePaddingScalar(110);
   }
 
@@ -75,10 +76,9 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
   constructor(Offset center) {
     initInstructionalNokhteUtils(center);
     swipeGuide.setWidgetVisibility(false);
-    gestureCross.fadeIn(onFadeIn: Left(() {
-      gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-    }));
-    consumeRoutingArgs();
+    qrCode.setWidgetVisibility(false);
+    gestureCross.fadeInTheCross();
+    consumeRoutingArgs(isInverted: true);
     smartText.setMessagesData(SessionStartersList.sessionJoinerInstructions);
     smartText.startRotatingText();
     focusInstructionalNokhte.prepareYellowDiamond(
@@ -97,6 +97,7 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
         swipeGuide.setWidgetVisibility(false);
         homeInstructionalNokhte.setWidgetVisibility(false);
       } else if (smartText.currentIndex == 3) {
+        qrCode.setWidgetVisibility(false);
         initEnterSessionJoiner();
       }
     }
@@ -121,6 +122,7 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
   onGestureCrossTap() {
     if (!isDisconnected && smartText.currentIndex == 0) {
       baseOnInitInstructionMode();
+      qrCode.setWidgetVisibility(false);
       homeInstructionalNokhte.setWidgetVisibility(true);
       homeInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
@@ -134,12 +136,24 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
   }
 
   @action
+  onSwipeRight() {
+    if (smartText.currentIndex == 0 && !hasSwiped()) {
+      smartText.setWidgetVisibility(false);
+      initEnterPresets();
+    }
+  }
+
+  @action
   onTap(Offset offset) {
     if (!touchIsDisabled) {
       if (smartText.currentIndex == 2) {
         dismissMovedInstructionalNokhte(
           offset,
           onDismiss: () {
+            qrCode.setWidgetVisibility(true);
+            setSmartTextTopPaddingScalar(0.2);
+            setSmartTextBottomPaddingScalar(0);
+            setSmartTextSubMessagePaddingScalar(110);
             homeInstructionalNokhte.setWidgetVisibility(true);
             homeInstructionalNokhte.initMovie(
               InstructionalGradientMovieParams(
@@ -156,6 +170,36 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
         );
       }
     }
+  }
+
+  @observable
+  GestureCrossConfiguration gestureCrossConfig = GestureCrossConfiguration();
+
+  @action
+  onUserInfoLoaded(bool hasAssessedQrCode, String userUID) {
+    Either<StrokeConfig, NokhteGradientConfig> homeConfig = Right(
+      NokhteGradientConfig(
+        gradientType: NokhteGradientTypes.home,
+      ),
+    );
+    if (hasAssessedQrCode) {
+      gestureCrossConfig = GestureCrossConfiguration(
+        left: Right(
+          NokhteGradientConfig(
+            gradientType: NokhteGradientTypes.presets,
+          ),
+        ),
+        bottom: homeConfig,
+      );
+      //
+    } else {
+      gestureCrossConfig = GestureCrossConfiguration(
+        bottom: homeConfig,
+      );
+    }
+    qrCode.setQrCodeData(userUID);
+    qrCode.setWidgetVisibility(true);
+    gestureCross.fadeIn();
   }
 
   centerInstructionalNokhteReactor() =>

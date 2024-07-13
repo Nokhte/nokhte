@@ -71,7 +71,12 @@ mixin EnRoute {
 mixin EnRouteConsumer on EnRoute, Reactions {
   BeachWavesStore get beachWaves;
 
-  consumeRoutingArgs() {
+  consumeRoutingArgs({
+    bool isInverted = false,
+  }) {
+    if (isInverted) {
+      setParams(const ResumeOnShoreParams(isInverted: true));
+    }
     if (hasReceivedRoutingArgs) {
       setParams(Modular.args.data[HomeConstants.RESUME_ON_SHORE_PARAMS]);
     }

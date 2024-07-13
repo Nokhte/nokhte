@@ -1,5 +1,4 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
@@ -24,7 +23,6 @@ class HomeModule extends Module {
         HomeWidgetsModule(),
         SessionStartersLogicModule(),
         CleanUpCollaborationArtifactsModule(),
-        DeepLinksModule(),
         LegacyConnectivityModule(),
         PosthogModule(),
         StorageLogicModule(),

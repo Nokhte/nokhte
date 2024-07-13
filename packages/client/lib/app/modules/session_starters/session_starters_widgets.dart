@@ -47,6 +47,7 @@ class SessionStartersWidgetsModule extends Module {
         nokhteBlur: NokhteBlurStore(),
         touchRipple: TouchRippleStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
+        qrCode: NokhteQrCodeStore(),
         beachWaves: BeachWavesStore(),
         smartText: SmartTextStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),

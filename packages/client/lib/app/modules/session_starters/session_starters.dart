@@ -1,5 +1,4 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
@@ -18,7 +17,6 @@ class SessionStartersModule extends Module {
   @override
   List<Module> get imports => [
         UserInformationModule(),
-        DeepLinksModule(),
         LegacyConnectivityModule(),
         SessionStartersLogicModule(),
         PosthogModule(),
@@ -39,6 +37,7 @@ class SessionStartersModule extends Module {
     i.add<SessionJoinerInstructionsCoordinator>(
       () => SessionJoinerInstructionsCoordinator(
         tap: TapDetector(),
+        getUserInfo: Modular.get<GetUserInfoStore>(),
         captureScreen: Modular.get<CaptureScreen>(),
         logic: Modular.get<SessionStartersLogicCoordinator>(),
         swipe: SwipeDetector(),
@@ -54,6 +53,7 @@ class SessionStartersModule extends Module {
     );
     i.add<SessionStarterInstructionsCoordinator>(
       () => SessionStarterInstructionsCoordinator(
+        getUserInfo: Modular.get<GetUserInfoStore>(),
         tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: SwipeDetector(),
@@ -67,7 +67,6 @@ class SessionStartersModule extends Module {
         captureScreen: Modular.get<CaptureScreen>(),
         logic: Modular.get<SessionStartersLogicCoordinator>(),
         swipe: SwipeDetector(),
-        deepLinks: Modular.get<DeepLinksCoordinator>(),
         widgets: Modular.get<SessionStarterWidgetsCoordinator>(),
       ),
     );
