@@ -72,7 +72,7 @@ abstract class _StorageHomeCoordinatorBase
     await getNokhteSessionArtifacts();
     await userInfo.updateUserFlag(
       const UserFlagParam(
-        key: UserFlagKeys.hasAccessedQrCodeScanner,
+        key: UserFlagKeys.hasEnteredStorage,
         value: true,
       ),
     );

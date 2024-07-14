@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
@@ -19,6 +20,7 @@ abstract class _SessionJoinerCoordinatorBase
   final TapDetector tap;
   @override
   final CaptureScreen captureScreen;
+  final UserInformationCoordinator userInfo;
   final SessionStartersLogicCoordinator logic;
 
   _SessionJoinerCoordinatorBase({
@@ -26,6 +28,7 @@ abstract class _SessionJoinerCoordinatorBase
     required this.tap,
     required this.swipe,
     required this.logic,
+    required this.userInfo,
     required this.captureScreen,
   }) {
     initBaseCoordinatorActions();
@@ -43,6 +46,12 @@ abstract class _SessionJoinerCoordinatorBase
     initReactors();
     logic.listenToSessionActivation();
     await captureScreen(SessionStarterConstants.sessionJoiner);
+    await userInfo.updateUserFlag(
+      const UserFlagParam(
+        key: UserFlagKeys.hasAccessedQrCodeScanner,
+        value: true,
+      ),
+    );
   }
 
   initReactors() {
