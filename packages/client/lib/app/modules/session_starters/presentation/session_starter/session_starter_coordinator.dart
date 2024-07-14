@@ -55,6 +55,8 @@ abstract class _SessionStarterCoordinatorBase
 
   userInfoReactor() => reaction((p0) => userInfo.getUserInfoStore.state, (p0) {
         if (p0 == StoreState.loaded) {
+          widgets.onUserInfoReceived(
+              userInfo.getUserInfoStore.hasAccessedQrCodeScanner);
           widgets.onQrCodeReceived(userInfo.getUserInfoStore.userUID);
         }
       });
@@ -117,10 +119,12 @@ abstract class _SessionStarterCoordinatorBase
           });
         case GestureDirections.left:
           ifTouchIsNotDisabled(() {
-            widgets.onSwipeLeft(() async {
-              toggleIsNavigatingAway();
-              await logic.dispose(shouldNuke: true);
-            });
+            if (userInfo.getUserInfoStore.hasAccessedQrCodeScanner) {
+              widgets.onSwipeLeft(() async {
+                toggleIsNavigatingAway();
+                await logic.dispose(shouldNuke: true);
+              });
+            }
           });
         default:
           break;

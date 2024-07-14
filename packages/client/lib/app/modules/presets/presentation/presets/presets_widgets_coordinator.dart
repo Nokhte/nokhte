@@ -7,6 +7,7 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'presets_widgets_coordinator.g.dart';
 
@@ -84,6 +85,7 @@ abstract class _PresetsWidgetsCoordinatorBase
   initReactors() {
     disposers.add(centerInstructionalNokhteReactor());
     disposers.add(centerCrossNokhteReactor());
+    disposers.add(beachWavesMovieStatusReactor());
     disposers.add(gestureCrossTapReactor());
     disposers.add(transitionsCondensedPresetCardMovieStatusReactor());
     disposers.add(condensedPresetCardHoldReactor());
@@ -303,10 +305,10 @@ abstract class _PresetsWidgetsCoordinatorBase
         }
       });
 
-  beachWavesMovieStatusReactor(Function getRoute) =>
+  beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          Modular.to.navigate(getRoute());
+          Modular.to.navigate(SessionStarterConstants.sessionStarter);
         }
       });
 

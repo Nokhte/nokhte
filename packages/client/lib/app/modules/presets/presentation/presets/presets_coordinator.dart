@@ -7,20 +7,16 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/presets/presets.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 part 'presets_coordinator.g.dart';
 
 class PresetsCoordinator = _PresetsCoordinatorBase with _$PresetsCoordinator;
 
-abstract class _PresetsCoordinatorBase
-    with Store, BaseCoordinator, Reactions, SessionStarterNavigationUtils {
+abstract class _PresetsCoordinatorBase with Store, BaseCoordinator, Reactions {
   final PresetsWidgetsCoordinator widgets;
   final PresetsLogicCoordinator logic;
   final SwipeDetector swipe;
   final UserInformationCoordinator userInformation;
   final TapDetector tap;
-  @override
-  final GetUserInfoStore getUserInfo;
   @override
   final CaptureScreen captureScreen;
 
@@ -31,7 +27,7 @@ abstract class _PresetsCoordinatorBase
     required this.swipe,
     required this.tap,
     required this.userInformation,
-  }) : getUserInfo = userInformation.getUserInfoStore {
+  }) {
     initBaseCoordinatorActions();
   }
 
@@ -57,7 +53,6 @@ abstract class _PresetsCoordinatorBase
         widgets.setIsDisconnected(true);
       },
     ));
-    disposers.add(widgets.beachWavesMovieStatusReactor(getRoute));
     disposers.add(preferredPresetReactor());
     disposers.add(companyPresetsReactor());
     disposers.add(

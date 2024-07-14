@@ -1,6 +1,5 @@
 export "session_starter_coordinator.dart";
 export "session_starter_widgets_coordinator.dart";
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -88,22 +87,7 @@ class SessionStarterScreen extends HookWidget {
                 ),
                 GestureCross(
                   showGlowAndOutline: true,
-                  config: GestureCrossConfiguration(
-                      bottom: Right(
-                        NokhteGradientConfig(
-                          gradientType: NokhteGradientTypes.home,
-                        ),
-                      ),
-                      left: Right(
-                        NokhteGradientConfig(
-                          gradientType: NokhteGradientTypes.presets,
-                        ),
-                      ),
-                      right: Right(
-                        NokhteGradientConfig(
-                          gradientType: NokhteGradientTypes.sessionJoiner,
-                        ),
-                      )),
+                  config: coordinator.widgets.gestureCrossConfig,
                   store: coordinator.widgets.gestureCross,
                 ),
                 CenterInstructionalNokhte(

@@ -48,7 +48,6 @@ abstract class _QrScannerStoreBase extends BaseWidgetStore
   }
 
   resetText() {
-    print("reset text");
     smartText.setWidgetVisibility(false);
     mostRecentScannedUID = '';
     Timer(Seconds.get(1), () {

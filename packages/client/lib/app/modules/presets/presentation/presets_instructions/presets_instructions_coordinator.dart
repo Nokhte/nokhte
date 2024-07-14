@@ -2,26 +2,22 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/presets/presets.dart';
-import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 part 'presets_instructions_coordinator.g.dart';
 
 class PresetsInstructionsCoordinator = _PresetsInstructionsCoordinatorBase
     with _$PresetsInstructionsCoordinator;
 
 abstract class _PresetsInstructionsCoordinatorBase
-    with Store, BaseCoordinator, Reactions, SessionStarterNavigationUtils {
+    with Store, BaseCoordinator, Reactions {
   final PresetsInstructionsWidgetsCoordinator widgets;
   final PresetsLogicCoordinator logic;
   final TapDetector tap;
   final UserInformationCoordinator userInformation;
-  @override
-  final GetUserInfoStore getUserInfo;
   @override
   final CaptureScreen captureScreen;
 
@@ -31,7 +27,7 @@ abstract class _PresetsInstructionsCoordinatorBase
     required this.logic,
     required this.tap,
     required this.userInformation,
-  }): getUserInfo = userInformation.getUserInfoStore {
+  }) {
     initBaseCoordinatorActions();
   }
 
@@ -57,7 +53,6 @@ abstract class _PresetsInstructionsCoordinatorBase
       },
     ));
 
-    disposers.add(widgets.beachWavesMovieStatusReactor(getRoute));
     disposers.add(companyPresetsReactor());
     disposers.add(tapReactor());
     disposers.add(
@@ -67,7 +62,6 @@ abstract class _PresetsInstructionsCoordinatorBase
   @action
   onSelected(String presetUID) async {
     await userInformation.updatePreferredPreset(presetUID);
-    await getUserInfo(NoParams());
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {

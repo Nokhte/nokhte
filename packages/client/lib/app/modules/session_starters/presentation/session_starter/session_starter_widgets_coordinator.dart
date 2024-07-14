@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
@@ -93,7 +94,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   constructor(Offset center) {
     initInstructionalNokhteUtils(center);
     qrCode.setWidgetVisibility(false);
-    gestureCross.setCollaborationHomeScreen();
+    qrCode.initFadeIn();
+    gestureCross.fadeInTheCross();
     qrSubtitleSmartText.setMessagesData(SharedLists.emptyList);
     smartText.setMessagesData(SessionStartersList.hasDoneInstructions);
     beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
@@ -133,6 +135,40 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     homeInstructionalNokhte.setWidgetVisibility(false);
     centerInstructionalNokhte.setWidgetVisibility(false);
     qrCode.setWidgetVisibility(false);
+  }
+
+  @observable
+  GestureCrossConfiguration gestureCrossConfig = GestureCrossConfiguration();
+
+  @action
+  onUserInfoReceived(bool hasAssessedQrCodeScanner) {
+    Either<StrokeConfig, NokhteGradientConfig> homeConfig = Right(
+      NokhteGradientConfig(
+        gradientType: NokhteGradientTypes.home,
+      ),
+    );
+    Either<StrokeConfig, NokhteGradientConfig> presetsConfig = Right(
+      NokhteGradientConfig(
+        gradientType: NokhteGradientTypes.presets,
+      ),
+    );
+    if (hasAssessedQrCodeScanner) {
+      gestureCrossConfig = GestureCrossConfiguration(
+        bottom: homeConfig,
+        left: presetsConfig,
+        right: Right(
+          NokhteGradientConfig(
+            gradientType: NokhteGradientTypes.sessionJoiner,
+          ),
+        ),
+      );
+    } else {
+      gestureCrossConfig = GestureCrossConfiguration(
+        left: presetsConfig,
+        bottom: homeConfig,
+      );
+    }
+    gestureCross.fadeIn();
   }
 
   @action
@@ -366,15 +402,17 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         : InstructionalGradientDirections.shrink;
     presetsInstructionalNokhte.setWidgetVisibility(true);
     homeInstructionalNokhte.setWidgetVisibility(true);
-    sessionJoinerInstructionalNokhte.setWidgetVisibility(true);
-    sessionJoinerInstructionalNokhte.initMovie(
-      InstructionalGradientMovieParams(
-        center: center,
-        colorway: GradientNokhteColorways.orangeSand,
-        direction: dir,
-        position: InstructionalNokhtePositions.right,
-      ),
-    );
+    if (gestureCrossConfig.right.isRight()) {
+      sessionJoinerInstructionalNokhte.setWidgetVisibility(true);
+      sessionJoinerInstructionalNokhte.initMovie(
+        InstructionalGradientMovieParams(
+          center: center,
+          colorway: GradientNokhteColorways.orangeSand,
+          direction: dir,
+          position: InstructionalNokhtePositions.right,
+        ),
+      );
+    }
     presetsInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
         center: center,

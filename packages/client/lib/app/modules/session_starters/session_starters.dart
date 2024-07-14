@@ -27,6 +27,7 @@ class SessionStartersModule extends Module {
   void binds(i) {
     i.add<SessionJoinerCoordinator>(
       () => SessionJoinerCoordinator(
+        userInfo: Modular.get<UserInformationCoordinator>(),
         tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
         logic: Modular.get<SessionStartersLogicCoordinator>(),

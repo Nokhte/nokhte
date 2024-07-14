@@ -69,7 +69,6 @@ mixin SessionStarterWidgetsUtils
     bool hasDonePresetInstructions = true,
   }) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
-        print('hi p0: $p0 movieMode ${beachWaves.movieMode}');
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedOnShoreToInvertedOceanDive) {
