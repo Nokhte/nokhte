@@ -28,6 +28,22 @@ class SessionStartersList {
         SharedLists.emptyItem,
       ];
 
+  static List<RotatingTextData> get qrScanner => [
+        RotatingTextData(
+          text: "Looking",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          text: "Joining",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          text: "Joined",
+          pauseHere: true,
+        ),
+        SharedLists.emptyItem,
+      ];
+
   static List<RotatingTextData> get sessionJoinerInstructions => [
         InstructionItems.tapOnTheCompass,
         InstructionItems.swipeLeft,

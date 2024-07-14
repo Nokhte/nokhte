@@ -52,6 +52,13 @@ abstract class _SmartTextStoreBase extends BaseWidgetStore with Store {
   }
 
   @action
+  @override
+  setWidgetVisibility(bool newVisibility) {
+    setControl(Control.stop);
+    super.setWidgetVisibility(newVisibility);
+  }
+
+  @action
   reset() {
     currentIndex = 0;
     isPaused = false;

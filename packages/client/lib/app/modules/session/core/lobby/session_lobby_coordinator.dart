@@ -103,7 +103,6 @@ abstract class _SessionLobbyCoordinatorBase
       });
 
   sessionPresetReactor() => reaction((p0) => sessionMetadata.presetTags, (p0) {
-        widgets.onQrCodeReady(sessionMetadata.leaderUID);
         showPresetInfo();
       });
 
@@ -113,6 +112,7 @@ abstract class _SessionLobbyCoordinatorBase
       presetName: sessionMetadata.presetName,
       presetTags: sessionMetadata.presetTags,
     );
+    widgets.onQrCodeReady(sessionMetadata.leaderUID);
   }
 
   tapReactor() => reaction(

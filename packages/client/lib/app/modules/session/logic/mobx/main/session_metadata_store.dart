@@ -110,6 +110,7 @@ abstract class _SessionMetadataStoreBase
       isAPremiumSession = entity.isAPremiumSession;
       isAValidSession = entity.isAValidSession;
       leaderUID = entity.leaderUID;
+      print('leaderUID: $leaderUID');
       userIndex = entity.userIndex;
       presetUID = entity.presetUID;
       if (presetName.isEmpty) {

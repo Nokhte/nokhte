@@ -69,6 +69,7 @@ mixin SessionStarterWidgetsUtils
     bool hasDonePresetInstructions = true,
   }) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
+        print('hi p0: $p0 movieMode ${beachWaves.movieMode}');
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedOnShoreToInvertedOceanDive) {
@@ -84,6 +85,7 @@ mixin SessionStarterWidgetsUtils
             beachWaves.currentStore.initMovie(params.direction);
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea) {
+            // print('touchRippleMovieStatus ')
             onReadyToNavigate(SessionConstants.lobby, args: {
               SessionStarterConstants.QR_CODE_DATA: qrCode?.qrCodeData,
             });

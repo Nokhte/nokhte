@@ -13,7 +13,8 @@ mixin TouchRippleUtils {
     Map args = const {},
   }) {
     Timer.periodic(Seconds.get(0, milli: 500), (timer) {
-      if (touchRipple.movieStatus == MovieStatus.finished) {
+      if (touchRipple.movieStatus == MovieStatus.finished ||
+          touchRipple.movieStatus == MovieStatus.idle) {
         Modular.to.navigate(route, arguments: args.isNotEmpty ? args : null);
         timer.cancel();
       }

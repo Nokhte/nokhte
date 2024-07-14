@@ -17,9 +17,9 @@ abstract class _SessionJoinerCoordinatorBase
   final SessionJoinerWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final TapDetector tap;
-  final SessionStartersLogicCoordinator logic;
   @override
   final CaptureScreen captureScreen;
+  final SessionStartersLogicCoordinator logic;
 
   _SessionJoinerCoordinatorBase({
     required this.widgets,
@@ -41,7 +41,8 @@ abstract class _SessionJoinerCoordinatorBase
   constructor(Offset center) async {
     widgets.constructor(center);
     initReactors();
-    await captureScreen(SessionStarterConstants.sessionStarterInstructions);
+    logic.listenToSessionActivation();
+    await captureScreen(SessionStarterConstants.sessionJoiner);
   }
 
   initReactors() {
@@ -58,24 +59,48 @@ abstract class _SessionJoinerCoordinatorBase
       },
     ));
     disposers.add(tapReactor());
+    disposers.add(qrCodeScannerReactor());
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) => onSwipe(p0));
+
+  @observable
+  int retryCount = 0;
+
+  qrCodeScannerReactor() =>
+      reaction((p0) => widgets.qrScanner.mostRecentScannedUID, (p0) {
+        if (p0.isNotEmpty) {
+          widgets.qrScanner.rotateText();
+          Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
+            if (!logic.hasFoundNokhteSession) {
+              if (retryCount < 5) {
+                retryCount++;
+                await logic.join(p0);
+              } else {
+                widgets.qrScanner.resetText();
+                retryCount = 0;
+                timer.cancel();
+              }
+            } else {
+              widgets.enterSession();
+              setDisableAllTouchFeedback(true);
+              widgets.qrScanner.rotateText();
+              timer.cancel();
+            }
+          });
+        }
+      });
 
   @action
   onSwipe(GestureDirections direction) {
     if (!isNavigatingAway) {
       switch (direction) {
-        case GestureDirections.down:
+        case GestureDirections.right:
           ifTouchIsNotDisabled(() {
-            // widgets.onSwipeDown(() {
-            // toggleIsNavigatingAway();
-            // });
+            if (!logic.hasFoundNokhteSession) {
+              widgets.onSwipeRight();
+            }
           });
-        // case GestureDirections.left:
-        //   ifTouchIsNotDisabled(() {
-        //     widgets.onSwipeLeft();
-        //   });
         default:
           break;
       }
