@@ -14,7 +14,9 @@ abstract class _EmptyTheOceanBase extends BaseBeachWaveMovieStore<double>
           callsOnCompleteTwice: true,
           shouldPaintSand: AnyToShoreMovie.shouldPaintSand,
         ) {
-    movie = AnyToShoreMovie.getMovie(WaterColorsAndStops.oceanDiveWater);
+    movie = EmptyTheOceanMovie.getMovie(
+        startingWaterMovement: -500,
+        waterColor: WaterColorsAndStops.invertedBeachWater);
   }
   @override
   @action
@@ -23,5 +25,15 @@ abstract class _EmptyTheOceanBase extends BaseBeachWaveMovieStore<double>
         startingWaterMovement: params,
         waterColor: WaterColorsAndStops.invertedBeachWater);
     control = Control.playFromStart;
+  }
+
+  @override
+  @action
+  reverseMovie(double params) {
+    callsOnCompleteTwice = false;
+    movie = EmptyTheOceanMovie.getMovie(
+        startingWaterMovement: params,
+        waterColor: WaterColorsAndStops.invertedBeachWater);
+    control = Control.playReverseFromEnd;
   }
 }

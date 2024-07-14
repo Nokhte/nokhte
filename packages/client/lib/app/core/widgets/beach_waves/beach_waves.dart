@@ -14,18 +14,20 @@ export 'types/types.dart';
 class BeachWaves extends HookWidget {
   final BeachWavesStore store;
   final SandTypes sandType;
-  const BeachWaves({
-    super.key,
-    required this.store,
-    this.sandType = SandTypes.home,
-  });
+  final Duration opacityDuration;
+  const BeachWaves(
+      {super.key,
+      required this.store,
+      this.sandType = SandTypes.home,
+      this.opacityDuration = Duration.zero});
 
   @override
   Widget build(BuildContext context) {
     final screenSize = useFullScreenSize();
     return Observer(
-        builder: (context) => Opacity(
+        builder: (context) => AnimatedOpacity(
               opacity: useWidgetOpacity(store.currentStore.showWidget),
+              duration: opacityDuration,
               child: NokhteCustomAnimationBuilder(
                 tween: store.currentMovie,
                 duration: store.currentMovie.duration,

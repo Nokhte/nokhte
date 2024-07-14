@@ -16,6 +16,8 @@ mixin BeachWaveMovies {
         BeachWaveMovieModes.deepSeaToInvertedHalfAndHalf:
             DeepSeaToInvertedHalfAndHalf(),
         BeachWaveMovieModes.drySandToSky: DrySandToSky(),
+        BeachWaveMovieModes.emptyOceanToInvertedDeepSea:
+            EmptyOceanToInvertedDeepSea(),
         BeachWaveMovieModes.halfAndHalfToDrySand: HalfAndHalfToDrySand(),
         BeachWaveMovieModes.invertedOnShore: InvertedOnShore(),
         BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea:
