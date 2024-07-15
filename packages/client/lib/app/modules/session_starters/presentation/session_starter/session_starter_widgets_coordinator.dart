@@ -94,7 +94,6 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   constructor(Offset center) {
     initInstructionalNokhteUtils(center);
     qrCode.setWidgetVisibility(false);
-    qrCode.initFadeIn();
     gestureCross.fadeInTheCross();
     qrSubtitleSmartText.setMessagesData(SharedLists.emptyList);
     smartText.setMessagesData(SessionStartersList.hasDoneInstructions);
