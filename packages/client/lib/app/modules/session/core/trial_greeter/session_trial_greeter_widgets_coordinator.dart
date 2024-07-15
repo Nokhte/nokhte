@@ -24,14 +24,14 @@ abstract class _SessionTrialGreeterWidgetsCoordinatorBase
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.touchRipple,
-  }){
+  }) {
     initBaseWidgetsCoordinatorActions();
   }
 
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToDrySand);
-    primarySmartText.setMessagesData(SessionLists.collaborationGreeterPrimary);
+    primarySmartText.setMessagesData(SessionLists.trialGreeterPrimary);
     secondarySmartText.setMessagesData(SessionLists.singleTapToConfirm);
     primarySmartText.startRotatingText();
     secondarySmartText.startRotatingText();
