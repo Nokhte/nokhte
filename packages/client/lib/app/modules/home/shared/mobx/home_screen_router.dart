@@ -21,22 +21,21 @@ mixin HomeScreenRouter on EnRouteRouter {
     final args = getModularArgs(params);
     if (getUserInfo.isOnMostRecentVersion) {
       if (!getUserInfo.hasDoneASession) {
-        if (!getUserInfo.hasAccessedQrCode &&
-            !getUserInfo.hasAccessedQrCodeScanner) {
+        if (!getUserInfo.hasDoneEitherQrFlow) {
           Modular.to.navigate(HomeConstants.compassAndQrGuide, arguments: args);
         } else {
           Modular.to
               .navigate(HomeConstants.qrNavigationReminder, arguments: args);
         }
       } else if (getUserInfo.hasDoneASession) {
-        if (!getUserInfo.hasEnteredStorage && getUserInfo.hasAccessedQrCode) {
+        if (!getUserInfo.hasEnteredStorage && getUserInfo.hasDoneEitherQrFlow) {
           Modular.to.navigate(HomeConstants.storageGuide, arguments: args);
         } else if (!getUserInfo.hasEnteredStorage &&
-            !getUserInfo.hasAccessedQrCode) {
+            !getUserInfo.hasDoneEitherQrFlow) {
           Modular.to
               .navigate(HomeConstants.compassAndStorageGuide, arguments: args);
         } else if (getUserInfo.hasEnteredStorage &&
-            !getUserInfo.hasAccessedQrCode) {
+            !getUserInfo.hasDoneEitherQrFlow) {
           Modular.to.navigate(HomeConstants.shortQrGuide, arguments: args);
         } else {
           Modular.to.navigate(HomeConstants.qrAndStorageAdept, arguments: args);

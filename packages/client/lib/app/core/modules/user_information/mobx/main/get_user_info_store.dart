@@ -70,4 +70,7 @@ abstract class _GetUserInfoStoreBase
     stateOrErrorUpdater(futureStore.unwrappedEntityOrFailure);
     setState(StoreState.loaded);
   }
+
+  @computed
+  bool get hasDoneEitherQrFlow => hasAccessedQrCode || hasAccessedQrCodeScanner;
 }
