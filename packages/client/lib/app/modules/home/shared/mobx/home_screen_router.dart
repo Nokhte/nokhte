@@ -21,7 +21,8 @@ mixin HomeScreenRouter on EnRouteRouter {
     final args = getModularArgs(params);
     if (getUserInfo.isOnMostRecentVersion) {
       if (!getUserInfo.hasDoneASession) {
-        if (!getUserInfo.hasAccessedQrCode) {
+        if (!getUserInfo.hasAccessedQrCode &&
+            !getUserInfo.hasAccessedQrCodeScanner) {
           Modular.to.navigate(HomeConstants.compassAndQrGuide, arguments: args);
         } else {
           Modular.to
