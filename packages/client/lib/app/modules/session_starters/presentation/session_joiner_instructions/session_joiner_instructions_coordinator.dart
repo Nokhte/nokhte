@@ -78,7 +78,7 @@ abstract class _SessionJoinerInstructionsCoordinatorBase
   userInfoReactor() => reaction((p0) => getUserInfo.state, (p0) {
         if (p0 == StoreState.loaded) {
           widgets.onUserInfoLoaded(
-            getUserInfo.hasAccessedQrCodeScanner,
+            getUserInfo.hasAccessedQrCode,
             getUserInfo.userUID,
           );
         }

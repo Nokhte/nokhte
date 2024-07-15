@@ -191,14 +191,13 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
         ),
         bottom: homeConfig,
       );
-      //
+      qrCode.setQrCodeData(userUID);
+      qrCode.setWidgetVisibility(true);
     } else {
       gestureCrossConfig = GestureCrossConfiguration(
         bottom: homeConfig,
       );
     }
-    qrCode.setQrCodeData(userUID);
-    qrCode.setWidgetVisibility(true);
     gestureCross.fadeIn();
   }
 
