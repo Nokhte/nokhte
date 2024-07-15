@@ -150,5 +150,6 @@ abstract class _SessionStarterCoordinatorBase
   deconstructor() {
     logic.dispose();
     dispose();
+    widgets.dispose();
   }
 }

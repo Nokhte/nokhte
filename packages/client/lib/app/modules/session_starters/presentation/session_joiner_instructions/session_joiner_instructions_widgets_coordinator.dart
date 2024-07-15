@@ -74,6 +74,7 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
 
   @action
   constructor(Offset center) {
+    // transition into joining session is not working here
     initInstructionalNokhteUtils(center);
     swipeGuide.setWidgetVisibility(false);
     qrCode.setWidgetVisibility(false);
@@ -90,24 +91,40 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
   }
 
   @action
-  onSwipeLeft() {
+  onSwipeLeft(Function onLeaving) async {
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (smartText.currentIndex == 1) {
         initToRightInstructionalNokhte();
+        qrCode.setWidgetVisibility(false);
         swipeGuide.setWidgetVisibility(false);
         homeInstructionalNokhte.setWidgetVisibility(false);
       } else if (smartText.currentIndex == 3) {
         qrCode.setWidgetVisibility(false);
         initEnterSessionJoiner();
+        await onLeaving();
       }
     }
   }
 
   @action
-  onSwipeDown() {
+  initTransition() {
+    setSwipeDirection(GestureDirections.up);
+    beachWaves
+        .setMovieMode(BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea);
+    beachWaves.currentStore.initMovie(beachWaves.currentAnimationValues.first);
+    smartText.setWidgetVisibility(false);
+    gestureCross.fadeAllOut();
+    centerInstructionalNokhte.setWidgetVisibility(false);
+    homeInstructionalNokhte.setWidgetVisibility(false);
+  }
+
+  @action
+  onSwipeDown(Function onLeaving) async {
     if (!hasInitiatedBlur && !hasSwiped()) {
       initExitSessionStarter();
+      qrCode.setWidgetVisibility(false);
       homeInstructionalNokhte.setWidgetVisibility(false);
+      await onLeaving();
     }
   }
 
@@ -136,10 +153,13 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
   }
 
   @action
-  onSwipeRight() {
+  onSwipeRight(Function onLeaving) async {
     if (smartText.currentIndex == 0 && !hasSwiped()) {
       smartText.setWidgetVisibility(false);
+      qrCode.setWidgetVisibility(false);
+      homeInstructionalNokhte.setWidgetVisibility(false);
       initEnterPresets();
+      await onLeaving();
     }
   }
 
@@ -150,7 +170,9 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
         dismissMovedInstructionalNokhte(
           offset,
           onDismiss: () {
-            qrCode.setWidgetVisibility(true);
+            if (qrCode.qrCodeData.isNotEmpty) {
+              qrCode.setWidgetVisibility(true);
+            }
             setSmartTextTopPaddingScalar(0.2);
             setSmartTextBottomPaddingScalar(0);
             setSmartTextSubMessagePaddingScalar(110);

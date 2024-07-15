@@ -35,12 +35,6 @@ abstract class _SessionJoinerInstructionsCoordinatorBase
     initBaseCoordinatorActions();
   }
 
-  @observable
-  bool isNavigatingAway = false;
-
-  @action
-  toggleIsNavigatingAway() => isNavigatingAway = !isNavigatingAway;
-
   @action
   constructor(Offset center) async {
     widgets.constructor(center);
@@ -66,6 +60,7 @@ abstract class _SessionJoinerInstructionsCoordinatorBase
       },
     ));
     disposers.add(tapReactor());
+    disposers.add(nokhteSearchStatusReactor());
   }
 
   swipeCoordinatesReactor() =>
@@ -75,8 +70,14 @@ abstract class _SessionJoinerInstructionsCoordinatorBase
         });
       });
 
-  userInfoReactor() => reaction((p0) => getUserInfo.state, (p0) {
+  userInfoReactor() => reaction((p0) => getUserInfo.state, (p0) async {
         if (p0 == StoreState.loaded) {
+          if (getUserInfo.hasAccessedQrCode) {
+            await logic.initialize();
+            logic.listenToSessionActivation();
+            //
+          }
+          // bug:need to join the pool if necessary and exit if necessary
           widgets.onUserInfoLoaded(
             getUserInfo.hasAccessedQrCode,
             getUserInfo.userUID,
@@ -84,30 +85,41 @@ abstract class _SessionJoinerInstructionsCoordinatorBase
         }
       });
 
+  nokhteSearchStatusReactor() =>
+      reaction((p0) => logic.hasFoundNokhteSession, (p0) async {
+        if (p0) {
+          setDisableAllTouchFeedback(true);
+          await logic.dispose();
+          widgets.initTransition();
+        }
+      });
+
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) => onSwipe(p0));
 
   @action
   onSwipe(GestureDirections direction) {
-    if (!isNavigatingAway) {
-      switch (direction) {
-        case GestureDirections.down:
-          ifTouchIsNotDisabled(() {
-            widgets.onSwipeDown();
-          });
-        case GestureDirections.left:
-          ifTouchIsNotDisabled(() {
-            widgets.onSwipeLeft();
-          });
-        case GestureDirections.right:
-          ifTouchIsNotDisabled(() {
-            if (getUserInfo.hasAccessedQrCode) {
-              widgets.onSwipeRight();
-            }
-          });
-        default:
-          break;
-      }
+    switch (direction) {
+      case GestureDirections.down:
+        ifTouchIsNotDisabled(() {
+          widgets.onSwipeDown(onLeaving);
+        });
+      case GestureDirections.left:
+        ifTouchIsNotDisabled(() {
+          widgets.onSwipeLeft(onLeaving);
+        });
+      case GestureDirections.right:
+        ifTouchIsNotDisabled(() {
+          if (getUserInfo.hasAccessedQrCode) {
+            widgets.onSwipeRight(onLeaving);
+          }
+        });
+      default:
+        break;
     }
+  }
+
+  onLeaving() {
+    logic.dispose(shouldNuke: true);
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
