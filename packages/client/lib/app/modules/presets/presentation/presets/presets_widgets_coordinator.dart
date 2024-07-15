@@ -64,9 +64,6 @@ abstract class _PresetsWidgetsCoordinatorBase
   @observable
   bool instructionalNokhteAreVisible = false;
 
-  // so we need a way to know what their
-  // preferred is and pass it into here
-
   @action
   constructor(Offset centerParam) {
     setCenter(centerParam);
