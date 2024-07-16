@@ -78,7 +78,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
     smartText.setMessagesData(SessionStartersList.sessionJoinerInstructions);
     beachWaves.setMovieMode(BeachWaveMovieModes.emptyTheOcean);
     disposers.add(qrScannerReactor());
-    disposers.add(beachWavesReactor());
+    // disposers.add(beachWavesReactor());
     disposers.add(centerCrossNokhteReactor());
   }
 
@@ -105,10 +105,18 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
     qrScanner.fadeOut();
   }
 
-  beachWavesReactor() => reaction((p0) => beachWaves.movieStatus, (p0) {
+  beachWavesReactor({
+    required bool hasAccessedQrCode,
+  }) =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (hasSwiped()) {
-            Modular.to.navigate(SessionStarterConstants.sessionStarter);
+            if (hasAccessedQrCode) {
+              Modular.to.navigate(SessionStarterConstants.sessionStarter);
+            } else {
+              Modular.to
+                  .navigate(SessionStarterConstants.sessionStarterInstructions);
+            }
           } else {
             Modular.to.navigate(SessionConstants.preview);
           }

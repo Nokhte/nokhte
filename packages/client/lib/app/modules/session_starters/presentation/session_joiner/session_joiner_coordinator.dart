@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
@@ -22,6 +23,7 @@ abstract class _SessionJoinerCoordinatorBase
   final CaptureScreen captureScreen;
   final UserInformationCoordinator userInfo;
   final SessionStartersLogicCoordinator logic;
+  final GetUserInfoStore getUserInfo;
 
   _SessionJoinerCoordinatorBase({
     required this.widgets,
@@ -30,7 +32,7 @@ abstract class _SessionJoinerCoordinatorBase
     required this.logic,
     required this.userInfo,
     required this.captureScreen,
-  }) {
+  }) : getUserInfo = userInfo.getUserInfoStore {
     initBaseCoordinatorActions();
   }
 
@@ -52,6 +54,7 @@ abstract class _SessionJoinerCoordinatorBase
         value: true,
       ),
     );
+    await getUserInfo(NoParams());
   }
 
   initReactors() {
@@ -72,6 +75,16 @@ abstract class _SessionJoinerCoordinatorBase
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) => onSwipe(p0));
+
+  userInfoReactor() => reaction((p0) => getUserInfo.state, (p0) {
+        if (p0 == StoreState.loaded) {
+          disposers.add(
+            widgets.beachWavesReactor(
+              hasAccessedQrCode: getUserInfo.hasAccessedQrCode,
+            ),
+          );
+        }
+      });
 
   @observable
   int retryCount = 0;

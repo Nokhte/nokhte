@@ -1,7 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
+import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -19,6 +21,7 @@ abstract class _PresetsCoordinatorBase with Store, BaseCoordinator, Reactions {
   final TapDetector tap;
   @override
   final CaptureScreen captureScreen;
+  final GetUserInfoStore getUserInfo;
 
   _PresetsCoordinatorBase({
     required this.widgets,
@@ -27,7 +30,7 @@ abstract class _PresetsCoordinatorBase with Store, BaseCoordinator, Reactions {
     required this.swipe,
     required this.tap,
     required this.userInformation,
-  }) {
+  }) : getUserInfo = userInformation.getUserInfoStore {
     initBaseCoordinatorActions();
   }
 
@@ -38,6 +41,7 @@ abstract class _PresetsCoordinatorBase with Store, BaseCoordinator, Reactions {
     initReactors();
     await logic.getCompanyPresets();
     await userInformation.getPreferredPreset();
+    await getUserInfo(NoParams());
     await captureScreen(PresetsConstants.presets);
   }
 
@@ -59,7 +63,18 @@ abstract class _PresetsCoordinatorBase with Store, BaseCoordinator, Reactions {
         widgets.selectionCondensedPresetCardMovieStatusReactor(onSelected));
     disposers.add(tapReactor());
     disposers.add(swipeReactor());
+    disposers.add(userInfoReactor());
   }
+
+  userInfoReactor() => reaction((p0) => getUserInfo.state, (p0) {
+        if (p0 == StoreState.loaded) {
+          disposers.add(
+            widgets.beachWavesMovieStatusReactor(
+              hasAccessedQrCodeScanner: getUserInfo.hasAccessedQrCodeScanner,
+            ),
+          );
+        }
+      });
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
         ifTouchIsNotDisabled(() {

@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
@@ -18,6 +19,8 @@ abstract class _PresetsInstructionsCoordinatorBase
   final PresetsLogicCoordinator logic;
   final TapDetector tap;
   final UserInformationCoordinator userInformation;
+  final GetUserInfoStore getUserInfo;
+
   @override
   final CaptureScreen captureScreen;
 
@@ -27,7 +30,7 @@ abstract class _PresetsInstructionsCoordinatorBase
     required this.logic,
     required this.tap,
     required this.userInformation,
-  }) {
+  }) : getUserInfo = userInformation.getUserInfoStore {
     initBaseCoordinatorActions();
   }
 
@@ -37,6 +40,7 @@ abstract class _PresetsInstructionsCoordinatorBase
     widgets.initReactors();
     initReactors();
     await logic.getCompanyPresets();
+    await getUserInfo(NoParams());
     await captureScreen(PresetsConstants.presetsInstructions);
   }
 
@@ -57,7 +61,18 @@ abstract class _PresetsInstructionsCoordinatorBase
     disposers.add(tapReactor());
     disposers.add(
         widgets.selectionCondensedPresetCardMovieStatusReactor(onSelected));
+    disposers.add(userInfoReactor());
   }
+
+  userInfoReactor() => reaction((p0) => getUserInfo.state, (p0) {
+        if (p0 == StoreState.loaded) {
+          disposers.add(
+            widgets.beachWavesMovieStatusReactor(
+              hasAccessedQrCodeScanner: getUserInfo.hasAccessedQrCodeScanner,
+            ),
+          );
+        }
+      });
 
   @action
   onSelected(String presetUID) async {
