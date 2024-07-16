@@ -211,7 +211,7 @@ abstract class _PresetsWidgetsCoordinatorBase
   @action
   onTap() {
     if (isAllowedToMakeGesture()) {
-      if (hasInitiatedBlur && hasSwiped()) {
+      if (hasInitiatedBlur) {
         dismissInstructionalNokhte();
       } else {
         dismissExpandedPresetCard();

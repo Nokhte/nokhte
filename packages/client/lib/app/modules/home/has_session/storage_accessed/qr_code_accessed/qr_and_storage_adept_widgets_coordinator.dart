@@ -95,31 +95,33 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
   @action
   onTap(Offset offset) {
     if (!isDisconnected && hasInitiatedBlur && isAllowedToMakeGesture()) {
-      touchRipple.onTap(offset);
-      setHasInitiatedBlur(false);
-      smartText.startRotatingText(isResuming: true);
-      if (swipeDirection == GestureDirections.left) {
-        sessionStarterInstructionalNokhte.setWidgetVisibility(true);
-        moveGradInstructionalNokhtes(shouldExpand: false);
-        storageInstructionalNokhte.setWidgetVisibility(true);
-        centerInstructionalNokhte.moveBackToCross(
-          startingPosition: CenterNokhtePositions.right,
-        );
-        nokhteBlur.reverse();
-        beachWaves.currentStore.setControl(Control.mirror);
-      } else if (swipeDirection == GestureDirections.up) {
-        sessionStarterInstructionalNokhte.setWidgetVisibility(true);
-        moveGradInstructionalNokhtes(shouldExpand: false);
-        storageInstructionalNokhte.setWidgetVisibility(true);
-        centerInstructionalNokhte.moveBackToCross(
-          startingPosition: CenterNokhtePositions.top,
-        );
-        nokhteBlur.reverse();
-        beachWaves.currentStore.setControl(Control.mirror);
+      if (hasSwiped()) {
+        touchRipple.onTap(offset);
+        setHasInitiatedBlur(false);
+        smartText.startRotatingText(isResuming: true);
+        if (swipeDirection == GestureDirections.left) {
+          sessionStarterInstructionalNokhte.setWidgetVisibility(true);
+          moveGradInstructionalNokhtes(shouldExpand: false);
+          storageInstructionalNokhte.setWidgetVisibility(true);
+          centerInstructionalNokhte.moveBackToCross(
+            startingPosition: CenterNokhtePositions.right,
+          );
+          nokhteBlur.reverse();
+          beachWaves.currentStore.setControl(Control.mirror);
+        } else if (swipeDirection == GestureDirections.up) {
+          sessionStarterInstructionalNokhte.setWidgetVisibility(true);
+          moveGradInstructionalNokhtes(shouldExpand: false);
+          storageInstructionalNokhte.setWidgetVisibility(true);
+          centerInstructionalNokhte.moveBackToCross(
+            startingPosition: CenterNokhtePositions.top,
+          );
+          nokhteBlur.reverse();
+          beachWaves.currentStore.setControl(Control.mirror);
+        }
+        setSwipeDirection(GestureDirections.initial);
+      } else {
+        dismissInstructionalNokhte();
       }
-      setSwipeDirection(GestureDirections.initial);
-    } else if (hasInitiatedBlur && isAllowedToMakeGesture()) {
-      dismissInstructionalNokhte();
     }
   }
 
