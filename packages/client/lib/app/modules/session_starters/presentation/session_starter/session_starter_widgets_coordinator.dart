@@ -271,9 +271,11 @@ abstract class _SessionStarterWidgetsCoordinatorBase
             } else if (p0 == 2) {
               if (qrSubtitleSmartText.showWidget) {
                 presetIcons.setWidgetVisibility(true);
+                Timer(Seconds.get(3, milli: 300), () {
+                  presetIcons.setWidgetVisibility(false);
+                });
               }
             } else if (p0 == 3) {
-              presetIcons.setWidgetVisibility(false);
               qrSubtitleSmartText.setCurrentIndex(0);
               qrSubtitleSmartText.startRotatingText(isResuming: true);
             }
