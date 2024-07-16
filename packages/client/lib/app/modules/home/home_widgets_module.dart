@@ -22,6 +22,7 @@ class HomeWidgetsModule extends Module {
     );
     i.add<CompassAndQrGuideWidgetsCoordinator>(
       () => CompassAndQrGuideWidgetsCoordinator(
+        swipeGuide: SwipeGuideStore(),
         nokhteBlur: NokhteBlurStore(),
         smartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
@@ -74,6 +75,7 @@ class HomeWidgetsModule extends Module {
     );
     i.add<ShortQrGuideWidgetsCoordinator>(
       () => ShortQrGuideWidgetsCoordinator(
+        swipeGuide: SwipeGuideStore(),
         nokhteBlur: NokhteBlurStore(),
         smartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),

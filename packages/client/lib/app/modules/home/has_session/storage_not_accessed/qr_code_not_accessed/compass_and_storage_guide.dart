@@ -21,7 +21,7 @@ class CompassAndStorageGuideScreen extends BaseHomeScreen {
           instructionalNokhtes: Stack(
             children: [
               SwipeGuide(
-                toTheRight: false,
+                orientation: SwipeGuideOrientation.left,
                 store: coordinator.widgets.swipeGuide,
               ),
               CenterInstructionalNokhte(

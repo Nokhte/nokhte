@@ -10,21 +10,60 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'canvas/swipe_guide_painter.dart';
 export 'movies/movies.dart';
+export 'types/swipe_guide_orientation.dart';
 export 'mobx/swipe_guide_store.dart';
 
 class SwipeGuide extends HookWidget {
   final SwipeGuideStore store;
-  final bool toTheRight;
+  final SwipeGuideOrientation orientation;
   const SwipeGuide({
     super.key,
     required this.store,
-    required this.toTheRight,
+    required this.orientation,
   });
+
+  double getRightPadding(double screenWidth) {
+    if (orientation == SwipeGuideOrientation.right) {
+      return screenWidth * 0;
+    } else if (orientation == SwipeGuideOrientation.left) {
+      return screenWidth * .15;
+    } else if (orientation == SwipeGuideOrientation.top) {
+      return screenWidth * .02;
+    } else {
+      return 0;
+    }
+  }
+
+  double getLeftPadding(double screenWidth) {
+    if (orientation == SwipeGuideOrientation.left) {
+      return screenWidth * 0;
+    } else if (orientation == SwipeGuideOrientation.right) {
+      return screenWidth * .15;
+    } else {
+      return 0;
+    }
+  }
+
+  double getBottomPadding(double screenHeight) {
+    if (orientation == SwipeGuideOrientation.left ||
+        orientation == SwipeGuideOrientation.right) {
+      return screenHeight * .02;
+    } else if (orientation == SwipeGuideOrientation.top) {
+      return screenHeight * .08;
+    } else {
+      return 0;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final screenSize = useFullScreenSize();
-    final containerSize = screenSize.height * .3;
+    final screenWidth = screenSize.width;
+    final screenHeight = screenSize.height;
+    double containerSize = screenSize.height * .3;
+    if (orientation == SwipeGuideOrientation.top) {
+      containerSize = screenSize.height * .25;
+    }
     return Observer(builder: (context) {
       return AnimatedOpacity(
         opacity: useWidgetOpacity(store.showWidget),
@@ -35,9 +74,9 @@ class SwipeGuide extends HookWidget {
           control: store.control,
           builder: (context, value, child) => Padding(
             padding: EdgeInsets.only(
-              right: toTheRight ? 0 : screenSize.width * .15,
-              bottom: screenSize.height * .02,
-              left: toTheRight ? screenSize.width * .15 : 0,
+              right: getRightPadding(screenWidth),
+              bottom: getBottomPadding(screenHeight),
+              left: getLeftPadding(screenWidth),
             ),
             child: Center(
               child: SizedBox(
@@ -45,7 +84,7 @@ class SwipeGuide extends HookWidget {
                 width: containerSize,
                 child: CustomPaint(
                   painter: SwipeGuidePainter(
-                    toTheRight: toTheRight,
+                    orientation: orientation,
                     opacities: [
                       value.get('o7'),
                       value.get('o6'),

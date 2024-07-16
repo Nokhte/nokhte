@@ -1,16 +1,17 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/widgets/swipe_guide/swipe_guide.dart';
 
 class SwipeGuidePainter extends CustomPainter {
   final double containerSize;
   final List<double> opacities;
-  final bool toTheRight;
+  final SwipeGuideOrientation orientation;
 
   SwipeGuidePainter({
     required this.containerSize,
     required this.opacities,
-    required this.toTheRight,
+    required this.orientation,
   });
   getPaint(double opacity, double strokeScalar) => Paint()
     ..color = Colors.white.withOpacity(opacity)
@@ -35,9 +36,13 @@ class SwipeGuidePainter extends CustomPainter {
     double arrowDistance = 5 * (scalar * .02);
 
     double strokeScalar = scalar * .01;
-    if (!toTheRight) {
+    if (orientation == SwipeGuideOrientation.left) {
       canvas.translate(center.dx, center.dy);
       canvas.rotate(pi);
+      canvas.translate(-center.dx, -center.dy);
+    } else if (orientation == SwipeGuideOrientation.top) {
+      canvas.translate(center.dx, center.dy);
+      canvas.rotate(pi * 1.5);
       canvas.translate(-center.dx, -center.dy);
     }
 

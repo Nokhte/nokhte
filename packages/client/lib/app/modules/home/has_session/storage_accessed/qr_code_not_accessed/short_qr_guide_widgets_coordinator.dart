@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
@@ -26,10 +28,12 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
         SingleInstructionalNokhteWidgetUtils {
   @override
   final InstructionalGradientNokhteStore focusInstructionalNokhte;
+  final SwipeGuideStore swipeGuide;
 
   final InstructionalGradientNokhteStore storageInstructionalNokhte;
   _ShortQrGuideWidgetsCoordinatorBase({
     required super.nokhteBlur,
+    required this.swipeGuide,
     required super.beachWaves,
     required super.wifiDisconnectOverlay,
     required super.gestureCross,
@@ -44,6 +48,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
   constructor(Offset center) {
     initHomeUtils();
     initInstructionalNokhteUtils(center);
+    swipeGuide.setWidgetVisibility(false);
     setTouchIsDisabled(true);
     gestureCross.fadeIn();
     smartText.setMessagesData(HomeLists.shortQrGuide);
@@ -72,6 +77,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
     if (!isDisconnected) {
       if (smartText.currentIndex == 1) {
         initToTopInstructionalNokhte();
+        swipeGuide.setWidgetVisibility(false);
         storageInstructionalNokhte.setWidgetVisibility(false);
       } else if (smartText.currentIndex == 3 && !hasSwiped()) {
         initSessionStarterTransition();
@@ -121,6 +127,9 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
   @action
   onInitInstructionMode() {
     baseOnInitInstructionMode();
+    Timer(Seconds.get(1, milli: 500), () {
+      swipeGuide.setWidgetVisibility(true);
+    });
     storageInstructionalNokhte.setWidgetVisibility(true);
     storageInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(

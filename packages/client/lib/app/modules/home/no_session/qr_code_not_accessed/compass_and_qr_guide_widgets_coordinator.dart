@@ -28,8 +28,9 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
   @override
   final InstructionalGradientNokhteStore focusInstructionalNokhte;
   @override
-  final SwipeGuideStore? swipeGuide = null;
+  final SwipeGuideStore swipeGuide;
   _CompassAndQrGuideWidgetsCoordinatorBase({
+    required this.swipeGuide,
     required super.nokhteBlur,
     required super.beachWaves,
     required super.wifiDisconnectOverlay,
@@ -45,6 +46,7 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
     initCompassInstructionUtils();
     initHomeUtils();
     initInstructionalNokhteUtils(center);
+    swipeGuide.setWidgetVisibility(false);
     smartText.setMessagesData(HomeLists.compassAndQrGuide);
     smartText.startRotatingText();
     gestureCross.fadeInTheCross();
@@ -68,6 +70,7 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
       if (smartText.currentIndex.equals(3)) {
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
         focusInstructionalNokhte.setControl(Control.playFromStart);
+        swipeGuide.setWidgetVisibility(false);
         smartText.startRotatingText(isResuming: true);
         setTouchIsDisabled(true);
         setSmartTextPadding(

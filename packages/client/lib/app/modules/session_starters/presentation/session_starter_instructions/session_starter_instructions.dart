@@ -59,7 +59,7 @@ class SessionStarterInstructionsScreen extends HookWidget {
                 ),
               ),
               SwipeGuide(
-                toTheRight: true,
+                orientation: SwipeGuideOrientation.right,
                 store: coordinator.widgets.swipeGuide,
               ),
               Observer(builder: (context) {

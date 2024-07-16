@@ -56,7 +56,7 @@ class SessionJoinerInstructionsScreen extends HookWidget {
                 ),
               ),
               SwipeGuide(
-                toTheRight: false,
+                orientation: SwipeGuideOrientation.left,
                 store: coordinator.widgets.swipeGuide,
               ),
               Observer(builder: (context) {
