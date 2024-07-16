@@ -84,7 +84,7 @@ class SessionWidgetsModule extends Module {
         touchRipple: TouchRippleStore(),
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        mirroredText: Modular.get<MirroredTextStore>(),
+        smartText: SmartTextStore(),
       ),
     );
     i.add<ConsultationNotesSymbolsWidgetsCoordinator>(
@@ -117,9 +117,9 @@ class SessionWidgetsModule extends Module {
 
     i.add<SessionSpeakingInstructionsWidgetsCoordinator>(
       () => SessionSpeakingInstructionsWidgetsCoordinator(
+        smartText: SmartTextStore(),
         holdTimerIndicator: HoldTimerIndicatorStore(),
         touchRipple: TouchRippleStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         borderGlow: BorderGlowStore(),
         beachWaves: BeachWavesStore(),

@@ -19,7 +19,6 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase
   final HoldDetector hold;
   final SessionSpeakingInstructionsWidgetsCoordinator widgets;
   final SessionMetadataStore sessionMetadata;
-
   @override
   final SessionPresenceCoordinator presence;
   @override
@@ -47,16 +46,16 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase
     disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        widgets.setDisableTouchInput(false);
+        setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        widgets.setDisableTouchInput(true);
+        setDisableAllTouchFeedback(true);
       },
     ));
     disposers.add(holdReactor());
     disposers.add(letGoReactor());
 
-    disposers.add(widgets.beachWavesMovieStatusReactor(onComplete));
+    disposers.add(widgets.beachWavesMovieStatusReactor(onComplete: onComplete));
   }
 
   @action
@@ -72,13 +71,13 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase
         (p0) => hold.holdCount,
         (p0) {
           ifTouchIsNotDisabled(() {
-            widgets.onHold();
+            widgets.initSpeakingMode();
           });
         },
       );
 
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
-        widgets.onLetGo();
+        widgets.revertSpeakingMode();
         Timer(Seconds.get(2), () {
           setDisableAllTouchFeedback(false);
         });

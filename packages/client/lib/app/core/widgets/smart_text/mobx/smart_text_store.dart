@@ -132,4 +132,7 @@ abstract class _SmartTextStoreBase extends BaseWidgetStore with Store {
 
   @computed
   Duration get currentOnScreenTime => messagesData[currentIndex].onScreenTime;
+
+  @computed
+  bool get isDoneAnimating => movieStatus != MovieStatus.inProgress;
 }

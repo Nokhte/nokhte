@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/smart_text/smart_text.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 part 'mirrored_text_store.g.dart';
@@ -35,90 +36,10 @@ abstract class _MirroredTextStoreBase extends BaseWidgetStore with Store {
         prepForSplitScreen();
         setPrimaryMessagesData(SharedLists.emptyList);
         setSecondaryMessagesData(SessionLists.touchToTalk);
-      case MirroredTextContent.sessionSpeakingWaiting:
-        setPrimaryMessagesData(SessionLists.speakingWaiting);
-        setSecondaryMessagesData(SharedLists.emptyList);
-        prepForSplitScreen();
-      case MirroredTextContent.sessionSpeakingHybridInstructions:
-        primaryRightSideUpText.setMessagesData(
-          SessionLists.lookAtTheOtherPhone,
-        );
-        secondaryRightSideUpText.setMessagesData(SharedLists.emptyList);
-        primaryUpsideDownText.setMessagesData(
-          SessionLists.speakingHalfInstructionsPrimary(
-            isHybrid: true,
-          ),
-        );
-        secondaryUpsideDownText.setMessagesData(
-          SessionLists.speakingHalfInstructionsSecondary,
-        );
-        prepForSplitScreen(isInverted: true);
-      case MirroredTextContent.sessionHybridWaiting:
-        primaryRightSideUpText.setMessagesData(SessionLists.waitForTheOthers);
-        secondaryRightSideUpText.setMessagesData(SharedLists.emptyList);
-        primaryUpsideDownText.setMessagesData(SessionLists.waitForTheOthers);
-        secondaryUpsideDownText.setMessagesData(SharedLists.emptyList);
-        prepForSplitScreen(isInverted: true);
-      case MirroredTextContent.sessionNotesHybridInstructions:
-        prepForSplitScreen(isInverted: true);
-        primaryRightSideUpText.setMessagesData(
-          SessionLists.getNotesHalfInstructionsPrimary(isHybrid: true),
-        );
-        secondaryRightSideUpText.setMessagesData(
-          SessionLists.notesHalfInstructionsSecondary,
-        );
-        primaryUpsideDownText.setMessagesData(
-          SessionLists.lookAtTheOtherPhone,
-        );
-        secondaryUpsideDownText.setMessagesData(SharedLists.emptyList);
-      case MirroredTextContent.lookAtTheOtherPhone:
-        primaryRightSideUpText.setMessagesData(
-          SessionLists.lookAtTheOtherPhone,
-        );
-        secondaryRightSideUpText.setMessagesData(SharedLists.emptyList);
-        primaryUpsideDownText.setMessagesData(SessionLists.lookAtTheOtherPhone);
-        secondaryUpsideDownText.setMessagesData(SharedLists.emptyList);
       case MirroredTextContent.hybrid:
         setPrimaryMessagesData(SharedLists.emptyList);
         secondaryRightSideUpText.setMessagesData(SessionLists.tapToTakeANote);
         secondaryUpsideDownText.setMessagesData(SessionLists.touchToTalk);
-        prepForSplitScreen(isInverted: true);
-      case MirroredTextContent.sessionSpeakingInstructions:
-        primaryRightSideUpText
-            .setMessagesData(SessionLists.speakingHalfInstructionsPrimary(
-          isHybrid: false,
-        ));
-        secondaryRightSideUpText.setMessagesData(
-          SessionLists.speakingHalfInstructionsSecondary,
-        );
-        primaryUpsideDownText.setMessagesData(SharedLists.emptyList);
-        secondaryUpsideDownText.setMessagesData(SharedLists.emptyList);
-        prepForSplitScreen();
-      case MirroredTextContent.sessionNotesInstructions:
-        primaryRightSideUpText.setMessagesData(
-          SessionLists.getNotesHalfInstructionsPrimary(
-            isHybrid: true,
-          ),
-        );
-        secondaryRightSideUpText
-            .setMessagesData(SessionLists.notesHalfInstructionsSecondary);
-        primaryUpsideDownText.setMessagesData(SharedLists.emptyList);
-        secondaryUpsideDownText.setMessagesData(SharedLists.emptyList);
-      case MirroredTextContent.soloHybridInstructions:
-        primaryRightSideUpText
-            .setMessagesData(SessionLists.speakingHalfInstructionsPrimary(
-          isHybrid: false,
-        ));
-        secondaryRightSideUpText.setMessagesData(
-          SessionLists.speakingHalfInstructionsSecondary,
-        );
-        primaryUpsideDownText.setMessagesData(
-          SessionLists.getNotesHalfInstructionsPrimary(
-            isHybrid: true,
-          ),
-        );
-        secondaryUpsideDownText
-            .setMessagesData(SessionLists.notesHalfInstructionsSecondary);
         prepForSplitScreen(isInverted: true);
     }
   }

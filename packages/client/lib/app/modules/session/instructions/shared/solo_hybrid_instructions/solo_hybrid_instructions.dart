@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 
@@ -44,11 +45,12 @@ class SoloHybridInstructionsScreen extends HookWidget {
             Observer(builder: (context) {
               return Center(
                 child: SmartText(
+                  opacityDuration: Seconds.get(1),
                   topPadding:
                       height * coordinator.widgets.smartTextTopPaddingScalar,
                   bottomPadding:
                       height * coordinator.widgets.smartTextBottomPaddingScalar,
-                  subTextPadding: height *
+                  subTextPadding:
                       coordinator.widgets.smartTextSubMessagePaddingScalar,
                   store: coordinator.widgets.smartText,
                 ),
