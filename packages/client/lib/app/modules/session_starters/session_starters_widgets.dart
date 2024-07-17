@@ -30,6 +30,7 @@ class SessionStartersWidgetsModule extends Module {
     );
     i.add<SessionJoinerWidgetsCoordinator>(
       () => SessionJoinerWidgetsCoordinator(
+        nokhteBlur: NokhteBlurStore(),
         touchRipple: TouchRippleStore(),
         qrScanner: QrScannerStore(),
         tint: TintStore(),

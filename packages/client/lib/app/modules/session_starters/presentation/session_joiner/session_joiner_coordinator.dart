@@ -48,13 +48,13 @@ abstract class _SessionJoinerCoordinatorBase
     initReactors();
     logic.listenToSessionActivation();
     await captureScreen(SessionStarterConstants.sessionJoiner);
+    await getUserInfo(NoParams());
     await userInfo.updateUserFlag(
       const UserFlagParam(
         key: UserFlagKeys.hasAccessedQrCodeScanner,
         value: true,
       ),
     );
-    await getUserInfo(NoParams());
   }
 
   initReactors() {
@@ -72,6 +72,7 @@ abstract class _SessionJoinerCoordinatorBase
     ));
     disposers.add(tapReactor());
     disposers.add(qrCodeScannerReactor());
+    disposers.add(userInfoReactor());
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) => onSwipe(p0));
@@ -131,7 +132,7 @@ abstract class _SessionJoinerCoordinatorBase
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
         ifTouchIsNotDisabled(() {
-          // widgets.onTap(tap.currentTapPosition);
+          widgets.onTap(tap.currentTapPosition);
         });
       });
 

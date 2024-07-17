@@ -46,6 +46,11 @@ class SessionJoinerScreen extends HookWidget {
               QrScanner(
                 store: coordinator.widgets.qrScanner,
               ),
+              FullScreen(
+                child: NokhteBlur(
+                  store: coordinator.widgets.nokhteBlur,
+                ),
+              ),
               Center(
                 child: SmartText(
                   store: coordinator.widgets.smartText,

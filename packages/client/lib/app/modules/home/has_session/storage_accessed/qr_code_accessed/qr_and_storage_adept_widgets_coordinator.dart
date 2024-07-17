@@ -130,7 +130,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
     if (!isDisconnected && isAllowedToMakeGesture()) {
       if (!hasInitiatedBlur) {
         baseOnInitInstructionMode(
-          excldeSmartTextRotation: true,
+          excludeSmartTextRotation: true,
           excludePaddingAdjuster: true,
         );
         sessionStarterInstructionalNokhte.setWidgetVisibility(true);

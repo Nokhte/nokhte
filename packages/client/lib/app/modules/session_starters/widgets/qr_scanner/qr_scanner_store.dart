@@ -33,14 +33,19 @@ abstract class _QrScannerStoreBase extends BaseWidgetStore
     smartText.setMessagesData(SessionStartersList.qrScanner);
     smartText.startRotatingText();
     await controller.start();
+    fadeIn();
+    disposers.add(smartTextIndexReactor());
+  }
+
+  fadeIn() {
     Timer(Seconds.get(1), () {
       setWidgetVisibility(true);
       Timer(Seconds.get(1), () {
         setControl(Control.playFromStart);
       });
-      // setControl(Control.playFromStart);
     });
-    disposers.add(smartTextIndexReactor());
+    controller.start();
+    subscription?.resume();
   }
 
   rotateText() {
@@ -65,9 +70,11 @@ abstract class _QrScannerStoreBase extends BaseWidgetStore
       });
 
   @action
-  fadeOut() {
+  fadeOut() async {
     setWidgetVisibility(false);
     setControl(Control.playReverseFromEnd);
+    controller.stop();
+    subscription?.pause();
   }
 
   handleBarcode(BarcodeCapture barcode) {

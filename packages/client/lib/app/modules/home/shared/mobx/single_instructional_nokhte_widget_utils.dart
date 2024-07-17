@@ -23,12 +23,12 @@ mixin SingleInstructionalNokhteWidgetUtils
 
   baseOnInitInstructionMode({
     bool excludePaddingAdjuster = false,
-    bool excldeSmartTextRotation = false,
+    bool excludeSmartTextRotation = false,
   }) {
     setHasInitiatedBlur(true);
     nokhteBlur.init();
     beachWaves.currentStore.setControl(Control.stop);
-    if (!excldeSmartTextRotation) {
+    if (!excludeSmartTextRotation) {
       smartText.startRotatingText(isResuming: true);
     }
     Timer(const Duration(seconds: 1, milliseconds: 500), () {
