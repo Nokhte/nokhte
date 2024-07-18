@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 export 'logic/get_on_connectivity_changed.dart';
 export 'mobx/get_on_connectivity_changed_store.dart';
 export 'sources/connectivity_remote_source.dart';
+export 'wifi_disconnect_overlay/wifi_disconnect_overlay.dart';
 
 class ConnectivityModule extends Module {
   @override
@@ -21,6 +22,11 @@ class ConnectivityModule extends Module {
     i.add<GetOnConnectivityChangedStore>(
       () => GetOnConnectivityChangedStore(
         logic: i<GetOnConnectivityChanged>(),
+      ),
+    );
+     i.add<WifiDisconnectOverlayStore>(
+      () => WifiDisconnectOverlayStore(
+        getOnConnectivityChanged: Modular.get<GetOnConnectivityChangedStore>(),
       ),
     );
   }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/constants/constants.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/login/login.dart';
@@ -92,8 +93,8 @@ class LoginScreen extends HookWidget {
                   ),
                 ),
                 FullScreen(
-                  child: Nokhte(
-                    store: coordinator.widgets.nokhte,
+                  child: LoginNokhtes(
+                    store: coordinator.widgets.loginNokhtes,
                   ),
                 ),
                 FullScreen(

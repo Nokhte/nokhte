@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/login/login.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 void main() {
-  late NokhteStore testStore;
+  late LoginNokhtesStore testStore;
   const Offset tOffset = Offset(1, 1);
 
   setUp(() {
-    testStore = NokhteStore();
+    testStore = LoginNokhtesStore();
   });
 
   group("initial values", () {
@@ -21,14 +21,14 @@ void main() {
     });
 
     test("movieMode", () {
-      expect(testStore.movieMode, NokhteMovieModes.initial);
+      expect(testStore.movieMode, LoginNokhtesMovieModes.initial);
     });
   });
 
   group("actions", () {
     test('setMovieModes', () {
-      testStore.setMovieModes(NokhteMovieModes.moveUpAndApparate);
-      expect(testStore.movieMode, NokhteMovieModes.moveUpAndApparate);
+      testStore.setMovieModes(LoginNokhtesMovieModes.moveUpAndApparate);
+      expect(testStore.movieMode, LoginNokhtesMovieModes.moveUpAndApparate);
     });
 
     test("setCenterCoordinates", () {
@@ -46,7 +46,7 @@ void main() {
 
     test("initMoveUpAndApparateMovie", () {
       testStore.initMoveUpAndApparateMovie();
-      expect(testStore.movieMode, NokhteMovieModes.moveUpAndApparate);
+      expect(testStore.movieMode, LoginNokhtesMovieModes.moveUpAndApparate);
       expect(testStore.movieStatus, MovieStatus.inProgress);
       expect(testStore.control, Control.playFromStart);
     });
@@ -63,7 +63,7 @@ void main() {
         expect(testStore.isAboutToApparate, false);
       });
       test("true", () {
-        testStore.setMovieModes(NokhteMovieModes.moveUpAndApparate);
+        testStore.setMovieModes(LoginNokhtesMovieModes.moveUpAndApparate);
         expect(testStore.isAboutToApparate, true);
       });
     });

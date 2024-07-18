@@ -9,7 +9,7 @@ void main() {
   late BeachWavesStore layer1BeachWavesStore;
   late BeachWavesStore layer2BeachWavesStore;
   late SmartTextStore smartTextStore;
-  late NokhteStore nokhteStore;
+  late LoginNokhtesStore nokhteStore;
   late TrailingTextStore topTrailingTextStore;
   late TrailingTextStore bottomTrailingTextStore;
   late MockWifiDisconnectOverlayStore wifiDisconnectOverlayStore;
@@ -21,7 +21,7 @@ void main() {
     layer1BeachWavesStore = BeachWavesStore();
     layer2BeachWavesStore = BeachWavesStore();
     smartTextStore = SmartTextStore();
-    nokhteStore = NokhteStore();
+    nokhteStore = LoginNokhtesStore();
     topTrailingTextStore = TrailingTextStore();
     bottomTrailingTextStore = TrailingTextStore();
     testStore = LoginScreenWidgetsCoordinator(
@@ -30,7 +30,7 @@ void main() {
       layer1BeachWaves: layer1BeachWavesStore,
       layer2BeachWaves: layer2BeachWavesStore,
       smartTextStore: smartTextStore,
-      nokhte: nokhteStore,
+      loginNokhtes: nokhteStore,
       bottomTrailingText: bottomTrailingTextStore,
       topTrailingText: topTrailingTextStore,
     );
@@ -101,7 +101,8 @@ void main() {
     test("connstructor", () {
       testStore.constructor(tCoordinates, () {}, () {}, () {});
       expect(testStore.centerScreenCoordinates, tCoordinates);
-      expect(layer1BeachWavesStore.movieMode, BeachWaveMovieModes.blackOut);
+      expect(layer1BeachWavesStore.movieMode,
+          BeachWaveMovieModes.blackOutToDrySand);
       expect(layer2BeachWavesStore.movieMode, BeachWaveMovieModes.onShore);
     });
   });
@@ -154,7 +155,7 @@ void main() {
         testStore.trailingTextReactor();
         bottomTrailingTextStore.initReverse();
         bottomTrailingTextStore.onCompleted();
-        expect(nokhteStore.movieMode, NokhteMovieModes.moveUpAndApparate);
+        expect(nokhteStore.movieMode, LoginNokhtesMovieModes.moveUpAndApparate);
       });
       test("forward completed", () {
         testStore.trailingTextReactor();

@@ -14,54 +14,59 @@ export 'types/types.dart';
 class BeachWaves extends HookWidget {
   final BeachWavesStore store;
   final SandTypes sandType;
-  const BeachWaves({
-    super.key,
-    required this.store,
-    this.sandType = SandTypes.home,
-  });
+  final Duration opacityDuration;
+  const BeachWaves(
+      {super.key,
+      required this.store,
+      this.sandType = SandTypes.home,
+      this.opacityDuration = Duration.zero});
 
   @override
-  Widget build(BuildContext context) => Observer(
-      builder: (context) => Opacity(
-            opacity: useWidgetOpacity(store.currentStore.showWidget),
-            child: NokhteCustomAnimationBuilder(
-              tween: store.currentMovie,
-              duration: store.currentMovie.duration,
-              control: store.currentControl,
-              onCompleted: () => store.onCompleted(),
-              builder: (context, value, child) {
-                final currentAnimationValues =
-                    GetCurrentWaterAnimation.values(value);
-                store.setCurrentAnimationValues(currentAnimationValues);
-                return CustomPaint(
-                  painter: BeachWavesPainter(
-                    sandType: sandType,
-                    waterValue: currentAnimationValues.first,
-                    shouldPaintSand: store.shouldPaintSandOnCurrent,
-                    colorsList: [
-                      currentAnimationValues[1],
-                      currentAnimationValues[2],
-                      currentAnimationValues[3],
-                      currentAnimationValues[4],
-                      currentAnimationValues[5],
-                      currentAnimationValues[6],
-                      currentAnimationValues[7],
-                      currentAnimationValues[8]
-                    ],
-                    stopsList: [
-                      currentAnimationValues[9],
-                      currentAnimationValues[10],
-                      currentAnimationValues[11],
-                      currentAnimationValues[12],
-                      currentAnimationValues[13],
-                      currentAnimationValues[14],
-                      currentAnimationValues[15],
-                      currentAnimationValues[16],
-                    ],
-                  ),
-                  size: MediaQuery.of(context).size,
-                );
-              },
-            ),
-          ));
+  Widget build(BuildContext context) {
+    final screenSize = useFullScreenSize();
+    return Observer(
+        builder: (context) => AnimatedOpacity(
+              opacity: useWidgetOpacity(store.currentStore.showWidget),
+              duration: opacityDuration,
+              child: NokhteCustomAnimationBuilder(
+                tween: store.currentMovie,
+                duration: store.currentMovie.duration,
+                control: store.currentControl,
+                onCompleted: () => store.onCompleted(),
+                builder: (context, value, child) {
+                  final currentAnimationValues =
+                      GetCurrentWaterAnimation.values(value);
+                  store.setCurrentAnimationValues(currentAnimationValues);
+                  return CustomPaint(
+                    painter: BeachWavesPainter(
+                      sandType: sandType,
+                      waterValue: currentAnimationValues.first,
+                      shouldPaintSand: store.shouldPaintSandOnCurrent,
+                      colorsList: [
+                        currentAnimationValues[1],
+                        currentAnimationValues[2],
+                        currentAnimationValues[3],
+                        currentAnimationValues[4],
+                        currentAnimationValues[5],
+                        currentAnimationValues[6],
+                        currentAnimationValues[7],
+                        currentAnimationValues[8]
+                      ],
+                      stopsList: [
+                        currentAnimationValues[9],
+                        currentAnimationValues[10],
+                        currentAnimationValues[11],
+                        currentAnimationValues[12],
+                        currentAnimationValues[13],
+                        currentAnimationValues[14],
+                        currentAnimationValues[15],
+                        currentAnimationValues[16],
+                      ],
+                    ),
+                    size: screenSize,
+                  );
+                },
+              ),
+            ));
+  }
 }

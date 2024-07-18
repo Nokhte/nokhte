@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, overridden_fields
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 part 'compass_and_qr_guide_coordinator.g.dart';
 
@@ -12,10 +13,8 @@ abstract class _CompassAndQrGuideCoordinatorBase
   @override
   final CompassAndQrGuideWidgetsCoordinator widgets;
   _CompassAndQrGuideCoordinatorBase({
-    required super.sessionStarters,
     required super.swipe,
     required this.widgets,
-    required super.deepLinks,
     required super.captureScreen,
     required super.tap,
   }) : super(widgets: widgets);
@@ -35,34 +34,20 @@ abstract class _CompassAndQrGuideCoordinatorBase
       onSwipeUp: () {
         widgets.onSwipeUp();
       },
-      onSwipeRight: () {},
+      onSwipeLeft: () {},
     ));
-    disposers.add(swipeCoordinatesReactor(onSwipeUpCordinatesChanged));
-    disposers.add(widgets.beachWavesMovieStatusReactor(
-        onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
-        onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
-        onStorageEntry: () {},
-        onAnyToShoreComplete: () {
-          setDisableAllTouchFeedback(false);
-        }));
+    disposers.add(swipeCoordinatesReactor(widgets.initWaterWake));
     disposers.add(tapReactor());
   }
 
-  onSwipeUpCordinatesChanged(Offset offset) {
-    if (widgets.primarySmartText.currentIndex == 3 ||
-        widgets.primarySmartText.currentIndex == 5) {
-      widgets.onSwipeCoordinatesChanged(offset);
-    }
-  }
-
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        if (isInErrorMode) {
-          widgets.onErrorResolved(() {
-            setIsInErrorMode(true);
-          });
-        }
         ifTouchIsNotDisabled(() {
-          widgets.onTap(tap.currentTapPosition);
+          widgets.onTap(
+            tap.currentTapPosition,
+            colorway: GradientNokhteColorways.invertedBeachWave,
+            gradPosition: InstructionalNokhtePositions.top,
+            centerPosition: CenterNokhtePositions.top,
+          );
         });
       });
 }

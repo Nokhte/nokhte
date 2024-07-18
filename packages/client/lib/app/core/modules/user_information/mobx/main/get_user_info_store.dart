@@ -19,7 +19,7 @@ abstract class _GetUserInfoStoreBase
   bool hasAccessedQrCode = false;
 
   @observable
-  bool hasSentAnInvitation = false;
+  bool hasAccessedQrCodeScanner = false;
 
   @observable
   bool hasDoneASession = false;
@@ -53,6 +53,7 @@ abstract class _GetUserInfoStoreBase
       entity = journeyInfoEntity;
       isOnMostRecentVersion = journeyInfoEntity.isOnMostRecentVersion;
       hasAccessedQrCode = journeyInfoEntity.hasAccessedQrCode;
+      hasAccessedQrCodeScanner = journeyInfoEntity.hasAccessedQrCodeScanner;
       hasEnteredStorage = journeyInfoEntity.hasEnteredStorage;
       hasDoneASession = journeyInfoEntity.hasCompletedASession;
       userUID = journeyInfoEntity.userUID;
@@ -69,4 +70,7 @@ abstract class _GetUserInfoStoreBase
     stateOrErrorUpdater(futureStore.unwrappedEntityOrFailure);
     setState(StoreState.loaded);
   }
+
+  @computed
+  bool get hasDoneEitherQrFlow => hasAccessedQrCode || hasAccessedQrCodeScanner;
 }

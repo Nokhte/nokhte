@@ -1,27 +1,31 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'session_notes_instructions_widgets_coordinator.g.dart';
 
 class SessionNotesInstructionsWidgetsCoordinator = SessionNotesInstructionsWidgetsCoordinatorBase
     with _$SessionNotesInstructionsWidgetsCoordinator;
 
 abstract class SessionNotesInstructionsWidgetsCoordinatorBase
-    with Store, BaseWidgetsCoordinator {
+    with Store, BaseWidgetsCoordinator, Reactions {
   final BeachWavesStore beachWaves;
-  final MirroredTextStore mirroredText;
+  final SmartTextStore smartText;
   final TouchRippleStore touchRipple;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   SessionNotesInstructionsWidgetsCoordinatorBase({
     required this.beachWaves,
-    required this.mirroredText,
+    required this.smartText,
     required this.touchRipple,
     required this.wifiDisconnectOverlay,
   }) {
@@ -31,94 +35,48 @@ abstract class SessionNotesInstructionsWidgetsCoordinatorBase
   @observable
   Stopwatch cooldownStopwatch = Stopwatch();
 
-  @observable
-  bool disableTouchInput = false;
-
-  @action
-  setDisableTouchInput(bool newValue) => disableTouchInput = newValue;
-
-  @observable
-  int tapCount = 0;
-
   @action
   constructor() {
     cooldownStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
-    mirroredText.setMessagesData(
-      MirroredTextContent.sessionNotesInstructions,
-    );
-
-    mirroredText.startBothRotatingText();
-    setDisableTouchInput(false);
+    smartText
+        .setMessagesData(SessionLists.getNotesInstructions(isHybrid: false));
+    smartText.startRotatingText();
+    disposers.add(rippleCompletionStatusReactor());
   }
 
   @action
   onTap(Offset tapPosition) async {
-    if (!disableTouchInput) {
-      if (cooldownStopwatch.elapsedMilliseconds.isLessThan(950)) {
-        return;
-      } else {
-        cooldownStopwatch.reset();
-      }
-      touchRipple.onTap(tapPosition);
-      if (hasTappedOnTheRightSide) {
-        if (isStillInMutualInstructionMode) {
-          mirroredText.startRotatingRightSideUp(isResuming: true);
-          if (isLastTap) {
-            mirroredText.setUpsideDownVisibility(false);
-            beachWaves.setMovieMode(BeachWaveMovieModes.deepSeaToSky);
-            beachWaves.currentStore.reverseMovie(NoParams());
-          }
+    if (cooldownStopwatch.elapsedMilliseconds.isLessThan(950)) {
+      return;
+    } else {
+      cooldownStopwatch.reset();
+    }
+    touchRipple.onTap(tapPosition);
+    if (hasTappedOnTheBottomHalf) {
+      if (smartText.currentIndex.isLessThan(2)) {
+        smartText.startRotatingText(isResuming: true);
+        if (smartText.currentIndex == 1) {
+          smartText.setWidgetVisibility(false);
+          beachWaves.setMovieMode(BeachWaveMovieModes.deepSeaToSky);
+          beachWaves.currentStore.reverseMovie(NoParams());
         }
-        tapCount++;
       }
     }
   }
 
-  @action
-  onInstructionModeUnlocked() {
-    mirroredText.startBothRotatingText(isResuming: true);
-    setDisableTouchInput(false);
-  }
-
-  @computed
-  MirroredTextOrientations get currentActiveOrientation =>
-      MirroredTextOrientations.rightSideUp;
-
-  @computed
-  bool get hasTappedOnTheRightSide =>
-      rightSideUpTextIsVisible && hasTappedOnTheBottomHalf ||
-      upsideDownTextIsVisible && hasTappedOnTheTopHalf;
-
-  @computed
-  bool get rightSideUpTextIsVisible =>
-      currentActiveOrientation == MirroredTextOrientations.rightSideUp;
+  rippleCompletionStatusReactor() =>
+      reaction((p0) => touchRipple.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished && smartText.currentIndex == 2) {
+          Modular.to.navigate(SessionConstants.showGroupGeometry);
+        }
+      });
 
   @computed
   bool get hasTappedOnTheBottomHalf =>
       touchRipple.tapPlacement == GesturePlacement.bottomHalf;
 
   @computed
-  bool get upsideDownTextIsVisible =>
-      currentActiveOrientation == MirroredTextOrientations.upsideDown;
-
-  @computed
-  bool get hasTappedOnTheTopHalf =>
-      touchRipple.tapPlacement == GesturePlacement.topHalf;
-
-  @computed
-  bool get isStillInMutualInstructionMode => tapCount.isLessThan(2);
-
-  @computed
-  bool get isFirstTap => tapCount == 0;
-
-  @computed
-  bool get isLastTap => tapCount == 1;
-
-  @computed
-  bool get hasCompletedInstructions => tapCount == 2;
-
-  @computed
   bool get textIsDoneFadingInOrOut =>
-      mirroredText.textIsDoneAnimating || isFirstTap;
+      smartText.isDoneAnimating || smartText.currentIndex == 0;
 }

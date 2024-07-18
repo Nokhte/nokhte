@@ -11,6 +11,7 @@ export 'presentation/presentation.dart';
 export 'constants/constants.dart';
 export 'storage_logic_module.dart';
 export 'storage_widgets_module.dart';
+export 'widgets/widgets.dart';
 
 class StorageModule extends Module {
   @override

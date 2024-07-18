@@ -52,6 +52,13 @@ abstract class _SmartTextStoreBase extends BaseWidgetStore with Store {
   }
 
   @action
+  @override
+  setWidgetVisibility(bool newVisibility) {
+    setControl(Control.stop);
+    super.setWidgetVisibility(newVisibility);
+  }
+
+  @action
   reset() {
     currentIndex = 0;
     isPaused = false;
@@ -125,4 +132,7 @@ abstract class _SmartTextStoreBase extends BaseWidgetStore with Store {
 
   @computed
   Duration get currentOnScreenTime => messagesData[currentIndex].onScreenTime;
+
+  @computed
+  bool get isDoneAnimating => movieStatus != MovieStatus.inProgress;
 }

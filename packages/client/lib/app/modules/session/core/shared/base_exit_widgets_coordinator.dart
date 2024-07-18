@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 
 mixin BaseExitWidgetsCoordinator {
   ExitStatusIndicatorStore get exitStatusIndicator;

@@ -16,9 +16,7 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
 
   _ShortQrGuideCoordinatorBase({
-    required super.sessionStarters,
     required super.swipe,
-    required super.deepLinks,
     required this.widgets,
     required this.getNokhteSessionArtifactsLogic,
     required super.captureScreen,
@@ -42,33 +40,14 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
   initReactors() {
     super.initReactors();
     disposers.add(swipeReactor(
-      onSwipeUp: () {
-        // setDisableAllTouchFeedback(true);
-        widgets.onSwipeUp();
-      },
-      onSwipeRight: () {
-        widgets.onSwipeRight();
-        // setDisableAllTouchFeedback(true);
-      },
+      onSwipeUp: () => widgets.onSwipeUp(),
+      onSwipeLeft: () => widgets.onSwipeLeft(),
     ));
     disposers.add(tapReactor());
-    disposers.add(widgets.beachWavesMovieStatusReactor(
-      onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
-      onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
-      onStorageEntry: onSubsequentStorageEntry,
-      onAnyToShoreComplete: () {
-        setDisableAllTouchFeedback(false);
-      },
-    ));
-    disposers.add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
+    disposers.add(swipeCoordinatesReactor(widgets.initWaterWake));
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        if (isInErrorMode) {
-          widgets.onErrorResolved(() {
-            setIsInErrorMode(true);
-          });
-        }
         ifTouchIsNotDisabled(() {
           widgets.onTap(tap.currentTapPosition);
         });

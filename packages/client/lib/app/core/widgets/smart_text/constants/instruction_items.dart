@@ -2,40 +2,33 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class InstructionItems {
-  static RotatingTextData sessionStarterExplanation = RotatingTextData(
-    text: "That is where you go to start a session",
-    subText: "Tap anywhere to confirm",
-    initialFadeInDelay: Seconds.get(1),
-    pauseHere: true,
-  );
+  static const thatIsWhereYouGoTo = "That is where you go to";
+  static const tapAnywhereToConfirm = "Tap anywhere to confirm";
 
-  static RotatingTextData storageExplanation = RotatingTextData(
-    text: "That is where you go to view session notes",
-    subText: "Tap anywhere to confirm",
-    initialFadeInDelay: Seconds.get(1),
-    pauseHere: true,
-  );
+  static RotatingTextData getExplanation(String explanationEnding) =>
+      RotatingTextData(
+        text: "$thatIsWhereYouGoTo $explanationEnding",
+        subText: tapAnywhereToConfirm,
+        initialFadeInDelay: Seconds.get(1),
+        pauseHere: true,
+      );
 
-  static RotatingTextData storageHomeExplanation = RotatingTextData(
-    text: "That is where you go view your sessions",
-    subText: "Tap anywhere to confirm",
-    pauseHere: true,
-  );
+  static RotatingTextData sessionStarterExplanation =
+      getExplanation("start a session");
 
-  static RotatingTextData homeExplanation = RotatingTextData(
-    initialFadeInDelay: Seconds.get(1),
-    text: "That is where you go to get home",
-    subText: "Tap anywhere to confirm",
-    onScreenTime: Seconds.get(0),
-    pauseHere: true,
-  );
+  static RotatingTextData sessionJoinerExplanation =
+      getExplanation("join a session");
 
-  static RotatingTextData presetsExplanation = RotatingTextData(
-    text: "This is where you go to choose the session type",
-    subText: "Tap anywhere to confirm",
-    initialFadeInDelay: Seconds.get(1),
-    pauseHere: true,
-  );
+  static RotatingTextData storageExplanation =
+      getExplanation("view session notes");
+
+  static RotatingTextData storageHomeExplanation =
+      getExplanation("view your sessions");
+
+  static RotatingTextData homeExplanation = getExplanation("get home");
+
+  static RotatingTextData presetsExplanation =
+      getExplanation("choose the session type");
 
   static RotatingTextData tapOnTheCompass = RotatingTextData(
     text: "Tap on the compass",

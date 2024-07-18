@@ -46,9 +46,9 @@ class UserInformationContractImpl
   }
 
   @override
-  updateHasEnteredStorage(newEntryStatus) async {
+  updateUserFlag(param) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.updateHasEnteredStorage(newEntryStatus);
+      final res = await remoteSource.updateUserFlag(param);
       return fromSupabase(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);

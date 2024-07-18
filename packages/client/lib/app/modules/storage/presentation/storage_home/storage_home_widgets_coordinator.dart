@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/movie_status.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/storage/storage.dart';
 part 'storage_home_widgets_coordinator.g.dart';
 
 class StorageHomeWidgetsCoordinator = _StorageHomeWidgetsCoordinatorBase
@@ -72,7 +74,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase
   bool canTap = false;
 
   @action
-  onSwipeLeft() {
+  onSwipeRight() {
     if (isAllowedToInteract) {
       if (!hasInitiatedBlur && !hasSwiped) {
         hasSwiped = true;

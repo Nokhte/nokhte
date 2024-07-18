@@ -3,6 +3,7 @@ export "session_starter_entry_widgets_coordinator.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'session_starter_entry_coordinator.dart';
 

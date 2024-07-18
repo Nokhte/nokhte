@@ -20,11 +20,15 @@ class ShortQrGuideScreen extends BaseHomeScreen {
           ),
           instructionalNokhtes: Stack(
             children: [
+              SwipeGuide(
+                orientation: SwipeGuideOrientation.top,
+                store: coordinator.widgets.swipeGuide,
+              ),
               CenterInstructionalNokhte(
                 store: coordinator.widgets.centerInstructionalNokhte,
               ),
               InstructionalGradientNokhte(
-                store: coordinator.widgets.sessionStarterInstructionalNokhte,
+                store: coordinator.widgets.focusInstructionalNokhte,
               ),
               InstructionalGradientNokhte(
                 store: coordinator.widgets.storageInstructionalNokhte,

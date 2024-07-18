@@ -9,6 +9,7 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity
     required super.hasCompletedASession,
     required super.hasEnteredStorage,
     required super.isOnMostRecentVersion,
+    required super.hasAccessedQrCodeScanner,
   });
 
   factory UserJourneyInfoModel.fromSupabase({
@@ -23,6 +24,7 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity
         hasCompletedASession: false,
         hasEnteredStorage: false,
         userUID: "",
+        hasAccessedQrCodeScanner: false,
       );
     } else {
       return UserJourneyInfoModel(
@@ -33,8 +35,11 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity
                 null,
         hasCompletedASession:
             hasCompletedNokhteSession(finishedNokhteSessionsRes),
-        hasEnteredStorage:
-            userNamesRes.first[UserInformationConstants.S_HAS_ENTERED_STORAGE],
+        hasEnteredStorage: userNamesRes.first[UserInformationConstants.S_FLAGS]
+            [UserInformationConstants.S_HAS_ENTERED_STORAGE],
+        hasAccessedQrCodeScanner:
+            userNamesRes.first[UserInformationConstants.S_FLAGS]
+                [UserInformationConstants.S_HAS_ACCESSED_QR_CODE_SCANNER],
       );
     }
   }

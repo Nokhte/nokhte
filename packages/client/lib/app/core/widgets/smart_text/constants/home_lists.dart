@@ -4,9 +4,9 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 class HomeLists {
   static List<RotatingTextData> get storageGuide => [
         InstructionItems.tapOnTheCompass,
-        InstructionItems.swipeRight,
+        InstructionItems.swipeLeft,
         InstructionItems.storageExplanation,
-        InstructionItems.swipeRight,
+        InstructionItems.swipeLeft,
       ];
 
   static List<RotatingTextData> compassGuide(
@@ -53,15 +53,15 @@ class HomeLists {
       ];
 
   static List<RotatingTextData> get compassAndStorageGuide => [
-        ...compassGuide(GestureDirections.right),
+        ...compassGuide(GestureDirections.left),
         InstructionItems.storageExplanation,
-        InstructionItems.swipeRight,
+        InstructionItems.swipeLeft,
       ];
 
   static List<RotatingTextData> get compassAndQrGuide => [
         ...compassGuide(GestureDirections.up),
         InstructionItems.sessionStarterExplanation,
-        SharedLists.emptyItem,
+        InstructionItems.swipeUp,
       ];
 
   static List<RotatingTextData> get qrNavigationReminder => [

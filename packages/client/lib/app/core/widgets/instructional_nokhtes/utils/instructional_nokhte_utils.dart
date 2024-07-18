@@ -86,6 +86,13 @@ class InstructionalNokhteUtils {
           ColorAndStop(Color(0xFF4072F3), 1),
           ColorAndStop(Color(0xFF4072F3), 1),
         ];
+      case GradientNokhteColorways.orangeSand:
+        temp = const [
+          ColorAndStop(Color(0xFFFFE6C4), 0),
+          ColorAndStop(Color(0xFFFFE6C4), 0),
+          ColorAndStop(Color(0xFFFFBC78), .49),
+          ColorAndStop(Color(0xFFFFBC78), .49),
+        ];
     }
     return temp;
   }

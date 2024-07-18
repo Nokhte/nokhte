@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'canvas/touch_ripple_painter.dart';
 export 'constants/constants.dart';
 export 'mobx/touch_ripple_store.dart';
+export 'mixin/mixin.dart';
 export 'movies/movies.dart';
 export 'types/types.dart';
 

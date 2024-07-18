@@ -1,14 +1,11 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
-import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
-import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session/constants/constants.dart';
-import 'core.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 export 'duo_greeter/duo_greeter.dart';
 export 'exit/exit.dart';
 export 'preview/preview.dart';
@@ -24,10 +21,9 @@ class SessionCoreModule extends Module {
   List<Module> get imports => [
         CleanUpCollaborationArtifactsModule(),
         PosthogModule(),
-        SessionPresenceModule(),
+        SessionLogicModule(),
         UserMetadataModule(),
         UserInformationModule(),
-        DeepLinksModule(),
         ActiveMonetizationSessionModule(),
       ];
 
@@ -38,7 +34,6 @@ class SessionCoreModule extends Module {
         captureStart: Modular.get<CaptureNokhteSessionStart>(),
         activeMonetizationSession:
             Modular.get<ActiveMonetizationSessionCoordinator>(),
-        deepLinks: Modular.get<DeepLinksCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         tap: TapDetector(),
@@ -51,7 +46,6 @@ class SessionCoreModule extends Module {
         activeMonetizationSession:
             Modular.get<ActiveMonetizationSessionCoordinator>(),
         userMetadata: Modular.get<UserMetadataCoordinator>(),
-        deepLinks: Modular.get<DeepLinksCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         tap: TapDetector(),

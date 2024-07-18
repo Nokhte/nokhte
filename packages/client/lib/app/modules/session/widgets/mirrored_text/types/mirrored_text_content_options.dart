@@ -1,0 +1,4 @@
+enum MirroredTextContent {
+  sessionSpeaking,
+  hybrid,
+}

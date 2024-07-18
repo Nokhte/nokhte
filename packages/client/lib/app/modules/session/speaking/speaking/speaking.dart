@@ -2,8 +2,9 @@ export 'session_speaking_coordinator.dart';
 export 'session_speaking_widgets_coordinator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'session_speaking_coordinator.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 
 class SessionSpeakingScreen extends HookWidget {
   final SessionSpeakingCoordinator coordinator;

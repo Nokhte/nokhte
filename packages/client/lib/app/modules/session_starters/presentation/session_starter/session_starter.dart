@@ -1,10 +1,10 @@
 export "session_starter_coordinator.dart";
 export "session_starter_widgets_coordinator.dart";
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'session_starter_coordinator.dart';
@@ -58,7 +58,7 @@ class SessionStarterScreen extends HookWidget {
                 ),
                 Center(
                   child: SmartText(
-                    store: coordinator.widgets.primarySmartText,
+                    store: coordinator.widgets.qrSubtitleSmartText,
                     opacityDuration: Seconds.get(1),
                     topPadding: height * .23,
                   ),
@@ -75,7 +75,7 @@ class SessionStarterScreen extends HookWidget {
                 ),
                 Center(
                   child: SmartText(
-                    store: coordinator.widgets.secondarySmartText,
+                    store: coordinator.widgets.smartText,
                     opacityDuration: Seconds.get(1),
                     topPadding:
                         height * coordinator.widgets.smartTextTopPaddingScalar,
@@ -87,22 +87,14 @@ class SessionStarterScreen extends HookWidget {
                 ),
                 GestureCross(
                   showGlowAndOutline: true,
-                  config: GestureCrossConfiguration(
-                    bottom: Right(
-                      NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.home,
-                      ),
-                    ),
-                    left: Right(
-                      NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.presets,
-                      ),
-                    ),
-                  ),
+                  config: coordinator.widgets.gestureCrossConfig,
                   store: coordinator.widgets.gestureCross,
                 ),
                 CenterInstructionalNokhte(
                   store: coordinator.widgets.centerInstructionalNokhte,
+                ),
+                InstructionalGradientNokhte(
+                  store: coordinator.widgets.sessionJoinerInstructionalNokhte,
                 ),
                 InstructionalGradientNokhte(
                   store: coordinator.widgets.presetsInstructionalNokhte,

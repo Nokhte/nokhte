@@ -1,5 +1,4 @@
 import 'package:nokhte/app/core/mixins/mixin.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class SessionLists {
@@ -9,28 +8,12 @@ class SessionLists {
     mainFontSize: 24.0,
   );
 
-  static List<RotatingTextData> speakingInstructionsError = [
-    RotatingTextData(
-      text: "Set the phone down to continue",
-      pauseHere: true,
-    ),
-  ];
-
   static List<RotatingTextData> previewHeader = [
     RotatingTextData(
       text: "Session Type",
       pauseHere: true,
       mainFontSize: 40.0,
     ),
-  ];
-
-  static List<RotatingTextData> speakingWaiting = [
-    RotatingTextData(
-      text: "Continue on the other phone",
-      initialFadeInDelay: Seconds.get(1),
-      pauseHere: true,
-    ),
-    SharedLists.emptyItem,
   ];
 
   static List<RotatingTextData> lobby(String presetName) => [
@@ -124,50 +107,9 @@ class SessionLists {
     ];
   }
 
-  static List<RotatingTextData> speakingInstructionsPrimary = [
-    RotatingTextData(
-      text: "The point of this phone is to limit speaking", // !! REPEAT
-      pauseHere: true,
-      mainFontSize: 22.0,
-    ),
-    SharedLists.emptyItem,
-    RotatingTextData(
-      text: "You can only speak when your finger is on the screen", // !! REPEAT
-      pauseHere: true,
-      mainFontSize: 22.0,
-    ),
-    SharedLists.emptyItem,
-    RotatingTextData(
-      text: "Now, put your finger on the screen", // !! REPEAT
-      pauseHere: true,
-      mainFontSize: 22.0,
-    ),
-    SharedLists.emptyItem,
-    RotatingTextData(
-      text: "Only you are allowed to speak right now", // !! REPEAT
-      pauseHere: true,
-    ),
-    SharedLists.emptyItem,
-    RotatingTextData(
-      text: "Let go", // !! REPEAT
-      pauseHere: true,
-    ),
-    SharedLists.emptyItem,
-  ];
-
-  static List<RotatingTextData> youHaveAlreadyDoneThis = [
-    RotatingTextData(
-      text: "You have already done this",
-      mainFontSize: 22.0,
-      pauseHere: true,
-    ),
-    SharedLists.emptyItem,
-  ];
-
-  static List<RotatingTextData> speakingHalfInstructionsPrimary({
+  static List<RotatingTextData> speakingInstructionsPrimary({
     required bool isHybrid,
     bool isHoldToTalk = true,
-    bool showSubText = false,
   }) {
     String phoneOrSide = isHybrid ? "side" : "phone";
     return [
@@ -175,7 +117,7 @@ class SessionLists {
         text: "The point of this $phoneOrSide is to limit speaking",
         pauseHere: true,
         mainFontSize: 22.0,
-        subText: showSubText ? "Tap to confirm" : "",
+        subText: "Tap to confirm",
         subFontSize: 18.0,
       ),
       RotatingTextData(
@@ -184,14 +126,14 @@ class SessionLists {
             : "You can only speak when you tap on the screen",
         pauseHere: true,
         mainFontSize: 22.0,
-        subText: showSubText ? "Tap to confirm" : "",
+        subText: "Tap to confirm",
         subFontSize: 18.0,
       ),
       RotatingTextData(
         text: isHoldToTalk ? "Now, put your finger on the screen" : "Tap",
         pauseHere: true,
         mainFontSize: 22.0,
-        subText: showSubText ? "" : "",
+        subText: "",
         subFontSize: 18.0,
       ),
       SharedLists.emptyItem,
@@ -199,7 +141,7 @@ class SessionLists {
         text: "Only you are allowed to speak right now",
         mainFontSize: 22.0,
         pauseHere: true,
-        subText: showSubText ? "" : "",
+        subText: "",
         subFontSize: 18.0,
       ),
       SharedLists.emptyItem,
@@ -207,22 +149,19 @@ class SessionLists {
         text: isHoldToTalk ? "Let go" : "Tap again",
         mainFontSize: 22.0,
         pauseHere: true,
-        subText: showSubText ? "" : "",
+        subText: "",
         subFontSize: 18.0,
       ),
-      SharedLists.emptyItem,
     ];
   }
 
   static List<RotatingTextData> soloHybridInstructions = [
-    ...speakingHalfInstructionsPrimary(
+    ...speakingInstructionsPrimary(
       isHybrid: true,
       isHoldToTalk: false,
-      showSubText: true,
     ),
-    ...getNotesHalfInstructionsPrimary(
+    ...getNotesInstructions(
       isHybrid: true,
-      showSubText: true,
     ),
   ];
 
@@ -312,33 +251,12 @@ class SessionLists {
     SharedLists.emptyItem,
   ];
 
-  static List<RotatingTextData> speakingHalfInstructionsSecondary = [
-    SharedLists.tapToConfirm(19.0),
-    SharedLists.tapToConfirm(19.0),
-    ...SharedLists.genEmptyList(6),
-  ];
-
-  static List<RotatingTextData> lookAtTheOtherPhone = [
-    RotatingTextData(
-      text: "Look at the other phone",
-      pauseHere: true,
-    ),
-    SharedLists.emptyItem,
-  ];
-
   static List<RotatingTextData> waitForTheOthers = [
     RotatingTextData(
       text: "Wait for the others",
       pauseHere: true,
     ),
     SharedLists.emptyItem,
-  ];
-
-  static List<RotatingTextData> speakingInstructionsSecondary = [
-    SharedLists.tapToConfirm(19.0),
-    SharedLists.emptyItem,
-    SharedLists.tapToConfirm(19.0),
-    ...SharedLists.genEmptyList(4),
   ];
 
   static List<RotatingTextData> touchToTalk = [
@@ -364,9 +282,8 @@ class SessionLists {
     ),
   ];
 
-  static List<RotatingTextData> getNotesHalfInstructionsPrimary({
+  static List<RotatingTextData> getNotesInstructions({
     required bool isHybrid,
-    bool showSubText = false,
   }) {
     String phoneOrSide = isHybrid ? "side" : "phone";
     final arr = [
@@ -374,62 +291,18 @@ class SessionLists {
         text: "This $phoneOrSide will be used for notes",
         pauseHere: true,
         mainFontSize: 22.0,
-        subText: showSubText ? "Tap to confirm" : "",
+        subText: "Tap to confirm",
         subFontSize: 18.0,
       ),
       RotatingTextData(
         text: "To complete the session swipe down on all the phones",
         pauseHere: true,
         mainFontSize: 22.0,
-        subText: showSubText ? "Tap to confirm" : "",
+        subText: "Tap to confirm",
         subFontSize: 18.0,
       ),
       SharedLists.emptyItem,
     ];
-    return arr;
-  }
-
-  static List<RotatingTextData> notesHalfInstructionsSecondary = [
-    SharedLists.tapToConfirm(19.0),
-    SharedLists.tapToConfirm(19.0),
-    SharedLists.emptyItem,
-  ];
-
-  static List<RotatingTextData> getNotesInstructionsPrimary(
-      MirroredTextOrientations orientation) {
-    final arr = [
-      SharedLists.emptyItem,
-      RotatingTextData(
-        text: "This phone will be used for notes",
-        pauseHere: true,
-        mainFontSize: 22.0,
-      ),
-      SharedLists.emptyItem,
-      RotatingTextData(
-        text: "To complete the session swipe down on both phones", // !! REPEAT
-        pauseHere: true,
-        mainFontSize: 22.0,
-      ),
-      SharedLists.emptyItem,
-    ];
-    if (orientation == MirroredTextOrientations.rightSideUp) {
-      arr.removeAt(0);
-    }
-    return arr;
-  }
-
-  static List<RotatingTextData> getNotesInstructionsSecondary(
-      MirroredTextOrientations orientation) {
-    final arr = [
-      SharedLists.emptyItem,
-      SharedLists.tapToConfirm(19),
-      SharedLists.emptyItem,
-      SharedLists.tapToConfirm(19),
-      SharedLists.emptyItem,
-    ];
-    if (orientation == MirroredTextOrientations.rightSideUp) {
-      arr.removeAt(0);
-    }
     return arr;
   }
 

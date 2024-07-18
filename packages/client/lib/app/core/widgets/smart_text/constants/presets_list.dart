@@ -28,7 +28,7 @@ class PresetsLists {
     ),
     SharedLists.emptyItem,
     InstructionItems.tapOnTheCompass,
-    InstructionItems.swipeRight,
+    InstructionItems.swipeLeft,
     InstructionItems.sessionStarterExplanation,
     SharedLists.emptyItem,
   ];

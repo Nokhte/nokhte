@@ -2,54 +2,49 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 
 mixin BeachWaveMovies {
   static Map<BeachWaveMovieModes, BaseBeachWaveMovieStore> getMap() => {
-        BeachWaveMovieModes.anyToOnShore: AnyToOnShoreMovieStore(),
-        BeachWaveMovieModes.anyToSky: AnyToSkyMovieStore(),
-        BeachWaveMovieModes.anyToHalfAndHalf: AnyToHalfAndHalfMovieStore(),
+        BeachWaveMovieModes.anyToOnShore: AnyToOnShore(),
+        BeachWaveMovieModes.anyToSky: AnyToSky(),
+        BeachWaveMovieModes.anyToHalfAndHalf: AnyToHalfAndHalf(),
         BeachWaveMovieModes.anyToInvertedHalfAndHalf:
-            AnyToInvertedHalfAndHalfMovieStore(),
-        BeachWaveMovieModes.borealisToSky: BorealisToSkyMovieStore(),
-        BeachWaveMovieModes.blackOut: StaticBlackOutMovieStore(),
-        BeachWaveMovieModes.blackOutToDrySand: BlackOutToDrySandMovieStore(),
-        BeachWaveMovieModes.deepSeaToBorealis: DeepSeaToBorealisMovieStore(),
-        BeachWaveMovieModes.deepSeaToSky: DeepSeaToSkyMovieStore(),
-        BeachWaveMovieModes.deepSeaToHalfAndHalf:
-            DeepSeaToHalfAndHalfMovieStore(),
+            AnyToInvertedHalfAndHalf(),
+        BeachWaveMovieModes.borealisToSky: BorealisToSky(),
+        BeachWaveMovieModes.blackOutToDrySand: BlackOutToDrySand(),
+        BeachWaveMovieModes.deepSeaToBorealis: DeepSeaToBorealis(),
+        BeachWaveMovieModes.deepSeaToSky: DeepSeaToSky(),
+        BeachWaveMovieModes.deepSeaToHalfAndHalf: DeepSeaToHalfAndHalf(),
+        BeachWaveMovieModes.emptyTheOcean: EmptyTheOcean(),
         BeachWaveMovieModes.deepSeaToInvertedHalfAndHalf:
-            DeepSeaToInvertedHalfAndHalfMovieStore(),
-        BeachWaveMovieModes.drySandToSky: DrySandToSkyMovieStore(),
-        BeachWaveMovieModes.halfAndHalfToDrySand:
-            HalfAndHalfToDrySandMovieStore(),
-        BeachWaveMovieModes.invertedOnShore: InvertedOnShoreMovieStore(),
+            DeepSeaToInvertedHalfAndHalf(),
+        BeachWaveMovieModes.drySandToSky: DrySandToSky(),
+        BeachWaveMovieModes.emptyOceanToInvertedDeepSea:
+            EmptyOceanToInvertedDeepSea(),
+        BeachWaveMovieModes.halfAndHalfToDrySand: HalfAndHalfToDrySand(),
+        BeachWaveMovieModes.invertedOnShore: InvertedOnShore(),
         BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea:
-            InvertedOnShoreToInvertedDeepSeaMovieStore(),
+            InvertedOnShoreToInvertedDeepSea(),
         BeachWaveMovieModes.invertedOnShoreToInvertedOceanDive:
-            InvertedOnShoreToInvertedOceanDiveMovieStore(),
+            InvertedOnShoreToInvertedOceanDive(),
         BeachWaveMovieModes.invertedOnShoreToInvertedDeeperBlue:
-            InvertedOnShoreToInvertedDeeperBlueMovieStore(),
+            InvertedOnShoreToInvertedDeeperBlue(),
         BeachWaveMovieModes.invertedHalfAndHalfToDrySand:
-            InvertedHalfAndHalfToDrySandMovieStore(),
+            InvertedHalfAndHalfToDrySand(),
         BeachWaveMovieModes.none: BaseBeachWaveMovieStore(),
-        BeachWaveMovieModes.oceanDiveToSky: OceanDiveToSkyMovieStore(),
-        BeachWaveMovieModes.onShore: OnShoreMovieStore(),
-        BeachWaveMovieModes.onShoreToDeepSea: OnShoreToDeepSeaMovieStore(),
-        BeachWaveMovieModes.onShoreToDrySand: OnShoreToDrySandMovieStore(),
-        BeachWaveMovieModes.onShoreToOceanDive: OnShoreToOceanDiveMovieStore(),
-        BeachWaveMovieModes.onShoreToSky: OnShoreToSkyMovieStore(),
-        BeachWaveMovieModes.orangeSandToSky: OrangeSandToSkyMovieStore(),
-        BeachWaveMovieModes.orangeSandToHalfAndHalf:
-            OrangeSandToHalfAndHalfMovieStore(),
-        BeachWaveMovieModes.resumeOnShore: ResumeOnShoreMovieStore(),
-        BeachWaveMovieModes.staticHalfAndHalf: StaticHalfAndHalfMovieStore(),
-        BeachWaveMovieModes.staticInvertedDeeperBlue:
-            StaticInvertedDeeperBlueMovieStore(),
-        BeachWaveMovieModes.staticOceanDive: StaticOceanDiveStore(),
-        BeachWaveMovieModes.skyToHalfAndHalf: SkyToHalfAndHalfMovieStore(),
+        BeachWaveMovieModes.oceanDiveToSky: OceanDiveToSky(),
+        BeachWaveMovieModes.onShore: OnShore(),
+        BeachWaveMovieModes.onShoreToDeepSea: OnShoreToDeepSea(),
+        BeachWaveMovieModes.onShoreToDrySand: OnShoreToDrySand(),
+        BeachWaveMovieModes.onShoreToOceanDive: OnShoreToOceanDive(),
+        BeachWaveMovieModes.onShoreToSky: OnShoreToSky(),
+        BeachWaveMovieModes.orangeSandToSky: OrangeSandToSky(),
+        BeachWaveMovieModes.orangeSandToHalfAndHalf: OrangeSandToHalfAndHalf(),
+        BeachWaveMovieModes.resumeOnShore: ResumeOnShore(),
+        BeachWaveMovieModes.skyToHalfAndHalf: SkyToHalfAndHalf(),
         BeachWaveMovieModes.skyToInvertedHalfAndHalf:
-            SkyToInvertedHalfAndHalfMovieStore(),
-        BeachWaveMovieModes.skyToDrySand: SkyToDrySandMovieStore(),
+            SkyToInvertedHalfAndHalf(),
+        BeachWaveMovieModes.skyToDrySand: SkyToDrySand(),
         BeachWaveMovieModes.waterFromTopToOnShorePt1:
-            WaterFromTopToOnShoreMoviePart1Store(),
+            WaterFromTopToOnShorePart1(),
         BeachWaveMovieModes.waterFromTopToOnShorePt2:
-            WaterFromTopToOnShoreMoviePart2Store(),
+            WaterFromTopToOnShorePart2(),
       };
 }

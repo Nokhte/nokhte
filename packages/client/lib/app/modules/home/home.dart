@@ -1,5 +1,4 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
@@ -24,7 +23,7 @@ class HomeModule extends Module {
         HomeWidgetsModule(),
         SessionStartersLogicModule(),
         CleanUpCollaborationArtifactsModule(),
-        DeepLinksModule(),
+        UserInformationModule(),
         LegacyConnectivityModule(),
         PosthogModule(),
         StorageLogicModule(),
@@ -38,28 +37,23 @@ class HomeModule extends Module {
         cleanUpCollaborationArtifacts:
             Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
-        sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
         widgets: Modular.get<HomeScreenRootRouterWidgetsCoordinator>(),
       ),
     );
     i.add<CompassAndQrGuideCoordinator>(
       () => CompassAndQrGuideCoordinator(
         tap: TapDetector(),
-        sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: SwipeDetector(),
         widgets: Modular.get<CompassAndQrGuideWidgetsCoordinator>(),
-        deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
     i.add<QrNavigationReminderCoordinator>(
       () => QrNavigationReminderCoordinator(
         tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
-        sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
         swipe: SwipeDetector(),
         widgets: Modular.get<QrNavigationReminderWidgetsCoordinator>(),
-        deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
     i.add<StorageGuideCoordinator>(
@@ -67,11 +61,9 @@ class HomeModule extends Module {
         tap: TapDetector(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
-        sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: SwipeDetector(),
         widgets: Modular.get<StorageGuideWidgetsCoordinator>(),
-        deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
     i.add<CompassAndStorageGuideCoordinator>(
@@ -79,11 +71,9 @@ class HomeModule extends Module {
         tap: TapDetector(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
-        sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: SwipeDetector(),
         widgets: Modular.get<CompassAndStorageGuideWidgetsCoordinator>(),
-        deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
     i.add<ShortQrGuideCoordinator>(
@@ -91,11 +81,9 @@ class HomeModule extends Module {
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
         tap: TapDetector(),
-        sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: SwipeDetector(),
         widgets: Modular.get<ShortQrGuideWidgetsCoordinator>(),
-        deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
     i.add<QrAndStorageAdeptCoordinator>(
@@ -103,11 +91,9 @@ class HomeModule extends Module {
         tap: TapDetector(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
-        sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: SwipeDetector(),
         widgets: Modular.get<QrAndStorageAdeptWidgetsCoordinator>(),
-        deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
     i.add<NeedsUpdateCoordinator>(

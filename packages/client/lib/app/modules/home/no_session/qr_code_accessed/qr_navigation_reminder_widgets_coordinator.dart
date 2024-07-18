@@ -4,6 +4,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -14,37 +16,39 @@ class QrNavigationReminderWidgetsCoordinator = _QrNavigationReminderWidgetsCoord
     with _$QrNavigationReminderWidgetsCoordinator;
 
 abstract class _QrNavigationReminderWidgetsCoordinatorBase
-    extends BaseHomeScreenWidgetsCoordinator with Store {
+    extends BaseHomeScreenWidgetsCoordinator
+    with
+        Store,
+        Reactions,
+        EnRoute,
+        EnRouteConsumer,
+        SwipeNavigationUtils,
+        InstructionWidgetsUtils,
+        TouchRippleUtils,
+        HomeScreenWidgetsUtils,
+        InstructionalNokhteWidgetUtils,
+        SingleInstructionalNokhteWidgetUtils {
+  @override
+  InstructionalGradientNokhteStore? focusInstructionalNokhte;
+  InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
   _QrNavigationReminderWidgetsCoordinatorBase({
     required super.nokhteBlur,
     required super.beachWaves,
     required super.wifiDisconnectOverlay,
     required super.gestureCross,
-    required super.primarySmartText,
-    required super.errorSmartText,
-    required super.secondaryErrorSmartText,
+    required super.smartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
-    required super.sessionStarterInstructionalNokhte,
-    required super.storageInstructionalNokhte,
+    required this.sessionStarterInstructionalNokhte,
   });
 
-  @observable
-  bool gracePeriodHasExpired = false;
-
-  @observable
-  bool crossHasBeenTapped = false;
-
   @action
-  toggleGracePeriodHasExpired() =>
-      gracePeriodHasExpired = !gracePeriodHasExpired;
-
-  @override
-  @action
-  constructor(Offset offset) {
-    super.constructor(offset);
-    primarySmartText.setMessagesData(HomeLists.qrNavigationReminder);
-    primarySmartText.startRotatingText();
+  constructor(Offset center) {
+    initHomeUtils();
+    consumeRoutingArgs();
+    initInstructionalNokhteUtils(center);
+    smartText.setMessagesData(HomeLists.qrNavigationReminder);
+    smartText.startRotatingText();
     gestureCross.fadeIn(onFadeIn: Left(() {
       sessionStarterInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
@@ -65,41 +69,32 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
   initReactors() {
     disposers.add(gestureCrossTapReactor());
     disposers.add(centerInstructionalNokhteReactor());
-    disposers.add(centerCrossNokhteReactor(() {}));
+    disposers.add(centerCrossNokhteReactor(() {
+      sessionStarterInstructionalNokhte.setWidgetVisibility(false);
+    }));
   }
 
   @action
   onSwipeUp() {
-    if (!isDisconnected &&
-        centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
+    if (!isDisconnected && isAllowedToMakeGesture()) {
       if (hasInitiatedBlur) {
-        hasInitiatedBlur = false;
-        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
-        hasSwipedUp = true;
-        primarySmartText.startRotatingText(isResuming: true);
-        setSmartTextPadding(topPadding: 0);
-        delayedEnableTouchFeedback();
-      } else if (primarySmartText.currentIndex.isLessThan(1)) {
-        gestureCross.centerCrossNokhte.setWidgetVisibility(true);
-        gestureCross.gradientNokhte.setWidgetVisibility(true);
-        centerInstructionalNokhte.setWidgetVisibility(false);
-        sessionStarterInstructionalNokhte.setWidgetVisibility(false);
-        prepForNavigation(excludeUnBlur: true);
+        initToTopInstructionalNokhte(excludePaddingAdjuster: true);
+      } else if (smartText.currentIndex.isLessThan(1)) {
+        initSessionStarterTransition();
       }
     }
   }
-  //add reactor for re-setting smart text
 
   @action
   onTap(Offset offset) {
-    if (!isDisconnected && !touchIsDisabled) {
-      if (primarySmartText.currentIndex == 2) {
-        primarySmartText.startRotatingText(isResuming: true);
+    if (!isDisconnected && isAllowedToMakeGesture() && hasInitiatedBlur) {
+      if (smartText.currentIndex == 2) {
+        smartText.startRotatingText(isResuming: true);
         touchRipple.onTap(offset);
         nokhteBlur.reverse();
         setTouchIsDisabled(true);
         beachWaves.currentStore.setControl(Control.mirror);
-        toggleHasInitiatedBlur();
+        setHasInitiatedBlur(false);
         Timer(Seconds.get(1, milli: 500), () {
           centerInstructionalNokhte.moveBackToCross(
             startingPosition: CenterNokhtePositions.top,
@@ -112,11 +107,10 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
               position: InstructionalNokhtePositions.top,
             ),
           );
-          primarySmartText.reset();
-          primarySmartText.startRotatingText();
+          smartText.reset();
+          smartText.startRotatingText();
         });
-        hasInitiatedBlur = false;
-      } else if (hasInitiatedBlur && readyToInteract) {
+      } else {
         dismissInstructionalNokhte();
       }
     }
@@ -129,7 +123,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
                 CenterInstructionalNokhteMovieModes.moveBack) {
           gestureCross.centerCrossNokhte.setWidgetVisibility(true);
           gestureCross.gradientNokhte.setWidgetVisibility(true);
-          hasSwipedUp = false;
+          setSwipeDirection(GestureDirections.initial);
           setTouchIsDisabled(false);
         }
       });
@@ -141,7 +135,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
 
   @action
   dismissInstructionalNokhte() {
-    hasSwipedUp = false;
+    setSwipeDirection(GestureDirections.initial);
     centerInstructionalNokhte.moveBackToCross(
       startingPosition: CenterNokhtePositions.center,
     );
@@ -155,20 +149,17 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
     );
     nokhteBlur.reverse();
     beachWaves.currentStore.setControl(Control.mirror);
-    hasInitiatedBlur = false;
-    primarySmartText.reset();
-    primarySmartText.startRotatingText();
+    setHasInitiatedBlur(false);
+    smartText.reset();
+    smartText.startRotatingText();
     delayedEnableTouchFeedback();
   }
 
   @action
   onGestureCrossTap() {
-    if (!isDisconnected && readyToInteract) {
+    if (!isDisconnected && isAllowedToMakeGesture() && !hasSwiped()) {
       if (!hasInitiatedBlur) {
-        hasSwipedUp = false;
-        nokhteBlur.init();
-        beachWaves.currentStore.setControl(Control.stop);
-        hasInitiatedBlur = true;
+        baseOnInitInstructionMode(excludePaddingAdjuster: true);
         sessionStarterInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
             center: center,
@@ -177,10 +168,6 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
             position: InstructionalNokhtePositions.top,
           ),
         );
-        gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-        gestureCross.gradientNokhte.setWidgetVisibility(false);
-        primarySmartText.startRotatingText(isResuming: true);
-        centerInstructionalNokhte.moveToCenter(center);
         setSmartTextPadding(bottomPadding: .14);
         delayedEnableTouchFeedback();
       } else if (hasInitiatedBlur) {
@@ -188,11 +175,4 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
       }
     }
   }
-
-  @computed
-  bool get readyToInteract =>
-      !isEnteringNokhteSession &&
-      !hasSwipedUp &&
-      !isInErrorMode &&
-      centerInstructionalNokhte.movieStatus != MovieStatus.inProgress;
 }

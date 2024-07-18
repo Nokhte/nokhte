@@ -3,4 +3,5 @@ enum NokhteGradientTypes {
   home,
   sessionStarter,
   presets,
+  sessionJoiner,
 }
