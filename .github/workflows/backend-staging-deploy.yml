@@ -1,5 +1,10 @@
 name: Backend Staging Deployment
 on:
+  push:
+    branches:
+      - staging
+    paths:
+      - packages/backend/**
   workflow_dispatch:
 
 jobs:
