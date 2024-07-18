@@ -87,7 +87,7 @@ abstract class _BeachWavesStoreBase with Store {
 
   @computed
   BaseBeachWaveMovieStore get currentStore =>
-      movieModeToStoreLookup[movieMode] ?? OnShoreMovieStore();
+      movieModeToStoreLookup[movieMode] ?? OnShore();
 
   @computed
   Control get currentControl =>

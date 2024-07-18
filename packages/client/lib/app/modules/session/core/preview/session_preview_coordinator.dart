@@ -4,9 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
-import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
-import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
@@ -22,7 +20,6 @@ abstract class _SessionPreviewCoordinatorBase
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
-  final DeepLinksCoordinator deepLinks;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
   final CaptureNokhteSessionStart captureStart;
   @override
@@ -31,7 +28,6 @@ abstract class _SessionPreviewCoordinatorBase
   _SessionPreviewCoordinatorBase({
     required this.captureScreen,
     required this.widgets,
-    required this.deepLinks,
     required this.captureStart,
     required this.tap,
     required this.presence,
@@ -86,7 +82,7 @@ abstract class _SessionPreviewCoordinatorBase
 
   rippleReactor() => reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          Modular.to.navigate(route, arguments: {});
+          Modular.to.navigate(route);
         }
       });
 

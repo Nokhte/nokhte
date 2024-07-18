@@ -3,4 +3,5 @@ enum GradientNokhteColorways {
   beachWave,
   vibrantBlue,
   deeperBlue,
+  orangeSand,
 }

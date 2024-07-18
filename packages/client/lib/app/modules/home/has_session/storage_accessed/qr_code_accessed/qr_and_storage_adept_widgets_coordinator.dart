@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -11,55 +13,54 @@ class QrAndStorageAdeptWidgetsCoordinator = _QrAndStorageAdeptWidgetsCoordinator
     with _$QrAndStorageAdeptWidgetsCoordinator;
 
 abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
-    extends BaseHomeScreenWidgetsCoordinator with Store {
+    extends BaseHomeScreenWidgetsCoordinator
+    with
+        Store,
+        EnRoute,
+        Reactions,
+        EnRouteConsumer,
+        SwipeNavigationUtils,
+        InstructionWidgetsUtils,
+        TouchRippleUtils,
+        HomeScreenWidgetsUtils,
+        InstructionalNokhteWidgetUtils,
+        SingleInstructionalNokhteWidgetUtils {
+  @override
+  InstructionalGradientNokhteStore? focusInstructionalNokhte;
+  InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
+  InstructionalGradientNokhteStore storageInstructionalNokhte;
+
   _QrAndStorageAdeptWidgetsCoordinatorBase({
     required super.nokhteBlur,
     required super.beachWaves,
     required super.wifiDisconnectOverlay,
     required super.gestureCross,
-    required super.primarySmartText,
-    required super.errorSmartText,
-    required super.secondaryErrorSmartText,
+    required super.smartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
-    required super.sessionStarterInstructionalNokhte,
-    required super.storageInstructionalNokhte,
+    required this.sessionStarterInstructionalNokhte,
+    required this.storageInstructionalNokhte,
   });
 
-  @observable
-  bool gracePeriodHasExpired = false;
-
   @action
-  toggleGracePeriodHasExpired() =>
-      gracePeriodHasExpired = !gracePeriodHasExpired;
-
-  @override
-  @action
-  constructor(Offset offset) {
-    super.constructor(offset);
+  constructor(Offset center) {
+    initHomeUtils();
+    initInstructionalNokhteUtils(center);
     gestureCross.fadeIn();
-    primarySmartText.setMessagesData(HomeLists.qrAndStorageAdept);
-    primarySmartText.startRotatingText();
+    smartText.setMessagesData(HomeLists.qrAndStorageAdept);
+    smartText.startRotatingText();
     initReactors();
   }
 
   @action
   onSwipeUp() {
-    if (!isDisconnected && isAllowedToMakeAGesture) {
-      if (hasInitiatedBlur && !hasSwipedUp) {
-        hasSwipedUp = true;
-        canTap = true;
-        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
+    if (!isDisconnected && isAllowedToMakeGesture()) {
+      if (hasInitiatedBlur && !hasSwiped()) {
+        smartText.setCurrentIndex(0);
+        initToTopInstructionalNokhte(excludePaddingAdjuster: true);
         storageInstructionalNokhte.setWidgetVisibility(false);
-        primarySmartText.setCurrentIndex(0);
-        primarySmartText.startRotatingText(isResuming: true);
-        currentCenterNokhtePosition = InstructionalNokhtePositions.top;
-      } else if (!hasInitiatedBlur && !hasSwipedUp) {
-        canTapOnGestureCross = false;
-        gestureCross.centerCrossNokhte.setWidgetVisibility(true);
-        centerInstructionalNokhte.setWidgetVisibility(false);
-        primarySmartText.setWidgetVisibility(false);
-        prepForNavigation(excludeUnBlur: true);
+      } else if (!hasInitiatedBlur && !hasSwiped()) {
+        initSessionStarterTransition();
       }
     }
   }
@@ -73,42 +74,15 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
     }));
   }
 
-  @observable
-  bool canTapOnGestureCross = true;
-
-  @observable
-  bool hasSwiped = false;
-
-  @observable
-  bool canTap = false;
-
-  @observable
-  InstructionalNokhtePositions currentCenterNokhtePosition =
-      InstructionalNokhtePositions.initial;
-
   @action
-  onSwipeRight() {
-    if (!isDisconnected && isAllowedToMakeAGesture) {
-      if (hasInitiatedBlur && !hasSwipedUp) {
-        hasSwipedUp = true;
-        canTap = true;
-        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.right);
+  onSwipeLeft() {
+    if (!isDisconnected && isAllowedToMakeGesture()) {
+      if (hasInitiatedBlur && !hasSwiped()) {
+        smartText.setCurrentIndex(2);
+        initToRightInstructionalNokhte();
         sessionStarterInstructionalNokhte.setWidgetVisibility(false);
-        primarySmartText.setCurrentIndex(2);
-        primarySmartText.startRotatingText(isResuming: true);
-        currentCenterNokhtePosition = InstructionalNokhtePositions.right;
-      } else if (!hasInitiatedBlur && !hasSwipedUp) {
-        canTapOnGestureCross = false;
-        hasSwipedUp = true;
-        beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
-        beachWaves.currentStore.initMovie(
-          beachWaves.currentAnimationValues.first,
-        );
-        gestureCross.centerCrossNokhte.setWidgetVisibility(true);
-        centerInstructionalNokhte.setWidgetVisibility(false);
-        gestureCross.initMoveAndRegenerate(CircleOffsets.right);
-        gestureCross.cross.initOutlineFadeIn();
-        primarySmartText.setWidgetVisibility(false);
+      } else if (!hasInitiatedBlur) {
+        initStorageTransition();
       }
     }
   }
@@ -120,100 +94,48 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
 
   @action
   onTap(Offset offset) {
-    if (!isDisconnected &&
-        canTap &&
-        centerInstructionalNokhte.movieStatus == MovieStatus.finished) {
-      canTap = false;
-      touchRipple.onTap(offset);
-      hasInitiatedBlur = false;
-      hasSwipedUp = false;
-      primarySmartText.startRotatingText(isResuming: true);
-      if (currentCenterNokhtePosition == InstructionalNokhtePositions.right) {
-        sessionStarterInstructionalNokhte.setWidgetVisibility(true);
-        sessionStarterInstructionalNokhte.initMovie(
-          InstructionalGradientMovieParams(
-            center: center,
-            colorway: GradientNokhteColorways.invertedBeachWave,
-            direction: InstructionalGradientDirections.shrink,
-            position: InstructionalNokhtePositions.top,
-          ),
-        );
-        storageInstructionalNokhte.setWidgetVisibility(true);
-        storageInstructionalNokhte.initMovie(
-          InstructionalGradientMovieParams(
-            center: center,
-            colorway: GradientNokhteColorways.vibrantBlue,
-            direction: InstructionalGradientDirections.shrink,
-            position: InstructionalNokhtePositions.right,
-          ),
-        );
-        centerInstructionalNokhte.moveBackToCross(
-          startingPosition: CenterNokhtePositions.right,
-        );
-        nokhteBlur.reverse();
-        beachWaves.currentStore.setControl(Control.mirror);
-      } else if (currentCenterNokhtePosition ==
-          InstructionalNokhtePositions.top) {
-        sessionStarterInstructionalNokhte.setWidgetVisibility(true);
-        sessionStarterInstructionalNokhte.initMovie(
-          InstructionalGradientMovieParams(
-            center: center,
-            colorway: GradientNokhteColorways.invertedBeachWave,
-            direction: InstructionalGradientDirections.shrink,
-            position: InstructionalNokhtePositions.top,
-          ),
-        );
-        storageInstructionalNokhte.setWidgetVisibility(true);
-        storageInstructionalNokhte.initMovie(
-          InstructionalGradientMovieParams(
-            center: center,
-            colorway: GradientNokhteColorways.vibrantBlue,
-            direction: InstructionalGradientDirections.shrink,
-            position: InstructionalNokhtePositions.right,
-          ),
-        );
-        centerInstructionalNokhte.moveBackToCross(
-          startingPosition: CenterNokhtePositions.top,
-        );
-        nokhteBlur.reverse();
-        beachWaves.currentStore.setControl(Control.mirror);
+    if (!isDisconnected && hasInitiatedBlur && isAllowedToMakeGesture()) {
+      if (hasSwiped()) {
+        touchRipple.onTap(offset);
+        setHasInitiatedBlur(false);
+        smartText.startRotatingText(isResuming: true);
+        if (swipeDirection == GestureDirections.left) {
+          sessionStarterInstructionalNokhte.setWidgetVisibility(true);
+          moveGradInstructionalNokhtes(shouldExpand: false);
+          storageInstructionalNokhte.setWidgetVisibility(true);
+          centerInstructionalNokhte.moveBackToCross(
+            startingPosition: CenterNokhtePositions.right,
+          );
+          nokhteBlur.reverse();
+          beachWaves.currentStore.setControl(Control.mirror);
+        } else if (swipeDirection == GestureDirections.up) {
+          sessionStarterInstructionalNokhte.setWidgetVisibility(true);
+          moveGradInstructionalNokhtes(shouldExpand: false);
+          storageInstructionalNokhte.setWidgetVisibility(true);
+          centerInstructionalNokhte.moveBackToCross(
+            startingPosition: CenterNokhtePositions.top,
+          );
+          nokhteBlur.reverse();
+          beachWaves.currentStore.setControl(Control.mirror);
+        }
+        setSwipeDirection(GestureDirections.initial);
+      } else {
+        dismissInstructionalNokhte();
       }
-    } else if (hasInitiatedBlur && isAllowedToMakeAGesture) {
-      dismissInstructionalNokhte();
     }
   }
 
   @action
   onGestureCrossTap() {
-    if (!isDisconnected &&
-        !isEnteringNokhteSession &&
-        canTapOnGestureCross &&
-        isAllowedToMakeAGesture) {
+    if (!isDisconnected && isAllowedToMakeGesture()) {
       if (!hasInitiatedBlur) {
-        nokhteBlur.init();
-        beachWaves.currentStore.setControl(Control.stop);
-        toggleHasInitiatedBlur();
-        gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-        gestureCross.gradientNokhte.setWidgetVisibility(false);
-        centerInstructionalNokhte.moveToCenter(center);
+        baseOnInitInstructionMode(
+          excludeSmartTextRotation: true,
+          excludePaddingAdjuster: true,
+        );
         sessionStarterInstructionalNokhte.setWidgetVisibility(true);
         storageInstructionalNokhte.setWidgetVisibility(true);
-        sessionStarterInstructionalNokhte.initMovie(
-          InstructionalGradientMovieParams(
-            center: center,
-            colorway: GradientNokhteColorways.invertedBeachWave,
-            direction: InstructionalGradientDirections.enlarge,
-            position: InstructionalNokhtePositions.top,
-          ),
-        );
-        storageInstructionalNokhte.initMovie(
-          InstructionalGradientMovieParams(
-            center: center,
-            colorway: GradientNokhteColorways.vibrantBlue,
-            direction: InstructionalGradientDirections.enlarge,
-            position: InstructionalNokhtePositions.right,
-          ),
-        );
+        moveGradInstructionalNokhtes(shouldExpand: true);
       } else if (hasInitiatedBlur) {
         dismissInstructionalNokhte();
       }
@@ -222,23 +144,28 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
 
   @action
   dismissInstructionalNokhte() {
-    hasSwipedUp = false;
+    setHasInitiatedBlur(false);
+    setSwipeDirection(GestureDirections.initial);
     centerInstructionalNokhte.moveBackToCross(
       startingPosition: CenterNokhtePositions.center,
     );
+    moveGradInstructionalNokhtes(shouldExpand: false);
+    nokhteBlur.reverse();
+    beachWaves.currentStore.setControl(Control.mirror);
+    smartText.reset();
+    smartText.startRotatingText();
+    delayedEnableTouchFeedback();
+  }
+
+  moveGradInstructionalNokhtes({required bool shouldExpand}) {
+    final dir = shouldExpand
+        ? InstructionalGradientDirections.enlarge
+        : InstructionalGradientDirections.shrink;
     sessionStarterInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
         center: center,
         colorway: GradientNokhteColorways.invertedBeachWave,
-        direction: InstructionalGradientDirections.shrink,
-        position: InstructionalNokhtePositions.top,
-      ),
-    );
-    sessionStarterInstructionalNokhte.initMovie(
-      InstructionalGradientMovieParams(
-        center: center,
-        colorway: GradientNokhteColorways.invertedBeachWave,
-        direction: InstructionalGradientDirections.shrink,
+        direction: dir,
         position: InstructionalNokhtePositions.top,
       ),
     );
@@ -246,24 +173,9 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
       InstructionalGradientMovieParams(
         center: center,
         colorway: GradientNokhteColorways.vibrantBlue,
-        direction: InstructionalGradientDirections.shrink,
+        direction: dir,
         position: InstructionalNokhtePositions.right,
       ),
     );
-
-    nokhteBlur.reverse();
-    beachWaves.currentStore.setControl(Control.mirror);
-    hasInitiatedBlur = false;
-    primarySmartText.reset();
-    primarySmartText.startRotatingText();
-    delayedEnableTouchFeedback();
   }
-
-  @computed
-  bool get isAllowedToMakeAGesture =>
-      !isEnteringNokhteSession &&
-      !isInErrorMode &&
-      centerInstructionalNokhte.movieStatus != MovieStatus.inProgress &&
-      sessionStarterInstructionalNokhte.movieStatus != MovieStatus.inProgress &&
-      storageInstructionalNokhte.movieStatus != MovieStatus.inProgress;
 }

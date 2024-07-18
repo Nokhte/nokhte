@@ -44,6 +44,12 @@ class NokhteGradientConfig extends Equatable {
           Color(0xFF4072F3),
         ];
         stops = [0, .18, .49, .77, 1.0];
+      case NokhteGradientTypes.sessionJoiner:
+        colors = const [
+          Color(0xFFFFE6C4),
+          Color(0xFFFFBC78),
+        ];
+        stops = const [0, .49];
     }
   }
 

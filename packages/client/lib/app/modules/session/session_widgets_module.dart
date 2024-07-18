@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widget_modules/mirrored_text_module.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -9,7 +10,7 @@ class SessionWidgetsModule extends Module {
   @override
   List<Module> get imports => [
         MirroredTextModule(),
-        WifiDisconnectOverlayModule(),
+        ConnectivityModule(),
         GestureCrossModule(),
       ];
   @override
@@ -83,7 +84,7 @@ class SessionWidgetsModule extends Module {
         touchRipple: TouchRippleStore(),
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        mirroredText: Modular.get<MirroredTextStore>(),
+        smartText: SmartTextStore(),
       ),
     );
     i.add<ConsultationNotesSymbolsWidgetsCoordinator>(
@@ -116,9 +117,9 @@ class SessionWidgetsModule extends Module {
 
     i.add<SessionSpeakingInstructionsWidgetsCoordinator>(
       () => SessionSpeakingInstructionsWidgetsCoordinator(
+        smartText: SmartTextStore(),
         holdTimerIndicator: HoldTimerIndicatorStore(),
         touchRipple: TouchRippleStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         borderGlow: BorderGlowStore(),
         beachWaves: BeachWavesStore(),

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 
 class Test with FromFinishedSessions {}
 

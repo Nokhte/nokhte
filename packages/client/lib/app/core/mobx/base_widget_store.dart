@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -40,6 +42,14 @@ abstract class _BaseWidgetStoreBase<T> extends Equatable with Store {
 
   @observable
   int tapCount = 0;
+
+  @action
+  initFadeIn() {
+    setWidgetVisibility(false);
+    Timer(Seconds.get(0, milli: 1), () {
+      setWidgetVisibility(true);
+    });
+  }
 
   @action
   incrementTapCount() => tapCount++;

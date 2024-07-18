@@ -15,7 +15,7 @@ void main() {
   late BeachWavesStore mockLayer1BeachWavesStore;
   late BeachWavesStore mockLayer2BeachWavesStore;
   late SmartTextStore smartTextStore;
-  late NokhteStore nokhteStore;
+  late LoginNokhtesStore nokhteStore;
   late TrailingTextStore topTrailingTextStore;
   late TrailingTextStore bottomTrailingTextStore;
   late MockWifiDisconnectOverlayStore wifiDisconnectOverlayStore;
@@ -27,7 +27,7 @@ void main() {
     mockLayer1BeachWavesStore = BeachWavesStore();
     mockLayer2BeachWavesStore = BeachWavesStore();
     smartTextStore = SmartTextStore();
-    nokhteStore = NokhteStore();
+    nokhteStore = LoginNokhtesStore();
     topTrailingTextStore = TrailingTextStore();
     bottomTrailingTextStore = TrailingTextStore();
     mockWidgetsStore = LoginScreenWidgetsCoordinator(
@@ -36,7 +36,7 @@ void main() {
       layer1BeachWaves: mockLayer1BeachWavesStore,
       layer2BeachWaves: mockLayer2BeachWavesStore,
       smartTextStore: smartTextStore,
-      nokhte: nokhteStore,
+      loginNokhtes: nokhteStore,
       bottomTrailingText: bottomTrailingTextStore,
       topTrailingText: topTrailingTextStore,
     );

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 part 'compass_and_storage_guide_coordinator.g.dart';
@@ -17,9 +18,7 @@ abstract class _CompassAndStorageGuideCoordinatorBase
   final CompassAndStorageGuideWidgetsCoordinator widgets;
 
   _CompassAndStorageGuideCoordinatorBase({
-    required super.sessionStarters,
     required super.swipe,
-    required super.deepLinks,
     required this.widgets,
     required this.getNokhteSessionArtifactsLogic,
     required super.captureScreen,
@@ -41,22 +40,13 @@ abstract class _CompassAndStorageGuideCoordinatorBase
 
   @override
   initReactors() {
-    super.initReactors();
     disposers.add(swipeReactor(
       onSwipeUp: () {},
-      onSwipeRight: () {
-        widgets.onSwipeRight();
+      onSwipeLeft: () {
+        widgets.onSwipeLeft();
       },
     ));
-    disposers.add(widgets.beachWavesMovieStatusReactor(
-      onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
-      onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
-      onStorageEntry: onSubsequentStorageEntry,
-      onAnyToShoreComplete: () {
-        setDisableAllTouchFeedback(false);
-      },
-    ));
-    disposers.add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
+    disposers.add(swipeCoordinatesReactor(widgets.initWaterWake));
     disposers.add(tapReactor());
   }
 
@@ -70,13 +60,13 @@ abstract class _CompassAndStorageGuideCoordinatorBase
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        if (isInErrorMode) {
-          widgets.onErrorResolved(() {
-            setIsInErrorMode(true);
-          });
-        }
         ifTouchIsNotDisabled(() {
-          widgets.onTap(tap.currentTapPosition);
+          widgets.onTap(
+            tap.currentTapPosition,
+            colorway: GradientNokhteColorways.vibrantBlue,
+            gradPosition: InstructionalNokhtePositions.right,
+            centerPosition: CenterNokhtePositions.right,
+          );
         });
       });
 

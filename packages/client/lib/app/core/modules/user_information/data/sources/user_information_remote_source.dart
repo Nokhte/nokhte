@@ -2,12 +2,13 @@ import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/user_information.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 
 abstract class UserInformationRemoteSource {
   Future<List> updatePreferredPreset(String presetUID);
   Future<List> getUserInfo();
   Future<List> getFinishedNokhteSessions();
-  Future<List> updateHasEnteredStorage(bool newEntryStatus);
+  Future<List> updateUserFlag(UserFlagParam newEntryStatus);
   Future<bool> versionIsUpToDate();
   Future<List> getPreferredPreset();
 }
@@ -34,8 +35,8 @@ class UserInformationRemoteSourceImpl implements UserInformationRemoteSource {
       await finishedNokhteSessionQueries.select();
 
   @override
-  updateHasEnteredStorage(bool newEntryStatus) async =>
-      await userInfoQueries.updateHasEnteredStorage(newEntryStatus);
+  updateUserFlag(params) async =>
+      await userInfoQueries.updateUserFlag(params.keyStr, params.value);
 
   @override
   versionIsUpToDate() async {

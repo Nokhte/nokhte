@@ -3,9 +3,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
-
+import 'nokhte_gradient_text_store.dart';
 export 'nokhte_gradient_text_store.dart';
 
 class NokhteGradientText extends StatelessWidget {

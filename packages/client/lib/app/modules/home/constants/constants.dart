@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 mixin HomeConstants {
@@ -27,4 +29,6 @@ mixin HomeConstants {
   static const shortQrGuide = "$module$relativeShortQrGuide";
   static const qrAndStorageAdept = "$module$relativeQrAndStorageAdept";
   static const needsToUpdate = "$module$relativeNeedsToUpdate";
+
+  static const RESUME_ON_SHORE_PARAMS = "resumeOnShoreParams";
 }

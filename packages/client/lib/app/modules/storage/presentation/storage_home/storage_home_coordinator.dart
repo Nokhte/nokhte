@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
@@ -17,7 +18,14 @@ class StorageHomeCoordinator = _StorageHomeCoordinatorBase
     with _$StorageHomeCoordinator;
 
 abstract class _StorageHomeCoordinatorBase
-    with Store, HomeScreenRouter, BaseCoordinator, BaseMobxLogic, Reactions {
+    with
+        Store,
+        EnRoute,
+        EnRouteRouter,
+        HomeScreenRouter,
+        BaseCoordinator,
+        BaseMobxLogic,
+        Reactions {
   final StorageHomeWidgetsCoordinator widgets;
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
   final UpdateSessionAlias updateSessionAliasLogic;
@@ -38,6 +46,7 @@ abstract class _StorageHomeCoordinatorBase
     required this.userInfo,
     required this.tap,
   }) : getUserInfo = userInfo.getUserInfoStore {
+    initEnRouteActions();
     initBaseCoordinatorActions();
     initBaseLogicActions();
   }
@@ -61,7 +70,12 @@ abstract class _StorageHomeCoordinatorBase
     initReactors();
     await getUserInfo(NoParams());
     await getNokhteSessionArtifacts();
-    await userInfo.updateHasEnteredStorage(true);
+    await userInfo.updateUserFlag(
+      const UserFlagParam(
+        key: UserFlagKeys.hasEnteredStorage,
+        value: true,
+      ),
+    );
     await captureScreen(StorageConstants.root);
   }
 
@@ -99,9 +113,9 @@ abstract class _StorageHomeCoordinatorBase
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
-          case GestureDirections.left:
+          case GestureDirections.right:
             ifTouchIsNotDisabled(() {
-              widgets.onSwipeLeft();
+              widgets.onSwipeRight();
             });
           default:
             break;

@@ -5,16 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 part 'session_lobby_widgets_coordinator.g.dart';
 
 class SessionLobbyWidgetsCoordinator = _SessionLobbyWidgetsCoordinatorBase
     with _$SessionLobbyWidgetsCoordinator;
 
 abstract class _SessionLobbyWidgetsCoordinatorBase
-    with Store, BaseWidgetsCoordinator, Reactions {
+    with Store, BaseWidgetsCoordinator, Reactions, RoutingArgs {
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
   final NokhteQrCodeStore qrCode;
@@ -44,8 +47,9 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
     beachWaves.setMovieMode(
       BeachWaveMovieModes.deepSeaToSky,
     );
-    if (isTheLeader) {
-      qrCode.setQrCodeData(Modular.args.data["qrCodeData"]);
+    if (hasReceivedRoutingArgs) {
+      qrCode.setQrCodeData(
+          Modular.args.data[SessionStarterConstants.QR_CODE_DATA]);
       primarySmartText.setMessagesData(SharedLists.emptyList);
     } else {
       primarySmartText.setMessagesData(SharedLists.emptyList);
@@ -82,7 +86,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
 
   @action
   onQrCodeReady(String data) {
-    if (!isTheLeader && constructorHasBeenCalled) {
+    if (!hasReceivedRoutingArgs && constructorHasBeenCalled) {
       // primarySmartText.setMessagesData(SessionLists.followerLobby);
       // primarySmartText.startRotatingText();
       Timer.periodic(Seconds.get(0, milli: 100), (timer) {
@@ -104,7 +108,6 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
     required List presetTags,
   }) {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      print('constructorHasBeenCalled: $constructorHasBeenCalled');
       if (constructorHasBeenCalled) {
         primarySmartText.setMessagesData(SessionLists.lobby(presetName));
         presetInfoRecieved = true;
@@ -119,7 +122,6 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
   @action
   onCanStartTheSession() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      print('current index: ${primarySmartText.currentIndex}');
       if (primarySmartText.currentIndex == 1 && presetInfoRecieved) {
         presetIcons.setWidgetVisibility(false);
         primarySmartText.startRotatingText(isResuming: true);
@@ -184,6 +186,6 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
         }
       });
 
-  @computed
-  bool get isTheLeader => Modular.args.data["qrCodeData"] != null;
+  // @computed
+  // bool get isTheLeader => Modular.args.data.toString() != 'null';
 }

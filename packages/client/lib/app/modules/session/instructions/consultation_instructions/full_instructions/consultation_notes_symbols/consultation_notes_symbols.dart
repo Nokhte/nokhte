@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'consultation_notes_symbols_coordinator.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 export 'consultation_notes_symbols_coordinator.dart';
 export 'consultation_notes_symbols_widgets_coordinator.dart';
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -55,22 +56,7 @@ class BaseHomeScreen extends HookWidget {
                 ),
                 Center(
                   child: SmartText(
-                    store: coordinator.widgets.secondaryErrorSmartText,
-                    topPadding: height * .86,
-                    bottomPadding: 0,
-                    opacityDuration: Seconds.get(1),
-                  ),
-                ),
-                Center(
-                  child: SmartText(
-                    store: coordinator.widgets.errorSmartText,
-                    bottomPadding: 180,
-                    opacityDuration: Seconds.get(1),
-                  ),
-                ),
-                Center(
-                  child: SmartText(
-                    store: coordinator.widgets.primarySmartText,
+                    store: coordinator.widgets.smartText,
                     topPadding:
                         height * coordinator.widgets.smartTextTopPaddingScalar,
                     bottomPadding: height *

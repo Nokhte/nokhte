@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'session_trial_greeter_widgets_coordinator.g.dart';
 
@@ -23,14 +24,14 @@ abstract class _SessionTrialGreeterWidgetsCoordinatorBase
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.touchRipple,
-  }){
+  }) {
     initBaseWidgetsCoordinatorActions();
   }
 
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToDrySand);
-    primarySmartText.setMessagesData(SessionLists.collaborationGreeterPrimary);
+    primarySmartText.setMessagesData(SessionLists.trialGreeterPrimary);
     secondarySmartText.setMessagesData(SessionLists.singleTapToConfirm);
     primarySmartText.startRotatingText();
     secondarySmartText.startRotatingText();

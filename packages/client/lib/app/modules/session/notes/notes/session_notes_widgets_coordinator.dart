@@ -4,10 +4,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session/constants/constants.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
 part 'session_notes_widgets_coordinator.g.dart';
 
@@ -114,7 +114,6 @@ abstract class _SessionNotesWidgetsCoordinatorBase
     inactivityCount++;
     if (!textEditor.focusNode.hasFocus) {
       if (textEditor.controller.text.length != (0)) {
-        print("is the length not zero?? ${textEditor.controller.text.length}");
         smartText.setWidgetVisibility(true);
       } else {
         textEditor.setWidgetVisibility(false);

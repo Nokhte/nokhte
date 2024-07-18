@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/movie_status.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session/constants/constants.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'collaboration_just_symbols_widgets_coordinator.g.dart';
 
 class CollaborationJustSymbolsWidgetsCoordinator = _CollaborationJustSymbolsWidgetsCoordinatorBase
@@ -67,7 +68,7 @@ abstract class _CollaborationJustSymbolsWidgetsCoordinatorBase
   rippleCompletionStatusReactor() =>
       reaction((p0) => touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished && !isAllowedToTap) {
-          Modular.to.navigate(SessionConstants.lobby, arguments: {});
+          Modular.to.navigate(SessionConstants.lobby);
         }
       });
 

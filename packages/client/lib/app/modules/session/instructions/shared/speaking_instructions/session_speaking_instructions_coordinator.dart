@@ -4,7 +4,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
-import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
@@ -20,7 +19,6 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase
   final HoldDetector hold;
   final SessionSpeakingInstructionsWidgetsCoordinator widgets;
   final SessionMetadataStore sessionMetadata;
-
   @override
   final SessionPresenceCoordinator presence;
   @override
@@ -48,16 +46,16 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase
     disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        widgets.setDisableTouchInput(false);
+        setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
-        widgets.setDisableTouchInput(true);
+        setDisableAllTouchFeedback(true);
       },
     ));
     disposers.add(holdReactor());
     disposers.add(letGoReactor());
 
-    disposers.add(widgets.beachWavesMovieStatusReactor(onComplete));
+    disposers.add(widgets.beachWavesMovieStatusReactor(onComplete: onComplete));
   }
 
   @action
@@ -73,13 +71,13 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase
         (p0) => hold.holdCount,
         (p0) {
           ifTouchIsNotDisabled(() {
-            widgets.onHold();
+            widgets.initSpeakingMode();
           });
         },
       );
 
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
-        widgets.onLetGo();
+        widgets.revertSpeakingMode();
         Timer(Seconds.get(2), () {
           setDisableAllTouchFeedback(false);
         });

@@ -5,9 +5,11 @@ class UserJourneyInfoEntity extends Equatable {
   final bool hasCompletedASession;
   final bool hasEnteredStorage;
   final bool isOnMostRecentVersion;
+  final bool hasAccessedQrCodeScanner;
   final String userUID;
   const UserJourneyInfoEntity({
     required this.hasAccessedQrCode,
+    required this.hasAccessedQrCodeScanner,
     required this.isOnMostRecentVersion,
     required this.userUID,
     required this.hasCompletedASession,
@@ -16,6 +18,7 @@ class UserJourneyInfoEntity extends Equatable {
 
   factory UserJourneyInfoEntity.initial() => const UserJourneyInfoEntity(
         hasAccessedQrCode: false,
+        hasAccessedQrCodeScanner: false,
         userUID: "",
         hasCompletedASession: false,
         hasEnteredStorage: false,
