@@ -56,7 +56,6 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
       qrCode.setWidgetVisibility(false);
     }
     primarySmartText.startRotatingText();
-
     presetIcons.setWidgetVisibility(false);
     constructorHasBeenCalled = true;
     disposers.add(smartTextIndexReactor());
@@ -142,9 +141,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
 
   @action
   onCollaboratorLeft() {
-    if (presetIcons.showWidget) {
-      presetIcons.setWidgetVisibility(false);
-    }
+    presetIcons.setWidgetVisibility(false);
     primarySmartText.setWidgetVisibility(false);
     qrCode.setWidgetVisibility(false);
   }

@@ -25,10 +25,26 @@ class SessionInstructionsModule extends Module {
         tap: TapDetector(),
       ),
     );
-    i.add<SocraticFullInstructionsCoordinator>(
-      () => SocraticFullInstructionsCoordinator(
+    i.add<SocraticNotesSymbolsCoordinator>(
+      () => SocraticNotesSymbolsCoordinator(
         presence: Modular.get<SessionPresenceCoordinator>(),
-        widgets: Modular.get<SocraticFullInstructionsWidgetsCoordinator>(),
+        widgets: Modular.get<SocraticNotesSymbolsWidgetsCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        tap: TapDetector(),
+      ),
+    );
+    i.add<SocraticNotesInstructionsCoordinator>(
+      () => SocraticNotesInstructionsCoordinator(
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        widgets: Modular.get<SocraticNotesInstructionsWidgetsCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        tap: TapDetector(),
+      ),
+    );
+    i.add<SocraticSpeakingSymbolsCoordinator>(
+      () => SocraticSpeakingSymbolsCoordinator(
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        widgets: Modular.get<SocraticSpeakingSymbolsWidgetsCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         tap: TapDetector(),
       ),
@@ -124,10 +140,24 @@ class SessionInstructionsModule extends Module {
       ),
     );
     r.child(
-      SessionConstants.relativeSocraticFullInstructions,
+      SessionConstants.relativeSocraticSpeakingSymbols,
       transition: TransitionType.noTransition,
-      child: (context) => SocraticFullInstructionsScreen(
-        coordinator: Modular.get<SocraticFullInstructionsCoordinator>(),
+      child: (context) => SocraticSpeakingSymbolsScreen(
+        coordinator: Modular.get<SocraticSpeakingSymbolsCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionConstants.relativeSocraticNotesInstructions,
+      transition: TransitionType.noTransition,
+      child: (context) => SocraticNotesInstructionsScreen(
+        coordinator: Modular.get<SocraticNotesInstructionsCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionConstants.relativeSocraticNotesSymbols,
+      transition: TransitionType.noTransition,
+      child: (context) => SocraticNotesSymbolsScreen(
+        coordinator: Modular.get<SocraticNotesSymbolsCoordinator>(),
       ),
     );
     r.child(

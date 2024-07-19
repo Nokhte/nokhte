@@ -16,6 +16,13 @@ class PresetDiagamConstants {
     LineGradientTypes.talking,
   ];
 
+  static List<LineGradientTypes> notesGrads = [
+    LineGradientTypes.notes,
+    LineGradientTypes.notes,
+    LineGradientTypes.notes,
+    LineGradientTypes.notes,
+  ];
+
   static List<List<Alignment>> twoLineAlignment = [
     [
       Alignment.topCenter,

@@ -33,8 +33,17 @@ class SessionWidgetsModule extends Module {
         presetDiagram: PresetDiagramStore(),
       ),
     );
-    i.add<SocraticFullInstructionsWidgetsCoordinator>(
-      () => SocraticFullInstructionsWidgetsCoordinator(
+    i.add<SocraticSpeakingSymbolsWidgetsCoordinator>(
+      () => SocraticSpeakingSymbolsWidgetsCoordinator(
+        smartText: SmartTextStore(),
+        touchRipple: TouchRippleStore(),
+        beachWaves: BeachWavesStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        presetDiagram: PresetDiagramStore(),
+      ),
+    );
+    i.add<SocraticNotesSymbolsWidgetsCoordinator>(
+      () => SocraticNotesSymbolsWidgetsCoordinator(
         smartText: SmartTextStore(),
         touchRipple: TouchRippleStore(),
         beachWaves: BeachWavesStore(),
@@ -77,6 +86,14 @@ class SessionWidgetsModule extends Module {
         touchRipple: TouchRippleStore(),
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+      ),
+    );
+    i.add<SocraticNotesInstructionsWidgetsCoordinator>(
+      () => SocraticNotesInstructionsWidgetsCoordinator(
+        touchRipple: TouchRippleStore(),
+        beachWaves: BeachWavesStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        smartText: SmartTextStore(),
       ),
     );
     i.add<SessionNotesInstructionsWidgetsCoordinator>(

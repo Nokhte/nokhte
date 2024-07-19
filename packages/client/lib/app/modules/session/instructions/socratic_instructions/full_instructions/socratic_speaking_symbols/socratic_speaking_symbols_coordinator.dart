@@ -4,21 +4,21 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
-part 'socratic_full_instructions_coordinator.g.dart';
+part 'socratic_speaking_symbols_coordinator.g.dart';
 
-class SocraticFullInstructionsCoordinator = _SocraticFullInstructionsCoordinatorBase
-    with _$SocraticFullInstructionsCoordinator;
+class SocraticSpeakingSymbolsCoordinator = _SocraticSpeakingSymbolsCoordinatorBase
+    with _$SocraticSpeakingSymbolsCoordinator;
 
-abstract class _SocraticFullInstructionsCoordinatorBase
+abstract class _SocraticSpeakingSymbolsCoordinatorBase
     with Store, BaseCoordinator, Reactions {
-  final SocraticFullInstructionsWidgetsCoordinator widgets;
+  final SocraticSpeakingSymbolsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
   final TapDetector tap;
   @override
   final CaptureScreen captureScreen;
 
-  _SocraticFullInstructionsCoordinatorBase({
+  _SocraticSpeakingSymbolsCoordinatorBase({
     required this.captureScreen,
     required this.widgets,
     required this.presence,

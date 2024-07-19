@@ -23,8 +23,14 @@ abstract class _PresetDiagramStoreBase
   @observable
   bool isASocraticSession = false;
 
+  @observable
+  bool isNotesSymbolsScreen = false;
+
   @action
   setIsASocraticSession(bool value) => isASocraticSession = value;
+
+  @action
+  setIsNotesSymbolsScreen(bool value) => isNotesSymbolsScreen = value;
 
   @action
   setMovieMode(PresetDiagramMovieModes movieMode) => this.movieMode = movieMode;
@@ -121,7 +127,11 @@ abstract class _PresetDiagramStoreBase
     if (!isASocraticSession) {
       return PresetDiagamConstants.alternatingGrads;
     } else {
-      return PresetDiagamConstants.talkingGrads;
+      if (!isNotesSymbolsScreen) {
+        return PresetDiagamConstants.talkingGrads;
+      } else {
+        return PresetDiagamConstants.notesGrads;
+      }
     }
   }
 
