@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/swipe_guide/swipe_guide.dart';
 
 class SwipeGuidePainter extends CustomPainter {
-  final double containerSize;
   final List<double> opacities;
   final SwipeGuideOrientation orientation;
 
   SwipeGuidePainter({
-    required this.containerSize,
     required this.opacities,
     required this.orientation,
   });
