@@ -9,12 +9,12 @@ import 'package:nokhte/app/core/types/movie_status.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'package:nokhte/app/modules/session/widgets/widgets.dart';
-part 'socratic_full_instructions_widgets_coordinator.g.dart';
+part 'socratic_speaking_symbols_widgets_coordinator.g.dart';
 
-class SocraticFullInstructionsWidgetsCoordinator = _SocraticFullInstructionsWidgetsCoordinatorBase
-    with _$SocraticFullInstructionsWidgetsCoordinator;
+class SocraticSpeakingSymbolsWidgetsCoordinator = _SocraticSpeakingSymbolsWidgetsCoordinatorBase
+    with _$SocraticSpeakingSymbolsWidgetsCoordinator;
 
-abstract class _SocraticFullInstructionsWidgetsCoordinatorBase
+abstract class _SocraticSpeakingSymbolsWidgetsCoordinatorBase
     with Store, BaseWidgetsCoordinator, Reactions {
   final PresetDiagramStore presetDiagram;
   final BeachWavesStore beachWaves;
@@ -22,7 +22,7 @@ abstract class _SocraticFullInstructionsWidgetsCoordinatorBase
   final TouchRippleStore touchRipple;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
-  _SocraticFullInstructionsWidgetsCoordinatorBase({
+  _SocraticSpeakingSymbolsWidgetsCoordinatorBase({
     required this.wifiDisconnectOverlay,
     required this.presetDiagram,
     required this.beachWaves,
@@ -38,7 +38,7 @@ abstract class _SocraticFullInstructionsWidgetsCoordinatorBase
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.deepSeaToBorealis);
-    smartText.setMessagesData(SessionLists.socraticFullInstructions);
+    smartText.setMessagesData(SessionLists.socraticSpeakingSymbols);
 
     smartText.startRotatingText();
     smartText.setStaticAltMovie(SessionConstants.blue);
