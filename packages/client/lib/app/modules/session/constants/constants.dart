@@ -42,9 +42,17 @@ mixin SessionConstants {
   static const relativeCollaborationJustSymbols = '/collaboration_just_symbols';
   static const collaborationJustSymbols =
       '$module$instructionsModule$relativeCollaborationJustSymbols';
-  static const relativeSocraticFullInstructions = '/socratic_full_instructions';
-  static const socraticFullInstructions =
-      '$module$instructionsModule$relativeSocraticFullInstructions';
+  static const relativeSocraticNotesInstructions =
+      '/socratic_notes_instructions';
+  static const socraticNotesInstructions =
+      '$module$instructionsModule$relativeSocraticNotesInstructions';
+
+  static const relativeSocraticSpeakingSymbols = '/socratic_speaking_symbols';
+  static const socraticSpeakingSymbols =
+      '$module$instructionsModule$relativeSocraticSpeakingSymbols';
+  static const relativeSocraticNotesSymbols = '/socratic_notes_symbols';
+  static const socraticNotesSymbols =
+      '$module$instructionsModule$relativeSocraticNotesSymbols';
   static const relativeSocraticJustSymbols = '/socratic_just_symbols';
   static const socraticJustSymbols =
       '$module$instructionsModule$relativeSocraticJustSymbols';

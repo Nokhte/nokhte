@@ -176,12 +176,35 @@ class SessionLists {
     subTextFontSize: 18.0,
   );
 
-  static List<RotatingTextData> socraticFullInstructions = [
+  static List<RotatingTextData> socraticSpeakingSymbols = [
     thisIsYou,
     thatIsYourCollaborator,
     SharedLists.customTapToConfirmSub(
-      "All of the Phones will be used for speaking",
+      "All the Phones will be used for speaking during the session",
       subTextFontSize: 18.0,
+      mainFontSize: 22.0,
+    ),
+    SharedLists.emptyItem,
+  ];
+
+  static List<RotatingTextData> socraticJustSymbols = [
+    SharedLists.customTapToConfirmSub(
+      "All the Phones will be used for speaking during the session",
+      subTextFontSize: 18.0,
+      mainFontSize: 22.0,
+    ),
+    SharedLists.customTapToConfirmSub(
+      "Everyone will take a note at the end of the session",
+      subTextFontSize: 18.0,
+      mainFontSize: 22.0,
+    ),
+  ];
+
+  static List<RotatingTextData> socraticNotesSymbols = [
+    SharedLists.customTapToConfirmSub(
+      "Everyone will take a note at the end of the session",
+      subTextFontSize: 18.0,
+      mainFontSize: 22.0,
     ),
     SharedLists.emptyItem,
   ];
@@ -281,6 +304,14 @@ class SessionLists {
       mainFontSize: 19.0,
     ),
   ];
+
+  static List<RotatingTextData> get socraticNotesInstructions => [
+        SharedLists.customTapToConfirmSub(
+          "Swipe down on all the phones to take your final notes",
+          mainFontSize: 22.0,
+        ),
+        SharedLists.emptyItem,
+      ];
 
   static List<RotatingTextData> getNotesInstructions({
     required bool isHybrid,

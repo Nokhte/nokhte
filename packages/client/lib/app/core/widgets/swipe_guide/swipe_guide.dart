@@ -1,5 +1,4 @@
 // ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -22,34 +21,40 @@ class SwipeGuide extends HookWidget {
     required this.orientation,
   });
 
-  double getRightPadding(double screenWidth) {
+  double getRightPadding(Size screenSize) {
     if (orientation == SwipeGuideOrientation.right) {
-      return screenWidth * 0;
+      return screenSize.width * 0;
     } else if (orientation == SwipeGuideOrientation.left) {
-      return screenWidth * .15;
+      return screenSize.width * .15;
     } else if (orientation == SwipeGuideOrientation.top) {
-      return screenWidth * .02;
+      return screenSize.aspectRatio >= 0.56
+          ? screenSize.width * .01
+          : screenSize.width * .02;
     } else {
       return 0;
     }
   }
 
-  double getLeftPadding(double screenWidth) {
+  double getLeftPadding(Size screenSize) {
     if (orientation == SwipeGuideOrientation.left) {
-      return screenWidth * 0;
+      return screenSize.width * 0;
     } else if (orientation == SwipeGuideOrientation.right) {
-      return screenWidth * .15;
+      return screenSize.width * .15;
     } else {
       return 0;
     }
   }
 
-  double getBottomPadding(double screenHeight) {
+  double getBottomPadding(Size screenSize) {
     if (orientation == SwipeGuideOrientation.left ||
         orientation == SwipeGuideOrientation.right) {
-      return screenHeight * .02;
+      return screenSize.aspectRatio >= 0.56
+          ? screenSize.height * .08
+          : screenSize.height * .02;
     } else if (orientation == SwipeGuideOrientation.top) {
-      return screenHeight * .08;
+      return screenSize.aspectRatio >= 0.56
+          ? screenSize.height * .13
+          : screenSize.height * .08;
     } else {
       return 0;
     }
@@ -58,8 +63,6 @@ class SwipeGuide extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = useFullScreenSize();
-    final screenWidth = screenSize.width;
-    final screenHeight = screenSize.height;
     double containerSize = screenSize.height * .3;
     if (orientation == SwipeGuideOrientation.top) {
       containerSize = screenSize.height * .25;
@@ -72,13 +75,13 @@ class SwipeGuide extends HookWidget {
           tween: store.movie,
           duration: store.movie.duration,
           control: store.control,
-          builder: (context, value, child) => Padding(
-            padding: EdgeInsets.only(
-              right: getRightPadding(screenWidth),
-              bottom: getBottomPadding(screenHeight),
-              left: getLeftPadding(screenWidth),
-            ),
-            child: Center(
+          builder: (context, value, child) => Center(
+            child: Padding(
+              padding: EdgeInsets.only(
+                right: getRightPadding(screenSize),
+                bottom: getBottomPadding(screenSize),
+                left: getLeftPadding(screenSize),
+              ),
               child: SizedBox(
                 height: containerSize,
                 width: containerSize,
@@ -94,7 +97,6 @@ class SwipeGuide extends HookWidget {
                       value.get('o2'),
                       value.get('o1'),
                     ],
-                    containerSize: containerSize,
                   ),
                 ),
               ),

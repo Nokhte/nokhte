@@ -2,17 +2,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/movie_status.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session/session.dart';
-part 'socratic_just_symbols_widgets_coordinator.g.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
+import 'package:nokhte/app/modules/session/widgets/widgets.dart';
+part 'socratic_notes_symbols_widgets_coordinator.g.dart';
 
-class SocraticJustSymbolsWidgetsCoordinator = _SocraticJustSymbolsWidgetsCoordinatorBase
-    with _$SocraticJustSymbolsWidgetsCoordinator;
+class SocraticNotesSymbolsWidgetsCoordinator = _SocraticNotesSymbolsWidgetsCoordinatorBase
+    with _$SocraticNotesSymbolsWidgetsCoordinator;
 
-abstract class _SocraticJustSymbolsWidgetsCoordinatorBase
+abstract class _SocraticNotesSymbolsWidgetsCoordinatorBase
     with Store, BaseWidgetsCoordinator, Reactions {
   final PresetDiagramStore presetDiagram;
   final BeachWavesStore beachWaves;
@@ -20,7 +22,7 @@ abstract class _SocraticJustSymbolsWidgetsCoordinatorBase
   final TouchRippleStore touchRipple;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
-  _SocraticJustSymbolsWidgetsCoordinatorBase({
+  _SocraticNotesSymbolsWidgetsCoordinatorBase({
     required this.wifiDisconnectOverlay,
     required this.presetDiagram,
     required this.beachWaves,
@@ -30,33 +32,35 @@ abstract class _SocraticJustSymbolsWidgetsCoordinatorBase
     initBaseWidgetsCoordinatorActions();
   }
 
+  @observable
+  bool canTap = false;
+
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.deepSeaToBorealis);
-    smartText.setMessagesData(SessionLists.socraticJustSymbols);
+    smartText.setMessagesData(SessionLists.socraticNotesSymbols);
     smartText.setStaticAltMovie(SessionConstants.blue);
-    presetDiagram.initMovie(PresetDiagramMovieModes.appear);
     presetDiagram.setIsASocraticSession(true);
+    presetDiagram.setIsNotesSymbolsScreen(true);
+    presetDiagram.initMovie(PresetDiagramMovieModes.appear);
+    initReactors();
+  }
 
+  @action
+  initReactors() {
     disposers.add(rippleCompletionStatusReactor());
     disposers.add(presetDiagramsMovieStatusReactor());
   }
 
-  @observable
-  bool isAllowedToTap = false;
-
   @action
   onTap(Offset tapPosition) {
     if (gestureIsAllowed) {
+      canTap = false;
       touchRipple.onTap(tapPosition);
-      if (smartText.currentIndex == 0) {
-        smartText.startRotatingText(isResuming: true);
-        presetDiagram.initMovie(PresetDiagramMovieModes.consolidateThePair);
-      } else if (smartText.currentIndex == 1) {
-        smartText.startRotatingText(isResuming: true);
-        presetDiagram.setWidgetVisibility(false);
-        isAllowedToTap = false;
-      }
+      presetDiagram.setWidgetVisibility(false);
+      smartText.setWidgetVisibility(false);
+      beachWaves.setMovieMode(BeachWaveMovieModes.deepSeaToSky);
+      beachWaves.currentStore.initMovie(NoParams());
     }
   }
 
@@ -70,24 +74,21 @@ abstract class _SocraticJustSymbolsWidgetsCoordinatorBase
             presetDiagram.initMovie(PresetDiagramMovieModes.showBothLines);
           } else if (presetDiagram.movieMode ==
               PresetDiagramMovieModes.showBothLines) {
-            isAllowedToTap = true;
             smartText.startRotatingText();
-          } else if (presetDiagram.movieMode ==
-              PresetDiagramMovieModes.consolidateThePair) {
-            presetDiagram.setIsNotesSymbolsScreen(true);
-            presetDiagram.initMovie(PresetDiagramMovieModes.showSecondCircle);
+            canTap = true;
           }
         }
       });
 
   rippleCompletionStatusReactor() =>
       reaction((p0) => touchRipple.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished && !isAllowedToTap) {
-          Modular.to.navigate(SessionConstants.lobby);
+        if (p0 == MovieStatus.finished &&
+            beachWaves.movieMode != BeachWaveMovieModes.deepSeaToBorealis) {
+          Modular.to.navigate(SessionConstants.socraticNotesInstructions);
         }
       });
 
   @computed
   bool get gestureIsAllowed =>
-      presetDiagram.movieStatus != MovieStatus.inProgress && isAllowedToTap;
+      presetDiagram.movieStatus != MovieStatus.inProgress && canTap;
 }

@@ -116,7 +116,7 @@ abstract class _SessionPreviewCoordinatorBase
         );
       } else if (sessionMetadata.presetType == PresetTypes.socratic) {
         return chooseInstructionType(
-          fullInstructionsPath: SessionConstants.socraticFullInstructions,
+          fullInstructionsPath: SessionConstants.socraticSpeakingSymbols,
           justSymbolsPath: SessionConstants.socraticJustSymbols,
         );
       } else {
