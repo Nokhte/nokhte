@@ -66,26 +66,7 @@ class HomeModule extends Module {
         widgets: Modular.get<StorageGuideWidgetsCoordinator>(),
       ),
     );
-    i.add<CompassAndStorageGuideCoordinator>(
-      () => CompassAndStorageGuideCoordinator(
-        tap: TapDetector(),
-        getNokhteSessionArtifactsLogic:
-            Modular.get<GetNokhteSessionArtifacts>(),
-        captureScreen: Modular.get<CaptureScreen>(),
-        swipe: SwipeDetector(),
-        widgets: Modular.get<CompassAndStorageGuideWidgetsCoordinator>(),
-      ),
-    );
-    i.add<ShortQrGuideCoordinator>(
-      () => ShortQrGuideCoordinator(
-        getNokhteSessionArtifactsLogic:
-            Modular.get<GetNokhteSessionArtifacts>(),
-        tap: TapDetector(),
-        captureScreen: Modular.get<CaptureScreen>(),
-        swipe: SwipeDetector(),
-        widgets: Modular.get<ShortQrGuideWidgetsCoordinator>(),
-      ),
-    );
+
     i.add<QrAndStorageAdeptCoordinator>(
       () => QrAndStorageAdeptCoordinator(
         tap: TapDetector(),
@@ -127,13 +108,7 @@ class HomeModule extends Module {
         coordinator: Modular.get<QrNavigationReminderCoordinator>(),
       ),
     );
-    r.child(
-      HomeConstants.relativeCompassAndStorageGuide,
-      transition: TransitionType.noTransition,
-      child: (context) => CompassAndStorageGuideScreen(
-        coordinator: Modular.get<CompassAndStorageGuideCoordinator>(),
-      ),
-    );
+
     r.child(
       HomeConstants.relativeStorageGuide,
       transition: TransitionType.noTransition,
@@ -141,13 +116,7 @@ class HomeModule extends Module {
         coordinator: Modular.get<StorageGuideCoordinator>(),
       ),
     );
-    r.child(
-      HomeConstants.relativeShortQrGuide,
-      transition: TransitionType.noTransition,
-      child: (context) => ShortQrGuideScreen(
-        coordinator: Modular.get<ShortQrGuideCoordinator>(),
-      ),
-    );
+
     r.child(
       HomeConstants.relativeQrAndStorageAdept,
       transition: TransitionType.noTransition,
