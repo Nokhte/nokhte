@@ -44,6 +44,8 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   constructor(Offset center) {
+    setSmartTextBottomPaddingScalar(.3);
+
     initHomeUtils();
     initInstructionalNokhteUtils(center);
     swipeGuide.setWidgetVisibility(false);
@@ -121,6 +123,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
           colorway: GradientNokhteColorways.vibrantBlue,
           gradPosition: InstructionalNokhtePositions.right,
           centerPosition: CenterNokhtePositions.right, onDismiss: () {
+        setSmartTextBottomPaddingScalar(.3);
         sessionStarterInstructionalNokhte.setWidgetVisibility(true);
         sessionStarterInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(

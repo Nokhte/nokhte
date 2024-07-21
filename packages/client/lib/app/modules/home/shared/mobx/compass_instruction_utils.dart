@@ -84,7 +84,7 @@ mixin CompassInstructionUtils
       beachWaves.currentStore.setControl(Control.stop);
       setHasInitiatedBlur(true);
       smartText.startRotatingText(isResuming: true);
-      setSmartTextPadding(subMessagePadding: 110, bottomPadding: .23);
+      setSmartTextPadding(subMessagePadding: 110);
       delayedEnableTouchFeedback();
     }
   }

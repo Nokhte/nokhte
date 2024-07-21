@@ -21,7 +21,7 @@ class BaseHomeScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = useFullScreenSize().height;
+    final screenSize = useFullScreenSize();
     final center = useCenterOffset();
     useEffect(() {
       coordinator.constructor(center);
@@ -29,6 +29,7 @@ class BaseHomeScreen extends HookWidget {
     }, []);
     return Observer(builder: (context) {
       return Scaffold(
+        backgroundColor: Colors.black,
         resizeToAvoidBottomInset: false,
         body: Tap(
           store: coordinator.tap,
@@ -57,10 +58,17 @@ class BaseHomeScreen extends HookWidget {
                 Center(
                   child: SmartText(
                     store: coordinator.widgets.smartText,
-                    topPadding:
-                        height * coordinator.widgets.smartTextTopPaddingScalar,
-                    bottomPadding: height *
-                        coordinator.widgets.smartTextBottomPaddingScalar,
+                    topPadding: useScaledSize(
+                      baseValue: coordinator.widgets.smartTextTopPaddingScalar,
+                      bumpPerHundredth: 0.005,
+                      screenSize: screenSize,
+                    ),
+                    bottomPadding: useScaledSize(
+                      baseValue:
+                          coordinator.widgets.smartTextBottomPaddingScalar,
+                      bumpPerHundredth: .008,
+                      screenSize: screenSize,
+                    ),
                     subTextPadding:
                         coordinator.widgets.smartTextSubMessagePaddingScalar,
                     opacityDuration: Seconds.get(1),

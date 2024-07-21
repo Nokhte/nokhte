@@ -42,7 +42,8 @@ class SmartText extends StatelessWidget {
                   left: 50.0,
                   right: 50.0,
                   top: topPadding,
-                  bottom: bottomPadding,
+                  bottom: (bottomPadding - subTextPadding)
+                      .clamp(0, double.infinity),
                 ),
                 child: Observer(builder: (context) {
                   return CustomAnimationBuilder(

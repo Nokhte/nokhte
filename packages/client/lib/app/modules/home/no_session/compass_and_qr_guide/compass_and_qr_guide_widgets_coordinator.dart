@@ -43,6 +43,7 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
 
   @action
   constructor(Offset center) {
+    setSmartTextBottomPaddingScalar(0.3);
     initCompassInstructionUtils();
     initHomeUtils();
     initInstructionalNokhteUtils(center);
