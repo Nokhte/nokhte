@@ -9,7 +9,7 @@ class PresetDiagramPainter extends CustomPainter {
   final List<double> circleStops;
   final List<Color> circleColors;
   final List<LineGradientTypes> lineGradTypes;
-  final List<List<Alignment>> lineGradAlignments;
+  final List<List> lineGradAlignments;
   final List<PaintingStyle> circlePaintingStyles = [
     PaintingStyle.fill,
     PaintingStyle.stroke,
