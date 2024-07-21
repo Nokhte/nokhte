@@ -17,7 +17,7 @@ class SessionLobbyScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = useFullScreenSize().height;
+    final screenSize = useFullScreenSize();
     useEffect(() {
       coordinator.constructor();
       return () => coordinator.deconstructor();
@@ -40,17 +40,22 @@ class SessionLobbyScreen extends HookWidget {
               ),
             ),
             BorderGlow(store: BorderGlowStore()),
-            Center(
-              child: SmartText(
-                store: coordinator.widgets.primarySmartText,
-                topPadding: height * .26,
-                opacityDuration: Seconds.get(1),
-              ),
+            SmartText(
+              store: coordinator.widgets.primarySmartText,
+              topPadding: .22,
+              topBump: 0.003,
+              opacityDuration: Seconds.get(1),
             ),
             FullScreen(
               child: Center(
                 child: Padding(
-                  padding: EdgeInsets.only(top: height * .37),
+                  padding: EdgeInsets.only(
+                    top: useScaledSize(
+                      baseValue: .28,
+                      bumpPerHundredth: 0.002,
+                      screenSize: screenSize,
+                    ),
+                  ),
                   child: PresetIcons(
                     store: coordinator.widgets.presetIcons,
                   ),

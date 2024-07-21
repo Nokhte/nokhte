@@ -17,7 +17,7 @@ class SessionPreviewScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = useFullScreenSize().height;
+    final screenSize = useFullScreenSize();
     useEffect(() {
       coordinator.constructor();
       return () => coordinator.deconstructor();
@@ -36,12 +36,17 @@ class SessionPreviewScreen extends HookWidget {
             Center(
               child: SmartText(
                 store: coordinator.widgets.primarySmartText,
-                bottomPadding: height * .75,
+                bottomPadding: .75,
                 opacityDuration: Seconds.get(1),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: height * .03),
+              padding: EdgeInsets.only(
+                top: useScaledSize(
+                  baseValue: .03,
+                  screenSize: screenSize,
+                ),
+              ),
               child: ExpandedPresetsCards(
                 store: coordinator.widgets.presetCard,
               ),
