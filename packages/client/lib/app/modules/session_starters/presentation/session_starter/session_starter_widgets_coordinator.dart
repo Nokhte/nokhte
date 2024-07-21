@@ -79,9 +79,12 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     presetIcons.setWidgetVisibility(false);
     presetIcons.setIsHorizontal(true);
     initSmartTextActions();
-    setSmartTextTopPaddingScalar(.27);
-    setSmartTextBottomPaddingScalar(0);
-    setSmartTextSubMessagePaddingScalar(110);
+    setSmartTextPadding(
+      excludeTimer: true,
+      topPadding: .27,
+      bottomPadding: 0,
+      subMessagePadding: 110,
+    );
   }
 
   @observable
@@ -110,8 +113,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   }
 
   adjustToHorizontalInstructionPadding() {
-    setSmartTextBottomPaddingScalar(.2);
-    setSmartTextTopPaddingScalar(0);
+    setSmartTextBottomPaddingScalar(0);
+    setSmartTextTopPaddingScalar(0.15);
   }
 
   @action
@@ -173,8 +176,13 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   @action
   onSwipeDown(Function onLeaving) async {
     if (isAllowedToMakeGesture()) {
-      if (hasInitiatedBlur) {
+      if (hasInitiatedBlur && !hasSwiped()) {
         smartText.setCurrentIndex(0);
+        setSmartTextPadding(
+          excludeTimer: true,
+          bottomPadding: .2,
+          topPadding: 0,
+        );
         initToBottomInstructionalNokhte();
         presetsInstructionalNokhte.setWidgetVisibility(false);
         sessionJoinerInstructionalNokhte.setWidgetVisibility(false);
@@ -190,7 +198,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
 
   @action
   onSwipeRight(Function onLeaving) async {
-    if (isAllowedToMakeGesture()) {
+    if (isAllowedToMakeGesture() && !hasSwiped()) {
       if (hasInitiatedBlur) {
         adjustToHorizontalInstructionPadding();
         smartText.setCurrentIndex(2);
@@ -198,11 +206,11 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         sessionJoinerInstructionalNokhte.setWidgetVisibility(false);
         initToLeftInstructionalNokhte();
       } else {
-        if (!hasSwiped()) {
-          initEnterPresets();
-          initExtraNavCleanUp();
-          await onLeaving();
-        }
+        // if (!hasSwiped()) {
+        initEnterPresets();
+        initExtraNavCleanUp();
+        await onLeaving();
+        // }
       }
     }
   }
@@ -210,7 +218,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   @action
   onSwipeLeft(Function onLeaving) async {
     if (isAllowedToMakeGesture()) {
-      if (hasInitiatedBlur) {
+      if (hasInitiatedBlur && !hasSwiped()) {
         adjustToHorizontalInstructionPadding();
         smartText.setCurrentIndex(4);
         homeInstructionalNokhte.setWidgetVisibility(false);
@@ -245,6 +253,9 @@ abstract class _SessionStarterWidgetsCoordinatorBase
           setSmartTextBottomPaddingScalar(0);
           setSmartTextSubMessagePaddingScalar(110);
           smartText.startRotatingText();
+          // print('did we not run here???');
+          qrSubtitleSmartText.reset();
+          qrSubtitleSmartText.startRotatingText();
           qrSubtitleSmartText.setWidgetVisibility(true);
           qrCode.setWidgetVisibility(true);
           setSwipeDirection(GestureDirections.initial);

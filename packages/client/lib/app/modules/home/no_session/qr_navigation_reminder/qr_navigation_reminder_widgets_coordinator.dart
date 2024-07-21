@@ -44,7 +44,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
 
   @action
   constructor(Offset center) {
-    setSmartTextBottomPaddingScalar(0.3);
+    setSmartTextBottomPaddingScalar(0.2);
     initHomeUtils();
     consumeRoutingArgs();
     initInstructionalNokhteUtils(center);
@@ -108,7 +108,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
               position: InstructionalNokhtePositions.top,
             ),
           );
-          setSmartTextBottomPaddingScalar(0.3);
+          setSmartTextBottomPaddingScalar(0.2);
           smartText.reset();
           smartText.startRotatingText();
         });
@@ -152,7 +152,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
     nokhteBlur.reverse();
     beachWaves.currentStore.setControl(Control.mirror);
     setHasInitiatedBlur(false);
-    setSmartTextBottomPaddingScalar(0.3);
+    setSmartTextBottomPaddingScalar(0.2);
     smartText.reset();
     smartText.startRotatingText();
     delayedEnableTouchFeedback();

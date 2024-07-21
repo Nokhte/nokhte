@@ -138,7 +138,10 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
   @action
   onGestureCrossTap() {
     if (!isDisconnected && smartText.currentIndex == 0) {
-      baseOnInitInstructionMode();
+      baseOnInitInstructionMode(
+        excludePaddingAdjuster: true,
+      );
+      setSmartTextPadding(topPadding: .1);
       qrCode.setWidgetVisibility(false);
       homeInstructionalNokhte.setWidgetVisibility(true);
       homeInstructionalNokhte.initMovie(

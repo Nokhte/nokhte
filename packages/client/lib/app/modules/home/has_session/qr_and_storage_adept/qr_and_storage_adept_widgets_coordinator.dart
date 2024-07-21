@@ -83,7 +83,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         smartText.setCurrentIndex(2);
         initToRightInstructionalNokhte();
         setSmartTextPadding(
-            excludeTimer: true, topPadding: .1, bottomPadding: 0);
+            excludeTimer: true, topPadding: .15, bottomPadding: 0);
         sessionStarterInstructionalNokhte.setWidgetVisibility(false);
       } else if (!hasInitiatedBlur) {
         initStorageTransition();

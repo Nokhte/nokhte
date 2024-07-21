@@ -56,12 +56,8 @@ class StorageContentScreen extends HookWidget {
                 Center(
                   child: SmartText(
                     store: coordinator.widgets.smartText,
-                    topPadding:
-                        height * coordinator.widgets.smartTextTopPaddingScalar,
-                    bottomPadding: height *
-                        coordinator.widgets.smartTextBottomPaddingScalar,
-                    subTextPadding:
-                        coordinator.widgets.smartTextSubMessagePaddingScalar,
+                    topPadding: .15,
+                    topBump: .002,
                     opacityDuration: Seconds.get(1),
                   ),
                 ),

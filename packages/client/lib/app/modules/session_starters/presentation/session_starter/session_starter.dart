@@ -18,7 +18,7 @@ class SessionStarterScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = useFullScreenSize().height;
+    final screenSize = useFullScreenSize();
     final center = useCenterOffset();
     useEffect(() {
       coordinator.constructor(center);
@@ -56,34 +56,38 @@ class SessionStarterScreen extends HookWidget {
                 NokhteQrCode(
                   store: coordinator.widgets.qrCode,
                 ),
-                Center(
-                  child: SmartText(
-                    store: coordinator.widgets.qrSubtitleSmartText,
-                    opacityDuration: Seconds.get(1),
-                    topPadding: height * .23,
-                  ),
+                SmartText(
+                  store: coordinator.widgets.qrSubtitleSmartText,
+                  opacityDuration: Seconds.get(1),
+                  topPadding: .22,
+                  topBump: 0.003,
                 ),
                 FullScreen(
                   child: Center(
                     child: Padding(
-                      padding: EdgeInsets.only(top: height * .33),
+                      padding: EdgeInsets.only(
+                        top: useScaledSize(
+                          baseValue: .28,
+                          bumpPerHundredth: 0.002,
+                          screenSize: screenSize,
+                        ),
+                      ),
                       child: PresetIcons(
                         store: coordinator.widgets.presetIcons,
                       ),
                     ),
                   ),
                 ),
-                Center(
-                  child: SmartText(
-                    store: coordinator.widgets.smartText,
-                    opacityDuration: Seconds.get(1),
-                    topPadding:
-                        height * coordinator.widgets.smartTextTopPaddingScalar,
-                    bottomPadding: height *
-                        coordinator.widgets.smartTextBottomPaddingScalar,
-                    subTextPadding:
-                        coordinator.widgets.smartTextSubMessagePaddingScalar,
-                  ),
+                SmartText(
+                  store: coordinator.widgets.smartText,
+                  opacityDuration: Seconds.get(1),
+                  topPadding: coordinator.widgets.smartTextTopPaddingScalar,
+                  // topBump: 0.001,
+                  bottomPadding:
+                      coordinator.widgets.smartTextBottomPaddingScalar,
+                  // bottomBump: .001,
+                  subTextPadding:
+                      coordinator.widgets.smartTextSubMessagePaddingScalar,
                 ),
                 GestureCross(
                   showGlowAndOutline: true,

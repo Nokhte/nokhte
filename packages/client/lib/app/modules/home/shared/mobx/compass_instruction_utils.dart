@@ -31,8 +31,7 @@ mixin CompassInstructionUtils
         centerInstructionalNokhte.moveToCenter(center);
         touchRipple.onTap(offset);
         setSmartTextPadding(
-          subMessagePadding: 80,
-          topPadding: 0.1,
+          topPadding: 0.15,
           bottomPadding: 0,
         );
         delayedEnableTouchFeedback();

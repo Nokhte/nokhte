@@ -80,7 +80,6 @@ class LoginScreen extends HookWidget {
                 opacityDuration: Seconds.get(1),
                 store: coordinator.widgets.smartTextStore,
                 bottomPadding: .20,
-                subTextPadding: 150,
               ),
               FullScreen(
                 child: LoginNokhtes(

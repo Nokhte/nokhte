@@ -44,7 +44,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   constructor(Offset center) {
-    setSmartTextBottomPaddingScalar(.3);
+    setSmartTextBottomPaddingScalar(.2);
 
     initHomeUtils();
     initInstructionalNokhteUtils(center);
@@ -105,6 +105,10 @@ abstract class _StorageGuideWidgetsCoordinatorBase
     if (!isDisconnected && isAllowedToMakeAGesture) {
       if (smartText.currentIndex == 1) {
         initToRightInstructionalNokhte();
+        setSmartTextPadding(
+          topPadding: .15,
+          bottomPadding: 0,
+        );
         sessionStarterInstructionalNokhte.setWidgetVisibility(false);
         swipeGuide.setWidgetVisibility(false);
       } else if (smartText.currentIndex == 3) {
@@ -123,7 +127,11 @@ abstract class _StorageGuideWidgetsCoordinatorBase
           colorway: GradientNokhteColorways.vibrantBlue,
           gradPosition: InstructionalNokhtePositions.right,
           centerPosition: CenterNokhtePositions.right, onDismiss: () {
-        setSmartTextBottomPaddingScalar(.3);
+        setSmartTextPadding(
+          excludeTimer: true,
+          topPadding: 0,
+          bottomPadding: .2,
+        );
         sessionStarterInstructionalNokhte.setWidgetVisibility(true);
         sessionStarterInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
