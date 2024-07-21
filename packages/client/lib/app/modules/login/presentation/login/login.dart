@@ -1,8 +1,6 @@
 export 'login_coordinator.dart';
 export 'login_widgets_coordinator.dart';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/constants/constants.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
@@ -28,86 +26,77 @@ class LoginScreen extends HookWidget {
               onInactive: () => null,
             ));
     final center = useCenterOffset();
-    final height = useFullScreenSize().height;
     useEffect(() {
       coordinator.constructor(center);
       return () => coordinator.deconstructor();
     }, []);
 
-    return Observer(builder: (context) {
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Tap(
-          store: coordinator.tap,
-          child: Swipe(
-            store: coordinator.swipe,
-            child: Stack(
-              children: [
-                FullScreen(
-                  child: BeachWaves(
-                    store: coordinator.widgets.layer1BeachWaves,
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Tap(
+        store: coordinator.tap,
+        child: Swipe(
+          store: coordinator.swipe,
+          child: Stack(
+            children: [
+              FullScreen(
+                child: BeachWaves(
+                  store: coordinator.widgets.layer1BeachWaves,
+                ),
+              ),
+              FullScreen(
+                child: BeachWaves(
+                  store: coordinator.widgets.layer2BeachWaves,
+                ),
+              ),
+              FullScreen(
+                child: TrailingText(
+                  fontStyle: Fonts.jost(
+                    fontSize: 25.0,
                   ),
+                  gradientList: List.filled(2, Colors.white),
+                  store: coordinator.widgets.bottomTrailingText,
+                  textRevealDirection: TextRevealDirection.fromLeft,
+                  textContent: "Swipe Up",
                 ),
-                FullScreen(
-                  child: BeachWaves(
-                    store: coordinator.widgets.layer2BeachWaves,
+              ),
+              FullScreen(
+                child: TrailingText(
+                  fontStyle: Fonts.jost(
+                    fontSize: 25.0,
                   ),
+                  gradientList: Gradients.skyMint,
+                  store: coordinator.widgets.topTrailingText,
+                  textRevealDirection: TextRevealDirection.fromRight,
+                  textContent: "To Login",
+                  additionalPadding: const EdgeInsets.only(bottom: 280),
                 ),
-                FullScreen(
-                  child: TrailingText(
-                    fontStyle: Fonts.kantumruy(
-                      fontSize: 25.0,
-                    ),
-                    gradientList: List.filled(2, Colors.white),
-                    store: coordinator.widgets.bottomTrailingText,
-                    textRevealDirection: TextRevealDirection.fromLeft,
-                    textContent: "Swipe Up",
-                  ),
+              ),
+              GestureCross(
+                config: GestureCrossConfiguration(),
+                store: coordinator.widgets.gestureCross,
+              ),
+              SmartText(
+                opacityDuration: Seconds.get(1),
+                store: coordinator.widgets.smartTextStore,
+                bottomPadding: .20,
+                subTextPadding: 150,
+              ),
+              FullScreen(
+                child: LoginNokhtes(
+                  store: coordinator.widgets.loginNokhtes,
                 ),
-                FullScreen(
-                  child: TrailingText(
-                    fontStyle: Fonts.kantumruy(
-                      fontSize: 25.0,
-                    ),
-                    gradientList: Gradients.skyMint,
-                    store: coordinator.widgets.topTrailingText,
-                    textRevealDirection: TextRevealDirection.fromRight,
-                    textContent: "To Login",
-                    additionalPadding: const EdgeInsets.only(bottom: 280),
-                  ),
+              ),
+              FullScreen(
+                child: WifiDisconnectOverlay(
+                  store: coordinator.widgets.wifiDisconnectOverlay,
                 ),
-                GestureCross(
-                  config: GestureCrossConfiguration(),
-                  store: coordinator.widgets.gestureCross,
-                ),
-                Center(
-                  child: SmartText(
-                    opacityDuration: Seconds.get(1),
-                    store: coordinator.widgets.smartTextStore,
-                    topPadding:
-                        height * coordinator.widgets.smartTextTopPaddingScalar,
-                    bottomPadding: height *
-                        coordinator.widgets.smartTextBottomPaddingScalar,
-                    subTextPadding:
-                        coordinator.widgets.smartTextSubMessagePaddingScalar,
-                  ),
-                ),
-                FullScreen(
-                  child: LoginNokhtes(
-                    store: coordinator.widgets.loginNokhtes,
-                  ),
-                ),
-                FullScreen(
-                  child: WifiDisconnectOverlay(
-                    store: coordinator.widgets.wifiDisconnectOverlay,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-        //   ),
-      );
-    });
+      ),
+      //   ),
+    );
   }
 }
