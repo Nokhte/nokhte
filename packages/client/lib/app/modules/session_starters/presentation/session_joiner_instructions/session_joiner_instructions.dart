@@ -67,7 +67,7 @@ class SessionJoinerInstructionsScreen extends HookWidget {
                         opacityDuration: Seconds.get(1),
                         topPadding:
                             coordinator.widgets.smartTextTopPaddingScalar,
-                        topBump: .003,
+                        topBump: coordinator.widgets.bumpFactor,
                       ),
                     ),
                     GestureCross(
