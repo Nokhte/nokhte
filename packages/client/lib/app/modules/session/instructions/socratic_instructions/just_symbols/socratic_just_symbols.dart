@@ -15,7 +15,7 @@ class SocraticJustSymbolsScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = useFullScreenSize().height;
+    final screenSize = useFullScreenSize();
     useEffect(() {
       coordinator.constructor();
       return () => coordinator.deconstructor();
@@ -39,15 +39,17 @@ class SocraticJustSymbolsScreen extends HookWidget {
                 Center(
                   child: SmartText(
                     store: coordinator.widgets.smartText,
-                    topPadding: height * .1,
-                    subTextPadding: height * .7,
+                    topPadding: 0.45,
+                    topBump: .0001,
+                    subTextPadding: useScaledSize(
+                      baseValue: .32,
+                      bumpPerHundredth: .0001,
+                      screenSize: screenSize,
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: height * .1),
-                  child: PresetDiagam(
-                    store: coordinator.widgets.presetDiagram,
-                  ),
+                PresetDiagam(
+                  store: coordinator.widgets.presetDiagram,
                 ),
               ],
             )));
