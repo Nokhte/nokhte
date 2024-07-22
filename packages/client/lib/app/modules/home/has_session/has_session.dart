@@ -1,2 +1,2 @@
-export 'storage_accessed/storage_accessed.dart';
-export 'storage_not_accessed/storage_not_accessed.dart';
+export './qr_and_storage_adept/qr_and_storage_adept.dart';
+export './storage_guide/storage_guide.dart';

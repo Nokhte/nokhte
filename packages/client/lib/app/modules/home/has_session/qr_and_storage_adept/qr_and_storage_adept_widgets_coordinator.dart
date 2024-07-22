@@ -57,6 +57,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
     if (!isDisconnected && isAllowedToMakeGesture()) {
       if (hasInitiatedBlur && !hasSwiped()) {
         smartText.setCurrentIndex(0);
+        setSmartTextPadding(
+            excludeTimer: true, topPadding: 0, bottomPadding: 0.1);
         initToTopInstructionalNokhte(excludePaddingAdjuster: true);
         storageInstructionalNokhte.setWidgetVisibility(false);
       } else if (!hasInitiatedBlur && !hasSwiped()) {
@@ -80,6 +82,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
       if (hasInitiatedBlur && !hasSwiped()) {
         smartText.setCurrentIndex(2);
         initToRightInstructionalNokhte();
+        setSmartTextPadding(
+            excludeTimer: true, topPadding: .15, bottomPadding: 0);
         sessionStarterInstructionalNokhte.setWidgetVisibility(false);
       } else if (!hasInitiatedBlur) {
         initStorageTransition();

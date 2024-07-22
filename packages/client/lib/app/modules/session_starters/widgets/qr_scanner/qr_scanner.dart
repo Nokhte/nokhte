@@ -59,9 +59,8 @@ class QrScanner extends HookWidget {
               ),
               Center(
                   child: SmartText(
-                topPadding: screenSize.aspectRatio >= 0.56
-                    ? screenSize.height * .3
-                    : screenSize.height * .2,
+                topPadding: .22,
+                topBump: .004,
                 store: store.smartText,
                 opacityDuration: Seconds.get(1),
               ))

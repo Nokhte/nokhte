@@ -125,7 +125,7 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
         tapCount++;
       } else if (tapCount == 2) {
         Timer(Seconds.get(0, milli: 500), () {
-          setSmartTextBottomPaddingScalar(.3);
+          setSmartTextBottomPaddingScalar(.27);
         });
         sessionPhonePlacementGuide.setWidgetVisibility(false);
         touchRipple.onTap(tapPosition);

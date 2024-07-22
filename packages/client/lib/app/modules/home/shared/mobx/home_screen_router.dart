@@ -28,15 +28,8 @@ mixin HomeScreenRouter on EnRouteRouter {
               .navigate(HomeConstants.qrNavigationReminder, arguments: args);
         }
       } else if (getUserInfo.hasDoneASession) {
-        if (!getUserInfo.hasEnteredStorage && getUserInfo.hasDoneEitherQrFlow) {
+        if (!getUserInfo.hasEnteredStorage) {
           Modular.to.navigate(HomeConstants.storageGuide, arguments: args);
-        } else if (!getUserInfo.hasEnteredStorage &&
-            !getUserInfo.hasDoneEitherQrFlow) {
-          Modular.to
-              .navigate(HomeConstants.compassAndStorageGuide, arguments: args);
-        } else if (getUserInfo.hasEnteredStorage &&
-            !getUserInfo.hasDoneEitherQrFlow) {
-          Modular.to.navigate(HomeConstants.shortQrGuide, arguments: args);
         } else {
           Modular.to.navigate(HomeConstants.qrAndStorageAdept, arguments: args);
         }

@@ -18,7 +18,7 @@ class SoloHybridInstructionsScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = useFullScreenSize().height;
+    final screenSize = useFullScreenSize();
     useEffect(() {
       coordinator.constructor();
       return () => coordinator.deconstructor();
@@ -46,12 +46,16 @@ class SoloHybridInstructionsScreen extends HookWidget {
               return Center(
                 child: SmartText(
                   opacityDuration: Seconds.get(1),
-                  topPadding:
-                      height * coordinator.widgets.smartTextTopPaddingScalar,
+                  topPadding: coordinator.widgets.smartTextTopPaddingScalar,
+                  topBump: .0015,
                   bottomPadding:
-                      height * coordinator.widgets.smartTextBottomPaddingScalar,
-                  subTextPadding:
-                      coordinator.widgets.smartTextSubMessagePaddingScalar,
+                      coordinator.widgets.smartTextBottomPaddingScalar,
+                  subTextPadding: useScaledSize(
+                    baseValue:
+                        coordinator.widgets.smartTextSubMessagePaddingScalar,
+                    screenSize: screenSize,
+                    bumpPerHundredth: .0005,
+                  ),
                   store: coordinator.widgets.smartText,
                 ),
               );

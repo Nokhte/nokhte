@@ -31,8 +31,7 @@ mixin CompassInstructionUtils
         centerInstructionalNokhte.moveToCenter(center);
         touchRipple.onTap(offset);
         setSmartTextPadding(
-          subMessagePadding: 80,
-          topPadding: 0.1,
+          topPadding: 0.15,
           bottomPadding: 0,
         );
         delayedEnableTouchFeedback();
@@ -84,7 +83,7 @@ mixin CompassInstructionUtils
       beachWaves.currentStore.setControl(Control.stop);
       setHasInitiatedBlur(true);
       smartText.startRotatingText(isResuming: true);
-      setSmartTextPadding(subMessagePadding: 110, bottomPadding: .23);
+      setSmartTextPadding(subMessagePadding: 110);
       delayedEnableTouchFeedback();
     }
   }

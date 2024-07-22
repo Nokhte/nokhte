@@ -21,6 +21,7 @@ class SessionPhonePlacementGuide extends HookWidget {
 
   @override
   Widget build(context) {
+    final screenSize = useFullScreenSize();
     final height = useFullScreenSize().height;
     return Observer(
       builder: (context) => AnimatedOpacity(
@@ -36,7 +37,13 @@ class SessionPhonePlacementGuide extends HookWidget {
               alignment: Alignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(bottom: height * .68),
+                  padding: EdgeInsets.only(
+                    bottom: useScaledSize(
+                      baseValue: .68,
+                      screenSize: screenSize,
+                      bumpPerHundredth: .004,
+                    ),
+                  ),
                   child: Jost(
                     '${store.values[2]}',
                     fontSize: height * .1,
@@ -59,7 +66,12 @@ class SessionPhonePlacementGuide extends HookWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: height * .45),
+                  padding: EdgeInsets.only(
+                    top: useScaledSize(
+                      baseValue: .45,
+                      screenSize: screenSize,
+                    ),
+                  ),
                   child: Jost(
                     '${store.values[1]}',
                     fontSize: height * .1,

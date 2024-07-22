@@ -99,7 +99,6 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
         initToLeftInstructionalNokhte();
         swipeGuide.setWidgetVisibility(false);
         homeInstructionalNokhte.setWidgetVisibility(false);
-        setSmartTextPadding(topPadding: 0.2);
       } else if (smartText.currentIndex == 3) {
         initEnterPresets();
       }
@@ -136,7 +135,10 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
   onGestureCrossTap() {
     if (!isDisconnected && isAllowedToMakeGesture()) {
       if (!hasInitiatedBlur && smartText.currentIndex == 0) {
-        baseOnInitInstructionMode();
+        baseOnInitInstructionMode(
+          excludePaddingAdjuster: true,
+        );
+        setSmartTextPadding(topPadding: .13);
         homeInstructionalNokhte.setWidgetVisibility(true);
         homeInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(

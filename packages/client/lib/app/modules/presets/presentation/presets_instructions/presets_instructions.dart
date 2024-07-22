@@ -1,9 +1,8 @@
-export "presets_instructions_coordinator.dart";
+export 'presets_instructions_coordinator.dart';
 export "presets_instructions_widgets_coordinator.dart";
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -19,7 +18,6 @@ class PresetsInstructionsScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = useFullScreenSize().height;
     final center = useCenterOffset();
     useEffect(() {
       coordinator.constructor(center);
@@ -47,27 +45,19 @@ class PresetsInstructionsScreen extends HookWidget {
             SmartText(
               store: coordinator.widgets.headerText,
               opacityDuration: Seconds.get(1),
-              bottomPadding: height * .75,
+              bottomPadding: .75,
             ),
             FullScreen(
               child: NokhteBlur(
                 store: coordinator.widgets.blur,
               ),
             ),
-            Observer(builder: (context) {
-              return Center(
-                child: SmartText(
-                  store: coordinator.widgets.smartText,
-                  opacityDuration: Seconds.get(1),
-                  topPadding:
-                      height * coordinator.widgets.smartTextTopPaddingScalar,
-                  bottomPadding:
-                      height * coordinator.widgets.smartTextBottomPaddingScalar,
-                  subTextPadding:
-                      coordinator.widgets.smartTextSubMessagePaddingScalar,
-                ),
-              );
-            }),
+            Center(
+              child: SmartText(
+                store: coordinator.widgets.smartText,
+                opacityDuration: Seconds.get(1),
+              ),
+            ),
             GestureCross(
               showGlowAndOutline: true,
               config: GestureCrossConfiguration(
