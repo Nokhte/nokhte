@@ -83,12 +83,11 @@ abstract class _SoloHybridInstructionsWidgetsCoordinatorBase
       initSpeakingMode();
     } else if (smartText.currentIndex == 6) {
       revertSpeakingMode();
-    } else {
-      if (smartText.currentIndex == 2) {
-        initSpeakingMode();
-      } else if (smartText.currentIndex == 4) {
-        revertSpeakingMode();
-      }
+      setSmartTextPadding(
+        topPadding: .4,
+        subMessagePadding: .05,
+        bottomPadding: 0,
+      );
     }
   }
 

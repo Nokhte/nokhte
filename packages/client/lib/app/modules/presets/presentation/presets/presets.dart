@@ -19,7 +19,6 @@ class PresetsScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = useFullScreenSize().height;
     final center = useCenterOffset();
     useEffect(() {
       coordinator.constructor(center);
@@ -47,7 +46,8 @@ class PresetsScreen extends HookWidget {
                 SmartText(
                   store: coordinator.widgets.headerText,
                   opacityDuration: Seconds.get(1),
-                  bottomPadding: height * .75,
+                  bottomPadding: .75,
+                  bottomBump: .001,
                 ),
                 PresetCards(
                   store: coordinator.widgets.presetCards,
@@ -61,9 +61,8 @@ class PresetsScreen extends HookWidget {
                   child: SmartText(
                     store: coordinator.widgets.smartText,
                     opacityDuration: Seconds.get(1),
-                    topPadding: height * .15,
-                    subTextPadding:
-                        coordinator.widgets.smartTextSubMessagePaddingScalar,
+                    topPadding: .15,
+                    topBump: 0.001,
                   ),
                 ),
                 GestureCross(

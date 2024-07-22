@@ -18,15 +18,25 @@ mixin SpeakingInstructionsWidgetsUtils on SmartTextPaddingAdjuster {
 
   adjustTextToHoldingPadding() {
     Timer(Seconds.get(0, milli: 500), () {
-      setSmartTextTopPaddingScalar(0);
-      setSmartTextBottomPaddingScalar(0.2);
+      setSmartTextPadding(
+        excludeTimer: true,
+        topPadding: 0,
+        bottomPadding: 0.2,
+        subMessagePadding: 0,
+      );
     });
   }
 
   resetTextPadding() {
-    setSmartTextTopPaddingScalar(.2);
-    setSmartTextBottomPaddingScalar(0);
-    setSmartTextSubMessagePaddingScalar(110);
+    setSmartTextPadding(
+      excludeTimer: true,
+      topPadding: .45,
+      bottomPadding: 0,
+      subMessagePadding: .3,
+    );
+    // setSmartTextTopPaddingScalar(.4);
+    // setSmartTextBottomPaddingScalar(0);
+    // setSmartTextSubMessagePaddingScalar(.3);
   }
 
   smartTextIndexReactor() => reaction((p0) => smartText.currentIndex, (p0) {

@@ -9,7 +9,8 @@ class PresetDiagramPainter extends CustomPainter {
   final List<double> circleStops;
   final List<Color> circleColors;
   final List<LineGradientTypes> lineGradTypes;
-  final List<List<Alignment>> lineGradAlignments;
+  final List<List> lineGradAlignments;
+  final double bottomPadding;
   final List<PaintingStyle> circlePaintingStyles = [
     PaintingStyle.fill,
     PaintingStyle.stroke,
@@ -19,6 +20,7 @@ class PresetDiagramPainter extends CustomPainter {
 
   PresetDiagramPainter({
     required this.radii,
+    required this.bottomPadding,
     required this.circleOffsets,
     required this.circleColors,
     required this.circleStops,
@@ -28,12 +30,49 @@ class PresetDiagramPainter extends CustomPainter {
     required this.lineOffsets,
   });
 
+  Offset adjustToAspectRatio(Offset offset) {
+    double x = offset.dx;
+    double y = offset.dy;
+    double currentAspectRatio = x / y;
+    const targetAspectRatio = .47;
+
+    if (currentAspectRatio == targetAspectRatio) {
+      return offset;
+    }
+
+    double diff = targetAspectRatio - currentAspectRatio;
+
+    if (diff.abs() < 0.01) {
+      if (diff > 0) {
+        x == 0.01;
+      } else {
+        y += 0.01;
+      }
+    } else {
+      if (diff > 0) {
+        x = y * targetAspectRatio;
+      } else {
+        y = x / targetAspectRatio;
+      }
+    }
+
+    return Offset(x, (y));
+  }
+
+  Offset translateUpwards(Offset original, Offset adjusted) {
+    double yDifference = original.dy - adjusted.dy;
+    return Offset(adjusted.dx, adjusted.dy + yDifference);
+  }
+
   @override
   void paint(Canvas canvas, Size size) {
+    canvas.translate(0, -bottomPadding);
+    final asp = adjustToAspectRatio(Offset(size.width, size.height));
+
     for (int i = 0; i < circleOffsets.length; i++) {
       final center = Offset(
-        (size.width * circleOffsets[i].dx),
-        (size.height * circleOffsets[i].dy),
+        (asp.dx * circleOffsets[i].dx),
+        (asp.dy * circleOffsets[i].dy),
       );
 
       final circleRect = Rect.fromCircle(center: center, radius: radii[i]);
@@ -55,18 +94,19 @@ class PresetDiagramPainter extends CustomPainter {
       Offset start = Offset.zero;
       Offset end = Offset.zero;
       start = Offset(
-        (size.width * lineOffsets[i][0].dx),
-        (size.height * lineOffsets[i][0].dy),
+        (asp.dx * lineOffsets[i][0].dx),
+        (asp.dy * lineOffsets[i][0].dy),
       );
       end = Offset(
-        (size.width * lineOffsets[i][1].dx),
-        (size.height * lineOffsets[i][1].dy),
+        (asp.dx * lineOffsets[i][1].dx),
+        (asp.dy * lineOffsets[i][1].dy),
       );
 
       final paint = Paint()
         ..color = Colors.white
         ..style = circlePaintingStyles[i]
         ..strokeWidth = size.width * lineWidth[i];
+      // ..strokeWidth = 500;
 
       final path = Path()
         ..moveTo(start.dx, start.dy)

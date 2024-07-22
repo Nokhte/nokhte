@@ -2,7 +2,6 @@ export 'session_notes_coordinator.dart';
 export 'session_notes_widgets_coordinator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/seconds.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -45,7 +44,7 @@ class SessionNotesScreen extends HookWidget {
               Center(
                 child: SmartText(
                   store: coordinator.widgets.smartText,
-                  topPadding: useFullScreenSize().height * .8,
+                  topPadding: .8,
                   opacityDuration: Seconds.get(1),
                 ),
               ),

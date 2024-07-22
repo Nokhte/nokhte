@@ -18,7 +18,6 @@ class SessionStarterInstructionsScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = useFullScreenSize().height;
     final center = useCenterOffset();
     useEffect(() {
       coordinator.constructor(center);
@@ -69,12 +68,9 @@ class SessionStarterInstructionsScreen extends HookWidget {
                       child: SmartText(
                         store: coordinator.widgets.smartText,
                         opacityDuration: Seconds.get(1),
-                        topPadding: height *
+                        topPadding:
                             coordinator.widgets.smartTextTopPaddingScalar,
-                        bottomPadding: height *
-                            coordinator.widgets.smartTextBottomPaddingScalar,
-                        subTextPadding: coordinator
-                            .widgets.smartTextSubMessagePaddingScalar,
+                        topBump: .003,
                       ),
                     ),
                     GestureCross(

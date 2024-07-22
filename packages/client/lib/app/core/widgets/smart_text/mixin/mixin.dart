@@ -7,7 +7,7 @@ mixin SmartTextPaddingAdjuster {
 
   double get smartTextTopPaddingScalar => _smartTextTopPaddingScalar.value;
 
-  final _smartTextBottomPaddingScalar = Observable(.2);
+  final _smartTextBottomPaddingScalar = Observable(0.0);
 
   double get smartTextBottomPaddingScalar =>
       _smartTextBottomPaddingScalar.value;

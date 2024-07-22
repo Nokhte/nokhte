@@ -19,7 +19,7 @@ class SessionPaywallScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = useFullScreenSize().height;
+    final screenSize = useFullScreenSize();
     useEffect(() {
       coordinator.constructor();
       return () => coordinator.deconstructor();
@@ -38,25 +38,38 @@ class SessionPaywallScreen extends HookWidget {
                     store: coordinator.widgets.beachWaves,
                   ),
                 ),
-                MultiplyingNokhte(
-                  store: coordinator.widgets.multiplyingNokhte,
+                Padding(
+                  padding: EdgeInsets.only(
+                      bottom: useScaledSize(
+                    baseValue: .05,
+                    bumpPerHundredth: .005,
+                    screenSize: screenSize,
+                  )),
+                  child: MultiplyingNokhte(
+                    store: coordinator.widgets.multiplyingNokhte,
+                  ),
                 ),
                 SmartText(
                   opacityDuration: Seconds.get(1),
                   store: coordinator.widgets.primarySmartText,
-                  bottomPadding:
-                      height * coordinator.widgets.smartTextBottomPaddingScalar,
-                  subTextPadding: height * .2,
+                  topPadding: .01,
+                  topBump: .002,
+                  subTextPadding: useScaledSize(
+                    baseValue: .1,
+                    bumpPerHundredth: .000001,
+                    screenSize: screenSize,
+                  ),
                 ),
                 SmartText(
                   opacityDuration: Seconds.get(1),
                   store: coordinator.widgets.secondarySmartText,
-                  bottomPadding: height * .8,
+                  bottomPadding: .8,
                 ),
                 SmartText(
                   opacityDuration: Seconds.get(1),
                   store: coordinator.widgets.tertiarySmartText,
-                  topPadding: height * .8,
+                  topPadding: .8,
+                  // topBump: .002,
                 ),
                 FullScreen(
                   child: TouchRipple(

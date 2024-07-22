@@ -59,34 +59,6 @@ class HomeWidgetsModule extends Module {
         focusInstructionalNokhte: InstructionalGradientNokhteStore(),
       ),
     );
-    i.add<CompassAndStorageGuideWidgetsCoordinator>(
-      () => CompassAndStorageGuideWidgetsCoordinator(
-        swipeGuide: SwipeGuideStore(),
-        nokhteBlur: NokhteBlurStore(),
-        smartText: SmartTextStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        gestureCross: Modular.get<GestureCrossStore>(),
-        touchRipple: TouchRippleStore(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
-        focusInstructionalNokhte: InstructionalGradientNokhteStore(),
-      ),
-    );
-    i.add<ShortQrGuideWidgetsCoordinator>(
-      () => ShortQrGuideWidgetsCoordinator(
-        swipeGuide: SwipeGuideStore(),
-        nokhteBlur: NokhteBlurStore(),
-        smartText: SmartTextStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        gestureCross: Modular.get<GestureCrossStore>(),
-        touchRipple: TouchRippleStore(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        focusInstructionalNokhte: InstructionalGradientNokhteStore(),
-        storageInstructionalNokhte: InstructionalGradientNokhteStore(),
-      ),
-    );
     i.add<QrAndStorageAdeptWidgetsCoordinator>(
       () => QrAndStorageAdeptWidgetsCoordinator(
         nokhteBlur: NokhteBlurStore(),

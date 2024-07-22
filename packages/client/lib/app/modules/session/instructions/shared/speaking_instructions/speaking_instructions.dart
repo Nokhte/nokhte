@@ -22,7 +22,7 @@ class SessionSpeakingInstructionsScreen extends HookWidget {
       coordinator.constructor();
       return () => coordinator.deconstructor();
     }, []);
-    final height = useFullScreenSize().height;
+    final screenSize = useFullScreenSize();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Tap(
@@ -48,12 +48,16 @@ class SessionSpeakingInstructionsScreen extends HookWidget {
                 return Center(
                   child: SmartText(
                     opacityDuration: Seconds.get(1),
-                    topPadding:
-                        height * coordinator.widgets.smartTextTopPaddingScalar,
-                    bottomPadding: height *
+                    topPadding: coordinator.widgets.smartTextTopPaddingScalar,
+                    topBump: .0015,
+                    bottomPadding:
                         coordinator.widgets.smartTextBottomPaddingScalar,
-                    subTextPadding:
-                        coordinator.widgets.smartTextSubMessagePaddingScalar,
+                    subTextPadding: useScaledSize(
+                      baseValue:
+                          coordinator.widgets.smartTextSubMessagePaddingScalar,
+                      screenSize: screenSize,
+                      bumpPerHundredth: .0005,
+                    ),
                     store: coordinator.widgets.smartText,
                   ),
                 );

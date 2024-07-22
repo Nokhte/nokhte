@@ -4,3 +4,4 @@ export 'use_widget_opacity.dart';
 export 'use_full_screen_size.dart';
 export 'use_screen_size_data.dart';
 export 'use_text_size.dart';
+export 'use_scaled_size.dart';
