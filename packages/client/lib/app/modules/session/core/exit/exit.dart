@@ -18,7 +18,6 @@ class SessionExitScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = useFullScreenSize().height;
     useEffect(() {
       coordinator.constructor();
       return () => coordinator.deconstructor();
@@ -54,14 +53,14 @@ class SessionExitScreen extends HookWidget {
               Center(
                 child: SmartText(
                   store: coordinator.widgets.primarySmartText,
-                  bottomPadding: height * .5,
+                  bottomPadding: .5,
                   opacityDuration: Seconds.get(1),
                 ),
               ),
               Center(
                 child: SmartText(
                   store: coordinator.widgets.secondarySmartText,
-                  topPadding: height * .75,
+                  topPadding: .75,
                   bottomPadding: 0,
                   opacityDuration: Seconds.get(1),
                 ),

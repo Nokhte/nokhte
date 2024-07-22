@@ -182,7 +182,7 @@ class SessionLists {
     SharedLists.customTapToConfirmSub(
       "All the Phones will be used for speaking during the session",
       subTextFontSize: 18.0,
-      mainFontSize: 22.0,
+      mainFontSize: 20.0,
     ),
     SharedLists.emptyItem,
   ];
@@ -328,7 +328,7 @@ class SessionLists {
       RotatingTextData(
         text: "To complete the session swipe down on all the phones",
         pauseHere: true,
-        mainFontSize: 22.0,
+        mainFontSize: 20.0,
         subText: "Tap to confirm",
         subFontSize: 18.0,
       ),

@@ -17,6 +17,7 @@ class SessionNotesInstructionsScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = useFullScreenSize();
     useEffect(() {
       coordinator.constructor();
       return () => coordinator.deconstructor();
@@ -34,8 +35,13 @@ class SessionNotesInstructionsScreen extends HookWidget {
             ),
             SmartText(
               store: coordinator.widgets.smartText,
-              topPadding: useFullScreenSize().height * .2,
-              subTextPadding: 110,
+              topPadding: .45,
+              topBump: .0015,
+              subTextPadding: useScaledSize(
+                baseValue: .3,
+                screenSize: screenSize,
+                bumpPerHundredth: .0005,
+              ),
               opacityDuration: Seconds.get(1),
             ),
             FullScreen(
