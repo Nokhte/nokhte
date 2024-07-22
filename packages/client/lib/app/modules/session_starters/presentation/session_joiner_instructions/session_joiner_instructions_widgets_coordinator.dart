@@ -141,7 +141,7 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
       baseOnInitInstructionMode(
         excludePaddingAdjuster: true,
       );
-      setSmartTextPadding(topPadding: .1);
+      setSmartTextPadding(topPadding: .13);
       qrCode.setWidgetVisibility(false);
       homeInstructionalNokhte.setWidgetVisibility(true);
       homeInstructionalNokhte.initMovie(

@@ -138,7 +138,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
         baseOnInitInstructionMode(
           excludePaddingAdjuster: true,
         );
-        setSmartTextPadding(topPadding: .1);
+        setSmartTextPadding(topPadding: .13);
         homeInstructionalNokhte.setWidgetVisibility(true);
         homeInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(

@@ -71,9 +71,6 @@ class SessionStarterInstructionsScreen extends HookWidget {
                         topPadding:
                             coordinator.widgets.smartTextTopPaddingScalar,
                         topBump: .003,
-                        // bottomPadding:
-                        //     coordinator.widgets.smartTextBottomPaddingScalar,
-                        // bottomBump: .003,
                       ),
                     ),
                     GestureCross(
