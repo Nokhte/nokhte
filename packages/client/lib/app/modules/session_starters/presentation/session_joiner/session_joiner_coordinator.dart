@@ -46,6 +46,7 @@ abstract class _SessionJoinerCoordinatorBase
   constructor(Offset center) async {
     widgets.constructor(center);
     initReactors();
+    await logic.nuke();
     logic.listenToSessionActivation();
     await captureScreen(SessionStarterConstants.sessionJoiner);
     await getUserInfo(NoParams());
