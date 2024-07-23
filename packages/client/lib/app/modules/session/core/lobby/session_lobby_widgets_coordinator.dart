@@ -47,18 +47,17 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
     beachWaves.setMovieMode(
       BeachWaveMovieModes.deepSeaToSky,
     );
+    primarySmartText.setMessagesData(SharedLists.emptyList);
     if (hasReceivedRoutingArgs) {
       qrCode.setQrCodeData(
           Modular.args.data[SessionStarterConstants.QR_CODE_DATA]);
-      primarySmartText.setMessagesData(SharedLists.emptyList);
     } else {
-      primarySmartText.setMessagesData(SharedLists.emptyList);
       qrCode.setWidgetVisibility(false);
     }
     primarySmartText.startRotatingText();
     presetIcons.setWidgetVisibility(false);
-    constructorHasBeenCalled = true;
     disposers.add(smartTextIndexReactor());
+    constructorHasBeenCalled = true;
   }
 
   @action
@@ -174,10 +173,11 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
 
   smartTextIndexReactor() =>
       reaction((p0) => primarySmartText.currentIndex, (p0) {
+        print("p0 = $p0 && isFirstTap = $isFirstTap");
         if (isFirstTap) {
           if (p0 == 3) {
-            primarySmartText.reset();
-            primarySmartText.startRotatingText();
+            primarySmartText.setCurrentIndex(1);
+            primarySmartText.startRotatingText(isResuming: true);
             presetIcons.setWidgetVisibility(true);
           }
         }

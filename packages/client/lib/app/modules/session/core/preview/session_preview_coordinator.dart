@@ -63,12 +63,13 @@ abstract class _SessionPreviewCoordinatorBase
     disposers.add(sessionPresetInfoReactor());
   }
 
-  sessionPresetInfoReactor() =>
-      reaction((p0) => sessionMetadata.presetName, (p0) {
-        widgets.onSessionTypeReceived(
-          sessionName: p0,
-          tags: sessionMetadata.presetTags,
-        );
+  sessionPresetInfoReactor() => reaction((p0) => sessionMetadata.state, (p0) {
+        if (p0 == StoreState.loaded) {
+          widgets.onSessionTypeReceived(
+            sessionName: sessionMetadata.presetName,
+            tags: sessionMetadata.presetTags,
+          );
+        }
       });
 
   tapReactor() => reaction(
