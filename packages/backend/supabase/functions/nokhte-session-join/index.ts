@@ -30,7 +30,6 @@ serve(async (req) => {
         stExistingNokhteSessionRes?.["collaborator_uids"];
       if (!currentCollaboratorUIDs.includes(userUID)) {
         currentCollaboratorUIDs.push(userUID);
-        // currentCollaboratorUIDs.sort();
         const currentHasPremiumAccess = [];
 
         const currentIsOnlineArr = rtExistingNokhteSessionRes?.["is_online"];
