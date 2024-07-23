@@ -27,10 +27,14 @@ abstract class _CleanUpCollaborationArtifactsCoordinatorBase
   @override
   @action
   Future<void> call(NoParams params) async {
-    setState(StoreState.loading);
-    await sessionStarters.nuke();
-    await activeMonetizationSession.delete();
-    await cleanUpNokhteSession(NoParams());
-    setState(StoreState.loaded);
+    try {
+      setState(StoreState.loading);
+      await sessionStarters.nuke();
+      await activeMonetizationSession.delete();
+      await cleanUpNokhteSession(NoParams());
+      setState(StoreState.loaded);
+    } catch (e) {
+      //
+    }
   }
 }

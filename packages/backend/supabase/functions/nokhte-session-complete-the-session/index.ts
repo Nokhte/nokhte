@@ -48,7 +48,7 @@ serve(async (req) => {
 
     const duplicateCheckRes = (
       await supabaseAdmin
-        .from("finished_nokhte_session")
+        .from("finished_nokhte_sessions")
         .select()
         .contains("collaborator_uids", `{${userUID}}`)
         .eq("content", content)

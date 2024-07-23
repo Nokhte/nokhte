@@ -84,10 +84,6 @@ abstract class _SessionLobbyCoordinatorBase
         widgets.onCollaboratorLeft();
       },
     ));
-    if (hasReceivedRoutingArgs) {
-      tapReactor();
-      disposers.add(canStartTheSessionReactor());
-    }
     disposers.add(sessionStartReactor());
     disposers.add(widgets.beachWavesMovieStatusReactor(enterGreeter));
     disposers.add(sessionPresetReactor());
@@ -102,8 +98,14 @@ abstract class _SessionLobbyCoordinatorBase
         }
       });
 
-  sessionPresetReactor() => reaction((p0) => sessionMetadata.presetTags, (p0) {
-        showPresetInfo();
+  sessionPresetReactor() => reaction((p0) => sessionMetadata.state, (p0) {
+        if (p0 == StoreState.loaded) {
+          showPresetInfo();
+          if (hasReceivedRoutingArgs) {
+            disposers.add(tapReactor());
+            disposers.add(canStartTheSessionReactor());
+          }
+        }
       });
 
   @action

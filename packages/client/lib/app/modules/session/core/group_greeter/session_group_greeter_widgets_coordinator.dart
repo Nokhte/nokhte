@@ -116,7 +116,7 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
         cooldownStopwatch.reset();
         touchRipple.onTap(tapPosition);
         Timer(Seconds.get(0, milli: 500), () {
-          setSmartTextBottomPaddingScalar(0.1);
+          setSmartTextBottomPaddingScalar(0.06);
         });
         primarySmartText.startRotatingText(isResuming: true);
         secondarySmartText.startRotatingText(isResuming: true);

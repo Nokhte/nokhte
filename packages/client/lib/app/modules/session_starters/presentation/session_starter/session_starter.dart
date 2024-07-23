@@ -82,12 +82,8 @@ class SessionStarterScreen extends HookWidget {
                   store: coordinator.widgets.smartText,
                   opacityDuration: Seconds.get(1),
                   topPadding: coordinator.widgets.smartTextTopPaddingScalar,
-                  // topBump: 0.001,
                   bottomPadding:
                       coordinator.widgets.smartTextBottomPaddingScalar,
-                  // bottomBump: .001,
-                  subTextPadding:
-                      coordinator.widgets.smartTextSubMessagePaddingScalar,
                 ),
                 GestureCross(
                   showGlowAndOutline: true,

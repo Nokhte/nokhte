@@ -178,12 +178,12 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     if (isAllowedToMakeGesture()) {
       if (hasInitiatedBlur && !hasSwiped()) {
         smartText.setCurrentIndex(0);
+        initToBottomInstructionalNokhte();
         setSmartTextPadding(
           excludeTimer: true,
-          bottomPadding: .2,
+          bottomPadding: .1,
           topPadding: 0,
         );
-        initToBottomInstructionalNokhte();
         presetsInstructionalNokhte.setWidgetVisibility(false);
         sessionJoinerInstructionalNokhte.setWidgetVisibility(false);
       } else {
@@ -205,12 +205,16 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         homeInstructionalNokhte.setWidgetVisibility(false);
         sessionJoinerInstructionalNokhte.setWidgetVisibility(false);
         initToLeftInstructionalNokhte();
+        setSmartTextPadding(
+          excludeTimer: true,
+          topPadding: .27,
+          bottomPadding: 0,
+          subMessagePadding: 110,
+        );
       } else {
-        // if (!hasSwiped()) {
         initEnterPresets();
         initExtraNavCleanUp();
         await onLeaving();
-        // }
       }
     }
   }
@@ -224,6 +228,12 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         homeInstructionalNokhte.setWidgetVisibility(false);
         presetsInstructionalNokhte.setWidgetVisibility(false);
         initToRightInstructionalNokhte();
+        setSmartTextPadding(
+          excludeTimer: true,
+          topPadding: .27,
+          bottomPadding: 0,
+          subMessagePadding: 110,
+        );
       } else {
         if (!hasSwiped()) {
           initExtraNavCleanUp();
