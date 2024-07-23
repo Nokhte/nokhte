@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -73,6 +75,12 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
     setSmartTextSubMessagePaddingScalar(110);
   }
 
+  @observable
+  double bumpFactor = 0.003;
+
+  @action
+  setBumpFactor(double val) => bumpFactor = val;
+
   @action
   constructor(Offset center) {
     consumeRoutingArgs(isInverted: true);
@@ -97,6 +105,10 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (smartText.currentIndex == 1) {
         initToLeftInstructionalNokhte();
+
+        setSmartTextPadding(
+          topPadding: .2,
+        );
         swipeGuide.setWidgetVisibility(false);
         homeInstructionalNokhte.setWidgetVisibility(false);
       } else if (smartText.currentIndex == 3) {
@@ -138,6 +150,9 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
         baseOnInitInstructionMode(
           excludePaddingAdjuster: true,
         );
+        Timer(Seconds.get(1, milli: 500), () {
+          setBumpFactor(0.001);
+        });
         setSmartTextPadding(topPadding: .13);
         homeInstructionalNokhte.setWidgetVisibility(true);
         homeInstructionalNokhte.initMovie(
@@ -196,6 +211,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
                 position: InstructionalNokhtePositions.bottom,
               ),
             );
+            setBumpFactor(0.003);
             setSmartTextTopPaddingScalar(.2);
           },
           colorway: GradientNokhteColorways.deeperBlue,

@@ -191,12 +191,12 @@ class SessionLists {
     SharedLists.customTapToConfirmSub(
       "All the Phones will be used for speaking during the session",
       subTextFontSize: 18.0,
-      mainFontSize: 22.0,
+      mainFontSize: 20.0,
     ),
     SharedLists.customTapToConfirmSub(
       "Everyone will take a note at the end of the session",
       subTextFontSize: 18.0,
-      mainFontSize: 22.0,
+      mainFontSize: 20.0,
     ),
   ];
 

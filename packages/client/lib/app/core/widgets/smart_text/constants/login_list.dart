@@ -10,7 +10,7 @@ class LoginList {
         ),
         RotatingTextData(
           text:
-              "The point of the app is to collectively uplift ideas into reality",
+              "The purpose of this app is to collectively uplift ideas into reality",
           subText: "Tap anywhere to confirm",
           pauseHere: true,
         ),

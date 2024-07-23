@@ -62,6 +62,4 @@ abstract class _SessionInstructionsPickerWidgetsCoordinatorBase
           onTapped(p0);
         });
       });
-
-
 }

@@ -81,12 +81,14 @@ abstract class _SessionNotesCoordinatorBase
               widgets.onSwipeUp(onSwipeUp);
             });
           case GestureDirections.down:
-            ifTouchIsNotDisabled(() async {
-              if (widgets.textEditor.controller.text.isNotEmpty) {
-                await onSwipeUp(widgets.textEditor.controller.text);
-              }
-              widgets.onSwipeDown();
-            });
+            if (sessionMetadata.presetType != PresetTypes.socratic) {
+              ifTouchIsNotDisabled(() async {
+                if (widgets.textEditor.controller.text.isNotEmpty) {
+                  await onSwipeUp(widgets.textEditor.controller.text);
+                }
+                widgets.onSwipeDown();
+              });
+            }
           default:
             break;
         }

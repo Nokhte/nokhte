@@ -153,11 +153,13 @@ abstract class _PresetsWidgetsCoordinatorBase
             if (firstCardIsSelected) {
               onSwipeLeft();
             }
+            Timer(Seconds.get(1), () {
+              condensedPresetCards.enableAllTouchFeedback();
+            });
             Timer(Seconds.get(firstCardIsSelected ? 0 : 1), () {
               condensedPresetCards.initSelectionMovie(currentHeldIndex);
               firstCardIsSelected = true;
             });
-            condensedPresetCards.enableAllTouchFeedback();
             await onSelected(presetCards.currentlySelectedSessionUID);
           }
         }

@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -72,6 +74,12 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
     setSmartTextSubMessagePaddingScalar(110);
   }
 
+  @observable
+  double bumpFactor = 0.003;
+
+  @action
+  setBumpFactor(double val) => bumpFactor = val;
+
   @action
   constructor(Offset center) {
     // transition into joining session is not working here
@@ -95,6 +103,10 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (smartText.currentIndex == 1) {
         initToRightInstructionalNokhte();
+
+        setSmartTextPadding(
+          topPadding: .2,
+        );
         qrCode.setWidgetVisibility(false);
         swipeGuide.setWidgetVisibility(false);
         homeInstructionalNokhte.setWidgetVisibility(false);
@@ -141,7 +153,10 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
       baseOnInitInstructionMode(
         excludePaddingAdjuster: true,
       );
-      setSmartTextPadding(topPadding: .13);
+      setSmartTextPadding(topPadding: .15);
+      Timer(Seconds.get(1, milli: 500), () {
+        setBumpFactor(0.001);
+      });
       qrCode.setWidgetVisibility(false);
       homeInstructionalNokhte.setWidgetVisibility(true);
       homeInstructionalNokhte.initMovie(
@@ -176,6 +191,7 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
             if (qrCode.qrCodeData.isNotEmpty) {
               qrCode.setWidgetVisibility(true);
             }
+            setBumpFactor(0.003);
             setSmartTextTopPaddingScalar(0.2);
             setSmartTextBottomPaddingScalar(0);
             setSmartTextSubMessagePaddingScalar(110);
