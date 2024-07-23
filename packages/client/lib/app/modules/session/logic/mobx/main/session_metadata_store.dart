@@ -40,7 +40,7 @@ abstract class _SessionMetadataStoreBase
   bool userCanSpeak = false;
 
   @observable
-  ObservableList<double> currentPhases = ObservableList.of([]);
+  ObservableList<double> currentPhases = ObservableList.of(List.filled(9, -9));
 
   @observable
   bool isAPremiumSession = false;
@@ -104,6 +104,7 @@ abstract class _SessionMetadataStoreBase
 
   @action
   _getStaticMetadata() async {
+    print("was getting the static stuff called??");
     final res = await getterLogic(NoParams());
     res.fold((failure) => mapFailureToMessage(failure), (entity) async {
       leaderIsWhitelisted = entity.leaderIsWhitelisted;
@@ -122,7 +123,6 @@ abstract class _SessionMetadataStoreBase
         });
       }
     });
-    //
   }
 
   @action
@@ -146,8 +146,9 @@ abstract class _SessionMetadataStoreBase
           sessionHasBegun = value.sessionHasBegun;
           userIsSpeaking = value.userIsSpeaking;
           userCanSpeak = value.userCanSpeak;
+
+          setState(StoreState.loaded);
         });
-        setState(StoreState.loaded);
       },
     );
   }
