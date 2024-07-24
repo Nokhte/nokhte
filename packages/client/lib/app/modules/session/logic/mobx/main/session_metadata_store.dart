@@ -28,7 +28,7 @@ abstract class _SessionMetadataStoreBase
   }
 
   @observable
-  int userIndex = -1;
+  int userIndex = 0;
 
   @observable
   bool everyoneIsOnline = false;
@@ -88,9 +88,17 @@ abstract class _SessionMetadataStoreBase
   StreamSubscription streamSubscription =
       const Stream.empty().listen((event) {});
 
-  dispose() async {
-    await streamSubscription.cancel();
-    await sessionMetadata.close();
+  @action
+  resetValues() {
+    setState(StoreState.initial);
+    presetName = '';
+    currentPhases = ObservableList.of(List.filled(9, -9));
+  }
+
+  @action
+  dispose() {
+    streamSubscription = const Stream.empty().listen((event) {});
+    sessionMetadata = ObservableStream(const Stream.empty());
   }
 
   @action
@@ -104,16 +112,15 @@ abstract class _SessionMetadataStoreBase
 
   @action
   _getStaticMetadata() async {
-    print("was getting the static stuff called??");
     final res = await getterLogic(NoParams());
     res.fold((failure) => mapFailureToMessage(failure), (entity) async {
-      leaderIsWhitelisted = entity.leaderIsWhitelisted;
       isAPremiumSession = entity.isAPremiumSession;
       isAValidSession = entity.isAValidSession;
-      leaderUID = entity.leaderUID;
-      userIndex = entity.userIndex;
-      presetUID = entity.presetUID;
       if (presetName.isEmpty) {
+        userIndex = entity.userIndex;
+        leaderIsWhitelisted = entity.leaderIsWhitelisted;
+        presetUID = entity.presetUID;
+        leaderUID = entity.leaderUID;
         final res = await presetLogic(presetUID);
         res.fold((failure) => mapFailureToMessage(failure), (presetEntity) {
           presetName = presetEntity.name;
@@ -127,6 +134,7 @@ abstract class _SessionMetadataStoreBase
 
   @action
   Future<void> get(params) async {
+    resetValues();
     final result = await listenLogic(params);
     result.fold(
       (failure) {
@@ -151,21 +159,6 @@ abstract class _SessionMetadataStoreBase
         });
       },
     );
-  }
-
-  List<List> splitList(List motherList) {
-    List evenList = [];
-    List oddList = [];
-
-    for (int i = 0; i < motherList.length; i++) {
-      if (i.isEven) {
-        evenList.add(motherList[i]);
-      } else {
-        oddList.add(motherList[i]);
-      }
-    }
-
-    return [evenList, oddList];
   }
 
   SessionScreenTypes fromRawScreenType(String param) {
@@ -200,9 +193,6 @@ abstract class _SessionMetadataStoreBase
   double get userPhase => currentPhases[userIndex];
 
   @computed
-  List get evenList => splitList(currentPhases)[0];
-
-  @computed
   int get numberOfAffirmative {
     int count = 0;
     for (double value in currentPhases) {
@@ -224,16 +214,6 @@ abstract class _SessionMetadataStoreBase
     } else {
       return PresetTypes.none;
     }
-  }
-
-  @computed
-  List get oddList => splitList(currentPhases)[1];
-
-  @computed
-  List get everyoneButUserPhases {
-    final phases = currentPhases.map((e) => e).toList();
-    phases.removeAt(userIndex);
-    return phases;
   }
 
   @computed

@@ -60,9 +60,6 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
     constructorHasBeenCalled = true;
   }
 
-  @action
-  invisiblizePrimarySmartText() => primarySmartText.setWidgetVisibility(false);
-
   @observable
   bool isFirstTap = true;
 
@@ -84,9 +81,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
 
   @action
   onQrCodeReady(String data) {
-    if (!hasReceivedRoutingArgs && constructorHasBeenCalled) {
-      // primarySmartText.setMessagesData(SessionLists.followerLobby);
-      // primarySmartText.startRotatingText();
+    if (!hasReceivedRoutingArgs && qrCode.qrCodeData.isEmpty) {
       Timer.periodic(Seconds.get(0, milli: 100), (timer) {
         if (constructorHasBeenCalled) {
           qrCode.setWidgetVisibility(true);
@@ -105,16 +100,18 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
     required String presetName,
     required List presetTags,
   }) {
-    Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      if (constructorHasBeenCalled) {
-        primarySmartText.setMessagesData(SessionLists.lobby(presetName));
-        presetInfoRecieved = true;
-        primarySmartText.startRotatingText(isResuming: true);
-        presetIcons.setTags(tags: presetTags);
-        presetIcons.setWidgetVisibility(true);
-        timer.cancel();
-      }
-    });
+    if (!presetInfoRecieved) {
+      Timer.periodic(Seconds.get(0, milli: 100), (timer) {
+        if (constructorHasBeenCalled) {
+          primarySmartText.setMessagesData(SessionLists.lobby(presetName));
+          presetInfoRecieved = true;
+          primarySmartText.startRotatingText(isResuming: true);
+          presetIcons.setTags(tags: presetTags);
+          presetIcons.setWidgetVisibility(true);
+          timer.cancel();
+        }
+      });
+    }
   }
 
   @action
@@ -173,7 +170,6 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
 
   smartTextIndexReactor() =>
       reaction((p0) => primarySmartText.currentIndex, (p0) {
-        print("p0 = $p0 && isFirstTap = $isFirstTap");
         if (isFirstTap) {
           if (p0 == 3) {
             primarySmartText.setCurrentIndex(1);

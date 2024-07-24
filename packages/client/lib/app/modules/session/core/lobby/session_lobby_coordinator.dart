@@ -86,7 +86,9 @@ abstract class _SessionLobbyCoordinatorBase
     ));
     disposers.add(sessionStartReactor());
     disposers.add(widgets.beachWavesMovieStatusReactor(enterGreeter));
-    disposers.add(sessionPresetReactor());
+    if (hasReceivedRoutingArgs) {
+      disposers.add(sessionPresetReactor());
+    }
   }
 
   canStartTheSessionReactor() =>
@@ -126,8 +128,7 @@ abstract class _SessionLobbyCoordinatorBase
               onTap: () async {
                 await presence.startTheSession();
                 await captureStart(sessionMetadata.numberOfCollaborators);
-                if (hasReceivedRoutingArgs &&
-                    !sessionMetadata.isAValidSession) {
+                if (!sessionMetadata.isAValidSession) {
                   await activeMonetizationSession.startMonetizationSession();
                 }
               },
