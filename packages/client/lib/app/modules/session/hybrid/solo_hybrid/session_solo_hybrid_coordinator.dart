@@ -37,6 +37,7 @@ abstract class _SessionSoloHybridCoordinatorBase
   @action
   constructor() async {
     widgets.constructor(sessionMetadata.userCanSpeak);
+    swipe.setMinDistance(100.0);
     initReactors();
     await presence.updateCurrentPhase(2.0);
     await captureScreen(SessionConstants.soloHybrid);

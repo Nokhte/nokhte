@@ -40,6 +40,7 @@ abstract class _SessionGroupHybridCoordinatorBase
   constructor() async {
     widgets.constructor(sessionMetadata.userCanSpeak);
     initReactors();
+    swipe.setMinDistance(100.0);
     await presence.updateCurrentPhase(2.0);
     await captureScreen(SessionConstants.groupHybrid);
   }
