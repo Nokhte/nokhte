@@ -41,15 +41,16 @@ abstract class _SocraticSpeakingExitCoordinatorBase
     widgets.constructor();
     await presence.updateCurrentPhase(3.0);
     sessionMetadata.setAffirmativePhase(3.0);
-    setDisableAllTouchFeedback(true);
+    swipe.setMinDistance(100.0);
     initReactors();
+    disposers.add(
+      userPhaseReactor(
+        initWrapUp: () {
+          widgets.initNotesTransition();
+        },
+      ),
+    );
   }
-
-  // @observable
-  // bool blockUserPhaseReactor = false;
-
-  // @action
-  // setBlockUserPhaseReactor(bool newVal) => blockUserPhaseReactor = newVal;
 
   @action
   initReactors() {
@@ -72,44 +73,9 @@ abstract class _SocraticSpeakingExitCoordinatorBase
         widgets.onCollaboratorLeft();
       },
     ));
-    disposers.add(
-      userPhaseReactor(
-        initShowStatus: () {
-          widgets.initStartingMovie(
-            totalAffirmative: sessionMetadata.numberOfAffirmative,
-            totalNumberOfCollaborators: sessionMetadata.numberOfCollaborators,
-          );
-        },
-        initWrapUp: () {
-          widgets.initNotesTransition();
-        },
-      ),
-    );
+
     disposers.add(swipeReactor(onSwipeDown: () {
-      widgets.onSwipeDown();
+      widgets.initBackToSpeaking();
     }));
-    disposers.add(
-      widgets.sessionExitStatusCompletionReactor(
-        onInitialized: () {
-          setDisableAllTouchFeedback(false);
-          if (sessionMetadata.numberOfAffirmative ==
-              sessionMetadata.numberOfCollaborators) {
-            widgets.onNumOfAffirmativeChanged(
-              totalNumberOfCollaborators: sessionMetadata.numberOfCollaborators,
-              totalAffirmative: sessionMetadata.numberOfAffirmative,
-            );
-            // widgets.initNotesTransition();
-            setBlockUserPhaseReactor(true);
-          } else {
-            disposers.add(
-              numberOfAffirmativeReactor(
-                onInit: widgets.onNumOfAffirmativeChanged,
-                onComplete: () {},
-              ),
-            );
-          }
-        },
-      ),
-    );
   }
 }
