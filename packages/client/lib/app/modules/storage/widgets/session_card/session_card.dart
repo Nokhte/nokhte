@@ -21,6 +21,7 @@ class SessionCard extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final height = useFullScreenSize().height;
+    final screenSize = useFullScreenSize();
     return Observer(
       builder: (context) {
         return AnimatedOpacity(
@@ -47,7 +48,6 @@ class SessionCard extends HookWidget {
                 }
                 return GestureDetector(
                   onTap: () => store.onTap(index),
-                  onDoubleTap: () => store.onDoubleTap(index),
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: height * .04),
                     child: Container(
@@ -58,42 +58,69 @@ class SessionCard extends HookWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5.0, horizontal: 5.0),
-                            child: Theme(
-                              data: ThemeData(
-                                textSelectionTheme:
-                                    const TextSelectionThemeData(
-                                  selectionColor:
-                                      Color.fromARGB(255, 7, 190, 172),
-                                ),
-                              ),
-                              child: TextFormField(
-                                focusNode: store.focusNodes[index],
-                                controller: store.textEditingControllers[index],
-                                readOnly: store.isReadOnly,
-                                onFieldSubmitted: (value) => store.onEdit(
-                                    sessions[index].sessionUID, value, index),
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.jost(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
-                                onTap: () => store.onTap(index),
-                                onTapOutside: (event) =>
-                                    store.focusNodes[index].unfocus(),
-                                cursorColor: Colors.white,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "A memorable title",
-                                  hintStyle: TextStyle(
-                                    fontSize: 18.0,
-                                    color: Colors.white.withOpacity(.4),
+                          // Jost('hi'),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            // mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 60,
+                                  ),
+                                  // padding: const EdgeInsets.symmetric(
+                                  //     vertical: 5.0, horizontal: 5.0),
+                                  child: Theme(
+                                    data: ThemeData(
+                                      textSelectionTheme:
+                                          const TextSelectionThemeData(
+                                        selectionColor:
+                                            Color.fromARGB(255, 7, 190, 172),
+                                      ),
+                                    ),
+                                    child: TextFormField(
+                                      focusNode: store.focusNodes[index],
+                                      controller:
+                                          store.textEditingControllers[index],
+                                      readOnly: store.isReadOnly,
+                                      onFieldSubmitted: (value) => store.onEdit(
+                                          sessions[index].sessionUID,
+                                          value,
+                                          index),
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.jost(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                      ),
+                                      onTap: () => store.onDoubleTap(index),
+                                      onTapOutside: (event) =>
+                                          store.focusNodes[index].unfocus(),
+                                      cursorColor: Colors.white,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: "A memorable title",
+                                        hintStyle: TextStyle(
+                                          fontSize: 18.0,
+                                          color: Colors.white.withOpacity(.4),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                              GestureDetector(
+                                onTap: () => store.onDoubleTap(index),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 10.0),
+                                  child: NotesIcon(
+                                    containerSize: useScaledSize(
+                                        baseValue: .18, screenSize: screenSize),
+                                    shouldAnimate: false,
+                                  ),
+                                ),
+                              )
+                              // Jost('hi'),
+                            ],
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5.0),

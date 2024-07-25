@@ -128,7 +128,9 @@ abstract class _StorageHomeWidgetsCoordinatorBase
   @action
   onGestureCrossTap() {
     if (isAllowedToInteract) {
-      if (!hasInitiatedBlur && canTapOnGestureCross) {
+      if (!hasInitiatedBlur &&
+          canTapOnGestureCross &&
+          beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
         sessionCard.setDisableTouchInput(true);
         blur.init();
         hasInitiatedBlur = true;

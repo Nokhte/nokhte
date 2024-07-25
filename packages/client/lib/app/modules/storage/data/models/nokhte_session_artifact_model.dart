@@ -26,7 +26,21 @@ class NokhteSessionArtifactModel extends NokhteSessionArtifactEntity {
         if (nokhteSession[FinishedNokhteSessionQueries.COLLABORATOR_UIDS]
                 .contains(collaboratorRow["uid"]) &&
             nokhteSession[FinishedNokhteSessionQueries.CONTENT].isNotEmpty) {
-          String title = 'Session with ${collaboratorRow["first_name"]}';
+          String title = '';
+          final userIndex =
+              nokhteSession[FinishedNokhteSessionQueries.COLLABORATOR_UIDS]
+                          .first ==
+                      userUID
+                  ? 0
+                  : 1;
+          if (nokhteSession[FinishedNokhteSessionQueries.ALIASES][userIndex]
+              .isEmpty) {
+            title = 'Session with ${collaboratorRow["first_name"]}';
+          } else {
+            title =
+                nokhteSession[FinishedNokhteSessionQueries.ALIASES][userIndex];
+          }
+
           final date = DateTime.parse(
               nokhteSession[FinishedNokhteSessionQueries.SESSION_TIMESTAMP]);
           temp.add(NokhteSessionArtifactModel(
