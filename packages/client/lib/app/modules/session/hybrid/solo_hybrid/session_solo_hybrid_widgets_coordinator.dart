@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -15,15 +14,16 @@ class SessionSoloHybridWidgetsCoordinator = _SessionSoloHybridWidgetsCoordinator
     with _$SessionSoloHybridWidgetsCoordinator;
 
 abstract class _SessionSoloHybridWidgetsCoordinatorBase
-    with Store, BaseWidgetsCoordinator, Reactions {
-  final MirroredTextStore mirroredText;
+    with Store, BaseWidgetsCoordinator, Reactions, TouchRippleUtils {
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
-  final BeachWavesStore beachWaves;
   final BorderGlowStore borderGlow;
-  final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
   final HalfScreenTintStore othersAreTalkingTint;
+  @override
+  final BeachWavesStore beachWaves;
+  @override
+  final TouchRippleStore touchRipple;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
@@ -32,7 +32,6 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
     required this.secondarySmartText,
     required this.othersAreTalkingTint,
     required this.wifiDisconnectOverlay,
-    required this.mirroredText,
     required this.beachWaves,
     required this.borderGlow,
     required this.touchRipple,
@@ -43,8 +42,8 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
 
   @action
   constructor(bool userCanSpeak) {
+    tapStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
-    mirroredText.setMessagesData(MirroredTextContent.hybrid);
     primarySmartText.setMessagesData(SessionLists.tapToTalk);
     secondarySmartText.setMessagesData(SessionLists.tapToTakeANote);
     primarySmartText.setStaticAltMovie(SessionConstants.blue);
@@ -76,21 +75,6 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
   @observable
   bool isGoingToNotes = false;
 
-  @computed
-  bool get speakLessWriteMoreIsVisible => speakLessWriteMoreVisiblities.last;
-
-  @computed
-  bool get pastSpeakLessWriteMoreVisiblity =>
-      speakLessWriteMoreVisiblities[speakLessWriteMoreVisiblities.length - 2];
-
-  @observable
-  ObservableList speakLessWriteMoreVisiblities =
-      ObservableList.of(List.filled(2, false));
-
-  @action
-  setSpeakLessWriteMoreVisiblity(bool newVal) =>
-      speakLessWriteMoreVisiblities.add(newVal);
-
   @action
   setIsHolding(bool newBool) => isHolding = newBool;
 
@@ -109,19 +93,21 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
   @observable
   int tapCount = 0;
 
+  Stopwatch tapStopwatch = Stopwatch();
+
   @action
   onCollaboratorLeft() {
     setSmartTextVisibilities(false);
-    mirroredText.setWidgetVisibility(false);
+    primarySmartText.setWidgetVisibility(false);
+    secondarySmartText.setWidgetVisibility(false);
     collaboratorHasLeft = true;
   }
 
   @action
   onCollaboratorJoined() {
-    mirroredText.setWidgetVisibility(true);
     collaboratorHasLeft = false;
-    primarySmartText.setWidgetVisibility(primarySmartText.pastShowWidget);
-    secondarySmartText.setWidgetVisibility(secondarySmartText.pastShowWidget);
+    primarySmartText.setWidgetVisibility(true);
+    secondarySmartText.setWidgetVisibility(true);
   }
 
   @action
@@ -150,16 +136,17 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
     required GesturePlacement tapPlacement,
     required Function asyncTapCall,
   }) async {
-    touchRipple.onTap(tapPosition, adjustColorBasedOnPosition: true);
-    if (tapPlacement == GesturePlacement.topHalf) {
-      if (!speakLessWriteMoreIsVisible) {
-        if (!isHolding && canHold) {
-          tapCount++;
+    if (tapStopwatch.elapsedMilliseconds > 1000 || tapCount == 0) {
+      touchRipple.onTap(tapPosition, adjustColorBasedOnPosition: true);
+      if (tapPlacement == GesturePlacement.topHalf) {
+        if (!isHolding && canHold && !collaboratorHasLeft) {
           initFullScreenNotes();
         }
+      } else {
+        await asyncTapCall();
       }
-    } else {
-      await asyncTapCall();
+      tapCount++;
+      tapStopwatch.reset();
     }
   }
 
@@ -178,18 +165,15 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
     isHolding = false;
     isLettingGo = false;
     if (!collaboratorHasLeft) {
-      mirroredText.setUpsideDownVisibility(true);
+      setSmartTextVisibilities(true);
     }
-    if (!speakLessWriteMoreIsVisible) {
-      mirroredText.setRightSideUpVisibility(true);
-    }
-    setSmartTextVisibilities(true);
   }
 
   @action
   initFullScreenNotes() {
+    tapStopwatch.stop();
     isGoingToNotes = true;
-    mirroredText.setWidgetVisibility(false);
+    setSmartTextVisibilities(false);
     beachWaves.setMovieMode(
       BeachWaveMovieModes.skyToHalfAndHalf,
     );
@@ -220,8 +204,9 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
 
   @action
   onExit() {
+    tapStopwatch.stop();
     setIsExiting(true);
-    mirroredText.setWidgetVisibility(false);
+    setSmartTextVisibilities(false);
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     setSmartTextVisibilities(false);
     beachWaves.currentStore.reverseMovie(NoParams());
@@ -253,9 +238,9 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
             if (isExiting) {
-              Modular.to.navigate(SessionConstants.exit);
+              onReadyToNavigate(SessionConstants.exit);
             } else if (isGoingToNotes) {
-              Modular.to.navigate(SessionConstants.notes);
+              onReadyToNavigate(SessionConstants.notes);
             }
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.anyToHalfAndHalf) {

@@ -345,7 +345,9 @@ abstract class _SessionStarterWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!isDisconnected && isAllowedToMakeGesture()) {
+    if (!isDisconnected &&
+        isAllowedToMakeGesture() &&
+        beachWaves.movieMode == BeachWaveMovieModes.invertedOnShore) {
       if (!hasInitiatedBlur && !hasSwiped()) {
         setTouchIsDisabled(true);
         setSwipeDirection(GestureDirections.initial);

@@ -38,6 +38,7 @@ abstract class _SessionNotesCoordinatorBase
     widgets.setScreenType(sessionMetadata.sessionScreenType);
     widgets.setPresetType(sessionMetadata.presetType);
     widgets.constructor();
+    swipe.setMinDistance(100.0);
     initReactors();
     if (isNotASocraticSession) {
       await presence.updateCurrentPhase(2.0);

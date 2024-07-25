@@ -40,6 +40,7 @@ abstract class _SessionGroupHybridCoordinatorBase
   constructor() async {
     widgets.constructor(sessionMetadata.userCanSpeak);
     initReactors();
+    swipe.setMinDistance(100.0);
     await presence.updateCurrentPhase(2.0);
     await captureScreen(SessionConstants.groupHybrid);
   }
@@ -70,10 +71,10 @@ abstract class _SessionGroupHybridCoordinatorBase
         setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
       },
-      onCollaboratorLeft: () {
+      onCollaboratorLeft: () async {
         setDisableAllTouchFeedback(true);
         if (hold.holdCount.isGreaterThan(hold.letGoCount)) {
-          widgets.onLetGo();
+          await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
         }
         widgets.onCollaboratorLeft();
       },

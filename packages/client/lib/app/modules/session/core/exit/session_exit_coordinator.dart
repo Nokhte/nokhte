@@ -8,7 +8,6 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/modules/session/session.dart';
@@ -74,6 +73,13 @@ abstract class _SessionExitCoordinatorBase
     setDisableAllTouchFeedback(true);
     await presence.updateCurrentPhase(4.0);
     sessionMetadata.setAffirmativePhase(4.0);
+    disposers.add(
+      userPhaseReactor(
+        initWrapUp: () async => await onReturnHome(),
+      ),
+    );
+    swipe.setMinDistance(100.0);
+    await getUserInfo(NoParams());
     await captureScreen(SessionConstants.exit);
   }
 
@@ -82,12 +88,6 @@ abstract class _SessionExitCoordinatorBase
 
   @action
   setIsGoingHome(bool newVal) => isGoingHome = newVal;
-
-  // @observable
-  // bool blockUserPhaseReactor = false;
-
-  // @action
-  // setBlockUserPhaseReactor(bool newVal) => blockUserPhaseReactor = newVal;
 
   @action
   initReactors() {
@@ -110,56 +110,26 @@ abstract class _SessionExitCoordinatorBase
         widgets.onCollaboratorLeft();
       },
     ));
-    disposers.add(widgets.beachWavesMovieStatusReactor(
-        onToHomeComplete: onAnimationComplete,
-        onReturnToTalkingComplete: () {
-          if (phoneRole == SessionScreenTypes.speaking) {
-            Modular.to.navigate(SessionConstants.speaking);
-          } else {
-            Modular.to.navigate(SessionConstants.soloHybrid);
-          }
-        },
-        onReturnToHybridComplete: () {
-          Modular.to.navigate(SessionConstants.groupHybrid);
-        }));
+    disposers.add(widgets.beachWavesMovieStatusReactor(onToHomeComplete: () {
+      if (getUserInfo.hasDoneASession) {
+        Modular.to.navigate(HomeConstants.qrAndStorageAdept);
+      } else {
+        Modular.to.navigate(HomeConstants.storageGuide);
+      }
+    }, onReturnToTalkingComplete: () {
+      if (phoneRole == SessionScreenTypes.speaking) {
+        Modular.to.navigate(SessionConstants.speaking);
+      } else {
+        Modular.to.navigate(SessionConstants.soloHybrid);
+      }
+    }, onReturnToHybridComplete: () {
+      Modular.to.navigate(SessionConstants.groupHybrid);
+    }));
     if (isNotASocraticSession) {
       disposers.add(swipeReactor(onSwipeDown: () {
         widgets.onReadyToGoBack(phoneRole);
       }));
     }
-    disposers.add(
-      userPhaseReactor(
-        initShowStatus: () => widgets.initStartingMovie(
-          totalAffirmative: sessionMetadata.numberOfAffirmative,
-          totalNumberOfCollaborators: sessionMetadata.numberOfCollaborators,
-        ),
-        initWrapUp: () async => await onReturnHome(),
-      ),
-    );
-    disposers.add(
-      widgets.sessionExitStatusCompletionReactor(
-        onInitialized: () {
-          setDisableAllTouchFeedback(false);
-          if (sessionMetadata.userPhase == -1.0) {
-            setBlockUserPhaseReactor(true);
-            widgets.onNumOfAffirmativeChanged(
-              totalNumberOfCollaborators: widgets.totalNumberOfCollaborators,
-              totalAffirmative: widgets.totalNumberOfCollaborators,
-            );
-          } else {
-            disposers.add(
-              numberOfAffirmativeReactor(
-                onInit: widgets.onNumOfAffirmativeChanged,
-                onComplete: () {
-                  setShowCollaboratorIncidents(false);
-                },
-              ),
-            );
-          }
-        },
-        onReadyToGoHome: () async => await onReturnHome(),
-      ),
-    );
   }
 
   @action
@@ -170,9 +140,6 @@ abstract class _SessionExitCoordinatorBase
       await presence.completeTheSession();
       await captureEnd(NoParams());
     }
-    Timer(Seconds.get(1), () async {
-      await getUserInfo(NoParams());
-    });
     widgets.initHomeTransition();
   }
 
@@ -184,6 +151,7 @@ abstract class _SessionExitCoordinatorBase
       sessionMetadata.presetType != PresetTypes.socratic;
 
   deconstructor() {
+    presence.dispose();
     dispose();
   }
 }

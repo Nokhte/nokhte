@@ -75,7 +75,7 @@ abstract class _SessionPresenceCoordinatorBase with Store, BaseMobxLogic {
   dispose() async {
     setState(StoreState.loading);
     final res = cancelSessionMetadataStreamLogic(NoParams());
-    await sessionMetadataStore.dispose();
+    sessionMetadataStore.dispose();
     isListening = res;
     setState(StoreState.loaded);
   }
