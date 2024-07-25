@@ -159,7 +159,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!isDisconnected && isAllowedToMakeGesture()) {
+    if (!isDisconnected && isAllowedToMakeGesture() && !hasSwiped()) {
       if (!hasInitiatedBlur) {
         baseOnInitInstructionMode(
           excludeSmartTextRotation: true,
