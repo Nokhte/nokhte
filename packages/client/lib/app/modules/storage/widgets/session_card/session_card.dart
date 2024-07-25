@@ -58,18 +58,14 @@ class SessionCard extends HookWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // Jost('hi'),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            // mainAxisSize: MainAxisSize.min,
                             children: [
                               Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.only(
                                     left: 60,
                                   ),
-                                  // padding: const EdgeInsets.symmetric(
-                                  //     vertical: 5.0, horizontal: 5.0),
                                   child: Theme(
                                     data: ThemeData(
                                       textSelectionTheme:
@@ -119,7 +115,6 @@ class SessionCard extends HookWidget {
                                   ),
                                 ),
                               )
-                              // Jost('hi'),
                             ],
                           ),
                           Padding(
