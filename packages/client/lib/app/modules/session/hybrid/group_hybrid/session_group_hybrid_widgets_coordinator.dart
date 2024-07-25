@@ -152,10 +152,7 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
     isHolding = false;
     isLettingGo = false;
     if (!collaboratorHasLeft) {
-      mirroredText.setUpsideDownVisibility(true);
-    }
-    if (!speakLessWriteMoreIsVisible) {
-      mirroredText.setRightSideUpVisibility(true);
+      mirroredText.setWidgetVisibility(true);
     }
   }
 

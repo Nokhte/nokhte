@@ -52,8 +52,11 @@ abstract class _SessionSoloHybridCoordinatorBase
   initReactors() {
     disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
-      onLongReConnected: () {
+      onLongReConnected: () async {
         setDisableAllTouchFeedback(false);
+        if (sessionMetadata.userIsSpeaking) {
+          await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
+        }
       },
       onDisconnected: () {
         setDisableAllTouchFeedback(true);
@@ -67,10 +70,10 @@ abstract class _SessionSoloHybridCoordinatorBase
         setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
       },
-      onCollaboratorLeft: () {
+      onCollaboratorLeft: () async {
         setDisableAllTouchFeedback(true);
-        if (widgets.holdCount.isGreaterThan(widgets.letGoCount)) {
-          widgets.onLetGo();
+        if (sessionMetadata.userIsSpeaking) {
+          await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
         }
         widgets.onCollaboratorLeft();
       },

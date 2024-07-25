@@ -71,10 +71,10 @@ abstract class _SessionGroupHybridCoordinatorBase
         setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
       },
-      onCollaboratorLeft: () {
+      onCollaboratorLeft: () async {
         setDisableAllTouchFeedback(true);
         if (hold.holdCount.isGreaterThan(hold.letGoCount)) {
-          widgets.onLetGo();
+          await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
         }
         widgets.onCollaboratorLeft();
       },

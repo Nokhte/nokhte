@@ -60,9 +60,6 @@ class SessionSoloHybridScreen extends HookWidget {
                   opacityDuration: Seconds.get(1),
                 ),
               ),
-              MirroredText(
-                store: coordinator.widgets.mirroredText,
-              ),
               SpeakLessSmileMore(
                 store: coordinator.widgets.speakLessSmileMore,
               ),
