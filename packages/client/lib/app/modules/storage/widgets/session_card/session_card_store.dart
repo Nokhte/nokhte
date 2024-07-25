@@ -40,6 +40,12 @@ abstract class _SessionCardStoreBase extends BaseWidgetStore with Store {
     disableTouchInput = true;
   }
 
+  @action
+  onTapOutside(int index) {
+    focusNodes[index].unfocus();
+    disableTouchInput = false;
+  }
+
   @observable
   String lastEditedId = '';
 
