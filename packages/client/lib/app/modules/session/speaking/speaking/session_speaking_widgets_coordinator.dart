@@ -38,11 +38,14 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   }
 
   @action
-  constructor() {
+  constructor(bool userCanSpeak) {
     beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
     mirroredText.setMessagesData(MirroredTextContent.sessionSpeaking);
     mirroredText.startBothRotatingText();
     setIsLeaving(false);
+    if (!userCanSpeak) {
+      tint.initMovie(NoParams());
+    }
     initReactors();
   }
 
@@ -143,6 +146,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   }) {
     setIsLeaving(true);
     mirroredText.setWidgetVisibility(false);
+    tint.reverseMovie(NoParams());
     if (isASocraticSession) {
       beachWaves.setMovieMode(BeachWaveMovieModes.orangeSandToHalfAndHalf);
     } else {
