@@ -257,19 +257,16 @@ class SessionLists {
   ];
 
   static List<RotatingTextData> showGroupGeometry = [
-    RotatingTextData(
-      text: "2 Person Group",
-      pauseHere: true,
+    SharedLists.customTapToConfirmSub(
+      "2 Person Group",
     ),
     SharedLists.emptyItem,
-    RotatingTextData(
-      text: "3 Person Group",
-      pauseHere: true,
+    SharedLists.customTapToConfirmSub(
+      "3 Person Group",
     ),
     SharedLists.emptyItem,
-    RotatingTextData(
-      text: "4 Person Group",
-      pauseHere: true,
+    SharedLists.customTapToConfirmSub(
+      "4 Person Group",
     ),
     SharedLists.emptyItem,
   ];

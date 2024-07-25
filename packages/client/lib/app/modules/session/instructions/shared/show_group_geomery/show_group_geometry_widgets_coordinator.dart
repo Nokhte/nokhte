@@ -1,10 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -17,10 +14,12 @@ class ShowGroupGeometryWidgetsCoordinator = _ShowGroupGeometryWidgetsCoordinator
     with _$ShowGroupGeometryWidgetsCoordinator;
 
 abstract class _ShowGroupGeometryWidgetsCoordinatorBase
-    with Store, BaseWidgetsCoordinator, Reactions {
+    with Store, BaseWidgetsCoordinator, Reactions, TouchRippleUtils {
   final PresetDiagramStore presetDiagram;
-  final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
+  @override
+  final BeachWavesStore beachWaves;
+  @override
   final TouchRippleStore touchRipple;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
@@ -36,7 +35,7 @@ abstract class _ShowGroupGeometryWidgetsCoordinatorBase
   }
 
   @observable
-  bool canTap = false;
+  bool canTap = true;
 
   @action
   constructor({required bool isASocraticSession}) {
@@ -56,10 +55,17 @@ abstract class _ShowGroupGeometryWidgetsCoordinatorBase
   @action
   onTap(Offset tapPosition) {
     if (gestureIsAllowed) {
-      canTap = false;
-      presetDiagram.setWidgetVisibility(false);
-      beachWaves.setMovieMode(BeachWaveMovieModes.deepSeaToSky);
-      beachWaves.currentStore.initMovie(NoParams());
+      touchRipple.onTap(tapPosition);
+      if (smartText.currentIndex == 0) {
+        presetDiagram.initMovie(PresetDiagramMovieModes.consolidateThePair);
+        smartText.startRotatingText(isResuming: true);
+      } else if (smartText.currentIndex == 2) {
+        presetDiagram.initMovie(PresetDiagramMovieModes.trioConsolidation);
+        smartText.startRotatingText(isResuming: true);
+      } else if (smartText.currentIndex == 4) {
+        smartText.startRotatingText(isResuming: true);
+        presetDiagram.initMovie(PresetDiagramMovieModes.fourWayConsolidation);
+      }
     }
   }
 
@@ -77,40 +83,19 @@ abstract class _ShowGroupGeometryWidgetsCoordinatorBase
               presetDiagram.initMovie(PresetDiagramMovieModes.showBothLines);
             });
           } else if (presetDiagram.movieMode ==
-              PresetDiagramMovieModes.showBothLines) {
-            Timer(Seconds.get(1), () {
-              presetDiagram
-                  .initMovie(PresetDiagramMovieModes.consolidateThePair);
-              smartText.startRotatingText(isResuming: true);
-            });
-          } else if (presetDiagram.movieMode ==
               PresetDiagramMovieModes.consolidateThePair) {
             smartText.startRotatingText(isResuming: true);
             presetDiagram.initMovie(PresetDiagramMovieModes.trioExpansion);
-          } else if (presetDiagram.movieMode ==
-              PresetDiagramMovieModes.trioExpansion) {
-            Timer(Seconds.get(1), () {
-              smartText.startRotatingText(isResuming: true);
-              presetDiagram
-                  .initMovie(PresetDiagramMovieModes.trioConsolidation);
-            });
           } else if (presetDiagram.movieMode ==
               PresetDiagramMovieModes.trioConsolidation) {
             presetDiagram.initMovie(PresetDiagramMovieModes.fourWayExpansion);
             smartText.startRotatingText(isResuming: true);
           } else if (presetDiagram.movieMode ==
-              PresetDiagramMovieModes.fourWayExpansion) {
-            Timer(Seconds.get(1), () {
-              smartText.startRotatingText(isResuming: true);
-              presetDiagram
-                  .initMovie(PresetDiagramMovieModes.fourWayConsolidation);
-            });
-          } else if (presetDiagram.movieMode ==
               PresetDiagramMovieModes.fourWayConsolidation) {
             presetDiagram.initMovie(PresetDiagramMovieModes.hideSingleCircle);
           } else if (presetDiagram.movieMode ==
               PresetDiagramMovieModes.hideSingleCircle) {
-            Modular.to.navigate(SessionConstants.lobby);
+            onReadyToNavigate(SessionConstants.lobby);
           }
         }
       });
