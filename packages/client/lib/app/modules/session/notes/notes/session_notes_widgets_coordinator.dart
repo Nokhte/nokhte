@@ -100,8 +100,6 @@ abstract class _SessionNotesWidgetsCoordinatorBase
     if (!textEditor.focusNode.hasFocus) {
       if (textEditor.controller.text.length != (0)) {
         smartText.setWidgetVisibility(true);
-      } else {
-        textEditor.setWidgetVisibility(false);
       }
     } else {
       smartText.setWidgetVisibility(false);

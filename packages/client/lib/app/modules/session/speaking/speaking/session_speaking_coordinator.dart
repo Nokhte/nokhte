@@ -36,6 +36,7 @@ abstract class _SessionSpeakingCoordinatorBase
   @action
   constructor() async {
     widgets.constructor();
+    swipe.setMinDistance(100.0);
     await presence.updateCurrentPhase(2.0);
     initReactors();
     await captureScreen(SessionConstants.speaking);

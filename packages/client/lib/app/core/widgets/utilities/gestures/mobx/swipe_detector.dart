@@ -60,16 +60,25 @@ abstract class _SwipeDetector extends Equatable with Store {
     } else if (dragType == DragType.vertical) {
       final firstVal = mostRecentCoordinates.first.dy;
       final lastVal = mostRecentCoordinates.last.dy;
-      GestureDirections directionsComparison =
-          firstVal < lastVal ? GestureDirections.down : GestureDirections.up;
-      if (resetTheDirectionType) {
-        setDirectionsType(GestureDirections.initial);
-        resetTheDirectionType = false;
-      } else {
-        setDirectionsType(directionsComparison);
+      late GestureDirections directionsComparison;
+      if ((firstVal - lastVal).abs() > minSwipeDistance) {
+        directionsComparison =
+            firstVal < lastVal ? GestureDirections.down : GestureDirections.up;
+        if (resetTheDirectionType) {
+          setDirectionsType(GestureDirections.initial);
+          resetTheDirectionType = false;
+        } else {
+          setDirectionsType(directionsComparison);
+        }
       }
     }
   }
+
+  @observable
+  double minSwipeDistance = 0;
+
+  @action
+  setMinDistance(double val) => minSwipeDistance = val;
 
   @observable
   bool hasAlreadyMadeGesture = false;

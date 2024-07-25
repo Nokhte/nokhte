@@ -36,37 +36,13 @@ mixin BaseExitCoordinator on BaseCoordinator {
         }
       });
 
-  numberOfAffirmativeReactor({
-    required Function({
-      required int totalNumberOfCollaborators,
-      required int totalAffirmative,
-    }) onInit,
-    required Function onComplete,
-  }) =>
-      reaction((p0) => sessionMetadata.numberOfAffirmative, (p0) {
-        if (p0 == sessionMetadata.numberOfCollaborators) {
-          setBlockUserPhaseReactor(true);
-        }
-        onInit(
-          totalNumberOfCollaborators: sessionMetadata.numberOfCollaborators,
-          totalAffirmative: p0,
-        );
-      });
-
   userPhaseReactor({
     required Function initWrapUp,
-    required Function initShowStatus,
   }) =>
-      reaction((p0) => sessionMetadata.userPhase, (p0) async {
-        if (p0 == sessionMetadata.affirmativePhase) {
-          if ((sessionMetadata.numberOfAffirmative ==
-              sessionMetadata.numberOfCollaborators)) {
-            await initWrapUp();
-            setBlockUserPhaseReactor(true);
-          } else {
-            initShowStatus();
-          }
+      reaction((p0) => sessionMetadata.currentPhases.toString(), (p0) async {
+        if ((sessionMetadata.numberOfAffirmative ==
+            sessionMetadata.numberOfCollaborators)) {
+          await initWrapUp();
         }
       });
-  //
 }

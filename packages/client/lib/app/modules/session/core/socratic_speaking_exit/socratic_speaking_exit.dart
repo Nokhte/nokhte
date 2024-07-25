@@ -41,10 +41,6 @@ class SocraticSpeakingExitScreen extends HookWidget {
                 ),
               ),
               BorderGlow(store: BorderGlowStore()),
-              ExitStatusIndicator(
-                // useGradientRing: true,
-                store: coordinator.widgets.exitStatusIndicator,
-              ),
               SmartText(
                 store: coordinator.widgets.primarySmartText,
                 bottomPadding: .5,

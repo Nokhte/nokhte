@@ -42,7 +42,6 @@ abstract class _SessionPreviewWidgetsCoordinatorBase
     required String sessionName,
     required List tags,
   }) {
-    print("what happened??? $sessionName, $tags");
     presetCard.setExpandedCard(name: sessionName, tags: tags);
     primarySmartText.startRotatingText();
     presetCard.setWidgetVisibility(true);

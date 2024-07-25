@@ -36,15 +36,8 @@ abstract class _SessionCardStoreBase extends BaseWidgetStore with Store {
 
   @action
   onDoubleTap(int index) {
-    // if (!disableTouchInput) {
-    //   focusNodes[index].requestFocus();
-    //   setDisableTouchInput(true);
-    // }
-  }
-
-  @action
-  onEditingComplete() {
-    // setIsReadOnly(true);
+    focusNodes[index].requestFocus();
+    disableTouchInput = true;
   }
 
   @observable
@@ -67,6 +60,7 @@ abstract class _SessionCardStoreBase extends BaseWidgetStore with Store {
   @action
   onEdit(String sessionUID, String title, int index) {
     // setDisableTouchInput(false);
+    disableTouchInput = false;
     lastEditedId = sessionUID;
     lastEditedTitle = title;
     focusNodes[index].unfocus();

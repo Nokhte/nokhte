@@ -61,6 +61,7 @@ abstract class _SessionPaywallCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
+    swipe.setMinDistance(100.0);
     await iap.getSubscriptionInfo();
     await activeMonetizationSession.listenToExplanationCompletionStatus();
     await captureScreen(SessionConstants.paywall);

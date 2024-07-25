@@ -57,9 +57,7 @@ class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
     await for (var event in supabase
         .from("rt_active_nokhte_sessions")
         .stream(primaryKey: ['id'])) {
-      if (event.isEmpty) {
-        yield NokhteSessionMetadata.initial();
-      } else {
+      if (event.isNotEmpty) {
         yield NokhteSessionMetadata(
           phases: event.first[CURRENT_PHASES],
           userCanSpeak: event.first[SPEAKER_SPOTLIGHT] == null,

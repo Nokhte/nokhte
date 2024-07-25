@@ -47,9 +47,6 @@ class SessionExitScreen extends HookWidget {
                 config: GestureCrossConfiguration(),
                 store: coordinator.widgets.gestureCross,
               ),
-              ExitStatusIndicator(
-                store: coordinator.widgets.exitStatusIndicator,
-              ),
               Center(
                 child: SmartText(
                   store: coordinator.widgets.primarySmartText,

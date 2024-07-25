@@ -21,7 +21,7 @@ class StorageContentScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final center = useCenterOffset();
-    final height = useFullScreenSize().height;
+    final screenSize = useFullScreenSize();
     useEffect(() {
       coordinator.constructor(center);
       return () => coordinator.deconstructor();
@@ -41,8 +41,15 @@ class StorageContentScreen extends HookWidget {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(top: height * .11, bottom: height * .15),
+                  padding: EdgeInsets.only(
+                      top: useScaledSize(
+                        baseValue: .11,
+                        screenSize: screenSize,
+                      ),
+                      bottom: useScaledSize(
+                        baseValue: .15,
+                        screenSize: screenSize,
+                      )),
                   child: ContentCard(
                     store: coordinator.widgets.contentCard,
                     content: coordinator.nokhteSessionArtifacts.content,
@@ -66,7 +73,7 @@ class StorageContentScreen extends HookWidget {
                   config: GestureCrossConfiguration(
                     left: Right(
                       NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.home,
+                        gradientType: NokhteGradientTypes.storage,
                       ),
                     ),
                   ),

@@ -195,7 +195,7 @@ abstract class _PresetsWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!isDisconnected && isAllowedToMakeGesture()) {
+    if (!isDisconnected && isAllowedToMakeGesture() && !hasSwiped()) {
       if (!hasInitiatedBlur) {
         nokhteBlur.init();
         beachWaves.currentStore.setControl(Control.stop);

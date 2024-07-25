@@ -47,7 +47,12 @@ abstract class _ShowGroupGeometryCoordinatorBase
         setDisableAllTouchFeedback(true);
       },
     ));
+    disposers.add(tapReactor());
   }
+
+  tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
+        widgets.onTap(p0);
+      });
 
   deconstructor() {
     dispose();

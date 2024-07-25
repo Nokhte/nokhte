@@ -131,7 +131,9 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!isDisconnected && isAllowedToMakeGesture()) {
+    if (!isDisconnected &&
+        isAllowedToMakeGesture() &&
+        beachWaves.movieMode == BeachWaveMovieModes.onShore) {
       if (!hasInitiatedBlur) {
         baseOnInitInstructionMode(
           excludeSmartTextRotation: true,
