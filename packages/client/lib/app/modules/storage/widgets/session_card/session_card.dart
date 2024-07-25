@@ -94,7 +94,7 @@ class SessionCard extends HookWidget {
                                       ),
                                       onTap: () => store.onDoubleTap(index),
                                       onTapOutside: (event) =>
-                                          store.focusNodes[index].unfocus(),
+                                          store.onTapOutside(index),
                                       cursorColor: Colors.white,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
