@@ -71,13 +71,13 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase
         (p0) => hold.holdCount,
         (p0) {
           ifTouchIsNotDisabled(() {
-            widgets.initSpeakingMode();
+            widgets.onHold();
           });
         },
       );
 
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
-        widgets.revertSpeakingMode();
+        widgets.onLetGo();
         Timer(Seconds.get(2), () {
           setDisableAllTouchFeedback(false);
         });
