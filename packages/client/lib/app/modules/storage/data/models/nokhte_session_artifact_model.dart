@@ -21,38 +21,47 @@ class NokhteSessionArtifactModel extends NokhteSessionArtifactEntity {
     required String userUID,
   }) {
     List<NokhteSessionArtifactModel> temp = [];
+    Set<String> uniqueContents = {};
+
     for (var nokhteSession in nokhteSessionRes) {
       for (var collaboratorRow in collaboratorRowsRes) {
         if (nokhteSession[FinishedNokhteSessionQueries.COLLABORATOR_UIDS]
                 .contains(collaboratorRow["uid"]) &&
             nokhteSession[FinishedNokhteSessionQueries.CONTENT].isNotEmpty) {
-          String title = '';
-          final userIndex =
-              nokhteSession[FinishedNokhteSessionQueries.COLLABORATOR_UIDS]
-                          .first ==
-                      userUID
-                  ? 0
-                  : 1;
-          if (nokhteSession[FinishedNokhteSessionQueries.ALIASES][userIndex]
-              .isEmpty) {
-            title = 'Session with ${collaboratorRow["first_name"]}';
-          } else {
-            title =
-                nokhteSession[FinishedNokhteSessionQueries.ALIASES][userIndex];
-          }
+          final content = nokhteSession[FinishedNokhteSessionQueries.CONTENT];
+          final contentString = content.toString();
 
-          final date = DateTime.parse(
-              nokhteSession[FinishedNokhteSessionQueries.SESSION_TIMESTAMP]);
-          temp.add(NokhteSessionArtifactModel(
-            date: formatDate(date),
-            title: title,
-            content: nokhteSession[FinishedNokhteSessionQueries.CONTENT],
-            sessionUID: nokhteSession[FinishedNokhteSessionQueries.SESSION_UID],
-          ));
+          if (uniqueContents.add(contentString)) {
+            String title = '';
+            final userIndex =
+                nokhteSession[FinishedNokhteSessionQueries.COLLABORATOR_UIDS]
+                            .first ==
+                        userUID
+                    ? 0
+                    : 1;
+            if (nokhteSession[FinishedNokhteSessionQueries.ALIASES][userIndex]
+                .isEmpty) {
+              title = 'Session with ${collaboratorRow["first_name"]}';
+            } else {
+              title = nokhteSession[FinishedNokhteSessionQueries.ALIASES]
+                  [userIndex];
+            }
+            final date = DateTime.parse(
+              nokhteSession[FinishedNokhteSessionQueries.SESSION_TIMESTAMP],
+            );
+
+            temp.add(NokhteSessionArtifactModel(
+              date: formatDate(date),
+              title: title,
+              content: content,
+              sessionUID:
+                  nokhteSession[FinishedNokhteSessionQueries.SESSION_UID],
+            ));
+          }
         }
       }
-      temp = temp.toSet().toList();
     }
+
     return temp;
   }
 }

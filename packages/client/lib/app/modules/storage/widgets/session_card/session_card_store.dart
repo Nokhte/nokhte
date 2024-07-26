@@ -1,14 +1,17 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
 part 'session_card_store.g.dart';
 
 class SessionCardStore = _SessionCardStoreBase with _$SessionCardStore;
 
 abstract class _SessionCardStoreBase extends BaseWidgetStore with Store {
   @observable
-  ObservableList<FocusNode> focusNodes = ObservableList();
+  FocusNode focusNode = FocusNode();
 
   @observable
   ObservableList<bool> hasBeenInitiallySet = ObservableList.of(
@@ -29,21 +32,39 @@ abstract class _SessionCardStoreBase extends BaseWidgetStore with Store {
       ObservableList();
 
   @observable
+  bool showTextBox = false;
+
+  @observable
+  bool showListBox = true;
+
+  @observable
   bool isReadOnly = false;
+
+  @observable
+  int lastSelectedIndex = 0;
 
   @action
   setIsReadOnly(bool newBool) => isReadOnly = newBool;
 
   @action
   onDoubleTap(int index) {
-    focusNodes[index].requestFocus();
-    disableTouchInput = true;
+    lastSelectedIndex = index;
+    showListBox = false;
+    Timer(Seconds.get(1), () {
+      showTextBox = true;
+      disableTouchInput = true;
+      focusNode.requestFocus();
+    });
   }
 
   @action
   onTapOutside(int index) {
-    focusNodes[index].unfocus();
-    disableTouchInput = false;
+    showTextBox = false;
+    focusNode.unfocus();
+    Timer(Seconds.get(1), () {
+      showListBox = true;
+      disableTouchInput = false;
+    });
   }
 
   @observable
@@ -57,19 +78,23 @@ abstract class _SessionCardStoreBase extends BaseWidgetStore with Store {
 
   @action
   onTap(int newIndex) {
-    if (!disableTouchInput) {
+    if (!disableTouchInput || !showTextBox) {
       lastTappedIndex = newIndex;
-      focusNodes[newIndex].unfocus();
+      // focusNode.unfocus();
+      showTextBox = false;
     }
   }
 
   @action
   onEdit(String sessionUID, String title, int index) {
-    // setDisableTouchInput(false);
+    showTextBox = false;
     disableTouchInput = false;
     lastEditedId = sessionUID;
     lastEditedTitle = title;
-    focusNodes[index].unfocus();
+    focusNode.unfocus();
+    Timer(Seconds.get(1), () {
+      showListBox = true;
+    });
   }
 
   @action
@@ -77,8 +102,6 @@ abstract class _SessionCardStoreBase extends BaseWidgetStore with Store {
     for (var controller in textEditingControllers) {
       controller.dispose();
     }
-    for (var focusNode in focusNodes) {
-      focusNode.dispose();
-    }
+    focusNode.dispose();
   }
 }

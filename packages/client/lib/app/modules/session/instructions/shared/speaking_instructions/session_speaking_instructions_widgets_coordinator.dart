@@ -74,6 +74,20 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
     }
   }
 
+  @action
+  onHold() {
+    if (smartText.currentIndex == 2) {
+      initSpeakingMode();
+    }
+  }
+
+  @action
+  onLetGo() {
+    if (smartText.currentIndex.isGreaterThanOrEqualTo(2)) {
+      revertSpeakingMode();
+    }
+  }
+
   @computed
   bool get hasTappedOnTheBottomHalf =>
       touchRipple.tapPlacement == GesturePlacement.bottomHalf;
