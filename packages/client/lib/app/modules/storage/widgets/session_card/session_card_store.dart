@@ -48,25 +48,31 @@ abstract class _SessionCardStoreBase extends BaseWidgetStore with Store {
 
   @action
   onDoubleTap(int index) {
-    lastSelectedIndex = index;
-    showListBox = false;
-    Timer(Seconds.get(1), () {
-      showTextBox = true;
-      disableTouchInput = true;
-      focusNode.requestFocus();
-    });
+    if (showListBox) {
+      lastSelectedIndex = index;
+      showListBox = false;
+      Timer(Seconds.get(1), () {
+        disableTouchInput = true;
+        showTextBox = true;
+        focusNode.requestFocus();
+      });
+    }
   }
 
   @action
   onTapOutside(String sessionUID, String title) {
-    showTextBox = false;
-    focusNode.unfocus();
-    lastEditedId = sessionUID;
-    lastEditedTitle = title;
-    Timer(Seconds.get(1), () {
-      showListBox = true;
-      disableTouchInput = false;
-    });
+    if (showTextBox) {
+      showTextBox = false;
+      focusNode.unfocus();
+      lastEditedId = sessionUID;
+      lastEditedTitle = title;
+      Timer(Seconds.get(1), () {
+        showListBox = true;
+        Timer(Seconds.get(1), () {
+          disableTouchInput = false;
+        });
+      });
+    }
   }
 
   @observable
@@ -82,7 +88,6 @@ abstract class _SessionCardStoreBase extends BaseWidgetStore with Store {
   onTap(int newIndex) {
     if (!disableTouchInput) {
       lastTappedIndex = newIndex;
-      // focusNode.unfocus();
       showTextBox = false;
     }
   }
