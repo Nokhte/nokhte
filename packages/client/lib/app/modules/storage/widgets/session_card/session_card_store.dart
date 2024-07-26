@@ -58,9 +58,11 @@ abstract class _SessionCardStoreBase extends BaseWidgetStore with Store {
   }
 
   @action
-  onTapOutside(int index) {
+  onTapOutside(String sessionUID, String title) {
     showTextBox = false;
     focusNode.unfocus();
+    lastEditedId = sessionUID;
+    lastEditedTitle = title;
     Timer(Seconds.get(1), () {
       showListBox = true;
       disableTouchInput = false;
@@ -78,7 +80,7 @@ abstract class _SessionCardStoreBase extends BaseWidgetStore with Store {
 
   @action
   onTap(int newIndex) {
-    if (!disableTouchInput || !showTextBox) {
+    if (!disableTouchInput) {
       lastTappedIndex = newIndex;
       // focusNode.unfocus();
       showTextBox = false;
@@ -86,13 +88,13 @@ abstract class _SessionCardStoreBase extends BaseWidgetStore with Store {
   }
 
   @action
-  onEdit(String sessionUID, String title, int index) {
+  onEdit(String sessionUID, String title) {
     showTextBox = false;
-    disableTouchInput = false;
     lastEditedId = sessionUID;
     lastEditedTitle = title;
     focusNode.unfocus();
     Timer(Seconds.get(1), () {
+      disableTouchInput = false;
       showListBox = true;
     });
   }

@@ -159,16 +159,26 @@ class SessionCard extends HookWidget {
                                             ),
                                             child: TextFormField(
                                               onTapOutside: (details) =>
-                                                  store.onTapOutside(index),
+                                                  store.onTapOutside(
+                                                sessions[
+                                                        store.lastSelectedIndex]
+                                                    .sessionUID,
+                                                store
+                                                    .textEditingControllers[
+                                                        store.lastSelectedIndex]
+                                                    .text,
+                                              ),
                                               focusNode: store.focusNode,
                                               controller:
                                                   store.textEditingControllers[
                                                       store.lastSelectedIndex],
                                               onFieldSubmitted: (value) {
                                                 store.onEdit(
-                                                    sessions[index].sessionUID,
-                                                    value,
-                                                    index);
+                                                  sessions[store
+                                                          .lastSelectedIndex]
+                                                      .sessionUID,
+                                                  value,
+                                                );
                                               },
                                               textAlign: TextAlign.center,
                                               style: GoogleFonts.jost(
