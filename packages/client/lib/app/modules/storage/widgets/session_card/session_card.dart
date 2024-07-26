@@ -22,123 +22,195 @@ class SessionCard extends HookWidget {
   Widget build(BuildContext context) {
     final height = useFullScreenSize().height;
     final screenSize = useFullScreenSize();
-    return Observer(
-      builder: (context) {
-        return AnimatedOpacity(
-          opacity: useWidgetOpacity(store.showWidget),
-          duration: Seconds.get(1),
-          child: ListView.separated(
-            physics: store.disableTouchInput
-                ? const NeverScrollableScrollPhysics()
-                : null,
-            itemCount: sessions.length,
-            addAutomaticKeepAlives: true,
-            separatorBuilder: (context, index) => Padding(
-              padding: EdgeInsets.all(height * .02),
-              child: Container(),
-            ),
-            itemBuilder: (context, index) {
-              return HookBuilder(builder: (context) {
-                if (!store.hasBeenInitiallySet[index]) {
-                  final newFocusNode = FocusNode();
-                  final newController = TextEditingController();
-                  store.focusNodes.add(newFocusNode);
-                  store.textEditingControllers.add(newController);
-                  newController.text = sessions[index].title;
-                }
-                return GestureDetector(
-                  onTap: () => store.onTap(index),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: height * .04),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(width: 2, color: Colors.white)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // Jost('hi'),
-                          Row(
+    return Observer(builder: (context) {
+      // store.controller.text = sessions[store.textIndex].title;
+      return AnimatedOpacity(
+        opacity: useWidgetOpacity(store.showWidget),
+        duration: Seconds.get(1),
+        child: ListView.separated(
+          physics: store.disableTouchInput
+              ? const NeverScrollableScrollPhysics()
+              : null,
+          itemCount: sessions.length,
+          addAutomaticKeepAlives: true,
+          separatorBuilder: (context, index) => Padding(
+            padding: EdgeInsets.all(height * .02),
+            child: Container(),
+          ),
+          itemBuilder: (context, index) {
+            if (!store.hasBeenInitiallySet[index]) {
+              final newController = TextEditingController();
+              store.textEditingControllers.add(newController);
+              newController.text = sessions[index].title;
+            }
+
+            return Observer(builder: (context) {
+              return MultiHitStack(
+                children: [
+                  AnimatedOpacity(
+                    opacity: useWidgetOpacity(store.showListBox),
+                    duration: Seconds.get(1),
+                    child: GestureDetector(
+                      onTap: () => store.onTap(index),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: height * .04),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              border:
+                                  Border.all(width: 2, color: Colors.white)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
-                            // mainAxisSize: MainAxisSize.min,
                             children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 60,
-                                  ),
-                                  // padding: const EdgeInsets.symmetric(
-                                  //     vertical: 5.0, horizontal: 5.0),
-                                  child: Theme(
-                                    data: ThemeData(
-                                      textSelectionTheme:
-                                          const TextSelectionThemeData(
-                                        selectionColor:
-                                            Color.fromARGB(255, 7, 190, 172),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: 60,
                                       ),
-                                    ),
-                                    child: TextFormField(
-                                      focusNode: store.focusNodes[index],
-                                      controller:
-                                          store.textEditingControllers[index],
-                                      readOnly: store.isReadOnly,
-                                      onFieldSubmitted: (value) => store.onEdit(
-                                          sessions[index].sessionUID,
-                                          value,
-                                          index),
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.jost(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                      ),
-                                      onTap: () => store.onDoubleTap(index),
-                                      onTapOutside: (event) =>
-                                          store.onTapOutside(index),
-                                      cursorColor: Colors.white,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: "A memorable title",
-                                        hintStyle: TextStyle(
-                                          fontSize: 18.0,
-                                          color: Colors.white.withOpacity(.4),
+                                      child: Theme(
+                                        data: ThemeData(
+                                          textSelectionTheme:
+                                              const TextSelectionThemeData(
+                                            selectionColor: Color.fromARGB(
+                                                255, 7, 190, 172),
+                                          ),
+                                        ),
+                                        child: TextFormField(
+                                          controller: store
+                                              .textEditingControllers[index],
+                                          readOnly: true,
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.jost(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                          ),
+                                          cursorColor: Colors.white,
+                                          decoration: const InputDecoration(
+                                            border: InputBorder.none,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
+                                  GestureDetector(
+                                    onTap: () => store.onDoubleTap(index),
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 10.0),
+                                      child: NotesIcon(
+                                        containerSize: useScaledSize(
+                                            baseValue: .18,
+                                            screenSize: screenSize),
+                                        shouldAnimate: false,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5.0),
+                                child: Jost(
+                                  " ${sessions[index].date}",
+                                  fontSize: 18.0,
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () => store.onDoubleTap(index),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 10.0),
-                                  child: NotesIcon(
-                                    containerSize: useScaledSize(
-                                        baseValue: .18, screenSize: screenSize),
-                                    shouldAnimate: false,
-                                  ),
-                                ),
-                              )
-                              // Jost('hi'),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5.0),
-                            child: Jost(
-                              " ${sessions[index].date}",
-                              fontSize: 18.0,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                );
-              });
-            },
-          ),
-        );
-      },
-    );
+                  index == 0
+                      ? AnimatedOpacity(
+                          opacity: useWidgetOpacity(store.showTextBox),
+                          duration: Seconds.get(1),
+                          child: Padding(
+                            padding:
+                                EdgeInsets.symmetric(horizontal: height * .04),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(
+                                      width: 2, color: Colors.white)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 60.0,
+                                          ),
+                                          child: Theme(
+                                            data: ThemeData(
+                                              textSelectionTheme:
+                                                  const TextSelectionThemeData(
+                                                selectionColor: Color.fromARGB(
+                                                    255, 7, 190, 172),
+                                              ),
+                                            ),
+                                            child: TextFormField(
+                                              onTapOutside: (details) =>
+                                                  store.onTapOutside(index),
+                                              focusNode: store.focusNode,
+                                              controller:
+                                                  store.textEditingControllers[
+                                                      store.lastSelectedIndex],
+                                              onFieldSubmitted: (value) {
+                                                store.onEdit(
+                                                    sessions[index].sessionUID,
+                                                    value,
+                                                    index);
+                                              },
+                                              textAlign: TextAlign.center,
+                                              style: GoogleFonts.jost(
+                                                color: Colors.white,
+                                                fontSize: 18,
+                                              ),
+                                              cursorColor: Colors.white,
+                                              decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                hintText: "A memorable title",
+                                                hintStyle: TextStyle(
+                                                  fontSize: 18.0,
+                                                  color: Colors.white
+                                                      .withOpacity(.4),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 5.0),
+                                    child: Jost(
+                                      " ${sessions[index].date}",
+                                      fontSize: 18.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container(),
+                ],
+              );
+            });
+          },
+        ),
+      );
+    });
   }
 }
