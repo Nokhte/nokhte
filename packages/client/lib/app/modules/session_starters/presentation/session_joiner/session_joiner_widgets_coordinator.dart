@@ -159,7 +159,10 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!isDisconnected && isAllowedToMakeGesture() && !hasSwiped()) {
+    if (!isDisconnected &&
+        isAllowedToMakeGesture() &&
+        !hasSwiped() &&
+        beachWaves.movieMode == BeachWaveMovieModes.emptyTheOcean) {
       if (!hasInitiatedBlur) {
         baseOnInitInstructionMode(
           excludeSmartTextRotation: true,
