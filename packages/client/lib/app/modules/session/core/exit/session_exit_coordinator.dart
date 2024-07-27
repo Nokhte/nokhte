@@ -70,7 +70,6 @@ abstract class _SessionExitCoordinatorBase
     phaseHasBeenSet = false;
     widgets.constructor(isNotASocraticSession);
     initReactors();
-    setDisableAllTouchFeedback(true);
     await presence.updateCurrentPhase(4.0);
     sessionMetadata.setAffirmativePhase(4.0);
     disposers.add(
@@ -127,7 +126,10 @@ abstract class _SessionExitCoordinatorBase
     }));
     if (isNotASocraticSession) {
       disposers.add(swipeReactor(onSwipeDown: () {
-        widgets.onReadyToGoBack(phoneRole);
+        widgets.onReadyToGoBack(phoneRole, () async {
+          await presence.updateCurrentPhase(2.0);
+          setDisableAllTouchFeedback(true);
+        });
       }));
     }
   }
