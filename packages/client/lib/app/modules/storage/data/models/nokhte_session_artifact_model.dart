@@ -35,10 +35,7 @@ class NokhteSessionArtifactModel extends NokhteSessionArtifactEntity {
             String title = '';
             final userIndex =
                 nokhteSession[FinishedNokhteSessionQueries.COLLABORATOR_UIDS]
-                            .first ==
-                        userUID
-                    ? 0
-                    : 1;
+                    .indexOf(userUID);
             if (nokhteSession[FinishedNokhteSessionQueries.ALIASES][userIndex]
                 .isEmpty) {
               title = 'Session with ${collaboratorRow["first_name"]}';

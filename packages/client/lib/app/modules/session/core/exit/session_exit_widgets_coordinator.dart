@@ -27,9 +27,6 @@ abstract class _SessionExitWidgetsCoordinatorBase
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
-  @observable
-  SessionScreenTypes phoneRole = SessionScreenTypes.inital;
-
   _SessionExitWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.exitStatusIndicator,
@@ -68,7 +65,8 @@ abstract class _SessionExitWidgetsCoordinatorBase
   }
 
   @action
-  initReturnToSession() {
+  onReadyToGoBack(
+      SessionScreenTypes phoneRole, Function onReadyToGoBack) async {
     tint.reverseMovie(NoParams());
     exitStatusIndicator.setWidgetVisibility(false);
     primarySmartText.setWidgetVisibility(false);
@@ -85,12 +83,7 @@ abstract class _SessionExitWidgetsCoordinatorBase
       beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
       beachWaves.currentStore.initMovie(NoParams());
     }
-  }
-
-  @action
-  onReadyToGoBack(SessionScreenTypes phoneRole) {
-    exitStatusIndicator.initHide();
-    this.phoneRole = phoneRole;
+    await onReadyToGoBack();
   }
 
   sessionExitStatusCompletionReactor({
@@ -106,9 +99,7 @@ abstract class _SessionExitWidgetsCoordinatorBase
             exitStatusIndicator.setWidgetVisibility(false);
             await onReadyToGoHome();
           } else if (exitStatusIndicator.movieMode ==
-              ExitStatusMovieModes.hide) {
-            initReturnToSession();
-          }
+              ExitStatusMovieModes.hide) {}
         }
       });
 

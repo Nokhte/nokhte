@@ -26,20 +26,18 @@ class FinishedNokhteSessionQueries {
     if (unifiedUID.isEmpty) {
       return await supabase.from(TABLE).select().limit(1);
     } else {
-      if(invertToNeq) {
-
-      return await supabase
-          .from(TABLE)
-          .select()
-          .neq(PRESET_UID, unifiedUID)
-          .limit(1);
+      if (invertToNeq) {
+        return await supabase
+            .from(TABLE)
+            .select()
+            .neq(PRESET_UID, unifiedUID)
+            .limit(1);
       } else {
-
-      return await supabase
-          .from(TABLE)
-          .select()
-          .eq(PRESET_UID, unifiedUID)
-          .limit(1);
+        return await supabase
+            .from(TABLE)
+            .select()
+            .eq(PRESET_UID, unifiedUID)
+            .limit(1);
       }
     }
   }
@@ -60,8 +58,7 @@ class FinishedNokhteSessionQueries {
     final sessionRes =
         await supabase.from(TABLE).select().eq(SESSION_UID, sessionUID);
     final aliases = sessionRes.first[ALIASES];
-    final userIndex =
-        sessionRes.first[COLLABORATOR_UIDS].first == userUID ? 0 : 1;
+    final userIndex = sessionRes.first[COLLABORATOR_UIDS].indexOf(userUID);
     aliases[userIndex] = newAlias;
     return await supabase
         .from(TABLE)
