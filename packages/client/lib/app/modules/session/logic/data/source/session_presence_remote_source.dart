@@ -2,6 +2,7 @@ import 'package:nokhte_backend/tables/company_presets.dart';
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/st_active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/user_metadata.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class SessionPresenceRemoteSource {
@@ -19,6 +20,7 @@ abstract class SessionPresenceRemoteSource {
   Future<FunctionResponse> startTheSession();
   Future<List> checkIfHasDoneSessionBesides(String presetUID);
   Future<List> checkIfHasDoneSessionSessionType(String presetUID);
+  Future<List> getUserMetadata();
 }
 
 class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
@@ -28,12 +30,14 @@ class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
   final RTActiveNokhteSessionsStream stream;
   final CompanyPresetsQueries presetsQueries;
   final FinishedNokhteSessionQueries finishedQueries;
+  final UserMetadataQueries userMetadata;
   SessionPresenceRemoteSourceImpl({required this.supabase})
       : rtQueries = RTActiveNokhteSessionQueries(supabase: supabase),
         stQueries = STActiveNokhteSessionQueries(supabase: supabase),
         finishedQueries = FinishedNokhteSessionQueries(supabase: supabase),
         presetsQueries = CompanyPresetsQueries(supabase: supabase),
-        stream = RTActiveNokhteSessionsStream(supabase: supabase);
+        stream = RTActiveNokhteSessionsStream(supabase: supabase),
+        userMetadata = UserMetadataQueries(supabase: supabase);
 
   @override
   cancelSessionMetadataStream() => stream.cancelGetSessionMetadataStream();
@@ -88,4 +92,7 @@ class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
   @override
   checkIfHasDoneSessionSessionType(presetUID) async =>
       await finishedQueries.selectOne(unifiedUID: presetUID);
+
+  @override
+  getUserMetadata() async => await userMetadata.getUserMetadata();
 }

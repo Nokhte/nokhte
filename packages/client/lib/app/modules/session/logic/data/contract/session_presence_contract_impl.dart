@@ -101,9 +101,10 @@ class SessionPresenceContractImpl
   @override
   getSTSessionMetadata(params) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.getStaticSessionMetadata();
-      final uid = remoteSource.getUserUID();
-      return Right(StaticSessionMetadataModel.fromSupabase(res, uid));
+      final sessionRes = await remoteSource.getStaticSessionMetadata();
+      final metadataRes = await remoteSource.getUserMetadata();
+      return Right(
+          StaticSessionMetadataModel.fromSupabase(sessionRes, metadataRes));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
