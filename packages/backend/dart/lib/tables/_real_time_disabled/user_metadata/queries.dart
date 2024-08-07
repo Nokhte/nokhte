@@ -1,7 +1,7 @@
 import 'constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class UserMetadataQueries with UserMetadataConstants {
+class UserMetadataQueries extends UserMetadataConstants {
   final SupabaseClient supabase;
   String userUID;
 

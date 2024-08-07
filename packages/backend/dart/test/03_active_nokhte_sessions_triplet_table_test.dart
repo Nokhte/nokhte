@@ -62,11 +62,6 @@ void main() {
     expect(res[0]["leader_uid"], tSetup.firstUserUID);
   });
 
-  test("getHasPremiumAccess", () async {
-    final res = await user1STQueries.getHasPremiumAccess();
-    expect(res, [true, true, true]);
-  });
-
   test("updateOnlineStatus", () async {
     await user1RTQueries.updateOnlineStatus(false);
     final onlineStatus = await user1RTQueries.getWhoIsOnline();

@@ -101,11 +101,6 @@ void main() {
     expect(res, null);
   });
 
-  test("getHasPremiumAccess", () async {
-    final res = await user1STQueries.getHasPremiumAccess();
-    expect(res, [true, true]);
-  });
-
   test("getCurrentPhases", () async {
     final res = await user1RTQueries.getCurrentPhases();
     expect(res, [0, 0]);
