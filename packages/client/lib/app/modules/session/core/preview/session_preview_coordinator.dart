@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -20,7 +19,6 @@ abstract class _SessionPreviewCoordinatorBase
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   final SessionMetadataStore sessionMetadata;
-  final ActiveMonetizationSessionCoordinator activeMonetizationSession;
   final CaptureNokhteSessionStart captureStart;
   @override
   final CaptureScreen captureScreen;
@@ -31,7 +29,6 @@ abstract class _SessionPreviewCoordinatorBase
     required this.captureStart,
     required this.tap,
     required this.presence,
-    required this.activeMonetizationSession,
   }) : sessionMetadata = presence.sessionMetadataStore {
     initBaseCoordinatorActions();
   }
