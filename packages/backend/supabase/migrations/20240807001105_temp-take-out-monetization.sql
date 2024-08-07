@@ -20,3 +20,9 @@ for update
 to authenticated
 using ((auth.uid() = ANY (collaborator_uids)))
 with check (true);
+
+alter table "public"."user_metadata" drop constraint "user_metadata_subscriber_id_key";
+
+drop index if exists "public"."user_metadata_subscriber_id_key";
+
+alter table "public"."user_metadata" drop column "subscriber_id";
