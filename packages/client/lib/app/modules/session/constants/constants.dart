@@ -75,7 +75,6 @@ mixin SessionConstants {
   static const relativeHalfInstructions = '/half_instructions';
 
   static const relativePaywall = '/paywall';
-  static const relativeWaitingPatron = '/waiting_patron';
 
   static const socraticSpeakingExit =
       '$module$coreModule$relativeSocraticSpeakingExit';
@@ -98,7 +97,6 @@ mixin SessionConstants {
   static const monetizeModule = '/monetize';
 
   static const paywall = '$module$monetizeModule$relativePaywall';
-  static const waitingPatron = '$module$monetizeModule$relativeWaitingPatron';
 
   static const notesModule = '/notes';
   static const notes = '$module$notesModule$relativeRoot';
