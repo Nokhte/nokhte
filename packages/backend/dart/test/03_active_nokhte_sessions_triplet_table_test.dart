@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/st_active_nokhte_sessions.dart';
-import 'package:nokhte_backend/tables/user_metadata.dart';
+// import 'package:nokhte_backend/tables/user_metadata.dart';
 import 'shared/shared.dart';
 
 void main() {
@@ -14,7 +14,7 @@ void main() {
   late STActiveNokhteSessionQueries user2STQueries;
   late STActiveNokhteSessionQueries user3STQueries;
   late FinishedNokhteSessionQueries user1FinishedQueries;
-  late UserMetadataQueries user1MetadataQueries;
+  // late UserMetadataQueries user1MetadataQueries;
   final tSetup = CommonCollaborativeTestFunctions();
   List sortedArr = [];
 
@@ -39,7 +39,7 @@ void main() {
         STActiveNokhteSessionQueries(supabase: tSetup.user3Supabase);
     user1FinishedQueries =
         FinishedNokhteSessionQueries(supabase: tSetup.user1Supabase);
-    user1MetadataQueries = UserMetadataQueries(supabase: tSetup.user1Supabase);
+    // user1MetadataQueries = UserMetadataQueries(supabase: tSetup.user1Supabase);
     for (var userUID in sortedArr) {
       await tSetup.supabaseAdmin.from("user_metadata").update({
         "is_subscribed": false,
@@ -60,11 +60,6 @@ void main() {
     final res = await user2STQueries.select();
     expect(res[0]["collaborator_uids"], sortedArr);
     expect(res[0]["leader_uid"], tSetup.firstUserUID);
-  });
-
-  test("getHasPremiumAccess", () async {
-    final res = await user1STQueries.getHasPremiumAccess();
-    expect(res, [true, true, true]);
   });
 
   test("updateOnlineStatus", () async {
@@ -114,11 +109,14 @@ void main() {
     await user1STQueries.completeTheSession();
     final res = await user1FinishedQueries.select();
     expect(res.first["content"], ["test"]);
-    expect(res.first["collaborator_uids"], sortedArr);
+    expect(
+      res.first["collaborator_uids"],
+      sortedArr..sort(),
+    );
     expect(res.first["session_timestamp"], sessionTimestamp);
     expect(res.first["aliases"], ["", "", ""]);
-    final userMetadataRes = await user1MetadataQueries.getUserMetadata();
-    expect(userMetadataRes.first['is_subscribed'], false);
-    expect(userMetadataRes.first['has_used_trial'], false);
+    // final userMetadataRes = await user1MetadataQueries.getUserMetadata();
+    // expect(userMetadataRes.first['is_subscribed'], false);
+    // expect(userMetadataRes.first['has_used_trial'], false);
   });
 }

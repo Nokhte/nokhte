@@ -1,4 +1,3 @@
-import 'package:glassfy_flutter/glassfy_flutter.dart';
 import 'package:nokhte_backend/edge_functions/add_user_metadata.dart';
 import 'package:nokhte_backend/tables/user_metadata.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -18,8 +17,7 @@ class UserMetadataRemoteSourceImpl implements UserMetadataRemoteSource {
 
   @override
   addUserMetadata() async {
-    final subscriberId = (await Glassfy.permissions()).subscriberId ?? '';
-    return await _addUserMetadata.invoke(subscriberId: subscriberId);
+    return await _addUserMetadata.invoke();
   }
 
   @override

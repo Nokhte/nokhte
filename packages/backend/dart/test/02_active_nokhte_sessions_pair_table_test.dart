@@ -4,9 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/finished_nokhte_sessions/queries.dart';
 import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/st_active_nokhte_sessions.dart';
-import 'package:nokhte_backend/tables/user_metadata.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-
+// import 'package:nokhte_backend/tables/user_metadata.dart';
 import 'shared/shared.dart';
 
 void main() {
@@ -15,7 +13,7 @@ void main() {
   late RTActiveNokhteSessionsStream user1Stream;
   late STActiveNokhteSessionQueries user1STQueries;
   late STActiveNokhteSessionQueries user2STQueries;
-  late UserMetadataQueries user1MetadataQueries;
+  // late UserMetadataQueries user1MetadataQueries;
   late FinishedNokhteSessionQueries user1FinishedQueries;
   final tSetup = CommonCollaborativeTestFunctions();
   List sortedArr = [];
@@ -23,7 +21,6 @@ void main() {
   setUpAll(() async {
     await tSetup.setUp();
     sortedArr = [tSetup.firstUserUID, tSetup.secondUserUID];
-    sortedArr;
     user1RTQueries =
         RTActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user2RTQueries =
@@ -32,7 +29,7 @@ void main() {
         STActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user2STQueries =
         STActiveNokhteSessionQueries(supabase: tSetup.user2Supabase);
-    user1MetadataQueries = UserMetadataQueries(supabase: tSetup.user1Supabase);
+    // user1MetadataQueries = UserMetadataQueries(supabase: tSetup.user1Supabase);
     user1FinishedQueries =
         FinishedNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user1Stream = RTActiveNokhteSessionsStream(supabase: tSetup.user1Supabase);
@@ -77,20 +74,6 @@ void main() {
     expect(res, isNotEmpty);
   });
 
-  test("should not be able to update has_premium_access", () async {
-    try {
-      await tSetup.user1Supabase
-          .from("st_active_nokhte_sessions")
-          .update({
-            "has_premium_access": [true, true, true, true]
-          })
-          .contains("collaborator_uids", '{${tSetup.firstUserUID}}')
-          .select();
-    } catch (e) {
-      expect(e, isA<PostgrestException>());
-    }
-  });
-
   test("getWhoIsOnline", () async {
     final res = await user1RTQueries.getWhoIsOnline();
     expect(res, [true, true]);
@@ -99,11 +82,6 @@ void main() {
   test("getSpeakerSpotlight", () async {
     final res = await user1RTQueries.getSpeakerSpotlight();
     expect(res, null);
-  });
-
-  test("getHasPremiumAccess", () async {
-    final res = await user1STQueries.getHasPremiumAccess();
-    expect(res, [true, true]);
   });
 
   test("getCurrentPhases", () async {
@@ -182,11 +160,14 @@ void main() {
     await user1STQueries.completeTheSession();
     final res = await user1FinishedQueries.select();
     expect(res.first["content"], ["test"]);
-    expect(res.first["collaborator_uids"], sortedArr);
+    expect(
+      res.first["collaborator_uids"],
+      sortedArr..sort(),
+    );
     expect(res.first["session_timestamp"], sessionTimestamp);
     expect(res.first["aliases"], ["", ""]);
-    final userMetadataRes = await user1MetadataQueries.getUserMetadata();
-    expect(userMetadataRes.first['is_subscribed'], false);
-    expect(userMetadataRes.first['has_used_trial'], false);
+    // final userMetadataRes = await user1MetadataQueries.getUserMetadata();
+    // expect(userMetadataRes.first['is_subscribed'], false);
+    // expect(userMetadataRes.first['has_used_trial'], false);
   });
 }

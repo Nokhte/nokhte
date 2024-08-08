@@ -19,7 +19,12 @@ class SessionPaywallWidgetsCoordinator = _SessionPaywallWidgetsCoordinatorBase
     with _$SessionPaywallWidgetsCoordinator;
 
 abstract class _SessionPaywallWidgetsCoordinatorBase
-    with Store, SmartTextPaddingAdjuster, BaseWidgetsCoordinator, Reactions {
+    with
+        Store,
+        SmartTextPaddingAdjuster,
+        SwipeNavigationUtils,
+        BaseWidgetsCoordinator,
+        Reactions {
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final SmartTextStore tertiarySmartText;
@@ -46,8 +51,8 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   @observable
   int tapCount = 0;
 
-  @observable
-  bool canSwipe = false;
+  // @observable
+  // bool canSwipe = true;
 
   @observable
   bool disableTouchInput = false;
@@ -73,11 +78,7 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
     tertiarySmartText.setMessagesData(SessionLists.swipeToDecide);
     setSmartTextBottomPaddingScalar(.1);
     disposers.add(multiplyNokhteReactor());
-    setCanSwipe(false);
   }
-
-  @action
-  setCanSwipe(bool newVal) => canSwipe = newVal;
 
   @action
   onProductInfoReceived(SkuProductEntity product) {
@@ -100,10 +101,7 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
     );
   }
 
-  onTap(
-    Offset tapPosition, {
-    required Function onFinalTap,
-  }) async {
+  onTap(Offset tapPosition) {
     if (!disableTouchInput) {
       if (multiplyingNokhte.movieStatus == MovieStatus.finished) {
         if (tapCount.isLessThan(3)) {
@@ -128,7 +126,6 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
                 reverse: true,
               ),
             );
-            await onFinalTap();
           }
           primarySmartText.startRotatingText(isResuming: true);
           touchRipple.onTap(tapPosition);
@@ -191,9 +188,10 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   @action
   onSwipeUp(Function onSwipeUp) async {
     if (tapCount == 3 &&
-        canSwipe &&
+        !hasSwiped() &&
         multiplyingNokhte.movieStatus == MovieStatus.finished) {
-      canSwipe = false;
+      // canSwipe = false;
+      setSwipeDirection(GestureDirections.up);
       tertiarySmartText.setWidgetVisibility(false);
       multiplyingNokhte.initMovie(
         const MultiplyingNokhteMovieParams(
@@ -208,21 +206,22 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   onSwipeDown(Function onSwipeDown) async {
     if (tapCount == 3 &&
         multiplyingNokhte.movieStatus == MovieStatus.finished &&
-        canSwipe) {
+        !hasSwiped()) {
       await onSwipeDown();
+      setSwipeDirection(GestureDirections.down);
       isExiting = true;
       multiplyingNokhte.initMovie(
         const MultiplyingNokhteMovieParams(
           movieMode: MultiplyingNokhteMovieModes.chooseCancel,
         ),
       );
-      canSwipe = false;
     }
   }
 
   onPaymentFailure() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      if (multiplyingNokhte.movieStatus == MovieStatus.finished && !canSwipe) {
+      if (multiplyingNokhte.movieStatus == MovieStatus.finished &&
+          !hasSwiped()) {
         multiplyingNokhte.initMovie(
           const MultiplyingNokhteMovieParams(
             movieMode: MultiplyingNokhteMovieModes.chooseMonetization,
@@ -230,7 +229,7 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
           ),
         );
         Timer(Seconds.get(2), () {
-          canSwipe = true;
+          setSwipeDirection(GestureDirections.initial);
         });
         tertiarySmartText.setWidgetVisibility(true);
         timer.cancel();
@@ -246,7 +245,6 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
           movieMode: MultiplyingNokhteMovieModes.chooseCancel,
         ),
       );
-      canSwipe = false;
     }
   }
 

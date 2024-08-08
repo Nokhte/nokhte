@@ -1,12 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api,
 import 'dart:async';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/in_app_purchase/in_app_purchase.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
@@ -35,7 +33,6 @@ abstract class _SessionPaywallCoordinatorBase
   final SessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
   final InAppPurchaseCoordinator iap;
-  final ActiveMonetizationSessionCoordinator activeMonetizationSession;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   @override
   final GetUserInfoStore getUserInfo;
@@ -50,7 +47,6 @@ abstract class _SessionPaywallCoordinatorBase
     required this.presence,
     required this.swipe,
     required this.iap,
-    required this.activeMonetizationSession,
     required this.getUserInfo,
   }) : sessionMetadata = presence.sessionMetadataStore {
     initEnRouteActions();
@@ -63,7 +59,6 @@ abstract class _SessionPaywallCoordinatorBase
     initReactors();
     swipe.setMinDistance(100.0);
     await iap.getSubscriptionInfo();
-    await activeMonetizationSession.listenToExplanationCompletionStatus();
     await captureScreen(SessionConstants.paywall);
     await getUserInfo(NoParams());
   }
@@ -91,14 +86,7 @@ abstract class _SessionPaywallCoordinatorBase
     disposers.add(purchaseErrorReactor());
     disposers.add(phaseReactor());
     disposers.add(validSessionReactor());
-    disposers.add(everyoneHasFinishedExplanationReactor());
   }
-
-  everyoneHasFinishedExplanationReactor() =>
-      reaction((p0) => activeMonetizationSession.everyoneHasFinishedExplanation,
-          (p0) {
-        if (p0) widgets.setCanSwipe(true);
-      });
 
   subscriptionInfoReactor() => reaction((p0) => iap.skuProductEntity, (p0) {
         widgets.onProductInfoReceived(p0);
@@ -113,21 +101,19 @@ abstract class _SessionPaywallCoordinatorBase
 
   validSessionReactor() =>
       reaction((p0) => sessionMetadata.isAValidSession, (p0) {
-        Modular.to.navigate(SessionConstants.waitingPatron);
+        // Modular.to.navigate(SessionConstants.waitingPatron);
       });
 
   purchaseSuccessReactor() =>
       reaction((p0) => iap.hasPurchasedSubscription, (p0) async {
         if (p0) {
-          await activeMonetizationSession.dispose();
-          Modular.to.navigate(SessionConstants.waitingPatron);
+          // Modular.to.navigate(SessionConstants.waitingPatron);
         }
       });
 
   phaseReactor() => reaction((p0) => sessionMetadata.currentPhases, (p0) async {
         if (p0.contains(-1.0)) {
           widgets.onExit();
-          await activeMonetizationSession.dispose();
         }
       });
 
@@ -137,9 +123,6 @@ abstract class _SessionPaywallCoordinatorBase
           () {
             widgets.onTap(
               tap.currentTapPosition,
-              onFinalTap: () async {
-                await activeMonetizationSession.updateHasFinishedExplanation();
-              },
             );
           },
         ),
@@ -149,20 +132,18 @@ abstract class _SessionPaywallCoordinatorBase
   bool hasSwipedDown = false;
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) async {
-        if (activeMonetizationSession.everyoneHasFinishedExplanation) {
-          switch (p0) {
-            case GestureDirections.up:
-              widgets.onSwipeUp(
-                () async => await iap.buySubscription(),
-              );
-            case GestureDirections.down:
-              if (!hasSwipedDown) {
-                await cleanUpCollaborationArtifacts(NoParams());
-                hasSwipedDown = true;
-              }
-            default:
-              break;
-          }
+        switch (p0) {
+          case GestureDirections.up:
+            widgets.onSwipeUp(
+              () async => await iap.buySubscription(),
+            );
+          case GestureDirections.down:
+            if (!hasSwipedDown) {
+              await cleanUpCollaborationArtifacts(NoParams());
+              hasSwipedDown = true;
+            }
+          default:
+            break;
         }
       });
 
