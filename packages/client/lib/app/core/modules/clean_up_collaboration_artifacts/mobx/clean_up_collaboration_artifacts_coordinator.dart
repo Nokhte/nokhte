@@ -3,7 +3,6 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
-import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 part 'clean_up_collaboration_artifacts_coordinator.g.dart';
 
 class CleanUpCollaborationArtifactsCoordinator = _CleanUpCollaborationArtifactsCoordinatorBase
@@ -11,11 +10,9 @@ class CleanUpCollaborationArtifactsCoordinator = _CleanUpCollaborationArtifactsC
 
 abstract class _CleanUpCollaborationArtifactsCoordinatorBase
     with Store, BaseMobxLogic<NoParams, bool> {
-  final SessionStartersLogicCoordinator sessionStarters;
   final CleanUpNokhteSession cleanUpNokhteSession;
 
   _CleanUpCollaborationArtifactsCoordinatorBase({
-    required this.sessionStarters,
     required this.cleanUpNokhteSession,
   }) {
     initBaseLogicActions();
@@ -26,10 +23,11 @@ abstract class _CleanUpCollaborationArtifactsCoordinatorBase
   Future<void> call(NoParams params) async {
     try {
       setState(StoreState.loading);
-      await sessionStarters.nuke();
+      // await sessionStarters.nuke();
       await cleanUpNokhteSession(NoParams());
       setState(StoreState.loaded);
     } catch (e) {
+      print('error: $e');
       //
     }
   }

@@ -4,7 +4,6 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
-import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 part 'home_screen_root_router_coordinator.g.dart';
@@ -16,7 +15,6 @@ abstract class _HomeScreenRootRouterCoordinatorBase
     with Store, EnRoute, EnRouteRouter, HomeScreenRouter {
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final HomeScreenRootRouterWidgetsCoordinator widgets;
-  final UserMetadataCoordinator userMetadata;
   @override
   final GetUserInfoStore getUserInfo;
 
@@ -28,7 +26,6 @@ abstract class _HomeScreenRootRouterCoordinatorBase
 
   _HomeScreenRootRouterCoordinatorBase({
     required this.cleanUpCollaborationArtifacts,
-    required this.userMetadata,
     required this.getUserInfo,
     required this.widgets,
   }) {
@@ -40,7 +37,6 @@ abstract class _HomeScreenRootRouterCoordinatorBase
     widgets.constructor();
     initReactors();
     await cleanUpCollaborationArtifacts(NoParams());
-    await userMetadata.addMetadata(NoParams());
     if (isConnected) {
       await decideAndRoute(setRoutingParams);
     }

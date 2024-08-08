@@ -33,7 +33,6 @@ class HomeModule extends Module {
   binds(i) {
     i.add<HomeScreenRootRouterCoordinator>(
       () => HomeScreenRootRouterCoordinator(
-        userMetadata: Modular.get<UserMetadataCoordinator>(),
         cleanUpCollaborationArtifacts:
             Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
