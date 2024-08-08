@@ -276,15 +276,6 @@ class SessionWidgetsModule extends Module {
   }
 
   injectMonetization(i) {
-    i.add<WaitingPatronWidgetsCoordinator>(
-      () => WaitingPatronWidgetsCoordinator(
-        gestureCross: Modular.get<GestureCrossStore>(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        nokhteGradientText: NokhteGradientTextStore(),
-        tint: TintStore(),
-      ),
-    );
     i.add<SessionPaywallWidgetsCoordinator>(
       () => SessionPaywallWidgetsCoordinator(
         multiplyingNokhte: MultiplyingNokhteStore(),

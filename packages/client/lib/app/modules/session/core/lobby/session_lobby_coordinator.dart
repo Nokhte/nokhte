@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -26,7 +25,6 @@ abstract class _SessionLobbyCoordinatorBase
   final SessionLobbyWidgetsCoordinator widgets;
   final TapDetector tap;
   final UserMetadataCoordinator userMetadata;
-  final ActiveMonetizationSessionCoordinator activeMonetizationSession;
   final CaptureNokhteSessionStart captureStart;
   @override
   final SessionPresenceCoordinator presence;
@@ -41,7 +39,6 @@ abstract class _SessionLobbyCoordinatorBase
     required this.tap,
     required this.presence,
     required this.userMetadata,
-    required this.activeMonetizationSession,
     required this.captureScreen,
   }) : sessionMetadata = presence.sessionMetadataStore {
     initBaseCoordinatorActions();
@@ -128,9 +125,6 @@ abstract class _SessionLobbyCoordinatorBase
               onTap: () async {
                 await presence.startTheSession();
                 await captureStart(sessionMetadata.numberOfCollaborators);
-                if (!sessionMetadata.isAValidSession) {
-                  await activeMonetizationSession.startMonetizationSession();
-                }
               },
             );
           }
@@ -170,19 +164,18 @@ abstract class _SessionLobbyCoordinatorBase
   }
 
   @computed
-  String get monetizationSessionPath => userMetadata.isSubscribed
-      ? SessionConstants.waitingPatron
-      : isNotSubscribedPath;
+  String get monetizationSessionPath =>
+      userMetadata.isSubscribed ? '' : isNotSubscribedPath;
 
-  String get isNotSubscribedPath => userMetadata.hasUsedTrial
-      ? SessionConstants.paywall
-      : SessionConstants.waitingPatron;
+  String get isNotSubscribedPath =>
+      userMetadata.hasUsedTrial ? SessionConstants.paywall : '';
 
   @computed
   String get premiumSessionPath {
-    return chooseGreeterType(isConsumingTrialSession
-        ? SessionConstants.trialGreeter
-        : SessionConstants.groupGreeter);
+    return chooseGreeterType(
+        // isConsumingTrialSession
+        //   ? SessionConstants.trialGreeter:
+        SessionConstants.groupGreeter);
   }
 
   @computed

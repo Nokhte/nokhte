@@ -43,7 +43,7 @@ serve(async (req) => {
     const sessionUID = stSessionRes?.data?.[0]["session_uid"];
     let collaboratorUIDsArr = stSessionRes?.data?.[0]["collaborator_uids"];
     collaboratorUIDsArr = collaboratorUIDsArr.sort();
-    const currentPhases = rtSessionRes?.data?.[0]["current_phases"];
+    // const currentPhases = rtSessionRes?.data?.[0]["current_phases"];
     const presetUID = stSessionRes?.data?.[0]["preset_uid"];
 
     const duplicateCheckRes = (
@@ -66,21 +66,18 @@ serve(async (req) => {
         })
         .select();
 
-      const leaderIsWhitelisted = await isWhiteListed(leaderUID);
-
       for (let i = 0; i < collaboratorUIDsArr.length; i++) {
-        if (
-          collaboratorUIDsArr.length > 3 &&
-          currentPhases.every((e: any) => e >= 2) &&
-          !leaderIsWhitelisted
-        ) {
-          await supabaseAdmin
-            .from("user_metadata")
-            .update({
-              has_used_trial: true,
-            })
-            .eq("uid", collaboratorUIDsArr[i]);
-        }
+        //   if (
+        //     collaboratorUIDsArr.length > 3 &&
+        //     currentPhases.every((e: any) => e >= 2)
+        //   ) {
+        //     await supabaseAdmin
+        //       .from("user_metadata")
+        //       .update({
+        //         has_used_trial: true,
+        //       })
+        //       .eq("uid", collaboratorUIDsArr[i]);
+        //   }
 
         const userAuthorizedViewersRes = (
           await supabaseAdmin

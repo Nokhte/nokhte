@@ -17,8 +17,6 @@ class STActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
   Future _getProperty(String property) async =>
       (await select()).first[property];
   Future<String> getCreatedAt() async => await _getProperty(CREATED_AT);
-  Future<List> getHasPremiumAccess() async =>
-      await _getProperty(HAS_PREMIUM_ACCESS);
   Future<List> getContent() async => await _getProperty(CONTENT);
   Future<String> getSessionUID() async => await _getProperty(SESSION_UID);
   Future<String> getLeaderUID() async => await _getProperty(LEADER_UID);

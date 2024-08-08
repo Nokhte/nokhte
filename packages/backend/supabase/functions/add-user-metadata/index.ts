@@ -2,10 +2,9 @@ import { supabaseAdmin } from "../constants/supabase.ts";
 import { serve } from "std/server";
 
 serve(async (req) => {
-  const { userUID, subscriberId } = await req.json();
+  const { userUID } = await req.json();
   const { error } = await supabaseAdmin.from("user_metadata").insert({
     uid: userUID,
-    subscriber_id: subscriberId,
   });
 
   let returnRes = {
