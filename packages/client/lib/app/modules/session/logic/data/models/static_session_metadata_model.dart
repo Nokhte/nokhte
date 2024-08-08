@@ -8,7 +8,6 @@ class StaticSessionMetadataModel extends StaticSessionMetadataEntity {
   const StaticSessionMetadataModel({
     required super.userIndex,
     required super.isAPremiumSession,
-    required super.leaderIsWhitelisted,
     required super.presetUID,
     required super.leaderUID,
   });
@@ -21,7 +20,6 @@ class StaticSessionMetadataModel extends StaticSessionMetadataEntity {
       return const StaticSessionMetadataModel(
         userIndex: 0,
         isAPremiumSession: false,
-        leaderIsWhitelisted: false,
         presetUID: '',
         leaderUID: '',
       );
@@ -31,20 +29,17 @@ class StaticSessionMetadataModel extends StaticSessionMetadataEntity {
       final LEADER_UID = STActiveNokhteSessionsConstants.S_LEADER_UID;
       final COLLABORATOR_UIDS =
           STActiveNokhteSessionsConstants.S_COLLABORATOR_UIDS;
-      final IS_WHITELISTED = STActiveNokhteSessionsConstants.S_IS_WHITELISTED;
       final PRESET_UID = STActiveNokhteSessionsConstants.S_PRESET_UID;
       final leaderUID = sessionRes.first[LEADER_UID];
       final orderedCollaboratorUIDs = sessionRes.first[COLLABORATOR_UIDS];
       final userIndex = orderedCollaboratorUIDs.indexOf(metadataRes.first[UID]);
       final isAPremiumSession = sessionRes.first[COLLABORATOR_UIDS].length > 3;
-      final isWhitelisted = sessionRes.first[IS_WHITELISTED];
       final presetUID = sessionRes.first[PRESET_UID];
       return StaticSessionMetadataModel(
         leaderUID: leaderUID,
         presetUID: presetUID,
         userIndex: userIndex,
         isAPremiumSession: isAPremiumSession,
-        leaderIsWhitelisted: isWhitelisted,
       );
     }
   }

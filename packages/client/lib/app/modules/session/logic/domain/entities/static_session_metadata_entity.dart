@@ -12,7 +12,7 @@ class StaticSessionMetadataEntity extends Equatable {
     required this.userIndex,
     required this.leaderUID,
     required this.isAPremiumSession,
-    required this.leaderIsWhitelisted,
+    this.leaderIsWhitelisted = false,
     this.isAValidSession = true,
     required this.presetUID,
   });

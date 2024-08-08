@@ -26,3 +26,5 @@ alter table "public"."user_metadata" drop constraint "user_metadata_subscriber_i
 drop index if exists "public"."user_metadata_subscriber_id_key";
 
 alter table "public"."user_metadata" drop column "subscriber_id";
+
+alter table "public"."st_active_nokhte_sessions" drop column "is_whitelisted";
