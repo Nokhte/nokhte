@@ -4,7 +4,6 @@ mixin STActiveNokhteSessionsConstants {
   String TABLE = "st_active_nokhte_sessions";
   String COLLABORATOR_UIDS = 'collaborator_uids';
   String CREATED_AT = 'created_at';
-  String IS_WHITELISTED = 'is_whitelisted';
   String CONTENT = 'content';
   String SESSION_UID = 'session_uid';
   String LEADER_UID = 'leader_uid';
@@ -14,7 +13,6 @@ mixin STActiveNokhteSessionsConstants {
   static String S_TABLE = "st_active_nokhte_sessions";
   static String S_COLLABORATOR_UIDS = 'collaborator_uids';
   static String S_CREATED_AT = 'created_at';
-  static String S_IS_WHITELISTED = 'is_whitelisted';
   static String S_CONTENT = 'content';
   static String S_SESSION_UID = 'session_uid';
   static String S_LEADER_UID = 'leader_uid';
