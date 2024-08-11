@@ -8,17 +8,23 @@ import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/modules/in_app_purchase/in_app_purchase.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session/constants/constants.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'session_paywall_widgets_coordinator.g.dart';
 
 class SessionPaywallWidgetsCoordinator = _SessionPaywallWidgetsCoordinatorBase
     with _$SessionPaywallWidgetsCoordinator;
 
 abstract class _SessionPaywallWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with
+        Store,
+        SmartTextPaddingAdjuster,
+        SwipeNavigationUtils,
+        BaseWidgetsCoordinator,
+        Reactions {
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final SmartTextStore tertiarySmartText;
@@ -26,22 +32,27 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   final TouchRippleStore touchRipple;
   final GestureCrossStore gestureCross;
   final MultiplyingNokhteStore multiplyingNokhte;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   _SessionPaywallWidgetsCoordinatorBase({
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.gestureCross,
     required this.tertiarySmartText,
     required this.multiplyingNokhte,
-  });
+  }) {
+    initBaseWidgetsCoordinatorActions();
+    initSmartTextActions();
+  }
 
   @observable
   int tapCount = 0;
 
-  @observable
-  bool canSwipe = false;
+  // @observable
+  // bool canSwipe = true;
 
   @observable
   bool disableTouchInput = false;
@@ -62,16 +73,12 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   constructor() {
     cooldownStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.borealisToSky);
-    primarySmartText.setMessagesData(SharedLists.empty);
+    primarySmartText.setMessagesData(SharedLists.emptyList);
     secondarySmartText.setMessagesData(SessionLists.swipeUpToPay);
     tertiarySmartText.setMessagesData(SessionLists.swipeToDecide);
     setSmartTextBottomPaddingScalar(.1);
     disposers.add(multiplyNokhteReactor());
-    setCanSwipe(false);
   }
-
-  @action
-  setCanSwipe(bool newVal) => canSwipe = newVal;
 
   @action
   onProductInfoReceived(SkuProductEntity product) {
@@ -94,10 +101,7 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
     );
   }
 
-  onTap(
-    Offset tapPosition, {
-    required Function onFinalTap,
-  }) async {
+  onTap(Offset tapPosition) {
     if (!disableTouchInput) {
       if (multiplyingNokhte.movieStatus == MovieStatus.finished) {
         if (tapCount.isLessThan(3)) {
@@ -122,7 +126,6 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
                 reverse: true,
               ),
             );
-            await onFinalTap();
           }
           primarySmartText.startRotatingText(isResuming: true);
           touchRipple.onTap(tapPosition);
@@ -185,9 +188,10 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   @action
   onSwipeUp(Function onSwipeUp) async {
     if (tapCount == 3 &&
-        canSwipe &&
+        !hasSwiped() &&
         multiplyingNokhte.movieStatus == MovieStatus.finished) {
-      canSwipe = false;
+      // canSwipe = false;
+      setSwipeDirection(GestureDirections.up);
       tertiarySmartText.setWidgetVisibility(false);
       multiplyingNokhte.initMovie(
         const MultiplyingNokhteMovieParams(
@@ -202,21 +206,22 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   onSwipeDown(Function onSwipeDown) async {
     if (tapCount == 3 &&
         multiplyingNokhte.movieStatus == MovieStatus.finished &&
-        canSwipe) {
+        !hasSwiped()) {
       await onSwipeDown();
+      setSwipeDirection(GestureDirections.down);
       isExiting = true;
       multiplyingNokhte.initMovie(
         const MultiplyingNokhteMovieParams(
           movieMode: MultiplyingNokhteMovieModes.chooseCancel,
         ),
       );
-      canSwipe = false;
     }
   }
 
   onPaymentFailure() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      if (multiplyingNokhte.movieStatus == MovieStatus.finished && !canSwipe) {
+      if (multiplyingNokhte.movieStatus == MovieStatus.finished &&
+          !hasSwiped()) {
         multiplyingNokhte.initMovie(
           const MultiplyingNokhteMovieParams(
             movieMode: MultiplyingNokhteMovieModes.chooseMonetization,
@@ -224,7 +229,7 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
           ),
         );
         Timer(Seconds.get(2), () {
-          canSwipe = true;
+          setSwipeDirection(GestureDirections.initial);
         });
         tertiarySmartText.setWidgetVisibility(true);
         timer.cancel();
@@ -240,7 +245,6 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
           movieMode: MultiplyingNokhteMovieModes.chooseCancel,
         ),
       );
-      canSwipe = false;
     }
   }
 

@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:flutter/material.dart';
+import 'dart:ui';
+
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -11,8 +12,7 @@ part 'touch_ripple_store.g.dart';
 
 class TouchRippleStore = _TouchRippleStoreBase with _$TouchRippleStore;
 
-abstract class _TouchRippleStoreBase extends BaseCustomAnimatedWidgetStore
-    with Store {
+abstract class _TouchRippleStoreBase extends BaseWidgetStore with Store {
   @observable
   Offset currentPosition = Offset.zero;
 
@@ -41,10 +41,10 @@ abstract class _TouchRippleStoreBase extends BaseCustomAnimatedWidgetStore
 
   @action
   adjustColor() {
-    Color currentColor = Colors.white;
+    Color currentColor = const Color(0xFFFFFFFF);
     switch (tapPlacement) {
       case GesturePlacement.topHalf:
-        currentColor = Colors.white;
+        currentColor = const Color(0xFFFFFFFF);
       case GesturePlacement.bottomHalf:
         currentColor = SessionConstants.blue;
     }
@@ -55,12 +55,12 @@ abstract class _TouchRippleStoreBase extends BaseCustomAnimatedWidgetStore
   onTap(
     Offset position, {
     bool adjustColorBasedOnPosition = false,
-    Color overridedColor = Colors.transparent,
+    Color overridedColor = const Color(0x00FFFFFF),
   }) {
     currentPosition = position;
-    Color currentColor = Colors.white;
+    Color currentColor = const Color(0xFFFFFFFF);
 
-    if (overridedColor != Colors.transparent) {
+    if (overridedColor != const Color(0x00FFFFFF)) {
       currentColor = overridedColor;
     }
     if (adjustColorBasedOnPosition) {
@@ -83,10 +83,11 @@ abstract class _TouchRippleStoreBase extends BaseCustomAnimatedWidgetStore
     setMovieStatus(MovieStatus.inProgress);
     info.add(
       TouchRippleAnimationInfo(
-          position: position,
-          movie: WaterWakeMovie.movie,
-          control: Control.play,
-          rippleColor: Colors.white),
+        position: position,
+        movie: WaterWakeMovie.movie,
+        control: Control.play,
+        rippleColor: const Color(0xFFFFFFFF),
+      ),
     );
     setControl(Control.playFromStart);
   }

@@ -38,12 +38,6 @@ void main() {
     });
 
     group('movieModeToStoreLookup', () {
-      test("blackOut key", () {
-        final res =
-            testStore.movieModeToStoreLookup[BeachWaveMovieModes.blackOut];
-        expect(res?.movie.duration, Seconds.get(1));
-      });
-
       test("blackOutToDrySand key", () {
         final res = testStore
             .movieModeToStoreLookup[BeachWaveMovieModes.blackOutToDrySand];
@@ -53,32 +47,22 @@ void main() {
       test("onShore key", () {
         final onShoreRes =
             testStore.movieModeToStoreLookup[BeachWaveMovieModes.onShore];
-        expect(onShoreRes?.movie.duration, Seconds.get(2, milli: 1));
+        expect(onShoreRes?.movie.duration, Seconds.get(2));
       });
       test("onShoreToOceanDive key", () {
         final res = testStore
             .movieModeToStoreLookup[BeachWaveMovieModes.onShoreToOceanDive];
-        expect(res?.movie.duration, Seconds.get(2, milli: 1));
+        expect(res?.movie.duration, Seconds.get(2));
       });
       test("onShoreToOceanDive key", () {
         final oceanDiveRes = testStore
             .movieModeToStoreLookup[BeachWaveMovieModes.onShoreToOceanDive];
-        expect(oceanDiveRes?.movie.duration, Seconds.get(2, milli: 1));
+        expect(oceanDiveRes?.movie.duration, Seconds.get(2));
       });
       test("none key", () {
         final noneRes =
             testStore.movieModeToStoreLookup[BeachWaveMovieModes.none];
         expect(noneRes?.movie.duration, Seconds.get(0));
-      });
-      test("suspendedAtOceanDive key", () {
-        final res = testStore
-            .movieModeToStoreLookup[BeachWaveMovieModes.staticOceanDive];
-        expect(res?.movie.duration, Seconds.get(1));
-      });
-      test("suspendedAtTheDepths key", () {
-        final res =
-            testStore.movieModeToStoreLookup[BeachWaveMovieModes.staticDepths];
-        expect(res?.movie.duration, Seconds.get(1));
       });
     });
 
@@ -94,7 +78,7 @@ void main() {
       });
       test("currentMovie", () {
         final currentMovieDuration = testStore.currentMovie.duration;
-        expect(currentMovieDuration, Seconds.get(2, milli: 1));
+        expect(currentMovieDuration, Seconds.get(2));
       });
     });
   });
@@ -120,11 +104,11 @@ void main() {
     });
 
     test("currentMovie", () {
-      expect(testStore.currentMovie.duration, Seconds.get(2, milli: 1));
+      expect(testStore.currentMovie.duration, Seconds.get(2));
     });
 
     test('currentStore', () {
-      expect(testStore.currentStore, isA<OnShoreMovieStore>());
+      expect(testStore.currentStore, isA<OnShore>());
     });
     test('currentMovieStatus', () {
       expect(testStore.currentMovieStatus, MovieStatus.idle);

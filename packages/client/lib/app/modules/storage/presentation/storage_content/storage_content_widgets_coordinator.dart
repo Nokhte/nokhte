@@ -1,19 +1,23 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/types/movie_status.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
+import 'package:nokhte/app/modules/storage/storage.dart';
 part 'storage_content_widgets_coordinator.g.dart';
 
 class StorageContentWidgetsCoordinator = _StorageContentWidgetsCoordinatorBase
     with _$StorageContentWidgetsCoordinator;
 
 abstract class _StorageContentWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, SmartTextPaddingAdjuster, BaseWidgetsCoordinator, Reactions {
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
   final ContentCardStore contentCard;
@@ -21,8 +25,10 @@ abstract class _StorageContentWidgetsCoordinatorBase
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final InstructionalGradientNokhteStore primaryInstructionalGradientNokhte;
   final NokhteBlurStore blur;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   _StorageContentWidgetsCoordinatorBase({
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.beachWaves,
     required this.gestureCross,
     required this.smartText,
@@ -30,14 +36,18 @@ abstract class _StorageContentWidgetsCoordinatorBase
     required this.centerInstructionalNokhte,
     required this.primaryInstructionalGradientNokhte,
     required this.blur,
-  });
+  }) {
+    initBaseWidgetsCoordinatorActions();
+    initSmartTextActions();
+  }
 
   @action
   constructor(Offset offset) {
-    center = offset;
+    setCenter(offset);
     contentCard.initFadeIn();
     smartText.setMessagesData(StorageLists.contentSecondary);
     smartText.startRotatingText();
+    primaryInstructionalGradientNokhte.setWidgetVisibility(false);
     beachWaves.setMovieMode(BeachWaveMovieModes.drySandToSky);
     smartText.setStaticAltMovie(SessionConstants.blue);
     gestureCross.fadeIn();
@@ -65,16 +75,18 @@ abstract class _StorageContentWidgetsCoordinatorBase
   bool canTap = false;
 
   @action
-  onSwipeLeft() {
+  onSwipeRight() {
     if (isAllowedToInteract) {
       if (!hasInitiatedBlur && !hasSwiped) {
         hasSwiped = true;
         smartText.setWidgetVisibility(false);
         gestureCross.centerCrossNokhte.setWidgetVisibility(true);
+        primaryInstructionalGradientNokhte.setWidgetVisibility(false);
         centerInstructionalNokhte.setWidgetVisibility(false);
-
-        beachWaves.setMovieMode(BeachWaveMovieModes.skyToDrySand);
-        beachWaves.currentStore.reverseMovie(NoParams());
+        Timer(Seconds.get(1), () {
+          beachWaves.setMovieMode(BeachWaveMovieModes.skyToDrySand);
+          beachWaves.currentStore.reverseMovie(NoParams());
+        });
         gestureCross.initMoveAndRegenerate(CircleOffsets.left);
         contentCard.setWidgetVisibility(false);
         gestureCross.initMoveAndRegenerate(CircleOffsets.left);
@@ -89,7 +101,7 @@ abstract class _StorageContentWidgetsCoordinatorBase
 
   @action
   onTap() {
-    if (isAllowedToInteract && canTap && hasInitiatedBlur) {
+    if (isAllowedToInteract && hasInitiatedBlur) {
       if (hasSwiped) {
         hasSwiped = false;
         hasInitiatedBlur = false;
@@ -116,7 +128,9 @@ abstract class _StorageContentWidgetsCoordinatorBase
   @action
   onGestureCrossTap() {
     if (isAllowedToInteract) {
-      if (!hasInitiatedBlur && canTapOnGestureCross) {
+      if (!hasInitiatedBlur &&
+          canTapOnGestureCross &&
+          beachWaves.movieMode == BeachWaveMovieModes.drySandToSky) {
         contentCard.setDisableTouchInput(true);
         blur.init(blurValue: 20);
         hasInitiatedBlur = true;
@@ -172,9 +186,7 @@ abstract class _StorageContentWidgetsCoordinatorBase
   beachWavesReactor() =>
       reaction((p0) => beachWaves.currentStore.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          Modular.to.navigate("/storage/", arguments: {
-            "crossShouldGlowUp": false,
-          });
+          Modular.to.navigate("/storage/");
         }
       });
 
@@ -182,19 +194,8 @@ abstract class _StorageContentWidgetsCoordinatorBase
       reaction((p0) => centerInstructionalNokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (centerInstructionalNokhte.movieMode ==
-              CenterInstructionalNokhteMovieModes.moveAround) {
-            canTap = true;
-          } else if (centerInstructionalNokhte.movieMode ==
-              CenterInstructionalNokhteMovieModes.moveToCenter) {
-            canTap = true;
-          }
-          if (centerInstructionalNokhte.movieMode ==
               CenterInstructionalNokhteMovieModes.moveBack) {
-          } else if (p0 == MovieStatus.inProgress) {
-            if (centerInstructionalNokhte.movieMode ==
-                CenterInstructionalNokhteMovieModes.moveBack) {
-              canTap = false;
-            }
+            gestureCross.fadeIn();
           }
         }
       });

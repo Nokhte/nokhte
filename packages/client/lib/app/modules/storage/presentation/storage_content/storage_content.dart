@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
@@ -19,9 +20,8 @@ class StorageContentScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = useSquareSize(relativeLength: .20);
     final center = useCenterOffset();
-    final height = useFullScreenSize().height;
+    final screenSize = useFullScreenSize();
     useEffect(() {
       coordinator.constructor(center);
       return () => coordinator.deconstructor();
@@ -41,8 +41,15 @@ class StorageContentScreen extends HookWidget {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(top: height * .11, bottom: height * .15),
+                  padding: EdgeInsets.only(
+                      top: useScaledSize(
+                        baseValue: .11,
+                        screenSize: screenSize,
+                      ),
+                      bottom: useScaledSize(
+                        baseValue: .15,
+                        screenSize: screenSize,
+                      )),
                   child: ContentCard(
                     store: coordinator.widgets.contentCard,
                     content: coordinator.nokhteSessionArtifacts.content,
@@ -56,12 +63,8 @@ class StorageContentScreen extends HookWidget {
                 Center(
                   child: SmartText(
                     store: coordinator.widgets.smartText,
-                    topPadding:
-                        height * coordinator.widgets.smartTextTopPaddingScalar,
-                    bottomPadding: height *
-                        coordinator.widgets.smartTextBottomPaddingScalar,
-                    subTextPadding:
-                        coordinator.widgets.smartTextSubMessagePaddingScalar,
+                    topPadding: .15,
+                    topBump: .002,
                     opacityDuration: Seconds.get(1),
                   ),
                 ),
@@ -70,11 +73,10 @@ class StorageContentScreen extends HookWidget {
                   config: GestureCrossConfiguration(
                     left: Right(
                       NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.vibrantBlue,
+                        gradientType: NokhteGradientTypes.storage,
                       ),
                     ),
                   ),
-                  size: size,
                   store: coordinator.widgets.gestureCross,
                 ),
                 CenterInstructionalNokhte(

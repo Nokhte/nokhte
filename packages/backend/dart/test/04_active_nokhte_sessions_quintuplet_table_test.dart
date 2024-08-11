@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/st_active_nokhte_sessions.dart';
-import 'package:nokhte_backend/tables/user_metadata.dart';
+// import 'package:nokhte_backend/tables/user_metadata.dart';
 
 import 'shared/shared.dart';
 
@@ -19,21 +19,29 @@ void main() {
   late STActiveNokhteSessionQueries user4STQueries;
 
   late FinishedNokhteSessionQueries user1FinishedQueries;
-  late UserMetadataQueries user1MetadataQueries;
-  late UserMetadataQueries user2MetadataQueries;
-  late UserMetadataQueries user3MetadataQueries;
-  late UserMetadataQueries user4MetadataQueries;
+  // late UserMetadataQueries user1MetadataQueries;
+  // late UserMetadataQueries user2MetadataQueries;
+  // late UserMetadataQueries user3MetadataQueries;
+  // late UserMetadataQueries user4MetadataQueries;
   final tSetup = CommonCollaborativeTestFunctions();
   List sortedArr = [];
+  List unsortedArr = [];
 
   setUpAll(() async {
-    await tSetup.setUp(shouldMakeCollaboration: false);
+    await tSetup.setUp();
     sortedArr = [
       tSetup.firstUserUID,
       tSetup.secondUserUID,
       tSetup.thirdUserUID,
       tSetup.fourthUserUID
-    ]..sort();
+    ];
+    sortedArr.sort();
+    unsortedArr = [
+      tSetup.firstUserUID,
+      tSetup.secondUserUID,
+      tSetup.thirdUserUID,
+      tSetup.fourthUserUID
+    ];
     user1RTQueries =
         RTActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user2RTQueries =
@@ -52,10 +60,10 @@ void main() {
         STActiveNokhteSessionQueries(supabase: tSetup.user4Supabase);
     user1FinishedQueries =
         FinishedNokhteSessionQueries(supabase: tSetup.user1Supabase);
-    user1MetadataQueries = UserMetadataQueries(supabase: tSetup.user1Supabase);
-    user2MetadataQueries = UserMetadataQueries(supabase: tSetup.user2Supabase);
-    user3MetadataQueries = UserMetadataQueries(supabase: tSetup.user3Supabase);
-    user4MetadataQueries = UserMetadataQueries(supabase: tSetup.user4Supabase);
+    // user1MetadataQueries = UserMetadataQueries(supabase: tSetup.user1Supabase);
+    // user2MetadataQueries = UserMetadataQueries(supabase: tSetup.user2Supabase);
+    // user3MetadataQueries = UserMetadataQueries(supabase: tSetup.user3Supabase);
+    // user4MetadataQueries = UserMetadataQueries(supabase: tSetup.user4Supabase);
   });
 
   resetAllSubscriptionAndTrialStatus() async {
@@ -88,7 +96,7 @@ void main() {
     await tSetup.supabaseAdmin
         .from("st_active_nokhte_sessions")
         .delete()
-        .eq("collaborator_uids", sortedArr);
+        .eq("collaborator_uids", unsortedArr);
     await tSetup.supabaseAdmin
         .from("finished_nokhte_sessions")
         .delete()
@@ -107,7 +115,7 @@ void main() {
       await user3STQueries.joinSession(tSetup.firstUserUID);
       await user4STQueries.joinSession(tSetup.firstUserUID);
       final res = await user2STQueries.select();
-      expect(res[0]["collaborator_uids"], sortedArr);
+      expect(res[0]["collaborator_uids"], unsortedArr);
       expect(res[0]["leader_uid"], tSetup.firstUserUID);
     });
     test("updateOnlineStatus", () async {
@@ -115,37 +123,28 @@ void main() {
       final onlineStatus = await user1RTQueries.getWhoIsOnline();
       print("onlineStatus: $onlineStatus");
 
-      expect(onlineStatus[sortedArr.indexOf(tSetup.firstUserUID)], false);
-      expect(onlineStatus[sortedArr.indexOf(tSetup.secondUserUID)], true);
-      expect(onlineStatus[sortedArr.indexOf(tSetup.thirdUserUID)], true);
-      expect(onlineStatus[sortedArr.indexOf(tSetup.fourthUserUID)], true);
+      expect(onlineStatus[0], false);
+      expect(onlineStatus[1], true);
+      expect(onlineStatus[2], true);
+      expect(onlineStatus[3], true);
       await user2RTQueries.updateOnlineStatus(false);
       final onlineStatus2 = await user1RTQueries.getWhoIsOnline();
-      expect(onlineStatus2[sortedArr.indexOf(tSetup.firstUserUID)], false);
-      expect(onlineStatus2[sortedArr.indexOf(tSetup.secondUserUID)], false);
-      expect(onlineStatus2[sortedArr.indexOf(tSetup.thirdUserUID)], true);
-      expect(onlineStatus2[sortedArr.indexOf(tSetup.fourthUserUID)], true);
+      expect(onlineStatus2[0], false);
+      expect(onlineStatus2[1], false);
+      expect(onlineStatus2[2], true);
+      expect(onlineStatus2[3], true);
       await user3RTQueries.updateOnlineStatus(false);
       final onlineStatus3 = await user1RTQueries.getWhoIsOnline();
-      expect(onlineStatus3[sortedArr.indexOf(tSetup.firstUserUID)], false);
-      expect(onlineStatus3[sortedArr.indexOf(tSetup.secondUserUID)], false);
-      expect(onlineStatus3[sortedArr.indexOf(tSetup.thirdUserUID)], false);
-      expect(onlineStatus3[sortedArr.indexOf(tSetup.fourthUserUID)], true);
+      expect(onlineStatus3[0], false);
+      expect(onlineStatus3[1], false);
+      expect(onlineStatus3[2], false);
+      expect(onlineStatus3[3], true);
       await user4RTQueries.updateOnlineStatus(false);
       final onlineStatus4 = await user1RTQueries.getWhoIsOnline();
-      expect(onlineStatus4[sortedArr.indexOf(tSetup.firstUserUID)], false);
-      expect(onlineStatus4[sortedArr.indexOf(tSetup.secondUserUID)], false);
-      expect(onlineStatus4[sortedArr.indexOf(tSetup.thirdUserUID)], false);
-      expect(onlineStatus4[sortedArr.indexOf(tSetup.fourthUserUID)], false);
-    });
-
-    test("updateHasGyroscope", () async {
-      await user1STQueries.updateHasGyroscope(false);
-      await user2STQueries.updateHasGyroscope(false);
-      await user3STQueries.updateHasGyroscope(false);
-      await user4STQueries.updateHasGyroscope(false);
-      final gyroscopesRes = await user1STQueries.getHaveGyroscopes();
-      expect(gyroscopesRes, [false, false, false, false]);
+      expect(onlineStatus4[0], false);
+      expect(onlineStatus4[1], false);
+      expect(onlineStatus4[2], false);
+      expect(onlineStatus4[3], false);
     });
 
     test("addContent", () async {
@@ -166,28 +165,28 @@ void main() {
     test("updateCurrentPhases", () async {
       await user1RTQueries.updateCurrentPhases(2);
       final currentPhases = await user1RTQueries.getCurrentPhases();
-      expect(currentPhases[sortedArr.indexOf(tSetup.firstUserUID)], 2);
-      expect(currentPhases[sortedArr.indexOf(tSetup.secondUserUID)], 0);
-      expect(currentPhases[sortedArr.indexOf(tSetup.thirdUserUID)], 0);
-      expect(currentPhases[sortedArr.indexOf(tSetup.fourthUserUID)], 0);
+      expect(currentPhases[0], 2);
+      expect(currentPhases[1], 0);
+      expect(currentPhases[2], 0);
+      expect(currentPhases[3], 0);
       await user2RTQueries.updateCurrentPhases(2);
       final currentPhases2 = await user1RTQueries.getCurrentPhases();
-      expect(currentPhases2[sortedArr.indexOf(tSetup.firstUserUID)], 2);
-      expect(currentPhases2[sortedArr.indexOf(tSetup.secondUserUID)], 2);
-      expect(currentPhases2[sortedArr.indexOf(tSetup.thirdUserUID)], 0);
-      expect(currentPhases2[sortedArr.indexOf(tSetup.fourthUserUID)], 0);
+      expect(currentPhases2[0], 2);
+      expect(currentPhases2[1], 2);
+      expect(currentPhases2[2], 0);
+      expect(currentPhases2[3], 0);
       await user3RTQueries.updateCurrentPhases(2);
       final currentPhases3 = await user1RTQueries.getCurrentPhases();
-      expect(currentPhases3[sortedArr.indexOf(tSetup.firstUserUID)], 2);
-      expect(currentPhases3[sortedArr.indexOf(tSetup.secondUserUID)], 2);
-      expect(currentPhases3[sortedArr.indexOf(tSetup.thirdUserUID)], 2);
-      expect(currentPhases3[sortedArr.indexOf(tSetup.fourthUserUID)], 0);
+      expect(currentPhases3[0], 2);
+      expect(currentPhases3[1], 2);
+      expect(currentPhases3[2], 2);
+      expect(currentPhases3[3], 0);
       await user4RTQueries.updateCurrentPhases(2);
       final currentPhases4 = await user1RTQueries.getCurrentPhases();
-      expect(currentPhases4[sortedArr.indexOf(tSetup.firstUserUID)], 2);
-      expect(currentPhases4[sortedArr.indexOf(tSetup.secondUserUID)], 2);
-      expect(currentPhases4[sortedArr.indexOf(tSetup.thirdUserUID)], 2);
-      expect(currentPhases4[sortedArr.indexOf(tSetup.fourthUserUID)], 2);
+      expect(currentPhases4[0], 2);
+      expect(currentPhases4[1], 2);
+      expect(currentPhases4[2], 2);
+      expect(currentPhases4[3], 2);
     });
 
     test('completeTheSession', () async {
@@ -195,21 +194,24 @@ void main() {
       await user1STQueries.completeTheSession();
       final res = await user1FinishedQueries.select();
       expect(res.first["content"], ["test"]);
-      expect(res.first["collaborator_uids"], sortedArr);
+      expect(
+        res.first["collaborator_uids"],
+        sortedArr,
+      );
       expect(res.first["session_timestamp"], sessionTimestamp);
       expect(res.first["aliases"], ["", "", "", ""]);
 
-      final user1MetadataRes = await user1MetadataQueries.getUserMetadata();
-      expect(user1MetadataRes.first['has_used_trial'], true);
+      // final user1MetadataRes = await user1MetadataQueries.getUserMetadata();
+      // expect(user1MetadataRes.first['has_used_trial'], true);
 
-      final user2MetadataRes = await user2MetadataQueries.getUserMetadata();
-      expect(user2MetadataRes.first['has_used_trial'], true);
+      // final user2MetadataRes = await user2MetadataQueries.getUserMetadata();
+      // expect(user2MetadataRes.first['has_used_trial'], true);
 
-      final user3MetadataRes = await user3MetadataQueries.getUserMetadata();
-      expect(user3MetadataRes.first['has_used_trial'], true);
+      // final user3MetadataRes = await user3MetadataQueries.getUserMetadata();
+      // expect(user3MetadataRes.first['has_used_trial'], true);
 
-      final user4MetadataRes = await user4MetadataQueries.getUserMetadata();
-      expect(user4MetadataRes.first['has_used_trial'], true);
+      // final user4MetadataRes = await user4MetadataQueries.getUserMetadata();
+      // expect(user4MetadataRes.first['has_used_trial'], true);
     });
   }
 
@@ -241,10 +243,10 @@ void main() {
       await resetAllSubscriptionAndTrialStatus();
       await tSetup.supabaseAdmin.from("user_metadata").update({
         "is_subscribed": true,
-      }).eq("uid", sortedArr.first);
+      }).eq("uid", unsortedArr.first);
       await tSetup.supabaseAdmin.from("user_metadata").update({
         "has_used_trial": true,
-      }).eq("uid", sortedArr[1]);
+      }).eq("uid", unsortedArr[1]);
     });
 
     tearDownAll(() async => await deleteSession());
@@ -260,7 +262,7 @@ void main() {
       await user3STQueries.joinSession(tSetup.firstUserUID);
       await user4STQueries.joinSession(tSetup.firstUserUID);
       final res = await user2STQueries.select();
-      expect(res[0]["collaborator_uids"], sortedArr);
+      expect(res[0]["collaborator_uids"], unsortedArr);
       expect(res[0]["leader_uid"], tSetup.firstUserUID);
     });
 
@@ -277,15 +279,6 @@ void main() {
       await user4RTQueries.updateOnlineStatus(false);
       final onlineStatus4 = await user1RTQueries.getWhoIsOnline();
       expect(onlineStatus4, [true, true, true, true]);
-    });
-
-    test("updateHasGyroscope", () async {
-      await user1STQueries.updateHasGyroscope(false);
-      await user2STQueries.updateHasGyroscope(false);
-      await user3STQueries.updateHasGyroscope(false);
-      await user4STQueries.updateHasGyroscope(false);
-      final gyroscopesRes = await user1STQueries.getHaveGyroscopes();
-      expect(gyroscopesRes, [true, true, true, true]);
     });
 
     test("addContent", () async {

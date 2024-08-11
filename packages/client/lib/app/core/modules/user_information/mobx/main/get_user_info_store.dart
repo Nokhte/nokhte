@@ -9,12 +9,17 @@ part 'get_user_info_store.g.dart';
 class GetUserInfoStore = _GetUserInfoStoreBase with _$GetUserInfoStore;
 
 abstract class _GetUserInfoStoreBase
-    extends BaseMobxDBStore<NoParams, UserJourneyInfoEntity> with Store {
+    with Store, BaseMobxLogic<NoParams, UserJourneyInfoEntity> {
+  final BaseGetUserInfo logic;
+  _GetUserInfoStoreBase({required this.logic}) {
+    initBaseLogicActions();
+  }
+
   @observable
   bool hasAccessedQrCode = false;
 
   @observable
-  bool hasSentAnInvitation = false;
+  bool hasAccessedQrCodeScanner = false;
 
   @observable
   bool hasDoneASession = false;
@@ -31,9 +36,6 @@ abstract class _GetUserInfoStoreBase
   @observable
   UserJourneyInfoEntity entity = UserJourneyInfoEntity.initial();
 
-  final BaseGetUserInfo logic;
-  _GetUserInfoStoreBase({required this.logic});
-
   @observable
   BaseFutureStore<UserJourneyInfoEntity> futureStore = BaseFutureStore(
     baseEntity: Right(UserJourneyInfoEntity.initial()),
@@ -45,12 +47,13 @@ abstract class _GetUserInfoStoreBase
   @override
   void stateOrErrorUpdater(result) {
     result.fold((failure) {
-      errorMessage = mapFailureToMessage(failure);
-      state = StoreState.initial;
+      setErrorMessage(mapFailureToMessage(failure));
+      setState(StoreState.initial);
     }, (journeyInfoEntity) {
       entity = journeyInfoEntity;
       isOnMostRecentVersion = journeyInfoEntity.isOnMostRecentVersion;
       hasAccessedQrCode = journeyInfoEntity.hasAccessedQrCode;
+      hasAccessedQrCodeScanner = journeyInfoEntity.hasAccessedQrCodeScanner;
       hasEnteredStorage = journeyInfoEntity.hasEnteredStorage;
       hasDoneASession = journeyInfoEntity.hasCompletedASession;
       userUID = journeyInfoEntity.userUID;
@@ -60,11 +63,14 @@ abstract class _GetUserInfoStoreBase
   @override
   @action
   Future<void> call(params) async {
-    state = StoreState.loading;
+    setState(StoreState.loading);
     futureStore.entityOrFailureFuture = ObservableFuture(logic(params));
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;
     stateOrErrorUpdater(futureStore.unwrappedEntityOrFailure);
-    state = StoreState.loaded;
+    setState(StoreState.loaded);
   }
+
+  @computed
+  bool get hasDoneEitherQrFlow => hasAccessedQrCode || hasAccessedQrCodeScanner;
 }

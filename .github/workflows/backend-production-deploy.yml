@@ -1,10 +1,5 @@
 name: Backend Production Deployment
 on:
-  push:
-    branches:
-      - production
-    paths:
-      - packages/backend/**
   workflow_dispatch:
 
 jobs:

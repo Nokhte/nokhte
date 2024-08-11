@@ -26,17 +26,22 @@ class UserInformationModule extends Module {
         contract: i<UserInformationContractImpl>(),
       ),
     );
-    i.add<UpdateHasAccessedQrCode>(
-      () => UpdateHasAccessedQrCode(
+    i.add<UpdatePreferredPreset>(
+      () => UpdatePreferredPreset(
         contract: i<UserInformationContractImpl>(),
       ),
     );
-    i.add<UpdateHasEnteredStorage>(
-      () => UpdateHasEnteredStorage(
+    i.add<UpdateUserFlag>(
+      () => UpdateUserFlag(
         contract: i<UserInformationContractImpl>(),
       ),
     );
 
+    i.add<GetPreferredPreset>(
+      () => GetPreferredPreset(
+        contract: i<UserInformationContractImpl>(),
+      ),
+    );
     i.add<GetUserInfoStore>(
       () => GetUserInfoStore(
         logic: i<GetUserInfo>(),
@@ -44,9 +49,10 @@ class UserInformationModule extends Module {
     );
     i.add<UserInformationCoordinator>(
       () => UserInformationCoordinator(
+        getPreferredPresetLogic: i<GetPreferredPreset>(),
         getUserInfoStore: i<GetUserInfoStore>(),
-        updateHasAccessedQrCodeLogic: i<UpdateHasAccessedQrCode>(),
-        updateHasEnteredStorageLogic: i<UpdateHasEnteredStorage>(),
+        updatePreferredPresetLogic: i<UpdatePreferredPreset>(),
+        updateUserFlagLogic: i<UpdateUserFlag>(),
       ),
     );
   }

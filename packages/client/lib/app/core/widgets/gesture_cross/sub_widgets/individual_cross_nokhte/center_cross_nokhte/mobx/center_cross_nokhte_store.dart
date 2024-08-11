@@ -10,8 +10,7 @@ part 'center_cross_nokhte_store.g.dart';
 class CenterCrossNokhteStore = _CenterCrossNokhteStoreBase
     with _$CenterCrossNokhteStore;
 
-abstract class _CenterCrossNokhteStoreBase extends BaseCustomAnimatedWidgetStore
-    with Store {
+abstract class _CenterCrossNokhteStoreBase extends BaseWidgetStore with Store {
   _CenterCrossNokhteStoreBase() {
     setMovie(RestingCenterCrossMovie.movie);
     toggleWidgetVisibility();

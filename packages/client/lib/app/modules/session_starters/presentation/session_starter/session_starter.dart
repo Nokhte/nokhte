@@ -1,10 +1,10 @@
 export "session_starter_coordinator.dart";
 export "session_starter_widgets_coordinator.dart";
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'session_starter_coordinator.dart';
@@ -18,8 +18,7 @@ class SessionStarterScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = useSquareSize(relativeLength: .20);
-    final height = useFullScreenSize().height;
+    final screenSize = useFullScreenSize();
     final center = useCenterOffset();
     useEffect(() {
       coordinator.constructor(center);
@@ -40,17 +39,7 @@ class SessionStarterScreen extends HookWidget {
                   child: FullScreen(
                     child: BeachWaves(
                       sandType: SandTypes.collaboration,
-                      store: coordinator.widgets.primaryBeachWaves,
-                    ),
-                  ),
-                ),
-                Opacity(
-                  opacity: useWidgetOpacity(
-                      coordinator.widgets.showSecondaryBeachWaves),
-                  child: FullScreen(
-                    child: BeachWaves(
-                      sandType: SandTypes.home,
-                      store: coordinator.widgets.secondaryBeachWaves,
+                      store: coordinator.widgets.beachWaves,
                     ),
                   ),
                 ),
@@ -67,34 +56,51 @@ class SessionStarterScreen extends HookWidget {
                 NokhteQrCode(
                   store: coordinator.widgets.qrCode,
                 ),
-                Center(
-                  child: SmartText(
-                    store: coordinator.widgets.smartText,
-                    opacityDuration: Seconds.get(1),
-                    topPadding:
-                        height * coordinator.widgets.smartTextTopPaddingScalar,
-                    bottomPadding: height *
-                        coordinator.widgets.smartTextBottomPaddingScalar,
-                    subTextPadding:
-                        coordinator.widgets.smartTextSubMessagePaddingScalar,
-                  ),
+                SmartText(
+                  store: coordinator.widgets.qrSubtitleSmartText,
+                  opacityDuration: Seconds.get(1),
+                  topPadding: .22,
+                  topBump: 0.003,
                 ),
-                GestureCross(
-                  config: GestureCrossConfiguration(
-                    bottom: Right(
-                      NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.onShore,
+                FullScreen(
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        top: useScaledSize(
+                          baseValue: .28,
+                          bumpPerHundredth: 0.002,
+                          screenSize: screenSize,
+                        ),
+                      ),
+                      child: PresetIcons(
+                        store: coordinator.widgets.presetIcons,
                       ),
                     ),
                   ),
-                  size: size,
+                ),
+                SmartText(
+                  store: coordinator.widgets.smartText,
+                  opacityDuration: Seconds.get(1),
+                  topPadding: coordinator.widgets.smartTextTopPaddingScalar,
+                  bottomPadding:
+                      coordinator.widgets.smartTextBottomPaddingScalar,
+                ),
+                GestureCross(
+                  showGlowAndOutline: true,
+                  config: coordinator.widgets.gestureCrossConfig,
                   store: coordinator.widgets.gestureCross,
                 ),
                 CenterInstructionalNokhte(
                   store: coordinator.widgets.centerInstructionalNokhte,
                 ),
                 InstructionalGradientNokhte(
-                  store: coordinator.widgets.instructionalGradientNokhte,
+                  store: coordinator.widgets.sessionJoinerInstructionalNokhte,
+                ),
+                InstructionalGradientNokhte(
+                  store: coordinator.widgets.presetsInstructionalNokhte,
+                ),
+                InstructionalGradientNokhte(
+                  store: coordinator.widgets.homeInstructionalNokhte,
                 ),
                 WifiDisconnectOverlay(
                   store: coordinator.widgets.wifiDisconnectOverlay,

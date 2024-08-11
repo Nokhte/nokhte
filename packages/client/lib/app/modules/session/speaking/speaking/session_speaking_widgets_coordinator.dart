@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
@@ -14,30 +15,37 @@ class SessionSpeakingWidgetsCoordinator = _SessionSpeakingWidgetsCoordinatorBase
     with _$SessionSpeakingWidgetsCoordinator;
 
 abstract class _SessionSpeakingWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, BaseWidgetsCoordinator, Reactions {
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
   final BorderGlowStore borderGlow;
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
   final TintStore tint;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionSpeakingWidgetsCoordinatorBase({
+    required this.wifiDisconnectOverlay,
     required this.mirroredText,
     required this.beachWaves,
     required this.borderGlow,
     required this.tint,
-    required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.speakLessSmileMore,
-  });
+  }) {
+    initBaseWidgetsCoordinatorActions();
+  }
 
   @action
-  constructor() {
+  constructor(bool userCanSpeak) {
     beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
     mirroredText.setMessagesData(MirroredTextContent.sessionSpeaking);
     mirroredText.startBothRotatingText();
-    setIsPickingUp(false);
+    setIsLeaving(false);
+    if (!userCanSpeak) {
+      tint.initMovie(NoParams());
+    }
     initReactors();
   }
 
@@ -48,13 +56,13 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   bool isHolding = false;
 
   @observable
-  bool isPickingUp = false;
+  bool isLeaving = false;
 
   @action
   setIsHolding(bool newBool) => isHolding = newBool;
 
   @action
-  setIsPickingUp(bool newBool) => isPickingUp = newBool;
+  setIsLeaving(bool newBool) => isLeaving = newBool;
 
   @observable
   bool collaboratorHasLeft = false;
@@ -133,10 +141,17 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   }
 
   @action
-  onExit() {
-    setIsPickingUp(true);
+  onExit({
+    required bool isASocraticSession,
+  }) {
+    setIsLeaving(true);
     mirroredText.setWidgetVisibility(false);
-    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
+    tint.reverseMovie(NoParams());
+    if (isASocraticSession) {
+      beachWaves.setMovieMode(BeachWaveMovieModes.orangeSandToHalfAndHalf);
+    } else {
+      beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
+    }
     beachWaves.currentStore.reverseMovie(NoParams());
   }
 
@@ -164,7 +179,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
-            if (isPickingUp) {
+            if (isLeaving) {
               Modular.to.navigate(SessionConstants.exit);
             } else if (isLettingGo) {
               onLetGoCompleted();
@@ -176,6 +191,9 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
               beachWaves.movieMode ==
                   BeachWaveMovieModes.halfAndHalfToDrySand) {
             initBorderGlow();
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.orangeSandToHalfAndHalf) {
+            Modular.to.navigate(SessionConstants.socraticSpeakingExit);
           }
         }
       });

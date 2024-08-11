@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 part 'storage_content_coordinator.g.dart';
 
@@ -13,18 +13,20 @@ class StorageContentCoordinator = _StorageContentCoordinatorBase
     with _$StorageContentCoordinator;
 
 abstract class _StorageContentCoordinatorBase
-    extends BaseHomeScreenRouterCoordinator with Store {
+    with Store, BaseCoordinator, Reactions {
   final StorageContentWidgetsCoordinator widgets;
   final TapDetector tap;
-
   final SwipeDetector swipe;
+  @override
+  final CaptureScreen captureScreen;
   _StorageContentCoordinatorBase({
-    required super.getUserInfo,
-    required super.captureScreen,
+    required this.captureScreen,
     required this.tap,
     required this.widgets,
     required this.swipe,
-  });
+  }) {
+    initBaseCoordinatorActions();
+  }
 
   @observable
   NokhteSessionArtifactEntity nokhteSessionArtifacts =
@@ -39,7 +41,6 @@ abstract class _StorageContentCoordinatorBase
       nokhteSessionArtifacts = Modular.args.data["content"];
     }
     widgets.constructor(center);
-    await getUserInfo(NoParams());
     await captureScreen(StorageConstants.content);
     initReactors();
   }
@@ -57,18 +58,17 @@ abstract class _StorageContentCoordinatorBase
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
-          case GestureDirections.left:
+          case GestureDirections.right:
             ifTouchIsNotDisabled(() {
-              widgets.onSwipeLeft();
+              widgets.onSwipeRight();
             });
           default:
             break;
         }
       });
 
-  @override
   deconstructor() {
-    widgets.deconstructor();
-    super.deconstructor();
+    dispose();
+    widgets.dispose();
   }
 }

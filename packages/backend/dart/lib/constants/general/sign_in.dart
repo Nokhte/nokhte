@@ -6,7 +6,7 @@ class SignIn {
   }) async {
     await supabase.auth.signOut();
     await supabase.auth.signInWithPassword(
-      email: 'test1@example.com',
+      phone: '9876543211',
       password: 'test123',
     );
   }
@@ -14,7 +14,7 @@ class SignIn {
   static Future<void> user2({required SupabaseClient supabase}) async {
     await supabase.auth.signOut();
     await supabase.auth.signInWithPassword(
-      email: 'test2@example.com',
+      phone: '9876543212',
       password: 'test123',
     );
   }
@@ -22,7 +22,7 @@ class SignIn {
   static Future<void> user3({required SupabaseClient supabase}) async {
     await supabase.auth.signOut();
     await supabase.auth.signInWithPassword(
-      email: 'test3@example.com',
+      phone: '9876543213',
       password: 'test123',
     );
   }
@@ -30,7 +30,7 @@ class SignIn {
   static Future<void> user4({required SupabaseClient supabase}) async {
     await supabase.auth.signOut();
     await supabase.auth.signInWithPassword(
-      email: 'test4@example.com',
+      phone: '9876543214',
       password: 'test123',
     );
   }

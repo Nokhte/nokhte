@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/login/login.dart';
-import '../../../../../core/mobx/base_coordinator_test.mocks.dart';
 import '../../../../shared/shared_mocks.mocks.dart';
 import '../../../fixtures/authentication_stack_mock_gen.mocks.dart';
 
@@ -16,7 +15,7 @@ void main() {
   late BeachWavesStore mockLayer1BeachWavesStore;
   late BeachWavesStore mockLayer2BeachWavesStore;
   late SmartTextStore smartTextStore;
-  late NokhteStore nokhteStore;
+  late LoginNokhtesStore nokhteStore;
   late TrailingTextStore topTrailingTextStore;
   late TrailingTextStore bottomTrailingTextStore;
   late MockWifiDisconnectOverlayStore wifiDisconnectOverlayStore;
@@ -28,7 +27,7 @@ void main() {
     mockLayer1BeachWavesStore = BeachWavesStore();
     mockLayer2BeachWavesStore = BeachWavesStore();
     smartTextStore = SmartTextStore();
-    nokhteStore = NokhteStore();
+    nokhteStore = LoginNokhtesStore();
     topTrailingTextStore = TrailingTextStore();
     bottomTrailingTextStore = TrailingTextStore();
     mockWidgetsStore = LoginScreenWidgetsCoordinator(
@@ -37,7 +36,7 @@ void main() {
       layer1BeachWaves: mockLayer1BeachWavesStore,
       layer2BeachWaves: mockLayer2BeachWavesStore,
       smartTextStore: smartTextStore,
-      nokhte: nokhteStore,
+      loginNokhtes: nokhteStore,
       bottomTrailingText: bottomTrailingTextStore,
       topTrailingText: topTrailingTextStore,
     );

@@ -1,8 +1,6 @@
 import { serve } from "std/server";
 import { supabaseAdmin } from "../constants/supabase.ts";
 import { isNotEmptyOrNull } from "../utils/array-utils.ts";
-import { isWhiteListed } from "../utils/is-whitelisted.ts";
-import { checkIfHasDoneASession } from "../utils/check-if-has-done-a-session.ts";
 
 serve(async (req) => {
   const { userUID, leaderUID } = await req.json();
@@ -31,45 +29,16 @@ serve(async (req) => {
         stExistingNokhteSessionRes?.["collaborator_uids"];
       if (!currentCollaboratorUIDs.includes(userUID)) {
         currentCollaboratorUIDs.push(userUID);
-        currentCollaboratorUIDs.sort();
-        const currentHaveGyroscopesRes =
-          stExistingNokhteSessionRes?.["have_gyroscopes"];
-        currentHaveGyroscopesRes.push(true);
-        const currentHasPremiumAccess = [];
 
-        // needs separate one
         const currentIsOnlineArr = rtExistingNokhteSessionRes?.["is_online"];
         currentIsOnlineArr.push(true);
-        const currentPhasesArr = rtExistingNokhteSessionRes?.["current_phases"];
-        // needs a separate one
-        currentPhasesArr.push(0);
 
-        const currentShouldSkipInstructions = [];
-        for (let i = 0; i < currentCollaboratorUIDs.length; i++) {
-          const metadataRes = (
-            await supabaseAdmin
-              .from("user_metadata")
-              .select()
-              .eq("uid", currentCollaboratorUIDs[i])
-          )?.data?.[0];
-          const hasDoneASessionBefore = await checkIfHasDoneASession(
-            currentCollaboratorUIDs[i]
-          );
-          currentShouldSkipInstructions.push(hasDoneASessionBefore);
-          const leaderIsWhitelisted = await isWhiteListed(leaderUID);
-          const userPremiumAccess =
-            metadataRes?.["is_subscribed"] ||
-            !metadataRes?.["has_used_trial"] ||
-            leaderIsWhitelisted;
-          currentHasPremiumAccess.push(userPremiumAccess);
-        }
+        const currentPhasesArr = rtExistingNokhteSessionRes?.["current_phases"];
+        currentPhasesArr.push(0);
         const { error } = await supabaseAdmin
           .from("st_active_nokhte_sessions")
           .update({
             collaborator_uids: currentCollaboratorUIDs,
-            have_gyroscopes: currentHaveGyroscopesRes,
-            has_premium_access: currentHasPremiumAccess,
-            should_skip_instructions: currentShouldSkipInstructions,
           })
           .eq("leader_uid", leaderUID);
 

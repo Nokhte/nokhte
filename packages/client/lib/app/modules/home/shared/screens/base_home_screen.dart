@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -20,8 +21,6 @@ class BaseHomeScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = useSquareSize(relativeLength: .20);
-    final height = useFullScreenSize().height;
     final center = useCenterOffset();
     useEffect(() {
       coordinator.constructor(center);
@@ -29,6 +28,7 @@ class BaseHomeScreen extends HookWidget {
     }, []);
     return Observer(builder: (context) {
       return Scaffold(
+        backgroundColor: Colors.black,
         resizeToAvoidBottomInset: false,
         body: Tap(
           store: coordinator.tap,
@@ -56,35 +56,19 @@ class BaseHomeScreen extends HookWidget {
                 ),
                 Center(
                   child: SmartText(
-                    store: coordinator.widgets.secondaryErrorSmartText,
-                    topPadding: height * .86,
-                    bottomPadding: 0,
-                    opacityDuration: Seconds.get(1),
-                  ),
-                ),
-                Center(
-                  child: SmartText(
-                    store: coordinator.widgets.errorSmartText,
-                    bottomPadding: 180,
-                    opacityDuration: Seconds.get(1),
-                  ),
-                ),
-                Center(
-                  child: SmartText(
-                    store: coordinator.widgets.primarySmartText,
-                    topPadding:
-                        height * coordinator.widgets.smartTextTopPaddingScalar,
-                    bottomPadding: height *
+                    store: coordinator.widgets.smartText,
+                    topPadding: coordinator.widgets.smartTextTopPaddingScalar,
+                    // addSubMessageAdjuster: true,
+                    topBump: 0.008,
+                    bottomPadding:
                         coordinator.widgets.smartTextBottomPaddingScalar,
-                    subTextPadding:
-                        coordinator.widgets.smartTextSubMessagePaddingScalar,
+                    bottomBump: .008,
                     opacityDuration: Seconds.get(1),
                   ),
                 ),
                 GestureCross(
                   showGlowAndOutline: true,
                   config: gestureCrossConfig,
-                  size: size,
                   store: coordinator.widgets.gestureCross,
                 ),
                 instructionalNokhtes,

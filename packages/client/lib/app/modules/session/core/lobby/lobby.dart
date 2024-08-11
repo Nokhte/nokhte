@@ -3,9 +3,10 @@ export 'session_lobby_widgets_coordinator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'session_lobby_coordinator.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 
 class SessionLobbyScreen extends HookWidget {
   final SessionLobbyCoordinator coordinator;
@@ -16,7 +17,7 @@ class SessionLobbyScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = useFullScreenSize().height;
+    final screenSize = useFullScreenSize();
     useEffect(() {
       coordinator.constructor();
       return () => coordinator.deconstructor();
@@ -38,11 +39,27 @@ class SessionLobbyScreen extends HookWidget {
                 store: coordinator.widgets.beachWaves,
               ),
             ),
-            Center(
-              child: SmartText(
-                store: coordinator.widgets.primarySmartText,
-                topPadding: height * .29,
-                opacityDuration: Seconds.get(1),
+            BorderGlow(store: BorderGlowStore()),
+            SmartText(
+              store: coordinator.widgets.primarySmartText,
+              topPadding: .22,
+              topBump: 0.003,
+              opacityDuration: Seconds.get(1),
+            ),
+            FullScreen(
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: useScaledSize(
+                      baseValue: .28,
+                      bumpPerHundredth: 0.002,
+                      screenSize: screenSize,
+                    ),
+                  ),
+                  child: PresetIcons(
+                    store: coordinator.widgets.presetIcons,
+                  ),
+                ),
               ),
             ),
             NokhteQrCode(

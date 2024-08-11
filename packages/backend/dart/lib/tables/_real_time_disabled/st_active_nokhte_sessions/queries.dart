@@ -17,10 +17,7 @@ class STActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
   Future _getProperty(String property) async =>
       (await select()).first[property];
   Future<String> getCreatedAt() async => await _getProperty(CREATED_AT);
-  Future<List> getHasPremiumAccess() async =>
-      await _getProperty(HAS_PREMIUM_ACCESS);
   Future<List> getContent() async => await _getProperty(CONTENT);
-  Future<List> getHaveGyroscopes() async => await _getProperty(HAVE_GYROSCOPES);
   Future<String> getSessionUID() async => await _getProperty(SESSION_UID);
   Future<String> getLeaderUID() async => await _getProperty(LEADER_UID);
 
@@ -32,19 +29,6 @@ class STActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
       supabase.from(TABLE).update({
         CONTENT: currentContent,
       }),
-    );
-  }
-
-  Future<List> updateHasGyroscope(bool newStatus) async {
-    await computeCollaboratorInformation();
-    final currentHaveGyroscopees = await getHaveGyroscopes();
-    currentHaveGyroscopees[userIndex] = newStatus;
-    return await _onCurrentActiveNokhteSession(
-      supabase.from(TABLE).update(
-        {
-          HAVE_GYROSCOPES: currentHaveGyroscopees,
-        },
-      ),
     );
   }
 

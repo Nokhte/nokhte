@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
@@ -18,7 +19,6 @@ class StorageHomeScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = useSquareSize(relativeLength: .20);
     final center = useCenterOffset();
     final height = useFullScreenSize().height;
     useEffect(() {
@@ -42,7 +42,7 @@ class StorageHomeScreen extends HookWidget {
                 Center(
                   child: SmartText(
                     store: coordinator.widgets.primarySmartText,
-                    bottomPadding: height * .75,
+                    bottomPadding: .75,
                     opacityDuration: Seconds.get(1),
                   ),
                 ),
@@ -62,12 +62,8 @@ class StorageHomeScreen extends HookWidget {
                 Center(
                   child: SmartText(
                     store: coordinator.widgets.secondarySmartText,
-                    topPadding:
-                        height * coordinator.widgets.smartTextTopPaddingScalar,
-                    bottomPadding: height *
-                        coordinator.widgets.smartTextBottomPaddingScalar,
-                    subTextPadding:
-                        coordinator.widgets.smartTextSubMessagePaddingScalar,
+                    topPadding: .15,
+                    topBump: .002,
                     opacityDuration: Seconds.get(1),
                   ),
                 ),
@@ -76,11 +72,10 @@ class StorageHomeScreen extends HookWidget {
                   config: GestureCrossConfiguration(
                     left: Right(
                       NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.onShore,
+                        gradientType: NokhteGradientTypes.home,
                       ),
                     ),
                   ),
-                  size: size,
                   store: coordinator.widgets.gestureCross,
                 ),
                 CenterInstructionalNokhte(

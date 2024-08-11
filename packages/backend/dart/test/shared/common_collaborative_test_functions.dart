@@ -20,10 +20,7 @@ class CommonCollaborativeTestFunctions {
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
   }
 
-  Future<void> setUp({
-    bool shouldSetupPerspectives = false,
-    bool shouldMakeCollaboration = true,
-  }) async {
+  Future<void> setUp() async {
     await SignIn.user1(supabase: user1Supabase);
     await SignIn.user2(supabase: user2Supabase);
     await SignIn.user3(supabase: user3Supabase);

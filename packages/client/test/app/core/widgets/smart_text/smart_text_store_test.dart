@@ -25,7 +25,7 @@ void main() {
     });
     test("setMessagesData", () {
       testStore.setMessagesData(LoginList.list);
-      expect(testStore.messagesData[0].mainMessage, "Howdy");
+      expect(testStore.messagesData[0].text, "Howdy");
     });
 
     group("startRotatingText", () {
@@ -96,9 +96,6 @@ void main() {
     });
     test("currentOnScreenTime", () {
       expect(testStore.currentOnScreenTime, Seconds.get(2));
-    });
-    test("currentUnlockGesture", () {
-      expect(testStore.currentUnlockGesture, Gestures.none);
     });
   });
 }

@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/movie_status.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/storage/storage.dart';
 part 'storage_home_widgets_coordinator.g.dart';
 
 class StorageHomeWidgetsCoordinator = _StorageHomeWidgetsCoordinatorBase
     with _$StorageHomeWidgetsCoordinator;
 
-abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
-    with Store {
+abstract class _StorageHomeWidgetsCoordinatorBase
+    with Store, SmartTextPaddingAdjuster, BaseWidgetsCoordinator, Reactions {
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
   final SessionCardStore sessionCard;
@@ -20,8 +22,10 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   final InstructionalGradientNokhteStore primaryInstructionalGradientNokhte;
   final NokhteBlurStore blur;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   _StorageHomeWidgetsCoordinatorBase({
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.beachWaves,
     required this.gestureCross,
     required this.primarySmartText,
@@ -30,11 +34,14 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     required this.centerInstructionalNokhte,
     required this.primaryInstructionalGradientNokhte,
     required this.blur,
-  });
+  }) {
+    initBaseWidgetsCoordinatorActions();
+    initSmartTextActions();
+  }
 
   @action
   constructor(Offset offset) {
-    center = offset;
+    setCenter(offset);
     sessionCard.initFadeIn();
     primarySmartText.setMessagesData(StorageLists.homeHeader);
     setSmartTextBottomPaddingScalar(0);
@@ -67,7 +74,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   bool canTap = false;
 
   @action
-  onSwipeLeft() {
+  onSwipeRight() {
     if (isAllowedToInteract) {
       if (!hasInitiatedBlur && !hasSwiped) {
         hasSwiped = true;
@@ -121,7 +128,9 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   @action
   onGestureCrossTap() {
     if (isAllowedToInteract) {
-      if (!hasInitiatedBlur && canTapOnGestureCross) {
+      if (!hasInitiatedBlur &&
+          canTapOnGestureCross &&
+          beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
         sessionCard.setDisableTouchInput(true);
         blur.init();
         hasInitiatedBlur = true;
@@ -195,9 +204,9 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     primaryInstructionalGradientNokhte.setWidgetVisibility(false);
   }
 
-  @action
-  dispose() {
+  deconstructor() {
     sessionCard.dispose();
+    dispose();
   }
 
   @computed

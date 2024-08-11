@@ -1,6 +1,7 @@
 enum NokhteGradientTypes {
-  vibrantBlue,
-  onShore,
-  invertedShore,
-  oceanDive,
+  storage,
+  home,
+  sessionStarter,
+  presets,
+  sessionJoiner,
 }

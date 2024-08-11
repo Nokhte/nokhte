@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'home_screen_root_router_widgets_coordinator.g.dart';
@@ -9,33 +11,28 @@ class HomeScreenRootRouterWidgetsCoordinator = _HomeScreenRootRouterWidgetsCoord
     with _$HomeScreenRootRouterWidgetsCoordinator;
 
 abstract class _HomeScreenRootRouterWidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    with Store, BaseWidgetsCoordinator, Reactions, EnRoute, EnRouteRouter {
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _HomeScreenRootRouterWidgetsCoordinatorBase({
     required this.beachWaves,
-    required super.wifiDisconnectOverlay,
+    required this.wifiDisconnectOverlay,
     required this.gestureCross,
-  });
+  }) {
+    initBaseWidgetsCoordinatorActions();
+  }
 
   @observable
   WaterDirection waterDirection = WaterDirection.down;
 
   @action
   constructor() {
+    initEnRouteActions();
     beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
     beachWaves.currentStore.setControl(Control.mirror);
     gestureCross.fadeInTheCross();
-  }
-
-  @action
-  onDisconnected() {
-    beachWaves.currentStore.setControl(Control.playReverse);
-  }
-
-  @action
-  onConnected() {
-    beachWaves.currentStore.setControl(Control.mirror);
   }
 }

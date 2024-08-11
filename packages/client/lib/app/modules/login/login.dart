@@ -12,6 +12,7 @@ export 'constants/constants.dart';
 export 'data/data.dart';
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';
+export 'widgets/widgets.dart';
 export 'types/types.dart';
 export 'login_widgets_module.dart';
 

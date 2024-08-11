@@ -4,6 +4,9 @@ import 'dart:ui';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mixins/mixin.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -15,23 +18,38 @@ class StorageHomeCoordinator = _StorageHomeCoordinatorBase
     with _$StorageHomeCoordinator;
 
 abstract class _StorageHomeCoordinatorBase
-    extends BaseHomeScreenRouterCoordinator with Store {
+    with
+        Store,
+        EnRoute,
+        EnRouteRouter,
+        HomeScreenRouter,
+        BaseCoordinator,
+        BaseMobxLogic,
+        Reactions {
   final StorageHomeWidgetsCoordinator widgets;
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
   final UpdateSessionAlias updateSessionAliasLogic;
   final UserInformationCoordinator userInfo;
+  @override
+  final CaptureScreen captureScreen;
   final TapDetector tap;
+  @override
+  final GetUserInfoStore getUserInfo;
 
   final SwipeDetector swipe;
   _StorageHomeCoordinatorBase({
-    required super.captureScreen,
+    required this.captureScreen,
     required this.getNokhteSessionArtifactsLogic,
     required this.updateSessionAliasLogic,
     required this.widgets,
     required this.swipe,
     required this.userInfo,
     required this.tap,
-  }) : super(getUserInfo: userInfo.getUserInfoStore);
+  }) : getUserInfo = userInfo.getUserInfoStore {
+    initEnRouteActions();
+    initBaseCoordinatorActions();
+    initBaseLogicActions();
+  }
 
   @observable
   ObservableList<NokhteSessionArtifactEntity> nokhteSessionArtifacts =
@@ -52,7 +70,12 @@ abstract class _StorageHomeCoordinatorBase
     initReactors();
     await getUserInfo(NoParams());
     await getNokhteSessionArtifacts();
-    await userInfo.updateHasEnteredStorage(true);
+    await userInfo.updateUserFlag(
+      const UserFlagParam(
+        key: UserFlagKeys.hasEnteredStorage,
+        value: true,
+      ),
+    );
     await captureScreen(StorageConstants.root);
   }
 
@@ -90,9 +113,9 @@ abstract class _StorageHomeCoordinatorBase
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
-          case GestureDirections.left:
+          case GestureDirections.right:
             ifTouchIsNotDisabled(() {
-              widgets.onSwipeLeft();
+              widgets.onSwipeRight();
             });
           default:
             break;
@@ -136,9 +159,8 @@ abstract class _StorageHomeCoordinatorBase
         });
       });
 
-  @override
   deconstructor() {
-    widgets.deconstructor();
-    super.deconstructor();
+    dispose();
+    widgets.dispose();
   }
 }

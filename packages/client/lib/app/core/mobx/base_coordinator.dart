@@ -1,37 +1,36 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:flutter/material.dart';
+import 'dart:ui';
+
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
-part 'base_coordinator.g.dart';
 
-class BaseCoordinator = _BaseCoordinatorBase with _$BaseCoordinator;
+mixin BaseCoordinator {
+  CaptureScreen get captureScreen;
 
-abstract class _BaseCoordinatorBase extends BaseMobxDBStore with Store {
-  final CaptureScreen captureScreen;
+  final _disableAllTouchFeedback = Observable(false);
+  bool get disableAllTouchFeedback => _disableAllTouchFeedback.value;
 
-  _BaseCoordinatorBase({
-    required this.captureScreen,
-  });
+  Action actionToggleDisableAllTouchFeedback = Action(() {});
+  Action actionSetDisableAllTouchFeedback = Action(() {});
 
-  List<ReactionDisposer> disposers = [];
+  initBaseCoordinatorActions() {
+    actionToggleDisableAllTouchFeedback =
+        Action(_toggleDisableAllTouchFeedback);
+    actionSetDisableAllTouchFeedback = Action(_setDisableAllTouchFeedback);
+  }
 
-  @observable
-  bool isInErrorMode = false;
+  _toggleDisableAllTouchFeedback() =>
+      _disableAllTouchFeedback.value = !_disableAllTouchFeedback.value;
 
-  @action
-  setIsInErrorMode(bool p0) => isInErrorMode = p0;
+  _setDisableAllTouchFeedback(bool value) =>
+      _disableAllTouchFeedback.value = value;
 
-  @observable
-  bool disableAllTouchFeedback = false;
+  toggleDisableAllTouchFeedback() {
+    actionToggleDisableAllTouchFeedback.call();
+  }
 
-  @action
-  toggleDisableAllTouchFeedback() =>
-      disableAllTouchFeedback = !disableAllTouchFeedback;
-
-  @action
-  setDisableAllTouchFeedback(bool newValue) =>
-      disableAllTouchFeedback = newValue;
+  setDisableAllTouchFeedback(bool value) {
+    actionSetDisableAllTouchFeedback.call([value]);
+  }
 
   ifTouchIsNotDisabled(Function callback) async {
     if (!disableAllTouchFeedback) await callback();
@@ -55,13 +54,4 @@ abstract class _BaseCoordinatorBase extends BaseMobxDBStore with Store {
         break;
     }
   }
-
-      deconstructor() {
-    for (var disposer in disposers) {
-      disposer.call();
-    }
-  }
-
-  @override
-  List<Object> get props => [];
 }

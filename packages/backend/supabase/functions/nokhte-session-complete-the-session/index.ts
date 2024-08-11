@@ -41,12 +41,14 @@ serve(async (req) => {
     const content = stSessionRes?.data?.[0]["content"];
     const sessionTimestamp = stSessionRes?.data?.[0]["created_at"];
     const sessionUID = stSessionRes?.data?.[0]["session_uid"];
-    const collaboratorUIDsArr = stSessionRes?.data?.[0]["collaborator_uids"];
-    const currentPhases = rtSessionRes?.data?.[0]["current_phases"];
+    let collaboratorUIDsArr = stSessionRes?.data?.[0]["collaborator_uids"];
+    collaboratorUIDsArr = collaboratorUIDsArr.sort();
+    // const currentPhases = rtSessionRes?.data?.[0]["current_phases"];
+    const presetUID = stSessionRes?.data?.[0]["preset_uid"];
 
     const duplicateCheckRes = (
       await supabaseAdmin
-        .from("finished_nokhte_session")
+        .from("finished_nokhte_sessions")
         .select()
         .contains("collaborator_uids", `{${userUID}}`)
         .eq("content", content)
@@ -59,25 +61,23 @@ serve(async (req) => {
           content: content,
           session_timestamp: sessionTimestamp,
           aliases: Array(collaboratorUIDsArr.length).fill(""),
+          preset_uid: presetUID,
           session_uid: sessionUID,
         })
         .select();
 
-      const leaderIsWhitelisted = await isWhiteListed(leaderUID);
-
       for (let i = 0; i < collaboratorUIDsArr.length; i++) {
-        if (
-          collaboratorUIDsArr.length > 3 &&
-          currentPhases.every((e: any) => e >= 2) &&
-          !leaderIsWhitelisted
-        ) {
-          await supabaseAdmin
-            .from("user_metadata")
-            .update({
-              has_used_trial: true,
-            })
-            .eq("uid", collaboratorUIDsArr[i]);
-        }
+        //   if (
+        //     collaboratorUIDsArr.length > 3 &&
+        //     currentPhases.every((e: any) => e >= 2)
+        //   ) {
+        //     await supabaseAdmin
+        //       .from("user_metadata")
+        //       .update({
+        //         has_used_trial: true,
+        //       })
+        //       .eq("uid", collaboratorUIDsArr[i]);
+        //   }
 
         const userAuthorizedViewersRes = (
           await supabaseAdmin

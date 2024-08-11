@@ -21,24 +21,44 @@ class NokhteSessionArtifactModel extends NokhteSessionArtifactEntity {
     required String userUID,
   }) {
     List<NokhteSessionArtifactModel> temp = [];
+    Set<String> uniqueContents = {};
+
     for (var nokhteSession in nokhteSessionRes) {
       for (var collaboratorRow in collaboratorRowsRes) {
         if (nokhteSession[FinishedNokhteSessionQueries.COLLABORATOR_UIDS]
                 .contains(collaboratorRow["uid"]) &&
             nokhteSession[FinishedNokhteSessionQueries.CONTENT].isNotEmpty) {
-          String title = 'Session with ${collaboratorRow["first_name"]}';
-          final date = DateTime.parse(
-              nokhteSession[FinishedNokhteSessionQueries.SESSION_TIMESTAMP]);
-          temp.add(NokhteSessionArtifactModel(
-            date: formatDate(date),
-            title: title,
-            content: nokhteSession[FinishedNokhteSessionQueries.CONTENT],
-            sessionUID: nokhteSession[FinishedNokhteSessionQueries.SESSION_UID],
-          ));
+          final content = nokhteSession[FinishedNokhteSessionQueries.CONTENT];
+          final contentString = content.toString();
+
+          if (uniqueContents.add(contentString)) {
+            String title = '';
+            final userIndex =
+                nokhteSession[FinishedNokhteSessionQueries.COLLABORATOR_UIDS]
+                    .indexOf(userUID);
+            if (nokhteSession[FinishedNokhteSessionQueries.ALIASES][userIndex]
+                .isEmpty) {
+              title = 'Session with ${collaboratorRow["first_name"]}';
+            } else {
+              title = nokhteSession[FinishedNokhteSessionQueries.ALIASES]
+                  [userIndex];
+            }
+            final date = DateTime.parse(
+              nokhteSession[FinishedNokhteSessionQueries.SESSION_TIMESTAMP],
+            );
+
+            temp.add(NokhteSessionArtifactModel(
+              date: formatDate(date),
+              title: title,
+              content: content,
+              sessionUID:
+                  nokhteSession[FinishedNokhteSessionQueries.SESSION_UID],
+            ));
+          }
         }
       }
-      temp = temp.toSet().toList();
     }
+
     return temp;
   }
 }

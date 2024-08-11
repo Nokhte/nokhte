@@ -11,6 +11,7 @@ export 'presentation/presentation.dart';
 export 'constants/constants.dart';
 export 'storage_logic_module.dart';
 export 'storage_widgets_module.dart';
+export 'widgets/widgets.dart';
 
 class StorageModule extends Module {
   @override
@@ -36,13 +37,14 @@ class StorageModule extends Module {
         userInfo: Modular.get<UserInformationCoordinator>(),
       ),
     );
-    i.add<StorageContentCoordinator>(() => StorageContentCoordinator(
-          tap: TapDetector(),
-          captureScreen: Modular.get<CaptureScreen>(),
-          widgets: Modular.get<StorageContentWidgetsCoordinator>(),
-          swipe: SwipeDetector(),
-          getUserInfo: Modular.get<GetUserInfoStore>(),
-        ));
+    i.add<StorageContentCoordinator>(
+      () => StorageContentCoordinator(
+        tap: TapDetector(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<StorageContentWidgetsCoordinator>(),
+        swipe: SwipeDetector(),
+      ),
+    );
   }
 
   @override
