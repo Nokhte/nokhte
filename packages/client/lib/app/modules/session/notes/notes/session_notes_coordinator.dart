@@ -82,7 +82,7 @@ abstract class _SessionNotesCoordinatorBase
               widgets.onSwipeUp(onSwipeUp);
             });
           case GestureDirections.down:
-            if (sessionMetadata.presetType != PresetTypes.socratic) {
+            if (sessionMetadata.presetType == PresetTypes.consultative) {
               ifTouchIsNotDisabled(() async {
                 if (widgets.textEditor.controller.text.isNotEmpty) {
                   await onSwipeUp(widgets.textEditor.controller.text);
