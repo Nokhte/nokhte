@@ -28,9 +28,10 @@ abstract class _CollaborationFullInstructionsCoordinatorBase
   }
 
   @action
-  constructor() {
+  constructor() async {
     widgets.constructor();
     initReactors();
+    await captureScreen(SessionConstants.collaborationFullInstructions);
   }
 
   @action
