@@ -29,11 +29,7 @@ mixin HomeScreenWidgetsUtils
   initSessionStarterTransition() {
     if (!hasSwiped() && isAllowedToMakeGesture()) {
       setSwipeDirection(GestureDirections.up);
-      if (smartText.currentIndex == 0) {
-        smartText.toggleWidgetVisibility();
-      } else {
-        smartText.startRotatingText(isResuming: true);
-      }
+      smartText.toggleWidgetVisibility();
       centerInstructionalNokhte.setWidgetVisibility(false);
       gestureCross.centerCrossNokhte.setWidgetVisibility(true);
       beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
