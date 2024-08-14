@@ -33,7 +33,7 @@ abstract class SocraticNotesInstructionsCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
-    await captureScreen(SessionConstants.notesInstructions);
+    await captureScreen(SessionConstants.socraticNotesInstructions);
   }
 
   @action

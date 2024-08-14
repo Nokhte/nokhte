@@ -40,6 +40,9 @@ class SessionExitScreen extends HookWidget {
                   store: coordinator.widgets.beachWaves,
                 ),
               ),
+              BorderGlow(
+                store: coordinator.widgets.borderGlow,
+              ),
               Tint(
                 store: coordinator.widgets.tint,
               ),

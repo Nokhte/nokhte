@@ -30,10 +30,11 @@ abstract class _ShowGroupGeometryCoordinatorBase
   }
 
   @action
-  constructor() {
+  constructor() async {
     widgets.constructor(
         isASocraticSession: sessionMetadata.presetType == PresetTypes.socratic);
     initReactors();
+    await captureScreen(SessionConstants.showGroupGeometry);
   }
 
   @action

@@ -26,12 +26,14 @@ abstract class _SessionExitWidgetsCoordinatorBase
   final SmartTextStore secondarySmartText;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
+  final BorderGlowStore borderGlow;
 
   _SessionExitWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.exitStatusIndicator,
     required this.wifiDisconnectOverlay,
     required this.primarySmartText,
+    required this.borderGlow,
     required this.secondarySmartText,
     required this.gestureCross,
     required this.tint,
@@ -62,6 +64,7 @@ abstract class _SessionExitWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
     beachWaves.currentStore.reverseMovie(-10.0);
     gestureCross.fadeInTheCross();
+    borderGlow.setWidgetVisibility(false);
   }
 
   @action

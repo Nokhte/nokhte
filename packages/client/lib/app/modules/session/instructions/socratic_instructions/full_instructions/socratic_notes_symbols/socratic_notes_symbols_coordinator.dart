@@ -28,9 +28,10 @@ abstract class _SocraticNotesSymbolsCoordinatorBase
   }
 
   @action
-  constructor() {
+  constructor() async {
     widgets.constructor();
     initReactors();
+    await captureScreen(SessionConstants.socraticNotesSymbols);
   }
 
   @action

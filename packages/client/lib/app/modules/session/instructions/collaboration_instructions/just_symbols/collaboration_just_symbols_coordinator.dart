@@ -29,9 +29,10 @@ abstract class _CollaborationJustSymbolsCoordinatorBase
   }
 
   @action
-  constructor() {
+  constructor() async {
     widgets.constructor();
     initReactors();
+    await captureScreen(SessionConstants.collaborationJustSymbols);
   }
 
   @action
