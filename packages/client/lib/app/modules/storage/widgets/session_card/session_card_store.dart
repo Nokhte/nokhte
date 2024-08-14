@@ -48,7 +48,7 @@ abstract class _SessionCardStoreBase extends BaseWidgetStore with Store {
 
   @action
   onDoubleTap(int index) {
-    if (showListBox) {
+    if (showListBox && !disableTouchInput) {
       lastSelectedIndex = index;
       showListBox = false;
       Timer(Seconds.get(1), () {

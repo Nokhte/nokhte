@@ -28,9 +28,10 @@ abstract class _SocraticSpeakingSymbolsCoordinatorBase
   }
 
   @action
-  constructor() {
+  constructor() async {
     widgets.constructor();
     initReactors();
+    await captureScreen(SessionConstants.socraticSpeakingSymbols);
   }
 
   @action

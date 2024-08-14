@@ -133,6 +133,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase
           beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
         sessionCard.setDisableTouchInput(true);
         blur.init();
+        sessionCard.setDisableTouchInput(true);
         hasInitiatedBlur = true;
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         gestureCross.gradientNokhte.setWidgetVisibility(false);

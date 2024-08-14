@@ -4,7 +4,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class PosthogRemoteSource {
   Future<void> identifyUser();
-  Future<void> captureNokhteSessionStart(int numberOfCollaborators);
+  Future<void> captureNokhteSessionStart(
+    CaptureNokhteSessionStartParams params,
+  );
   Future<void> captureNokhteSessionEnd();
   Future<void> captureScreen(String screenRoute);
 }
@@ -25,30 +27,33 @@ class PosthogRemoteSourceImpl
   final Posthog posthog = Posthog();
 
   @override
-  Future<void> captureNokhteSessionEnd() async {
+  captureNokhteSessionEnd() async {
     await Posthog().capture(eventName: END_NOKHTE_SESSION, properties: {
       "sent_at": DateTime.now().toIso8601String(),
     });
   }
 
   @override
-  Future<void> captureNokhteSessionStart(
-    int numberOfCollaborators,
-  ) async {
-    await Posthog().capture(eventName: STARTED_NOKHTE_SESSION, properties: {
-      "sent_at": DateTime.now().toIso8601String(),
-      "number_of_collaborators": numberOfCollaborators,
-    });
-  }
+  captureNokhteSessionStart(
+    CaptureNokhteSessionStartParams params,
+  ) async =>
+      await Posthog().capture(
+        eventName: STARTED_NOKHTE_SESSION,
+        properties: {
+          "sent_at": DateTime.now().toIso8601String(),
+          "number_of_collaborators": params.numberOfCollaborators,
+          "preset_type": params.presetType.toString(),
+        },
+      );
 
   @override
-  Future<void> identifyUser() async {
+  identifyUser() async {
     final supabase = Supabase.instance.client;
     await posthog.identify(userId: supabase.auth.currentUser!.id);
   }
 
   @override
-  Future<void> captureScreen(String screenRoute) async {
+  captureScreen(String screenRoute) async {
     await posthog.capture(eventName: formatRoute(screenRoute));
   }
 }

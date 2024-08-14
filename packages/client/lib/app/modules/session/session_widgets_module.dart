@@ -213,6 +213,7 @@ class SessionWidgetsModule extends Module {
     );
     i.add<SessionExitWidgetsCoordinator>(
       () => SessionExitWidgetsCoordinator(
+        borderGlow: BorderGlowStore(),
         exitStatusIndicator: ExitStatusIndicatorStore(),
         tint: TintStore(),
         gestureCross: Modular.get<GestureCrossStore>(),

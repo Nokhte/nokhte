@@ -30,7 +30,7 @@ abstract class _SessionInstructionsPickerCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
-    await captureScreen(SessionStarterConstants.sessionStarterInstructions);
+    await captureScreen(SessionStarterConstants.sessionInstructionsPicker);
   }
 
   @action
