@@ -50,6 +50,7 @@ abstract class _SocraticSpeakingExitCoordinatorBase
         },
       ),
     );
+    await captureScreen(SessionConstants.socraticSpeakingExit);
   }
 
   @action

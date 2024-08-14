@@ -28,10 +28,10 @@ abstract class _ConsultationSpeakingSymbolsCoordinatorBase
   }
 
   @action
-  constructor() {
+  constructor() async {
     widgets.constructor();
-
     initReactors();
+    await captureScreen(SessionConstants.consultationSpeakingSymbols);
   }
 
   @action

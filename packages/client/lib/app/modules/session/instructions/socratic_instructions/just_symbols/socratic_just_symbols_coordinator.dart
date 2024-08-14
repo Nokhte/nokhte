@@ -27,9 +27,10 @@ abstract class _SocraticJustSymbolsCoordinatorBase
   }
 
   @action
-  constructor() {
+  constructor() async {
     widgets.constructor();
     initReactors();
+    await captureScreen(SessionConstants.socraticJustSymbols);
   }
 
   @action

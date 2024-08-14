@@ -124,7 +124,10 @@ abstract class _SessionLobbyCoordinatorBase
               tap.currentTapPosition,
               onTap: () async {
                 await presence.startTheSession();
-                await captureStart(sessionMetadata.numberOfCollaborators);
+                await captureStart(CaptureNokhteSessionStartParams(
+                  numberOfCollaborators: sessionMetadata.numberOfCollaborators,
+                  presetType: sessionMetadata.presetType,
+                ));
               },
             );
           }

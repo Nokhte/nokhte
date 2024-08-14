@@ -37,6 +37,9 @@ class SessionCollaborationGreeterScreen extends HookWidget {
                 store: coordinator.widgets.beachWaves,
               ),
             ),
+            BorderGlow(
+              store: BorderGlowStore(),
+            ),
             Center(
               child: SmartText(
                 store: coordinator.widgets.primarySmartText,

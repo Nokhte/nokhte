@@ -41,7 +41,7 @@ abstract class _SessionJoinerInstructionsCoordinatorBase
     widgets.initReactors();
     initReactors();
     await getUserInfo(NoParams());
-    await captureScreen(SessionStarterConstants.sessionStarterInstructions);
+    await captureScreen(SessionStarterConstants.sessionJoinerInstructions);
   }
 
   initReactors() {

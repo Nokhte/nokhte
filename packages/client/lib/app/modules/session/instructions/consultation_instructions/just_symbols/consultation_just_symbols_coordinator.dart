@@ -28,9 +28,10 @@ abstract class _ConsultationJustSymbolsCoordinatorBase
   }
 
   @action
-  constructor() {
+  constructor() async {
     widgets.constructor();
     initReactors();
+    await captureScreen(SessionConstants.consultationJustSymbols);
   }
 
   @action
