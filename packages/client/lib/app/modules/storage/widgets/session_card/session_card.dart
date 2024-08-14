@@ -158,7 +158,8 @@ class SessionCard extends HookWidget {
                                               ),
                                             ),
                                             child: TextFormField(
-                                              readOnly: !store.showTextBox,
+                                              readOnly: !store.showTextBox &&
+                                                  !store.disableTouchInput,
                                               onTapOutside: (details) =>
                                                   store.onTapOutside(
                                                 sessions[
