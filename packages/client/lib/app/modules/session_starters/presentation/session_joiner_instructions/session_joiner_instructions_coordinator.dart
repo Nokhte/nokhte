@@ -75,9 +75,7 @@ abstract class _SessionJoinerInstructionsCoordinatorBase
           if (getUserInfo.hasAccessedQrCode) {
             await logic.initialize();
             logic.listenToSessionActivation();
-            //
           }
-          // bug:need to join the pool if necessary and exit if necessary
           widgets.onUserInfoLoaded(
             getUserInfo.hasAccessedQrCode,
             getUserInfo.userUID,
