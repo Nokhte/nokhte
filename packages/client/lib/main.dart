@@ -1,12 +1,14 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:glassfy_flutter/glassfy_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:nokhte/app/app_module.dart';
 import 'package:nokhte/app/app_widget.dart';
+import 'package:nokhte/app/modules/session_starters/session_starters_widgets.dart';
+import 'package:nokhte/app/modules/storage/storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/foundation.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,13 +16,40 @@ void main() async {
 
   Modular.setInitialRoute('/login/');
 
-  String glassfyAPIKey = dotenv.env['GLASSFY_PROD_API_KEY'] ?? '';
+  await Hive.initFlutter();
 
-  if (Platform.isIOS && dotenv.env["APP_ID"] == 'com.nokhte.staging') {
-    glassfyAPIKey = dotenv.env['GLASSFY_STAGING_API_KEY'] ?? '';
-  }
+  QuickActions quickActions = const QuickActions();
 
-  await Glassfy.initialize(glassfyAPIKey);
+  quickActions.setShortcutItems(<ShortcutItem>[
+    const ShortcutItem(
+      type: 'Start Session',
+      localizedTitle: 'Start Session',
+      icon: 'qr_code',
+    ),
+    const ShortcutItem(
+      type: 'Join Session',
+      localizedTitle: 'Join Session',
+      icon: 'camera',
+    ),
+    const ShortcutItem(
+      type: 'View Storage',
+      localizedTitle: 'View Storage',
+      icon: 'doc',
+    ),
+  ]);
+
+  quickActions.initialize((String shortcutType) {
+    switch (shortcutType) {
+      case 'Start Session':
+        Modular.to.navigate(SessionStarterConstants.sessionStarter);
+      case 'Join Session':
+        Modular.to.navigate(SessionStarterConstants.sessionJoiner);
+      case 'View Storage':
+        Modular.to.navigate(StorageConstants.root);
+      default:
+        break;
+    }
+  });
 
   late String supabaseUrl;
   late String supabaseAnonKey;
