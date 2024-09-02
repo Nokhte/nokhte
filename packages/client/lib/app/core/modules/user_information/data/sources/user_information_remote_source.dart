@@ -68,7 +68,6 @@ class UserInformationRemoteSourceImpl
     final res = await companyPresetQueries.getInfoFromUnifiedUID(
       box.get(PREFERRED_PRESET),
     );
-    print('their preferred preset $res');
     return res;
   }
 }
