@@ -17,13 +17,11 @@ class PreferredPresetModel extends PreferredPresetEntity {
         unifiedUID: '',
       );
     } else {
-      final companyPreset =
-          res.first[UnifiedPresetsConstants.TABLE][CompanyPresetsQueries.TABLE];
+      final companyPreset = res.first[CompanyPresetsQueries.TABLE];
       return PreferredPresetModel(
         name: companyPreset[CompanyPresetsQueries.NAME],
         tags: companyPreset[CompanyPresetsQueries.TAGS],
-        unifiedUID: res.first[UnifiedPresetsConstants.TABLE]
-            [UnifiedPresetsConstants.UID],
+        unifiedUID: res.first[UnifiedPresetsConstants.UID],
       );
     }
   }
