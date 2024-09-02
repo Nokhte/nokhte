@@ -61,18 +61,7 @@ abstract class _PresetsInstructionsCoordinatorBase
     disposers.add(tapReactor());
     disposers.add(
         widgets.selectionCondensedPresetCardMovieStatusReactor(onSelected));
-    disposers.add(userInfoReactor());
   }
-
-  userInfoReactor() => reaction((p0) => getUserInfo.state, (p0) {
-        if (p0 == StoreState.loaded) {
-          disposers.add(
-            widgets.beachWavesMovieStatusReactor(
-              hasAccessedQrCodeScanner: getUserInfo.hasAccessedQrCodeScanner,
-            ),
-          );
-        }
-      });
 
   @action
   onSelected(String presetUID) async {

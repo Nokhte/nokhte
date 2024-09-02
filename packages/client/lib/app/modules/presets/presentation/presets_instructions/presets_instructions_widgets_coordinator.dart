@@ -82,6 +82,7 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
     disposers.add(condensedPresetCardTapReactor());
     disposers.add(condensedPresetCardHoldReactor());
     disposers.add(transitionsCondensedPresetCardMovieStatusReactor());
+    disposers.add(beachWavesMovieStatusReactor(hasAccessedQrCodeScanner: true));
   }
 
   @observable
