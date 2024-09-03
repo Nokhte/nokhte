@@ -1,5 +1,7 @@
 export 'login_coordinator.dart';
 export 'login_widgets_coordinator.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
@@ -55,18 +57,22 @@ class LoginScreen extends HookWidget {
                       padding: EdgeInsets.symmetric(
                         horizontal: width * .1,
                       ),
-                      child: SignInButton(
-                        Buttons.apple,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: width * .12,
-                          vertical: width * .03,
+                      child: Opacity(
+                        opacity: Platform.isIOS ? 1 : .5,
+                        child: SignInButton(
+                          Buttons.apple,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: width * .12,
+                            vertical: width * .02,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(7),
+                          ),
+                          text: "Sign in with Apple",
+                          onPressed: () async => Platform.isIOS
+                              ? await coordinator.logIn(AuthProvider.apple)
+                              : null,
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                        text: "Sign in with Apple",
-                        onPressed: () async =>
-                            await coordinator.logIn(AuthProvider.apple),
                       ),
                     ),
                     Padding(
