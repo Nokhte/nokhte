@@ -12,7 +12,6 @@ export 'constants/constants.dart';
 export 'data/data.dart';
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';
-export 'widgets/widgets.dart';
 export 'types/types.dart';
 export 'login_widgets_module.dart';
 
@@ -90,7 +89,6 @@ class LoginModule extends Module {
         captureScreen: Modular.get<CaptureScreen>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
         tap: TapDetector(),
-        swipe: SwipeDetector(),
         addName: Modular.get<AddName>(),
         widgets: Modular.get<LoginScreenWidgetsCoordinator>(),
         signInWithAuthProvider: i<SignInWithAuthProviderStore>(),
