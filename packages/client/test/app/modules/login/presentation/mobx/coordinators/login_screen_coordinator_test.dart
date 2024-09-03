@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/login/login.dart';
 import '../../../../shared/shared_mocks.mocks.dart';
@@ -9,15 +8,11 @@ void main() {
   late LoginScreenWidgetsCoordinator mockWidgetsStore;
   late MockSignInWithAuthProviderStore mockAuthProviderStore;
   late MockGetLoginStateStore mockAuthStateStore;
-  late SwipeDetector mockSwipeDetector;
   late TapDetector mockTapDetector;
   late LoginCoordinator testStore;
   late BeachWavesStore mockLayer1BeachWavesStore;
   late BeachWavesStore mockLayer2BeachWavesStore;
   late SmartTextStore smartTextStore;
-  late LoginNokhtesStore nokhteStore;
-  late TrailingTextStore topTrailingTextStore;
-  late TrailingTextStore bottomTrailingTextStore;
   late MockWifiDisconnectOverlayStore wifiDisconnectOverlayStore;
   late MockAddName mockAddNameToDatabase;
 
@@ -27,22 +22,15 @@ void main() {
     mockLayer1BeachWavesStore = BeachWavesStore();
     mockLayer2BeachWavesStore = BeachWavesStore();
     smartTextStore = SmartTextStore();
-    nokhteStore = LoginNokhtesStore();
-    topTrailingTextStore = TrailingTextStore();
-    bottomTrailingTextStore = TrailingTextStore();
     mockWidgetsStore = LoginScreenWidgetsCoordinator(
       gestureCross: MockGestureCrossStore(),
       wifiDisconnectOverlay: wifiDisconnectOverlayStore,
       layer1BeachWaves: mockLayer1BeachWavesStore,
       layer2BeachWaves: mockLayer2BeachWavesStore,
       smartTextStore: smartTextStore,
-      loginNokhtes: nokhteStore,
-      bottomTrailingText: bottomTrailingTextStore,
-      topTrailingText: topTrailingTextStore,
     );
     mockAuthStateStore = MockGetLoginStateStore();
     mockAuthProviderStore = MockSignInWithAuthProviderStore();
-    mockSwipeDetector = SwipeDetector();
     mockTapDetector = TapDetector();
     testStore = LoginCoordinator(
       identifyUser: MockIdentifyUser(),
@@ -54,15 +42,10 @@ void main() {
       signInWithAuthProvider: mockAuthProviderStore,
       authStateStore: mockAuthStateStore,
       tap: mockTapDetector,
-      swipe: mockSwipeDetector,
     );
   });
 
   group("initial values", () {
-    test("authProvider", () {
-      expect(testStore.authProvider, AuthProvider.apple);
-    });
-
     test("isLoggedIn", () {
       expect(testStore.isLoggedIn, false);
     });
@@ -78,11 +61,6 @@ void main() {
       expect(testStore.hasAttemptedToLogin, true);
       testStore.toggleHasAttemptedToLogin();
       expect(testStore.hasAttemptedToLogin, false);
-    });
-    test("logTheUserIn", () {
-      testStore.logTheUserIn();
-      verify(
-          mockAuthProviderStore.routeAuthProviderRequest(AuthProvider.apple));
     });
   });
 }
