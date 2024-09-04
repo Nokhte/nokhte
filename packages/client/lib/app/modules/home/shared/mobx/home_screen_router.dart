@@ -20,20 +20,7 @@ mixin HomeScreenRouter on EnRouteRouter {
   onAnimationComplete() {
     final args = getModularArgs(params);
     if (getUserInfo.isOnMostRecentVersion) {
-      if (!getUserInfo.hasDoneASession) {
-        if (!getUserInfo.hasDoneEitherQrFlow) {
-          Modular.to.navigate(HomeConstants.compassAndQrGuide, arguments: args);
-        } else {
-          Modular.to
-              .navigate(HomeConstants.qrNavigationReminder, arguments: args);
-        }
-      } else if (getUserInfo.hasDoneASession) {
-        if (!getUserInfo.hasEnteredStorage) {
-          Modular.to.navigate(HomeConstants.storageGuide, arguments: args);
-        } else {
-          Modular.to.navigate(HomeConstants.qrAndStorageAdept, arguments: args);
-        }
-      }
+      Modular.to.navigate(HomeConstants.qrAndStorageAdept, arguments: args);
     } else {
       Modular.to.navigate(HomeConstants.needsToUpdate, arguments: args);
     }

@@ -11,7 +11,6 @@ import 'home.dart';
 export 'constants/constants.dart';
 export './needs_update/needs_update.dart';
 export 'has_session/has_session.dart';
-export 'no_session/no_session.dart';
 export 'root_router/root_router.dart';
 export 'shared/mobx/mobx.dart';
 export 'shared/shared.dart';
@@ -37,32 +36,6 @@ class HomeModule extends Module {
             Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
         widgets: Modular.get<HomeScreenRootRouterWidgetsCoordinator>(),
-      ),
-    );
-    i.add<CompassAndQrGuideCoordinator>(
-      () => CompassAndQrGuideCoordinator(
-        tap: TapDetector(),
-        captureScreen: Modular.get<CaptureScreen>(),
-        swipe: SwipeDetector(),
-        widgets: Modular.get<CompassAndQrGuideWidgetsCoordinator>(),
-      ),
-    );
-    i.add<QrNavigationReminderCoordinator>(
-      () => QrNavigationReminderCoordinator(
-        tap: TapDetector(),
-        captureScreen: Modular.get<CaptureScreen>(),
-        swipe: SwipeDetector(),
-        widgets: Modular.get<QrNavigationReminderWidgetsCoordinator>(),
-      ),
-    );
-    i.add<StorageGuideCoordinator>(
-      () => StorageGuideCoordinator(
-        tap: TapDetector(),
-        getNokhteSessionArtifactsLogic:
-            Modular.get<GetNokhteSessionArtifacts>(),
-        captureScreen: Modular.get<CaptureScreen>(),
-        swipe: SwipeDetector(),
-        widgets: Modular.get<StorageGuideWidgetsCoordinator>(),
       ),
     );
 
@@ -93,29 +66,6 @@ class HomeModule extends Module {
         coordinator: Modular.get<HomeScreenRootRouterCoordinator>(),
       ),
     );
-    r.child(
-      HomeConstants.relativeCompassAndQrGuide,
-      transition: TransitionType.noTransition,
-      child: (context) => CompassAndQrGuideScreen(
-        coordinator: Modular.get<CompassAndQrGuideCoordinator>(),
-      ),
-    );
-    r.child(
-      HomeConstants.relativeQrNavigationReminder,
-      transition: TransitionType.noTransition,
-      child: (context) => QrNavigationReminderScreen(
-        coordinator: Modular.get<QrNavigationReminderCoordinator>(),
-      ),
-    );
-
-    r.child(
-      HomeConstants.relativeStorageGuide,
-      transition: TransitionType.noTransition,
-      child: (context) => StorageGuideScreen(
-        coordinator: Modular.get<StorageGuideCoordinator>(),
-      ),
-    );
-
     r.child(
       HomeConstants.relativeQrAndStorageAdept,
       transition: TransitionType.noTransition,

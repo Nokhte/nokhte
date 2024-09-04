@@ -20,45 +20,6 @@ class HomeWidgetsModule extends Module {
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
     );
-    i.add<CompassAndQrGuideWidgetsCoordinator>(
-      () => CompassAndQrGuideWidgetsCoordinator(
-        swipeGuide: SwipeGuideStore(),
-        nokhteBlur: NokhteBlurStore(),
-        smartText: SmartTextStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        gestureCross: Modular.get<GestureCrossStore>(),
-        touchRipple: TouchRippleStore(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        focusInstructionalNokhte: InstructionalGradientNokhteStore(),
-      ),
-    );
-    i.add<QrNavigationReminderWidgetsCoordinator>(
-      () => QrNavigationReminderWidgetsCoordinator(
-        nokhteBlur: NokhteBlurStore(),
-        smartText: SmartTextStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        gestureCross: Modular.get<GestureCrossStore>(),
-        touchRipple: TouchRippleStore(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
-      ),
-    );
-    i.add<StorageGuideWidgetsCoordinator>(
-      () => StorageGuideWidgetsCoordinator(
-        swipeGuide: SwipeGuideStore(),
-        nokhteBlur: NokhteBlurStore(),
-        smartText: SmartTextStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        gestureCross: Modular.get<GestureCrossStore>(),
-        touchRipple: TouchRippleStore(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
-        focusInstructionalNokhte: InstructionalGradientNokhteStore(),
-      ),
-    );
     i.add<QrAndStorageAdeptWidgetsCoordinator>(
       () => QrAndStorageAdeptWidgetsCoordinator(
         nokhteBlur: NokhteBlurStore(),
