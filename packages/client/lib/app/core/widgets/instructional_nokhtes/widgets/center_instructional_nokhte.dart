@@ -18,6 +18,11 @@ class CenterInstructionalNokhte extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final size = useSquareSize(relativeLength: .20);
+    final screenSize = useFullScreenSize();
+    useEffect(() {
+      store.setScreenSize(screenSize);
+      return null;
+    }, []);
     return Column(
       children: [
         Expanded(

@@ -14,8 +14,7 @@ class CenterInstructionalNokhteStore = _CenterInstructionalNokhteStoreBase
 abstract class _CenterInstructionalNokhteStoreBase
     extends BaseWidgetStore<InstructionalNokhtePositions> with Store {
   _CenterInstructionalNokhteStoreBase() {
-    setMovie(
-        CenterInstructionalNokhteTransformationMovie.getMovie(Offset.zero));
+    setMovie(CenterInstructionalNokhteTransformationMovie.getMovie(screenSize));
   }
 
   @observable
@@ -23,14 +22,15 @@ abstract class _CenterInstructionalNokhteStoreBase
       CenterInstructionalNokhteMovieModes.moveToCenter;
 
   @observable
-  Offset center = Offset.zero;
+  Size screenSize = Size.zero;
 
   @action
-  moveToCenter(Offset centerParam) {
-    center = centerParam;
+  setScreenSize(Size value) => screenSize = value;
+
+  @action
+  moveToCenter() {
     setMovieStatus(MovieStatus.inProgress);
-    setMovie(
-        CenterInstructionalNokhteTransformationMovie.getMovie(centerParam));
+    setMovie(CenterInstructionalNokhteTransformationMovie.getMovie(screenSize));
     setControl(Control.playFromStart);
     movieMode = CenterInstructionalNokhteMovieModes.moveToCenter;
   }
@@ -43,7 +43,7 @@ abstract class _CenterInstructionalNokhteStoreBase
     movieMode = CenterInstructionalNokhteMovieModes.moveBack;
     setMovie(
       MoveCenterInstructionalNokhteBackToCrossMovie.getMovie(
-        center,
+        screenSize,
         startingPosition: startingPosition,
       ),
     );
@@ -56,7 +56,7 @@ abstract class _CenterInstructionalNokhteStoreBase
     movieMode = CenterInstructionalNokhteMovieModes.moveAround;
     setMovie(
       MoveCenterInstructionalNokhte.getMovie(
-        center,
+        screenSize,
         position: param,
       ),
     );

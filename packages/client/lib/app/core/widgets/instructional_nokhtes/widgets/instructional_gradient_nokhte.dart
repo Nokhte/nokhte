@@ -18,6 +18,11 @@ class InstructionalGradientNokhte extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final size = useSquareSize(relativeLength: .20);
+    final screenSize = useFullScreenSize();
+    useEffect(() {
+      store.setScreenSize(screenSize);
+      return null;
+    }, []);
     return Column(
       children: [
         Expanded(
@@ -41,6 +46,10 @@ class InstructionalGradientNokhte extends HookWidget {
                   builder: (context, value, child) => SizedBox.expand(
                     child: CustomPaint(
                       painter: InstructionalGradientNokhtePainter(
+                        text: store.text,
+                        textOnTop: store.textShouldBeOnTop,
+                        textOpacity: value.get('textOpacity'),
+                        // add this in the movie
                         radius: value.get('radius'),
                         offsets: Offset(
                           value.get('dx'),
@@ -58,7 +67,6 @@ class InstructionalGradientNokhte extends HookWidget {
                           value.get('stop3'),
                           value.get('stop4'),
                         ],
-                        borderRadius: value.get('borderRadius'),
                       ),
                     ),
                   ),

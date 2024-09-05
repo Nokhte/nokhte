@@ -5,9 +5,13 @@ import 'package:simple_animations/simple_animations.dart';
 
 class MoveCenterInstructionalNokhte {
   static MovieTween getMovie(
-    Offset screenCenter, {
+    Size screenSize, {
     required InstructionalNokhtePositions position,
   }) {
+    final screenCenter = Offset(
+      screenSize.width / 2,
+      screenSize.height / 2,
+    );
     Offset start = Offset.zero;
     Offset end = Offset.zero;
     start = Offset(CircleOffsets.center.dx, (-screenCenter.dy) * .8);

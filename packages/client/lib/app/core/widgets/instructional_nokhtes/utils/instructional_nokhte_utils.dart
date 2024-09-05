@@ -1,49 +1,116 @@
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class InstructionalNokhteUtils {
   static StartAndEndOffsets getOffsets(
-    Offset screenCenter, {
+    Size screenSize, {
     required InstructionalNokhtePositions position,
     required InstructionalGradientDirections direction,
   }) {
     Offset start = Offset.zero;
     Offset end = Offset.zero;
+    final screenCenter = Offset(
+      screenSize.width / 2,
+      screenSize.height / 2,
+    );
     switch (position) {
+      // refactor left and right to use the scaled size hook
       case InstructionalNokhtePositions.left:
         switch (direction) {
           case InstructionalGradientDirections.enlarge:
             start = Offset(CircleOffsets.left.dx, CircleOffsets.left.dy);
-            end = Offset((-screenCenter.dy) * .25, (-screenCenter.dy) * .8);
+            end = Offset(
+              // (-screenCenter.dx) * .55,
+              -useScaledSize(
+                baseValue: .13,
+                screenSize: screenSize,
+                bumpPerHundredth: .0001,
+              ),
+              (-screenCenter.dy) * .8,
+            );
           case InstructionalGradientDirections.shrink:
-            start = Offset((-screenCenter.dy) * .25, (-screenCenter.dy) * .8);
+            start = Offset(
+              -useScaledSize(
+                baseValue: .13,
+                screenSize: screenSize,
+                bumpPerHundredth: .0001,
+              ),
+              (-screenCenter.dy) * .8,
+            );
             end = Offset(CircleOffsets.left.dx, CircleOffsets.left.dy);
         }
       case InstructionalNokhtePositions.right:
         switch (direction) {
           case InstructionalGradientDirections.enlarge:
             start = Offset(CircleOffsets.right.dx, CircleOffsets.right.dy);
-            end = Offset((screenCenter.dx) * .9, (-screenCenter.dy) * .8);
+            end = Offset(
+              useScaledSize(
+                baseValue: .21,
+                screenSize: screenSize,
+                bumpPerHundredth: .0007,
+              ),
+              (-screenCenter.dy) * .8,
+            );
           case InstructionalGradientDirections.shrink:
-            start = Offset((screenCenter.dx) * .9, (-screenCenter.dy) * .8);
+            start = Offset(
+              useScaledSize(
+                baseValue: .21,
+                screenSize: screenSize,
+                bumpPerHundredth: .0007,
+              ),
+              (-screenCenter.dy) * .8,
+            );
             end = Offset(CircleOffsets.right.dx, CircleOffsets.right.dy);
         }
       case InstructionalNokhtePositions.top:
         switch (direction) {
           case InstructionalGradientDirections.enlarge:
             start = Offset(CircleOffsets.center.dx, CircleOffsets.top.dy);
-            end = Offset(CircleOffsets.center.dx, (-screenCenter.dy) * 1.2);
+            end = Offset(
+              CircleOffsets.center.dx,
+              // (-screenCenter.dy) * 1.2,
+              -useScaledSize(
+                baseValue: .6,
+                screenSize: screenSize,
+                bumpPerHundredth: .0003,
+              ),
+            );
           case InstructionalGradientDirections.shrink:
-            start = Offset(CircleOffsets.center.dx, (-screenCenter.dy) * 1.2);
+            start = Offset(
+              CircleOffsets.center.dx,
+              // (-screenCenter.dy) * 1.2,
+              -useScaledSize(
+                baseValue: .6,
+                screenSize: screenSize,
+                bumpPerHundredth: .0003,
+              ),
+            );
             end = Offset(CircleOffsets.center.dx, CircleOffsets.top.dy);
         }
       case InstructionalNokhtePositions.bottom:
         switch (direction) {
           case InstructionalGradientDirections.enlarge:
             start = Offset(CircleOffsets.center.dx, CircleOffsets.bottom.dy);
-            end = Offset(CircleOffsets.center.dx, (-screenCenter.dy) * .4);
+            end = Offset(
+              CircleOffsets.center.dx,
+              -useScaledSize(
+                baseValue: .21,
+                screenSize: screenSize,
+                bumpPerHundredth: -.0005,
+              ),
+              // (-screenCenter.dy) * .4,
+            );
           case InstructionalGradientDirections.shrink:
-            start = Offset(CircleOffsets.center.dx, (-screenCenter.dy) * .4);
+            start = Offset(
+              CircleOffsets.center.dx,
+              -useScaledSize(
+                baseValue: .21,
+                screenSize: screenSize,
+                bumpPerHundredth: -.0005,
+              ),
+              // (-screenCenter.dy) * .4,
+            );
             end = Offset(CircleOffsets.center.dx, CircleOffsets.bottom.dy);
         }
       default:

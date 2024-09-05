@@ -5,9 +5,13 @@ import 'package:simple_animations/simple_animations.dart';
 
 class MoveCenterInstructionalNokhteBackToCrossMovie {
   static MovieTween getMovie(
-    Offset screenCenter, {
+    Size screenSize, {
     required CenterNokhtePositions startingPosition,
   }) {
+    final screenCenter = Offset(
+      screenSize.width / 2,
+      screenSize.height / 2,
+    );
     StartAndEndOffsets offsets = StartAndEndOffsets.initial();
     InstructionalNokhtePositions position =
         InstructionalNokhtePositions.initial;
@@ -24,7 +28,7 @@ class MoveCenterInstructionalNokhteBackToCrossMovie {
         break;
     }
     offsets = InstructionalNokhteUtils.getOffsets(
-      screenCenter,
+      screenSize,
       position: position,
       direction: InstructionalGradientDirections.shrink,
     );

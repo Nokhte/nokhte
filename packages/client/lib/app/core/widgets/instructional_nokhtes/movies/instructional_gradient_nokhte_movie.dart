@@ -5,13 +5,13 @@ import 'package:simple_animations/simple_animations.dart';
 
 class InstructionalGradientNokhteMovie {
   static MovieTween getMovie(
-    Offset screenCenter, {
+    Size screenSize, {
     required InstructionalNokhtePositions position,
     required GradientNokhteColorways colorway,
     required InstructionalGradientDirections direction,
   }) {
     final offsets = InstructionalNokhteUtils.getOffsets(
-      screenCenter,
+      screenSize,
       position: position,
       direction: direction,
     );
@@ -95,13 +95,6 @@ class InstructionalGradientNokhteMovie {
             ),
           )
           .tween(
-            'borderRadius',
-            Tween<double>(
-              begin: 100,
-              end: 100,
-            ),
-          )
-          .tween(
             'radius',
             Tween<double>(
               begin: direction == InstructionalGradientDirections.enlarge
@@ -111,6 +104,19 @@ class InstructionalGradientNokhteMovie {
                   ? 25
                   : 4.5,
             ),
-          );
+          )
+      ..scene(
+        begin: direction == InstructionalGradientDirections.enlarge
+            ? Seconds.get(1, milli: 500)
+            : Seconds.get(0),
+        end: direction == InstructionalGradientDirections.enlarge
+            ? Seconds.get(2)
+            : Seconds.get(0, milli: 500),
+      ).tween(
+          'textOpacity',
+          Tween<double>(
+            begin: direction == InstructionalGradientDirections.enlarge ? 0 : 1,
+            end: direction == InstructionalGradientDirections.enlarge ? 1 : 0,
+          ));
   }
 }
