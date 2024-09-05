@@ -20,7 +20,6 @@ abstract class _PresetsWidgetsCoordinatorBase
         BaseWidgetsCoordinator,
         Reactions,
         SwipeNavigationUtils,
-        InstructionalNokhteWidgetUtils,
         InstructionWidgetsUtils,
         SmartTextPaddingAdjuster,
         SingleInstructionalNokhteWidgetUtils,
@@ -39,8 +38,6 @@ abstract class _PresetsWidgetsCoordinatorBase
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
 
   final InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
-  @override
-  InstructionalGradientNokhteStore? focusInstructionalNokhte;
   @override
   final NokhteBlurStore nokhteBlur;
   @override
@@ -75,7 +72,6 @@ abstract class _PresetsWidgetsCoordinatorBase
 
   @action
   constructor(Offset center) {
-    initInstructionalNokhteUtils(center);
     beachWaves
         .setMovieMode(BeachWaveMovieModes.invertedOnShoreToInvertedDeeperBlue);
     beachWaves.currentStore.initStaticEnd();

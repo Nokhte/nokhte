@@ -23,7 +23,6 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         SwipeNavigationUtils,
         InstructionWidgetsUtils,
         BaseWidgetsCoordinator,
-        InstructionalNokhteWidgetUtils,
         SingleInstructionalNokhteWidgetUtils,
         Reactions,
         EnRoute,
@@ -48,8 +47,6 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   final NokhteBlurStore nokhteBlur;
   @override
   final NokhteQrCodeStore qrCode;
-  @override
-  InstructionalGradientNokhteStore? focusInstructionalNokhte;
 
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
@@ -95,7 +92,6 @@ abstract class _SessionStarterWidgetsCoordinatorBase
 
   @action
   constructor(Offset center) {
-    initInstructionalNokhteUtils(center);
     qrCode.setWidgetVisibility(false);
     gestureCross.fadeInTheCross();
     qrSubtitleSmartText.setMessagesData(SharedLists.emptyList);

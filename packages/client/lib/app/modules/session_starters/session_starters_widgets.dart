@@ -46,7 +46,7 @@ class SessionStartersWidgetsModule extends Module {
       () => SessionJoinerInstructionsWidgetsCoordinator(
         swipeGuide: SwipeGuideStore(),
         homeInstructionalNokhte: InstructionalGradientNokhteStore(),
-        focusInstructionalNokhte: InstructionalGradientNokhteStore(),
+        // focusInstructionalNokhte: InstructionalGradientNokhteStore(),
         nokhteBlur: NokhteBlurStore(),
         touchRipple: TouchRippleStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
@@ -62,7 +62,6 @@ class SessionStartersWidgetsModule extends Module {
         qrCode: NokhteQrCodeStore(),
         swipeGuide: SwipeGuideStore(),
         homeInstructionalNokhte: InstructionalGradientNokhteStore(),
-        focusInstructionalNokhte: InstructionalGradientNokhteStore(),
         nokhteBlur: NokhteBlurStore(),
         touchRipple: TouchRippleStore(),
         gestureCross: Modular.get<GestureCrossStore>(),

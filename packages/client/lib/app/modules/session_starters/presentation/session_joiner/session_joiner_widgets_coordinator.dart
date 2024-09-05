@@ -27,7 +27,6 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
         EnRoute,
         EnRouteConsumer,
         TouchRippleUtils,
-        InstructionalNokhteWidgetUtils,
         InstructionWidgetsUtils,
         SingleInstructionalNokhteWidgetUtils,
         SessionStarterWidgetsUtils {
@@ -44,8 +43,6 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
   NokhteQrCodeStore? qrCode;
   @override
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
-  @override
-  InstructionalGradientNokhteStore? focusInstructionalNokhte;
   @override
   final NokhteBlurStore nokhteBlur;
   final QrScannerStore qrScanner;
@@ -77,7 +74,6 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
 
   @action
   constructor(Offset center) {
-    initInstructionalNokhteUtils(center);
     gestureCross.cross.initStaticGlow();
     gestureCross.fadeIn(onFadeIn: Left(() {
       gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
@@ -194,9 +190,9 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
 
   moveSessionStarterInstructionalNokhte(bool shouldExpand) {
     sessionStarterInstructionalNokhte.initMovie(
-       shouldExpand
-            ? InstructionalGradientDirections.enlarge
-            : InstructionalGradientDirections.shrink,
+      shouldExpand
+          ? InstructionalGradientDirections.enlarge
+          : InstructionalGradientDirections.shrink,
     );
   }
 

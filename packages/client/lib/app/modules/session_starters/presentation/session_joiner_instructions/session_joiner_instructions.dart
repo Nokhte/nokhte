@@ -54,10 +54,10 @@ class SessionJoinerInstructionsScreen extends HookWidget {
                   store: coordinator.widgets.touchRipple,
                 ),
               ),
-              SwipeGuide(
-                orientation: SwipeGuideOrientation.left,
-                store: coordinator.widgets.swipeGuide,
-              ),
+              // SwipeGuide(
+              //   orientation: SwipeGuideOrientation.left,
+              //   store: coordinator.widgets.swipeGuide,
+              // ),
               Observer(builder: (context) {
                 return Stack(
                   children: [
@@ -84,9 +84,9 @@ class SessionJoinerInstructionsScreen extends HookWidget {
               InstructionalGradientNokhte(
                 store: coordinator.widgets.homeInstructionalNokhte,
               ),
-              InstructionalGradientNokhte(
-                store: coordinator.widgets.focusInstructionalNokhte,
-              ),
+              // InstructionalGradientNokhte(
+              //   store: coordinator.widgets.focusInstructionalNokhte,
+              // ),
               WifiDisconnectOverlay(
                 store: coordinator.widgets.wifiDisconnectOverlay,
               ),

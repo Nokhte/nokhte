@@ -23,7 +23,6 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
         SwipeNavigationUtils,
         InstructionWidgetsUtils,
         BaseWidgetsCoordinator,
-        InstructionalNokhteWidgetUtils,
         SingleInstructionalNokhteWidgetUtils,
         Reactions,
         TouchRippleUtils,
@@ -46,8 +45,6 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
   final NokhteBlurStore nokhteBlur;
   final InstructionalGradientNokhteStore homeInstructionalNokhte;
   @override
-  final InstructionalGradientNokhteStore focusInstructionalNokhte;
-  @override
   final BeachWavesStore beachWaves;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
@@ -62,7 +59,6 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
     required this.centerInstructionalNokhte,
     required this.nokhteBlur,
     required this.homeInstructionalNokhte,
-    required this.focusInstructionalNokhte,
     required this.qrCode,
   }) {
     initSwipeNavigationUtils();
@@ -84,7 +80,6 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
   @action
   constructor(Offset center) {
     consumeRoutingArgs(isInverted: true);
-    initInstructionalNokhteUtils(center);
     swipeGuide.setWidgetVisibility(false);
     gestureCross.fadeInTheCross();
     qrCode.setQrCodeData(SessionStarterConstants.inactiveQrCodeData);
@@ -198,7 +193,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
           onDismiss: () {
             homeInstructionalNokhte.setWidgetVisibility(true);
             homeInstructionalNokhte.initMovie(
-                 InstructionalGradientDirections.shrink,
+              InstructionalGradientDirections.shrink,
             );
             setBumpFactor(0.003);
             setSmartTextTopPaddingScalar(.2);

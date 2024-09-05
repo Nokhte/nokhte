@@ -23,7 +23,6 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
         SwipeNavigationUtils,
         InstructionWidgetsUtils,
         BaseWidgetsCoordinator,
-        InstructionalNokhteWidgetUtils,
         SingleInstructionalNokhteWidgetUtils,
         Reactions,
         TouchRippleUtils,
@@ -45,8 +44,6 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
   @override
   final NokhteBlurStore nokhteBlur;
   @override
-  final InstructionalGradientNokhteStore focusInstructionalNokhte;
-  @override
   final BeachWavesStore beachWaves;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
@@ -62,7 +59,6 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
     required this.centerInstructionalNokhte,
     required this.nokhteBlur,
     required this.homeInstructionalNokhte,
-    required this.focusInstructionalNokhte,
   }) {
     initSwipeNavigationUtils();
     initInstructionWidgetsUtils();
@@ -83,7 +79,6 @@ abstract class _SessionJoinerInstructionsWidgetsCoordinatorBase
   @action
   constructor(Offset center) {
     // transition into joining session is not working here
-    initInstructionalNokhteUtils(center);
     swipeGuide.setWidgetVisibility(false);
     qrCode.setWidgetVisibility(false);
     gestureCross.fadeInTheCross();
