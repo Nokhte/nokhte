@@ -68,7 +68,7 @@ class HomeScreen extends HookWidget {
                 ),
                 SwipeGuide(
                   store: coordinator.widgets.swipeGuides,
-                  orientation: const [
+                  orientations: const [
                     SwipeGuideOrientation.top,
                     SwipeGuideOrientation.bottom,
                     SwipeGuideOrientation.right,
