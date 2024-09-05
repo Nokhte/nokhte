@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -46,7 +45,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
   @override
   final NokhteBlurStore nokhteBlur;
   final QrScannerStore qrScanner;
-  final InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
+  final InstructionalGradientNokhteStore homeInstructionalNokhte;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
@@ -60,7 +59,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
     required this.smartText,
     required this.wifiDisconnectOverlay,
     required this.centerInstructionalNokhte,
-    required this.sessionStarterInstructionalNokhte,
+    required this.homeInstructionalNokhte,
   }) {
     initSwipeNavigationUtils();
     initEnRouteActions();
@@ -75,9 +74,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
   @action
   constructor(Offset center) {
     gestureCross.cross.initStaticGlow();
-    gestureCross.fadeIn(onFadeIn: Left(() {
-      gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-    }));
+    centerInstructionalNokhte.setWidgetVisibility(false);
     tint.initMovie(NoParams());
     smartText.setMessagesData(
       [SharedLists.emptyItem, InstructionItems.sessionStarterExplanation],
@@ -99,7 +96,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
         qrScanner.fadeOut();
         gestureCross.fadeAllIn();
         centerInstructionalNokhte.setWidgetVisibility(false);
-        sessionStarterInstructionalNokhte.setWidgetVisibility(false);
+        homeInstructionalNokhte.setWidgetVisibility(false);
         beachWaves.currentStore.reverseMovie(-10.0);
         beachWaves.setMovieStatus(MovieStatus.inProgress);
         gestureCross.initMoveAndRegenerate(CircleOffsets.left);
@@ -119,7 +116,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
     beachWaves.currentStore.initMovie(NoParams());
     gestureCross.fadeAllOut();
     centerInstructionalNokhte.setWidgetVisibility(false);
-    sessionStarterInstructionalNokhte.setWidgetVisibility(false);
+    homeInstructionalNokhte.setWidgetVisibility(false);
     qrScanner.fadeOut();
   }
 
@@ -165,7 +162,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
           excludePaddingAdjuster: true,
         );
         qrScanner.fadeOut();
-        sessionStarterInstructionalNokhte.setWidgetVisibility(true);
+        homeInstructionalNokhte.setWidgetVisibility(true);
         moveSessionStarterInstructionalNokhte(true);
       } else {
         dismissInstructionalNokhtes();
@@ -189,7 +186,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
   }
 
   moveSessionStarterInstructionalNokhte(bool shouldExpand) {
-    sessionStarterInstructionalNokhte.initMovie(
+    homeInstructionalNokhte.initMovie(
       shouldExpand
           ? InstructionalGradientDirections.enlarge
           : InstructionalGradientDirections.shrink,
@@ -206,6 +203,14 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
 
   qrScannerReactor() => reaction((p0) => qrScanner.showWidget, (p0) {
         if (p0) {
+          if (!gestureCross.cross.showWidget) {
+            gestureCross.fadeInTheCross();
+            centerInstructionalNokhte.fadeIn();
+            homeInstructionalNokhte.setAndFadeIn(
+              InstructionalNokhtePositions.top,
+              GradientNokhteColorways.beachWave,
+            );
+          }
           beachWaves.currentStore.setWidgetVisibility(false);
         } else {
           beachWaves.currentStore.setWidgetVisibility(true);

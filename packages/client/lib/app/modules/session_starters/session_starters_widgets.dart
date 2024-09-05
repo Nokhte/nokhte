@@ -34,7 +34,7 @@ class SessionStartersWidgetsModule extends Module {
         touchRipple: TouchRippleStore(),
         qrScanner: QrScannerStore(),
         tint: TintStore(),
-        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
+        homeInstructionalNokhte: InstructionalGradientNokhteStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: BeachWavesStore(),
         smartText: SmartTextStore(),

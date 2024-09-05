@@ -82,7 +82,7 @@ class StorageHomeScreen extends HookWidget {
                   store: coordinator.widgets.centerInstructionalNokhte,
                 ),
                 InstructionalGradientNokhte(
-                  store: coordinator.widgets.primaryInstructionalGradientNokhte,
+                  store: coordinator.widgets.homeInstructionalGradientNokhte,
                 ),
                 WifiDisconnectOverlay(
                   store: coordinator.widgets.wifiDisconnectOverlay,

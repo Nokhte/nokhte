@@ -17,7 +17,7 @@ class StorageWidgetsModule extends Module {
       () => StorageHomeWidgetsCoordinator(
         blur: NokhteBlurStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        primaryInstructionalGradientNokhte: InstructionalGradientNokhteStore(),
+        homeInstructionalGradientNokhte: InstructionalGradientNokhteStore(),
         sessionCard: SessionCardStore(),
         primarySmartText: SmartTextStore(),
         secondarySmartText: SmartTextStore(),

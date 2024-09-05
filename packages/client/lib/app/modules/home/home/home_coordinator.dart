@@ -65,8 +65,10 @@ abstract class _HomeCoordinatorBase
           switch (p0) {
             case GestureDirections.up:
               widgets.onSwipeUp();
-            case GestureDirections.left:
-              widgets.onSwipeLeft();
+            case GestureDirections.right:
+              widgets.onSwipeRight();
+            case GestureDirections.down:
+              widgets.onSwipeDown();
             default:
               break;
           }

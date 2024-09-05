@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -9,6 +10,8 @@ import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
+import 'package:nokhte/app/modules/session_starters/session_starters.dart';
+import 'package:nokhte/app/modules/storage/storage.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'home_widgets_coordinator.g.dart';
 
@@ -66,6 +69,7 @@ abstract class _HomeWidgetsCoordinatorBase
     initHomeUtils();
     gestureCross.fadeIn();
     swipeGuides.setWidgetVisibility(false);
+    centerInstructionalNokhte.fadeIn();
     sessionStarterInstructionalNokhte.setAndFadeIn(
       InstructionalNokhtePositions.top,
       GradientNokhteColorways.invertedBeachWave,
@@ -87,13 +91,34 @@ abstract class _HomeWidgetsCoordinatorBase
   onSwipeUp() {
     if (!isDisconnected && isAllowedToMakeGesture()) {
       if (hasInitiatedBlur && !hasSwiped()) {
-        smartText.setCurrentIndex(0);
-        setSmartTextPadding(
-            excludeTimer: true, topPadding: 0, bottomPadding: 0.1);
         initToTopInstructionalNokhte(excludePaddingAdjuster: true);
         storageInstructionalNokhte.setWidgetVisibility(false);
-      } else if (!hasInitiatedBlur && !hasSwiped()) {
-        initSessionStarterTransition();
+      }
+    }
+  }
+
+  onSwipeDown() {
+    if (!isDisconnected && isAllowedToMakeGesture()) {
+      if (hasInitiatedBlur && !hasSwiped()) {
+        setSwipeDirection(GestureDirections.down);
+        centerInstructionalNokhte
+            .initMovie(InstructionalNokhtePositions.bottom);
+        sessionStarterInstructionalNokhte.disappear();
+        storageInstructionalNokhte.disappear();
+        setSwipeGuideVisibilities(false);
+      }
+    }
+  }
+
+  @action
+  onSwipeRight() {
+    if (!isDisconnected && isAllowedToMakeGesture()) {
+      if (hasInitiatedBlur && !hasSwiped()) {
+        setSwipeDirection(GestureDirections.down);
+        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.right);
+        sessionStarterInstructionalNokhte.disappear();
+        sessionJoinerInstructionalNokhte.disappear();
+        setSwipeGuideVisibilities(false);
       }
     }
   }
@@ -101,30 +126,53 @@ abstract class _HomeWidgetsCoordinatorBase
   @action
   initReactors() {
     disposers.add(gestureCrossTapReactor());
-    // disposers.add(centerCrossNokhteReactor(() {
+    disposers.add(sessionJoinerInstructionalNokhteReactor());
+    disposers.add(centerInstructionalNokhteReactor());
+    disposers.add(storageInstructionalNokhteReactor());
+
     // sessionStarterInstructionalNokhte.setWidgetVisibility(false);
     // storageInstructionalNokhte.setWidgetVisibility(false);
     // }));
   }
 
-  @action
-  onSwipeLeft() {
-    if (!isDisconnected && isAllowedToMakeGesture()) {
-      if (hasInitiatedBlur && !hasSwiped()) {
-        smartText.setCurrentIndex(2);
-        initToRightInstructionalNokhte();
-        setSmartTextPadding(
-            excludeTimer: true, topPadding: .15, bottomPadding: 0);
-        sessionStarterInstructionalNokhte.setWidgetVisibility(false);
-      } else if (!hasInitiatedBlur) {
-        initStorageTransition();
-      }
-    }
-  }
-
   gestureCrossTapReactor() => reaction(
         (p0) => gestureCross.tapCount,
         (p0) => onGestureCrossTap(),
+      );
+
+  sessionJoinerInstructionalNokhteReactor() =>
+      reaction((p0) => sessionJoinerInstructionalNokhte.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished &&
+            sessionJoinerInstructionalNokhte.movieMode ==
+                GradientNokhteMovieModes.explode) {
+          Modular.to.navigate(SessionStarterConstants.sessionJoiner);
+        }
+      });
+  storageInstructionalNokhteReactor() =>
+      reaction((p0) => storageInstructionalNokhte.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished &&
+            storageInstructionalNokhte.movieMode ==
+                GradientNokhteMovieModes.explode) {
+          Modular.to.navigate(StorageConstants.root);
+        }
+      });
+
+  centerInstructionalNokhteReactor() => reaction(
+        (p0) => centerInstructionalNokhte.movieStatus,
+        (p0) {
+          if (p0 == MovieStatus.finished &&
+              centerInstructionalNokhte.movieMode ==
+                  CenterInstructionalNokhteMovieModes.moveAround) {
+            if (centerInstructionalNokhte.position ==
+                InstructionalNokhtePositions.bottom) {
+              sessionJoinerInstructionalNokhte.explode();
+            } else if (centerInstructionalNokhte.position ==
+                InstructionalNokhtePositions.right) {
+              storageInstructionalNokhte.explode();
+            }
+            // Modular.to.navigate(SessionStarterConstants.sessionJoiner);
+          }
+        },
       );
 
   @action
