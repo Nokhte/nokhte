@@ -101,14 +101,14 @@ abstract class _LoginCoordinatorBase
   logIn(AuthProvider provider) async {
     if (widgets.showLoginButtons) {
       await signInWithAuthProvider.routeAuthProviderRequest(provider);
+    } else {
+      widgets.onTap();
     }
   }
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => ifTouchIsNotDisabled(() => widgets.onTap(
-              tap.currentTapPosition,
-            )),
+        (p0) => ifTouchIsNotDisabled(() => widgets.onTap()),
       );
 
   @action

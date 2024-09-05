@@ -53,16 +53,13 @@ class LoginScreen extends HookWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: width * .1,
-                      ),
-                      child: Opacity(
-                        opacity: Platform.isIOS ? 1 : .5,
+                    Opacity(
+                      opacity: Platform.isIOS ? 1 : .5,
+                      child: Center(
                         child: SignInButton(
                           Buttons.apple,
                           padding: EdgeInsets.symmetric(
-                            horizontal: width * .12,
+                            horizontal: width * .1,
                             vertical: width * .02,
                           ),
                           shape: RoundedRectangleBorder(
@@ -77,23 +74,23 @@ class LoginScreen extends HookWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                        left: width * .1,
-                        right: width * .1,
                         bottom: width * .2,
                         top: width * .06,
                       ),
-                      child: SignInButton(
-                        Buttons.google,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: width * .12,
-                          vertical: width * .01,
+                      child: Center(
+                        child: SignInButton(
+                          Buttons.google,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: width * .1,
+                            vertical: width * .01,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(7),
+                          ),
+                          text: "Sign in with Google",
+                          onPressed: () async =>
+                              await coordinator.logIn(AuthProvider.google),
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                        text: "Sign in with Google",
-                        onPressed: () async =>
-                            await coordinator.logIn(AuthProvider.google),
                       ),
                     ),
                   ],
