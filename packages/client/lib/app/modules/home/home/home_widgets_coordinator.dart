@@ -1,19 +1,21 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'qr_and_storage_adept_widgets_coordinator.g.dart';
+part 'home_widgets_coordinator.g.dart';
 
-class QrAndStorageAdeptWidgetsCoordinator = _QrAndStorageAdeptWidgetsCoordinatorBase
-    with _$QrAndStorageAdeptWidgetsCoordinator;
+class HomeWidgetsCoordinator = _HomeWidgetsCoordinatorBase
+    with _$HomeWidgetsCoordinator;
 
-abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
-    extends BaseHomeScreenWidgetsCoordinator
+abstract class _HomeWidgetsCoordinatorBase
     with
         Store,
         EnRoute,
@@ -22,31 +24,60 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         SwipeNavigationUtils,
         InstructionWidgetsUtils,
         TouchRippleUtils,
+        SmartTextPaddingAdjuster,
         HomeScreenWidgetsUtils,
-        InstructionalNokhteWidgetUtils,
+        BaseWidgetsCoordinator,
         SingleInstructionalNokhteWidgetUtils {
-  @override
-  InstructionalGradientNokhteStore? focusInstructionalNokhte;
   InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
   InstructionalGradientNokhteStore storageInstructionalNokhte;
+  InstructionalGradientNokhteStore sessionJoinerInstructionalNokhte;
+  SwipeGuideStore swipeGuides;
+  @override
+  final NokhteBlurStore nokhteBlur;
+  @override
+  final GestureCrossStore gestureCross;
+  @override
+  final SmartTextStore smartText;
+  @override
+  final TouchRippleStore touchRipple;
+  @override
+  final CenterInstructionalNokhteStore centerInstructionalNokhte;
+  @override
+  final BeachWavesStore beachWaves;
+  @override
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
-  _QrAndStorageAdeptWidgetsCoordinatorBase({
-    required super.nokhteBlur,
-    required super.beachWaves,
-    required super.wifiDisconnectOverlay,
-    required super.gestureCross,
-    required super.smartText,
-    required super.touchRipple,
-    required super.centerInstructionalNokhte,
+  _HomeWidgetsCoordinatorBase({
+    required this.nokhteBlur,
+    required this.beachWaves,
+    required this.wifiDisconnectOverlay,
+    required this.gestureCross,
+    required this.smartText,
+    required this.touchRipple,
+    required this.centerInstructionalNokhte,
+    required this.swipeGuides,
     required this.sessionStarterInstructionalNokhte,
+    required this.sessionJoinerInstructionalNokhte,
     required this.storageInstructionalNokhte,
   });
 
   @action
-  constructor(Offset center) {
+  constructor() {
     initHomeUtils();
-    initInstructionalNokhteUtils(center);
     gestureCross.fadeIn();
+    swipeGuides.setWidgetVisibility(false);
+    sessionStarterInstructionalNokhte.setAndFadeIn(
+      InstructionalNokhtePositions.top,
+      GradientNokhteColorways.invertedBeachWave,
+    );
+    sessionJoinerInstructionalNokhte.setAndFadeIn(
+      InstructionalNokhtePositions.bottom,
+      GradientNokhteColorways.orangeSand,
+    );
+    storageInstructionalNokhte.setAndFadeIn(
+      InstructionalNokhtePositions.right,
+      GradientNokhteColorways.vibrantBlue,
+    );
     smartText.setMessagesData(HomeLists.qrAndStorageAdept);
     smartText.startRotatingText();
     initReactors();
@@ -70,10 +101,10 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
   @action
   initReactors() {
     disposers.add(gestureCrossTapReactor());
-    disposers.add(centerCrossNokhteReactor(() {
-      sessionStarterInstructionalNokhte.setWidgetVisibility(false);
-      storageInstructionalNokhte.setWidgetVisibility(false);
-    }));
+    // disposers.add(centerCrossNokhteReactor(() {
+    // sessionStarterInstructionalNokhte.setWidgetVisibility(false);
+    // storageInstructionalNokhte.setWidgetVisibility(false);
+    // }));
   }
 
   @action
@@ -139,6 +170,9 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
           excludeSmartTextRotation: true,
           excludePaddingAdjuster: true,
         );
+        Timer(Seconds.get(1), () {
+          setSwipeGuideVisibilities(true);
+        });
         sessionStarterInstructionalNokhte.setWidgetVisibility(true);
         storageInstructionalNokhte.setWidgetVisibility(true);
         moveGradInstructionalNokhtes(shouldExpand: true);
@@ -150,6 +184,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
 
   @action
   dismissInstructionalNokhte() {
+    setSwipeGuideVisibilities(false);
     setHasInitiatedBlur(false);
     setSwipeDirection(GestureDirections.initial);
     centerInstructionalNokhte.moveBackToCross(
@@ -163,25 +198,16 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
     delayedEnableTouchFeedback();
   }
 
+  setSwipeGuideVisibilities(bool shouldShow) {
+    swipeGuides.setWidgetVisibility(shouldShow);
+  }
+
   moveGradInstructionalNokhtes({required bool shouldExpand}) {
     final dir = shouldExpand
         ? InstructionalGradientDirections.enlarge
         : InstructionalGradientDirections.shrink;
-    sessionStarterInstructionalNokhte.initMovie(
-      InstructionalGradientMovieParams(
-        center: center,
-        colorway: GradientNokhteColorways.invertedBeachWave,
-        direction: dir,
-        position: InstructionalNokhtePositions.top,
-      ),
-    );
-    storageInstructionalNokhte.initMovie(
-      InstructionalGradientMovieParams(
-        center: center,
-        colorway: GradientNokhteColorways.vibrantBlue,
-        direction: dir,
-        position: InstructionalNokhtePositions.right,
-      ),
-    );
+    sessionStarterInstructionalNokhte.initMovie(dir);
+    sessionJoinerInstructionalNokhte.initMovie(dir);
+    storageInstructionalNokhte.initMovie(dir);
   }
 }

@@ -10,7 +10,7 @@ import 'package:nokhte/app/modules/storage/storage.dart';
 import 'home.dart';
 export 'constants/constants.dart';
 export './needs_update/needs_update.dart';
-export 'has_session/has_session.dart';
+export 'home/home.dart';
 export 'root_router/root_router.dart';
 export 'shared/mobx/mobx.dart';
 export 'shared/shared.dart';
@@ -39,14 +39,14 @@ class HomeModule extends Module {
       ),
     );
 
-    i.add<QrAndStorageAdeptCoordinator>(
-      () => QrAndStorageAdeptCoordinator(
+    i.add<HomeCoordinator>(
+      () => HomeCoordinator(
         tap: TapDetector(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: SwipeDetector(),
-        widgets: Modular.get<QrAndStorageAdeptWidgetsCoordinator>(),
+        widgets: Modular.get<HomeWidgetsCoordinator>(),
       ),
     );
     i.add<NeedsUpdateCoordinator>(
@@ -69,8 +69,8 @@ class HomeModule extends Module {
     r.child(
       HomeConstants.relativeQrAndStorageAdept,
       transition: TransitionType.noTransition,
-      child: (context) => QrAndStorageAdeptScreen(
-        coordinator: Modular.get<QrAndStorageAdeptCoordinator>(),
+      child: (context) => HomeScreen(
+        coordinator: Modular.get<HomeCoordinator>(),
       ),
     );
     r.child(

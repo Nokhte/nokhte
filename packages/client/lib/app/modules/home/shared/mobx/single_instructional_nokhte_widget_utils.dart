@@ -4,18 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/home/home.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 mixin SingleInstructionalNokhteWidgetUtils
     on
         BaseWidgetsCoordinator,
-        InstructionalNokhteWidgetUtils,
         SwipeNavigationUtils,
         InstructionWidgetsUtils,
         SmartTextPaddingAdjuster {
   NokhteBlurStore get nokhteBlur;
-  InstructionalGradientNokhteStore? get focusInstructionalNokhte;
+  // InstructionalGradientNokhteStore? get focusInstructionalNokhte;
   BeachWavesStore get beachWaves;
   SmartTextStore get smartText;
   GestureCrossStore get gestureCross;
@@ -32,15 +30,15 @@ mixin SingleInstructionalNokhteWidgetUtils
       smartText.startRotatingText(isResuming: true);
     }
     Timer(const Duration(seconds: 1, milliseconds: 500), () {
-      focusInstructionalNokhte?.setWidgetVisibility(true);
+      // focusInstructionalNokhte?.setWidgetVisibility(true);
       if (!excludePaddingAdjuster) {
         setSmartTextBottomPaddingScalar(0);
         setSmartTextTopPaddingScalar(.13);
       }
     });
-    gestureCross.gradientNokhte.setWidgetVisibility(false);
-    gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-    centerInstructionalNokhte.moveToCenter(center);
+    // gestureCross.gradientNokhte.setWidgetVisibility(false);
+    // gestureCross.centerCrossNokhte.setWidgetVisibility(false);
+    centerInstructionalNokhte.moveToCenter();
   }
 
   initToTopInstructionalNokhte({
@@ -49,7 +47,7 @@ mixin SingleInstructionalNokhteWidgetUtils
     if (isAllowedToMakeGesture()) {
       setSwipeDirection(GestureDirections.up);
       centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
-      focusInstructionalNokhte?.setControl(Control.playFromStart);
+      // focusInstructionalNokhte?.setControl(Control.playFromStart);
       if (!excludePaddingAdjuster) {
         setSmartTextPadding(
           subMessagePadding: 110,
@@ -74,7 +72,7 @@ mixin SingleInstructionalNokhteWidgetUtils
     if (isAllowedToMakeGesture()) {
       setSwipeDirection(GestureDirections.left);
       centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.right);
-      focusInstructionalNokhte?.setControl(Control.playFromStart);
+      // focusInstructionalNokhte?.setControl(Control.playFromStart);
       smartText.startRotatingText(isResuming: true);
     }
   }
@@ -83,7 +81,7 @@ mixin SingleInstructionalNokhteWidgetUtils
     if (isAllowedToMakeGesture()) {
       setSwipeDirection(GestureDirections.right);
       centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.left);
-      focusInstructionalNokhte?.setControl(Control.playFromStart);
+      // focusInstructionalNokhte?.setControl(Control.playFromStart);
       smartText.startRotatingText(isResuming: true);
     }
   }
@@ -103,14 +101,9 @@ mixin SingleInstructionalNokhteWidgetUtils
     nokhteBlur.reverse();
     beachWaves.currentStore.setControl(Control.mirror);
     Timer(Seconds.get(1, milli: 500), () {
-      focusInstructionalNokhte?.initMovie(
-        InstructionalGradientMovieParams(
-          center: center,
-          colorway: colorway,
-          direction: InstructionalGradientDirections.shrink,
-          position: gradPosition,
-        ),
-      );
+      //   focusInstructionalNokhte?.initMovie(
+      //        InstructionalGradientDirections.shrink,
+      //   );
       centerInstructionalNokhte.moveBackToCross(
         startingPosition: centerPosition,
       );

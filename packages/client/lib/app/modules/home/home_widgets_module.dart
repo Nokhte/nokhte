@@ -20,8 +20,9 @@ class HomeWidgetsModule extends Module {
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
     );
-    i.add<QrAndStorageAdeptWidgetsCoordinator>(
-      () => QrAndStorageAdeptWidgetsCoordinator(
+    i.add<HomeWidgetsCoordinator>(
+      () => HomeWidgetsCoordinator(
+        swipeGuides: SwipeGuideStore(),
         nokhteBlur: NokhteBlurStore(),
         smartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
@@ -30,6 +31,7 @@ class HomeWidgetsModule extends Module {
         touchRipple: TouchRippleStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
         sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
+        sessionJoinerInstructionalNokhte: InstructionalGradientNokhteStore(),
         storageInstructionalNokhte: InstructionalGradientNokhteStore(),
       ),
     );

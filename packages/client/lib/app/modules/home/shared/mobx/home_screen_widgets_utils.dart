@@ -31,7 +31,7 @@ mixin HomeScreenWidgetsUtils
       setSwipeDirection(GestureDirections.up);
       smartText.setWidgetVisibility(false);
       centerInstructionalNokhte.setWidgetVisibility(false);
-      gestureCross.centerCrossNokhte.setWidgetVisibility(true);
+      // gestureCross.centerCrossNokhte.setWidgetVisibility(true);
       beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
       beachWaves.currentStore
           .initMovie(beachWaves.currentAnimationValues.first);
@@ -46,7 +46,7 @@ mixin HomeScreenWidgetsUtils
       beachWaves.currentStore.initMovie(
         beachWaves.currentAnimationValues.first,
       );
-      gestureCross.centerCrossNokhte.setWidgetVisibility(true);
+      // gestureCross.centerCrossNokhte.setWidgetVisibility(true);
       centerInstructionalNokhte.setWidgetVisibility(false);
       gestureCross.initMoveAndRegenerate(CircleOffsets.right);
       gestureCross.cross.initOutlineFadeIn();
@@ -69,12 +69,12 @@ mixin HomeScreenWidgetsUtils
         }
       });
 
-  centerCrossNokhteReactor(Function onFinished) =>
-      reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          gestureCross.gradientNokhte.setWidgetVisibility(false);
-          gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-          onFinished();
-        }
-      });
+  // centerCrossNokhteReactor(Function onFinished) =>
+  //     reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
+  //       if (p0 == MovieStatus.finished) {
+  //         gestureCross.gradientNokhte.setWidgetVisibility(false);
+  //         gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
+  //         onFinished();
+  //       }
+  //     });
 }

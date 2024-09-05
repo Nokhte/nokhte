@@ -1,29 +1,24 @@
-// ignore_for_file: must_be_immutable
+export 'home_coordinator.dart';
+export 'home_widgets_coordinator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 
-class BaseHomeScreen extends HookWidget {
-  final BaseHomeScreenCoordinator coordinator;
-  final GestureCrossConfiguration gestureCrossConfig;
-  final Widget instructionalNokhtes;
-  const BaseHomeScreen({
+class HomeScreen extends HookWidget {
+  final HomeCoordinator coordinator;
+  const HomeScreen({
     super.key,
     required this.coordinator,
-    required this.gestureCrossConfig,
-    required this.instructionalNokhtes,
   });
 
   @override
   Widget build(BuildContext context) {
-    final center = useCenterOffset();
     useEffect(() {
-      coordinator.constructor(center);
+      coordinator.constructor();
       return () => coordinator.deconstructor();
     }, []);
     return Observer(builder: (context) {
@@ -68,10 +63,29 @@ class BaseHomeScreen extends HookWidget {
                 ),
                 GestureCross(
                   showGlowAndOutline: true,
-                  config: gestureCrossConfig,
+                  config: GestureCrossConfiguration(),
                   store: coordinator.widgets.gestureCross,
                 ),
-                instructionalNokhtes,
+                SwipeGuide(
+                  store: coordinator.widgets.swipeGuides,
+                  orientation: const [
+                    SwipeGuideOrientation.top,
+                    SwipeGuideOrientation.bottom,
+                    SwipeGuideOrientation.left,
+                  ],
+                ),
+                CenterInstructionalNokhte(
+                  store: coordinator.widgets.centerInstructionalNokhte,
+                ),
+                InstructionalGradientNokhte(
+                  store: coordinator.widgets.sessionStarterInstructionalNokhte,
+                ),
+                InstructionalGradientNokhte(
+                  store: coordinator.widgets.sessionJoinerInstructionalNokhte,
+                ),
+                InstructionalGradientNokhte(
+                  store: coordinator.widgets.storageInstructionalNokhte,
+                ),
                 WifiDisconnectOverlay(
                   store: coordinator.widgets.wifiDisconnectOverlay,
                 ),
