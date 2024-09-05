@@ -22,27 +22,31 @@ class SwipeGuide extends HookWidget {
   });
 
   double getRightPadding(Size screenSize) {
-    if (orientation == SwipeGuideOrientation.right) {
-      return screenSize.width * 0;
-    } else if (orientation == SwipeGuideOrientation.left) {
-      return screenSize.width * .15;
-    } else if (orientation == SwipeGuideOrientation.top) {
+    if (orientation == SwipeGuideOrientation.left) {
+      return useScaledSize(
+        baseValue: .07,
+        screenSize: screenSize,
+        bumpPerHundredth: .0001,
+      );
+    } else if (orientation == SwipeGuideOrientation.top ||
+        orientation == SwipeGuideOrientation.bottom) {
       return useScaledSize(
         baseValue: .01,
         screenSize: screenSize,
         bumpPerHundredth: .00001,
       );
-      // return screenSize.width * .01;
     } else {
       return 0;
     }
   }
 
   double getLeftPadding(Size screenSize) {
-    if (orientation == SwipeGuideOrientation.left) {
-      return screenSize.width * 0;
-    } else if (orientation == SwipeGuideOrientation.right) {
-      return screenSize.width * .15;
+    if (orientation == SwipeGuideOrientation.right) {
+      return useScaledSize(
+        baseValue: .05,
+        screenSize: screenSize,
+        bumpPerHundredth: .0001,
+      );
     } else {
       return 0;
     }
@@ -58,9 +62,26 @@ class SwipeGuide extends HookWidget {
       );
     } else if (orientation == SwipeGuideOrientation.top) {
       return useScaledSize(
-        baseValue: .08,
+        baseValue: .1,
         screenSize: screenSize,
         bumpPerHundredth: .0015,
+      );
+    } else {
+      // return 0;
+      return useScaledSize(
+        baseValue: .00001,
+        screenSize: screenSize,
+        bumpPerHundredth: .001,
+      );
+    }
+  }
+
+  double getTopPadding(Size screenSize) {
+    if (orientation == SwipeGuideOrientation.bottom) {
+      return useScaledSize(
+        baseValue: .02,
+        screenSize: screenSize,
+        bumpPerHundredth: .0001,
       );
     } else {
       return 0;
@@ -72,9 +93,12 @@ class SwipeGuide extends HookWidget {
     final screenSize = useFullScreenSize();
 
     double containerSize = useScaledSize(
-      baseValue: orientation == SwipeGuideOrientation.top ? .25 : .3,
+      baseValue: orientation == SwipeGuideOrientation.top ||
+              orientation == SwipeGuideOrientation.bottom
+          ? .25
+          : .21,
       screenSize: screenSize,
-      bumpPerHundredth: .0000002,
+      bumpPerHundredth: .00002,
     );
     return Observer(builder: (context) {
       return AnimatedOpacity(
@@ -90,6 +114,7 @@ class SwipeGuide extends HookWidget {
                 right: getRightPadding(screenSize),
                 bottom: getBottomPadding(screenSize),
                 left: getLeftPadding(screenSize),
+                top: getTopPadding(screenSize),
               ),
               child: SizedBox(
                 height: containerSize,
