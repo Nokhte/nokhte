@@ -71,7 +71,7 @@ class HomeScreen extends HookWidget {
                   orientation: const [
                     SwipeGuideOrientation.top,
                     SwipeGuideOrientation.bottom,
-                    SwipeGuideOrientation.left,
+                    SwipeGuideOrientation.right,
                   ],
                 ),
                 CenterInstructionalNokhte(

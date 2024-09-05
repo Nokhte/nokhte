@@ -14,22 +14,22 @@ export 'mobx/swipe_guide_store.dart';
 
 class SwipeGuide extends HookWidget {
   final SwipeGuideStore store;
-  final SwipeGuideOrientation orientation;
+  final List<SwipeGuideOrientation> orientation;
   const SwipeGuide({
     super.key,
     required this.store,
     required this.orientation,
   });
 
-  double getRightPadding(Size screenSize) {
-    if (orientation == SwipeGuideOrientation.left) {
+  double getRightPadding(Size screenSize, int i) {
+    if (orientation[i] == SwipeGuideOrientation.left) {
       return useScaledSize(
         baseValue: .07,
         screenSize: screenSize,
         bumpPerHundredth: .0001,
       );
-    } else if (orientation == SwipeGuideOrientation.top ||
-        orientation == SwipeGuideOrientation.bottom) {
+    } else if (orientation[i] == SwipeGuideOrientation.top ||
+        orientation[i] == SwipeGuideOrientation.bottom) {
       return useScaledSize(
         baseValue: .01,
         screenSize: screenSize,
@@ -40,8 +40,8 @@ class SwipeGuide extends HookWidget {
     }
   }
 
-  double getLeftPadding(Size screenSize) {
-    if (orientation == SwipeGuideOrientation.right) {
+  double getLeftPadding(Size screenSize, int i) {
+    if (orientation[i] == SwipeGuideOrientation.right) {
       return useScaledSize(
         baseValue: .05,
         screenSize: screenSize,
@@ -52,15 +52,15 @@ class SwipeGuide extends HookWidget {
     }
   }
 
-  double getBottomPadding(Size screenSize) {
-    if (orientation == SwipeGuideOrientation.left ||
-        orientation == SwipeGuideOrientation.right) {
+  double getBottomPadding(Size screenSize, int i) {
+    if (orientation[i] == SwipeGuideOrientation.left ||
+        orientation[i] == SwipeGuideOrientation.right) {
       return useScaledSize(
         baseValue: .03,
         screenSize: screenSize,
         bumpPerHundredth: .0013,
       );
-    } else if (orientation == SwipeGuideOrientation.top) {
+    } else if (orientation[i] == SwipeGuideOrientation.top) {
       return useScaledSize(
         baseValue: .1,
         screenSize: screenSize,
@@ -76,8 +76,8 @@ class SwipeGuide extends HookWidget {
     }
   }
 
-  double getTopPadding(Size screenSize) {
-    if (orientation == SwipeGuideOrientation.bottom) {
+  double getTopPadding(Size screenSize, int i) {
+    if (orientation[i] == SwipeGuideOrientation.bottom) {
       return useScaledSize(
         baseValue: .02,
         screenSize: screenSize,
@@ -92,52 +92,56 @@ class SwipeGuide extends HookWidget {
   Widget build(BuildContext context) {
     final screenSize = useFullScreenSize();
 
-    double containerSize = useScaledSize(
-      baseValue: orientation == SwipeGuideOrientation.top ||
-              orientation == SwipeGuideOrientation.bottom
-          ? .25
-          : .21,
-      screenSize: screenSize,
-      bumpPerHundredth: .00002,
-    );
     return Observer(builder: (context) {
       return AnimatedOpacity(
-        opacity: useWidgetOpacity(store.showWidget),
-        duration: Seconds.get(1),
-        child: CustomAnimationBuilder(
-          tween: store.movie,
-          duration: store.movie.duration,
-          control: store.control,
-          builder: (context, value, child) => Center(
-            child: Padding(
-              padding: EdgeInsets.only(
-                right: getRightPadding(screenSize),
-                bottom: getBottomPadding(screenSize),
-                left: getLeftPadding(screenSize),
-                top: getTopPadding(screenSize),
-              ),
-              child: SizedBox(
-                height: containerSize,
-                width: containerSize,
-                child: CustomPaint(
-                  painter: SwipeGuidePainter(
-                    orientation: orientation,
-                    opacities: [
-                      value.get('o7'),
-                      value.get('o6'),
-                      value.get('o5'),
-                      value.get('o4'),
-                      value.get('o3'),
-                      value.get('o2'),
-                      value.get('o1'),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
+          opacity: useWidgetOpacity(store.showWidget),
+          duration: Seconds.get(1),
+          child: CustomAnimationBuilder(
+              tween: store.movie,
+              duration: store.movie.duration,
+              control: store.control,
+              builder: (context, value, child) {
+                final List<Widget> temp = [];
+                for (int i = 0; i < orientation.length; i++) {
+                  double containerSize = useScaledSize(
+                    baseValue: orientation[i] == SwipeGuideOrientation.top ||
+                            orientation[i] == SwipeGuideOrientation.bottom
+                        ? .25
+                        : .21,
+                    screenSize: screenSize,
+                    bumpPerHundredth: .00002,
+                  );
+                  temp.add(Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        right: getRightPadding(screenSize, i),
+                        bottom: getBottomPadding(screenSize, i),
+                        left: getLeftPadding(screenSize, i),
+                        top: getTopPadding(screenSize, i),
+                      ),
+                      child: SizedBox(
+                        height: containerSize,
+                        width: containerSize,
+                        child: CustomPaint(
+                          painter: SwipeGuidePainter(
+                            orientation: orientation[i],
+                            opacities: [
+                              value.get('o7'),
+                              value.get('o6'),
+                              value.get('o5'),
+                              value.get('o4'),
+                              value.get('o3'),
+                              value.get('o2'),
+                              value.get('o1'),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ));
+                }
+                return Stack(children: temp);
+              }));
     });
   }
 }
