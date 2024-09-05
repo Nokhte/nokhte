@@ -90,7 +90,7 @@ abstract class _PresetsWidgetsCoordinatorBase
 
   initReactors() {
     disposers.add(centerInstructionalNokhteReactor());
-    disposers.add(centerCrossNokhteReactor());
+    // disposers.add(centerCrossNokhteReactor());
     disposers.add(gestureCrossTapReactor());
     disposers.add(transitionsCondensedPresetCardMovieStatusReactor());
     disposers.add(condensedPresetCardHoldReactor());
@@ -187,7 +187,7 @@ abstract class _PresetsWidgetsCoordinatorBase
     }
     setSwipeDirection(GestureDirections.initial);
     moveSessionStarterInstructionalNokhte(shouldExpand: false);
-    gestureCross.gradientNokhte.setWidgetVisibility(false);
+    // gestureCross.gradientNokhte.setWidgetVisibility(false);
     gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
     nokhteBlur.reverse();
     setHasInitiatedBlur(false);
@@ -200,9 +200,9 @@ abstract class _PresetsWidgetsCoordinatorBase
         nokhteBlur.init();
         beachWaves.currentStore.setControl(Control.stop);
         moveSessionStarterInstructionalNokhte(shouldExpand: true);
-        gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-        gestureCross.gradientNokhte.setWidgetVisibility(false);
-        centerInstructionalNokhte.moveToCenter(center);
+        // gestureCross.centerCrossNokhte.setWidgetVisibility(false);
+        // gestureCross.gradientNokhte.setWidgetVisibility(false);
+        centerInstructionalNokhte.moveToCenter();
         setHasInitiatedBlur(true);
       } else if (hasInitiatedBlur && !hasSwiped()) {
         dismissInstructionalNokhte();
@@ -235,8 +235,8 @@ abstract class _PresetsWidgetsCoordinatorBase
             centerInstructionalNokhte.movieMode ==
                 CenterInstructionalNokhteMovieModes.moveBack &&
             !hasInitiatedBlur) {
-          gestureCross.centerCrossNokhte.setWidgetVisibility(true);
-          gestureCross.gradientNokhte.setWidgetVisibility(true);
+          // gestureCross.centerCrossNokhte.setWidgetVisibility(true);
+          // gestureCross.gradientNokhte.setWidgetVisibility(true);
           setSmartTextTopPaddingScalar(.27);
           setSmartTextBottomPaddingScalar(0);
           setSmartTextSubMessagePaddingScalar(110);
@@ -249,14 +249,9 @@ abstract class _PresetsWidgetsCoordinatorBase
   moveSessionStarterInstructionalNokhte({required bool shouldExpand}) {
     sessionStarterInstructionalNokhte.setWidgetVisibility(true);
     sessionStarterInstructionalNokhte.initMovie(
-      InstructionalGradientMovieParams(
-        center: center,
-        colorway: GradientNokhteColorways.invertedBeachWave,
-        direction: shouldExpand
-            ? InstructionalGradientDirections.enlarge
-            : InstructionalGradientDirections.shrink,
-        position: InstructionalNokhtePositions.right,
-      ),
+      shouldExpand
+          ? InstructionalGradientDirections.enlarge
+          : InstructionalGradientDirections.shrink,
     );
   }
 

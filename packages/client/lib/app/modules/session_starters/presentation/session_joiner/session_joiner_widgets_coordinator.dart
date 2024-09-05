@@ -89,7 +89,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
     smartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.emptyTheOcean);
     disposers.add(qrScannerReactor());
-    disposers.add(centerCrossNokhteReactor());
+    // disposers.add(centerCrossNokhteReactor());
     disposers.add(gestureCrossTapReactor());
   }
 
@@ -194,24 +194,19 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
 
   moveSessionStarterInstructionalNokhte(bool shouldExpand) {
     sessionStarterInstructionalNokhte.initMovie(
-      InstructionalGradientMovieParams(
-        center: center,
-        colorway: GradientNokhteColorways.invertedBeachWave,
-        direction: shouldExpand
+       shouldExpand
             ? InstructionalGradientDirections.enlarge
             : InstructionalGradientDirections.shrink,
-        position: InstructionalNokhtePositions.left,
-      ),
     );
   }
 
-  centerCrossNokhteReactor() =>
-      reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          gestureCross.gradientNokhte.setWidgetVisibility(false);
-          gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-        }
-      });
+  // centerCrossNokhteReactor() =>
+  //     reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
+  //       if (p0 == MovieStatus.finished) {
+  //         gestureCross.gradientNokhte.setWidgetVisibility(false);
+  //         gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
+  //       }
+  //     });
 
   qrScannerReactor() => reaction((p0) => qrScanner.showWidget, (p0) {
         if (p0) {

@@ -78,7 +78,7 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
   // int fadeInCount = 0;
 
   initReactors() {
-    disposers.add(centerCrossNokhteReactor());
+    // disposers.add(centerCrossNokhteReactor());
     disposers.add(condensedPresetCardTapReactor());
     disposers.add(condensedPresetCardHoldReactor());
     disposers.add(transitionsCondensedPresetCardMovieStatusReactor());

@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, prefer_const_constructors
 import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -248,7 +248,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     disposers.add(beachWavesMovieStatusReactor());
     disposers.add(centerInstructionalNokhteReactor());
     disposers.add(qrSubtitleTextReactor());
-    disposers.add(centerCrossNokhteReactor());
+    // disposers.add(centerCrossNokhteReactor());
     disposers.add(gestureCrossTapReactor());
   }
 
@@ -257,8 +257,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         if (p0 == MovieStatus.finished &&
             centerInstructionalNokhte.movieMode ==
                 CenterInstructionalNokhteMovieModes.moveBack) {
-          gestureCross.centerCrossNokhte.setWidgetVisibility(true);
-          gestureCross.gradientNokhte.setWidgetVisibility(true);
+          // gestureCross.centerCrossNokhte.setWidgetVisibility(true);
+          // gestureCross.gradientNokhte.setWidgetVisibility(true);
           setSmartTextTopPaddingScalar(.27);
           setSmartTextBottomPaddingScalar(0);
           setSmartTextSubMessagePaddingScalar(110);
@@ -273,15 +273,15 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         }
       });
 
-  centerCrossNokhteReactor() =>
-      reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          gestureCross.gradientNokhte.setWidgetVisibility(false);
-          gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-          homeInstructionalNokhte.setWidgetVisibility(false);
-          presetsInstructionalNokhte.setWidgetVisibility(false);
-        }
-      });
+  // centerCrossNokhteReactor() =>
+  //     reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
+  //       if (p0 == MovieStatus.finished) {
+  //         gestureCross.gradientNokhte.setWidgetVisibility(false);
+  //         gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
+  //         homeInstructionalNokhte.setWidgetVisibility(false);
+  //         presetsInstructionalNokhte.setWidgetVisibility(false);
+  //       }
+  //     });
 
   qrSubtitleTextReactor() => reaction(
         (p0) => qrSubtitleSmartText.currentIndex,
@@ -332,7 +332,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     centerInstructionalNokhte.moveBackToCross(
       startingPosition: CenterNokhtePositions.center,
     );
-    gestureCross.gradientNokhte.setWidgetVisibility(false);
+    // gestureCross.gradientNokhte.setWidgetVisibility(false);
     gestureCross.strokeCrossNokhte.setWidgetVisibility(true);
     moveOtherInstructionalNokhtes(shouldExpand: false);
     nokhteBlur.reverse();
@@ -357,11 +357,11 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         qrCode.setWidgetVisibility(false);
         gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
         moveOtherInstructionalNokhtes(shouldExpand: true);
-        gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-        gestureCross.gradientNokhte.setWidgetVisibility(false);
+        // gestureCross.centerCrossNokhte.setWidgetVisibility(false);
+        // gestureCross.gradientNokhte.setWidgetVisibility(false);
         qrSubtitleSmartText.setWidgetVisibility(false);
         presetIcons.setWidgetVisibility(false);
-        centerInstructionalNokhte.moveToCenter(center);
+        centerInstructionalNokhte.moveToCenter();
       } else if (hasInitiatedBlur) {
         dismissInstructionalNokhte();
       }
@@ -400,15 +400,10 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         centerInstructionalNokhte.moveBackToCross(
           startingPosition: CenterNokhtePositions.center,
         );
-        gestureCross.gradientNokhte.setWidgetVisibility(false);
+        // gestureCross.gradientNokhte.setWidgetVisibility(false);
         gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
         homeInstructionalNokhte.initMovie(
-          InstructionalGradientMovieParams(
-            center: center,
-            colorway: GradientNokhteColorways.beachWave,
-            direction: InstructionalGradientDirections.shrink,
-            position: InstructionalNokhtePositions.bottom,
-          ),
+          InstructionalGradientDirections.shrink,
         );
         nokhteBlur.reverse();
         beachWaves.currentStore.setControl(Control.mirror);
@@ -428,30 +423,9 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     homeInstructionalNokhte.setWidgetVisibility(true);
     if (gestureCrossConfig.right.isRight()) {
       sessionJoinerInstructionalNokhte.setWidgetVisibility(true);
-      sessionJoinerInstructionalNokhte.initMovie(
-        InstructionalGradientMovieParams(
-          center: center,
-          colorway: GradientNokhteColorways.orangeSand,
-          direction: dir,
-          position: InstructionalNokhtePositions.right,
-        ),
-      );
+      sessionJoinerInstructionalNokhte.initMovie(dir);
     }
-    presetsInstructionalNokhte.initMovie(
-      InstructionalGradientMovieParams(
-        center: center,
-        colorway: GradientNokhteColorways.deeperBlue,
-        direction: dir,
-        position: InstructionalNokhtePositions.left,
-      ),
-    );
-    homeInstructionalNokhte.initMovie(
-      InstructionalGradientMovieParams(
-        center: center,
-        colorway: GradientNokhteColorways.beachWave,
-        direction: dir,
-        position: InstructionalNokhtePositions.bottom,
-      ),
-    );
+    presetsInstructionalNokhte.initMovie(dir);
+    homeInstructionalNokhte.initMovie(dir);
   }
 }

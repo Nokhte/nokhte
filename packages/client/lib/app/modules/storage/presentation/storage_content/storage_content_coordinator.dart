@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -36,11 +35,11 @@ abstract class _StorageContentCoordinatorBase
   bool aliasIsUpdated = false;
 
   @action
-  constructor(Offset center) async {
+  constructor() async {
     if (Modular.args.data["content"] != null) {
       nokhteSessionArtifacts = Modular.args.data["content"];
     }
-    widgets.constructor(center);
+    widgets.constructor();
     await captureScreen(StorageConstants.content);
     initReactors();
   }

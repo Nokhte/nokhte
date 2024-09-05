@@ -56,7 +56,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase
   }
 
   initReactors() {
-    disposers.add(centerCrossNokhteReactor());
+    // disposers.add(centerCrossNokhteReactor());
     disposers.add(gestureCrossTapReactor());
     disposers.add(centerInstructionalNokhteReactor());
   }
@@ -79,7 +79,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase
       if (!hasInitiatedBlur && !hasSwiped) {
         hasSwiped = true;
         primarySmartText.setWidgetVisibility(false);
-        gestureCross.centerCrossNokhte.setWidgetVisibility(true);
+        // gestureCross.centerCrossNokhte.setWidgetVisibility(true);
         centerInstructionalNokhte.setWidgetVisibility(false);
         beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
         beachWaves.currentStore.initMovie(const AnyToOnShoreParams(
@@ -111,12 +111,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase
         );
         sessionCard.setDisableTouchInput(false);
         primaryInstructionalGradientNokhte.initMovie(
-          InstructionalGradientMovieParams(
-            center: center,
-            colorway: GradientNokhteColorways.beachWave,
-            direction: InstructionalGradientDirections.shrink,
-            position: InstructionalNokhtePositions.left,
-          ),
+          InstructionalGradientDirections.shrink,
         );
         blur.reverse();
       } else if (hasInitiatedBlur && !hasSwiped) {
@@ -135,17 +130,12 @@ abstract class _StorageHomeWidgetsCoordinatorBase
         blur.init();
         sessionCard.setDisableTouchInput(true);
         hasInitiatedBlur = true;
-        gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-        gestureCross.gradientNokhte.setWidgetVisibility(false);
-        centerInstructionalNokhte.moveToCenter(center);
+        // gestureCross.centerCrossNokhte.setWidgetVisibility(false);
+        // gestureCross.gradientNokhte.setWidgetVisibility(false);
+        centerInstructionalNokhte.moveToCenter();
         primaryInstructionalGradientNokhte.setWidgetVisibility(true);
         primaryInstructionalGradientNokhte.initMovie(
-          InstructionalGradientMovieParams(
-            center: center,
-            colorway: GradientNokhteColorways.beachWave,
-            direction: InstructionalGradientDirections.enlarge,
-            position: InstructionalNokhtePositions.left,
-          ),
+          InstructionalGradientDirections.enlarge,
         );
       } else if (hasInitiatedBlur && !hasSwiped) {
         dismissInstructionalNokhte();
@@ -161,23 +151,18 @@ abstract class _StorageHomeWidgetsCoordinatorBase
     centerInstructionalNokhte.moveBackToCross(
         startingPosition: CenterNokhtePositions.center);
     primaryInstructionalGradientNokhte.initMovie(
-      InstructionalGradientMovieParams(
-        center: center,
-        colorway: GradientNokhteColorways.beachWave,
-        direction: InstructionalGradientDirections.shrink,
-        position: InstructionalNokhtePositions.left,
-      ),
+     InstructionalGradientDirections.shrink,
     );
   }
 
-  centerCrossNokhteReactor() =>
-      reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          primaryInstructionalGradientNokhte.setWidgetVisibility(false);
-          gestureCross.gradientNokhte.setWidgetVisibility(false);
-          gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-        }
-      });
+  // centerCrossNokhteReactor() =>
+  //     reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
+  //       if (p0 == MovieStatus.finished) {
+  //         primaryInstructionalGradientNokhte.setWidgetVisibility(false);
+  //         gestureCross.gradientNokhte.setWidgetVisibility(false);
+  //         gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
+  //       }
+  //     });
 
   centerInstructionalNokhteReactor() =>
       reaction((p0) => centerInstructionalNokhte.movieStatus, (p0) {
@@ -200,7 +185,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase
     beachWaves.currentStore.initMovie(NoParams());
     sessionCard.setWidgetVisibility(false);
     primarySmartText.setWidgetVisibility(false);
-    gestureCross.gradientNokhte.setWidgetVisibility(false);
+    // gestureCross.gradientNokhte.setWidgetVisibility(false);
     gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
     primaryInstructionalGradientNokhte.setWidgetVisibility(false);
   }

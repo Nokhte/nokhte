@@ -20,10 +20,9 @@ class StorageContentScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final center = useCenterOffset();
     final screenSize = useFullScreenSize();
     useEffect(() {
-      coordinator.constructor(center);
+      coordinator.constructor();
       return () => coordinator.deconstructor();
     }, []);
     return Observer(builder: (context) {

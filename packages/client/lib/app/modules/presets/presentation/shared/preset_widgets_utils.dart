@@ -28,8 +28,8 @@ mixin PresetWidgetsUtils on SwipeNavigationUtils {
   onExit() {
     if (!hasSwiped()) {
       headerText.setWidgetVisibility(false);
-      gestureCross.centerCrossNokhte.setWidgetVisibility(true);
-      gestureCross.gradientNokhte.setWidgetVisibility(true);
+      // gestureCross.centerCrossNokhte.setWidgetVisibility(true);
+      // gestureCross.gradientNokhte.setWidgetVisibility(true);
       gestureCross.cross.initOutlineFadeOut();
       gestureCross.initMoveAndRegenerate(CircleOffsets.right);
       beachWaves.setMovieMode(
@@ -55,13 +55,13 @@ mixin PresetWidgetsUtils on SwipeNavigationUtils {
         }
       });
 
-  centerCrossNokhteReactor() =>
-      reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          gestureCross.gradientNokhte.setWidgetVisibility(false);
-          gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-        }
-      });
+  // centerCrossNokhteReactor() =>
+  //     reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
+  //       if (p0 == MovieStatus.finished) {
+  //         gestureCross.gradientNokhte.setWidgetVisibility(false);
+  //         gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
+  //       }
+  //     });
 
   final _canHoldOnPresetCard = Observable(false);
   final _cardsHaveFadedIn = Observable(false);

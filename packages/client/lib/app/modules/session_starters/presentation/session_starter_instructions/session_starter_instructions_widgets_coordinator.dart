@@ -92,11 +92,10 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
     smartText.setMessagesData(SessionStartersList.sessionStarterInstructions);
 
     smartText.startRotatingText();
-    focusInstructionalNokhte.prepareYellowDiamond(
-      center,
-      position: InstructionalNokhtePositions.left,
-      colorway: GradientNokhteColorways.deeperBlue,
-    );
+    // focusInstructionalNokhte.prepareYellowDiamond(
+    //   position: InstructionalNokhtePositions.left,
+    //   colorway: GradientNokhteColorways.deeperBlue,
+    // );
     initReactors();
   }
 
@@ -135,7 +134,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
   }
 
   initReactors() {
-    disposers.add(centerCrossNokhteReactor());
+    // disposers.add(centerCrossNokhteReactor());
     disposers.add(gestureCrossTapReactor());
     disposers.add(beachWavesMovieStatusReactor(
       hasDonePresetInstructions: false,
@@ -156,12 +155,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
         setSmartTextPadding(topPadding: .13);
         homeInstructionalNokhte.setWidgetVisibility(true);
         homeInstructionalNokhte.initMovie(
-          InstructionalGradientMovieParams(
-            center: center,
-            colorway: GradientNokhteColorways.beachWave,
-            direction: InstructionalGradientDirections.enlarge,
-            position: InstructionalNokhtePositions.bottom,
-          ),
+          InstructionalGradientDirections.enlarge,
         );
       }
     }
@@ -204,12 +198,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
           onDismiss: () {
             homeInstructionalNokhte.setWidgetVisibility(true);
             homeInstructionalNokhte.initMovie(
-              InstructionalGradientMovieParams(
-                center: center,
-                colorway: GradientNokhteColorways.beachWave,
-                direction: InstructionalGradientDirections.shrink,
-                position: InstructionalNokhtePositions.bottom,
-              ),
+                 InstructionalGradientDirections.shrink,
             );
             setBumpFactor(0.003);
             setSmartTextTopPaddingScalar(.2);
@@ -227,8 +216,8 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
         if (p0 == MovieStatus.finished) {
           if (centerInstructionalNokhte.movieMode ==
               CenterInstructionalNokhteMovieModes.moveBack) {
-            gestureCross.centerCrossNokhte.setWidgetVisibility(true);
-            gestureCross.gradientNokhte.setWidgetVisibility(true);
+            // gestureCross.centerCrossNokhte.setWidgetVisibility(true);
+            // gestureCross.gradientNokhte.setWidgetVisibility(true);
             smartText.startRotatingText();
             setSwipeDirection(GestureDirections.initial);
             setTouchIsDisabled(false);
@@ -239,15 +228,15 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
         }
       });
 
-  centerCrossNokhteReactor() =>
-      reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          gestureCross.gradientNokhte.setWidgetVisibility(false);
-          gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-          homeInstructionalNokhte.setWidgetVisibility(false);
-          focusInstructionalNokhte.setWidgetVisibility(false);
-        }
-      });
+  // centerCrossNokhteReactor() =>
+  //     reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
+  //       if (p0 == MovieStatus.finished) {
+  //         gestureCross.gradientNokhte.setWidgetVisibility(false);
+  //         gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
+  //         homeInstructionalNokhte.setWidgetVisibility(false);
+  //         focusInstructionalNokhte.setWidgetVisibility(false);
+  //       }
+  //     });
 
   gestureCrossTapReactor() => reaction(
         (p0) => gestureCross.tapCount,
