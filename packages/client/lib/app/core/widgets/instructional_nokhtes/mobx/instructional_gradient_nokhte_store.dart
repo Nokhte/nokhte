@@ -17,7 +17,7 @@ abstract class _InstructionalGradientNokhteStoreBase
   _InstructionalGradientNokhteStoreBase() {
     setWidgetVisibility(false);
     setMovie(
-      InstructionalGradientNokhteMovie.getMovie(
+      InstructionalGradientNokhteMovie.scale(
         screenSize,
         position: position,
         colorway: colorway,
@@ -28,6 +28,13 @@ abstract class _InstructionalGradientNokhteStoreBase
 
   @observable
   Size screenSize = Size.zero;
+
+  @observable
+  GradientNokhteMovieModes movieMode = GradientNokhteMovieModes.initial;
+
+  @action
+  setMovieMode(GradientNokhteMovieModes movieMode) =>
+      this.movieMode = movieMode;
 
   @observable
   InstructionalNokhtePositions position = InstructionalNokhtePositions.bottom;
@@ -45,7 +52,7 @@ abstract class _InstructionalGradientNokhteStoreBase
     this.colorway = colorway;
     setWidgetVisibility(false);
     setMovie(
-      InstructionalGradientNokhteMovie.getMovie(
+      InstructionalGradientNokhteMovie.scale(
         screenSize,
         position: position,
         colorway: colorway,
@@ -57,11 +64,40 @@ abstract class _InstructionalGradientNokhteStoreBase
     });
   }
 
+  @action
+  explode() {
+    setMovieMode(GradientNokhteMovieModes.explode);
+    setMovie(
+      InstructionalGradientNokhteMovie.explode(
+        screenSize,
+        position: position,
+        colorway: colorway,
+      ),
+    );
+    setMovieStatus(MovieStatus.inProgress);
+    setControl(Control.playFromStart);
+  }
+
+  @action
+  disappear() {
+    setMovieMode(GradientNokhteMovieModes.disappear);
+    setMovie(
+      InstructionalGradientNokhteMovie.disappear(
+        screenSize,
+        position: position,
+        colorway: colorway,
+      ),
+    );
+    setMovieStatus(MovieStatus.inProgress);
+    setControl(Control.playFromStart);
+  }
+
   @override
   @action
   initMovie(params) {
+    setMovieMode(GradientNokhteMovieModes.scale);
     setMovie(
-      InstructionalGradientNokhteMovie.getMovie(
+      InstructionalGradientNokhteMovie.scale(
         screenSize,
         position: position,
         colorway: colorway,

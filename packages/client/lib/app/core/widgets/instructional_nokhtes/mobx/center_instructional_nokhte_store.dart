@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:mobx/mobx.dart';
@@ -14,12 +15,15 @@ class CenterInstructionalNokhteStore = _CenterInstructionalNokhteStoreBase
 abstract class _CenterInstructionalNokhteStoreBase
     extends BaseWidgetStore<InstructionalNokhtePositions> with Store {
   _CenterInstructionalNokhteStoreBase() {
-    setMovie(CenterInstructionalNokhteTransformationMovie.getMovie(screenSize));
+    setMovie(CenterInstructionalNokhteMovies.scale(screenSize));
   }
 
   @observable
   CenterInstructionalNokhteMovieModes movieMode =
       CenterInstructionalNokhteMovieModes.moveToCenter;
+
+  @observable
+  InstructionalNokhtePositions position = InstructionalNokhtePositions.initial;
 
   @observable
   Size screenSize = Size.zero;
@@ -28,9 +32,17 @@ abstract class _CenterInstructionalNokhteStoreBase
   setScreenSize(Size value) => screenSize = value;
 
   @action
+  fadeIn() {
+    setWidgetVisibility(false);
+    Timer(Seconds.get(0, milli: 1), () {
+      setWidgetVisibility(true);
+    });
+  }
+
+  @action
   moveToCenter() {
     setMovieStatus(MovieStatus.inProgress);
-    setMovie(CenterInstructionalNokhteTransformationMovie.getMovie(screenSize));
+    setMovie(CenterInstructionalNokhteMovies.scale(screenSize));
     setControl(Control.playFromStart);
     movieMode = CenterInstructionalNokhteMovieModes.moveToCenter;
   }
@@ -42,7 +54,7 @@ abstract class _CenterInstructionalNokhteStoreBase
     setMovieStatus(MovieStatus.inProgress);
     movieMode = CenterInstructionalNokhteMovieModes.moveBack;
     setMovie(
-      MoveCenterInstructionalNokhteBackToCrossMovie.getMovie(
+      CenterInstructionalNokhteMovies.moveBackToCross(
         screenSize,
         startingPosition: startingPosition,
       ),
@@ -53,9 +65,10 @@ abstract class _CenterInstructionalNokhteStoreBase
   @action
   @override
   initMovie(param) {
+    position = param;
     movieMode = CenterInstructionalNokhteMovieModes.moveAround;
     setMovie(
-      MoveCenterInstructionalNokhte.getMovie(
+      CenterInstructionalNokhteMovies.moveAround(
         screenSize,
         position: param,
       ),
