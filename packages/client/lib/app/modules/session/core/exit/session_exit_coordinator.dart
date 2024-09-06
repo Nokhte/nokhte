@@ -111,7 +111,7 @@ abstract class _SessionExitCoordinatorBase
     ));
     disposers.add(widgets.beachWavesMovieStatusReactor(onToHomeComplete: () {
       if (getUserInfo.hasDoneASession) {
-        Modular.to.navigate(HomeConstants.qrAndStorageAdept);
+        Modular.to.navigate(HomeConstants.home);
       }
     }, onReturnToTalkingComplete: () {
       if (phoneRole == SessionScreenTypes.speaking) {
