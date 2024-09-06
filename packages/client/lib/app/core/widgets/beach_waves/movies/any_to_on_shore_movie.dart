@@ -128,6 +128,9 @@ class AnyToShoreMovie {
             )
             .tween(
               BeachWaveAnimationKeys.waterMovement,
-              Tween<double>(begin: 100, end: -10.0),
+              Tween<double>(
+                begin: 100,
+                end: -10.0,
+              ),
             );
 }
