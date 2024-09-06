@@ -30,10 +30,6 @@ class HomeScreenRootRouterScreen extends HookWidget {
               store: coordinator.widgets.beachWaves,
             )),
           ),
-          GestureCross(
-            config: GestureCrossConfiguration(),
-            store: coordinator.widgets.gestureCross,
-          ),
           WifiDisconnectOverlay(
             store: coordinator.widgets.wifiDisconnectOverlay,
           ),

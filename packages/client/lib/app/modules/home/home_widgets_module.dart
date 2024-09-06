@@ -16,7 +16,6 @@ class HomeWidgetsModule extends Module {
     i.add<HomeScreenRootRouterWidgetsCoordinator>(
       () => HomeScreenRootRouterWidgetsCoordinator(
         beachWaves: BeachWavesStore(),
-        gestureCross: Modular.get<GestureCrossStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
     );
@@ -28,7 +27,6 @@ class HomeWidgetsModule extends Module {
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
-        touchRipple: TouchRippleStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
         sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
         sessionJoinerInstructionalNokhte: InstructionalGradientNokhteStore(),
