@@ -1,5 +1,6 @@
 export "session_starter_coordinator.dart";
 export "session_starter_widgets_coordinator.dart";
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -48,11 +49,6 @@ class SessionStarterScreen extends HookWidget {
                     store: coordinator.widgets.nokhteBlur,
                   ),
                 ),
-                FullScreen(
-                  child: TouchRipple(
-                    store: coordinator.widgets.touchRipple,
-                  ),
-                ),
                 NokhteQrCode(
                   store: coordinator.widgets.qrCode,
                 ),
@@ -87,17 +83,19 @@ class SessionStarterScreen extends HookWidget {
                 ),
                 GestureCross(
                   showGlowAndOutline: true,
-                  config: coordinator.widgets.gestureCrossConfig,
+                  config: GestureCrossConfiguration(
+                    bottom: Right(EmptySpace()),
+                  ),
                   store: coordinator.widgets.gestureCross,
+                ),
+                SwipeGuide(
+                  store: coordinator.widgets.swipeGuide,
+                  orientations: const [
+                    SwipeGuideOrientation.bottom,
+                  ],
                 ),
                 CenterInstructionalNokhte(
                   store: coordinator.widgets.centerInstructionalNokhte,
-                ),
-                InstructionalGradientNokhte(
-                  store: coordinator.widgets.sessionJoinerInstructionalNokhte,
-                ),
-                InstructionalGradientNokhte(
-                  store: coordinator.widgets.presetsInstructionalNokhte,
                 ),
                 InstructionalGradientNokhte(
                   store: coordinator.widgets.homeInstructionalNokhte,

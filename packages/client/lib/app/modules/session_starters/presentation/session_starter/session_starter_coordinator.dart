@@ -70,17 +70,9 @@ abstract class _SessionStarterCoordinatorBase
         }
       });
 
-  swipeCoordinatesReactor() =>
-      reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
-        ifTouchIsNotDisabled(() {
-          widgets.initWaterWake(p0);
-        });
-      });
-
   initReactors() {
     disposers.add(preferredPresetReactor());
     disposers.add(userInfoReactor());
-    disposers.add(swipeCoordinatesReactor());
     disposers.add(swipeReactor());
     disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
@@ -109,22 +101,6 @@ abstract class _SessionStarterCoordinatorBase
               toggleIsNavigatingAway();
               await logic.dispose(shouldNuke: true);
             });
-          });
-        case GestureDirections.right:
-          ifTouchIsNotDisabled(() {
-            widgets.onSwipeRight(() async {
-              toggleIsNavigatingAway();
-              await logic.dispose(shouldNuke: true);
-            });
-          });
-        case GestureDirections.left:
-          ifTouchIsNotDisabled(() {
-            if (userInfo.getUserInfoStore.hasAccessedQrCodeScanner) {
-              widgets.onSwipeLeft(() async {
-                toggleIsNavigatingAway();
-                await logic.dispose(shouldNuke: true);
-              });
-            }
           });
         default:
           break;
