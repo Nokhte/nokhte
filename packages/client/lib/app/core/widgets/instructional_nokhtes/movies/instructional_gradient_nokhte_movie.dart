@@ -75,27 +75,8 @@ class InstructionalGradientNokhteMovie {
       direction: InstructionalGradientDirections.enlarge,
     );
 
-    List<ColorAndStop> grad = InstructionalNokhteUtils.getGradient(colorway);
-    List<ColorAndStop> scaledGrad = [];
-
-    switch (colorway) {
-      case GradientNokhteColorways.orangeSand:
-        scaledGrad = [
-          ColorAndStop(grad[0].color, 0),
-          ColorAndStop(grad[0].color, 0),
-          ColorAndStop(grad[2].color, 0.15),
-          ColorAndStop(grad[2].color, 0.15),
-        ];
-      case GradientNokhteColorways.vibrantBlue:
-        scaledGrad = const [
-          ColorAndStop(Color(0xFF44D3FE), 0),
-          ColorAndStop(Color(0xFF44D3FE), .3),
-          ColorAndStop(Color(0xFF6BE9BB), 1.0),
-          ColorAndStop(Color(0xFF6BE9BB), 1.0),
-        ];
-      default:
-        break;
-    }
+    final grad = InstructionalNokhteUtils.getGradient(colorway);
+    final scaledGrad = getScaledGradient(grad, colorway);
 
     return staticPosition(
       offsets.end,
@@ -168,6 +149,45 @@ class InstructionalGradientNokhteMovie {
               end: 0,
             ),
           );
+  }
+
+  static List<ColorAndStop> getScaledGradient(
+    List<ColorAndStop> grad,
+    GradientNokhteColorways colorway,
+  ) {
+    switch (colorway) {
+      case GradientNokhteColorways.orangeSand:
+        return [
+          ColorAndStop(grad[0].color, 0),
+          ColorAndStop(grad[0].color, 0),
+          ColorAndStop(grad[2].color, 0.12),
+          ColorAndStop(grad[2].color, 0.12),
+        ];
+      case GradientNokhteColorways.vibrantBlue:
+        return const [
+          ColorAndStop(Color(0xFF44D3FE), 0),
+          ColorAndStop(Color(0xFF44D3FE), .3),
+          ColorAndStop(Color(0xFF6BE9BB), 1.0),
+          ColorAndStop(Color(0xFF6BE9BB), 1.0),
+        ];
+      case GradientNokhteColorways.invertedBeachWave:
+        return [
+          ColorAndStop(grad[2].color, grad[2].stop),
+          ColorAndStop(grad[2].color, grad[2].stop),
+          ColorAndStop(grad[3].color, grad[3].stop),
+          ColorAndStop(grad[3].color, grad[3].stop),
+        ];
+      case GradientNokhteColorways.beachWave:
+        return [
+          ColorAndStop(grad[0].color, 1),
+          ColorAndStop(grad[0].color, 1),
+          ColorAndStop(grad[0].color, 1),
+          ColorAndStop(grad[0].color, 1),
+        ];
+      default:
+        return [];
+    }
+    //
   }
 
   static MovieTween staticPosition(Offset offset, MovieTween movie) => movie
