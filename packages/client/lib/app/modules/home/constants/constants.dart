@@ -14,8 +14,10 @@ mixin HomeConstants {
   static const relativeRouter = "/router";
   static const relativeHome = "/qr_and_storage_adept";
   static const relativeNeedsToUpdate = "/needs_to_update";
+  static const relativeEntry = "/entry";
 
   static const router = "$module$relativeRouter";
+  static const entry = "$module$relativeEntry";
   static const home = "$module$relativeHome";
   static const needsToUpdate = "$module$relativeNeedsToUpdate";
 

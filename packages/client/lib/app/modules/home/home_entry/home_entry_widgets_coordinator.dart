@@ -4,21 +4,19 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-part 'session_starter_exit_widgets_coordinator.g.dart';
+part 'home_entry_widgets_coordinator.g.dart';
 
-class SessionStarterExitWidgetsCoordinator = _SessionStarterExitWidgetsCoordinatorBase
-    with _$SessionStarterExitWidgetsCoordinator;
+class HomeEntryWidgetsCoordinator = _HomeEntryWidgetsCoordinatorBase
+    with _$HomeEntryWidgetsCoordinator;
 
-abstract class _SessionStarterExitWidgetsCoordinatorBase
+abstract class _HomeEntryWidgetsCoordinatorBase
     with Store, BaseWidgetsCoordinator {
   final BeachWavesStore beachWaves;
-  final GestureCrossStore gestureCross;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
-  _SessionStarterExitWidgetsCoordinatorBase({
+  _HomeEntryWidgetsCoordinatorBase({
     required this.beachWaves,
-    required this.gestureCross,
     required this.wifiDisconnectOverlay,
   }) {
     initBaseWidgetsCoordinatorActions();
@@ -26,10 +24,13 @@ abstract class _SessionStarterExitWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
-    beachWaves.currentStore.callsOnCompleteTwice = false;
-    beachWaves.currentStore.reverseMovie(0.0);
-    gestureCross.fadeInTheCross();
+    beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
+    beachWaves.currentStore.initMovie(
+      const AnyToOnShoreParams(
+        startingColors: WaterColorsAndStops.simpleBeachWater,
+        endingColors: WaterColorsAndStops.onShoreWater,
+      ),
+    );
   }
 
   beachWavesMovieStatusReactor(Function onNavigationHome) =>

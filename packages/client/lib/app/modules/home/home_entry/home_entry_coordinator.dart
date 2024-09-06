@@ -5,14 +5,13 @@ import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
-import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte/app/modules/home/home.dart';
-part 'session_starter_exit_coordinator.g.dart';
+part 'home_entry_coordinator.g.dart';
 
-class SessionStarterExitCoordinator = _SessionStarterExitCoordinatorBase
-    with _$SessionStarterExitCoordinator;
+class HomeEntryCoordinator = _HomeEntryCoordinatorBase
+    with _$HomeEntryCoordinator;
 
-abstract class _SessionStarterExitCoordinatorBase
+abstract class _HomeEntryCoordinatorBase
     with
         Store,
         EnRoute,
@@ -20,13 +19,13 @@ abstract class _SessionStarterExitCoordinatorBase
         HomeScreenRouter,
         BaseCoordinator,
         Reactions {
-  final SessionStarterExitWidgetsCoordinator widgets;
+  final HomeEntryWidgetsCoordinator widgets;
   @override
   final GetUserInfoStore getUserInfo;
   @override
   final CaptureScreen captureScreen;
 
-  _SessionStarterExitCoordinatorBase({
+  _HomeEntryCoordinatorBase({
     required this.widgets,
     required this.getUserInfo,
     required this.captureScreen,

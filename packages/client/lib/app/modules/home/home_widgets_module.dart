@@ -42,5 +42,11 @@ class HomeWidgetsModule extends Module {
         gradientText: NokhteGradientTextStore(),
       ),
     );
+  i.add<HomeEntryWidgetsCoordinator>(
+      () => HomeEntryWidgetsCoordinator(
+        beachWaves: BeachWavesStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+      ),
+    );
   }
 }

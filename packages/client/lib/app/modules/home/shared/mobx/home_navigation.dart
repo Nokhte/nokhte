@@ -3,7 +3,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session_starters/session_starters.dart';
+import 'package:nokhte/app/modules/home/home.dart';
 
 mixin HomeNavigation on Reactions {
   SwipeGuideStore get swipeGuide;
@@ -31,7 +31,7 @@ mixin HomeNavigation on Reactions {
         if (p0 == MovieStatus.finished &&
             homeInstructionalNokhte.movieMode ==
                 GradientNokhteMovieModes.explode) {
-          Modular.to.navigate(SessionStarterConstants.sessionStarterExit);
+          Modular.to.navigate(HomeConstants.entry);
         }
       });
 }

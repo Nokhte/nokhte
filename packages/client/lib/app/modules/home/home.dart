@@ -12,6 +12,7 @@ export 'constants/constants.dart';
 export './needs_update/needs_update.dart';
 export 'home/home.dart';
 export 'root_router/root_router.dart';
+export './home_entry/home_entry.dart';
 export 'shared/mobx/mobx.dart';
 export 'shared/shared.dart';
 import 'home_widgets_module.dart';
@@ -55,6 +56,13 @@ class HomeModule extends Module {
         widgets: Modular.get<NeedsUpdateWidgetsCoordinator>(),
       ),
     );
+    i.add<HomeEntryCoordinator>(
+      () => HomeEntryCoordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<HomeEntryWidgetsCoordinator>(),
+        getUserInfo: Modular.get<GetUserInfoStore>(),
+      ),
+    );
   }
 
   @override
@@ -71,6 +79,13 @@ class HomeModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => HomeScreen(
         coordinator: Modular.get<HomeCoordinator>(),
+      ),
+    );
+    r.child(
+      HomeConstants.relativeEntry,
+      transition: TransitionType.noTransition,
+      child: (context) => HomeEntryScreen(
+        coordinator: Modular.get<HomeEntryCoordinator>(),
       ),
     );
     r.child(

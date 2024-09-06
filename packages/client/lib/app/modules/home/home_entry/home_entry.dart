@@ -1,16 +1,15 @@
-export "session_starter_exit_coordinator.dart";
-export "session_starter_exit_widgets_coordinator.dart";
-import 'package:dartz/dartz.dart';
+export "home_entry_coordinator.dart";
+export "home_entry_widgets_coordinator.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'session_starter_exit_coordinator.dart';
+import 'home_entry_coordinator.dart';
 
-class SessionStarterExitScreen extends HookWidget {
-  final SessionStarterExitCoordinator coordinator;
-  const SessionStarterExitScreen({
+class HomeEntryScreen extends HookWidget {
+  final HomeEntryCoordinator coordinator;
+  const HomeEntryScreen({
     super.key,
     required this.coordinator,
   });
@@ -32,16 +31,6 @@ class SessionStarterExitScreen extends HookWidget {
                 sandType: SandTypes.home,
                 store: coordinator.widgets.beachWaves,
               ),
-            ),
-            GestureCross(
-              config: GestureCrossConfiguration(
-                bottom: Right(
-                  NokhteGradientConfig(
-                    gradientType: NokhteGradientTypes.home,
-                  ),
-                ),
-              ),
-              store: coordinator.widgets.gestureCross,
             ),
             WifiDisconnectOverlay(
               store: coordinator.widgets.wifiDisconnectOverlay,
