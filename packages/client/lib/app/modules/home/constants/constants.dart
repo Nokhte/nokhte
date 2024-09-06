@@ -11,12 +11,12 @@ mixin HomeConstants {
   ];
 
   static const module = '/home';
-  static const relativeRoot = "/";
-  static const relativeQrAndStorageAdept = "/qr_and_storage_adept";
+  static const relativeRouter = "/router";
+  static const relativeHome = "/qr_and_storage_adept";
   static const relativeNeedsToUpdate = "/needs_to_update";
 
-  static const root = "$module$relativeRoot";
-  static const qrAndStorageAdept = "$module$relativeQrAndStorageAdept";
+  static const router = "$module$relativeRouter";
+  static const home = "$module$relativeHome";
   static const needsToUpdate = "$module$relativeNeedsToUpdate";
 
   static const RESUME_ON_SHORE_PARAMS = "resumeOnShoreParams";

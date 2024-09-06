@@ -60,14 +60,14 @@ class HomeModule extends Module {
   @override
   routes(r) {
     r.child(
-      HomeConstants.relativeRoot,
+      HomeConstants.relativeRouter,
       transition: TransitionType.noTransition,
       child: (context) => HomeScreenRootRouterScreen(
         coordinator: Modular.get<HomeScreenRootRouterCoordinator>(),
       ),
     );
     r.child(
-      HomeConstants.relativeQrAndStorageAdept,
+      HomeConstants.relativeHome,
       transition: TransitionType.noTransition,
       child: (context) => HomeScreen(
         coordinator: Modular.get<HomeCoordinator>(),

@@ -19,5 +19,5 @@ class AuthGuard extends RouteGuard {
   }
 
   @override
-  String get redirectTo => HomeConstants.root;
+  String get redirectTo => HomeConstants.router;
 }
