@@ -36,7 +36,7 @@ abstract class _HomeCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
-    await captureScreen(HomeConstants.qrAndStorageAdept);
+    await captureScreen(HomeConstants.home);
     await getNokhteSessionArtifacts();
   }
 
@@ -56,7 +56,6 @@ abstract class _HomeCoordinatorBase
       },
     ));
     disposers.add(swipeReactor());
-    disposers.add(widgets.beachWavesMovieStatusReactor());
     disposers.add(tapReactor());
   }
 
