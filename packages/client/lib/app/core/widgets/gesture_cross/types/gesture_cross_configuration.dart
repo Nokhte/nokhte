@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class GestureCrossConfiguration {
-  final Either<StrokeConfig, NokhteGradientConfig> top;
-  final Either<StrokeConfig, NokhteGradientConfig> bottom;
-  final Either<StrokeConfig, NokhteGradientConfig> left;
-  final Either<StrokeConfig, NokhteGradientConfig> right;
+  final Either<StrokeConfig, EmptySpace> top;
+  final Either<StrokeConfig, EmptySpace> bottom;
+  final Either<StrokeConfig, EmptySpace> left;
+  final Either<StrokeConfig, EmptySpace> right;
 
   List get directions => [top, bottom, left, right];
 
@@ -50,3 +50,5 @@ class GestureCrossConfiguration {
   List<Offset> getStrokeOffsets() =>
       _getOffsetsForType(GestureCrossNokhteTypes.stroke);
 }
+
+class EmptySpace {}
