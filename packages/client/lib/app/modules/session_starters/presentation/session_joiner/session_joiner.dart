@@ -57,14 +57,16 @@ class SessionJoinerScreen extends HookWidget {
                   topPadding: .2,
                 ),
               ),
+              SwipeGuide(
+                store: coordinator.widgets.swipeGuide,
+                orientations: const [
+                  SwipeGuideOrientation.top,
+                ],
+              ),
               GestureCross(
                 showGlowAndOutline: true,
                 config: GestureCrossConfiguration(
-                  left: Right(
-                    NokhteGradientConfig(
-                      gradientType: NokhteGradientTypes.sessionStarter,
-                    ),
-                  ),
+                  top: Right(EmptySpace()),
                 ),
                 store: coordinator.widgets.gestureCross,
               ),

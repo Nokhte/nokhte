@@ -27,27 +27,24 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
         EnRouteConsumer,
         TouchRippleUtils,
         InstructionWidgetsUtils,
-        SingleInstructionalNokhteWidgetUtils,
-        SessionStarterWidgetsUtils {
+        HomeNavigation {
+  final SmartTextStore smartText;
+  final TintStore tint;
+  final GestureCrossStore gestureCross;
+  final NokhteBlurStore nokhteBlur;
+  final QrScannerStore qrScanner;
   @override
   final BeachWavesStore beachWaves;
   @override
-  final SmartTextStore smartText;
-  final TintStore tint;
-  @override
   final TouchRippleStore touchRipple;
-  @override
-  final GestureCrossStore gestureCross;
-  @override
-  NokhteQrCodeStore? qrCode;
   @override
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   @override
-  final NokhteBlurStore nokhteBlur;
-  final QrScannerStore qrScanner;
   final InstructionalGradientNokhteStore homeInstructionalNokhte;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
+  @override
+  final SwipeGuideStore swipeGuide;
 
   _SessionJoinerWidgetsCoordinatorBase({
     required this.beachWaves,
@@ -60,6 +57,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
     required this.wifiDisconnectOverlay,
     required this.centerInstructionalNokhte,
     required this.homeInstructionalNokhte,
+    required this.swipeGuide,
   }) {
     initSwipeNavigationUtils();
     initEnRouteActions();
@@ -81,32 +79,13 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
     );
     smartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.emptyTheOcean);
-    disposers.add(qrScannerReactor());
-    // disposers.add(centerCrossNokhteReactor());
-    disposers.add(gestureCrossTapReactor());
+    initReactors();
   }
 
-  @action
-  onSwipeRight() {
-    if (!hasSwiped() &&
-        beachWaves.movieMode !=
-            BeachWaveMovieModes.emptyOceanToInvertedDeepSea) {
-      if (!hasInitiatedBlur && isAllowedToMakeGesture()) {
-        setSwipeDirection(GestureDirections.right);
-        qrScanner.fadeOut();
-        gestureCross.fadeAllIn();
-        centerInstructionalNokhte.setWidgetVisibility(false);
-        homeInstructionalNokhte.setWidgetVisibility(false);
-        beachWaves.currentStore.reverseMovie(-10.0);
-        beachWaves.setMovieStatus(MovieStatus.inProgress);
-        gestureCross.initMoveAndRegenerate(CircleOffsets.left);
-        gestureCross.cross.initOutlineFadeOut();
-      } else {
-        smartText.setCurrentIndex(0);
-        smartText.setWidgetVisibility(true);
-        initToLeftInstructionalNokhte();
-      }
-    }
+  initReactors() {
+    disposers.add(qrScannerReactor());
+    disposers.add(gestureCrossTapReactor());
+    initHomeNavigationReactions();
   }
 
   @action
@@ -145,6 +124,17 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
         }
       });
 
+  @action
+  onSwipeUp() {
+    if (!isDisconnected && isAllowedToMakeGesture()) {
+      if (hasInitiatedBlur && !hasSwiped()) {
+        setSwipeDirection(GestureDirections.up);
+        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
+        swipeGuide.setWidgetVisibility(false);
+      }
+    }
+  }
+
   gestureCrossTapReactor() => reaction(
         (p0) => gestureCross.tapCount,
         (p0) => onGestureCrossTap(),
@@ -152,15 +142,15 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!isDisconnected &&
-        isAllowedToMakeGesture() &&
-        !hasSwiped() &&
-        beachWaves.movieMode == BeachWaveMovieModes.emptyTheOcean) {
+    if (!isDisconnected && isAllowedToMakeGesture() && !hasSwiped()) {
       if (!hasInitiatedBlur) {
-        baseOnInitInstructionMode(
-          excludeSmartTextRotation: true,
-          excludePaddingAdjuster: true,
-        );
+        swipeGuide.fadeIn();
+        centerInstructionalNokhte.moveToCenter();
+        setHasInitiatedBlur(true);
+        // baseOnInitInstructionMode(
+        //   excludeSmartTextRotation: true,
+        //   excludePaddingAdjuster: true,
+        // );
         qrScanner.fadeOut();
         homeInstructionalNokhte.setWidgetVisibility(true);
         moveSessionStarterInstructionalNokhte(true);
@@ -192,14 +182,6 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
           : InstructionalGradientDirections.shrink,
     );
   }
-
-  // centerCrossNokhteReactor() =>
-  //     reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
-  //       if (p0 == MovieStatus.finished) {
-  //         gestureCross.gradientNokhte.setWidgetVisibility(false);
-  //         gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-  //       }
-  //     });
 
   qrScannerReactor() => reaction((p0) => qrScanner.showWidget, (p0) {
         if (p0) {

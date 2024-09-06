@@ -119,10 +119,10 @@ abstract class _SessionJoinerCoordinatorBase
   onSwipe(GestureDirections direction) {
     if (!isNavigatingAway) {
       switch (direction) {
-        case GestureDirections.right:
+        case GestureDirections.up:
           ifTouchIsNotDisabled(() {
             if (!logic.hasFoundNokhteSession) {
-              widgets.onSwipeRight();
+              widgets.onSwipeUp();
             }
           });
         default:
