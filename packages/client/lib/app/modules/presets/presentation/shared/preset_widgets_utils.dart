@@ -46,12 +46,7 @@ mixin PresetWidgetsUtils on SwipeNavigationUtils {
   }) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (hasAccessedQrCodeScanner) {
             Modular.to.navigate(SessionStarterConstants.sessionStarter);
-          } else {
-            Modular.to
-                .navigate(SessionStarterConstants.sessionJoinerInstructions);
-          }
         }
       });
 
