@@ -9,6 +9,7 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session_joiner/session_joiner.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -144,7 +145,7 @@ abstract class _HomeWidgetsCoordinatorBase
         if (p0 == MovieStatus.finished &&
             sessionJoinerInstructionalNokhte.movieMode ==
                 GradientNokhteMovieModes.explode) {
-          Modular.to.navigate(SessionStarterConstants.sessionJoiner);
+          Modular.to.navigate(SessionJoinerConstants.sessionJoiner);
         }
       });
 

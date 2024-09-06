@@ -2,12 +2,11 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
-import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session_joiner/session_joiner.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 part 'session_joiner_coordinator.g.dart';
 
@@ -21,18 +20,15 @@ abstract class _SessionJoinerCoordinatorBase
   final TapDetector tap;
   @override
   final CaptureScreen captureScreen;
-  final UserInformationCoordinator userInfo;
   final SessionStartersLogicCoordinator logic;
-  final GetUserInfoStore getUserInfo;
 
   _SessionJoinerCoordinatorBase({
     required this.widgets,
     required this.tap,
     required this.swipe,
     required this.logic,
-    required this.userInfo,
     required this.captureScreen,
-  }) : getUserInfo = userInfo.getUserInfoStore {
+  }) {
     initBaseCoordinatorActions();
   }
 
@@ -48,14 +44,7 @@ abstract class _SessionJoinerCoordinatorBase
     initReactors();
     await logic.nuke();
     logic.listenToSessionActivation();
-    await captureScreen(SessionStarterConstants.sessionJoiner);
-    await getUserInfo(NoParams());
-    await userInfo.updateUserFlag(
-      const UserFlagParam(
-        key: UserFlagKeys.hasAccessedQrCodeScanner,
-        value: true,
-      ),
-    );
+    await captureScreen(SessionJoinerConstants.sessionJoiner);
   }
 
   initReactors() {
@@ -73,20 +62,9 @@ abstract class _SessionJoinerCoordinatorBase
     ));
     disposers.add(tapReactor());
     disposers.add(qrCodeScannerReactor());
-    disposers.add(userInfoReactor());
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) => onSwipe(p0));
-
-  userInfoReactor() => reaction((p0) => getUserInfo.state, (p0) {
-        if (p0 == StoreState.loaded) {
-          disposers.add(
-            widgets.beachWavesReactor(
-              hasAccessedQrCode: getUserInfo.hasAccessedQrCode,
-            ),
-          );
-        }
-      });
 
   @observable
   int retryCount = 0;

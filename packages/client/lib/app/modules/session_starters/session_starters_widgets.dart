@@ -18,85 +18,23 @@ class SessionStartersWidgetsModule extends Module {
 
   @override
   void binds(Injector i) {
-    i.add<SessionInstructionsPickerWidgetsCoordinator>(
-      () => SessionInstructionsPickerWidgetsCoordinator(
-        choiceText: ChoiceTextStore(),
-        tint: TintStore(),
-        gestureCross: Modular.get<GestureCrossStore>(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        choiceButtons: ChoiceButtonsStore(),
-      ),
-    );
-    i.add<SessionJoinerWidgetsCoordinator>(
-      () => SessionJoinerWidgetsCoordinator(
-        nokhteBlur: NokhteBlurStore(),
-        touchRipple: TouchRippleStore(),
-        qrScanner: QrScannerStore(),
-        tint: TintStore(),
-        homeInstructionalNokhte: InstructionalGradientNokhteStore(),
-        gestureCross: Modular.get<GestureCrossStore>(),
-        beachWaves: BeachWavesStore(),
-        smartText: SmartTextStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-      ),
-    );
-    i.add<SessionJoinerInstructionsWidgetsCoordinator>(
-      () => SessionJoinerInstructionsWidgetsCoordinator(
-        swipeGuide: SwipeGuideStore(),
-        homeInstructionalNokhte: InstructionalGradientNokhteStore(),
-        // focusInstructionalNokhte: InstructionalGradientNokhteStore(),
-        nokhteBlur: NokhteBlurStore(),
-        touchRipple: TouchRippleStore(),
-        gestureCross: Modular.get<GestureCrossStore>(),
-        qrCode: NokhteQrCodeStore(),
-        beachWaves: BeachWavesStore(),
-        smartText: SmartTextStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-      ),
-    );
-    i.add<SessionStarterInstructionsWidgetsCoordinator>(
-      () => SessionStarterInstructionsWidgetsCoordinator(
-        qrCode: NokhteQrCodeStore(),
-        swipeGuide: SwipeGuideStore(),
-        homeInstructionalNokhte: InstructionalGradientNokhteStore(),
-        nokhteBlur: NokhteBlurStore(),
-        touchRipple: TouchRippleStore(),
-        gestureCross: Modular.get<GestureCrossStore>(),
-        beachWaves: BeachWavesStore(),
-        smartText: SmartTextStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-      ),
-    );
     i.add<SessionStarterWidgetsCoordinator>(
       () => SessionStarterWidgetsCoordinator(
+        swipeGuide: SwipeGuideStore(),
         presetIcons: PresetIconsStore(),
         qrCode: NokhteQrCodeStore(),
         nokhteBlur: NokhteBlurStore(),
-        touchRipple: TouchRippleStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: BeachWavesStore(),
         smartText: SmartTextStore(),
         qrSubtitleSmartText: SmartTextStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         homeInstructionalNokhte: InstructionalGradientNokhteStore(),
-        presetsInstructionalNokhte: InstructionalGradientNokhteStore(),
-        sessionJoinerInstructionalNokhte: InstructionalGradientNokhteStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
       ),
     );
     i.add<SessionStarterEntryWidgetsCoordinator>(
       () => SessionStarterEntryWidgetsCoordinator(
-        gestureCross: Modular.get<GestureCrossStore>(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-      ),
-    );
-    i.add<SessionStarterExitWidgetsCoordinator>(
-      () => SessionStarterExitWidgetsCoordinator(
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),

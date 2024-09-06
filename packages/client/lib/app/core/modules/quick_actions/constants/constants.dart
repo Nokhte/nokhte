@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:nokhte/app/core/modules/hive/hive.dart';
 import 'package:nokhte/app/core/modules/quick_actions/quick_actions.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
+import 'package:nokhte/app/modules/session_joiner/session_joiner.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters_widgets.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 import 'package:quick_actions/quick_actions.dart';
@@ -56,7 +57,7 @@ class QuickActionsConstants {
         } else if (shortcutType == joinSession) {
           if (userInfo.hasAccessedQrCodeScanner) {
             onRoute();
-            Modular.to.navigate(SessionStarterConstants.sessionJoiner);
+            Modular.to.navigate(SessionJoinerConstants.sessionJoiner);
           }
         } else if (shortcutType == viewStorage) {
           if (userInfo.hasEnteredStorage) {

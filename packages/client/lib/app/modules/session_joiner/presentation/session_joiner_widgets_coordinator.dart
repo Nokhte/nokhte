@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
+import 'package:nokhte/app/modules/session_joiner/session_joiner.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 part 'session_joiner_widgets_coordinator.g.dart';
 
@@ -19,24 +19,14 @@ class SessionJoinerWidgetsCoordinator = _SessionJoinerWidgetsCoordinatorBase
 abstract class _SessionJoinerWidgetsCoordinatorBase
     with
         Store,
-        SmartTextPaddingAdjuster,
         BaseWidgetsCoordinator,
         Reactions,
         SwipeNavigationUtils,
-        EnRoute,
-        EnRouteConsumer,
-        TouchRippleUtils,
         InstructionWidgetsUtils,
         HomeNavigation {
-  final SmartTextStore smartText;
-  final TintStore tint;
   final GestureCrossStore gestureCross;
-  final NokhteBlurStore nokhteBlur;
   final QrScannerStore qrScanner;
-  @override
   final BeachWavesStore beachWaves;
-  @override
-  final TouchRippleStore touchRipple;
   @override
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
   @override
@@ -48,36 +38,22 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
 
   _SessionJoinerWidgetsCoordinatorBase({
     required this.beachWaves,
-    required this.tint,
     required this.gestureCross,
-    required this.nokhteBlur,
     required this.qrScanner,
-    required this.touchRipple,
-    required this.smartText,
     required this.wifiDisconnectOverlay,
     required this.centerInstructionalNokhte,
     required this.homeInstructionalNokhte,
     required this.swipeGuide,
   }) {
     initSwipeNavigationUtils();
-    initEnRouteActions();
     initBaseWidgetsCoordinatorActions();
-    initSmartTextActions();
     initInstructionWidgetsUtils();
-    setSmartTextTopPaddingScalar(0);
-    setSmartTextBottomPaddingScalar(.27);
-    setSmartTextSubMessagePaddingScalar(110);
   }
 
   @action
   constructor(Offset center) {
     gestureCross.cross.initStaticGlow();
     centerInstructionalNokhte.setWidgetVisibility(false);
-    tint.initMovie(NoParams());
-    smartText.setMessagesData(
-      [SharedLists.emptyItem, InstructionItems.sessionStarterExplanation],
-    );
-    smartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.emptyTheOcean);
     initReactors();
   }
@@ -90,7 +66,6 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
 
   @action
   enterSession() {
-    nokhteBlur.reverse();
     beachWaves.setMovieMode(BeachWaveMovieModes.emptyOceanToInvertedDeepSea);
     beachWaves.currentStore.initMovie(NoParams());
     gestureCross.fadeAllOut();
@@ -112,12 +87,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (hasSwiped()) {
-            if (hasAccessedQrCode) {
-              Modular.to.navigate(SessionStarterConstants.sessionStarter);
-            } else {
-              Modular.to
-                  .navigate(SessionStarterConstants.sessionStarterInstructions);
-            }
+            Modular.to.navigate(SessionStarterConstants.sessionStarter);
           } else {
             Modular.to.navigate(SessionConstants.preview);
           }
@@ -147,10 +117,6 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
         swipeGuide.fadeIn();
         centerInstructionalNokhte.moveToCenter();
         setHasInitiatedBlur(true);
-        // baseOnInitInstructionMode(
-        //   excludeSmartTextRotation: true,
-        //   excludePaddingAdjuster: true,
-        // );
         qrScanner.fadeOut();
         homeInstructionalNokhte.setWidgetVisibility(true);
         moveSessionStarterInstructionalNokhte(true);
@@ -169,8 +135,6 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
           ? CenterNokhtePositions.left
           : CenterNokhtePositions.center;
       centerInstructionalNokhte.moveBackToCross(startingPosition: position);
-      smartText.setWidgetVisibility(false);
-      nokhteBlur.reverse();
       setSwipeDirection(GestureDirections.initial);
     }
   }

@@ -7,7 +7,7 @@ import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session_starters/session_starters.dart';
+import 'package:nokhte/app/modules/session_joiner/session_joiner.dart';
 
 class SessionJoinerScreen extends HookWidget {
   final SessionJoinerCoordinator coordinator;
@@ -44,18 +44,6 @@ class SessionJoinerScreen extends HookWidget {
               ),
               QrScanner(
                 store: coordinator.widgets.qrScanner,
-              ),
-              FullScreen(
-                child: NokhteBlur(
-                  store: coordinator.widgets.nokhteBlur,
-                ),
-              ),
-              Center(
-                child: SmartText(
-                  store: coordinator.widgets.smartText,
-                  opacityDuration: Seconds.get(1),
-                  topPadding: .2,
-                ),
               ),
               SwipeGuide(
                 store: coordinator.widgets.swipeGuide,
