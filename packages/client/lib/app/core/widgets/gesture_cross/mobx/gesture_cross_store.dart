@@ -48,6 +48,7 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   fadeInTheCross() {
     Timer(Seconds.get(0, milli: 1), () {
       cross.setWidgetVisibility(true);
+      strokeCrossNokhte.setWidgetVisibility(true);
     });
   }
 
