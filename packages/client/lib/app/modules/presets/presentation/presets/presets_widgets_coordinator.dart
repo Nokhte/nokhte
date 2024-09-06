@@ -6,7 +6,6 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/modules/presets/presets.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'presets_widgets_coordinator.g.dart';
@@ -22,23 +21,19 @@ abstract class _PresetsWidgetsCoordinatorBase
         SwipeNavigationUtils,
         InstructionWidgetsUtils,
         SmartTextPaddingAdjuster,
-        SingleInstructionalNokhteWidgetUtils,
         PresetWidgetsUtils {
   @override
   final BeachWavesStore beachWaves;
-  @override
   final SmartTextStore smartText;
   @override
   final GestureCrossStore gestureCross;
   @override
   final SmartTextStore headerText;
-  @override
   final TouchRippleStore touchRipple;
   @override
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
 
   final InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
-  @override
   final NokhteBlurStore nokhteBlur;
   @override
   final PresetCardsStore presetCards;
@@ -104,7 +99,7 @@ abstract class _PresetsWidgetsCoordinatorBase
         centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
         smartText.setCurrentIndex(1);
-        initToRightInstructionalNokhte();
+        // initToRightInstructionalNokhte();
       } else {
         centerInstructionalNokhte.setWidgetVisibility(false);
         sessionStarterInstructionalNokhte.setWidgetVisibility(false);

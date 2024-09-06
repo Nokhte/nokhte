@@ -68,11 +68,7 @@ class PresetsScreen extends HookWidget {
                 GestureCross(
                   showGlowAndOutline: true,
                   config: GestureCrossConfiguration(
-                    right: Right(
-                      NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.sessionStarter,
-                      ),
-                    ),
+                    right: Right(EmptySpace()),
                   ),
                   store: coordinator.widgets.gestureCross,
                 ),
