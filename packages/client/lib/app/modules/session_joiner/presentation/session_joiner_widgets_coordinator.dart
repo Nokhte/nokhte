@@ -10,7 +10,6 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'package:nokhte/app/modules/session_joiner/session_joiner.dart';
-import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 part 'session_joiner_widgets_coordinator.g.dart';
 
 class SessionJoinerWidgetsCoordinator = _SessionJoinerWidgetsCoordinatorBase
@@ -61,6 +60,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
   initReactors() {
     disposers.add(qrScannerReactor());
     disposers.add(gestureCrossTapReactor());
+    disposers.add(beachWavesReactor());
     initHomeNavigationReactions();
   }
 
@@ -80,19 +80,6 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
       dismissInstructionalNokhtes();
     }
   }
-
-  beachWavesReactor({
-    required bool hasAccessedQrCode,
-  }) =>
-      reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          if (hasSwiped()) {
-            Modular.to.navigate(SessionStarterConstants.sessionStarter);
-          } else {
-            Modular.to.navigate(SessionConstants.preview);
-          }
-        }
-      });
 
   @action
   onSwipeUp() {
@@ -146,6 +133,12 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
           : InstructionalGradientDirections.shrink,
     );
   }
+
+  beachWavesReactor() => reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          Modular.to.navigate(SessionConstants.preview);
+        }
+      });
 
   qrScannerReactor() => reaction((p0) => qrScanner.showWidget, (p0) {
         if (p0) {
