@@ -173,7 +173,8 @@ abstract class _StorageHomeWidgetsCoordinatorBase
     beachWaves.currentStore.initMovie(NoParams());
     sessionCard.setWidgetVisibility(false);
     primarySmartText.setWidgetVisibility(false);
-    // gestureCross.gradientNokhte.setWidgetVisibility(false);
+    centerInstructionalNokhte.setWidgetVisibility(false);
+    gestureCross.cross.setWidgetVisibility(false);
     gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
     homeInstructionalNokhte.setWidgetVisibility(false);
   }

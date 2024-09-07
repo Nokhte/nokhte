@@ -165,7 +165,7 @@ abstract class _HomeWidgetsCoordinatorBase
         if (p0 == MovieStatus.finished &&
             storageInstructionalNokhte.movieMode ==
                 GradientNokhteMovieModes.explode) {
-          Modular.to.navigate(StorageConstants.root);
+          Modular.to.navigate(StorageConstants.home);
         }
       });
 

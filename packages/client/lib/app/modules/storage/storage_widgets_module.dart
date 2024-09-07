@@ -29,13 +29,9 @@ class StorageWidgetsModule extends Module {
     );
     i.add<StorageContentWidgetsCoordinator>(
       () => StorageContentWidgetsCoordinator(
-        blur: NokhteBlurStore(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        primaryInstructionalGradientNokhte: InstructionalGradientNokhteStore(),
+        backButton: BackButtonStore(),
         contentCard: ContentCardStore(),
-        smartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
-        gestureCross: Modular.get<GestureCrossStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
     );

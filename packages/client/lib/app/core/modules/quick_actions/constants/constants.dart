@@ -62,7 +62,7 @@ class QuickActionsConstants {
         } else if (shortcutType == viewStorage) {
           if (userInfo.hasEnteredStorage) {
             onRoute();
-            Modular.to.navigate(StorageConstants.root);
+            Modular.to.navigate(StorageConstants.home);
           }
         }
       });
