@@ -216,7 +216,6 @@ class SessionWidgetsModule extends Module {
         borderGlow: BorderGlowStore(),
         exitStatusIndicator: ExitStatusIndicatorStore(),
         tint: TintStore(),
-        gestureCross: Modular.get<GestureCrossStore>(),
         primarySmartText: SmartTextStore(),
         secondarySmartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
