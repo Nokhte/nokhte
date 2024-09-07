@@ -22,6 +22,12 @@ class SessionCard extends HookWidget {
   Widget build(BuildContext context) {
     final height = useFullScreenSize().height;
     final screenSize = useFullScreenSize();
+    useEffect(() {
+      if (sessions.isNotEmpty) {
+        store.setWidgetVisibility(true);
+      }
+      return null;
+    }, [sessions]);
     return Observer(builder: (context) {
       return AnimatedOpacity(
         opacity: useWidgetOpacity(store.showWidget),

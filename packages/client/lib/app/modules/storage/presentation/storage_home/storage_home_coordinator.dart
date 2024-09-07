@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/rendering.dart';
@@ -87,7 +88,6 @@ abstract class _StorageHomeCoordinatorBase
       (failure) => errorUpdater(failure),
       (artifacts) {
         nokhteSessionArtifacts = ObservableList.of(artifacts);
-        widgets.sessionCard.setWidgetVisibility(true);
       },
     );
   }
