@@ -23,13 +23,10 @@ class HomeScreenRootRouterScreen extends HookWidget {
       resizeToAvoidBottomInset: false,
       body: MultiHitStack(
         children: [
-          Hero(
-            tag: "beach",
-            child: FullScreen(
-                child: BeachWaves(
-              store: coordinator.widgets.beachWaves,
-            )),
-          ),
+          FullScreen(
+              child: BeachWaves(
+            store: coordinator.widgets.beachWaves,
+          )),
           WifiDisconnectOverlay(
             store: coordinator.widgets.wifiDisconnectOverlay,
           ),

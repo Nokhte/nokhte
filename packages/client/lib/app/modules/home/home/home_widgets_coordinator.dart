@@ -24,6 +24,7 @@ abstract class _HomeWidgetsCoordinatorBase
         EnRoute,
         Reactions,
         EnRouteConsumer,
+        EnRouteWidgetsRouter,
         SwipeNavigationUtils,
         InstructionWidgetsUtils,
         SmartTextPaddingAdjuster,
@@ -80,6 +81,7 @@ abstract class _HomeWidgetsCoordinatorBase
     smartText.setMessagesData(HomeList.list);
     smartText.startRotatingText();
     initReactors();
+    setupEnRouteWidgets();
   }
 
   @action
