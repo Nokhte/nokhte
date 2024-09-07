@@ -113,9 +113,9 @@ abstract class _StorageHomeCoordinatorBase
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
-          case GestureDirections.right:
+          case GestureDirections.left:
             ifTouchIsNotDisabled(() {
-              widgets.onSwipeRight();
+              widgets.onSwipeLeft();
             });
           default:
             break;

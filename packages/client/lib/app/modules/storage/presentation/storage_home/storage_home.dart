@@ -70,19 +70,18 @@ class StorageHomeScreen extends HookWidget {
                 GestureCross(
                   showGlowAndOutline: true,
                   config: GestureCrossConfiguration(
-                    left: Right(
-                      NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.home,
-                      ),
-                    ),
+                    left: Right(EmptySpace()),
                   ),
                   store: coordinator.widgets.gestureCross,
                 ),
                 CenterInstructionalNokhte(
                   store: coordinator.widgets.centerInstructionalNokhte,
                 ),
+                SwipeGuide(
+                    store: coordinator.widgets.swipeGuide,
+                    orientations: const [SwipeGuideOrientation.left]),
                 InstructionalGradientNokhte(
-                  store: coordinator.widgets.homeInstructionalGradientNokhte,
+                  store: coordinator.widgets.homeInstructionalNokhte,
                 ),
                 WifiDisconnectOverlay(
                   store: coordinator.widgets.wifiDisconnectOverlay,

@@ -4,8 +4,9 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
-import 'package:nokhte/app/core/types/movie_status.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/home/shared/mobx/home_navigation.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 part 'storage_home_widgets_coordinator.g.dart';
 
@@ -13,14 +14,25 @@ class StorageHomeWidgetsCoordinator = _StorageHomeWidgetsCoordinatorBase
     with _$StorageHomeWidgetsCoordinator;
 
 abstract class _StorageHomeWidgetsCoordinatorBase
-    with Store, SmartTextPaddingAdjuster, BaseWidgetsCoordinator, Reactions {
+    with
+        Store,
+        SmartTextPaddingAdjuster,
+        BaseWidgetsCoordinator,
+        InstructionWidgetsUtils,
+        SwipeNavigationUtils,
+        Reactions,
+        HomeNavigation {
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
   final SessionCardStore sessionCard;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
+  @override
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
-  final InstructionalGradientNokhteStore homeInstructionalGradientNokhte;
+  @override
+  final InstructionalGradientNokhteStore homeInstructionalNokhte;
+  @override
+  final SwipeGuideStore swipeGuide;
   final NokhteBlurStore blur;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
@@ -28,21 +40,28 @@ abstract class _StorageHomeWidgetsCoordinatorBase
     required this.wifiDisconnectOverlay,
     required this.beachWaves,
     required this.gestureCross,
+    required this.swipeGuide,
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.sessionCard,
     required this.centerInstructionalNokhte,
-    required this.homeInstructionalGradientNokhte,
+    required this.homeInstructionalNokhte,
     required this.blur,
   }) {
     initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
+    initSwipeNavigationUtils();
+    initInstructionWidgetsUtils();
   }
 
   @action
   constructor(Offset offset) {
     setCenter(offset);
     sessionCard.initFadeIn();
+    homeInstructionalNokhte.setAndFadeIn(
+      InstructionalNokhtePositions.left,
+      GradientNokhteColorways.beachWave,
+    );
     primarySmartText.setMessagesData(StorageLists.homeHeader);
     setSmartTextBottomPaddingScalar(0);
     setSmartTextTopPaddingScalar(.15);
@@ -53,7 +72,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase
     gestureCross.cross.initStaticGlow();
     gestureCross.fadeInTheCross();
     centerInstructionalNokhte.fadeIn();
-    homeInstructionalGradientNokhte.setAndFadeIn(
+    homeInstructionalNokhte.setAndFadeIn(
       InstructionalNokhtePositions.left,
       GradientNokhteColorways.beachWave,
     );
@@ -65,41 +84,22 @@ abstract class _StorageHomeWidgetsCoordinatorBase
     // disposers.add(centerCrossNokhteReactor());
     disposers.add(gestureCrossTapReactor());
     disposers.add(centerInstructionalNokhteReactor());
+    initHomeNavigationReactions();
   }
-
-  @observable
-  bool hasInitiatedBlur = false;
 
   @observable
   bool canTapOnGestureCross = true;
 
   @observable
-  bool hasSwiped = false;
-
-  @observable
   bool canTap = false;
 
   @action
-  onSwipeRight() {
-    if (isAllowedToInteract) {
-      if (!hasInitiatedBlur && !hasSwiped) {
-        hasSwiped = true;
-        primarySmartText.setWidgetVisibility(false);
-        // gestureCross.centerCrossNokhte.setWidgetVisibility(true);
-        centerInstructionalNokhte.setWidgetVisibility(false);
-        beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
-        beachWaves.currentStore.initMovie(const AnyToOnShoreParams(
-          startingColors: WaterColorsAndStops.sky,
-        ));
-        gestureCross.cross.initOutlineFadeOut();
-        gestureCross.initMoveAndRegenerate(CircleOffsets.left);
-        sessionCard.setWidgetVisibility(false);
-      } else if (hasInitiatedBlur && !hasSwiped) {
-        secondarySmartText.setCurrentIndex(0);
-        secondarySmartText.startRotatingText(isResuming: true);
-        hasSwiped = true;
+  onSwipeLeft() {
+    if (!isDisconnected && isAllowedToMakeGesture()) {
+      if (hasInitiatedBlur && !hasSwiped()) {
+        setSwipeDirection(GestureDirections.left);
+        swipeGuide.setWidgetVisibility(false);
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.left);
-        //
       }
     }
   }
@@ -109,18 +109,18 @@ abstract class _StorageHomeWidgetsCoordinatorBase
     if (isAllowedToInteract) {
       if (canTap) {
         canTap = false;
-        hasSwiped = false;
-        hasInitiatedBlur = false;
+        setSwipeDirection(GestureDirections.initial);
+        setHasInitiatedBlur(false);
         secondarySmartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte.moveBackToCross(
           startingPosition: CenterNokhtePositions.left,
         );
         sessionCard.setDisableTouchInput(false);
-        homeInstructionalGradientNokhte.initMovie(
+        homeInstructionalNokhte.initMovie(
           InstructionalGradientDirections.shrink,
         );
         blur.reverse();
-      } else if (hasInitiatedBlur && !hasSwiped) {
+      } else if (hasInitiatedBlur && !hasSwiped()) {
         dismissInstructionalNokhte();
       }
     }
@@ -135,15 +135,16 @@ abstract class _StorageHomeWidgetsCoordinatorBase
         sessionCard.setDisableTouchInput(true);
         blur.init();
         sessionCard.setDisableTouchInput(true);
-        hasInitiatedBlur = true;
+        swipeGuide.fadeIn();
+        setHasInitiatedBlur(true);
         // gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         // gestureCross.gradientNokhte.setWidgetVisibility(false);
         centerInstructionalNokhte.moveToCenter();
-        homeInstructionalGradientNokhte.setWidgetVisibility(true);
-        homeInstructionalGradientNokhte.initMovie(
+        homeInstructionalNokhte.setWidgetVisibility(true);
+        homeInstructionalNokhte.initMovie(
           InstructionalGradientDirections.enlarge,
         );
-      } else if (hasInitiatedBlur && !hasSwiped) {
+      } else if (hasInitiatedBlur && !hasSwiped()) {
         dismissInstructionalNokhte();
       }
     }
@@ -152,33 +153,14 @@ abstract class _StorageHomeWidgetsCoordinatorBase
   @action
   dismissInstructionalNokhte() {
     sessionCard.setDisableTouchInput(false);
-    hasInitiatedBlur = false;
+    setHasInitiatedBlur(false);
     blur.reverse();
     centerInstructionalNokhte.moveBackToCross(
         startingPosition: CenterNokhtePositions.center);
-    homeInstructionalGradientNokhte.initMovie(
+    homeInstructionalNokhte.initMovie(
       InstructionalGradientDirections.shrink,
     );
   }
-
-  // centerCrossNokhteReactor() =>
-  //     reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
-  //       if (p0 == MovieStatus.finished) {
-  //         homeInstructionalGradientNokhte.setWidgetVisibility(false);
-  //         gestureCross.gradientNokhte.setWidgetVisibility(false);
-  //         gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-  //       }
-  //     });
-
-  centerInstructionalNokhteReactor() =>
-      reaction((p0) => centerInstructionalNokhte.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            centerInstructionalNokhte.movieMode ==
-                CenterInstructionalNokhteMovieModes.moveAround) {
-          canTap = true;
-          //
-        }
-      });
 
   gestureCrossTapReactor() => reaction(
         (p0) => gestureCross.tapCount,
@@ -193,7 +175,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase
     primarySmartText.setWidgetVisibility(false);
     // gestureCross.gradientNokhte.setWidgetVisibility(false);
     gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-    homeInstructionalGradientNokhte.setWidgetVisibility(false);
+    homeInstructionalNokhte.setWidgetVisibility(false);
   }
 
   deconstructor() {

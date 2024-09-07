@@ -70,11 +70,7 @@ class StorageContentScreen extends HookWidget {
                 GestureCross(
                   showGlowAndOutline: true,
                   config: GestureCrossConfiguration(
-                    left: Right(
-                      NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.storage,
-                      ),
-                    ),
+                    left: Right(EmptySpace()),
                   ),
                   store: coordinator.widgets.gestureCross,
                 ),
