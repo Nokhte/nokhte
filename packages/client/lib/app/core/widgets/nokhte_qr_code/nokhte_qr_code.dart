@@ -19,26 +19,22 @@ class NokhteQrCode extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = useFullScreenSize().height;
     final width = useFullScreenSize().width;
     return Observer(
       builder: (context) => AnimatedOpacity(
         opacity: useWidgetOpacity(store.showWidget),
         duration: Seconds.get(1),
-        child: Padding(
-          padding: EdgeInsets.only(bottom: height * .10),
-          child: Center(
-            child: QrImageView(
-              data: store.qrCodeData,
-              size: width * .5,
-              dataModuleStyle: const QrDataModuleStyle(
-                color: Colors.white,
-                dataModuleShape: QrDataModuleShape.square,
-              ),
-              eyeStyle: const QrEyeStyle(
-                color: Colors.white,
-                eyeShape: QrEyeShape.square,
-              ),
+        child: Center(
+          child: QrImageView(
+            data: store.qrCodeData,
+            size: width * .5,
+            dataModuleStyle: const QrDataModuleStyle(
+              color: Colors.white,
+              dataModuleShape: QrDataModuleShape.square,
+            ),
+            eyeStyle: const QrEyeStyle(
+              color: Colors.white,
+              eyeShape: QrEyeShape.square,
             ),
           ),
         ),
