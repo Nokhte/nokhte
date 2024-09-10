@@ -55,6 +55,7 @@ abstract class _HomeWidgetsCoordinatorBase
     required this.sessionJoinerInstructionalNokhte,
     required this.storageInstructionalNokhte,
   }) {
+    initEnRouteActions();
     initSwipeNavigationUtils();
     initInstructionWidgetsUtils();
     initSmartTextActions();
@@ -63,6 +64,7 @@ abstract class _HomeWidgetsCoordinatorBase
 
   @action
   constructor() {
+    consumeRoutingArgs();
     gestureCross.fadeInTheCross();
     swipeGuides.setWidgetVisibility(false);
     centerInstructionalNokhte.fadeIn();
@@ -201,9 +203,7 @@ abstract class _HomeWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!isDisconnected &&
-        isAllowedToMakeGesture() &&
-        beachWaves.movieMode == BeachWaveMovieModes.onShore) {
+    if (!isDisconnected && isAllowedToMakeGesture()) {
       if (!hasInitiatedBlur) {
         setHasInitiatedBlur(true);
         nokhteBlur.init();
