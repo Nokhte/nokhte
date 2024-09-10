@@ -16,7 +16,6 @@ abstract class _LoginScreenWidgetsCoordinatorBase
     with Store, SmartTextPaddingAdjuster, BaseWidgetsCoordinator, Reactions {
   final BeachWavesStore layer1BeachWaves;
   final BeachWavesStore layer2BeachWaves;
-  final GestureCrossStore gestureCross;
   final SmartTextStore smartTextStore;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
@@ -24,7 +23,6 @@ abstract class _LoginScreenWidgetsCoordinatorBase
   _LoginScreenWidgetsCoordinatorBase({
     required this.layer1BeachWaves,
     required this.layer2BeachWaves,
-    required this.gestureCross,
     required this.smartTextStore,
     required this.wifiDisconnectOverlay,
   }) {
@@ -149,7 +147,6 @@ abstract class _LoginScreenWidgetsCoordinatorBase
             BeachWaveMovieModes.waterFromTopToOnShorePt2,
           );
           layer2BeachWaves.currentStore.initMovie(NoParams());
-          gestureCross.fadeInTheCross();
           toggleHasCompletedWaterFromTopToOnShorePt1();
           layer2BeachWaves.currentStore.initMovie(NoParams());
         } else if (hasFinishedWaterFromTopPart2(p0)) {

@@ -96,10 +96,6 @@ class LoginScreen extends HookWidget {
                   ],
                 ),
               ),
-              GestureCross(
-                config: GestureCrossConfiguration(),
-                store: coordinator.widgets.gestureCross,
-              ),
               SmartText(
                 opacityDuration: Seconds.get(1),
                 store: coordinator.widgets.smartTextStore,
