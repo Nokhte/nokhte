@@ -106,7 +106,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
           primarySmartText.setMessagesData(SessionLists.lobby(presetName));
           presetInfoRecieved = true;
           primarySmartText.startRotatingText(isResuming: true);
-          presetIcons.setTags(tags: presetTags);
+          presetIcons.setTags(presetTags);
           presetIcons.setWidgetVisibility(true);
           timer.cancel();
         }

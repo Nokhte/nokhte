@@ -42,7 +42,7 @@ class SessionLobbyScreen extends HookWidget {
             BorderGlow(store: BorderGlowStore()),
             SmartText(
               store: coordinator.widgets.primarySmartText,
-              topPadding: .22,
+              topPadding: .25,
               topBump: 0.003,
               opacityDuration: Seconds.get(1),
             ),
@@ -51,7 +51,7 @@ class SessionLobbyScreen extends HookWidget {
                 child: Padding(
                   padding: EdgeInsets.only(
                     top: useScaledSize(
-                      baseValue: .28,
+                      baseValue: .31,
                       bumpPerHundredth: 0.002,
                       screenSize: screenSize,
                     ),
@@ -62,8 +62,13 @@ class SessionLobbyScreen extends HookWidget {
                 ),
               ),
             ),
-            NokhteQrCode(
-              store: coordinator.widgets.qrCode,
+            Padding(
+              padding: EdgeInsets.only(
+                bottom: screenSize.height * .06,
+              ),
+              child: NokhteQrCode(
+                store: coordinator.widgets.qrCode,
+              ),
             ),
             FullScreen(
               child: TouchRipple(
