@@ -23,7 +23,6 @@ void main() {
     mockLayer2BeachWavesStore = BeachWavesStore();
     smartTextStore = SmartTextStore();
     mockWidgetsStore = LoginScreenWidgetsCoordinator(
-      gestureCross: MockGestureCrossStore(),
       wifiDisconnectOverlay: wifiDisconnectOverlayStore,
       layer1BeachWaves: mockLayer1BeachWavesStore,
       layer2BeachWaves: mockLayer2BeachWavesStore,
