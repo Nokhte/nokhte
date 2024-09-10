@@ -3,13 +3,13 @@ import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity.
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/presets/presets.dart';
 import 'session_starters.dart';
 export 'constants/constants.dart';
 export 'data/data.dart';
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';
 export 'session_starters_widgets.dart';
-export 'types/types.dart';
 export 'session_starters_logic.dart';
 
 class SessionStartersModule extends Module {
@@ -19,27 +19,19 @@ class SessionStartersModule extends Module {
         LegacyConnectivityModule(),
         SessionStartersLogicModule(),
         PosthogModule(),
+        PresetsModule(),
         SessionStartersWidgetsModule(),
       ];
 
   @override
   void binds(i) {
-    i.add<SessionJoinerCoordinator>(
-      () => SessionJoinerCoordinator(
-        tap: TapDetector(),
-        captureScreen: Modular.get<CaptureScreen>(),
-        logic: Modular.get<SessionStartersLogicCoordinator>(),
-        swipe: SwipeDetector(),
-        widgets: Modular.get<SessionJoinerWidgetsCoordinator>(),
-      ),
-    );
-
     i.add<SessionStarterCoordinator>(
       () => SessionStarterCoordinator(
         userInfo: Modular.get<UserInformationCoordinator>(),
         tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
-        logic: Modular.get<SessionStartersLogicCoordinator>(),
+        starterLogic: Modular.get<SessionStartersLogicCoordinator>(),
+        presetsLogic: Modular.get<PresetsLogicCoordinator>(),
         swipe: SwipeDetector(),
         widgets: Modular.get<SessionStarterWidgetsCoordinator>(),
       ),

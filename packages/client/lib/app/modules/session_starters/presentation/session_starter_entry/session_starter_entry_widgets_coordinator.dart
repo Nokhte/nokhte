@@ -32,6 +32,7 @@ abstract class _SessionStarterEntryWidgetsCoordinatorBase
       const AnyToOnShoreParams(
         startingColors: WaterColorsAndStops.simpleInvertedBeachWater,
         endingColors: WaterColorsAndStops.invertedBeachWater,
+        endValue: -5.0,
       ),
     );
   }

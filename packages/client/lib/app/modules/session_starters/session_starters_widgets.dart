@@ -20,13 +20,20 @@ class SessionStartersWidgetsModule extends Module {
   void binds(Injector i) {
     i.add<SessionStarterWidgetsCoordinator>(
       () => SessionStarterWidgetsCoordinator(
+        sessionScroller: SessionScrollerStore(),
+        headerText: SmartTextStore(),
+        presetCards: PresetCardsStore(
+          condensed: CondensedPresetCardsStore(),
+          expanded: ExpandedPresetCardsStore(),
+        ),
         swipeGuide: SwipeGuideStore(),
-        presetIcons: PresetIconsStore(),
+        presetHeader: PresetHeaderStore(
+          presetIcons: PresetIconsStore(),
+        ),
         qrCode: NokhteQrCodeStore(),
         nokhteBlur: NokhteBlurStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: BeachWavesStore(),
-        smartText: SmartTextStore(),
         qrSubtitleSmartText: SmartTextStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         homeInstructionalNokhte: InstructionalGradientNokhteStore(),
