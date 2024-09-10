@@ -11,9 +11,11 @@ import 'package:simple_animations/simple_animations.dart';
 
 class InstructionalGradientNokhte extends HookWidget {
   final InstructionalGradientNokhteStore store;
+  final bool isAnInformationalNokhte;
   const InstructionalGradientNokhte({
     super.key,
     required this.store,
+    this.isAnInformationalNokhte = false,
   });
   double scaleBlur(double input) {
     const double minInput = 25;
@@ -67,6 +69,7 @@ class InstructionalGradientNokhte extends HookWidget {
                           child: SizedBox.expand(
                             child: CustomPaint(
                               painter: InstructionalGradientNokhtePainter(
+                                isAnInformationNokhte: isAnInformationalNokhte,
                                 text: store.text,
                                 textOnTop: store.textShouldBeOnTop,
                                 textOpacity: value.get('textOpacity'),
