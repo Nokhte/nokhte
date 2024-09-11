@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, empty_catches
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -26,9 +26,6 @@ abstract class _CleanUpCollaborationArtifactsCoordinatorBase
       // await sessionStarters.nuke();
       await cleanUpNokhteSession(NoParams());
       setState(StoreState.loaded);
-    } catch (e) {
-      print('error: $e');
-      //
-    }
+    } catch (e) {}
   }
 }

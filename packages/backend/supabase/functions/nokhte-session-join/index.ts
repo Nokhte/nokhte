@@ -9,7 +9,7 @@ serve(async (req) => {
       .from("st_active_nokhte_sessions")
       .select()
       .eq("leader_uid", leaderUID)
-  )?.data?.[0];
+  )?.data;
 
   let returnRes = {
     status: 200,
@@ -17,7 +17,7 @@ serve(async (req) => {
   };
 
   if (isNotEmptyOrNull(stExistingNokhteSessionRes)) {
-    const sessionUID = stExistingNokhteSessionRes?.["session_uid"];
+    const sessionUID = stExistingNokhteSessionRes?.[0]["session_uid"];
     const rtExistingNokhteSessionRes = (
       await supabaseAdmin
         .from("rt_active_nokhte_sessions")
@@ -26,7 +26,7 @@ serve(async (req) => {
     )?.data?.[0];
     if (!rtExistingNokhteSessionRes?.["has_begun"]) {
       const currentCollaboratorUIDs =
-        stExistingNokhteSessionRes?.["collaborator_uids"];
+        stExistingNokhteSessionRes?.[0]["collaborator_uids"];
       if (!currentCollaboratorUIDs.includes(userUID)) {
         currentCollaboratorUIDs.push(userUID);
 

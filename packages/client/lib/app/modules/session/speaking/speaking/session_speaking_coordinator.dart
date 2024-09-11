@@ -7,7 +7,6 @@ import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
-import 'package:nokhte_backend/tables/_real_time_disabled/company_presets/queries.dart';
 part 'session_speaking_coordinator.g.dart';
 
 class SessionSpeakingCoordinator = _SessionSpeakingCoordinatorBase
@@ -16,7 +15,6 @@ class SessionSpeakingCoordinator = _SessionSpeakingCoordinatorBase
 abstract class _SessionSpeakingCoordinatorBase
     with Store, BaseCoordinator, Reactions, SessionPresence {
   final SessionSpeakingWidgetsCoordinator widgets;
-  final SwipeDetector swipe;
   final HoldDetector hold;
   final SessionMetadataStore sessionMetadata;
   @override
@@ -26,7 +24,6 @@ abstract class _SessionSpeakingCoordinatorBase
   _SessionSpeakingCoordinatorBase({
     required this.captureScreen,
     required this.widgets,
-    required this.swipe,
     required this.hold,
     required this.presence,
   }) : sessionMetadata = presence.sessionMetadataStore {
@@ -36,7 +33,10 @@ abstract class _SessionSpeakingCoordinatorBase
   @action
   constructor() async {
     widgets.constructor(sessionMetadata.userCanSpeak);
-    swipe.setMinDistance(100.0);
+    widgets.sessionNavigation.setup(
+      sessionMetadata.sessionScreenType,
+      sessionMetadata.presetType,
+    );
     await presence.updateCurrentPhase(2.0);
     initReactors();
     await captureScreen(SessionConstants.speaking);
@@ -70,7 +70,7 @@ abstract class _SessionSpeakingCoordinatorBase
         widgets.onCollaboratorLeft();
       },
     ));
-    disposers.add(swipeReactor());
+    // disposers.add(swipeReactor());
     disposers.add(userIsSpeakingReactor());
     disposers.add(userCanSpeakReactor());
   }
@@ -81,19 +81,19 @@ abstract class _SessionSpeakingCoordinatorBase
   @action
   setUserIsTalking(bool newValue) => userIsTalking = newValue;
 
-  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
-        switch (p0) {
-          case GestureDirections.down:
-            ifTouchIsNotDisabled(() {
-              widgets.onExit(
-                isASocraticSession:
-                    sessionMetadata.presetType == PresetTypes.socratic,
-              );
-            });
-          default:
-            break;
-        }
-      });
+  // swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
+  //       switch (p0) {
+  //         case GestureDirections.down:
+  //           ifTouchIsNotDisabled(() {
+  //             widgets.onExit(
+  //               isASocraticSession:
+  //                   sessionMetadata.presetType == PresetTypes.socratic,
+  //             );
+  //           });
+  //         default:
+  //           break;
+  //       }
+  //     });
 
   userIsSpeakingReactor() =>
       reaction((p0) => sessionMetadata.userIsSpeaking, (p0) async {
@@ -123,7 +123,8 @@ abstract class _SessionSpeakingCoordinatorBase
   holdReactor() => reaction((p0) => hold.holdCount, (p0) {
         ifTouchIsNotDisabled(() async {
           if (sessionMetadata.everyoneIsOnline &&
-              sessionMetadata.canStartUsingSession) {
+              sessionMetadata.canStartUsingSession &&
+              !widgets.sessionNavigation.hasInitiatedBlur) {
             await presence
                 .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
           }

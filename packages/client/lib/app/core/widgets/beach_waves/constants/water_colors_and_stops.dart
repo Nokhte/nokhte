@@ -198,4 +198,26 @@ class WaterColorsAndStops {
     ColorAndStop(Color(0xFF3AD9BE), 0.6),
     ColorAndStop(Color(0xFF40F3D2), .70)
   ];
+
+  static const List<ColorAndStop> simpleInvertedBeachWater = [
+    ColorAndStop(Color(0xFF4396C4), 0),
+    ColorAndStop(Color(0xFF4396C4), 0),
+    ColorAndStop(Color(0xFF4396C4), 0),
+    ColorAndStop(Color(0xFF4396C4), 0),
+    ColorAndStop(Color(0xFF4396C4), 0),
+    ColorAndStop(Color(0xFF4396C4), 0),
+    ColorAndStop(Color(0xFF4396C4), 0),
+    ColorAndStop(Color(0xFF40FDD8), .85),
+  ];
+
+  static const List<ColorAndStop> simpleBeachWater = [
+    ColorAndStop(Color(0xFF407F74), 0),
+    ColorAndStop(Color(0xFF407F74), 0.1),
+    ColorAndStop(Color(0xFF407F74), 0.3),
+    ColorAndStop(Color(0xFF407F74), 0.5),
+    ColorAndStop(Color(0xFF407F74), 0.6),
+    ColorAndStop(Color(0xFF407F74), 0.7),
+    ColorAndStop(Color(0xFF407F74), 0.9),
+    ColorAndStop(Color(0xFF407F74), 1),
+  ];
 }

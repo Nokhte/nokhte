@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class CrossPainter extends CustomPainter {
-  Path path;
-  Rect pathBounds;
+  Path path = SvgAnimtionConstants.crossPath;
+  Rect pathBounds = SvgAnimtionConstants.crossPath.getBounds();
   final bool showGlowAndOutline;
   late double height;
   late double width;
   final double outlineOpacity;
   final double outlineBlur;
+  final Color glowColor;
   ColorsAndStops crossGradient;
 
-  CrossPainter(
-    this.path,
-    this.pathBounds, {
+  CrossPainter({
     required this.outlineBlur,
+    required this.glowColor,
     required this.crossGradient,
     required this.showGlowAndOutline,
     required this.outlineOpacity,
@@ -36,11 +36,11 @@ class CrossPainter extends CustomPainter {
     final crossOutline = Paint()
       ..strokeWidth = 1.0
       ..style = PaintingStyle.stroke
-      ..color = Colors.white.withOpacity(outlineOpacity);
+      ..color = glowColor.withOpacity(outlineOpacity);
 
     final crossGlow = Paint()
       ..strokeWidth = 2.0
-      ..color = Colors.white.withOpacity(outlineOpacity)
+      ..color = glowColor.withOpacity(outlineOpacity)
       ..style = PaintingStyle.stroke
       ..maskFilter = MaskFilter.blur(BlurStyle.normal, outlineBlur);
     if (showGlowAndOutline) {

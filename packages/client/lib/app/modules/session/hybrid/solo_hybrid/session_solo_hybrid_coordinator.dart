@@ -37,7 +37,10 @@ abstract class _SessionSoloHybridCoordinatorBase
   @action
   constructor() async {
     widgets.constructor(sessionMetadata.userCanSpeak);
-    swipe.setMinDistance(100.0);
+    widgets.sessionNavigation.setup(
+      sessionMetadata.sessionScreenType,
+      sessionMetadata.presetType,
+    );
     initReactors();
     await presence.updateCurrentPhase(2.0);
     await captureScreen(SessionConstants.soloHybrid);
@@ -78,7 +81,6 @@ abstract class _SessionSoloHybridCoordinatorBase
         widgets.onCollaboratorLeft();
       },
     ));
-    disposers.add(swipeReactor());
     disposers.add(tapReactor());
     disposers.add(userIsSpeakingReactor());
     disposers.add(userCanSpeakReactor());
@@ -106,17 +108,6 @@ abstract class _SessionSoloHybridCoordinatorBase
           widgets.othersAreTalkingTint.reverseMovie(NoParams());
         } else if (!p0 && !userIsSpeaking) {
           widgets.othersAreTalkingTint.initMovie(NoParams());
-        }
-      });
-
-  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
-        switch (p0) {
-          case GestureDirections.down:
-            ifTouchIsNotDisabled(() {
-              widgets.onExit();
-            });
-          default:
-            break;
         }
       });
 

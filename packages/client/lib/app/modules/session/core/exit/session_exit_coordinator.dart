@@ -109,13 +109,8 @@ abstract class _SessionExitCoordinatorBase
         widgets.onCollaboratorLeft();
       },
     ));
-    disposers.add(widgets.beachWavesMovieStatusReactor(onToHomeComplete: () {
-      if (getUserInfo.hasDoneASession) {
-        Modular.to.navigate(HomeConstants.qrAndStorageAdept);
-      } else {
-        Modular.to.navigate(HomeConstants.storageGuide);
-      }
-    }, onReturnToTalkingComplete: () {
+    disposers.add(
+        widgets.beachWavesMovieStatusReactor(onReturnToTalkingComplete: () {
       if (phoneRole == SessionScreenTypes.speaking) {
         Modular.to.navigate(SessionConstants.speaking);
       } else {

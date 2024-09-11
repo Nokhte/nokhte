@@ -22,9 +22,9 @@ abstract class _PresetIconsStoreBase extends BaseWidgetStore with Store {
   setIsHorizontal(bool val) => isHorizontal = val;
 
   @action
-  setTags({
-    required List tags,
-  }) {
+  setTags(
+    List tags,
+  ) {
     this.tags = ObservableList.of(tags);
   }
 }

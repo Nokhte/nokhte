@@ -14,4 +14,15 @@ class TintMovie {
         end: .5,
       ),
     );
+  static MovieTween get revMovie => MovieTween()
+    ..scene(
+      begin: Seconds.get(0),
+      end: Seconds.get(1),
+    ).tween<double>(
+      'opacity',
+      Tween<double>(
+        begin: .5,
+        end: 0,
+      ),
+    );
 }

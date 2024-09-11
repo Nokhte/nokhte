@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
 import 'dart:ui';
 
+import 'package:flutter/rendering.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -76,7 +78,7 @@ abstract class _StorageHomeCoordinatorBase
         value: true,
       ),
     );
-    await captureScreen(StorageConstants.root);
+    await captureScreen(StorageConstants.home);
   }
 
   @action
@@ -84,7 +86,9 @@ abstract class _StorageHomeCoordinatorBase
     final res = await getNokhteSessionArtifactsLogic(NoParams());
     res.fold(
       (failure) => errorUpdater(failure),
-      (artifacts) => nokhteSessionArtifacts = ObservableList.of(artifacts),
+      (artifacts) {
+        nokhteSessionArtifacts = ObservableList.of(artifacts);
+      },
     );
   }
 
@@ -113,9 +117,9 @@ abstract class _StorageHomeCoordinatorBase
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
-          case GestureDirections.right:
+          case GestureDirections.left:
             ifTouchIsNotDisabled(() {
-              widgets.onSwipeRight();
+              widgets.onSwipeLeft();
             });
           default:
             break;

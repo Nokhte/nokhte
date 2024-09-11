@@ -1,7 +1,7 @@
 export 'beach_waves/beach_waves.dart';
 export 'gesture_cross/gesture_cross.dart';
 export 'utilities/utilities.dart';
-export 'instructional_nokhtes/instructional_nokhtes.dart';
+export 'nokhtes/nokhtes.dart';
 export "jost/jost.dart";
 export 'nokhte_blur/nokhte_blur.dart';
 export 'nokhte_qr_code/nokhte_qr_code.dart';

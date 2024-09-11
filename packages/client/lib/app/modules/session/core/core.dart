@@ -8,6 +8,7 @@ import 'package:nokhte/app/modules/session/session.dart';
 export 'duo_greeter/duo_greeter.dart';
 export 'exit/exit.dart';
 export 'preview/preview.dart';
+export './information/information.dart';
 export 'group_greeter/group_greeter.dart';
 export 'lobby/lobby.dart';
 export './shared/shared.dart';
@@ -34,6 +35,15 @@ class SessionCoreModule extends Module {
         captureScreen: Modular.get<CaptureScreen>(),
         tap: TapDetector(),
         widgets: Modular.get<SessionPreviewWidgetsCoordinator>(),
+      ),
+    );
+    i.add<SessionInformationCoordinator>(
+      () => SessionInformationCoordinator(
+        captureStart: Modular.get<CaptureNokhteSessionStart>(),
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        tap: TapDetector(),
+        widgets: Modular.get<SessionInformationWidgetsCoordinator>(),
       ),
     );
     i.add<SessionLobbyCoordinator>(
@@ -115,6 +125,13 @@ class SessionCoreModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => SessionPreviewScreen(
         coordinator: Modular.get<SessionPreviewCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionConstants.relativeInformation,
+      transition: TransitionType.noTransition,
+      child: (context) => SessionInformationScreen(
+        coordinator: Modular.get<SessionInformationCoordinator>(),
       ),
     );
     r.child(

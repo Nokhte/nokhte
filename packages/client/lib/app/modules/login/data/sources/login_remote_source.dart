@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:nokhte/app/core/modules/hive/mixin/mixin.dart';
+import 'package:nokhte/app/core/modules/hive/types/boxes.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/modules/login/login.dart' hide SignInWithApple;
@@ -25,7 +27,7 @@ abstract class LoginRemoteSource {
   Future<bool> versionIsUpToDate();
 }
 
-class LoginRemoteSourceImpl implements LoginRemoteSource {
+class LoginRemoteSourceImpl with HiveBoxUtils implements LoginRemoteSource {
   final SupabaseClient supabase;
   late UserInformationRemoteSourceImpl userInfoRemoteSource;
   late UserMetadataRemoteSourceImpl userMetadataRemoteSourceImpl;
@@ -103,10 +105,13 @@ class LoginRemoteSourceImpl implements LoginRemoteSource {
         firstName: firstName,
         lastName: lastName,
       );
+      return updateBox(
+        data: insertRes.first,
+        name: HiveBoxes.userInformation.toString(),
+      );
     } else {
-      insertRes = [];
+      return [];
     }
-    return nameCheck.isEmpty ? insertRes : nameCheck;
   }
 
   @override

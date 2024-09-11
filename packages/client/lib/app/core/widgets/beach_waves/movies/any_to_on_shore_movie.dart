@@ -8,6 +8,7 @@ class AnyToShoreMovie {
   static MovieTween getMovie(
     List<ColorAndStop> startingColors, {
     List<ColorAndStop> endingColors = WaterColorsAndStops.onShoreWater,
+    endValue = -10.0,
   }) =>
       MovieTween()
         ..scene(
@@ -128,6 +129,9 @@ class AnyToShoreMovie {
             )
             .tween(
               BeachWaveAnimationKeys.waterMovement,
-              Tween<double>(begin: 100, end: -10.0),
+              Tween<double>(
+                begin: 100,
+                end: endValue,
+              ),
             );
 }

@@ -10,9 +10,9 @@ import 'package:nokhte/app/modules/storage/storage.dart';
 import 'home.dart';
 export 'constants/constants.dart';
 export './needs_update/needs_update.dart';
-export 'has_session/has_session.dart';
-export 'no_session/no_session.dart';
+export 'home/home.dart';
 export 'root_router/root_router.dart';
+export './home_entry/home_entry.dart';
 export 'shared/mobx/mobx.dart';
 export 'shared/shared.dart';
 import 'home_widgets_module.dart';
@@ -39,41 +39,15 @@ class HomeModule extends Module {
         widgets: Modular.get<HomeScreenRootRouterWidgetsCoordinator>(),
       ),
     );
-    i.add<CompassAndQrGuideCoordinator>(
-      () => CompassAndQrGuideCoordinator(
-        tap: TapDetector(),
-        captureScreen: Modular.get<CaptureScreen>(),
-        swipe: SwipeDetector(),
-        widgets: Modular.get<CompassAndQrGuideWidgetsCoordinator>(),
-      ),
-    );
-    i.add<QrNavigationReminderCoordinator>(
-      () => QrNavigationReminderCoordinator(
-        tap: TapDetector(),
-        captureScreen: Modular.get<CaptureScreen>(),
-        swipe: SwipeDetector(),
-        widgets: Modular.get<QrNavigationReminderWidgetsCoordinator>(),
-      ),
-    );
-    i.add<StorageGuideCoordinator>(
-      () => StorageGuideCoordinator(
-        tap: TapDetector(),
-        getNokhteSessionArtifactsLogic:
-            Modular.get<GetNokhteSessionArtifacts>(),
-        captureScreen: Modular.get<CaptureScreen>(),
-        swipe: SwipeDetector(),
-        widgets: Modular.get<StorageGuideWidgetsCoordinator>(),
-      ),
-    );
 
-    i.add<QrAndStorageAdeptCoordinator>(
-      () => QrAndStorageAdeptCoordinator(
+    i.add<HomeCoordinator>(
+      () => HomeCoordinator(
         tap: TapDetector(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: SwipeDetector(),
-        widgets: Modular.get<QrAndStorageAdeptWidgetsCoordinator>(),
+        widgets: Modular.get<HomeWidgetsCoordinator>(),
       ),
     );
     i.add<NeedsUpdateCoordinator>(
@@ -82,45 +56,36 @@ class HomeModule extends Module {
         widgets: Modular.get<NeedsUpdateWidgetsCoordinator>(),
       ),
     );
+    i.add<HomeEntryCoordinator>(
+      () => HomeEntryCoordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<HomeEntryWidgetsCoordinator>(),
+        getUserInfo: Modular.get<GetUserInfoStore>(),
+      ),
+    );
   }
 
   @override
   routes(r) {
     r.child(
-      HomeConstants.relativeRoot,
+      HomeConstants.relativeRouter,
       transition: TransitionType.noTransition,
       child: (context) => HomeScreenRootRouterScreen(
         coordinator: Modular.get<HomeScreenRootRouterCoordinator>(),
       ),
     );
     r.child(
-      HomeConstants.relativeCompassAndQrGuide,
+      HomeConstants.relativeHome,
       transition: TransitionType.noTransition,
-      child: (context) => CompassAndQrGuideScreen(
-        coordinator: Modular.get<CompassAndQrGuideCoordinator>(),
+      child: (context) => HomeScreen(
+        coordinator: Modular.get<HomeCoordinator>(),
       ),
     );
     r.child(
-      HomeConstants.relativeQrNavigationReminder,
+      HomeConstants.relativeEntry,
       transition: TransitionType.noTransition,
-      child: (context) => QrNavigationReminderScreen(
-        coordinator: Modular.get<QrNavigationReminderCoordinator>(),
-      ),
-    );
-
-    r.child(
-      HomeConstants.relativeStorageGuide,
-      transition: TransitionType.noTransition,
-      child: (context) => StorageGuideScreen(
-        coordinator: Modular.get<StorageGuideCoordinator>(),
-      ),
-    );
-
-    r.child(
-      HomeConstants.relativeQrAndStorageAdept,
-      transition: TransitionType.noTransition,
-      child: (context) => QrAndStorageAdeptScreen(
-        coordinator: Modular.get<QrAndStorageAdeptCoordinator>(),
+      child: (context) => HomeEntryScreen(
+        coordinator: Modular.get<HomeEntryCoordinator>(),
       ),
     );
     r.child(

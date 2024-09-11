@@ -1,8 +1,8 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:glassfy_flutter/glassfy_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:nokhte/app/app_module.dart';
 import 'package:nokhte/app/app_widget.dart';
+import 'package:nokhte/app/core/modules/quick_actions/constants/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -14,13 +14,7 @@ void main() async {
 
   Modular.setInitialRoute('/login/');
 
-  String glassfyAPIKey = dotenv.env['GLASSFY_PROD_API_KEY'] ?? '';
-
-  if (Platform.isIOS && dotenv.env["APP_ID"] == 'com.nokhte.staging') {
-    glassfyAPIKey = dotenv.env['GLASSFY_STAGING_API_KEY'] ?? '';
-  }
-
-  await Glassfy.initialize(glassfyAPIKey);
+  await Hive.initFlutter();
 
   late String supabaseUrl;
   late String supabaseAnonKey;
@@ -41,6 +35,8 @@ void main() async {
     url: supabaseUrl,
     anonKey: supabaseAnonKey,
   );
+
+  await QuickActionsConstants.initQuickActions();
 
   runApp(
     ModularApp(

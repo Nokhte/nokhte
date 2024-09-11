@@ -24,7 +24,10 @@ class RotatingTextData extends Equatable {
   List<Object> get props => [
         text,
         subText,
+        mainFontSize,
+        subFontSize,
         pauseHere,
         onScreenTime,
+        initialFadeInDelay,
       ];
 }
