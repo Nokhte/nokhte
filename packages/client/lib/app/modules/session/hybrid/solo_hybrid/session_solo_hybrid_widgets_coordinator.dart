@@ -146,6 +146,8 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
       if (tapPlacement == GesturePlacement.topHalf) {
         if (!isHolding && canHold && !collaboratorHasLeft) {
           initFullScreenNotes();
+        } else if (isHolding) {
+          await asyncTapCall();
         }
       } else {
         await asyncTapCall();
