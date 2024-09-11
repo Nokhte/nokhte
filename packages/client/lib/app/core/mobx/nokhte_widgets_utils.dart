@@ -2,12 +2,12 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
-mixin InstructionWidgetsUtils {
-  CenterInstructionalNokhteStore get centerInstructionalNokhte;
+mixin NokhteWidgetsUtils {
+  CenterNokhteStore get centerNokhte;
   final _hasInitiatedBlur = Observable(false);
 
   bool isAllowedToMakeGesture() =>
-      centerInstructionalNokhte.movieStatus != MovieStatus.inProgress;
+      centerNokhte.movieStatus != MovieStatus.inProgress;
 
   bool get hasInitiatedBlur => _hasInitiatedBlur.value;
 
@@ -15,7 +15,7 @@ mixin InstructionWidgetsUtils {
 
   Action actionSetHasInitiatedBlur = Action(() {});
 
-  initInstructionWidgetsUtils() {
+  initNokhteWidgetsUtils() {
     actionSetHasInitiatedBlur = Action(_setHasInitiatedBlur);
   }
 
