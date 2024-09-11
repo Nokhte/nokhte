@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
-class InstructionalNokhteUtils {
+class AuxiliaryNokhteUtils {
   static StartAndEndOffsets getOffsets(
     Size screenSize, {
-    required InstructionalNokhtePositions position,
-    required InstructionalGradientDirections direction,
+    required AuxiliaryNokhtePositions position,
+    required NokhteScaleState direction,
   }) {
     Offset start = Offset.zero;
     Offset end = Offset.zero;
@@ -16,9 +16,9 @@ class InstructionalNokhteUtils {
     );
     switch (position) {
       // refactor left and right to use the scaled size hook
-      case InstructionalNokhtePositions.left:
+      case AuxiliaryNokhtePositions.left:
         switch (direction) {
-          case InstructionalGradientDirections.enlarge:
+          case NokhteScaleState.enlarge:
             start = Offset(CircleOffsets.left.dx, CircleOffsets.left.dy);
             end = Offset(
               // (-screenCenter.dx) * .55,
@@ -29,7 +29,7 @@ class InstructionalNokhteUtils {
               ),
               (-screenCenter.dy) * .8,
             );
-          case InstructionalGradientDirections.shrink:
+          case NokhteScaleState.shrink:
             start = Offset(
               -useScaledSize(
                 baseValue: .13,
@@ -40,9 +40,9 @@ class InstructionalNokhteUtils {
             );
             end = Offset(CircleOffsets.left.dx, CircleOffsets.left.dy);
         }
-      case InstructionalNokhtePositions.right:
+      case AuxiliaryNokhtePositions.right:
         switch (direction) {
-          case InstructionalGradientDirections.enlarge:
+          case NokhteScaleState.enlarge:
             start = Offset(CircleOffsets.right.dx, CircleOffsets.right.dy);
             end = Offset(
               useScaledSize(
@@ -52,7 +52,7 @@ class InstructionalNokhteUtils {
               ),
               (-screenCenter.dy) * .8,
             );
-          case InstructionalGradientDirections.shrink:
+          case NokhteScaleState.shrink:
             start = Offset(
               useScaledSize(
                 baseValue: .21,
@@ -63,9 +63,9 @@ class InstructionalNokhteUtils {
             );
             end = Offset(CircleOffsets.right.dx, CircleOffsets.right.dy);
         }
-      case InstructionalNokhtePositions.top:
+      case AuxiliaryNokhtePositions.top:
         switch (direction) {
-          case InstructionalGradientDirections.enlarge:
+          case NokhteScaleState.enlarge:
             start = Offset(CircleOffsets.center.dx, CircleOffsets.top.dy);
             end = Offset(
               CircleOffsets.center.dx,
@@ -76,7 +76,7 @@ class InstructionalNokhteUtils {
                 bumpPerHundredth: .0003,
               ),
             );
-          case InstructionalGradientDirections.shrink:
+          case NokhteScaleState.shrink:
             start = Offset(
               CircleOffsets.center.dx,
               // (-screenCenter.dy) * 1.2,
@@ -88,9 +88,9 @@ class InstructionalNokhteUtils {
             );
             end = Offset(CircleOffsets.center.dx, CircleOffsets.top.dy);
         }
-      case InstructionalNokhtePositions.bottom:
+      case AuxiliaryNokhtePositions.bottom:
         switch (direction) {
-          case InstructionalGradientDirections.enlarge:
+          case NokhteScaleState.enlarge:
             start = Offset(CircleOffsets.center.dx, CircleOffsets.bottom.dy);
             end = Offset(
               CircleOffsets.center.dx,
@@ -101,7 +101,7 @@ class InstructionalNokhteUtils {
               ),
               // (-screenCenter.dy) * .4,
             );
-          case InstructionalGradientDirections.shrink:
+          case NokhteScaleState.shrink:
             start = Offset(
               CircleOffsets.center.dx,
               -useScaledSize(
@@ -122,44 +122,46 @@ class InstructionalNokhteUtils {
     );
   }
 
-  static List<ColorAndStop> getGradient(GradientNokhteColorways colorway) {
+  static List<ColorAndStop> getGradient(AuxiliaryNokhteColorways colorway) {
     List<ColorAndStop> temp = [];
-    switch (colorway) {
-      case GradientNokhteColorways.invertedBeachWave:
-        temp = const [
-          ColorAndStop(Color(0xFFFFE6C4), 0.0),
-          ColorAndStop(Color(0xFFFFBC78), .33),
-          ColorAndStop(Color(0xFF42FFD9), .4),
-          ColorAndStop(Color(0xFF4497C5), 1.0),
-        ];
-      case GradientNokhteColorways.beachWave:
-        temp = const [
-          ColorAndStop(Color(0xFF407F74), 0),
-          ColorAndStop(Color(0xFF53A28F), .4),
-          ColorAndStop(Color(0xFF866243), .4),
-          ColorAndStop(Color(0xFFCBB28E), 1),
-        ];
-      case GradientNokhteColorways.vibrantBlue:
-        temp = const [
-          ColorAndStop(Color(0xFF44D3FE), 0),
-          ColorAndStop(Color(0xFF44D3FE), 0),
-          ColorAndStop(Color(0xFF6BE9BB), 1),
-          ColorAndStop(Color(0xFF6BE9BB), 1),
-        ];
-      case GradientNokhteColorways.deeperBlue:
-        temp = const [
-          ColorAndStop(Color(0xFF40F3F3), 0),
-          ColorAndStop(Color(0xFF40F3F3), 0),
-          ColorAndStop(Color(0xFF4072F3), 1),
-          ColorAndStop(Color(0xFF4072F3), 1),
-        ];
-      case GradientNokhteColorways.orangeSand:
-        temp = const [
-          ColorAndStop(Color(0xFFFFE6C4), 0),
-          ColorAndStop(Color(0xFFFFE6C4), 0),
-          ColorAndStop(Color(0xFFFFBC78), .49),
-          ColorAndStop(Color(0xFFFFBC78), .49),
-        ];
+    if (colorway == AuxiliaryNokhteColorways.invertedBeachWave) {
+      temp = const [
+        ColorAndStop(Color(0xFFFFE6C4), 0.0),
+        ColorAndStop(Color(0xFFFFBC78), .33),
+        ColorAndStop(Color(0xFF42FFD9), .4),
+        ColorAndStop(Color(0xFF4497C5), 1.0),
+      ];
+    } else if (colorway == AuxiliaryNokhteColorways.beachWave) {
+      temp = const [
+        ColorAndStop(Color(0xFF407F74), 0),
+        ColorAndStop(Color(0xFF53A28F), .4),
+        ColorAndStop(Color(0xFF866243), .4),
+        ColorAndStop(Color(0xFFCBB28E), 1),
+      ];
+    } else if (colorway == AuxiliaryNokhteColorways.vibrantBlue ||
+        colorway == AuxiliaryNokhteColorways.exitVibrantBlue ||
+        colorway == AuxiliaryNokhteColorways.informationTint) {
+      temp = const [
+        ColorAndStop(Color(0xFF44D3FE), 0),
+        ColorAndStop(Color(0xFF44D3FE), 0),
+        ColorAndStop(Color(0xFF6BE9BB), 1),
+        ColorAndStop(Color(0xFF6BE9BB), 1),
+      ];
+    } else if (colorway == AuxiliaryNokhteColorways.deeperBlue) {
+      temp = const [
+        ColorAndStop(Color(0xFF40F3F3), 0),
+        ColorAndStop(Color(0xFF40F3F3), 0),
+        ColorAndStop(Color(0xFF4072F3), 1),
+        ColorAndStop(Color(0xFF4072F3), 1),
+      ];
+    } else if (colorway == AuxiliaryNokhteColorways.orangeSand ||
+        colorway == AuxiliaryNokhteColorways.exitOrangeSand) {
+      temp = const [
+        ColorAndStop(Color(0xFFFFE6C4), 0),
+        ColorAndStop(Color(0xFFFFE6C4), 0),
+        ColorAndStop(Color(0xFFFFBC78), .49),
+        ColorAndStop(Color(0xFFFFBC78), .49),
+      ];
     }
     return temp;
   }

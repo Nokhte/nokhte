@@ -9,13 +9,11 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class InstructionalGradientNokhte extends HookWidget {
-  final InstructionalGradientNokhteStore store;
-  final bool isAnInformationalNokhte;
-  const InstructionalGradientNokhte({
+class AuxiliaryNokhte extends HookWidget {
+  final AuxiliaryNokhteStore store;
+  const AuxiliaryNokhte({
     super.key,
     required this.store,
-    this.isAnInformationalNokhte = false,
   });
   double scaleBlur(double input) {
     const double minInput = 25;
@@ -68,8 +66,8 @@ class InstructionalGradientNokhte extends HookWidget {
                           height: size.height,
                           child: SizedBox.expand(
                             child: CustomPaint(
-                              painter: InstructionalGradientNokhtePainter(
-                                isAnInformationNokhte: isAnInformationalNokhte,
+                              painter: AuxiliaryNokhtePainter(
+                                colorway: store.colorway,
                                 text: store.text,
                                 textOnTop: store.textShouldBeOnTop,
                                 textOpacity: value.get('textOpacity'),

@@ -1,4 +1,4 @@
-enum GradientNokhteMovieModes {
+enum AuxiliaryNokhteMovieModes {
   initial,
   scale,
   explode,

@@ -1,4 +1,4 @@
-enum InstructionalNokhtePositions {
+enum AuxiliaryNokhtePositions {
   top,
   bottom,
   left,

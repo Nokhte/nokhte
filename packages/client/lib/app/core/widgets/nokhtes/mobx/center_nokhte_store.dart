@@ -7,23 +7,21 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'center_instructional_nokhte_store.g.dart';
+part 'center_nokhte_store.g.dart';
 
-class CenterInstructionalNokhteStore = _CenterInstructionalNokhteStoreBase
-    with _$CenterInstructionalNokhteStore;
+class CenterNokhteStore = _CenterNokhteStoreBase with _$CenterNokhteStore;
 
-abstract class _CenterInstructionalNokhteStoreBase
-    extends BaseWidgetStore<InstructionalNokhtePositions> with Store {
-  _CenterInstructionalNokhteStoreBase() {
-    setMovie(CenterInstructionalNokhteMovies.scale(screenSize));
+abstract class _CenterNokhteStoreBase
+    extends BaseWidgetStore<AuxiliaryNokhtePositions> with Store {
+  _CenterNokhteStoreBase() {
+    setMovie(CenterNokhteMovies.scale(screenSize));
   }
 
   @observable
-  CenterInstructionalNokhteMovieModes movieMode =
-      CenterInstructionalNokhteMovieModes.moveToCenter;
+  CenterNokhteMovieModes movieMode = CenterNokhteMovieModes.moveToCenter;
 
   @observable
-  InstructionalNokhtePositions position = InstructionalNokhtePositions.initial;
+  AuxiliaryNokhtePositions position = AuxiliaryNokhtePositions.initial;
 
   @observable
   Size screenSize = Size.zero;
@@ -42,9 +40,9 @@ abstract class _CenterInstructionalNokhteStoreBase
   @action
   moveToCenter() {
     setMovieStatus(MovieStatus.inProgress);
-    setMovie(CenterInstructionalNokhteMovies.scale(screenSize));
+    setMovie(CenterNokhteMovies.scale(screenSize));
     setControl(Control.playFromStart);
-    movieMode = CenterInstructionalNokhteMovieModes.moveToCenter;
+    movieMode = CenterNokhteMovieModes.moveToCenter;
   }
 
   @action
@@ -52,9 +50,9 @@ abstract class _CenterInstructionalNokhteStoreBase
     required CenterNokhtePositions startingPosition,
   }) {
     setMovieStatus(MovieStatus.inProgress);
-    movieMode = CenterInstructionalNokhteMovieModes.moveBack;
+    movieMode = CenterNokhteMovieModes.moveBack;
     setMovie(
-      CenterInstructionalNokhteMovies.moveBackToCross(
+      CenterNokhteMovies.moveBackToCross(
         screenSize,
         startingPosition: startingPosition,
       ),
@@ -66,9 +64,9 @@ abstract class _CenterInstructionalNokhteStoreBase
   @override
   initMovie(param) {
     position = param;
-    movieMode = CenterInstructionalNokhteMovieModes.moveAround;
+    movieMode = CenterNokhteMovieModes.moveAround;
     setMovie(
-      CenterInstructionalNokhteMovies.moveAround(
+      CenterNokhteMovies.moveAround(
         screenSize,
         position: param,
       ),

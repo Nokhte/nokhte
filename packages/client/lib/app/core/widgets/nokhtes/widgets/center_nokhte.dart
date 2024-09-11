@@ -8,9 +8,9 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class CenterInstructionalNokhte extends HookWidget {
-  final CenterInstructionalNokhteStore store;
-  const CenterInstructionalNokhte({
+class CenterNokhte extends HookWidget {
+  final CenterNokhteStore store;
+  const CenterNokhte({
     super.key,
     required this.store,
   });
@@ -45,7 +45,7 @@ class CenterInstructionalNokhte extends HookWidget {
                   control: store.control,
                   builder: (context, value, child) => SizedBox.expand(
                     child: CustomPaint(
-                      painter: CenterInstructionalNokhtePainter(
+                      painter: CenterNokhtePainter(
                         radii: value.get('radii'),
                         offsets: Offset(value.get('dx'), value.get('dy')),
                       ),

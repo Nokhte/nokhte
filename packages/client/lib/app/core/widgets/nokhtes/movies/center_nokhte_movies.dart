@@ -3,7 +3,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class CenterInstructionalNokhteMovies {
+class CenterNokhteMovies {
   static MovieTween scale(Size screenSize, {bool reverse = false}) {
     final screenCenter = Offset(screenSize.width / 2, screenSize.height / 2);
 
@@ -46,24 +46,23 @@ class CenterInstructionalNokhteMovies {
       screenSize.height / 2,
     );
     StartAndEndOffsets offsets = StartAndEndOffsets.initial();
-    InstructionalNokhtePositions position =
-        InstructionalNokhtePositions.initial;
+    AuxiliaryNokhtePositions position = AuxiliaryNokhtePositions.initial;
     switch (startingPosition) {
       case CenterNokhtePositions.top:
-        position = InstructionalNokhtePositions.top;
+        position = AuxiliaryNokhtePositions.top;
       case CenterNokhtePositions.bottom:
-        position = InstructionalNokhtePositions.bottom;
+        position = AuxiliaryNokhtePositions.bottom;
       case CenterNokhtePositions.right:
-        position = InstructionalNokhtePositions.right;
+        position = AuxiliaryNokhtePositions.right;
       case CenterNokhtePositions.left:
-        position = InstructionalNokhtePositions.left;
+        position = AuxiliaryNokhtePositions.left;
       default:
         break;
     }
-    offsets = InstructionalNokhteUtils.getOffsets(
+    offsets = AuxiliaryNokhteUtils.getOffsets(
       screenSize,
       position: position,
-      direction: InstructionalGradientDirections.shrink,
+      direction: NokhteScaleState.shrink,
     );
     if (startingPosition == CenterNokhtePositions.center) {
       offsets = StartAndEndOffsets(
@@ -104,7 +103,7 @@ class CenterInstructionalNokhteMovies {
 
   static MovieTween moveAround(
     Size screenSize, {
-    required InstructionalNokhtePositions position,
+    required AuxiliaryNokhtePositions position,
   }) {
     final screenCenter = Offset(
       screenSize.width / 2,
@@ -112,10 +111,10 @@ class CenterInstructionalNokhteMovies {
     );
     Offset start = Offset(CircleOffsets.center.dx, (-screenCenter.dy) * .8);
 
-    Offset end = InstructionalNokhteUtils.getOffsets(
+    Offset end = AuxiliaryNokhteUtils.getOffsets(
       screenSize,
       position: position,
-      direction: InstructionalGradientDirections.enlarge,
+      direction: NokhteScaleState.enlarge,
     ).end;
     return MovieTween()
       ..scene(

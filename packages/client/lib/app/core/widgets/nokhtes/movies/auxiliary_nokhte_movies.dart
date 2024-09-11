@@ -3,20 +3,20 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class InstructionalGradientNokhteMovie {
+class AuxiliaryNokhteMovies {
   static MovieTween scale(
     Size screenSize, {
-    required InstructionalNokhtePositions position,
-    required GradientNokhteColorways colorway,
-    required InstructionalGradientDirections direction,
+    required AuxiliaryNokhtePositions position,
+    required AuxiliaryNokhteColorways colorway,
+    required NokhteScaleState direction,
   }) {
-    final offsets = InstructionalNokhteUtils.getOffsets(
+    final offsets = AuxiliaryNokhteUtils.getOffsets(
       screenSize,
       position: position,
       direction: direction,
     );
 
-    List<ColorAndStop> grad = InstructionalNokhteUtils.getGradient(colorway);
+    List<ColorAndStop> grad = AuxiliaryNokhteUtils.getGradient(colorway);
     return gradTransition(grad, grad, MovieTween())
       ..scene(
         begin: Seconds.get(0),
@@ -41,41 +41,37 @@ class InstructionalGradientNokhteMovie {
           .tween(
             'radius',
             Tween<double>(
-              begin: direction == InstructionalGradientDirections.enlarge
-                  ? 4.5
-                  : 25,
-              end: direction == InstructionalGradientDirections.enlarge
-                  ? 25
-                  : 4.5,
+              begin: direction == NokhteScaleState.enlarge ? 4.5 : 25,
+              end: direction == NokhteScaleState.enlarge ? 25 : 4.5,
             ),
           )
       ..scene(
-        begin: direction == InstructionalGradientDirections.enlarge
+        begin: direction == NokhteScaleState.enlarge
             ? Seconds.get(1, milli: 500)
             : Seconds.get(0),
-        end: direction == InstructionalGradientDirections.enlarge
+        end: direction == NokhteScaleState.enlarge
             ? Seconds.get(2)
             : Seconds.get(0, milli: 500),
       ).tween(
           'textOpacity',
           Tween<double>(
-            begin: direction == InstructionalGradientDirections.enlarge ? 0 : 1,
-            end: direction == InstructionalGradientDirections.enlarge ? 1 : 0,
+            begin: direction == NokhteScaleState.enlarge ? 0 : 1,
+            end: direction == NokhteScaleState.enlarge ? 1 : 0,
           ));
   }
 
   static MovieTween explode(
     Size screenSize, {
-    required InstructionalNokhtePositions position,
-    required GradientNokhteColorways colorway,
+    required AuxiliaryNokhtePositions position,
+    required AuxiliaryNokhteColorways colorway,
   }) {
-    final offsets = InstructionalNokhteUtils.getOffsets(
+    final offsets = AuxiliaryNokhteUtils.getOffsets(
       screenSize,
       position: position,
-      direction: InstructionalGradientDirections.enlarge,
+      direction: NokhteScaleState.enlarge,
     );
 
-    final grad = InstructionalNokhteUtils.getGradient(colorway);
+    final grad = AuxiliaryNokhteUtils.getGradient(colorway);
     final scaledGrad = getScaledGradient(grad, colorway);
 
     return staticPosition(
@@ -111,16 +107,16 @@ class InstructionalGradientNokhteMovie {
 
   static MovieTween disappear(
     Size screenSize, {
-    required InstructionalNokhtePositions position,
-    required GradientNokhteColorways colorway,
+    required AuxiliaryNokhtePositions position,
+    required AuxiliaryNokhteColorways colorway,
   }) {
-    final offsets = InstructionalNokhteUtils.getOffsets(
+    final offsets = AuxiliaryNokhteUtils.getOffsets(
       screenSize,
       position: position,
-      direction: InstructionalGradientDirections.enlarge,
+      direction: NokhteScaleState.enlarge,
     );
 
-    List<ColorAndStop> grad = InstructionalNokhteUtils.getGradient(colorway);
+    List<ColorAndStop> grad = AuxiliaryNokhteUtils.getGradient(colorway);
     return gradTransition(
         grad,
         List.generate(4, (i) {
@@ -153,39 +149,53 @@ class InstructionalGradientNokhteMovie {
 
   static List<ColorAndStop> getScaledGradient(
     List<ColorAndStop> grad,
-    GradientNokhteColorways colorway,
+    AuxiliaryNokhteColorways colorway,
   ) {
-    switch (colorway) {
-      case GradientNokhteColorways.orangeSand:
-        return [
-          ColorAndStop(grad[0].color, 0),
-          ColorAndStop(grad[0].color, 0),
-          ColorAndStop(grad[2].color, 0.12),
-          ColorAndStop(grad[2].color, 0.12),
-        ];
-      case GradientNokhteColorways.vibrantBlue:
-        return const [
-          ColorAndStop(Color(0xFF44D3FE), 0),
-          ColorAndStop(Color(0xFF44D3FE), .3),
-          ColorAndStop(Color(0xFF6BE9BB), 1.0),
-          ColorAndStop(Color(0xFF6BE9BB), 1.0),
-        ];
-      case GradientNokhteColorways.invertedBeachWave:
-        return [
-          ColorAndStop(grad[2].color, grad[2].stop),
-          ColorAndStop(grad[2].color, grad[2].stop),
-          ColorAndStop(grad[3].color, grad[3].stop),
-          ColorAndStop(grad[3].color, grad[3].stop),
-        ];
-      case GradientNokhteColorways.beachWave:
-        return [
-          ColorAndStop(grad[0].color, 1),
-          ColorAndStop(grad[0].color, 1),
-          ColorAndStop(grad[0].color, 1),
-          ColorAndStop(grad[0].color, 1),
-        ];
-      default:
-        return [];
+    if (colorway == AuxiliaryNokhteColorways.orangeSand) {
+      return [
+        ColorAndStop(grad[0].color, 0),
+        ColorAndStop(grad[0].color, 0),
+        ColorAndStop(grad[2].color, 0.12),
+        ColorAndStop(grad[2].color, 0.12),
+      ];
+    } else if (colorway == AuxiliaryNokhteColorways.vibrantBlue ||
+        colorway == AuxiliaryNokhteColorways.informationTint) {
+      return const [
+        ColorAndStop(Color(0xFF44D3FE), 0),
+        ColorAndStop(Color(0xFF44D3FE), .3),
+        ColorAndStop(Color(0xFF6BE9BB), 1.0),
+        ColorAndStop(Color(0xFF6BE9BB), 1.0),
+      ];
+    } else if (colorway == AuxiliaryNokhteColorways.invertedBeachWave) {
+      return [
+        ColorAndStop(grad[2].color, grad[2].stop),
+        ColorAndStop(grad[2].color, grad[2].stop),
+        ColorAndStop(grad[3].color, grad[3].stop),
+        ColorAndStop(grad[3].color, grad[3].stop),
+      ];
+    } else if (colorway == AuxiliaryNokhteColorways.beachWave) {
+      return [
+        ColorAndStop(grad[0].color, 1),
+        ColorAndStop(grad[0].color, 1),
+        ColorAndStop(grad[0].color, 1),
+        ColorAndStop(grad[0].color, 1),
+      ];
+    } else if (colorway == AuxiliaryNokhteColorways.exitOrangeSand) {
+      return [
+        ColorAndStop(grad.first.color, 0),
+        ColorAndStop(grad.first.color, 0),
+        ColorAndStop(grad.last.color, 0.22),
+        ColorAndStop(grad.last.color, 0.22),
+      ];
+    } else if (colorway == AuxiliaryNokhteColorways.exitVibrantBlue) {
+      return const [
+        ColorAndStop(Color(0xFF44D3FE), 0),
+        ColorAndStop(Color(0xFF44D3FE), .3),
+        ColorAndStop(Color(0xFF6BE9BB), .7),
+        ColorAndStop(Color(0xFF6BE9BB), 1.0),
+      ];
+    } else {
+      return [];
     }
     //
   }

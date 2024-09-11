@@ -4,24 +4,24 @@ import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/instructional_nokhtes/instructional_nokhtes.dart';
+import 'package:nokhte/app/core/widgets/nokhtes/nokhtes.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'instructional_gradient_nokhte_store.g.dart';
+part 'auxiliary_nokhte_store.g.dart';
 
-class InstructionalGradientNokhteStore = _InstructionalGradientNokhteStoreBase
-    with _$InstructionalGradientNokhteStore;
+class AuxiliaryNokhteStore = _AuxiliaryNokhteStoreBase
+    with _$AuxiliaryNokhteStore;
 
-abstract class _InstructionalGradientNokhteStoreBase
-    extends BaseWidgetStore<InstructionalGradientDirections> with Store {
-  _InstructionalGradientNokhteStoreBase() {
+abstract class _AuxiliaryNokhteStoreBase
+    extends BaseWidgetStore<NokhteScaleState> with Store {
+  _AuxiliaryNokhteStoreBase() {
     setWidgetVisibility(false);
     setMovie(
-      InstructionalGradientNokhteMovie.scale(
+      AuxiliaryNokhteMovies.scale(
         screenSize,
         position: position,
         colorway: colorway,
-        direction: InstructionalGradientDirections.enlarge,
+        direction: NokhteScaleState.enlarge,
       ),
     );
   }
@@ -30,35 +30,38 @@ abstract class _InstructionalGradientNokhteStoreBase
   Size screenSize = Size.zero;
 
   @observable
-  GradientNokhteMovieModes movieMode = GradientNokhteMovieModes.initial;
+  AuxiliaryNokhteMovieModes movieMode = AuxiliaryNokhteMovieModes.initial;
 
   @action
-  setMovieMode(GradientNokhteMovieModes movieMode) =>
+  setMovieMode(AuxiliaryNokhteMovieModes movieMode) =>
       this.movieMode = movieMode;
 
   @observable
-  InstructionalNokhtePositions position = InstructionalNokhtePositions.bottom;
+  AuxiliaryNokhtePositions position = AuxiliaryNokhtePositions.bottom;
   @observable
-  GradientNokhteColorways colorway = GradientNokhteColorways.beachWave;
+  AuxiliaryNokhteColorways colorway = AuxiliaryNokhteColorways.beachWave;
 
   @action
   setScreenSize(Size value) => screenSize = value;
 
+  @action
   setAndFadeIn(
-    InstructionalNokhtePositions position,
-    GradientNokhteColorways colorway,
+    AuxiliaryNokhtePositions position,
+    AuxiliaryNokhteColorways colorway,
   ) {
     this.position = position;
     this.colorway = colorway;
     setWidgetVisibility(false);
     setMovie(
-      InstructionalGradientNokhteMovie.scale(
+      AuxiliaryNokhteMovies.scale(
         screenSize,
         position: position,
         colorway: colorway,
-        direction: InstructionalGradientDirections.enlarge,
+        direction: NokhteScaleState.enlarge,
       ),
     );
+    setControl(Control.playFromStart);
+    setControl(Control.stop);
     Timer(Seconds.get(0, milli: 1), () {
       setWidgetVisibility(true);
     });
@@ -66,9 +69,9 @@ abstract class _InstructionalGradientNokhteStoreBase
 
   @action
   explode() {
-    setMovieMode(GradientNokhteMovieModes.explode);
+    setMovieMode(AuxiliaryNokhteMovieModes.explode);
     setMovie(
-      InstructionalGradientNokhteMovie.explode(
+      AuxiliaryNokhteMovies.explode(
         screenSize,
         position: position,
         colorway: colorway,
@@ -80,9 +83,9 @@ abstract class _InstructionalGradientNokhteStoreBase
 
   @action
   disappear() {
-    setMovieMode(GradientNokhteMovieModes.disappear);
+    setMovieMode(AuxiliaryNokhteMovieModes.disappear);
     setMovie(
-      InstructionalGradientNokhteMovie.disappear(
+      AuxiliaryNokhteMovies.disappear(
         screenSize,
         position: position,
         colorway: colorway,
@@ -95,9 +98,9 @@ abstract class _InstructionalGradientNokhteStoreBase
   @override
   @action
   initMovie(params) {
-    setMovieMode(GradientNokhteMovieModes.scale);
+    setMovieMode(AuxiliaryNokhteMovieModes.scale);
     setMovie(
-      InstructionalGradientNokhteMovie.scale(
+      AuxiliaryNokhteMovies.scale(
         screenSize,
         position: position,
         colorway: colorway,
@@ -109,21 +112,27 @@ abstract class _InstructionalGradientNokhteStoreBase
   }
 
   @computed
-  bool get textShouldBeOnTop => position != InstructionalNokhtePositions.bottom;
+  bool get textShouldBeOnTop => position != AuxiliaryNokhtePositions.bottom;
 
   @computed
   String get text {
     switch (colorway) {
-      case GradientNokhteColorways.beachWave:
+      case AuxiliaryNokhteColorways.beachWave:
         return "Home";
-      case GradientNokhteColorways.invertedBeachWave:
+      case AuxiliaryNokhteColorways.invertedBeachWave:
         return "Start";
-      case GradientNokhteColorways.vibrantBlue:
+      case AuxiliaryNokhteColorways.vibrantBlue:
         return "Notes";
-      case GradientNokhteColorways.deeperBlue:
+      case AuxiliaryNokhteColorways.deeperBlue:
         return "Presets";
-      case GradientNokhteColorways.orangeSand:
+      case AuxiliaryNokhteColorways.orangeSand:
         return "Join";
+      case AuxiliaryNokhteColorways.exitVibrantBlue:
+        return 'Exit';
+      case AuxiliaryNokhteColorways.informationTint:
+        return 'Session Information';
+      case AuxiliaryNokhteColorways.exitOrangeSand:
+        return 'Exit';
     }
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nokhte/app/core/widgets/nokhtes/types/auxiliary_nokhte_colorways.dart';
 
-class InstructionalGradientNokhtePainter extends CustomPainter {
+class AuxiliaryNokhtePainter extends CustomPainter {
   final Offset offsets;
   final double radius;
   final List<Color> colors;
@@ -9,16 +10,16 @@ class InstructionalGradientNokhtePainter extends CustomPainter {
   final bool textOnTop;
   final String text;
   final double textOpacity;
-  final bool isAnInformationNokhte;
+  final AuxiliaryNokhteColorways colorway;
 
-  InstructionalGradientNokhtePainter({
+  AuxiliaryNokhtePainter({
     required this.offsets,
     required this.radius,
+    required this.colorway,
     required this.text,
     required this.colors,
     required this.stops,
     required this.textOpacity,
-    required this.isAnInformationNokhte,
     required this.textOnTop,
   });
 
@@ -62,8 +63,8 @@ class InstructionalGradientNokhtePainter extends CustomPainter {
     final strokePaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1
-      ..color = Colors.white;
-    if (isAnInformationNokhte) {
+      ..color = Colors.white.withOpacity(colors.first.opacity);
+    if (colorway == AuxiliaryNokhteColorways.informationTint) {
       paint = Paint()..color = Colors.black.withOpacity(textOpacity / 2);
 
       //
@@ -78,7 +79,7 @@ class InstructionalGradientNokhtePainter extends CustomPainter {
     paintText(canvas, center);
     rotate(canvas, center.dx, center.dy, 0.785398);
     canvas.drawCircle(center, radius, paint);
-    if (isAnInformationNokhte) {
+    if (colorway == AuxiliaryNokhteColorways.informationTint) {
       rotate(canvas, center.dx, center.dy, -0.785398);
       canvas.drawCircle(center, radius, strokePaint);
       final textSpan = TextSpan(

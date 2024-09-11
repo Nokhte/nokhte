@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CenterInstructionalNokhtePainter extends CustomPainter {
+class CenterNokhtePainter extends CustomPainter {
   final Offset offsets;
   final double radii;
 
-  CenterInstructionalNokhtePainter({
+  CenterNokhtePainter({
     required this.offsets,
     required this.radii,
   });
