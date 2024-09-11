@@ -13,15 +13,17 @@ class OnShoreMovie {
     final color = shouldInvert
         ? WaterColorsAndStops.invertedBeachWater
         : WaterColorsAndStops.onShoreWater;
+    double min = -5;
+    double max = 5;
     return BeachWaveUtils.staticColors(MovieTween(), color)
       ..scene(
         begin: Seconds.get(0),
-        end: Seconds.get(2),
+        end: Seconds.get(1),
       ).tween(
         BeachWaveAnimationKeys.waterMovement,
         Tween<double>(
-          begin: startingDirection == WaterDirection.down ? -10 : 15,
-          end: startingDirection == WaterDirection.down ? 15 : -10,
+          begin: startingDirection == WaterDirection.down ? min : max,
+          end: startingDirection == WaterDirection.down ? max : min,
         ),
       );
   }

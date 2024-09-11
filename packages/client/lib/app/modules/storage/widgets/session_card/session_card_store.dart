@@ -10,6 +10,9 @@ part 'session_card_store.g.dart';
 class SessionCardStore = _SessionCardStoreBase with _$SessionCardStore;
 
 abstract class _SessionCardStoreBase extends BaseWidgetStore with Store {
+  _SessionCardStoreBase() {
+    setWidgetVisibility(false);
+  }
   @observable
   FocusNode focusNode = FocusNode();
 

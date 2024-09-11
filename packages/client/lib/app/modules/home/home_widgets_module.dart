@@ -16,60 +16,21 @@ class HomeWidgetsModule extends Module {
     i.add<HomeScreenRootRouterWidgetsCoordinator>(
       () => HomeScreenRootRouterWidgetsCoordinator(
         beachWaves: BeachWavesStore(),
-        gestureCross: Modular.get<GestureCrossStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
     );
-    i.add<CompassAndQrGuideWidgetsCoordinator>(
-      () => CompassAndQrGuideWidgetsCoordinator(
-        swipeGuide: SwipeGuideStore(),
+    i.add<HomeWidgetsCoordinator>(
+      () => HomeWidgetsCoordinator(
+        swipeGuides: SwipeGuideStore(),
         nokhteBlur: NokhteBlurStore(),
         smartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
-        touchRipple: TouchRippleStore(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        focusInstructionalNokhte: InstructionalGradientNokhteStore(),
-      ),
-    );
-    i.add<QrNavigationReminderWidgetsCoordinator>(
-      () => QrNavigationReminderWidgetsCoordinator(
-        nokhteBlur: NokhteBlurStore(),
-        smartText: SmartTextStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        gestureCross: Modular.get<GestureCrossStore>(),
-        touchRipple: TouchRippleStore(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
-      ),
-    );
-    i.add<StorageGuideWidgetsCoordinator>(
-      () => StorageGuideWidgetsCoordinator(
-        swipeGuide: SwipeGuideStore(),
-        nokhteBlur: NokhteBlurStore(),
-        smartText: SmartTextStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        gestureCross: Modular.get<GestureCrossStore>(),
-        touchRipple: TouchRippleStore(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
-        focusInstructionalNokhte: InstructionalGradientNokhteStore(),
-      ),
-    );
-    i.add<QrAndStorageAdeptWidgetsCoordinator>(
-      () => QrAndStorageAdeptWidgetsCoordinator(
-        nokhteBlur: NokhteBlurStore(),
-        smartText: SmartTextStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        gestureCross: Modular.get<GestureCrossStore>(),
-        touchRipple: TouchRippleStore(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
-        storageInstructionalNokhte: InstructionalGradientNokhteStore(),
+        centerNokhte: CenterNokhteStore(),
+        sessionStarterNokhte: AuxiliaryNokhteStore(),
+        sessionJoinerNokhte: AuxiliaryNokhteStore(),
+        storageNokhte: AuxiliaryNokhteStore(),
       ),
     );
     i.add<NeedsUpdateWidgetsCoordinator>(
@@ -79,6 +40,12 @@ class HomeWidgetsModule extends Module {
         beachWaves: BeachWavesStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         gradientText: NokhteGradientTextStore(),
+      ),
+    );
+    i.add<HomeEntryWidgetsCoordinator>(
+      () => HomeEntryWidgetsCoordinator(
+        beachWaves: BeachWavesStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
     );
   }

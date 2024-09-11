@@ -18,7 +18,6 @@ class SessionSpeakingModule extends Module {
         widgets: Modular.get<SessionSpeakingWidgetsCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),
         hold: HoldDetector(),
-        swipe: SwipeDetector(),
       ),
     );
   }

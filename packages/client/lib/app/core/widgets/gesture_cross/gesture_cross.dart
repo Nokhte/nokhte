@@ -39,16 +39,9 @@ class GestureCross extends HookWidget {
                     showGlowAndOutline: showGlowAndOutline,
                     store: store.cross,
                   ),
-                  CenterCrossNokhte(
-                    store: store.centerCrossNokhte,
-                  ),
                   StrokeCrossNokhte(
                     store: store.strokeCrossNokhte,
                     offsets: config.getStrokeOffsets(),
-                  ),
-                  GradientCrossNokhte(
-                    store: store.gradientNokhte,
-                    info: config.getGradientInformation(),
                   ),
                 ],
               ),

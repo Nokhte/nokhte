@@ -189,6 +189,7 @@ class CondensedPresetsCards extends HookWidget with PresetTags {
         child: Padding(
           padding: EdgeInsets.only(top: height * .3),
           child: ListView.separated(
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: (names.length / 2).ceil(),
             separatorBuilder: (_, index) {
               return Padding(

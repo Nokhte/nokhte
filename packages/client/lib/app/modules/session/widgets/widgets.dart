@@ -1,4 +1,5 @@
 export 'border_glow/border_glow.dart';
+export 'session_navigation/session_navigation.dart';
 export 'collaborator_presence_incidents_overlay/collaborator_presence_incidents_overlay.dart';
 export 'exit_status_indicator/exit_status_indicator.dart';
 export 'half_screen_tint/half_screen_tint.dart';

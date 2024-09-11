@@ -1,8 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -14,14 +14,10 @@ class GestureCrossStore = _GestureCrossStoreBase with _$GestureCrossStore;
 
 abstract class _GestureCrossStoreBase extends Equatable with Store {
   final CrossStore cross;
-  final GradientCrossNokhteStore gradientNokhte;
-  final CenterCrossNokhteStore centerCrossNokhte;
   final StrokeCrossNokhteStore strokeCrossNokhte;
 
   _GestureCrossStoreBase({
     required this.cross,
-    required this.gradientNokhte,
-    required this.centerCrossNokhte,
     required this.strokeCrossNokhte,
   });
 
@@ -36,10 +32,8 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
     Either<Function, bool> onFadeIn = const Right(false),
   }) {
     cross.setWidgetVisibility(true);
-    centerCrossNokhte.setWidgetVisibility(true);
     Timer(Seconds.get(0, milli: 1), () {
       strokeCrossNokhte.setWidgetVisibility(true);
-      gradientNokhte.setWidgetVisibility(true);
       onFadeIn.fold((l) => l(), (r) => null);
     });
   }
@@ -51,11 +45,11 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   }
 
   @action
-  fadeInTheCross({
-    Either<Function, bool> onFadeIn = const Right(false),
-  }) {
-    cross.toggleWidgetVisibility();
-    centerCrossNokhte.toggleWidgetVisibility();
+  fadeInTheCross() {
+    Timer(Seconds.get(0, milli: 1), () {
+      cross.setWidgetVisibility(true);
+      strokeCrossNokhte.setWidgetVisibility(true);
+    });
   }
 
   @action
@@ -68,40 +62,38 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   toggleAll() {
     cross.toggleWidgetVisibility();
     strokeCrossNokhte.toggleWidgetVisibility();
-    centerCrossNokhte.toggleWidgetVisibility();
-    gradientNokhte.toggleWidgetVisibility();
   }
 
   @action
   fadeAllOut() {
     cross.setWidgetVisibility(false);
     strokeCrossNokhte.setWidgetVisibility(false);
-    centerCrossNokhte.setWidgetVisibility(false);
-    gradientNokhte.setWidgetVisibility(false);
+    // centerCrossNokhte.setWidgetVisibility(false);
+    // gradientNokhte.setWidgetVisibility(false);
   }
 
   @action
   fadeAllIn() {
     cross.setWidgetVisibility(true);
     strokeCrossNokhte.setWidgetVisibility(true);
-    centerCrossNokhte.setWidgetVisibility(true);
-    gradientNokhte.setWidgetVisibility(true);
+    // centerCrossNokhte.setWidgetVisibility(true);
+    // gradientNokhte.setWidgetVisibility(true);
   }
 
   @action
   setCollaborationHomeScreen() {
-    gradientNokhte.setControl(Control.mirror);
+    // gradientNokhte.setControl(Control.mirror);
     cross.toggleWidgetVisibility();
-    centerCrossNokhte.toggleWidgetVisibility();
+    // centerCrossNokhte.toggleWidgetVisibility();
     Timer(Seconds.get(0, milli: 500), () {
       strokeCrossNokhte.toggleWidgetVisibility();
-      gradientNokhte.toggleWidgetVisibility();
+      // gradientNokhte.toggleWidgetVisibility();
     });
   }
 
   @action
   initMoveAndRegenerate(Offset endDirection) {
-    centerCrossNokhte.initMoveAndRegenerate(endDirection);
+    // centerCrossNokhte.initMoveAndRegenerate(endDirection);
   }
 
   @override

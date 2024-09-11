@@ -24,8 +24,10 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
   final HalfScreenTintStore othersAreTalkingTint;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
+  final SessionNavigationStore sessionNavigation;
 
   _SessionGroupHybridWidgetsCoordinatorBase({
+    required this.sessionNavigation,
     required this.othersAreTalkingTint,
     required this.wifiDisconnectOverlay,
     required this.mirroredText,
@@ -102,12 +104,14 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
   @action
   onCollaboratorLeft() {
     mirroredText.setWidgetVisibility(false);
+    sessionNavigation.setWidgetVisibility(false);
     collaboratorHasLeft = true;
   }
 
   @action
   onCollaboratorJoined() {
     mirroredText.setWidgetVisibility(true);
+    sessionNavigation.setWidgetVisibility(true);
     collaboratorHasLeft = false;
   }
 
@@ -158,13 +162,15 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
 
   @action
   initFullScreenNotes() {
-    isGoingToNotes = true;
-    mirroredText.setWidgetVisibility(false);
-    beachWaves.setMovieMode(
-      BeachWaveMovieModes.skyToInvertedHalfAndHalf,
-    );
-    beachWaves.currentStore.reverseMovie(NoParams());
-    othersAreTalkingTint.reverseMovie(NoParams());
+    if (!sessionNavigation.hasInitiatedBlur) {
+      isGoingToNotes = true;
+      mirroredText.setWidgetVisibility(false);
+      beachWaves.setMovieMode(
+        BeachWaveMovieModes.skyToInvertedHalfAndHalf,
+      );
+      beachWaves.currentStore.reverseMovie(NoParams());
+      othersAreTalkingTint.reverseMovie(NoParams());
+    }
     //
   }
 
@@ -199,6 +205,16 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
   initReactors() {
     disposers.add(borderGlowReactor());
     disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(
+      gestureCrossTapReactor(
+        onInit: () {
+          mirroredText.setWidgetVisibility(false);
+        },
+        onReverse: () {
+          mirroredText.setWidgetVisibility(true);
+        },
+      ),
+    );
   }
 
   onBorderGlowComplete(MovieStatus p0, BorderGlowStore store) {
@@ -214,6 +230,19 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
       });
     }
   }
+
+  gestureCrossTapReactor({
+    required Function onInit,
+    required Function onReverse,
+  }) =>
+      reaction(
+        (p0) => sessionNavigation.gestureCross.tapCount,
+        (p0) {
+          if (!isHolding && !isGoingToNotes) {
+            sessionNavigation.onGestureCrossTap(onInit, onReverse);
+          }
+        },
+      );
 
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {

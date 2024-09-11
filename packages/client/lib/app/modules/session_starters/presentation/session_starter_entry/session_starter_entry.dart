@@ -35,10 +35,10 @@ class SessionStarterEntryScreen extends HookWidget {
                 ),
               ),
             ),
-            GestureCross(
-              config: GestureCrossConfiguration(),
-              store: coordinator.widgets.gestureCross,
-            ),
+            // GestureCross(
+            //   config: GestureCrossConfiguration(),
+            //   store: coordinator.widgets.gestureCross,
+            // ),
             WifiDisconnectOverlay(
               store: coordinator.widgets.wifiDisconnectOverlay,
             ),

@@ -1,7 +1,7 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, prefer_const_constructors
 import 'dart:async';
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -9,6 +9,7 @@ import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/shared/mobx/mobx.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'session_starter_widgets_coordinator.g.dart';
@@ -19,90 +20,94 @@ class SessionStarterWidgetsCoordinator = _SessionStarterWidgetsCoordinatorBase
 abstract class _SessionStarterWidgetsCoordinatorBase
     with
         Store,
-        SmartTextPaddingAdjuster,
         SwipeNavigationUtils,
-        InstructionWidgetsUtils,
+        NokhteWidgetsUtils,
         BaseWidgetsCoordinator,
-        InstructionalNokhteWidgetUtils,
-        SingleInstructionalNokhteWidgetUtils,
         Reactions,
         EnRoute,
-        TouchRippleUtils,
-        SessionStarterWidgetsUtils {
-  @override
-  final SmartTextStore smartText;
+        HomeNavigation {
   final SmartTextStore qrSubtitleSmartText;
-  final InstructionalGradientNokhteStore presetsInstructionalNokhte;
-  final InstructionalGradientNokhteStore sessionJoinerInstructionalNokhte;
-  final InstructionalGradientNokhteStore homeInstructionalNokhte;
-  final PresetIconsStore presetIcons;
-  @override
+  // final PresetIconsStore presetIcons;
+  final PresetHeaderStore presetHeader;
   final BeachWavesStore beachWaves;
-  @override
   final GestureCrossStore gestureCross;
-  @override
-  final TouchRippleStore touchRipple;
-  @override
-  final CenterInstructionalNokhteStore centerInstructionalNokhte;
-  @override
   final NokhteBlurStore nokhteBlur;
-  @override
   final NokhteQrCodeStore qrCode;
   @override
-  InstructionalGradientNokhteStore? focusInstructionalNokhte;
-
+  final CenterNokhteStore centerNokhte;
+  @override
+  final AuxiliaryNokhteStore homeNokhte;
+  @override
+  final SwipeGuideStore swipeGuide;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
+  final SessionScrollerStore sessionScroller;
+  final PresetCardsStore presetCards;
+  final CondensedPresetCardsStore condensedPresetCards;
+  final SmartTextStore headerText;
 
   _SessionStarterWidgetsCoordinatorBase({
     required this.beachWaves,
-    required this.touchRipple,
-    required this.presetIcons,
+    required this.headerText,
+    required this.presetHeader,
+    required this.sessionScroller,
+    required this.swipeGuide,
     required this.gestureCross,
+    required this.presetCards,
     required this.qrSubtitleSmartText,
-    required this.smartText,
     required this.wifiDisconnectOverlay,
-    required this.centerInstructionalNokhte,
-    required this.homeInstructionalNokhte,
-    required this.sessionJoinerInstructionalNokhte,
-    required this.presetsInstructionalNokhte,
+    required this.centerNokhte,
+    required this.homeNokhte,
     required this.nokhteBlur,
     required this.qrCode,
-  }) {
+  }) : condensedPresetCards = presetCards.condensed {
     initSwipeNavigationUtils();
-    initInstructionWidgetsUtils();
+    initNokhteWidgetsUtils();
     initEnRouteActions();
     initBaseWidgetsCoordinatorActions();
-    initSmartTextActions();
     initBaseWidgetsCoordinatorActions();
-    presetIcons.setContainerSize(.2);
-    presetIcons.setWidgetVisibility(false);
-    presetIcons.setIsHorizontal(true);
-    initSmartTextActions();
-    setSmartTextPadding(
-      excludeTimer: true,
-      topPadding: .27,
-      bottomPadding: 0,
-      subMessagePadding: 110,
-    );
   }
 
   @observable
   bool isEnteringNokhteSession = false;
 
   @observable
+  bool firstCardIsSelected = false;
+
+  @observable
+  bool cardsHaveFadedIn = false;
+
+  @observable
+  bool hasNotSelectedPreset = false;
+
+  @action
+  setCardsHaveFadedIn(bool val) => cardsHaveFadedIn = val;
+
+  @observable
+  bool canHoldOnPresetCard = false;
+
+  @action
+  setCanHoldOnPresetCard(bool val) => canHoldOnPresetCard = val;
+
+  @observable
   ObservableList<Widget> tags = ObservableList.of([]);
 
   @action
   constructor(Offset center) {
-    initInstructionalNokhteUtils(center);
     qrCode.setWidgetVisibility(false);
     gestureCross.fadeInTheCross();
+    centerNokhte.fadeIn();
+    homeNokhte.setAndFadeIn(
+      AuxiliaryNokhtePositions.bottom,
+      AuxiliaryNokhteColorways.beachWave,
+    );
     qrSubtitleSmartText.setMessagesData(SharedLists.emptyList);
-    smartText.setMessagesData(SessionStartersList.hasDoneInstructions);
+    qrSubtitleSmartText.startRotatingText();
+    qrSubtitleSmartText.setWidgetVisibility(false);
     beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
     beachWaves.currentStore.initMovie(WaterDirection.down);
-    smartText.startRotatingText();
+    headerText.setMessagesData(PresetsLists.presetsHeader);
+    headerText.startRotatingText();
     initReactors();
   }
 
@@ -110,193 +115,98 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   onQrCodeReceived(String qrCodeData) {
     qrCode.setQrCodeData(qrCodeData);
     qrCode.setWidgetVisibility(true);
+    if (qrCodeIsNotActivated) {
+      qrSubtitleSmartText.setMessagesData(SessionStartersList.inactiveQrCode);
+    } else {
+      qrSubtitleSmartText.setMessagesData(SessionStartersList.activeQrCode);
+    }
+
+    qrSubtitleSmartText.setWidgetVisibility(true);
+    qrSubtitleSmartText.startRotatingText(isResuming: true);
   }
 
-  adjustToHorizontalInstructionPadding() {
-    setSmartTextBottomPaddingScalar(0);
-    setSmartTextTopPaddingScalar(0.15);
+  @action
+  onNoPresetSelected() {
+    onQrCodeReceived(SessionStarterConstants.inactiveQrCodeData);
+    qrSubtitleSmartText.setMessagesData(SessionStartersList.inactiveQrCode);
+    qrSubtitleSmartText.startRotatingText();
+    hasNotSelectedPreset = true;
   }
 
   @action
   onPreferredPresetReceived({
     required String sessionName,
     required List tags,
+    required String unifiedUID,
+    required String userUID,
   }) {
-    qrSubtitleSmartText
-        .setMessagesData(SessionStartersList.getQrCodeSubtitle(sessionName));
-    qrSubtitleSmartText.startRotatingText();
-    presetIcons.setTags(tags: tags);
+    // qrSubtitleSmartText.startRotatingText();
+    presetHeader.setHeader(
+      sessionName,
+      tags,
+    );
+    presetCards.setPreferredPresetUID(unifiedUID);
+    onQrCodeReceived(userUID);
+    // if (qrCodeIsNotActivated) {
+    //   qrSubtitleSmartText.reset();
+    //   qrSubtitleSmartText.setMessagesData(SessionStartersList.activeQrCode);
+    //   qrSubtitleSmartText.startRotatingText();
+
+    //   //
+    // }
+  }
+
+  @action
+  dismissExpandedPresetCard() {
+    if (presetIsExpanded) {
+      presetCards.dismissExpandedPresetCard();
+      headerText.setWidgetVisibility(true);
+      setCanHoldOnPresetCard(true);
+    }
   }
 
   @action
   initExtraNavCleanUp() {
-    smartText.setWidgetVisibility(false);
     qrSubtitleSmartText.setWidgetVisibility(false);
-    presetIcons.setWidgetVisibility(false);
-    sessionJoinerInstructionalNokhte.setWidgetVisibility(false);
-    homeInstructionalNokhte.setWidgetVisibility(false);
-    centerInstructionalNokhte.setWidgetVisibility(false);
+    presetHeader.setWidgetVisibility(false);
+    // presetIcons.setWidgetVisibility(false);
+    homeNokhte.setWidgetVisibility(false);
+    centerNokhte.setWidgetVisibility(false);
     qrCode.setWidgetVisibility(false);
-  }
-
-  @observable
-  GestureCrossConfiguration gestureCrossConfig = GestureCrossConfiguration();
-
-  @action
-  onUserInfoReceived(bool hasAssessedQrCodeScanner) {
-    Either<StrokeConfig, NokhteGradientConfig> homeConfig = Right(
-      NokhteGradientConfig(
-        gradientType: NokhteGradientTypes.home,
-      ),
-    );
-    Either<StrokeConfig, NokhteGradientConfig> presetsConfig = Right(
-      NokhteGradientConfig(
-        gradientType: NokhteGradientTypes.presets,
-      ),
-    );
-    if (hasAssessedQrCodeScanner) {
-      gestureCrossConfig = GestureCrossConfiguration(
-        bottom: homeConfig,
-        left: presetsConfig,
-        right: Right(
-          NokhteGradientConfig(
-            gradientType: NokhteGradientTypes.sessionJoiner,
-          ),
-        ),
-      );
-    } else {
-      gestureCrossConfig = GestureCrossConfiguration(
-        left: presetsConfig,
-        bottom: homeConfig,
-      );
-    }
-    gestureCross.fadeIn();
   }
 
   @action
   onSwipeDown(Function onLeaving) async {
-    if (isAllowedToMakeGesture()) {
+    if (!isDisconnected && isAllowedToMakeGesture()) {
       if (hasInitiatedBlur && !hasSwiped()) {
-        smartText.setCurrentIndex(0);
-        initToBottomInstructionalNokhte();
-        setSmartTextPadding(
-          excludeTimer: true,
-          bottomPadding: .1,
-          topPadding: 0,
-        );
-        presetsInstructionalNokhte.setWidgetVisibility(false);
-        sessionJoinerInstructionalNokhte.setWidgetVisibility(false);
-      } else {
-        if (!hasSwiped()) {
-          initExtraNavCleanUp();
-          initExitSessionStarter();
-          await onLeaving();
-        }
-      }
-    }
-  }
-
-  @action
-  onSwipeRight(Function onLeaving) async {
-    if (isAllowedToMakeGesture() && !hasSwiped()) {
-      if (hasInitiatedBlur) {
-        adjustToHorizontalInstructionPadding();
-        smartText.setCurrentIndex(2);
-        homeInstructionalNokhte.setWidgetVisibility(false);
-        sessionJoinerInstructionalNokhte.setWidgetVisibility(false);
-        initToLeftInstructionalNokhte();
-        setSmartTextPadding(
-          excludeTimer: true,
-          topPadding: .27,
-          bottomPadding: 0,
-          subMessagePadding: 110,
-        );
-      } else {
-        initEnterPresets();
-        initExtraNavCleanUp();
+        setSwipeDirection(GestureDirections.down);
+        centerNokhte.initMovie(AuxiliaryNokhtePositions.bottom);
+        // homeNokhte.disappear();
+        swipeGuide.setWidgetVisibility(false);
         await onLeaving();
       }
     }
   }
 
-  @action
-  onSwipeLeft(Function onLeaving) async {
-    if (isAllowedToMakeGesture()) {
-      if (hasInitiatedBlur && !hasSwiped()) {
-        adjustToHorizontalInstructionPadding();
-        smartText.setCurrentIndex(4);
-        homeInstructionalNokhte.setWidgetVisibility(false);
-        presetsInstructionalNokhte.setWidgetVisibility(false);
-        initToRightInstructionalNokhte();
-        setSmartTextPadding(
-          excludeTimer: true,
-          topPadding: .27,
-          bottomPadding: 0,
-          subMessagePadding: 110,
-        );
-      } else {
-        if (!hasSwiped()) {
-          initExtraNavCleanUp();
-          initEnterSessionJoiner();
-          await onLeaving();
-        }
-      }
-    }
-  }
-
   initReactors() {
-    disposers.add(beachWavesMovieStatusReactor());
-    disposers.add(centerInstructionalNokhteReactor());
+    disposers.add(beachWavesReactor());
     disposers.add(qrSubtitleTextReactor());
-    disposers.add(centerCrossNokhteReactor());
     disposers.add(gestureCrossTapReactor());
+    disposers.add(condensedPresetCardTapReactor());
+    disposers.add(condensedPresetCardHoldReactor());
+    disposers.add(transitionsCondensedPresetCardMovieStatusReactor());
+    disposers.add(canScrollReactor());
+    initHomeNavigationReactions();
   }
-
-  centerInstructionalNokhteReactor() =>
-      reaction((p0) => centerInstructionalNokhte.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            centerInstructionalNokhte.movieMode ==
-                CenterInstructionalNokhteMovieModes.moveBack) {
-          gestureCross.centerCrossNokhte.setWidgetVisibility(true);
-          gestureCross.gradientNokhte.setWidgetVisibility(true);
-          setSmartTextTopPaddingScalar(.27);
-          setSmartTextBottomPaddingScalar(0);
-          setSmartTextSubMessagePaddingScalar(110);
-          smartText.startRotatingText();
-          // print('did we not run here???');
-          qrSubtitleSmartText.reset();
-          qrSubtitleSmartText.startRotatingText();
-          qrSubtitleSmartText.setWidgetVisibility(true);
-          qrCode.setWidgetVisibility(true);
-          setSwipeDirection(GestureDirections.initial);
-          setTouchIsDisabled(false);
-        }
-      });
-
-  centerCrossNokhteReactor() =>
-      reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          gestureCross.gradientNokhte.setWidgetVisibility(false);
-          gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-          homeInstructionalNokhte.setWidgetVisibility(false);
-          presetsInstructionalNokhte.setWidgetVisibility(false);
-        }
-      });
 
   qrSubtitleTextReactor() => reaction(
         (p0) => qrSubtitleSmartText.currentIndex,
         (p0) {
-          if (beachWaves.movieMode == BeachWaveMovieModes.invertedOnShore) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.invertedOnShore &&
+              qrSubtitleSmartText.showWidget) {
             if (p0 == 0) {
               qrSubtitleSmartText.startRotatingText(isResuming: true);
             } else if (p0 == 2) {
-              if (qrSubtitleSmartText.showWidget) {
-                presetIcons.setWidgetVisibility(true);
-                Timer(Seconds.get(3, milli: 300), () {
-                  presetIcons.setWidgetVisibility(false);
-                });
-              }
-            } else if (p0 == 3) {
               qrSubtitleSmartText.setCurrentIndex(0);
               qrSubtitleSmartText.startRotatingText(isResuming: true);
             }
@@ -306,18 +216,19 @@ abstract class _SessionStarterWidgetsCoordinatorBase
 
   @action
   initTransition() {
+    scrollToTop();
+    presetHeader.presetIcons.setWidgetVisibility(false);
     isEnteringNokhteSession = true;
     setSwipeDirection(GestureDirections.up);
     beachWaves
         .setMovieMode(BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea);
     beachWaves.currentStore.initMovie(beachWaves.currentAnimationValues.first);
-    smartText.setWidgetVisibility(false);
     qrSubtitleSmartText.setWidgetVisibility(false);
-    presetIcons.setWidgetVisibility(false);
+    // presetIcons.setWidgetVisibility(false);
     gestureCross.fadeAllOut();
-    presetIcons.setWidgetVisibility(false);
-    centerInstructionalNokhte.setWidgetVisibility(false);
-    homeInstructionalNokhte.setWidgetVisibility(false);
+    // presetIcons.setWidgetVisibility(false);
+    centerNokhte.setWidgetVisibility(false);
+    homeNokhte.setWidgetVisibility(false);
   }
 
   gestureCrossTapReactor() => reaction(
@@ -326,21 +237,27 @@ abstract class _SessionStarterWidgetsCoordinatorBase
       );
 
   @action
-  dismissInstructionalNokhte() {
+  dismissNokhte() {
     setSwipeDirection(GestureDirections.initial);
-    qrCode.setWidgetVisibility(false);
-    centerInstructionalNokhte.moveBackToCross(
+    // qrCode.setWidgetVisibility(false);
+    centerNokhte.moveBackToCross(
       startingPosition: CenterNokhtePositions.center,
     );
-    gestureCross.gradientNokhte.setWidgetVisibility(false);
     gestureCross.strokeCrossNokhte.setWidgetVisibility(true);
-    moveOtherInstructionalNokhtes(shouldExpand: false);
+    moveOtherNokhtes(shouldExpand: false);
     nokhteBlur.reverse();
     beachWaves.currentStore.setControl(Control.mirror);
     setHasInitiatedBlur(false);
-    smartText.reset();
-    smartText.startRotatingText();
     delayedEnableTouchFeedback();
+  }
+
+  @action
+  scrollToTop() {
+    sessionScroller.scrollController.animateTo(
+      0,
+      duration: Seconds.get(1),
+      curve: Curves.decelerate,
+    );
   }
 
   @action
@@ -349,21 +266,23 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         isAllowedToMakeGesture() &&
         beachWaves.movieMode == BeachWaveMovieModes.invertedOnShore) {
       if (!hasInitiatedBlur && !hasSwiped()) {
+        swipeGuide.fadeIn();
         setTouchIsDisabled(true);
         setSwipeDirection(GestureDirections.initial);
         setHasInitiatedBlur(true);
         nokhteBlur.init();
         beachWaves.currentStore.setControl(Control.stop);
-        qrCode.setWidgetVisibility(false);
-        gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-        moveOtherInstructionalNokhtes(shouldExpand: true);
-        gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-        gestureCross.gradientNokhte.setWidgetVisibility(false);
-        qrSubtitleSmartText.setWidgetVisibility(false);
-        presetIcons.setWidgetVisibility(false);
-        centerInstructionalNokhte.moveToCenter(center);
-      } else if (hasInitiatedBlur) {
-        dismissInstructionalNokhte();
+        // qrCode.setWidgetVisibility(false);
+        // gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
+        moveOtherNokhtes(shouldExpand: true);
+        // gestureCross.centerCrossNokhte.setWidgetVisibility(false);
+        // gestureCross.gradientNokhte.setWidgetVisibility(false);
+        // qrSubtitleSmartText.setWidgetVisibility(false);
+        // presetIcons.setWidgetVisibility(false);
+        centerNokhte.moveToCenter();
+      } else if (hasInitiatedBlur && !hasSwiped()) {
+        dismissNokhte();
+        swipeGuide.setWidgetVisibility(false);
       }
     }
   }
@@ -371,87 +290,130 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   @action
   onTap(Offset offset) {
     if (isAllowedToMakeGesture() && hasInitiatedBlur) {
-      if (hasSwiped()) {
-        setSwipeDirection(GestureDirections.initial);
-        touchRipple.onTap(offset);
-        nokhteBlur.reverse();
-        setTouchIsDisabled(true);
-        beachWaves.currentStore.setControl(Control.mirror);
-        setHasInitiatedBlur(false);
-        smartText.startRotatingText(isResuming: true);
-        Timer(Seconds.get(1, milli: 500), () {
-          if (smartText.currentIndex == 1) {
-            centerInstructionalNokhte.moveBackToCross(
-              startingPosition: CenterNokhtePositions.bottom,
-            );
-            moveOtherInstructionalNokhtes(shouldExpand: false);
-          } else {
-            centerInstructionalNokhte.moveBackToCross(
-              startingPosition: CenterNokhtePositions.left,
-            );
-            moveOtherInstructionalNokhtes(shouldExpand: false);
-          }
-          smartText.reset();
-        });
-      } else {
-        dismissInstructionalNokhte();
-        setSwipeDirection(GestureDirections.initial);
-        qrCode.setWidgetVisibility(false);
-        centerInstructionalNokhte.moveBackToCross(
-          startingPosition: CenterNokhtePositions.center,
-        );
-        gestureCross.gradientNokhte.setWidgetVisibility(false);
-        gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-        homeInstructionalNokhte.initMovie(
-          InstructionalGradientMovieParams(
-            center: center,
-            colorway: GradientNokhteColorways.beachWave,
-            direction: InstructionalGradientDirections.shrink,
-            position: InstructionalNokhtePositions.bottom,
-          ),
-        );
-        nokhteBlur.reverse();
-        beachWaves.currentStore.setControl(Control.mirror);
-        setHasInitiatedBlur(false);
-        smartText.reset();
-        smartText.startRotatingText();
-        delayedEnableTouchFeedback();
-      }
+      dismissNokhte();
+      setSwipeDirection(GestureDirections.initial);
+      qrCode.setWidgetVisibility(false);
+      centerNokhte.moveBackToCross(
+        startingPosition: CenterNokhtePositions.center,
+      );
+      gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
+      homeNokhte.initMovie(
+        NokhteScaleState.shrink,
+      );
+      nokhteBlur.reverse();
+      beachWaves.currentStore.setControl(Control.mirror);
+      setHasInitiatedBlur(false);
+      delayedEnableTouchFeedback();
     }
   }
 
-  moveOtherInstructionalNokhtes({required bool shouldExpand}) {
-    final dir = shouldExpand
-        ? InstructionalGradientDirections.enlarge
-        : InstructionalGradientDirections.shrink;
-    presetsInstructionalNokhte.setWidgetVisibility(true);
-    homeInstructionalNokhte.setWidgetVisibility(true);
-    if (gestureCrossConfig.right.isRight()) {
-      sessionJoinerInstructionalNokhte.setWidgetVisibility(true);
-      sessionJoinerInstructionalNokhte.initMovie(
-        InstructionalGradientMovieParams(
-          center: center,
-          colorway: GradientNokhteColorways.orangeSand,
-          direction: dir,
-          position: InstructionalNokhtePositions.right,
-        ),
-      );
-    }
-    presetsInstructionalNokhte.initMovie(
-      InstructionalGradientMovieParams(
-        center: center,
-        colorway: GradientNokhteColorways.deeperBlue,
-        direction: dir,
-        position: InstructionalNokhtePositions.left,
-      ),
+  onCompanyPresetsReceived({
+    required ObservableList unifiedUIDs,
+    required ObservableList tags,
+    required ObservableList names,
+  }) {
+    presetCards.setPresets(
+      unifiedUIDs: unifiedUIDs,
+      tags: tags,
+      names: names,
     );
-    homeInstructionalNokhte.initMovie(
-      InstructionalGradientMovieParams(
-        center: center,
-        colorway: GradientNokhteColorways.beachWave,
-        direction: dir,
-        position: InstructionalNokhtePositions.bottom,
-      ),
-    );
+    presetCards.showAllCondensedPresets(showTags: false);
   }
+
+  moveOtherNokhtes({required bool shouldExpand}) {
+    homeNokhte.initMovie(
+        shouldExpand ? NokhteScaleState.enlarge : NokhteScaleState.shrink);
+  }
+
+  beachWavesReactor() => reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          Modular.to.navigate(SessionConstants.lobby, arguments: {
+            SessionStarterConstants.QR_CODE_DATA: qrCode.qrCodeData,
+          });
+        }
+      });
+
+  transitionsCondensedPresetCardMovieStatusReactor() =>
+      reaction((p0) => condensedPresetCards.movieStatuses.first, (p0) {
+        if (p0 == MovieStatus.finished) {
+          if (condensedPresetCards.movieModes.first ==
+              CondensedPresetCardMovieModes.fadeIn) {
+            if (!cardsHaveFadedIn) {
+              condensedPresetCards.setCurrentHeldIndex(
+                presetCards.preferredPresetIndex,
+                override: true,
+              );
+              setCardsHaveFadedIn(true);
+            }
+          }
+        }
+      });
+
+  presetSelectionReactor(Function(String param) onSelected) =>
+      reaction((p0) => condensedPresetCards.movieStatuses.toString(),
+          (p0) async {
+        if (condensedPresetCards.currentHeldIndex != -1) {
+          hasNotSelectedPreset = false;
+          final currentHeldIndex = condensedPresetCards.currentHeldIndex;
+          if (condensedPresetCards.movieModes[currentHeldIndex] ==
+                  CondensedPresetCardMovieModes.selectionInProgress &&
+              condensedPresetCards.movieStatuses[currentHeldIndex] ==
+                  MovieStatus.finished) {
+            if (firstCardIsSelected) {
+              scrollToTop();
+              // sessionScroller.scrollController.animateTo(
+              //   0,
+              //   duration: Seconds.get(1),
+              //   curve: Curves.decelerate,
+              // );
+
+              // onSwipeLeft();
+            }
+            Timer(Seconds.get(1), () {
+              condensedPresetCards.enableAllTouchFeedback();
+            });
+            Timer(Seconds.get(firstCardIsSelected ? 0 : 1), () {
+              condensedPresetCards.initSelectionMovie(currentHeldIndex);
+              firstCardIsSelected = true;
+            });
+            await onSelected(presetCards.currentlySelectedSessionUID);
+          }
+        }
+      });
+  condensedPresetCardTapReactor() =>
+      reaction((p0) => presetCards.condensedTapCount, (p0) {
+        if (presetCards.currentExpandedPresetCardName.isNotEmpty) {
+          presetCards.onChosenNameChanged();
+          headerText.setWidgetVisibility(false);
+        }
+      });
+
+  condensedPresetCardHoldReactor() =>
+      reaction((p0) => condensedPresetCards.currentHeldIndex, (p0) {
+        if (condensedPresetCards.pastHeldIndex != -1) {
+          condensedPresetCards.initWindDown(condensedPresetCards.pastHeldIndex);
+        }
+        if (hasNotSelectedPreset) {
+          firstCardIsSelected = true;
+        }
+        presetCards.selectPreset(p0);
+      });
+
+  canScrollReactor() => reaction((p0) => canScroll, (p0) {
+        sessionScroller.setCanScroll(p0);
+      });
+
+  @computed
+  bool get canScroll =>
+      !isEnteringNokhteSession &&
+      !hasInitiatedBlur &&
+      presetCards.activePresetType == ActivePresetType.condensed;
+
+  @computed
+  bool get qrCodeIsNotActivated =>
+      qrCode.qrCodeData == SessionStarterConstants.inactiveQrCodeData;
+
+  @computed
+  bool get presetIsExpanded =>
+      presetCards.activePresetType == ActivePresetType.expanded;
 }
