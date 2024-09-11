@@ -108,6 +108,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
         homeNokhte.setWidgetVisibility(true);
         moveSessionStarterNokhte(true);
       } else {
+        swipeGuide.setWidgetVisibility(false);
         dismissNokhtes();
       }
     }
