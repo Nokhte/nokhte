@@ -63,6 +63,7 @@ abstract class _SessionNotesWidgetsCoordinatorBase
 
   constructor() {
     smartText.setMessagesData(SessionLists.notesPrimary);
+    smartText.setWidgetVisibility(false);
     smartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     textEditor.initFadeIn();
@@ -92,10 +93,12 @@ abstract class _SessionNotesWidgetsCoordinatorBase
     disposers.add(
       gestureCrossTapReactor(
         onInit: () {
-          onCollaboratorLeft();
+          textEditor.setWidgetVisibility(false);
+          smartText.setWidgetVisibility(false);
         },
         onReverse: () {
-          onCollaboratorJoined();
+          textEditor.setWidgetVisibility(true);
+          smartText.setWidgetVisibility(smartText.pastShowWidget);
         },
       ),
     );
@@ -125,7 +128,6 @@ abstract class _SessionNotesWidgetsCoordinatorBase
     } else {
       smartText.setWidgetVisibility(false);
     }
-    //
   }
 
   @action
