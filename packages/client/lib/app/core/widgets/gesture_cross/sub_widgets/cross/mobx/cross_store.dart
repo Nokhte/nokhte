@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'dart:ui';
+
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_widget_store.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -30,7 +32,13 @@ abstract class _CrossStoreBase extends BaseWidgetStore with Store {
   }
 
   @action
-  initStaticGlow() {
+  initStaticGlow({
+    Color glowColor = const Color(0xFFFFFFFF),
+  }) {
+    this.glowColor = glowColor;
     setMovie(StaticGlowOutlineMovie.movie);
   }
+
+  @observable
+  Color glowColor = Color(0xFFFFFFFF);
 }

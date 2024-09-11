@@ -9,10 +9,12 @@ class CrossPainter extends CustomPainter {
   late double width;
   final double outlineOpacity;
   final double outlineBlur;
+  final Color glowColor;
   ColorsAndStops crossGradient;
 
   CrossPainter({
     required this.outlineBlur,
+    required this.glowColor,
     required this.crossGradient,
     required this.showGlowAndOutline,
     required this.outlineOpacity,
@@ -34,11 +36,11 @@ class CrossPainter extends CustomPainter {
     final crossOutline = Paint()
       ..strokeWidth = 1.0
       ..style = PaintingStyle.stroke
-      ..color = Colors.white.withOpacity(outlineOpacity);
+      ..color = glowColor.withOpacity(outlineOpacity);
 
     final crossGlow = Paint()
       ..strokeWidth = 2.0
-      ..color = Colors.white.withOpacity(outlineOpacity)
+      ..color = glowColor.withOpacity(outlineOpacity)
       ..style = PaintingStyle.stroke
       ..maskFilter = MaskFilter.blur(BlurStyle.normal, outlineBlur);
     if (showGlowAndOutline) {
