@@ -89,6 +89,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   @action
   onHold(GesturePlacement holdPosition) {
     holdCount++;
+    isHolding = true;
     if (holdPosition == GesturePlacement.topHalf) {
       DurationAndGradient params = DurationAndGradient.initial();
       params = DurationAndGradient(
@@ -108,6 +109,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   @action
   onLetGo() {
     initGlowDown();
+    isHolding = false;
     beachWaves.setMovieMode(BeachWaveMovieModes.anyToHalfAndHalf);
     beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
     speakLessSmileMore.hideBoth();
