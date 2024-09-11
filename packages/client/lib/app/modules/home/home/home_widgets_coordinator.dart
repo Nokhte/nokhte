@@ -26,18 +26,18 @@ abstract class _HomeWidgetsCoordinatorBase
         EnRouteConsumer,
         EnRouteWidgetsRouter,
         SwipeNavigationUtils,
-        InstructionWidgetsUtils,
+        NokhteWidgetsUtils,
         SmartTextPaddingAdjuster,
         BaseWidgetsCoordinator {
-  InstructionalGradientNokhteStore sessionStarterInstructionalNokhte;
-  InstructionalGradientNokhteStore storageInstructionalNokhte;
-  InstructionalGradientNokhteStore sessionJoinerInstructionalNokhte;
+  AuxiliaryNokhteStore sessionStarterNokhte;
+  AuxiliaryNokhteStore storageNokhte;
+  AuxiliaryNokhteStore sessionJoinerNokhte;
   SwipeGuideStore swipeGuides;
   final NokhteBlurStore nokhteBlur;
   final GestureCrossStore gestureCross;
   final SmartTextStore smartText;
   @override
-  final CenterInstructionalNokhteStore centerInstructionalNokhte;
+  final CenterNokhteStore centerNokhte;
   @override
   final BeachWavesStore beachWaves;
   @override
@@ -49,15 +49,15 @@ abstract class _HomeWidgetsCoordinatorBase
     required this.wifiDisconnectOverlay,
     required this.gestureCross,
     required this.smartText,
-    required this.centerInstructionalNokhte,
+    required this.centerNokhte,
     required this.swipeGuides,
-    required this.sessionStarterInstructionalNokhte,
-    required this.sessionJoinerInstructionalNokhte,
-    required this.storageInstructionalNokhte,
+    required this.sessionStarterNokhte,
+    required this.sessionJoinerNokhte,
+    required this.storageNokhte,
   }) {
     initEnRouteActions();
     initSwipeNavigationUtils();
-    initInstructionWidgetsUtils();
+    initNokhteWidgetsUtils();
     initSmartTextActions();
     initBaseWidgetsCoordinatorActions();
   }
@@ -67,18 +67,18 @@ abstract class _HomeWidgetsCoordinatorBase
     consumeRoutingArgs();
     gestureCross.fadeInTheCross();
     swipeGuides.setWidgetVisibility(false);
-    centerInstructionalNokhte.fadeIn();
-    sessionStarterInstructionalNokhte.setAndFadeIn(
-      InstructionalNokhtePositions.top,
-      GradientNokhteColorways.invertedBeachWave,
+    centerNokhte.fadeIn();
+    sessionStarterNokhte.setAndFadeIn(
+      AuxiliaryNokhtePositions.top,
+      AuxiliaryNokhteColorways.invertedBeachWave,
     );
-    sessionJoinerInstructionalNokhte.setAndFadeIn(
-      InstructionalNokhtePositions.bottom,
-      GradientNokhteColorways.orangeSand,
+    sessionJoinerNokhte.setAndFadeIn(
+      AuxiliaryNokhtePositions.bottom,
+      AuxiliaryNokhteColorways.orangeSand,
     );
-    storageInstructionalNokhte.setAndFadeIn(
-      InstructionalNokhtePositions.right,
-      GradientNokhteColorways.vibrantBlue,
+    storageNokhte.setAndFadeIn(
+      AuxiliaryNokhtePositions.right,
+      AuxiliaryNokhteColorways.vibrantBlue,
     );
     smartText.setMessagesData(HomeList.list);
     smartText.startRotatingText();
@@ -92,9 +92,9 @@ abstract class _HomeWidgetsCoordinatorBase
       if (hasInitiatedBlur && !hasSwiped()) {
         setSwipeDirection(GestureDirections.up);
         nokhteBlur.reverse();
-        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
-        sessionJoinerInstructionalNokhte.disappear();
-        storageInstructionalNokhte.disappear();
+        centerNokhte.initMovie(AuxiliaryNokhtePositions.top);
+        sessionJoinerNokhte.disappear();
+        storageNokhte.disappear();
         smartText.setWidgetVisibility(false);
         setSwipeGuideVisibilities(false);
       }
@@ -105,10 +105,9 @@ abstract class _HomeWidgetsCoordinatorBase
     if (!isDisconnected && isAllowedToMakeGesture()) {
       if (hasInitiatedBlur && !hasSwiped()) {
         setSwipeDirection(GestureDirections.down);
-        centerInstructionalNokhte
-            .initMovie(InstructionalNokhtePositions.bottom);
-        sessionStarterInstructionalNokhte.disappear();
-        storageInstructionalNokhte.disappear();
+        centerNokhte.initMovie(AuxiliaryNokhtePositions.bottom);
+        sessionStarterNokhte.disappear();
+        storageNokhte.disappear();
         smartText.setWidgetVisibility(false);
         setSwipeGuideVisibilities(false);
       }
@@ -121,9 +120,9 @@ abstract class _HomeWidgetsCoordinatorBase
       if (hasInitiatedBlur && !hasSwiped()) {
         setSwipeDirection(GestureDirections.down);
         smartText.setWidgetVisibility(false);
-        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.right);
-        sessionStarterInstructionalNokhte.disappear();
-        sessionJoinerInstructionalNokhte.disappear();
+        centerNokhte.initMovie(AuxiliaryNokhtePositions.right);
+        sessionStarterNokhte.disappear();
+        sessionJoinerNokhte.disappear();
         setSwipeGuideVisibilities(false);
       }
     }
@@ -133,10 +132,10 @@ abstract class _HomeWidgetsCoordinatorBase
   initReactors() {
     disposers.add(smartTextIndexReactor());
     disposers.add(gestureCrossTapReactor());
-    disposers.add(sessionJoinerInstructionalNokhteReactor());
-    disposers.add(centerInstructionalNokhteReactor());
-    disposers.add(storageInstructionalNokhteReactor());
-    disposers.add(sessionStarterInstructionalNokhteReactor());
+    disposers.add(sessionJoinerNokhteReactor());
+    disposers.add(centerNokhteReactor());
+    disposers.add(storageNokhteReactor());
+    disposers.add(sessionStarterNokhteReactor());
   }
 
   gestureCrossTapReactor() => reaction(
@@ -144,48 +143,43 @@ abstract class _HomeWidgetsCoordinatorBase
         (p0) => onGestureCrossTap(),
       );
 
-  sessionJoinerInstructionalNokhteReactor() =>
-      reaction((p0) => sessionJoinerInstructionalNokhte.movieStatus, (p0) {
+  sessionJoinerNokhteReactor() =>
+      reaction((p0) => sessionJoinerNokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
-            sessionJoinerInstructionalNokhte.movieMode ==
-                GradientNokhteMovieModes.explode) {
+            sessionJoinerNokhte.movieMode ==
+                AuxiliaryNokhteMovieModes.explode) {
           Modular.to.navigate(SessionJoinerConstants.sessionJoiner);
         }
       });
 
-  sessionStarterInstructionalNokhteReactor() =>
-      reaction((p0) => sessionStarterInstructionalNokhte.movieStatus, (p0) {
+  sessionStarterNokhteReactor() =>
+      reaction((p0) => sessionStarterNokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
-            sessionStarterInstructionalNokhte.movieMode ==
-                GradientNokhteMovieModes.explode) {
+            sessionStarterNokhte.movieMode ==
+                AuxiliaryNokhteMovieModes.explode) {
           Modular.to.navigate(SessionStarterConstants.sessionStarterEntry);
         }
       });
 
-  storageInstructionalNokhteReactor() =>
-      reaction((p0) => storageInstructionalNokhte.movieStatus, (p0) {
+  storageNokhteReactor() => reaction((p0) => storageNokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
-            storageInstructionalNokhte.movieMode ==
-                GradientNokhteMovieModes.explode) {
+            storageNokhte.movieMode == AuxiliaryNokhteMovieModes.explode) {
           Modular.to.navigate(StorageConstants.home);
         }
       });
 
-  centerInstructionalNokhteReactor() => reaction(
-        (p0) => centerInstructionalNokhte.movieStatus,
+  centerNokhteReactor() => reaction(
+        (p0) => centerNokhte.movieStatus,
         (p0) {
           if (p0 == MovieStatus.finished &&
-              centerInstructionalNokhte.movieMode ==
-                  CenterInstructionalNokhteMovieModes.moveAround) {
-            if (centerInstructionalNokhte.position ==
-                InstructionalNokhtePositions.bottom) {
-              sessionJoinerInstructionalNokhte.explode();
-            } else if (centerInstructionalNokhte.position ==
-                InstructionalNokhtePositions.right) {
-              storageInstructionalNokhte.explode();
-            } else if (centerInstructionalNokhte.position ==
-                InstructionalNokhtePositions.top) {
-              sessionStarterInstructionalNokhte.explode();
+              centerNokhte.movieMode == CenterNokhteMovieModes.moveAround) {
+            if (centerNokhte.position == AuxiliaryNokhtePositions.bottom) {
+              sessionJoinerNokhte.explode();
+            } else if (centerNokhte.position ==
+                AuxiliaryNokhtePositions.right) {
+              storageNokhte.explode();
+            } else if (centerNokhte.position == AuxiliaryNokhtePositions.top) {
+              sessionStarterNokhte.explode();
             }
           }
         },
@@ -197,7 +191,7 @@ abstract class _HomeWidgetsCoordinatorBase
         hasInitiatedBlur &&
         isAllowedToMakeGesture() &&
         !hasSwiped()) {
-      dismissInstructionalNokhte();
+      dismissNokhte();
     }
   }
 
@@ -209,19 +203,16 @@ abstract class _HomeWidgetsCoordinatorBase
         nokhteBlur.init();
         beachWaves.currentStore.setControl(Control.stop);
         smartText.startRotatingText(isResuming: true);
-        centerInstructionalNokhte.moveToCenter();
+        centerNokhte.moveToCenter();
         Timer(const Duration(seconds: 0, milliseconds: 500), () {
           setSmartTextTopPaddingScalar(.6);
         });
-
-        Timer(Seconds.get(1), () {
-          setSwipeGuideVisibilities(true);
-        });
-        sessionStarterInstructionalNokhte.setWidgetVisibility(true);
-        storageInstructionalNokhte.setWidgetVisibility(true);
-        moveGradInstructionalNokhtes(shouldExpand: true);
+        swipeGuides.fadeIn();
+        sessionStarterNokhte.setWidgetVisibility(true);
+        storageNokhte.setWidgetVisibility(true);
+        moveAuxNokhtes(shouldExpand: true);
       } else if (hasInitiatedBlur && !hasSwiped()) {
-        dismissInstructionalNokhte();
+        dismissNokhte();
       }
     }
   }
@@ -236,15 +227,15 @@ abstract class _HomeWidgetsCoordinatorBase
   // add a smartText index reactor
 
   @action
-  dismissInstructionalNokhte() {
+  dismissNokhte() {
     setSwipeGuideVisibilities(false);
     setHasInitiatedBlur(false);
     smartText.startRotatingText(isResuming: true);
     setSwipeDirection(GestureDirections.initial);
-    centerInstructionalNokhte.moveBackToCross(
+    centerNokhte.moveBackToCross(
       startingPosition: CenterNokhtePositions.center,
     );
-    moveGradInstructionalNokhtes(shouldExpand: false);
+    moveAuxNokhtes(shouldExpand: false);
     nokhteBlur.reverse();
     beachWaves.currentStore.setControl(Control.mirror);
     delayedEnableTouchFeedback();
@@ -254,12 +245,11 @@ abstract class _HomeWidgetsCoordinatorBase
     swipeGuides.setWidgetVisibility(shouldShow);
   }
 
-  moveGradInstructionalNokhtes({required bool shouldExpand}) {
-    final dir = shouldExpand
-        ? InstructionalGradientDirections.enlarge
-        : InstructionalGradientDirections.shrink;
-    sessionStarterInstructionalNokhte.initMovie(dir);
-    sessionJoinerInstructionalNokhte.initMovie(dir);
-    storageInstructionalNokhte.initMovie(dir);
+  moveAuxNokhtes({required bool shouldExpand}) {
+    final dir =
+        shouldExpand ? NokhteScaleState.enlarge : NokhteScaleState.shrink;
+    sessionStarterNokhte.initMovie(dir);
+    sessionJoinerNokhte.initMovie(dir);
+    storageNokhte.initMovie(dir);
   }
 }

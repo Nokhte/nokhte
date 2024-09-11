@@ -21,15 +21,15 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
         BaseWidgetsCoordinator,
         Reactions,
         SwipeNavigationUtils,
-        InstructionWidgetsUtils,
+        NokhteWidgetsUtils,
         HomeNavigation {
   final GestureCrossStore gestureCross;
   final QrScannerStore qrScanner;
   final BeachWavesStore beachWaves;
   @override
-  final CenterInstructionalNokhteStore centerInstructionalNokhte;
+  final CenterNokhteStore centerNokhte;
   @override
-  final InstructionalGradientNokhteStore homeInstructionalNokhte;
+  final AuxiliaryNokhteStore homeNokhte;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   @override
@@ -40,19 +40,19 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
     required this.gestureCross,
     required this.qrScanner,
     required this.wifiDisconnectOverlay,
-    required this.centerInstructionalNokhte,
-    required this.homeInstructionalNokhte,
+    required this.centerNokhte,
+    required this.homeNokhte,
     required this.swipeGuide,
   }) {
     initSwipeNavigationUtils();
     initBaseWidgetsCoordinatorActions();
-    initInstructionWidgetsUtils();
+    initNokhteWidgetsUtils();
   }
 
   @action
   constructor(Offset center) {
     gestureCross.cross.initStaticGlow();
-    centerInstructionalNokhte.setWidgetVisibility(false);
+    centerNokhte.setWidgetVisibility(false);
     beachWaves.setMovieMode(BeachWaveMovieModes.emptyTheOcean);
     initReactors();
   }
@@ -69,15 +69,15 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.emptyOceanToInvertedDeepSea);
     beachWaves.currentStore.initMovie(NoParams());
     gestureCross.fadeAllOut();
-    centerInstructionalNokhte.setWidgetVisibility(false);
-    homeInstructionalNokhte.setWidgetVisibility(false);
+    centerNokhte.setWidgetVisibility(false);
+    homeNokhte.setWidgetVisibility(false);
     qrScanner.fadeOut();
   }
 
   @action
   onTap(Offset offset) {
     if (hasInitiatedBlur && isAllowedToMakeGesture()) {
-      dismissInstructionalNokhtes();
+      dismissNokhtes();
     }
   }
 
@@ -86,7 +86,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
     if (!isDisconnected && isAllowedToMakeGesture()) {
       if (hasInitiatedBlur && !hasSwiped()) {
         setSwipeDirection(GestureDirections.up);
-        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
+        centerNokhte.initMovie(AuxiliaryNokhtePositions.top);
         swipeGuide.setWidgetVisibility(false);
       }
     }
@@ -102,35 +102,33 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
     if (!isDisconnected && isAllowedToMakeGesture() && !hasSwiped()) {
       if (!hasInitiatedBlur) {
         swipeGuide.fadeIn();
-        centerInstructionalNokhte.moveToCenter();
+        centerNokhte.moveToCenter();
         setHasInitiatedBlur(true);
         qrScanner.fadeOut();
-        homeInstructionalNokhte.setWidgetVisibility(true);
-        moveSessionStarterInstructionalNokhte(true);
+        homeNokhte.setWidgetVisibility(true);
+        moveSessionStarterNokhte(true);
       } else {
-        dismissInstructionalNokhtes();
+        dismissNokhtes();
       }
     }
   }
 
-  dismissInstructionalNokhtes() {
+  dismissNokhtes() {
     if (hasInitiatedBlur) {
       setHasInitiatedBlur(false);
       qrScanner.fadeIn();
-      moveSessionStarterInstructionalNokhte(false);
+      moveSessionStarterNokhte(false);
       final position = hasSwiped()
           ? CenterNokhtePositions.left
           : CenterNokhtePositions.center;
-      centerInstructionalNokhte.moveBackToCross(startingPosition: position);
+      centerNokhte.moveBackToCross(startingPosition: position);
       setSwipeDirection(GestureDirections.initial);
     }
   }
 
-  moveSessionStarterInstructionalNokhte(bool shouldExpand) {
-    homeInstructionalNokhte.initMovie(
-      shouldExpand
-          ? InstructionalGradientDirections.enlarge
-          : InstructionalGradientDirections.shrink,
+  moveSessionStarterNokhte(bool shouldExpand) {
+    homeNokhte.initMovie(
+      shouldExpand ? NokhteScaleState.enlarge : NokhteScaleState.shrink,
     );
   }
 
@@ -144,10 +142,10 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
         if (p0) {
           if (!gestureCross.cross.showWidget) {
             gestureCross.fadeInTheCross();
-            centerInstructionalNokhte.fadeIn();
-            homeInstructionalNokhte.setAndFadeIn(
-              InstructionalNokhtePositions.top,
-              GradientNokhteColorways.beachWave,
+            centerNokhte.fadeIn();
+            homeNokhte.setAndFadeIn(
+              AuxiliaryNokhtePositions.top,
+              AuxiliaryNokhteColorways.beachWave,
             );
           }
           beachWaves.currentStore.setWidgetVisibility(false);

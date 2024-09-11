@@ -36,8 +36,8 @@ class SessionStartersWidgetsModule extends Module {
         beachWaves: BeachWavesStore(),
         qrSubtitleSmartText: SmartTextStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        homeInstructionalNokhte: InstructionalGradientNokhteStore(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
+        homeNokhte: AuxiliaryNokhteStore(),
+        centerNokhte: CenterNokhteStore(),
       ),
     );
     i.add<SessionStarterEntryWidgetsCoordinator>(

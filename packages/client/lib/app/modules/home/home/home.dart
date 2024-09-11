@@ -71,17 +71,17 @@ class HomeScreen extends HookWidget {
                   SwipeGuideOrientation.right,
                 ],
               ),
-              CenterInstructionalNokhte(
-                store: coordinator.widgets.centerInstructionalNokhte,
+              CenterNokhte(
+                store: coordinator.widgets.centerNokhte,
               ),
-              InstructionalGradientNokhte(
-                store: coordinator.widgets.sessionStarterInstructionalNokhte,
+              AuxiliaryNokhte(
+                store: coordinator.widgets.sessionStarterNokhte,
               ),
-              InstructionalGradientNokhte(
-                store: coordinator.widgets.sessionJoinerInstructionalNokhte,
+              AuxiliaryNokhte(
+                store: coordinator.widgets.sessionJoinerNokhte,
               ),
-              InstructionalGradientNokhte(
-                store: coordinator.widgets.storageInstructionalNokhte,
+              AuxiliaryNokhte(
+                store: coordinator.widgets.storageNokhte,
               ),
               WifiDisconnectOverlay(
                 store: coordinator.widgets.wifiDisconnectOverlay,

@@ -7,30 +7,27 @@ import 'package:nokhte/app/modules/home/home.dart';
 
 mixin HomeNavigation on Reactions {
   SwipeGuideStore get swipeGuide;
-  InstructionalGradientNokhteStore get homeInstructionalNokhte;
-  CenterInstructionalNokhteStore get centerInstructionalNokhte;
+  AuxiliaryNokhteStore get homeNokhte;
+  CenterNokhteStore get centerNokhte;
 
   initHomeNavigationReactions() {
-    disposers.add(centerInstructionalNokhteReactor());
-    disposers.add(homeInstructionalNokhteReactor());
+    disposers.add(centerNokhteReactor());
+    disposers.add(homeNokhteReactor());
   }
 
-  centerInstructionalNokhteReactor() => reaction(
-        (p0) => centerInstructionalNokhte.movieStatus,
+  centerNokhteReactor() => reaction(
+        (p0) => centerNokhte.movieStatus,
         (p0) {
           if (p0 == MovieStatus.finished &&
-              centerInstructionalNokhte.movieMode ==
-                  CenterInstructionalNokhteMovieModes.moveAround) {
-            homeInstructionalNokhte.explode();
+              centerNokhte.movieMode == CenterNokhteMovieModes.moveAround) {
+            homeNokhte.explode();
           }
         },
       );
 
-  homeInstructionalNokhteReactor() =>
-      reaction((p0) => homeInstructionalNokhte.movieStatus, (p0) {
+  homeNokhteReactor() => reaction((p0) => homeNokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
-            homeInstructionalNokhte.movieMode ==
-                GradientNokhteMovieModes.explode) {
+            homeNokhte.movieMode == AuxiliaryNokhteMovieModes.explode) {
           Modular.to.navigate(HomeConstants.entry);
         }
       });

@@ -74,14 +74,14 @@ class StorageHomeScreen extends HookWidget {
                   ),
                   store: coordinator.widgets.gestureCross,
                 ),
-                CenterInstructionalNokhte(
-                  store: coordinator.widgets.centerInstructionalNokhte,
+                CenterNokhte(
+                  store: coordinator.widgets.centerNokhte,
                 ),
                 SwipeGuide(
                     store: coordinator.widgets.swipeGuide,
                     orientations: const [SwipeGuideOrientation.left]),
-                InstructionalGradientNokhte(
-                  store: coordinator.widgets.homeInstructionalNokhte,
+                AuxiliaryNokhte(
+                  store: coordinator.widgets.homeNokhte,
                 ),
                 WifiDisconnectOverlay(
                   store: coordinator.widgets.wifiDisconnectOverlay,

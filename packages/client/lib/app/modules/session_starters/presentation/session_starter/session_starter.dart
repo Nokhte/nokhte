@@ -125,11 +125,11 @@ class SessionStarterScreen extends HookWidget {
                   SwipeGuideOrientation.bottom,
                 ],
               ),
-              CenterInstructionalNokhte(
-                store: coordinator.widgets.centerInstructionalNokhte,
+              CenterNokhte(
+                store: coordinator.widgets.centerNokhte,
               ),
-              InstructionalGradientNokhte(
-                store: coordinator.widgets.homeInstructionalNokhte,
+              AuxiliaryNokhte(
+                store: coordinator.widgets.homeNokhte,
               ),
               WifiDisconnectOverlay(
                 store: coordinator.widgets.wifiDisconnectOverlay,

@@ -24,11 +24,11 @@ class SessionJoinerModule extends Module {
       () => SessionJoinerWidgetsCoordinator(
         swipeGuide: SwipeGuideStore(),
         qrScanner: QrScannerStore(),
-        homeInstructionalNokhte: InstructionalGradientNokhteStore(),
+        homeNokhte: AuxiliaryNokhteStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
+        centerNokhte: CenterNokhteStore(),
       ),
     );
     i.add<SessionJoinerCoordinator>(

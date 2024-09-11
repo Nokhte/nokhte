@@ -58,11 +58,11 @@ class SessionJoinerScreen extends HookWidget {
                 ),
                 store: coordinator.widgets.gestureCross,
               ),
-              CenterInstructionalNokhte(
-                store: coordinator.widgets.centerInstructionalNokhte,
+              CenterNokhte(
+                store: coordinator.widgets.centerNokhte,
               ),
-              InstructionalGradientNokhte(
-                store: coordinator.widgets.homeInstructionalNokhte,
+              AuxiliaryNokhte(
+                store: coordinator.widgets.homeNokhte,
               ),
               WifiDisconnectOverlay(
                 store: coordinator.widgets.wifiDisconnectOverlay,

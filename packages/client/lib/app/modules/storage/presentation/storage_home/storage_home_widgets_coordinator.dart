@@ -18,7 +18,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase
         Store,
         SmartTextPaddingAdjuster,
         BaseWidgetsCoordinator,
-        InstructionWidgetsUtils,
+        NokhteWidgetsUtils,
         SwipeNavigationUtils,
         Reactions,
         HomeNavigation {
@@ -28,9 +28,10 @@ abstract class _StorageHomeWidgetsCoordinatorBase
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   @override
-  final CenterInstructionalNokhteStore centerInstructionalNokhte;
+  final CenterNokhteStore centerNokhte;
   @override
-  final InstructionalGradientNokhteStore homeInstructionalNokhte;
+  final AuxiliaryNokhteStore homeNokhte;
+
   @override
   final SwipeGuideStore swipeGuide;
   final NokhteBlurStore blur;
@@ -44,23 +45,23 @@ abstract class _StorageHomeWidgetsCoordinatorBase
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.sessionCard,
-    required this.centerInstructionalNokhte,
-    required this.homeInstructionalNokhte,
+    required this.centerNokhte,
+    required this.homeNokhte,
     required this.blur,
   }) {
     initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
     initSwipeNavigationUtils();
-    initInstructionWidgetsUtils();
+    initNokhteWidgetsUtils();
   }
 
   @action
   constructor(Offset offset) {
     setCenter(offset);
     sessionCard.initFadeIn();
-    homeInstructionalNokhte.setAndFadeIn(
-      InstructionalNokhtePositions.left,
-      GradientNokhteColorways.beachWave,
+    homeNokhte.setAndFadeIn(
+      AuxiliaryNokhtePositions.left,
+      AuxiliaryNokhteColorways.beachWave,
     );
     primarySmartText.setMessagesData(StorageLists.homeHeader);
     setSmartTextBottomPaddingScalar(0);
@@ -71,10 +72,10 @@ abstract class _StorageHomeWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     gestureCross.cross.initStaticGlow();
     gestureCross.fadeInTheCross();
-    centerInstructionalNokhte.fadeIn();
-    homeInstructionalNokhte.setAndFadeIn(
-      InstructionalNokhtePositions.left,
-      GradientNokhteColorways.beachWave,
+    centerNokhte.fadeIn();
+    homeNokhte.setAndFadeIn(
+      AuxiliaryNokhtePositions.left,
+      AuxiliaryNokhteColorways.beachWave,
     );
 
     initReactors();
@@ -83,7 +84,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase
   initReactors() {
     // disposers.add(centerCrossNokhteReactor());
     disposers.add(gestureCrossTapReactor());
-    disposers.add(centerInstructionalNokhteReactor());
+    disposers.add(centerNokhteReactor());
     initHomeNavigationReactions();
   }
 
@@ -99,7 +100,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase
       if (hasInitiatedBlur && !hasSwiped()) {
         setSwipeDirection(GestureDirections.left);
         swipeGuide.setWidgetVisibility(false);
-        centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.left);
+        centerNokhte.initMovie(AuxiliaryNokhtePositions.left);
       }
     }
   }
@@ -112,16 +113,16 @@ abstract class _StorageHomeWidgetsCoordinatorBase
         setSwipeDirection(GestureDirections.initial);
         setHasInitiatedBlur(false);
         secondarySmartText.startRotatingText(isResuming: true);
-        centerInstructionalNokhte.moveBackToCross(
+        centerNokhte.moveBackToCross(
           startingPosition: CenterNokhtePositions.left,
         );
         sessionCard.setDisableTouchInput(false);
-        homeInstructionalNokhte.initMovie(
-          InstructionalGradientDirections.shrink,
+        homeNokhte.initMovie(
+          NokhteScaleState.shrink,
         );
         blur.reverse();
       } else if (hasInitiatedBlur && !hasSwiped()) {
-        dismissInstructionalNokhte();
+        dismissNokhte();
       }
     }
   }
@@ -139,26 +140,26 @@ abstract class _StorageHomeWidgetsCoordinatorBase
         setHasInitiatedBlur(true);
         // gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         // gestureCross.gradientNokhte.setWidgetVisibility(false);
-        centerInstructionalNokhte.moveToCenter();
-        homeInstructionalNokhte.setWidgetVisibility(true);
-        homeInstructionalNokhte.initMovie(
-          InstructionalGradientDirections.enlarge,
+        centerNokhte.moveToCenter();
+        homeNokhte.setWidgetVisibility(true);
+        homeNokhte.initMovie(
+          NokhteScaleState.enlarge,
         );
       } else if (hasInitiatedBlur && !hasSwiped()) {
-        dismissInstructionalNokhte();
+        dismissNokhte();
       }
     }
   }
 
   @action
-  dismissInstructionalNokhte() {
+  dismissNokhte() {
     sessionCard.setDisableTouchInput(false);
     setHasInitiatedBlur(false);
     blur.reverse();
-    centerInstructionalNokhte.moveBackToCross(
+    centerNokhte.moveBackToCross(
         startingPosition: CenterNokhtePositions.center);
-    homeInstructionalNokhte.initMovie(
-      InstructionalGradientDirections.shrink,
+    homeNokhte.initMovie(
+      NokhteScaleState.shrink,
     );
   }
 
@@ -173,10 +174,10 @@ abstract class _StorageHomeWidgetsCoordinatorBase
     beachWaves.currentStore.initMovie(NoParams());
     sessionCard.setWidgetVisibility(false);
     primarySmartText.setWidgetVisibility(false);
-    centerInstructionalNokhte.setWidgetVisibility(false);
+    centerNokhte.setWidgetVisibility(false);
     gestureCross.cross.setWidgetVisibility(false);
     gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-    homeInstructionalNokhte.setWidgetVisibility(false);
+    homeNokhte.setWidgetVisibility(false);
   }
 
   deconstructor() {
@@ -186,5 +187,5 @@ abstract class _StorageHomeWidgetsCoordinatorBase
 
   @computed
   bool get isAllowedToInteract =>
-      centerInstructionalNokhte.movieStatus != MovieStatus.inProgress;
+      centerNokhte.movieStatus != MovieStatus.inProgress;
 }

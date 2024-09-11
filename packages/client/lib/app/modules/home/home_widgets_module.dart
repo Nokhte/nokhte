@@ -27,10 +27,10 @@ class HomeWidgetsModule extends Module {
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
-        sessionJoinerInstructionalNokhte: InstructionalGradientNokhteStore(),
-        storageInstructionalNokhte: InstructionalGradientNokhteStore(),
+        centerNokhte: CenterNokhteStore(),
+        sessionStarterNokhte: AuxiliaryNokhteStore(),
+        sessionJoinerNokhte: AuxiliaryNokhteStore(),
+        storageNokhte: AuxiliaryNokhteStore(),
       ),
     );
     i.add<NeedsUpdateWidgetsCoordinator>(
@@ -42,7 +42,7 @@ class HomeWidgetsModule extends Module {
         gradientText: NokhteGradientTextStore(),
       ),
     );
-  i.add<HomeEntryWidgetsCoordinator>(
+    i.add<HomeEntryWidgetsCoordinator>(
       () => HomeEntryWidgetsCoordinator(
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
