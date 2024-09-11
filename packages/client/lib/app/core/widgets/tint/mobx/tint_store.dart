@@ -13,6 +13,11 @@ abstract class _TintStoreBase extends BaseWidgetStore<NoParams> with Store {
     setMovie(TintMovie.movie);
   }
 
+  @action
+  startAtEnd() {
+    setMovie(TintMovie.revMovie);
+  }
+
   @override
   @action
   initMovie(params) {
