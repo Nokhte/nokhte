@@ -21,6 +21,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   final BorderGlowStore borderGlow;
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
+  final SessionNavigationStore sessionNavigation;
   final TintStore tint;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
@@ -30,6 +31,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
     required this.mirroredText,
     required this.beachWaves,
     required this.borderGlow,
+    required this.sessionNavigation,
     required this.tint,
     required this.touchRipple,
     required this.speakLessSmileMore,
@@ -73,11 +75,13 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   @action
   onCollaboratorLeft() {
     mirroredText.setWidgetVisibility(false);
+    sessionNavigation.setWidgetVisibility(false);
     collaboratorHasLeft = true;
   }
 
   @action
   onCollaboratorJoined() {
+    sessionNavigation.setWidgetVisibility(true);
     mirroredText.setWidgetVisibility(true);
     collaboratorHasLeft = false;
   }
@@ -159,6 +163,16 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   initReactors() {
     disposers.add(borderGlowReactor());
     disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(
+      gestureCrossTapReactor(
+        onInit: () {
+          mirroredText.setWidgetVisibility(false);
+        },
+        onReverse: () {
+          mirroredText.setWidgetVisibility(true);
+        },
+      ),
+    );
   }
 
   onBorderGlowComplete(MovieStatus p0, BorderGlowStore store) {
@@ -174,6 +188,19 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
       });
     }
   }
+
+  gestureCrossTapReactor({
+    required Function onInit,
+    required Function onReverse,
+  }) =>
+      reaction(
+        (p0) => sessionNavigation.gestureCross.tapCount,
+        (p0) {
+          if (!isHolding) {
+            sessionNavigation.onGestureCrossTap(onInit, onReverse);
+          }
+        },
+      );
 
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {

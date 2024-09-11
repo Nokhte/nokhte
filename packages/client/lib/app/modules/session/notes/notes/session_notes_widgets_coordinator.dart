@@ -19,6 +19,7 @@ abstract class _SessionNotesWidgetsCoordinatorBase
   final BeachWavesStore beachWaves;
   final TextEditorStore textEditor;
   final SmartTextStore smartText;
+  final SessionNavigationStore sessionNavigation;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
@@ -27,6 +28,7 @@ abstract class _SessionNotesWidgetsCoordinatorBase
     required this.wifiDisconnectOverlay,
     required this.textEditor,
     required this.smartText,
+    required this.sessionNavigation,
   }) {
     initBaseWidgetsCoordinatorActions();
   }
@@ -61,7 +63,6 @@ abstract class _SessionNotesWidgetsCoordinatorBase
 
   constructor() {
     smartText.setMessagesData(SessionLists.notesPrimary);
-    smartText.setWidgetVisibility(false);
     smartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     textEditor.initFadeIn();
@@ -71,6 +72,14 @@ abstract class _SessionNotesWidgetsCoordinatorBase
           ? hybridTextEditorListener()
           : regularTextEditorListener();
     });
+    if (presetType == PresetTypes.consultative &&
+        screenType == SessionScreenTypes.notes) {
+      sessionNavigation.setup(
+        screenType,
+        presetType,
+        initSwipeReactor: false,
+      );
+    }
     if (isAHybridScreen) {
       Timer(Seconds.get(9, milli: 500), () {
         if (inactivityCount == 0) {
@@ -80,18 +89,30 @@ abstract class _SessionNotesWidgetsCoordinatorBase
       });
     }
     disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(
+      gestureCrossTapReactor(
+        onInit: () {
+          onCollaboratorLeft();
+        },
+        onReverse: () {
+          onCollaboratorJoined();
+        },
+      ),
+    );
   }
 
   @action
   onCollaboratorLeft() {
     textEditor.setWidgetVisibility(false);
     smartText.setWidgetVisibility(false);
+    sessionNavigation.setWidgetVisibility(false);
   }
 
   @action
   onCollaboratorJoined() {
     textEditor.setWidgetVisibility(true);
     smartText.setWidgetVisibility(smartText.pastShowWidget);
+    sessionNavigation.setWidgetVisibility(true);
   }
 
   @action
@@ -172,6 +193,19 @@ abstract class _SessionNotesWidgetsCoordinatorBase
           Modular.to.navigate(SessionConstants.exit);
         }
       });
+
+  gestureCrossTapReactor({
+    required Function onInit,
+    required Function onReverse,
+  }) =>
+      reaction(
+        (p0) => sessionNavigation.gestureCross.tapCount,
+        (p0) {
+          if (textEditor.controller.text.isEmpty) {
+            sessionNavigation.onGestureCrossTap(onInit, onReverse);
+          }
+        },
+      );
 
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {

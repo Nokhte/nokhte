@@ -30,7 +30,6 @@ class SessionHybridModule extends Module {
         widgets: Modular.get<SessionGroupHybridWidgetsCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),
         hold: HoldDetector(),
-        swipe: SwipeDetector(),
       ),
     );
   }

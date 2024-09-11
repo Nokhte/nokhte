@@ -17,6 +17,7 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
     with Store, BaseWidgetsCoordinator, Reactions, TouchRippleUtils {
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
+  final SessionNavigationStore sessionNavigation;
   final BorderGlowStore borderGlow;
   final SpeakLessSmileMoreStore speakLessSmileMore;
   final HalfScreenTintStore othersAreTalkingTint;
@@ -30,6 +31,7 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
   _SessionSoloHybridWidgetsCoordinatorBase({
     required this.primarySmartText,
     required this.secondarySmartText,
+    required this.sessionNavigation,
     required this.othersAreTalkingTint,
     required this.wifiDisconnectOverlay,
     required this.beachWaves,
@@ -99,6 +101,7 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
   onCollaboratorLeft() {
     setSmartTextVisibilities(false);
     primarySmartText.setWidgetVisibility(false);
+    sessionNavigation.setWidgetVisibility(false);
     secondarySmartText.setWidgetVisibility(false);
     collaboratorHasLeft = true;
   }
@@ -107,6 +110,7 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
   onCollaboratorJoined() {
     collaboratorHasLeft = false;
     primarySmartText.setWidgetVisibility(true);
+    sessionNavigation.setWidgetVisibility(true);
     secondarySmartText.setWidgetVisibility(true);
   }
 
@@ -136,7 +140,8 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
     required GesturePlacement tapPlacement,
     required Function asyncTapCall,
   }) async {
-    if (tapStopwatch.elapsedMilliseconds > 1000 || tapCount == 0) {
+    if ((tapStopwatch.elapsedMilliseconds > 1000 || tapCount == 0) &&
+        !sessionNavigation.hasInitiatedBlur) {
       touchRipple.onTap(tapPosition, adjustColorBasedOnPosition: true);
       if (tapPlacement == GesturePlacement.topHalf) {
         if (!isHolding && canHold && !collaboratorHasLeft) {
@@ -217,6 +222,18 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
   initReactors() {
     disposers.add(borderGlowReactor());
     disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(
+      gestureCrossTapReactor(
+        onInit: () {
+          primarySmartText.setWidgetVisibility(false);
+          secondarySmartText.setWidgetVisibility(false);
+        },
+        onReverse: () {
+          primarySmartText.setWidgetVisibility(true);
+          secondarySmartText.setWidgetVisibility(true);
+        },
+      ),
+    );
   }
 
   onBorderGlowComplete(MovieStatus p0, BorderGlowStore store) {
@@ -232,6 +249,19 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
       });
     }
   }
+
+  gestureCrossTapReactor({
+    required Function onInit,
+    required Function onReverse,
+  }) =>
+      reaction(
+        (p0) => sessionNavigation.gestureCross.tapCount,
+        (p0) {
+          if (!isHolding && !isGoingToNotes) {
+            sessionNavigation.onGestureCrossTap(onInit, onReverse);
+          }
+        },
+      );
 
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {

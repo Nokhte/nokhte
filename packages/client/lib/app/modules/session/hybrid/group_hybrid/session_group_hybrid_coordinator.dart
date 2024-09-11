@@ -17,7 +17,6 @@ abstract class _SessionGroupHybridCoordinatorBase
     with Store, BaseCoordinator, Reactions, SessionPresence {
   final SessionGroupHybridWidgetsCoordinator widgets;
   final TapDetector tap;
-  final SwipeDetector swipe;
   final HoldDetector hold;
   final SessionMetadataStore sessionMetadata;
   @override
@@ -27,7 +26,6 @@ abstract class _SessionGroupHybridCoordinatorBase
 
   _SessionGroupHybridCoordinatorBase({
     required this.widgets,
-    required this.swipe,
     required this.hold,
     required this.tap,
     required this.captureScreen,
@@ -39,8 +37,11 @@ abstract class _SessionGroupHybridCoordinatorBase
   @action
   constructor() async {
     widgets.constructor(sessionMetadata.userCanSpeak);
+    widgets.sessionNavigation.setup(
+      sessionMetadata.sessionScreenType,
+      sessionMetadata.presetType,
+    );
     initReactors();
-    swipe.setMinDistance(100.0);
     await presence.updateCurrentPhase(2.0);
     await captureScreen(SessionConstants.groupHybrid);
   }
@@ -79,7 +80,6 @@ abstract class _SessionGroupHybridCoordinatorBase
         widgets.onCollaboratorLeft();
       },
     ));
-    disposers.add(swipeReactor());
     disposers.add(tapReactor());
     disposers.add(userIsSpeakingReactor());
     disposers.add(userCanSpeakReactor());
@@ -110,17 +110,6 @@ abstract class _SessionGroupHybridCoordinatorBase
         }
       });
 
-  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
-        switch (p0) {
-          case GestureDirections.down:
-            ifTouchIsNotDisabled(() {
-              widgets.onExit();
-            });
-          default:
-            break;
-        }
-      });
-
   tapReactor() => reaction(
         (p0) => tap.tapCount,
         (p0) => ifTouchIsNotDisabled(
@@ -133,7 +122,8 @@ abstract class _SessionGroupHybridCoordinatorBase
   holdReactor() => reaction((p0) => hold.holdCount, (p0) {
         ifTouchIsNotDisabled(() async {
           if (sessionMetadata.everyoneIsOnline &&
-              sessionMetadata.canStartUsingSession) {
+              sessionMetadata.canStartUsingSession &&
+              !widgets.sessionNavigation.hasInitiatedBlur) {
             await presence
                 .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
           }

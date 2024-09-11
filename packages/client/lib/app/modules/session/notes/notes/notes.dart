@@ -44,7 +44,7 @@ class SessionNotesScreen extends HookWidget {
               Center(
                 child: SmartText(
                   store: coordinator.widgets.smartText,
-                  topPadding: .8,
+                  topPadding: .7,
                   opacityDuration: Seconds.get(1),
                 ),
               ),
@@ -53,6 +53,9 @@ class SessionNotesScreen extends HookWidget {
                   placeholderText: "Your thoughtful thought",
                   store: coordinator.widgets.textEditor,
                 ),
+              ),
+              SessionNavigation(
+                store: coordinator.widgets.sessionNavigation,
               ),
               CollaboratorPresenceIncidentsOverlay(
                 store: coordinator.presence.incidentsOverlayStore,

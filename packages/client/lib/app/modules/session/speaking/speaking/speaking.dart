@@ -28,42 +28,42 @@ class SessionSpeakingScreen extends HookWidget {
             ));
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Swipe(
-        store: coordinator.swipe,
-        child: Hold(
-          store: coordinator.hold,
-          child: MultiHitStack(
-            children: [
-              FullScreen(
-                child: BeachWaves(
-                  store: coordinator.widgets.beachWaves,
-                ),
+      body: Hold(
+        store: coordinator.hold,
+        child: MultiHitStack(
+          children: [
+            FullScreen(
+              child: BeachWaves(
+                store: coordinator.widgets.beachWaves,
               ),
-              Tint(
-                store: coordinator.widgets.tint,
+            ),
+            Tint(
+              store: coordinator.widgets.tint,
+            ),
+            BorderGlow(
+              store: coordinator.widgets.borderGlow,
+            ),
+            MirroredText(
+              store: coordinator.widgets.mirroredText,
+            ),
+            SpeakLessSmileMore(
+              store: coordinator.widgets.speakLessSmileMore,
+            ),
+            FullScreen(
+              child: TouchRipple(
+                store: coordinator.widgets.touchRipple,
               ),
-              BorderGlow(
-                store: coordinator.widgets.borderGlow,
-              ),
-              MirroredText(
-                store: coordinator.widgets.mirroredText,
-              ),
-              SpeakLessSmileMore(
-                store: coordinator.widgets.speakLessSmileMore,
-              ),
-              FullScreen(
-                child: TouchRipple(
-                  store: coordinator.widgets.touchRipple,
-                ),
-              ),
-              CollaboratorPresenceIncidentsOverlay(
-                store: coordinator.presence.incidentsOverlayStore,
-              ),
-              WifiDisconnectOverlay(
-                store: coordinator.widgets.wifiDisconnectOverlay,
-              ),
-            ],
-          ),
+            ),
+            SessionNavigation(
+              store: coordinator.widgets.sessionNavigation,
+            ),
+            CollaboratorPresenceIncidentsOverlay(
+              store: coordinator.presence.incidentsOverlayStore,
+            ),
+            WifiDisconnectOverlay(
+              store: coordinator.widgets.wifiDisconnectOverlay,
+            ),
+          ],
         ),
       ),
       // ),

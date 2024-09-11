@@ -30,42 +30,42 @@ class SessionGroupHybridScreen extends HookWidget {
       resizeToAvoidBottomInset: false,
       body: Tap(
         store: coordinator.tap,
-        child: Swipe(
-          store: coordinator.swipe,
-          child: Hold(
-            store: coordinator.hold,
-            child: MultiHitStack(
-              children: [
-                FullScreen(
-                  child: BeachWaves(
-                    store: coordinator.widgets.beachWaves,
-                  ),
+        child: Hold(
+          store: coordinator.hold,
+          child: MultiHitStack(
+            children: [
+              FullScreen(
+                child: BeachWaves(
+                  store: coordinator.widgets.beachWaves,
                 ),
-                HalfScreenTint(
-                  store: coordinator.widgets.othersAreTalkingTint,
+              ),
+              HalfScreenTint(
+                store: coordinator.widgets.othersAreTalkingTint,
+              ),
+              BorderGlow(
+                store: coordinator.widgets.borderGlow,
+              ),
+              MirroredText(
+                store: coordinator.widgets.mirroredText,
+              ),
+              SpeakLessSmileMore(
+                store: coordinator.widgets.speakLessSmileMore,
+              ),
+              FullScreen(
+                child: TouchRipple(
+                  store: coordinator.widgets.touchRipple,
                 ),
-                BorderGlow(
-                  store: coordinator.widgets.borderGlow,
-                ),
-                MirroredText(
-                  store: coordinator.widgets.mirroredText,
-                ),
-                SpeakLessSmileMore(
-                  store: coordinator.widgets.speakLessSmileMore,
-                ),
-                FullScreen(
-                  child: TouchRipple(
-                    store: coordinator.widgets.touchRipple,
-                  ),
-                ),
-                CollaboratorPresenceIncidentsOverlay(
-                  store: coordinator.presence.incidentsOverlayStore,
-                ),
-                WifiDisconnectOverlay(
-                  store: coordinator.widgets.wifiDisconnectOverlay,
-                ),
-              ],
-            ),
+              ),
+              SessionNavigation(
+                store: coordinator.widgets.sessionNavigation,
+              ),
+              CollaboratorPresenceIncidentsOverlay(
+                store: coordinator.presence.incidentsOverlayStore,
+              ),
+              WifiDisconnectOverlay(
+                store: coordinator.widgets.wifiDisconnectOverlay,
+              ),
+            ],
           ),
         ),
       ),
