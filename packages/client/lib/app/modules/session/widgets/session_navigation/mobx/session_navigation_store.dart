@@ -43,7 +43,7 @@ abstract class _SessionNavigationStoreBase extends BaseWidgetStore
 
   @action
   resetNokhtes(PresetTypes presetType) {
-    centerNokhte.setWidgetVisibility(true);
+    centerNokhte.fadeIn();
     exitNokhte.setAndFadeIn(
       AuxiliaryNokhtePositions.bottom,
       presetType == PresetTypes.socratic
