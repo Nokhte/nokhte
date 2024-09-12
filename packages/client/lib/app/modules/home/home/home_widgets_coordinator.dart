@@ -186,16 +186,6 @@ abstract class _HomeWidgetsCoordinatorBase
       );
 
   @action
-  onTap(Offset offset) {
-    if (!isDisconnected &&
-        hasInitiatedBlur &&
-        isAllowedToMakeGesture() &&
-        !hasSwiped()) {
-      dismissNokhte();
-    }
-  }
-
-  @action
   onGestureCrossTap() {
     if (!isDisconnected && isAllowedToMakeGesture()) {
       if (!hasInitiatedBlur) {

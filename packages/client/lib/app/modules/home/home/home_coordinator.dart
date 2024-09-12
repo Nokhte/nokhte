@@ -16,7 +16,6 @@ abstract class _HomeCoordinatorBase
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
   final HomeWidgetsCoordinator widgets;
   final SwipeDetector swipe;
-  final TapDetector tap;
   @override
   final CaptureScreen captureScreen;
 
@@ -25,7 +24,6 @@ abstract class _HomeCoordinatorBase
     required this.widgets,
     required this.getNokhteSessionArtifactsLogic,
     required this.captureScreen,
-    required this.tap,
   });
 
   @observable
@@ -56,7 +54,6 @@ abstract class _HomeCoordinatorBase
       },
     ));
     disposers.add(swipeReactor());
-    disposers.add(tapReactor());
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
@@ -71,12 +68,6 @@ abstract class _HomeCoordinatorBase
             default:
               break;
           }
-        });
-      });
-
-  tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        ifTouchIsNotDisabled(() {
-          widgets.onTap(tap.currentTapPosition);
         });
       });
 
