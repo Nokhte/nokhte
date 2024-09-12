@@ -162,7 +162,7 @@ class AuxiliaryNokhteMovies {
     return _gradTransition(
       List.generate(4, (i) {
         return ColorAndStop(
-          Colors.transparent.withOpacity(0),
+          grad[i].color.withOpacity(0),
           grad[i].stop,
         );
       }),
