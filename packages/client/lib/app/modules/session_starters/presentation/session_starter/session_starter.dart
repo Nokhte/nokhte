@@ -34,8 +34,8 @@ class SessionStarterScreen extends HookWidget {
           store: coordinator.swipe,
           child: MultiHitStack(
             children: [
-              Observer(builder: (context) {
-                return RotatedBox(
+              Observer(
+                builder: (context) => RotatedBox(
                   quarterTurns: 2,
                   child: FullScreen(
                     child: BeachWaves(
@@ -46,32 +46,30 @@ class SessionStarterScreen extends HookWidget {
                       store: coordinator.widgets.beachWaves,
                     ),
                   ),
-                );
-              }),
-              // fix observer problem
-              // i would say move the can scroll into the store instead of here
+                ),
+              ),
               SessionScroller(
                 store: coordinator.widgets.sessionScroller,
                 children: [
                   [
-                    Observer(builder: (context) {
-                      return Opacity(
-                        opacity:
-                            coordinator.widgets.hasNotSelectedPreset ? .4 : 1,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            bottom: screenSize.height * .2,
-                          ),
-                          child: NokhteQrCode(
-                            store: coordinator.widgets.qrCode,
-                          ),
-                        ),
-                      );
-                    }),
+                    Observer(
+                        builder: (context) => Opacity(
+                              opacity: coordinator.widgets.hasNotSelectedPreset
+                                  ? .4
+                                  : 1,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: screenSize.height * .2,
+                                ),
+                                child: NokhteQrCode(
+                                  store: coordinator.widgets.qrCode,
+                                ),
+                              ),
+                            )),
                     SmartText(
                       store: coordinator.widgets.qrSubtitleSmartText,
                       opacityDuration: Seconds.get(1),
-                      topPadding: .1,
+                      topPadding: .13,
                       topBump: 0.003,
                     ),
                     PresetHeader(
