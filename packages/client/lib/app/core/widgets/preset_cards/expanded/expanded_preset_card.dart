@@ -64,6 +64,7 @@ class ExpandedPresetsCards extends HookWidget with PresetTags {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(
+                            top: height * .05,
                             left: height * .07,
                           ),
                           child: Jost(store.chosenName),
@@ -71,7 +72,7 @@ class ExpandedPresetsCards extends HookWidget with PresetTags {
                         Padding(
                           padding: EdgeInsets.only(
                             left: height * .05,
-                            top: height * .07,
+                            top: height * .06,
                           ),
                           child: buildIcons(squareSize * .65),
                         ),
