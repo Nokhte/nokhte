@@ -17,7 +17,7 @@ class AuxiliaryNokhteMovies {
     );
 
     List<ColorAndStop> grad = AuxiliaryNokhteUtils.getGradient(colorway);
-    return gradTransition(grad, grad, MovieTween())
+    return _gradTransition(grad, grad, MovieTween())
       ..scene(
         begin: Seconds.get(0),
         end: Seconds.get(1, milli: 500),
@@ -72,11 +72,11 @@ class AuxiliaryNokhteMovies {
     );
 
     final grad = AuxiliaryNokhteUtils.getGradient(colorway);
-    final scaledGrad = getScaledGradient(grad, colorway);
+    final scaledGrad = _getScaledGradient(grad, colorway);
 
-    return staticPosition(
+    return _staticPosition(
       offsets.end,
-      gradTransition(
+      _gradTransition(
         grad,
         scaledGrad,
         MovieTween(),
@@ -117,7 +117,7 @@ class AuxiliaryNokhteMovies {
     );
 
     List<ColorAndStop> grad = AuxiliaryNokhteUtils.getGradient(colorway);
-    return gradTransition(
+    return _gradTransition(
         grad,
         List.generate(4, (i) {
           return ColorAndStop(
@@ -125,7 +125,7 @@ class AuxiliaryNokhteMovies {
             grad[i].stop,
           );
         }),
-        (staticPosition(offsets.end, MovieTween())))
+        (_staticPosition(offsets.end, MovieTween())))
       ..scene(
         begin: Seconds.get(0),
         end: Seconds.get(1),
@@ -147,7 +147,50 @@ class AuxiliaryNokhteMovies {
           );
   }
 
-  static List<ColorAndStop> getScaledGradient(
+  static MovieTween fadeIn(
+    Size screenSize, {
+    required AuxiliaryNokhtePositions position,
+    required AuxiliaryNokhteColorways colorway,
+  }) {
+    final offsets = AuxiliaryNokhteUtils.getOffsets(
+      screenSize,
+      position: position,
+      direction: NokhteScaleState.enlarge,
+    );
+
+    List<ColorAndStop> grad = AuxiliaryNokhteUtils.getGradient(colorway);
+    return _gradTransition(
+      List.generate(4, (i) {
+        return ColorAndStop(
+          Colors.transparent.withOpacity(0),
+          grad[i].stop,
+        );
+      }),
+      grad,
+      (_staticPosition(offsets.start, MovieTween())),
+      start: Seconds.get(0),
+      end: Seconds.get(1),
+    )..scene(
+        begin: Seconds.get(0),
+        end: Seconds.get(0, milli: 1),
+      )
+          .tween(
+            'radius',
+            Tween<double>(
+              begin: 0,
+              end: 4.5,
+            ),
+          )
+          .tween(
+            'textOpacity',
+            Tween<double>(
+              begin: 0,
+              end: 0,
+            ),
+          );
+  }
+
+  static List<ColorAndStop> _getScaledGradient(
     List<ColorAndStop> grad,
     AuxiliaryNokhteColorways colorway,
   ) {
@@ -200,7 +243,7 @@ class AuxiliaryNokhteMovies {
     //
   }
 
-  static MovieTween staticPosition(Offset offset, MovieTween movie) => movie
+  static MovieTween _staticPosition(Offset offset, MovieTween movie) => movie
     ..scene(
       begin: Seconds.get(0),
       end: Seconds.get(
@@ -222,12 +265,17 @@ class AuxiliaryNokhteMovies {
             end: offset.dy,
           ),
         );
-  static MovieTween gradTransition(List<ColorAndStop> startingGrad,
-          List<ColorAndStop> endingGrad, MovieTween movie) =>
+  static MovieTween _gradTransition(
+    List<ColorAndStop> startingGrad,
+    List<ColorAndStop> endingGrad,
+    MovieTween movie, {
+    Duration start = const Duration(milliseconds: 0),
+    Duration end = const Duration(milliseconds: 500),
+  }) =>
       movie
         ..scene(
-          begin: Seconds.get(0),
-          end: Seconds.get(0, milli: 500),
+          begin: start,
+          end: end,
         )
             .tween(
               'color1',
