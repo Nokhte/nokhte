@@ -11,7 +11,7 @@ abstract class _PresetHeaderStoreBase extends BaseWidgetStore with Store {
   _PresetHeaderStoreBase({
     required this.presetIcons,
   }) {
-    presetIcons.setContainerSize(.15);
+    presetIcons.setContainerSize(.18);
     presetIcons.setIsHorizontal(true);
     presetIcons.setWidgetVisibility(false);
   }
@@ -21,7 +21,7 @@ abstract class _PresetHeaderStoreBase extends BaseWidgetStore with Store {
 
   @action
   setHeader(
-    String presetName,
+    String presetName2,
     List tags,
   ) {
     this.presetName = presetName;
