@@ -50,7 +50,7 @@ class QuickActionsConstants {
 
   static route(Function onRoute) {
     const QuickActions quickActions = QuickActions();
-    quickActions.initialize((String shortcutType) async {
+    quickActions.initialize((String shortcutType) {
       onRoute();
       Modular.to.navigate(HomeConstants.quickActionsRouter, arguments: {
         HomeConstants.QUICK_ACTIONS_ROUTE: getRoute(shortcutType),
