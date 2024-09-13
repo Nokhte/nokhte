@@ -42,6 +42,8 @@ abstract class _HomeWidgetsCoordinatorBase
   final BeachWavesStore beachWaves;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
+  @override
+  final List<AuxiliaryNokhteStore> auxNokhtes;
 
   _HomeWidgetsCoordinatorBase({
     required this.nokhteBlur,
@@ -54,7 +56,11 @@ abstract class _HomeWidgetsCoordinatorBase
     required this.sessionStarterNokhte,
     required this.sessionJoinerNokhte,
     required this.storageNokhte,
-  }) {
+  }) : auxNokhtes = [
+          sessionStarterNokhte,
+          storageNokhte,
+          sessionJoinerNokhte,
+        ] {
     initEnRouteActions();
     initSwipeNavigationUtils();
     initNokhteWidgetsUtils();

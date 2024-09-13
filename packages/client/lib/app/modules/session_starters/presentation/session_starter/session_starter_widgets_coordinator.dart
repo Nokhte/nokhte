@@ -45,6 +45,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   final PresetCardsStore presetCards;
   final CondensedPresetCardsStore condensedPresetCards;
   final SmartTextStore headerText;
+  @override
+  final List<AuxiliaryNokhteStore> auxNokhtes;
 
   _SessionStarterWidgetsCoordinatorBase({
     required this.beachWaves,
@@ -60,7 +62,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     required this.homeNokhte,
     required this.nokhteBlur,
     required this.qrCode,
-  }) : condensedPresetCards = presetCards.condensed {
+  })  : condensedPresetCards = presetCards.condensed,
+        auxNokhtes = [homeNokhte] {
     initSwipeNavigationUtils();
     initNokhteWidgetsUtils();
     initEnRouteActions();

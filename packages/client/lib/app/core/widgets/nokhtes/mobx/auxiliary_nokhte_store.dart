@@ -56,9 +56,10 @@ abstract class _AuxiliaryNokhteStoreBase
         colorway: colorway,
       ),
     );
-    Timer(Seconds.get(0, milli: 100), () {
+    Timer(Seconds.get(0, milli: 1), () {
       setControl(Control.playFromStart);
     });
+    setMovieStatus(MovieStatus.inProgress);
   }
 
   @action

@@ -9,6 +9,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
+import 'package:simple_animations/simple_animations.dart';
 part 'session_navigation_store.g.dart';
 
 class SessionNavigationStore = _SessionNavigationStoreBase
@@ -24,6 +25,8 @@ abstract class _SessionNavigationStoreBase extends BaseWidgetStore
   final SwipeGuideStore swipeGuide;
   final GestureCrossStore gestureCross;
   final SwipeDetector swipe;
+  @override
+  final List<AuxiliaryNokhteStore> auxNokhtes;
   _SessionNavigationStoreBase({
     required this.centerNokhte,
     required this.exitNokhte,
@@ -32,7 +35,7 @@ abstract class _SessionNavigationStoreBase extends BaseWidgetStore
     required this.gestureCross,
     required this.tint,
     required this.swipe,
-  }) {
+  }) : auxNokhtes = [exitNokhte, infoNokhte] {
     initNokhteWidgetsUtils();
     initSwipeNavigationUtils();
     centerNokhte.setWidgetVisibility(false);
@@ -97,6 +100,12 @@ abstract class _SessionNavigationStoreBase extends BaseWidgetStore
     }
 
     //
+  }
+
+  @override
+  setWidgetVisibility(bool visibility) {
+    setControl(Control.stop);
+    super.setWidgetVisibility(visibility);
   }
 
   swipeReactor({
