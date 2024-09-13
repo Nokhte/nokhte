@@ -12,6 +12,7 @@ export 'constants/constants.dart';
 export './needs_update/needs_update.dart';
 export 'home/home.dart';
 export 'root_router/root_router.dart';
+export './quick_actions_router/quick_actions_router.dart';
 export './home_entry/home_entry.dart';
 export 'shared/mobx/mobx.dart';
 export 'shared/shared.dart';
@@ -37,6 +38,14 @@ class HomeModule extends Module {
             Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
         widgets: Modular.get<HomeScreenRootRouterWidgetsCoordinator>(),
+      ),
+    );
+    i.add<QuickActionsRouterCoordinator>(
+      () => QuickActionsRouterCoordinator(
+        cleanUpCollaborationArtifacts:
+            Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
+        widgets: Modular.get<QuickActionsRouterWidgetsCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
       ),
     );
 
@@ -71,6 +80,13 @@ class HomeModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => HomeScreenRootRouterScreen(
         coordinator: Modular.get<HomeScreenRootRouterCoordinator>(),
+      ),
+    );
+    r.child(
+      HomeConstants.relativeQuickActionsRouter,
+      transition: TransitionType.noTransition,
+      child: (context) => QuickActionsRouterScreen(
+        coordinator: Modular.get<QuickActionsRouterCoordinator>(),
       ),
     );
     r.child(
