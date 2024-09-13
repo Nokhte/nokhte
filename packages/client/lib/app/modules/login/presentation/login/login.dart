@@ -60,19 +60,17 @@ class LoginScreen extends HookWidget {
                         child: SignInButton(
                           Buttons.apple,
                           padding: EdgeInsets.symmetric(
-                              horizontal: useScaledSize(
-                                baseValue: .07,
-                                screenSize: screenSize,
-                                bumpPerHundredth: 0.0005,
-                              ),
-                              vertical: useScaledSize(
-                                baseValue: .012,
-                                screenSize: screenSize,
-                                bumpPerHundredth: 0.0001,
-                              )
-                              // horizontal: width * .1,
-                              // vertical: width * .025,
-                              ),
+                            horizontal: useScaledSize(
+                              baseValue: .04,
+                              screenSize: screenSize,
+                              bumpPerHundredth: 0.0005,
+                            ),
+                            vertical: useScaledSize(
+                              baseValue: .012,
+                              screenSize: screenSize,
+                              bumpPerHundredth: 0.0001,
+                            ),
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(7),
                           ),
@@ -92,19 +90,17 @@ class LoginScreen extends HookWidget {
                         child: SignInButton(
                           Buttons.google,
                           padding: EdgeInsets.symmetric(
-                              horizontal: useScaledSize(
-                                baseValue: .07,
-                                screenSize: screenSize,
-                                bumpPerHundredth: 0.0005,
-                              ),
-                              vertical: useScaledSize(
-                                baseValue: .006,
-                                screenSize: screenSize,
-                                bumpPerHundredth: 0.0001,
-                              )
-                              // horizontal: width * .1,
-                              // vertical: width * .01,
-                              ),
+                            horizontal: useScaledSize(
+                              baseValue: .04,
+                              screenSize: screenSize,
+                              bumpPerHundredth: 0.0005,
+                            ),
+                            vertical: useScaledSize(
+                              baseValue: .006,
+                              screenSize: screenSize,
+                              bumpPerHundredth: 0.0001,
+                            ),
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(7),
                           ),
