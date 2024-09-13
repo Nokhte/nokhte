@@ -8,7 +8,7 @@ class SessionStartersList {
           onScreenTime: Seconds.get(3),
         ),
         RotatingTextData(
-          text: "Scroll down for more",
+          text: "Scroll up for more",
           onScreenTime: Seconds.get(3),
         ),
         SharedLists.emptyItem,
@@ -16,7 +16,7 @@ class SessionStartersList {
 
   static List<RotatingTextData> get inactiveQrCode => [
         RotatingTextData(
-          text: "Scroll down to select a session",
+          text: "Scroll up to select a session",
           mainFontSize: 20.0,
         ),
       ];

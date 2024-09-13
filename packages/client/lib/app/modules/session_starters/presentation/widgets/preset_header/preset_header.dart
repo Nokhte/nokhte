@@ -31,7 +31,7 @@ class PresetHeader extends HookWidget {
         child: Padding(
           padding: EdgeInsets.only(
             bottom: useScaledSize(
-              baseValue: .8,
+              baseValue: .85,
               bumpPerHundredth: -0.0000,
               screenSize: screenSize,
             ),
@@ -39,11 +39,11 @@ class PresetHeader extends HookWidget {
           child: Center(
             child: Container(
               height: useScaledSize(
-                baseValue: .09,
+                baseValue: .104,
                 screenSize: screenSize,
                 bumpPerHundredth: .0004,
               ),
-              width: screenSize.width * .45,
+              width: screenSize.width * .48,
               decoration: BoxDecoration(
                   border: const GradientBoxBorder(
                     gradient: LinearGradient(
@@ -59,16 +59,30 @@ class PresetHeader extends HookWidget {
               // color: Colors.red,
               child: Column(
                 children: [
-                  GradientText(
-                    store.presetName,
-                    colors: const [
-                      Color(0xFF109EEE),
-                      Color(0xFF6BAFFF),
-                    ],
-                    style: GoogleFonts.jost(
-                      textStyle: const TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w300,
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: useScaledSize(
+                        baseValue: .003,
+                        bumpPerHundredth: 0.0002,
+                        screenSize: screenSize,
+                      ),
+                      bottom: useScaledSize(
+                        baseValue: .003,
+                        bumpPerHundredth: 0.0000,
+                        screenSize: screenSize,
+                      ),
+                    ),
+                    child: GradientText(
+                      store.presetName,
+                      colors: const [
+                        Color(0xFF109EEE),
+                        Color(0xFF6BAFFF),
+                      ],
+                      style: GoogleFonts.jost(
+                        textStyle: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
                     ),
                   ),

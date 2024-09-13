@@ -15,13 +15,11 @@ class AuxiliaryNokhteStore = _AuxiliaryNokhteStoreBase
 abstract class _AuxiliaryNokhteStoreBase
     extends BaseWidgetStore<NokhteScaleState> with Store {
   _AuxiliaryNokhteStoreBase() {
-    setWidgetVisibility(false);
     setMovie(
-      AuxiliaryNokhteMovies.scale(
+      AuxiliaryNokhteMovies.fadeIn(
         screenSize,
         position: position,
         colorway: colorway,
-        direction: NokhteScaleState.enlarge,
       ),
     );
   }
@@ -51,20 +49,17 @@ abstract class _AuxiliaryNokhteStoreBase
   ) {
     this.position = position;
     this.colorway = colorway;
-    setWidgetVisibility(false);
     setMovie(
-      AuxiliaryNokhteMovies.scale(
+      AuxiliaryNokhteMovies.fadeIn(
         screenSize,
         position: position,
         colorway: colorway,
-        direction: NokhteScaleState.enlarge,
       ),
     );
-    setControl(Control.playFromStart);
-    setControl(Control.stop);
     Timer(Seconds.get(0, milli: 1), () {
-      setWidgetVisibility(true);
+      setControl(Control.playFromStart);
     });
+    setMovieStatus(MovieStatus.inProgress);
   }
 
   @action

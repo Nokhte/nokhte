@@ -34,6 +34,8 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   @override
   final SwipeGuideStore swipeGuide;
+  @override
+  final List<AuxiliaryNokhteStore> auxNokhtes;
 
   _SessionJoinerWidgetsCoordinatorBase({
     required this.beachWaves,
@@ -43,7 +45,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
     required this.centerNokhte,
     required this.homeNokhte,
     required this.swipeGuide,
-  }) {
+  }) : auxNokhtes = [homeNokhte] {
     initSwipeNavigationUtils();
     initBaseWidgetsCoordinatorActions();
     initNokhteWidgetsUtils();

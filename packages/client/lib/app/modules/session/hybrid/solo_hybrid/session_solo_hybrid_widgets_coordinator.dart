@@ -180,6 +180,7 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
   initFullScreenNotes() {
     tapStopwatch.stop();
     isGoingToNotes = true;
+    sessionNavigation.setWidgetVisibility(false);
     setSmartTextVisibilities(false);
     beachWaves.setMovieMode(
       BeachWaveMovieModes.skyToHalfAndHalf,

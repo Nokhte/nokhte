@@ -30,18 +30,19 @@ abstract class _HomeScreenRootRouterCoordinatorBase
     required this.getUserInfo,
     required this.widgets,
   }) {
-    QuickActionsConstants.route(() {
-      setIsRouting(true);
-    });
     initEnRouteActions();
+    QuickActionsConstants.route(() async {
+      setIsRouting(true);
+      await cleanUpCollaborationArtifacts(NoParams());
+    });
   }
 
   @action
   constructor() async {
     widgets.constructor();
     initReactors();
-    await cleanUpCollaborationArtifacts(NoParams());
     if (isConnected && !isRouting) {
+      await cleanUpCollaborationArtifacts(NoParams());
       await decideAndRoute(setRoutingParams);
     }
   }
