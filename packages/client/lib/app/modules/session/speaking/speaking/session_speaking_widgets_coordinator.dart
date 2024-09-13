@@ -109,7 +109,6 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   @action
   onLetGo() {
     initGlowDown();
-    isHolding = false;
     beachWaves.setMovieMode(BeachWaveMovieModes.anyToHalfAndHalf);
     beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
     speakLessSmileMore.hideBoth();
@@ -117,6 +116,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
 
   @action
   onLetGoCompleted() {
+    isHolding = false;
     isLettingGo = false;
     // setCanHold(true);
     if (!collaboratorHasLeft) {
