@@ -34,11 +34,11 @@ class QuickActionsConstants {
 
   static route(Function onRoute) {
     const QuickActions quickActions = QuickActions();
-    quickActions.initialize((String shortcutType) {
+    quickActions.initialize((String shortcutType) async {
       final startSession = QuickActionsEnum.startSession.toString();
       final joinSession = QuickActionsEnum.joinSession.toString();
       final viewStorage = QuickActionsEnum.viewStorage.toString();
-      onRoute();
+      await onRoute();
       if (shortcutType == startSession) {
         Modular.to.navigate(SessionStarterConstants.sessionStarter);
       } else if (shortcutType == joinSession) {
