@@ -69,19 +69,29 @@ abstract class _SessionNotesWidgetsCoordinatorBase
     textEditor.initFadeIn();
 
     textEditor.focusNode.addListener(() {
-      isAHybridScreen
+      isAImpermanentNotesScreen
           ? hybridTextEditorListener()
           : regularTextEditorListener();
     });
-    if (presetType == PresetTypes.consultative &&
-        screenType == SessionScreenTypes.notes) {
+    if (isAPermanentNotesScreen) {
       sessionNavigation.setup(
         screenType,
         presetType,
         initSwipeReactor: false,
       );
-    }
-    if (isAHybridScreen) {
+      disposers.add(
+        gestureCrossTapReactor(
+          onInit: () {
+            textEditor.setWidgetVisibility(false);
+            smartText.setWidgetVisibility(false);
+          },
+          onReverse: () {
+            textEditor.setWidgetVisibility(true);
+            smartText.setWidgetVisibility(smartText.pastShowWidget);
+          },
+        ),
+      );
+    } else {
       Timer(Seconds.get(9, milli: 500), () {
         if (inactivityCount == 0) {
           textEditor.setWidgetVisibility(false);
@@ -90,18 +100,6 @@ abstract class _SessionNotesWidgetsCoordinatorBase
       });
     }
     disposers.add(beachWavesMovieStatusReactor());
-    disposers.add(
-      gestureCrossTapReactor(
-        onInit: () {
-          textEditor.setWidgetVisibility(false);
-          smartText.setWidgetVisibility(false);
-        },
-        onReverse: () {
-          textEditor.setWidgetVisibility(true);
-          smartText.setWidgetVisibility(smartText.pastShowWidget);
-        },
-      ),
-    );
   }
 
   @action
@@ -228,7 +226,12 @@ abstract class _SessionNotesWidgetsCoordinatorBase
   }
 
   @computed
-  bool get isAHybridScreen =>
+  bool get isAImpermanentNotesScreen =>
       screenType == SessionScreenTypes.groupHybrid ||
       screenType == SessionScreenTypes.soloHybrid;
+
+  @computed
+  bool get isAPermanentNotesScreen =>
+      presetType == PresetTypes.consultative &&
+      screenType == SessionScreenTypes.notes;
 }
