@@ -2,6 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:nokhte/app/core/modules/hive/hive.dart';
 import 'package:nokhte/app/core/modules/quick_actions/quick_actions.dart';
+import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/modules/session_joiner/session_joiner.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters_widgets.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
@@ -32,20 +33,28 @@ class QuickActionsConstants {
     await Hive.openBox(HiveBoxes.userInformation.toString());
   }
 
+  static String getRoute(String shortcutType) {
+    final startSession = QuickActionsEnum.startSession.toString();
+    final joinSession = QuickActionsEnum.joinSession.toString();
+    final viewStorage = QuickActionsEnum.viewStorage.toString();
+    if (shortcutType == startSession) {
+      return SessionStarterConstants.sessionStarter;
+    } else if (shortcutType == joinSession) {
+      return SessionJoinerConstants.sessionJoiner;
+    } else if (shortcutType == viewStorage) {
+      return StorageConstants.home;
+    } else {
+      return '';
+    }
+  }
+
   static route(Function onRoute) {
     const QuickActions quickActions = QuickActions();
-    quickActions.initialize((String shortcutType) async {
-      final startSession = QuickActionsEnum.startSession.toString();
-      final joinSession = QuickActionsEnum.joinSession.toString();
-      final viewStorage = QuickActionsEnum.viewStorage.toString();
-      await onRoute();
-      if (shortcutType == startSession) {
-        Modular.to.navigate(SessionStarterConstants.sessionStarter);
-      } else if (shortcutType == joinSession) {
-        Modular.to.navigate(SessionJoinerConstants.sessionJoiner);
-      } else if (shortcutType == viewStorage) {
-        Modular.to.navigate(StorageConstants.home);
-      }
+    quickActions.initialize((String shortcutType) {
+      onRoute();
+      Modular.to.navigate(HomeConstants.quickActionsRouter, arguments: {
+        HomeConstants.QUICK_ACTIONS_ROUTE: getRoute(shortcutType),
+      });
     });
   }
 }

@@ -31,9 +31,8 @@ abstract class _HomeScreenRootRouterCoordinatorBase
     required this.widgets,
   }) {
     initEnRouteActions();
-    QuickActionsConstants.route(() async {
+    QuickActionsConstants.route(() {
       setIsRouting(true);
-      await cleanUpCollaborationArtifacts(NoParams());
     });
   }
 
@@ -41,8 +40,8 @@ abstract class _HomeScreenRootRouterCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
+    await cleanUpCollaborationArtifacts(NoParams());
     if (isConnected && !isRouting) {
-      await cleanUpCollaborationArtifacts(NoParams());
       await decideAndRoute(setRoutingParams);
     }
   }

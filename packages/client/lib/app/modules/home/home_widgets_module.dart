@@ -19,6 +19,11 @@ class HomeWidgetsModule extends Module {
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
     );
+    i.add<QuickActionsRouterWidgetsCoordinator>(
+      () => QuickActionsRouterWidgetsCoordinator(
+        beachWaves: BeachWavesStore(),
+      ),
+    );
     i.add<HomeWidgetsCoordinator>(
       () => HomeWidgetsCoordinator(
         swipeGuides: SwipeGuideStore(),
