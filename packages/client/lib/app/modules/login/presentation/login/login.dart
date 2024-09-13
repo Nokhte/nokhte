@@ -24,6 +24,7 @@ class LoginScreen extends HookWidget {
   Widget build(BuildContext context) {
     final center = useCenterOffset();
     final width = useFullScreenSize().width;
+    final screenSize = useFullScreenSize();
     useEffect(() {
       coordinator.constructor(center);
       return () => coordinator.deconstructor();
@@ -59,9 +60,19 @@ class LoginScreen extends HookWidget {
                         child: SignInButton(
                           Buttons.apple,
                           padding: EdgeInsets.symmetric(
-                            horizontal: width * .1,
-                            vertical: width * .02,
-                          ),
+                              horizontal: useScaledSize(
+                                baseValue: .07,
+                                screenSize: screenSize,
+                                bumpPerHundredth: 0.0005,
+                              ),
+                              vertical: useScaledSize(
+                                baseValue: .012,
+                                screenSize: screenSize,
+                                bumpPerHundredth: 0.0001,
+                              )
+                              // horizontal: width * .1,
+                              // vertical: width * .025,
+                              ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(7),
                           ),
@@ -81,9 +92,19 @@ class LoginScreen extends HookWidget {
                         child: SignInButton(
                           Buttons.google,
                           padding: EdgeInsets.symmetric(
-                            horizontal: width * .1,
-                            vertical: width * .01,
-                          ),
+                              horizontal: useScaledSize(
+                                baseValue: .07,
+                                screenSize: screenSize,
+                                bumpPerHundredth: 0.0005,
+                              ),
+                              vertical: useScaledSize(
+                                baseValue: .006,
+                                screenSize: screenSize,
+                                bumpPerHundredth: 0.0001,
+                              )
+                              // horizontal: width * .1,
+                              // vertical: width * .01,
+                              ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(7),
                           ),
