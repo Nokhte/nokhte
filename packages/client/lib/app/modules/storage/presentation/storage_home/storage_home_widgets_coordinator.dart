@@ -31,6 +31,8 @@ abstract class _StorageHomeWidgetsCoordinatorBase
   final CenterNokhteStore centerNokhte;
   @override
   final AuxiliaryNokhteStore homeNokhte;
+  @override
+  final List<AuxiliaryNokhteStore> auxNokhtes;
 
   @override
   final SwipeGuideStore swipeGuide;
@@ -48,7 +50,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase
     required this.centerNokhte,
     required this.homeNokhte,
     required this.blur,
-  }) {
+  }) : auxNokhtes = [homeNokhte] {
     initBaseWidgetsCoordinatorActions();
     initSmartTextActions();
     initSwipeNavigationUtils();

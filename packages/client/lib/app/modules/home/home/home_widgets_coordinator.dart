@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
@@ -42,6 +40,8 @@ abstract class _HomeWidgetsCoordinatorBase
   final BeachWavesStore beachWaves;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
+  @override
+  final List<AuxiliaryNokhteStore> auxNokhtes;
 
   _HomeWidgetsCoordinatorBase({
     required this.nokhteBlur,
@@ -54,7 +54,11 @@ abstract class _HomeWidgetsCoordinatorBase
     required this.sessionStarterNokhte,
     required this.sessionJoinerNokhte,
     required this.storageNokhte,
-  }) {
+  }) : auxNokhtes = [
+          sessionStarterNokhte,
+          storageNokhte,
+          sessionJoinerNokhte,
+        ] {
     initEnRouteActions();
     initSwipeNavigationUtils();
     initNokhteWidgetsUtils();
@@ -184,16 +188,6 @@ abstract class _HomeWidgetsCoordinatorBase
           }
         },
       );
-
-  @action
-  onTap(Offset offset) {
-    if (!isDisconnected &&
-        hasInitiatedBlur &&
-        isAllowedToMakeGesture() &&
-        !hasSwiped()) {
-      dismissNokhte();
-    }
-  }
 
   @action
   onGestureCrossTap() {

@@ -164,6 +164,7 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
   initFullScreenNotes() {
     if (!sessionNavigation.hasInitiatedBlur) {
       isGoingToNotes = true;
+      sessionNavigation.setWidgetVisibility(false);
       mirroredText.setWidgetVisibility(false);
       beachWaves.setMovieMode(
         BeachWaveMovieModes.skyToInvertedHalfAndHalf,
