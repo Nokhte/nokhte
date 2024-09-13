@@ -21,7 +21,7 @@ abstract class _PresetHeaderStoreBase extends BaseWidgetStore with Store {
 
   @action
   setHeader(
-    String presetName2,
+    String presetName,
     List tags,
   ) {
     this.presetName = presetName;
