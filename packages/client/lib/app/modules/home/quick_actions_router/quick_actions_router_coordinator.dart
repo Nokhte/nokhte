@@ -30,6 +30,7 @@ abstract class _QuickActionsRouterCoordinatorBase
 
   @action
   constructor() async {
+    widgets.preconstructor();
     await cleanUpCollaborationArtifacts(NoParams());
     widgets.constructor();
     initReactors();
