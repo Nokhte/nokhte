@@ -42,7 +42,7 @@ class SessionLobbyScreen extends HookWidget {
             BorderGlow(store: BorderGlowStore()),
             SmartText(
               store: coordinator.widgets.primarySmartText,
-              topPadding: .27,
+              topPadding: .25,
               topBump: 0.0015,
               opacityDuration: Seconds.get(1),
             ),
@@ -65,7 +65,7 @@ class SessionLobbyScreen extends HookWidget {
             Padding(
               padding: EdgeInsets.only(
                   bottom: useScaledSize(
-                baseValue: .06,
+                baseValue: .09,
                 screenSize: screenSize,
                 bumpPerHundredth: .0021,
               )
