@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 
-class FlexibleSeatingIconPainter extends CustomPainter {
+class FlexibleSeatingIconPainter extends CustomPainter with BaseIconPainter {
   final double containerSize;
-  final double o1, o2, o3;
+  final double o1, o2, o3, masterOpacity;
+
+  final bool showText;
 
   FlexibleSeatingIconPainter({
+    required this.masterOpacity,
     required this.o1,
     required this.o2,
     required this.o3,
     required this.containerSize,
+    required this.showText,
   });
 
   getPaint(double opacity, double strokeScalar) => Paint()
-    ..color = Colors.white.withOpacity(opacity)
+    ..color = Colors.white.withOpacity(opacity * masterOpacity)
     ..style = PaintingStyle.stroke
     ..strokeCap = StrokeCap.round
     ..strokeWidth = strokeScalar;
@@ -35,7 +40,7 @@ class FlexibleSeatingIconPainter extends CustomPainter {
     double arrowDistance = 5 * (scalar * .02);
 
     final Paint circlePaint = Paint()
-      ..color = Colors.white
+      ..color = Colors.white.withOpacity(masterOpacity)
       ..style = PaintingStyle.stroke
       ..strokeWidth = scalar * .03;
     canvas.drawCircle(center, circleRad, circlePaint);
@@ -84,6 +89,10 @@ class FlexibleSeatingIconPainter extends CustomPainter {
 
     canvas.drawLine(a6p1, a6p2, getPaint(o3, strokeScalar));
     canvas.drawLine(a6p2, a6p3, getPaint(o3, strokeScalar));
+
+    if (showText) {
+      paintText(canvas, center, 'Seating', containerSize, masterOpacity);
+    }
   }
 
   @override
