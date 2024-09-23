@@ -17,16 +17,25 @@ class ModalBackdrop extends StatelessWidget {
     return DraggableScrollableSheet(
       maxChildSize: .91,
       initialChildSize: .9,
-      minChildSize: .1,
+      minChildSize: .7,
       expand: false,
       builder: (context, scrollController) => SingleChildScrollView(
         controller: scrollController,
         child: FullScreen(
           child: Column(
             children: [
-              ArticleTitle(title),
-              TagLine(tagline),
-              Callout(uniqueFeature),
+              ...ArticleHeader.get(
+                title: title,
+                tagline: tagline,
+                uniqueFeature: uniqueFeature,
+              ),
+
+              ArticleBody(
+                store: ArticleBodyStore(),
+              ),
+              // ArticleTitle(title),
+              // TagLine(tagline),
+              // Callout(uniqueFeature),
             ],
           ),
         ),

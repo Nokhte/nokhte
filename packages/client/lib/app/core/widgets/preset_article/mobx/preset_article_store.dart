@@ -1,7 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/seconds.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'preset_article_store.g.dart';
 
@@ -14,11 +17,16 @@ abstract class _PresetArticleStoreBase extends BaseWidgetStore with Store {
   }) {
     setWidgetVisibility(false);
   }
-  late BuildContext buildContext;
+  late dynamic buildContext;
+  late dynamic controller;
 
   @action
-  setBuildContext(BuildContext context) {
-    return buildContext = context;
+  constructor(context, controller) {
+    if (tapCount == 0) {
+      buildContext = context;
+      this.controller = controller;
+      tapCount++;
+    }
   }
 
   @action
@@ -28,29 +36,32 @@ abstract class _PresetArticleStoreBase extends BaseWidgetStore with Store {
     if (!showWidget) {
       setWidgetVisibility(true);
       nokhteBlur.init();
-      showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(36), // Adjust this value for more radius
+      Timer(Seconds.get(1), () {
+        showModalBottomSheet(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(36), // Adjust this value for more radius
+            ),
           ),
-        ),
-        isScrollControlled: true,
-        backgroundColor: Colors.white.withOpacity(.2),
-        // expan: true,
-        context: buildContext,
-        builder: (context) {
-          return const ModalBackdrop(
-            title: 'Collaboration',
-            tagline:
-                'Great with smaller groups, and works best in creative endeavors',
-            uniqueFeature: 'Flexibility: sit anywhere, notes anytime',
-          );
-        },
-      ).whenComplete(() {
-        onClosed();
-        setWidgetVisibility(false);
-        nokhteBlur.reverse();
-        // print('bottom sheet closed');
+          isScrollControlled: true,
+          backgroundColor: Colors.white.withOpacity(.2),
+          context: buildContext,
+          builder: (context) {
+            return const ModalBackdrop(
+              title: 'Collaboration',
+              tagline:
+                  'Great with smaller groups, and works best in creative endeavors',
+              uniqueFeature: 'Flexibility: sit anywhere, notes anytime',
+            );
+          },
+        ).whenComplete(() {
+          onClosed();
+          setWidgetVisibility(false);
+          Timer(Seconds.get(1), () {
+            nokhteBlur.reverse();
+            // print('bottom sheet closed');
+          });
+        });
       });
     }
   }
