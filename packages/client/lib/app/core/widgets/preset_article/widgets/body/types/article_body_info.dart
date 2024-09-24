@@ -63,7 +63,7 @@ class ArticleBodyInfo extends Equatable {
 
   static List<String> _getJustifications(PresetTypes type, String context) {
     final collaborative = {
-      'speaking': ['Allows you to do other things while talking'],
+      'speaking': ['Allows you to do other things **while talking**'],
       'sitting': [
         'Can **move anytime** in the meeting',
         'Can be used in **more spaces**'

@@ -21,23 +21,17 @@ class ModalBackdrop extends StatelessWidget {
       expand: false,
       builder: (context, scrollController) => SingleChildScrollView(
         controller: scrollController,
-        child: FullScreen(
-          child: Column(
-            children: [
-              ...ArticleHeader.get(
-                title: title,
-                tagline: tagline,
-                uniqueFeature: uniqueFeature,
-              ),
-
-              ArticleBody(
-                store: ArticleBodyStore(),
-              ),
-              // ArticleTitle(title),
-              // TagLine(tagline),
-              // Callout(uniqueFeature),
-            ],
-          ),
+        child: Column(
+          children: [
+            ...ArticleHeader.get(
+              title: title,
+              tagline: tagline,
+              uniqueFeature: uniqueFeature,
+            ),
+            ArticleBody(
+              store: ArticleBodyStore(),
+            ),
+          ],
         ),
       ),
     );

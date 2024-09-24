@@ -196,9 +196,17 @@ class ArticleBody extends HookWidget {
                     fontSize: 27,
                   ),
                 ),
-                RichJostList(
-                  contentList: store.currentInstruction,
-                  isOrdered: true,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  child: RichJostList(
+                    contentList: store.currentInstruction,
+                    isOrdered: true,
+                  ),
+                ),
+                DemoPhones(
+                  opacity: contentLerp(store.currentPosition),
+                  type: DemoTypes.multifocal,
+                  currentPosition: store.currentPosition,
                 ),
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 6.0),
@@ -207,9 +215,12 @@ class ArticleBody extends HookWidget {
                     fontSize: 27,
                   ),
                 ),
-                RichJostList(
-                  contentList: store.currentJustification,
-                  isOrdered: false,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 100),
+                  child: RichJostList(
+                    contentList: store.currentJustification,
+                    isOrdered: false,
+                  ),
                 ),
               ],
             ),

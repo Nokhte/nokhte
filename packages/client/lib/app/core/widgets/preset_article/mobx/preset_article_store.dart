@@ -17,8 +17,8 @@ abstract class _PresetArticleStoreBase extends BaseWidgetStore with Store {
   }) {
     setWidgetVisibility(false);
   }
-  late dynamic buildContext;
-  late dynamic controller;
+  late BuildContext buildContext;
+  late AnimationController controller;
 
   @action
   constructor(context, controller) {

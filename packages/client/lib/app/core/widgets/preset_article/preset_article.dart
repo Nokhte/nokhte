@@ -17,11 +17,12 @@ class PresetArticle extends HookWidget {
   @override
   Widget build(BuildContext context) {
     store.constructor(
-        context,
-        useAnimationController(
-          duration: Seconds.get(1),
-          reverseDuration: Seconds.get(1),
-        ));
+      context,
+      useAnimationController(
+        duration: Seconds.get(1),
+        reverseDuration: Seconds.get(1),
+      ),
+    );
     return NokhteBlur(
       store: store.nokhteBlur,
     );
