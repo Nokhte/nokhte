@@ -15,6 +15,7 @@ abstract class _OrangeSandToSkyBase extends BaseBeachWaveMovieStore<NoParams>
           callsOnCompleteTwice: false,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       WaterColorsAndStops.orangeSand,
       WaterColorsAndStops.sky,
     );

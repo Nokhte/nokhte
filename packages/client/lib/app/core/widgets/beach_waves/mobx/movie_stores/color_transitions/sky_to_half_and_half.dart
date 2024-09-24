@@ -5,16 +5,16 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'sky_to_half_and_half.g.dart';
 
-class SkyToHalfAndHalf = _SkyToHalfAndHalfBase
-    with _$SkyToHalfAndHalf;
+class SkyToHalfAndHalf = _SkyToHalfAndHalfBase with _$SkyToHalfAndHalf;
 
-abstract class _SkyToHalfAndHalfBase
-    extends BaseBeachWaveMovieStore<NoParams> with Store {
+abstract class _SkyToHalfAndHalfBase extends BaseBeachWaveMovieStore<NoParams>
+    with Store {
   _SkyToHalfAndHalfBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       WaterColorsAndStops.sky,
       WaterColorsAndStops.halfWaterAndSand,
     );

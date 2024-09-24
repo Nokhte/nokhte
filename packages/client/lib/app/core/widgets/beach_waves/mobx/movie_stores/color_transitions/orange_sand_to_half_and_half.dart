@@ -16,6 +16,7 @@ abstract class _OrangeSandToHalfAndHalfBase
           callsOnCompleteTwice: false,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       WaterColorsAndStops.orangeSand,
       WaterColorsAndStops.halfWaterAndSand,
     );
