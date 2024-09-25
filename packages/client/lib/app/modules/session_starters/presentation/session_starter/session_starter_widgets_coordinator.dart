@@ -27,6 +27,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         EnRoute,
         HomeNavigation {
   final SmartTextStore qrSubtitleSmartText;
+  final PresetArticleStore presetArticle;
   // final PresetIconsStore presetIcons;
   final PresetHeaderStore presetHeader;
   final BeachWavesStore beachWaves;
@@ -49,6 +50,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   final List<AuxiliaryNokhteStore> auxNokhtes;
 
   _SessionStarterWidgetsCoordinatorBase({
+    required this.presetArticle,
     required this.beachWaves,
     required this.headerText,
     required this.presetHeader,
@@ -385,10 +387,9 @@ abstract class _SessionStarterWidgetsCoordinatorBase
       });
   condensedPresetCardTapReactor() =>
       reaction((p0) => presetCards.condensedTapCount, (p0) {
-        if (presetCards.currentExpandedPresetCardName.isNotEmpty) {
-          presetCards.onChosenNameChanged();
-          headerText.setWidgetVisibility(false);
-        }
+        presetArticle.showBottomSheet(
+          presetCards.currentExpandedPresetType,
+        );
       });
 
   condensedPresetCardHoldReactor() =>

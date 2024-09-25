@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class ModalBackdrop extends StatelessWidget {
-  final String title;
-  final String tagline;
-  final String uniqueFeature;
+  final ArticleBodyStore store;
   const ModalBackdrop({
     super.key,
-    required this.title,
-    required this.tagline,
-    required this.uniqueFeature,
+    required this.store,
   });
 
   @override
@@ -24,12 +20,12 @@ class ModalBackdrop extends StatelessWidget {
         child: Column(
           children: [
             ...ArticleHeader.get(
-              title: title,
-              tagline: tagline,
-              uniqueFeature: uniqueFeature,
+              title: store.bodyInfo.title,
+              tagline: store.bodyInfo.tagline,
+              uniqueFeature: store.bodyInfo.uniqueFeature,
             ),
             ArticleBody(
-              store: ArticleBodyStore(),
+              store: store,
             ),
           ],
         ),

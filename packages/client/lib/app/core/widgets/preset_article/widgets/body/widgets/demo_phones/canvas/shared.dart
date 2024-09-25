@@ -226,4 +226,131 @@ mixin DemoPainterUtils {
 
     canvas.restore();
   }
+
+  void drawTint(Canvas canvas, Offset offset, double width, double height,
+      double cornerRadius, double opacity, TintType type
+      // DemoTypes type,
+      ) {
+    final paint = Paint()..color = Colors.black.withOpacity(opacity / 2);
+    RRect rrect = RRect.fromRectAndRadius(
+      Rect.fromLTWH(
+        offset.dx,
+        offset.dy,
+        width,
+        height,
+      ),
+      Radius.circular(cornerRadius),
+    );
+    if (type != TintType.full) {
+      if (type == TintType.bottomHalf) {
+        final gradient = LinearGradient(
+          colors: [
+            Colors.black.withOpacity(opacity),
+            Colors.black.withOpacity(opacity),
+          ],
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+        );
+        final rect = Rect.fromLTWH(
+          offset.dx,
+          offset.dy + height / 2,
+          width,
+          height / 2,
+        );
+        paint.shader = gradient.createShader(rect);
+        rrect = RRect.fromRectAndCorners(
+          rect,
+          bottomLeft: Radius.circular(cornerRadius),
+          bottomRight: Radius.circular(cornerRadius),
+        );
+      } else {
+        final gradient = LinearGradient(
+          colors: [
+            Colors.black.withOpacity(opacity),
+            Colors.black.withOpacity(opacity / 2),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        );
+        final rect = Rect.fromLTWH(
+          offset.dx,
+          offset.dy,
+          width,
+          height / 2,
+        );
+        paint.shader = gradient.createShader(rect);
+        rrect = RRect.fromRectAndCorners(
+          rect,
+          topLeft: Radius.circular(cornerRadius),
+          topRight: Radius.circular(cornerRadius),
+        );
+      }
+    }
+
+    canvas.drawRRect(rrect, paint);
+  }
+
+  void paintPhoneTexts(
+    Canvas canvas,
+    Offset phoneOffset,
+    double phoneWidth,
+    double phoneHeight,
+    double opacity,
+    double containerSize,
+    DemoTypes type,
+  ) {
+    final rect = phoneOffset & Size(phoneWidth, phoneHeight);
+    final center = rect.center;
+    paintText(
+      canvas,
+      center,
+      'Tap to take a note',
+      containerSize,
+      opacity,
+      DemoTextPosition.slightlyAboveCenter,
+      rect,
+    );
+    paintText(
+      canvas,
+      center,
+      type == DemoTypes.multifocal ? 'Tap to speak' : 'Hold to speak',
+      containerSize,
+      opacity,
+      DemoTextPosition.slightlyBelowCenter,
+      rect,
+    );
+  }
+
+  paintNotesPhoneTexts(
+    Canvas canvas,
+    Offset phoneOffset,
+    double phoneWidth,
+    double phoneHeight,
+    double containerSize,
+    double aboveCenterTextOpacity,
+    double aboveCenterTextProgress,
+    double belowCenterTextOpacity,
+  ) {
+    final rect = phoneOffset & Size(phoneWidth, phoneHeight);
+    final center = rect.center;
+
+    paintNotesText(
+      canvas,
+      center,
+      'Your note',
+      containerSize,
+      aboveCenterTextOpacity,
+      aboveCenterTextProgress,
+      rect,
+    );
+    paintText(
+      canvas,
+      center,
+      'Swipe up to submit',
+      containerSize,
+      belowCenterTextOpacity,
+      DemoTextPosition.belowCenter,
+      rect,
+    );
+  }
 }

@@ -11,6 +11,9 @@ class ArticleBodyInfo extends Equatable {
   final List<String> sittingJustifications;
   final List<String> notesJustifications;
   final DemoTypes demoTypes;
+  final String title;
+  final String tagline;
+  final String uniqueFeature;
 
   ArticleBodyInfo({required this.presetType})
       : speakingInstructions = _getInstructions(presetType, 'speaking'),
@@ -18,6 +21,9 @@ class ArticleBodyInfo extends Equatable {
         notesInstructions = _getInstructions(presetType, 'notes'),
         speakingJustifications = _getJustifications(presetType, 'speaking'),
         sittingJustifications = _getJustifications(presetType, 'sitting'),
+        title = _getTitle(presetType),
+        tagline = _getTagline(presetType),
+        uniqueFeature = _getUniqueFeature(presetType),
         notesJustifications = [
           'Write with brevity **(104 characters)**',
           '**Keep** track of ideas'
@@ -60,6 +66,17 @@ class ArticleBodyInfo extends Equatable {
         ? collaborative[context]!
         : consultative[context]!;
   }
+
+  static String _getTitle(PresetTypes type) =>
+      type == PresetTypes.collaborative ? 'Collaborative' : 'Consultation';
+  static String _getTagline(PresetTypes type) =>
+      type == PresetTypes.collaborative
+          ? 'Great with smaller groups, and works best in creative endeavors'
+          : 'Great for beginners, and groups of any size \n';
+  static String _getUniqueFeature(PresetTypes type) => type ==
+          PresetTypes.collaborative
+      ? 'Flexibility: sit anywhere, notes anytime'
+      : 'One at a time: The group is either listening or writing notes, not both.';
 
   static List<String> _getJustifications(PresetTypes type, String context) {
     final collaborative = {

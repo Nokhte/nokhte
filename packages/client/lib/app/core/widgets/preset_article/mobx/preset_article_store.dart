@@ -6,14 +6,17 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/seconds.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 part 'preset_article_store.g.dart';
 
 class PresetArticleStore = _PresetArticleStoreBase with _$PresetArticleStore;
 
 abstract class _PresetArticleStoreBase extends BaseWidgetStore with Store {
   final NokhteBlurStore nokhteBlur;
+  final ArticleBodyStore body;
   _PresetArticleStoreBase({
     required this.nokhteBlur,
+    required this.body,
   }) {
     setWidgetVisibility(false);
   }
@@ -30,9 +33,8 @@ abstract class _PresetArticleStoreBase extends BaseWidgetStore with Store {
   }
 
   @action
-  showBottomSheet({
-    required Function onClosed,
-  }) {
+  showBottomSheet(PresetTypes presetType) {
+    body.setPresetType(presetType);
     if (!showWidget) {
       setWidgetVisibility(true);
       nokhteBlur.init();
@@ -47,19 +49,16 @@ abstract class _PresetArticleStoreBase extends BaseWidgetStore with Store {
           backgroundColor: Colors.white.withOpacity(.2),
           context: buildContext,
           builder: (context) {
-            return const ModalBackdrop(
-              title: 'Collaboration',
-              tagline:
-                  'Great with smaller groups, and works best in creative endeavors',
-              uniqueFeature: 'Flexibility: sit anywhere, notes anytime',
+            return ModalBackdrop(
+              store: body,
             );
           },
         ).whenComplete(() {
-          onClosed();
-          setWidgetVisibility(false);
           Timer(Seconds.get(1), () {
             nokhteBlur.reverse();
-            // print('bottom sheet closed');
+          });
+          Timer(Seconds.get(2), () {
+            setWidgetVisibility(false);
           });
         });
       });

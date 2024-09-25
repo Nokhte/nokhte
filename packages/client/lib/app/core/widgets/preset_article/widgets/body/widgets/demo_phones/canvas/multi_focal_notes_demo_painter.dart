@@ -47,49 +47,24 @@ class MultiFocalNotesDemoPainter extends CustomPainter with DemoPainterUtils {
 
     drawPhone(
         canvas, phoneOffset, phoneWidth, phoneHeight, grad, phoneCornerRadius);
-    paintPhoneTexts(canvas, phoneOffset, phoneWidth, phoneHeight);
-  }
-
-  paintPhoneTexts(Canvas canvas, Offset phoneOffset, double phoneWidth,
-      double phoneHeight) {
-    final rect = phoneOffset & Size(phoneWidth, phoneHeight);
-    final center = rect.center;
-
-    paintNotesText(
+    paintPhoneTexts(
       canvas,
-      center,
-      'Your note',
+      phoneOffset,
+      phoneWidth,
+      phoneHeight,
+      slightlyAboveCenterTextOpacity,
+      containerSize,
+      type,
+    );
+    paintNotesPhoneTexts(
+      canvas,
+      phoneOffset,
+      phoneWidth,
+      phoneHeight,
       containerSize,
       aboveCenterTextOpacity,
       aboveCenterTextProgress,
-      rect,
-    );
-    paintText(
-      canvas,
-      center,
-      'Tap to take a note',
-      containerSize,
-      slightlyAboveCenterTextOpacity,
-      DemoTextPosition.slightlyAboveCenter,
-      rect,
-    );
-    paintText(
-      canvas,
-      center,
-      'Tap to speak',
-      containerSize,
-      slightlyBelowCenterTextOpacity,
-      DemoTextPosition.slightlyBelowCenter,
-      rect,
-    );
-    paintText(
-      canvas,
-      center,
-      'Swipe up to submit',
-      containerSize,
       belowCenterTextOpacity,
-      DemoTextPosition.belowCenter,
-      rect,
     );
   }
 

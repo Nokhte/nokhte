@@ -129,6 +129,9 @@ class SessionStarterScreen extends HookWidget {
               AuxiliaryNokhte(
                 store: coordinator.widgets.homeNokhte,
               ),
+              PresetArticle(
+                store: coordinator.widgets.presetArticle,
+              ),
               WifiDisconnectOverlay(
                 store: coordinator.widgets.wifiDisconnectOverlay,
               ),

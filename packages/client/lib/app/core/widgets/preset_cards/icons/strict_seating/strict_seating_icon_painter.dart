@@ -64,7 +64,7 @@ class StrictSeatingIconPainter extends CustomPainter with BaseIconPainter {
     canvas.drawLine(baseBottom, baseLeft, paint1);
     canvas.drawLine(baseLeft, baseTop, paint1);
     if (showText) {
-      paintText(canvas, center, 'Notes', containerSize, masterOpacity);
+      paintText(canvas, center, 'Seating', containerSize, masterOpacity);
     }
   }
 

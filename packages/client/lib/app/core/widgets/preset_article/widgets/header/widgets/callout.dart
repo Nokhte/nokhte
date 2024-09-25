@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gradient_borders/gradient_borders.dart';
+import 'package:nokhte/app/core/hooks/use_full_screen_size.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class Callout extends StatelessWidget {
+class Callout extends HookWidget {
   final String content;
   const Callout(
     this.content, {
@@ -12,6 +14,7 @@ class Callout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fullScreenSize = useFullScreenSize();
     return LoopAnimationBuilder(
       tween: CalloutMovie.movie,
       duration: CalloutMovie.movie.duration,
@@ -29,6 +32,7 @@ class Callout extends StatelessWidget {
               ),
             ),
             Container(
+              width: fullScreenSize.width * 0.8,
               decoration: BoxDecoration(
                 border: GradientBoxBorder(
                   gradient: LinearGradient(
@@ -60,6 +64,7 @@ class Callout extends StatelessWidget {
                   content,
                   fontSize: 17,
                   fontWeight: FontWeight.w300,
+                  shouldCenter: true,
                 ),
               ),
             ),

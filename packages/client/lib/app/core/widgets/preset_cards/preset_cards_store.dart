@@ -2,6 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 part 'preset_cards_store.g.dart';
 
 class PresetCardsStore = _PresetCardsStoreBase with _$PresetCardsStore;
@@ -98,6 +99,15 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
       if (resetIndex != -1) {
         condensed.showOnly(resetIndex);
       }
+    }
+  }
+
+  @computed
+  PresetTypes get currentExpandedPresetType {
+    if (currentExpandedPresetCardName.contains('onsultat')) {
+      return PresetTypes.consultative;
+    } else {
+      return PresetTypes.collaborative;
     }
   }
 

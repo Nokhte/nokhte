@@ -74,8 +74,8 @@ abstract class _ArticleBodyStoreBase extends BaseWidgetStore with Store {
 
   @computed
   List get tags => presetType == PresetTypes.collaborative
-      ? ["hold_to_speak", "strict_seating", "notes_during"]
-      : ["tap_to_speak", "flexible_seating", "notes_during"];
+      ? ["tap_to_speak", "flexible_seating", "notes_during"]
+      : ["hold_to_speak", "strict_seating", "notes_during"];
 
   @computed
   String get currentInstructionsHeader {

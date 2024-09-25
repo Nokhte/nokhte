@@ -2,29 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'shared.dart';
 
-class SpeakingDemosPainter extends CustomPainter with DemoPainterUtils {
+class MonoFocalNotesDemoPainter extends CustomPainter with DemoPainterUtils {
   final DemoTypes type;
   final List<Color> leftPhoneColorsList;
   final List<Color> rightPhoneColorsList;
   final List<double> leftPhoneStopsList;
   final List<double> rightPhoneStopsList;
-  final Color glowColor;
-  final double activeTextOpacity,
-      restingTextOpacity,
-      glowStrokeWidth,
-      containerSize;
+  final double containerSize,
+      aboveCenterTextOpacity,
+      aboveCenterTextProgress,
+      belowCenterTextOpacity,
+      slightlyAboveCenterTextOpacity,
+      slightlyBelowCenterTextOpacity;
 
-  SpeakingDemosPainter({
+  MonoFocalNotesDemoPainter({
     required this.type,
     required this.containerSize,
     required this.leftPhoneColorsList,
     required this.leftPhoneStopsList,
     required this.rightPhoneColorsList,
     required this.rightPhoneStopsList,
-    required this.activeTextOpacity,
-    required this.restingTextOpacity,
-    required this.glowColor,
-    required this.glowStrokeWidth,
+    required this.aboveCenterTextOpacity,
+    required this.aboveCenterTextProgress,
+    required this.belowCenterTextOpacity,
+    required this.slightlyAboveCenterTextOpacity,
+    required this.slightlyBelowCenterTextOpacity,
   });
 
   @override
@@ -65,47 +67,38 @@ class SpeakingDemosPainter extends CustomPainter with DemoPainterUtils {
       phoneCornerRadius,
     );
 
+    paintNotesPhoneTexts(
+      canvas,
+      leftPhoneOffset,
+      phoneWidth,
+      phoneHeight,
+      containerSize,
+      aboveCenterTextOpacity,
+      aboveCenterTextProgress,
+      belowCenterTextOpacity,
+    );
+
     drawTint(
       canvas,
       rightPhoneOffset,
       phoneWidth,
       phoneHeight,
       phoneCornerRadius,
-      activeTextOpacity,
-      type == DemoTypes.multifocal ? TintType.bottomHalf : TintType.full,
+      aboveCenterTextOpacity,
+      TintType.bottomHalf,
     );
 
-    final lRect = leftPhoneOffset & Size(phoneWidth, phoneHeight);
     final rRect = rightPhoneOffset & Size(phoneWidth, phoneHeight);
-    final lCenter = lRect.center;
     final rCenter = rRect.center;
 
     paintText(
       canvas,
-      lCenter,
-      'Speaking',
-      containerSize,
-      activeTextOpacity,
-      DemoTextPosition.leftHeader,
-      lRect,
-    );
-    paintText(
-      canvas,
       rCenter,
-      'Listening',
+      'Waiting',
       containerSize,
-      activeTextOpacity,
+      aboveCenterTextOpacity,
       DemoTextPosition.leftHeader,
       rRect,
-    );
-    paintPhoneTexts(
-      canvas,
-      leftPhoneOffset,
-      phoneWidth,
-      phoneHeight,
-      restingTextOpacity,
-      containerSize,
-      type,
     );
     paintPhoneTexts(
       canvas,
@@ -114,48 +107,19 @@ class SpeakingDemosPainter extends CustomPainter with DemoPainterUtils {
       phoneHeight,
       1,
       containerSize,
-      type,
+      DemoTypes.monofocal,
     );
 
-    drawBlurredBorder(
+    paintPhoneTexts(
       canvas,
       leftPhoneOffset,
       phoneWidth,
       phoneHeight,
-      phoneCornerRadius,
-      glowColor,
-      glowStrokeWidth,
+      slightlyAboveCenterTextOpacity,
+      containerSize,
+      DemoTypes.monofocal,
     );
   }
-
-  // void paintPhoneTexts(
-  //   Canvas canvas,
-  //   Offset phoneOffset,
-  //   double phoneWidth,
-  //   double phoneHeight,
-  //   double opacity,
-  // ) {
-  //   final rect = phoneOffset & Size(phoneWidth, phoneHeight);
-  //   final center = rect.center;
-  //   paintText(
-  //     canvas,
-  //     center,
-  //     'Tap to take a note',
-  //     containerSize,
-  //     opacity,
-  //     DemoTextPosition.slightlyAboveCenter,
-  //     rect,
-  //   );
-  //   paintText(
-  //     canvas,
-  //     center,
-  //     type == DemoTypes.multifocal ? 'Tap to speak' : 'Hold to speak',
-  //     containerSize,
-  //     opacity,
-  //     DemoTextPosition.slightlyBelowCenter,
-  //     rect,
-  //   );
-  // }
 
   @override
   bool shouldRepaint(oldDelegate) => true;
