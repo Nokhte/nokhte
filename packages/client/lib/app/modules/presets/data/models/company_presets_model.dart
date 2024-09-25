@@ -20,11 +20,14 @@ class CompanyPresetsModel extends CompanyPresetsEntity {
       final List tags = [];
       final List names = [];
       for (var preset in presetsRes) {
-        unifiedUIDs.add(preset[CompanyPresetsQueries.UNIFIED_PRESETS]
-            .first[CompanyPresetsQueries.UID]);
-        tags.add(preset[CompanyPresetsQueries.TAGS]);
-        names.add(preset[CompanyPresetsQueries.NAME]);
+        if (preset[CompanyPresetsQueries.NAME] != 'Socratic') {
+          unifiedUIDs.add(preset[CompanyPresetsQueries.UNIFIED_PRESETS]
+              .first[CompanyPresetsQueries.UID]);
+          tags.add(preset[CompanyPresetsQueries.TAGS]);
+          names.add(preset[CompanyPresetsQueries.NAME]);
+        }
       }
+
       return CompanyPresetsModel(
         unifiedUIDs: unifiedUIDs,
         tags: tags,
