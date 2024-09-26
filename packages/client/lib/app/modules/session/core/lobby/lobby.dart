@@ -46,22 +46,6 @@ class SessionLobbyScreen extends HookWidget {
               topBump: 0.0015,
               opacityDuration: Seconds.get(1),
             ),
-            FullScreen(
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: useScaledSize(
-                      baseValue: .33,
-                      bumpPerHundredth: 0.0005,
-                      screenSize: screenSize,
-                    ),
-                  ),
-                  child: PresetIcons(
-                    store: coordinator.widgets.presetIcons,
-                  ),
-                ),
-              ),
-            ),
             Padding(
               padding: EdgeInsets.only(
                   bottom: useScaledSize(
@@ -82,6 +66,9 @@ class SessionLobbyScreen extends HookWidget {
             ),
             CollaboratorPresenceIncidentsOverlay(
               store: coordinator.presence.incidentsOverlayStore,
+            ),
+            PresetArticle(
+              store: coordinator.widgets.presetArticle,
             ),
             WifiDisconnectOverlay(
               store: coordinator.widgets.wifiDisconnectOverlay,

@@ -36,7 +36,10 @@ class SessionWidgetsModule extends Module {
     );
     i.add<SessionLobbyWidgetsCoordinator>(
       () => SessionLobbyWidgetsCoordinator(
-        presetIcons: PresetIconsStore(),
+        presetArticle: PresetArticleStore(
+          nokhteBlur: NokhteBlurStore(),
+          body: ArticleBodyStore(),
+        ),
         touchRipple: TouchRippleStore(),
         primarySmartText: SmartTextStore(),
         qrCode: NokhteQrCodeStore(),

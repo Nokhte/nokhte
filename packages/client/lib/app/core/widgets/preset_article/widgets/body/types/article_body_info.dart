@@ -68,7 +68,7 @@ class ArticleBodyInfo extends Equatable {
   }
 
   static String _getTitle(PresetTypes type) =>
-      type == PresetTypes.collaborative ? 'Collaborative' : 'Consultation';
+      type == PresetTypes.collaborative ? 'Collaboration' : 'Consultation';
   static String _getTagline(PresetTypes type) =>
       type == PresetTypes.collaborative
           ? 'Great with smaller groups, and works best in creative endeavors'

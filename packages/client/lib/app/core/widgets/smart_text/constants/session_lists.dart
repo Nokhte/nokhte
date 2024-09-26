@@ -16,18 +16,18 @@ class SessionLists {
     ),
   ];
 
-  static List<RotatingTextData> lobby(String presetName) => [
-        SharedLists.emptyItem,
-        RotatingTextData(
-          text: presetName,
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          text: "Tap to begin",
-          pauseHere: true,
-        ),
-        SharedLists.emptyItem,
-      ];
+  static List<RotatingTextData> lobby = [
+    // SharedLists.emptyItem,
+    RotatingTextData(
+      text: 'Scan to Join',
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      text: "Tap to begin",
+      pauseHere: true,
+    ),
+    SharedLists.emptyItem,
+  ];
 
   static List<RotatingTextData> tapWhenYouHaveDoneSo(int length) => List.filled(
         length,
