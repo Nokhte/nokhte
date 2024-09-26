@@ -20,14 +20,14 @@ abstract class _SessionInformationWidgetsCoordinatorBase
   final SmartTextStore primarySmartText;
   final TintStore tint;
   final TouchRippleStore touchRipple;
-  final ExpandedPresetCardsStore presetCard;
+  // final ExpandedPresetCardsStore presetCard;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _SessionInformationWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.primarySmartText,
-    required this.presetCard,
+    // required this.presetCard,
     required this.tint,
     required this.touchRipple,
     required this.wifiDisconnectOverlay,
@@ -45,9 +45,9 @@ abstract class _SessionInformationWidgetsCoordinatorBase
     beachWaves.setMovieMode(getMovieMode(phoneType));
     primarySmartText.setMessagesData(SessionLists.previewHeader);
     primarySmartText.startRotatingText();
-    presetCard.setWidgetVisibility(false);
+    // presetCard.setWidgetVisibility(false);
     Timer(Seconds.get(0, milli: 1), () {
-      presetCard.setExpandedCard(name: sessionName, tags: tags);
+      // presetCard.setExpandedCard(name: sessionName, tags: tags);
     });
   }
 
@@ -66,13 +66,13 @@ abstract class _SessionInformationWidgetsCoordinatorBase
 
   @action
   onCollaboratorJoined() {
-    presetCard.setWidgetVisibility(true);
+    // presetCard.setWidgetVisibility(true);
     primarySmartText.setWidgetVisibility(true);
   }
 
   @action
   onCollaboratorLeft() {
-    presetCard.setWidgetVisibility(false);
+    // presetCard.setWidgetVisibility(false);
     primarySmartText.setWidgetVisibility(false);
   }
 
@@ -89,7 +89,7 @@ abstract class _SessionInformationWidgetsCoordinatorBase
   onTap(Offset tapPosition) async {
     if (isFirstTap) {
       touchRipple.onTap(tapPosition);
-      presetCard.setWidgetVisibility(false);
+      // presetCard.setWidgetVisibility(false);
       isNavigatingAway = true;
       tint.initMovie(NoParams());
       primarySmartText.startRotatingText(isResuming: true);

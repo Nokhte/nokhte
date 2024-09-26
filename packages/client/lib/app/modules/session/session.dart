@@ -6,7 +6,6 @@ import 'package:nokhte/app/modules/session/monetize/monetize.dart';
 import 'package:nokhte/app/modules/session/session_widgets_module.dart';
 import 'session.dart';
 export 'core/core.dart';
-export 'instructions/instructions.dart';
 export 'logic/session_logic.dart';
 export 'constants/constants.dart';
 export 'widgets/widgets.dart';
@@ -21,7 +20,6 @@ class SessionModule extends Module {
         SessionNotesModule(),
         SessionCoreModule(),
         SessionSpeakingModule(),
-        SessionInstructionsModule(),
         SessionHybridModule(),
         CleanUpCollaborationArtifactsModule(),
         PosthogModule(),
@@ -31,10 +29,6 @@ class SessionModule extends Module {
 
   @override
   void routes(r) {
-    r.module(
-      SessionConstants.instructionsModule,
-      module: SessionInstructionsModule(),
-    );
     r.module(SessionConstants.notesModule, module: SessionNotesModule());
     r.module(SessionConstants.speakingModule, module: SessionSpeakingModule());
     r.module(SessionConstants.hybridModule, module: SessionHybridModule());
