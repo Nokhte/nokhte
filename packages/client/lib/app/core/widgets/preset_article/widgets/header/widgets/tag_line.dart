@@ -4,12 +4,14 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class TagLine extends StatelessWidget {
   final String text;
+  final bool useExpandedPadding;
   final TextStyle textStyle = GoogleFonts.jost(
     fontSize: 15,
   );
 
   TagLine(
     this.text, {
+    this.useExpandedPadding = true,
     super.key,
   });
 
@@ -31,9 +33,9 @@ class TagLine extends StatelessWidget {
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(width: 40),
+            SizedBox(width: useExpandedPadding ? 40 : 30),
             Padding(
-              padding: const EdgeInsets.only(top: 3.0),
+              padding: EdgeInsets.only(top: useExpandedPadding ? 3.0 : 0.0),
               child: Container(
                 width: 2,
                 height: textHeight - 5,
@@ -48,7 +50,7 @@ class TagLine extends StatelessWidget {
                 fontSize: 15,
               ),
             ),
-            const SizedBox(width: 80),
+            SizedBox(width: useExpandedPadding ? 80 : 30),
           ],
         );
       },
