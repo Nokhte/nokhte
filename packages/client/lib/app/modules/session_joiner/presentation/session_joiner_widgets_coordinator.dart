@@ -137,7 +137,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
 
   beachWavesReactor() => reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          Modular.to.navigate(SessionConstants.preview);
+          Modular.to.navigate(SessionConstants.lobby);
         }
       });
 
