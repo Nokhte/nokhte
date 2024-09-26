@@ -5,14 +5,13 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'condensed_preset_cards_store.g.dart';
+part 'preset_cards_store.g.dart';
 
-class CondensedPresetCardsStore = _CondensedPresetCardsStoreBase
-    with _$CondensedPresetCardsStore;
+class PresetCardsStore = _PresetCardsStoreBase with _$PresetCardsStore;
 
-abstract class _CondensedPresetCardsStoreBase extends BaseWidgetStore
-    with Store {
+abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
   @observable
   ObservableList<Control> controls = ObservableList();
 
@@ -27,6 +26,75 @@ abstract class _CondensedPresetCardsStoreBase extends BaseWidgetStore
 
   @observable
   ObservableList<Color> selectedPresetColors = ObservableList.of([]);
+
+  @observable
+  ObservableList unifiedUIDs = ObservableList();
+
+  @observable
+  ObservableList tags = ObservableList();
+
+  @observable
+  ObservableList names = ObservableList();
+
+  @observable
+  String preferredPresetUID = "";
+
+  List<String> taglines = [
+    ArticleBodyInfo(presetType: PresetTypes.consultative).tagline,
+    ArticleBodyInfo(presetType: PresetTypes.collaborative).tagline,
+  ];
+
+  @action
+  setPreferredPresetUID(String uid) => preferredPresetUID = uid;
+
+  @action
+  setPresets({
+    required ObservableList unifiedUIDs,
+    required ObservableList tags,
+    required ObservableList names,
+    bool isInstructions = true,
+  }) {
+    this.unifiedUIDs = unifiedUIDs;
+    this.tags = tags;
+    this.names = names;
+  }
+
+  @action
+  showAllCondensedPresets({
+    required bool showTags,
+    int preferredIndex = -1,
+  }) {
+    if (!showTags) {
+      setShowTags(false);
+    }
+    if (preferredIndex == -1) {
+      fadeEverythingIn(tags.length);
+      setWidgetVisibility(true);
+    }
+  }
+
+  @action
+  activateSelectedPreset() {
+    if (preferredPresetUID.isNotEmpty) {
+      enableAllTouchFeedback();
+      setCurrentHeldIndex(preferredPresetIndex);
+      selectPreset(preferredPresetIndex);
+    }
+  }
+
+  @action
+  selectPreset(int index) {
+    initSelectionInProgress(index);
+  }
+
+  @computed
+  PresetTypes get currentExpandedPresetType {
+    if (currentExpandedPresetCardName.contains('onsultat')) {
+      return PresetTypes.consultative;
+    } else {
+      return PresetTypes.collaborative;
+    }
+  }
 
   @action
   setSelectedPresetColors(List<Color> colors) =>
@@ -217,4 +285,25 @@ abstract class _CondensedPresetCardsStoreBase extends BaseWidgetStore
   @action
   resetMovieStatuses() => movieStatuses =
       ObservableList.of(List.filled(length, MovieStatus.inProgress));
+
+  @computed
+  int get condensedTapCount => tapCount;
+
+  @computed
+  String get currentExpandedPresetCardName =>
+      currentTappedIndex == -1 ? '' : names[currentTappedIndex];
+
+  @computed
+  List get currentExpandedPresetTags =>
+      currentTappedIndex == -1 ? [] : tags[currentTappedIndex];
+
+  @computed
+  String get currentlySelectedSessionUID =>
+      currentHeldIndex == -1 ? '' : unifiedUIDs[currentHeldIndex];
+
+  @computed
+  int get preferredPresetIndex =>
+      unifiedUIDs.isEmpty || preferredPresetUID.isEmpty
+          ? -1
+          : unifiedUIDs.indexOf(preferredPresetUID);
 }
