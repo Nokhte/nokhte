@@ -23,6 +23,12 @@ abstract class _PresetArticleStoreBase extends BaseWidgetStore with Store {
   late BuildContext buildContext;
   late AnimationController controller;
 
+  @observable
+  bool showPreview = false;
+
+  @action
+  setShowPreview(bool value) => showPreview = value;
+
   @action
   constructor(context, controller) {
     if (tapCount == 0) {
@@ -32,36 +38,47 @@ abstract class _PresetArticleStoreBase extends BaseWidgetStore with Store {
     }
   }
 
+  onTap() {
+    if (showPreview) {
+      tapCount++;
+    }
+  }
+
   @action
-  showBottomSheet(PresetTypes presetType) {
+  showBottomSheet(
+    PresetTypes presetType, {
+    required Function onOpen,
+    required Function onClose,
+  }) async {
     body.setPresetType(presetType);
     if (!showWidget) {
       setWidgetVisibility(true);
-      nokhteBlur.init();
-      Timer(Seconds.get(1), () {
-        showModalBottomSheet(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(36), // Adjust this value for more radius
-            ),
+      nokhteBlur.init(
+        end: Seconds.get(0, milli: 500),
+      );
+      showModalBottomSheet(
+        isDismissible: false,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(36), // Adjust this value for more radius
           ),
-          isScrollControlled: true,
-          backgroundColor: Colors.white.withOpacity(.2),
-          context: buildContext,
-          builder: (context) {
-            return ModalBackdrop(
-              store: body,
-            );
-          },
-        ).whenComplete(() {
-          Timer(Seconds.get(1), () {
-            nokhteBlur.reverse();
-          });
-          Timer(Seconds.get(2), () {
-            setWidgetVisibility(false);
-          });
+        ),
+        isScrollControlled: true,
+        backgroundColor: Colors.white.withOpacity(.2),
+        context: buildContext,
+        builder: (context) {
+          return ModalBackdrop(
+            store: body,
+          );
+        },
+      ).whenComplete(() {
+        nokhteBlur.reverse();
+        setWidgetVisibility(false);
+        Timer(Seconds.get(0), () async {
+          await onClose();
         });
       });
+      await onOpen();
     }
   }
 }
