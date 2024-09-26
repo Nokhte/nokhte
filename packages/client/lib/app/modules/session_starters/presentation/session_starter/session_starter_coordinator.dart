@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
@@ -45,8 +44,8 @@ abstract class _SessionStarterCoordinatorBase
   toggleIsNavigatingAway() => isNavigatingAway = !isNavigatingAway;
 
   @action
-  constructor(Offset center) async {
-    widgets.constructor(center);
+  constructor() async {
+    widgets.constructor();
     widgets.initReactors();
     initReactors();
     await userInfo.getUserInfoStore(NoParams());

@@ -19,10 +19,9 @@ class StorageHomeScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final center = useCenterOffset();
     final height = useFullScreenSize().height;
     useEffect(() {
-      coordinator.constructor(center);
+      coordinator.constructor();
       return () => coordinator.deconstructor();
     }, []);
     return Observer(builder: (context) {

@@ -20,9 +20,8 @@ class SessionStarterScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = useFullScreenSize();
-    final center = useCenterOffset();
     useEffect(() {
-      coordinator.constructor(center);
+      coordinator.constructor();
       return () => coordinator.deconstructor();
     }, []);
 

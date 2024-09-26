@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
@@ -39,8 +38,8 @@ abstract class _SessionJoinerCoordinatorBase
   toggleIsNavigatingAway() => isNavigatingAway = !isNavigatingAway;
 
   @action
-  constructor(Offset center) async {
-    widgets.constructor(center);
+  constructor() async {
+    widgets.constructor();
     initReactors();
     await logic.nuke();
     logic.listenToSessionActivation();
@@ -111,7 +110,7 @@ abstract class _SessionJoinerCoordinatorBase
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
         ifTouchIsNotDisabled(() {
-          widgets.onTap(tap.currentTapPosition);
+          widgets.onTap();
         });
       });
 

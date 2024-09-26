@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, prefer_const_constructors
 import 'dart:async';
-import 'package:flutter/material.dart';
+import 'package:flutter/animation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
@@ -92,10 +92,10 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   setCanHoldOnPresetCard(bool val) => canHoldOnPresetCard = val;
 
   @observable
-  ObservableList<Widget> tags = ObservableList.of([]);
+  ObservableList tags = ObservableList.of([]);
 
   @action
-  constructor(Offset center) {
+  constructor() {
     qrCode.setWidgetVisibility(false);
     gestureCross.fadeInTheCross();
     centerNokhte.fadeIn();
@@ -262,7 +262,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   }
 
   @action
-  onTap(Offset offset) {
+  onTap(offset) {
     if (isAllowedToMakeGesture() && hasInitiatedBlur) {
       dismissNokhte();
       setSwipeDirection(GestureDirections.initial);
@@ -350,6 +350,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
       reaction((p0) => presetCards.condensedTapCount, (p0) {
         presetArticle.showBottomSheet(
           presetCards.currentExpandedPresetType,
+          onOpen: () {},
+          onClose: () {},
         );
       });
 

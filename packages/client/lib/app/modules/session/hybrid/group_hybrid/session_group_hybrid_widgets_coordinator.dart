@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -131,7 +131,7 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
 
   @action
   onTap(Offset tapPosition) async {
-    touchRipple.onTap(tapPosition, overridedColor: Colors.white);
+    touchRipple.onTap(tapPosition, overridedColor: const Color(0xFFFFFFFF));
     if (!speakLessWriteMoreIsVisible) {
       if (!isHolding && canHold) {
         tapCount++;

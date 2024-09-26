@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
@@ -59,7 +58,7 @@ abstract class _LoginCoordinatorBase
   toggleHasAttemptedToLogin() => hasAttemptedToLogin = !hasAttemptedToLogin;
 
   @action
-  constructor(Offset center) async {
+  constructor() async {
     widgets.constructor(
       onConnected,
       onDisconnected,
