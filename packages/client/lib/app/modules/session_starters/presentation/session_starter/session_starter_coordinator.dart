@@ -73,7 +73,6 @@ abstract class _SessionStarterCoordinatorBase
       },
     ));
     disposers.add(nokhteSearchStatusReactor());
-    disposers.add(tapReactor());
     disposers.add(widgets.presetSelectionReactor(onSelected));
   }
 
@@ -85,10 +84,6 @@ abstract class _SessionStarterCoordinatorBase
     await userInfo.getPreferredPreset();
     await starterLogic.nuke();
     await starterLogic.initialize();
-    // if (widgets.qrCode.qrCodeData ==
-    //     SessionStarterConstants.inactiveQrCodeData) {
-    //   widgets.onQrCodeReceived(userInfo.getUserInfoStore.userUID);
-    // }
   }
 
   @action
@@ -107,12 +102,6 @@ abstract class _SessionStarterCoordinatorBase
       }
     }
   }
-
-  tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        ifTouchIsNotDisabled(() {
-          widgets.dismissExpandedPresetCard();
-        });
-      });
 
   nokhteSearchStatusReactor() =>
       reaction((p0) => starterLogic.hasFoundNokhteSession, (p0) async {
@@ -153,7 +142,7 @@ abstract class _SessionStarterCoordinatorBase
           tags: presetsLogic.tags,
         );
         if (!userInfo.getUserInfoStore.hasAccessedQrCode) {
-          widgets.condensedPresetCards.enableAllTouchFeedback();
+          widgets.presetCards.enableAllTouchFeedback();
         }
       });
 

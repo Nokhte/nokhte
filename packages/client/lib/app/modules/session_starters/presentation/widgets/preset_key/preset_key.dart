@@ -9,33 +9,27 @@ import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class PresetKey extends HookWidget {
-  final bool showWidget;
   const PresetKey({
     super.key,
-    required this.showWidget,
   });
 
-  getContainer(List<Color> colors, String text) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20), // Rounded corners
-        border: Border.all(
-          color: Colors.white, // Border color
-          width: 2, // Border width
-        ),
-      ),
+  getContainer(String text) {
+    return SizedBox(
       child: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: 2.0,
           horizontal: 15.0,
         ),
-        child: GradientText(text,
-            style: GoogleFonts.jost(
-              textStyle: const TextStyle(
-                fontSize: 18,
-              ),
+        child: Text(
+          text,
+          style: GoogleFonts.jost(
+            textStyle: const TextStyle(
+              fontSize: 18,
+              color: Colors.white,
+              fontWeight: FontWeight.w400,
             ),
-            colors: colors),
+          ),
+        ),
       ),
     );
   }
@@ -43,30 +37,27 @@ class PresetKey extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = useFullScreenSize();
-    return AnimatedOpacity(
-      opacity: useWidgetOpacity(showWidget),
-      duration: Seconds.get(1),
-      child: FullScreen(
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: useScaledSize(
-              baseValue: 0.24,
-              bumpPerHundredth: -0.001,
-              screenSize: screenSize,
-            ),
+    return FullScreen(
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: useScaledSize(
+            baseValue: 0.24,
+            bumpPerHundredth: -0.001,
+            screenSize: screenSize,
           ),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                getContainer([const Color(0xFF00FF47), const Color(0xFF27FCFC)],
-                    'Tap to explore'),
-                getContainer([
-                  const Color(0xFFF8FC27),
-                  const Color(0xFF5BFF41),
-                ], 'Hold to select'),
-              ]),
         ),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              getContainer('Tap to explore'),
+              Container(
+                width: 1.5, // Width of the line
+                height: 25.0, // Height of the line
+                color: Colors.white, // Color of the line
+              ),
+              getContainer('Hold to select'),
+            ]),
       ),
     );
   }

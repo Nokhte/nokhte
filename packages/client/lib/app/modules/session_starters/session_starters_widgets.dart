@@ -26,10 +26,7 @@ class SessionStartersWidgetsModule extends Module {
         ),
         sessionScroller: SessionScrollerStore(),
         headerText: SmartTextStore(),
-        presetCards: PresetCardsStore(
-          condensed: CondensedPresetCardsStore(),
-          expanded: ExpandedPresetCardsStore(),
-        ),
+        presetCards: PresetCardsStore(),
         swipeGuide: SwipeGuideStore(),
         presetHeader: PresetHeaderStore(
           presetIcons: PresetIconsStore(),
