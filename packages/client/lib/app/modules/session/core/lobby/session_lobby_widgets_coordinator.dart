@@ -100,6 +100,9 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
         onOpen: onOpen,
         onClose: onClose,
       );
+    } else {
+      presetArticle.body.setPresetType(presetType);
+      // onOpen();
     }
   }
 
