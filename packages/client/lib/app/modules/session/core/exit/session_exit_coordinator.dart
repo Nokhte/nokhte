@@ -113,9 +113,9 @@ abstract class _SessionExitCoordinatorBase
       widgets.beachWavesMovieStatusReactor(
         onBackToSession: () {
           if (sessionMetadata.presetType == PresetTypes.collaborative) {
-            Modular.to.navigate(SessionConstants.groupHybrid);
-          } else {
             Modular.to.navigate(SessionConstants.soloHybrid);
+          } else {
+            Modular.to.navigate(SessionConstants.groupHybrid);
           }
         },
       ),
