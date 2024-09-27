@@ -26,9 +26,11 @@ class SessionWidgetsModule extends Module {
   injectCore(i) {
     i.add<SessionInformationWidgetsCoordinator>(
       () => SessionInformationWidgetsCoordinator(
+        presetArticle: PresetArticleStore(
+          nokhteBlur: NokhteBlurStore(),
+          body: ArticleBodyStore(),
+        ),
         tint: TintStore(),
-        touchRipple: TouchRippleStore(),
-        primarySmartText: SmartTextStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         beachWaves: BeachWavesStore(),
         // presetCard: ExpandedPresetCardsStore(),
