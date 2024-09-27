@@ -21,13 +21,15 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
   final BorderGlowStore borderGlow;
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
-  final HalfScreenTintStore othersAreTalkingTint;
+  final HalfScreenTintStore othersAreTakingNotesTint;
+  final TintStore othersAreTalkingTint;
   @override
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final SessionNavigationStore sessionNavigation;
 
   _SessionGroupHybridWidgetsCoordinatorBase({
     required this.sessionNavigation,
+    required this.othersAreTakingNotesTint,
     required this.othersAreTalkingTint,
     required this.wifiDisconnectOverlay,
     required this.mirroredText,
@@ -40,13 +42,12 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
   }
 
   @action
-  constructor(bool userCanSpeak) {
-    othersAreTalkingTint.setShouldCoverBottom(false);
-    beachWaves.setMovieMode(BeachWaveMovieModes.invertedHalfAndHalfToDrySand);
+  constructor(bool someoneIsTakingANote) {
+    beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
     mirroredText.setMessagesData(MirroredTextContent.hybrid);
     mirroredText.startBothRotatingText();
-    if (!userCanSpeak) {
-      othersAreTalkingTint.initMovie(NoParams());
+    if (someoneIsTakingANote) {
+      othersAreTakingNotesTint.initMovie(NoParams());
     }
     setIsPickingUp(false);
     isGoingToNotes = false;
@@ -117,12 +118,12 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
 
   @action
   onHold(GesturePlacement holdPosition) {
-    if (holdPosition == GesturePlacement.topHalf && canHold) {
+    if (holdPosition == GesturePlacement.bottomHalf && canHold) {
       isHolding = true;
       canHold = false;
       holdCount++;
       beachWaves.setMovieMode(
-        BeachWaveMovieModes.invertedHalfAndHalfToDrySand,
+        BeachWaveMovieModes.halfAndHalfToDrySand,
       );
       beachWaves.currentStore.initMovie(NoParams());
       mirroredText.setWidgetVisibility(false);
@@ -130,13 +131,14 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
   }
 
   @action
-  onTap(Offset tapPosition) async {
+  onTap(Offset tapPosition, Function onTap) async {
     touchRipple.onTap(tapPosition, overridedColor: const Color(0xFFFFFFFF));
     if (!speakLessWriteMoreIsVisible) {
       if (!isHolding && canHold) {
         tapCount++;
-        if (hasTappedOnTheBottomHalf) {
+        if (hasTappedOnTheTopHalf) {
           initFullScreenNotes();
+          await onTap();
         }
       }
     }
@@ -145,7 +147,7 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
   @action
   onLetGo() {
     initGlowDown();
-    beachWaves.setMovieMode(BeachWaveMovieModes.anyToInvertedHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.anyToHalfAndHalf);
     beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
     speakLessSmileMore.hideBoth();
   }
@@ -167,10 +169,10 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
       sessionNavigation.setWidgetVisibility(false);
       mirroredText.setWidgetVisibility(false);
       beachWaves.setMovieMode(
-        BeachWaveMovieModes.skyToInvertedHalfAndHalf,
+        BeachWaveMovieModes.skyToHalfAndHalf,
       );
       beachWaves.currentStore.reverseMovie(NoParams());
-      othersAreTalkingTint.reverseMovie(NoParams());
+      othersAreTakingNotesTint.reverseMovie(NoParams());
     }
     //
   }
@@ -186,19 +188,10 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
   }
 
   @action
-  adjustSpeakLessSmileMoreRotation(GesturePlacement holdPlacement) {
-    if (holdPlacement == GesturePlacement.topHalf) {
-      speakLessSmileMore.setShouldBeUpsideDown(true);
-    } else {
-      speakLessSmileMore.setShouldBeUpsideDown(false);
-    }
-  }
-
-  @action
   onExit() {
     setIsPickingUp(true);
     mirroredText.setWidgetVisibility(false);
-    beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     beachWaves.currentStore.reverseMovie(NoParams());
   }
 
@@ -248,18 +241,17 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode ==
-              BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
             if (isPickingUp) {
               Modular.to.navigate(SessionConstants.exit);
             } else if (isGoingToNotes) {
               Modular.to.navigate(SessionConstants.notes);
             }
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.anyToInvertedHalfAndHalf) {
+              BeachWaveMovieModes.anyToHalfAndHalf) {
             onLetGoCompleted();
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.invertedHalfAndHalfToDrySand) {
+              BeachWaveMovieModes.halfAndHalfToDrySand) {
             initBorderGlow();
           }
         }
@@ -277,6 +269,6 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
       });
 
   @computed
-  bool get hasTappedOnTheBottomHalf =>
-      touchRipple.tapPlacement == GesturePlacement.bottomHalf;
+  bool get hasTappedOnTheTopHalf =>
+      touchRipple.tapPlacement == GesturePlacement.topHalf;
 }

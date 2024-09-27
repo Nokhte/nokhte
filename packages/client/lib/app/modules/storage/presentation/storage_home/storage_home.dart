@@ -24,73 +24,73 @@ class StorageHomeScreen extends HookWidget {
       coordinator.constructor();
       return () => coordinator.deconstructor();
     }, []);
-    return Observer(builder: (context) {
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Tap(
-          store: coordinator.tap,
-          child: Swipe(
-            store: coordinator.swipe,
-            child: MultiHitStack(
-              children: [
-                FullScreen(
-                  child: BeachWaves(
-                    store: coordinator.widgets.beachWaves,
-                  ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Tap(
+        store: coordinator.tap,
+        child: Swipe(
+          store: coordinator.swipe,
+          child: MultiHitStack(
+            children: [
+              FullScreen(
+                child: BeachWaves(
+                  store: coordinator.widgets.beachWaves,
                 ),
-                Center(
-                  child: SmartText(
-                    store: coordinator.widgets.primarySmartText,
-                    bottomPadding: .75,
-                    opacityDuration: Seconds.get(1),
-                  ),
+              ),
+              Center(
+                child: SmartText(
+                  store: coordinator.widgets.primarySmartText,
+                  bottomPadding: .75,
+                  opacityDuration: Seconds.get(1),
                 ),
-                Padding(
+              ),
+              Observer(builder: (context) {
+                return Padding(
                   padding:
                       EdgeInsets.only(top: height * .13, bottom: height * .15),
                   child: SessionCard(
                     store: coordinator.widgets.sessionCard,
                     sessions: coordinator.nokhteSessionArtifacts,
                   ),
+                );
+              }),
+              FullScreen(
+                child: NokhteBlur(
+                  store: coordinator.widgets.blur,
                 ),
-                FullScreen(
-                  child: NokhteBlur(
-                    store: coordinator.widgets.blur,
-                  ),
+              ),
+              Center(
+                child: SmartText(
+                  store: coordinator.widgets.secondarySmartText,
+                  topPadding: .15,
+                  topBump: .002,
+                  opacityDuration: Seconds.get(1),
                 ),
-                Center(
-                  child: SmartText(
-                    store: coordinator.widgets.secondarySmartText,
-                    topPadding: .15,
-                    topBump: .002,
-                    opacityDuration: Seconds.get(1),
-                  ),
+              ),
+              GestureCross(
+                showGlowAndOutline: true,
+                config: GestureCrossConfiguration(
+                  left: Right(EmptySpace()),
                 ),
-                GestureCross(
-                  showGlowAndOutline: true,
-                  config: GestureCrossConfiguration(
-                    left: Right(EmptySpace()),
-                  ),
-                  store: coordinator.widgets.gestureCross,
-                ),
-                CenterNokhte(
-                  store: coordinator.widgets.centerNokhte,
-                ),
-                SwipeGuide(
-                    store: coordinator.widgets.swipeGuide,
-                    orientations: const [SwipeGuideOrientation.left]),
-                AuxiliaryNokhte(
-                  store: coordinator.widgets.homeNokhte,
-                ),
-                WifiDisconnectOverlay(
-                  store: coordinator.widgets.wifiDisconnectOverlay,
-                ),
-              ],
-            ),
+                store: coordinator.widgets.gestureCross,
+              ),
+              CenterNokhte(
+                store: coordinator.widgets.centerNokhte,
+              ),
+              SwipeGuide(
+                  store: coordinator.widgets.swipeGuide,
+                  orientations: const [SwipeGuideOrientation.left]),
+              AuxiliaryNokhte(
+                store: coordinator.widgets.homeNokhte,
+              ),
+              WifiDisconnectOverlay(
+                store: coordinator.widgets.wifiDisconnectOverlay,
+              ),
+            ],
           ),
         ),
-        // ),
-      );
-    });
+      ),
+      // ),
+    );
   }
 }

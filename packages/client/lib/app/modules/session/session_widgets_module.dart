@@ -139,7 +139,8 @@ class SessionWidgetsModule extends Module {
     i.add<SessionGroupHybridWidgetsCoordinator>(
       () => SessionGroupHybridWidgetsCoordinator(
         sessionNavigation: Modular.get<SessionNavigationStore>(),
-        othersAreTalkingTint: HalfScreenTintStore(),
+        othersAreTalkingTint: TintStore(),
+        othersAreTakingNotesTint: HalfScreenTintStore(),
         speakLessSmileMore: SpeakLessSmileMoreStore(),
         touchRipple: TouchRippleStore(),
         mirroredText: Modular.get<MirroredTextStore>(),
@@ -153,7 +154,6 @@ class SessionWidgetsModule extends Module {
   injectNotes(i) {
     i.add<SessionNotesWidgetsCoordinator>(
       () => SessionNotesWidgetsCoordinator(
-        sessionNavigation: Modular.get<SessionNavigationStore>(),
         smartText: SmartTextStore(),
         textEditor: TextEditorStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
