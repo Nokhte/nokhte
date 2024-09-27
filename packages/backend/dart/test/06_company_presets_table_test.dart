@@ -23,10 +23,10 @@ void main() {
 
   test("select: PresetTypes.consultative", () async {
     final res = await user1Queries.select(type: PresetTypes.consultative);
-    expect(res.first[CompanyPresetsQueries.EVEN_CONFIGURATION],
-        ['speaking', 'notes']);
-    expect(res.first[CompanyPresetsQueries.ODD_CONFIGURATION],
-        ['group_hybrid', 'speaking', 'notes']);
+    expect(
+        res.first[CompanyPresetsQueries.EVEN_CONFIGURATION], ['group_hybrid']);
+    expect(
+        res.first[CompanyPresetsQueries.ODD_CONFIGURATION], ['group_hybrid']);
     expect(res.first[CompanyPresetsQueries.TAGS], consultativeTags);
     expect(
       res.first[CompanyPresetsQueries.NAME],
