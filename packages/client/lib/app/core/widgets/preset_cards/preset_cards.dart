@@ -106,7 +106,7 @@ class PresetsCards extends HookWidget {
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
+                          padding: const EdgeInsets.only(top: 3.0),
                           child: TagLine(
                             store.taglines[i],
                             useExpandedPadding: false,
