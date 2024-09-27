@@ -25,7 +25,7 @@ class TagLine extends StatelessWidget {
         );
 
         textPainter.layout(
-          maxWidth: constraints.maxWidth - 50,
+          maxWidth: constraints.maxWidth,
         );
 
         double textHeight = textPainter.size.height;
@@ -35,7 +35,7 @@ class TagLine extends StatelessWidget {
           children: [
             SizedBox(width: useExpandedPadding ? 40 : 30),
             Padding(
-              padding: EdgeInsets.only(top: useExpandedPadding ? 3.0 : 0.0),
+              padding: const EdgeInsets.only(top: 3.0),
               child: Container(
                 width: 2,
                 height: textHeight - 5,
@@ -50,7 +50,7 @@ class TagLine extends StatelessWidget {
                 fontSize: 15,
               ),
             ),
-            SizedBox(width: useExpandedPadding ? 80 : 30),
+            const SizedBox(width: 80),
           ],
         );
       },
