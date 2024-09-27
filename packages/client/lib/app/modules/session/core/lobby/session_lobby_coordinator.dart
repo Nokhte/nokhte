@@ -54,7 +54,6 @@ abstract class _SessionLobbyCoordinatorBase
     if (hasReceivedRoutingArgs) {
       await presence.updateCurrentPhase(1.0);
     }
-    // await userMetadata.getMetadata();
     await captureScreen(SessionConstants.lobby);
   }
 
@@ -125,6 +124,7 @@ abstract class _SessionLobbyCoordinatorBase
 
   @action
   showPresetInfo() {
+    print('preset type ${sessionMetadata.presetType}');
     widgets.onPresetTypeReceived(
       sessionMetadata.presetType,
       onOpen: onOpen,
