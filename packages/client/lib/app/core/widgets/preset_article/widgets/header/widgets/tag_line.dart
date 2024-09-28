@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
-class TagLine extends StatelessWidget {
+class TagLine extends HookWidget {
   final String text;
   final bool useExpandedPadding;
   final TextStyle textStyle = GoogleFonts.jost(
@@ -17,6 +19,7 @@ class TagLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = useFullScreenSize();
     return LayoutBuilder(
       builder: (context, constraints) {
         TextPainter textPainter = TextPainter(
@@ -50,7 +53,13 @@ class TagLine extends StatelessWidget {
                 fontSize: 15,
               ),
             ),
-            const SizedBox(width: 80),
+            SizedBox(
+              width: useScaledSize(
+                baseValue: .094,
+                screenSize: screenSize,
+                bumpPerHundredth: -0.001,
+              ),
+            ),
           ],
         );
       },

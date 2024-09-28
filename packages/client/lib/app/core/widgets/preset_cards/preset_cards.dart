@@ -54,7 +54,7 @@ class PresetsCards extends HookWidget {
           );
   }
 
-  Widget buildTile(String text, double height, double width) {
+  Widget buildTile(String text, double height, double width, Size screenSize) {
     final i = store.names.indexOf(text);
     if (text.isEmpty) {
       return SizedBox(height: height * 0.2);
@@ -86,7 +86,11 @@ class PresetsCards extends HookWidget {
                       color: Colors.white.withOpacity(.2),
                     ),
                     // decoration: buildSquareDecoration(value, text.isEmpty),
-                    height: height * 0.15,
+                    height: useScaledSize(
+                      baseValue: .15,
+                      screenSize: screenSize,
+                      bumpPerHundredth: .0006,
+                    ),
                     child: Column(
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,7 +145,7 @@ class PresetsCards extends HookWidget {
             itemCount: store.names.length,
             itemBuilder: (_, i) => Padding(
               padding: EdgeInsets.symmetric(vertical: height * 0.02),
-              child: buildTile(store.names[i], height, width),
+              child: buildTile(store.names[i], height, width, size),
             ),
           ),
         ),
