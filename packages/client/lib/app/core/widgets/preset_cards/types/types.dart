@@ -1,1 +1,9 @@
-enum ActivePresetType { condensed, expanded }
+enum CondensedPresetCardMovieModes {
+  fadeOut,
+  fadeIn,
+  activeSelection,
+  instructionHighlight,
+  instructionHighlightTransition,
+  selectionInProgress,
+  selectionWindDown
+}

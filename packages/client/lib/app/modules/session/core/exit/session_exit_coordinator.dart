@@ -110,18 +110,19 @@ abstract class _SessionExitCoordinatorBase
       },
     ));
     disposers.add(
-        widgets.beachWavesMovieStatusReactor(onReturnToTalkingComplete: () {
-      if (phoneRole == SessionScreenTypes.speaking) {
-        Modular.to.navigate(SessionConstants.speaking);
-      } else {
-        Modular.to.navigate(SessionConstants.soloHybrid);
-      }
-    }, onReturnToHybridComplete: () {
-      Modular.to.navigate(SessionConstants.groupHybrid);
-    }));
+      widgets.beachWavesMovieStatusReactor(
+        onBackToSession: () {
+          if (sessionMetadata.presetType == PresetTypes.collaborative) {
+            Modular.to.navigate(SessionConstants.soloHybrid);
+          } else {
+            Modular.to.navigate(SessionConstants.groupHybrid);
+          }
+        },
+      ),
+    );
     if (isNotASocraticSession) {
       disposers.add(swipeReactor(onSwipeDown: () {
-        widgets.onReadyToGoBack(phoneRole, () async {
+        widgets.onReadyToGoBack(() async {
           await presence.updateCurrentPhase(2.0);
           setDisableAllTouchFeedback(true);
         });

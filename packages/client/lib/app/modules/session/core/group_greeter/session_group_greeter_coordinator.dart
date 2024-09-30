@@ -40,10 +40,7 @@ abstract class _SessionGroupGreeterCoordinatorBase
 
   @action
   constructor() async {
-    widgets.constructor(
-      numberOfCollaborators: sessionMetadata.numberOfCollaborators,
-      userIndex: sessionMetadata.userIndex,
-    );
+    widgets.constructor();
     initReactors();
     await captureScreen(SessionConstants.groupGreeter);
   }

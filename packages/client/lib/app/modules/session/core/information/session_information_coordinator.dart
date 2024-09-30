@@ -1,12 +1,11 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 part 'session_information_coordinator.g.dart';
 
 class SessionInformationCoordinator = _SessionInformationCoordinatorBase
@@ -38,13 +37,14 @@ abstract class _SessionInformationCoordinatorBase
 
   @action
   constructor() async {
-    widgets.constructor(
-      sessionName: sessionMetadata.presetName,
-      tags: sessionMetadata.presetTags,
-      phoneType: sessionMetadata.sessionScreenType,
-    );
+    widgets.constructor(presetType: sessionMetadata.presetType);
     initReactors();
     await captureScreen(SessionConstants.information);
+    widgets.setRoute(
+      sessionMetadata.presetType == PresetTypes.collaborative
+          ? SessionConstants.soloHybrid
+          : SessionConstants.groupHybrid,
+    );
   }
 
   @action
@@ -61,57 +61,11 @@ abstract class _SessionInformationCoordinatorBase
     disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
         setDisableAllTouchFeedback(false);
-        widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
         setDisableAllTouchFeedback(true);
-        widgets.onCollaboratorLeft();
       },
     ));
-    disposers.add(tapReactor());
-    disposers.add(rippleReactor());
-  }
-
-  tapReactor() => reaction(
-        (p0) => tap.tapCount,
-        (p0) => ifTouchIsNotDisabled(() async {
-          widgets.onTap(
-            tap.currentTapPosition,
-          );
-        }),
-      );
-
-  rippleReactor() => reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          Modular.to.navigate(route);
-        }
-      });
-
-  String chooseInstructionType({
-    required String fullInstructionsPath,
-    required String justSymbolsPath,
-  }) {
-    if (sessionMetadata.instructionType ==
-        SessionInstructionTypes.fullInstructions) {
-      return fullInstructionsPath;
-    } else {
-      return justSymbolsPath;
-    }
-  }
-
-  @computed
-  String get route {
-    if (sessionMetadata.sessionScreenType == SessionScreenTypes.soloHybrid) {
-      return SessionConstants.soloHybrid;
-    } else if (sessionMetadata.sessionScreenType ==
-        SessionScreenTypes.speaking) {
-      return SessionConstants.speaking;
-    } else if (sessionMetadata.sessionScreenType ==
-        SessionScreenTypes.groupHybrid) {
-      return SessionConstants.groupHybrid;
-    } else {
-      return SessionConstants.notes;
-    }
   }
 
   deconstructor() {

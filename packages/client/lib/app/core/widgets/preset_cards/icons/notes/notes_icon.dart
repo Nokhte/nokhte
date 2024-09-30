@@ -4,13 +4,12 @@ import 'package:simple_animations/simple_animations.dart';
 import 'notes_icon_painter.dart';
 export 'notes_icon_movie.dart';
 
-class NotesIcon extends StatelessWidget {
-  final double containerSize;
-  final bool shouldAnimate;
+class NotesIcon extends BaseIcon {
   const NotesIcon({
     super.key,
-    required this.containerSize,
-    required this.shouldAnimate,
+    required super.containerSize,
+    super.opacity = 1.0,
+    required super.shouldAnimate,
   });
 
   @override
@@ -26,6 +25,8 @@ class NotesIcon extends StatelessWidget {
           width: containerSize * .23,
           child: CustomPaint(
             painter: NotesIconPainter(
+              showText: shouldAnimate,
+              masterOpacity: opacity,
               angle: value.get('angle'),
               containerSize: containerSize,
             ),

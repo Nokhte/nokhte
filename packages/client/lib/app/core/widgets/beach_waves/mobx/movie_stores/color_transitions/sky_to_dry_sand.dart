@@ -14,6 +14,7 @@ abstract class _SkyToDrySandBase extends BaseBeachWaveMovieStore<NoParams>
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       WaterColorsAndStops.sky,
       WaterColorsAndStops.drySand,
     );

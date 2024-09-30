@@ -1,2 +1,0 @@
-export 'consultation_notes_symbols/consultation_notes_symbols.dart';
-export 'consultation_speaking_symbols/consultation_speaking_symbols.dart';

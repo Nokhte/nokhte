@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 
-class StrictSeatingIconPainter extends CustomPainter {
+class StrictSeatingIconPainter extends CustomPainter with BaseIconPainter {
   final double containerSize;
   final Offset top, right, bottom, left;
+  final double masterOpacity;
+  final bool showText;
 
   StrictSeatingIconPainter({
+    required this.masterOpacity,
     required this.top,
     required this.right,
     required this.bottom,
     required this.left,
     required this.containerSize,
+    required this.showText,
   });
 
   @override
@@ -28,7 +33,7 @@ class StrictSeatingIconPainter extends CustomPainter {
     final subCircleRad = scalar * .06;
 
     final Paint paint = Paint()
-      ..color = Colors.white
+      ..color = Colors.white.withOpacity(masterOpacity)
       ..style = PaintingStyle.stroke
       ..strokeWidth = scalar * .03;
     canvas.drawCircle(center, circleRad, paint);
@@ -43,20 +48,24 @@ class StrictSeatingIconPainter extends CustomPainter {
     final Offset baseBottom = Offset(center.dx + b.dx, center.dy + b.dy);
     final Offset baseLeft = Offset(center.dx + l.dx, center.dy + l.dy);
 
-    final Paint other = Paint()..color = Colors.white;
+    final Paint other = Paint()
+      ..color = Colors.white.withOpacity(masterOpacity);
     canvas.drawCircle(baseTop, subCircleRad, other);
     canvas.drawCircle(baseRight, subCircleRad, other);
     canvas.drawCircle(baseBottom, subCircleRad, other);
     canvas.drawCircle(baseLeft, subCircleRad, other);
 
     final Paint paint1 = Paint()
-      ..color = Colors.white
+      ..color = Colors.white.withOpacity(masterOpacity)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1;
     canvas.drawLine(baseTop, baseRight, paint1);
     canvas.drawLine(baseRight, baseBottom, paint1);
     canvas.drawLine(baseBottom, baseLeft, paint1);
     canvas.drawLine(baseLeft, baseTop, paint1);
+    if (showText) {
+      paintText(canvas, center, 'Seating', containerSize, masterOpacity);
+    }
   }
 
   @override

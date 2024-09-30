@@ -36,7 +36,7 @@ abstract class _SessionGroupHybridCoordinatorBase
 
   @action
   constructor() async {
-    widgets.constructor(sessionMetadata.userCanSpeak);
+    widgets.constructor(sessionMetadata.someoneIsTakingANote);
     widgets.sessionNavigation.setup(
       sessionMetadata.sessionScreenType,
       sessionMetadata.presetType,
@@ -83,13 +83,13 @@ abstract class _SessionGroupHybridCoordinatorBase
     disposers.add(tapReactor());
     disposers.add(userIsSpeakingReactor());
     disposers.add(userCanSpeakReactor());
+    disposers.add(othersAreTakingNotesReactor());
   }
 
   userIsSpeakingReactor() =>
       reaction((p0) => sessionMetadata.userIsSpeaking, (p0) async {
         if (p0) {
           setUserIsSpeaking(true);
-          widgets.adjustSpeakLessSmileMoreRotation(hold.placement);
           widgets.onHold(hold.placement);
           setDisableAllTouchFeedback(true);
           await presence.updateCurrentPhase(2);
@@ -109,12 +109,35 @@ abstract class _SessionGroupHybridCoordinatorBase
           widgets.othersAreTalkingTint.initMovie(NoParams());
         }
       });
+  othersAreTakingNotesReactor() =>
+      reaction((p0) => sessionMetadata.someoneIsTakingANote, (p0) {
+        if (p0 && !widgets.isGoingToNotes) {
+          widgets.othersAreTakingNotesTint.initMovie(NoParams());
+        } else {
+          widgets.othersAreTakingNotesTint.reverseMovie(NoParams());
+        }
+        // if (p0 && userIsSpeaking) {
+        //   widgets.onLetGo();
+        //   setUserIsSpeaking(false);
+        //   Timer(Seconds.get(2), () {
+        //     setDisableAllTouchFeedback(false);
+        //   });
+        // } else if (p0 && !userIsSpeaking) {
+        //   widgets.othersAreTalkingTint.reverseMovie(NoParams());
+        // } else if (!p0 && !userIsSpeaking) {
+        //   widgets.othersAreTalkingTint.initMovie(NoParams());
+        // }
+      });
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
         (p0) => ifTouchIsNotDisabled(
           () async {
-            widgets.onTap(tap.currentTapPosition);
+            if (sessionMetadata.userCanSpeak) {
+              widgets.onTap(tap.currentTapPosition, () async {
+                await presence.updateCurrentPhase(3.5);
+              });
+            }
           },
         ),
       );
@@ -123,6 +146,7 @@ abstract class _SessionGroupHybridCoordinatorBase
         ifTouchIsNotDisabled(() async {
           if (sessionMetadata.everyoneIsOnline &&
               sessionMetadata.canStartUsingSession &&
+              !sessionMetadata.someoneIsTakingANote &&
               !widgets.sessionNavigation.hasInitiatedBlur) {
             await presence
                 .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);

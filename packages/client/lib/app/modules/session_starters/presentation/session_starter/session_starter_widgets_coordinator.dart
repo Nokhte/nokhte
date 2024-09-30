@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, prefer_const_constructors
 import 'dart:async';
-import 'package:flutter/material.dart';
+import 'package:flutter/animation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
@@ -27,7 +27,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         EnRoute,
         HomeNavigation {
   final SmartTextStore qrSubtitleSmartText;
-  // final PresetIconsStore presetIcons;
+  final PresetArticleStore presetArticle;
   final PresetHeaderStore presetHeader;
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
@@ -43,12 +43,12 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final SessionScrollerStore sessionScroller;
   final PresetCardsStore presetCards;
-  final CondensedPresetCardsStore condensedPresetCards;
   final SmartTextStore headerText;
   @override
   final List<AuxiliaryNokhteStore> auxNokhtes;
 
   _SessionStarterWidgetsCoordinatorBase({
+    required this.presetArticle,
     required this.beachWaves,
     required this.headerText,
     required this.presetHeader,
@@ -62,8 +62,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     required this.homeNokhte,
     required this.nokhteBlur,
     required this.qrCode,
-  })  : condensedPresetCards = presetCards.condensed,
-        auxNokhtes = [homeNokhte] {
+  }) : auxNokhtes = [homeNokhte] {
     initSwipeNavigationUtils();
     initNokhteWidgetsUtils();
     initEnRouteActions();
@@ -93,10 +92,10 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   setCanHoldOnPresetCard(bool val) => canHoldOnPresetCard = val;
 
   @observable
-  ObservableList<Widget> tags = ObservableList.of([]);
+  ObservableList tags = ObservableList.of([]);
 
   @action
-  constructor(Offset center) {
+  constructor() {
     qrCode.setWidgetVisibility(false);
     gestureCross.fadeInTheCross();
     centerNokhte.fadeIn();
@@ -143,36 +142,18 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     required String unifiedUID,
     required String userUID,
   }) {
-    // qrSubtitleSmartText.startRotatingText();
     presetHeader.setHeader(
       sessionName,
       tags,
     );
     presetCards.setPreferredPresetUID(unifiedUID);
     onQrCodeReceived(userUID);
-    // if (qrCodeIsNotActivated) {
-    //   qrSubtitleSmartText.reset();
-    //   qrSubtitleSmartText.setMessagesData(SessionStartersList.activeQrCode);
-    //   qrSubtitleSmartText.startRotatingText();
-
-    //   //
-    // }
-  }
-
-  @action
-  dismissExpandedPresetCard() {
-    if (presetIsExpanded) {
-      presetCards.dismissExpandedPresetCard();
-      headerText.setWidgetVisibility(true);
-      setCanHoldOnPresetCard(true);
-    }
   }
 
   @action
   initExtraNavCleanUp() {
     qrSubtitleSmartText.setWidgetVisibility(false);
     presetHeader.setWidgetVisibility(false);
-    // presetIcons.setWidgetVisibility(false);
     homeNokhte.setWidgetVisibility(false);
     centerNokhte.setWidgetVisibility(false);
     qrCode.setWidgetVisibility(false);
@@ -184,7 +165,6 @@ abstract class _SessionStarterWidgetsCoordinatorBase
       if (hasInitiatedBlur && !hasSwiped()) {
         setSwipeDirection(GestureDirections.down);
         centerNokhte.initMovie(AuxiliaryNokhtePositions.bottom);
-        // homeNokhte.disappear();
         swipeGuide.setWidgetVisibility(false);
         await onLeaving();
       }
@@ -227,9 +207,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         .setMovieMode(BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea);
     beachWaves.currentStore.initMovie(beachWaves.currentAnimationValues.first);
     qrSubtitleSmartText.setWidgetVisibility(false);
-    // presetIcons.setWidgetVisibility(false);
     gestureCross.fadeAllOut();
-    // presetIcons.setWidgetVisibility(false);
     centerNokhte.setWidgetVisibility(false);
     homeNokhte.setWidgetVisibility(false);
   }
@@ -242,7 +220,6 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   @action
   dismissNokhte() {
     setSwipeDirection(GestureDirections.initial);
-    // qrCode.setWidgetVisibility(false);
     centerNokhte.moveBackToCross(
       startingPosition: CenterNokhtePositions.center,
     );
@@ -275,13 +252,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         setHasInitiatedBlur(true);
         nokhteBlur.init();
         beachWaves.currentStore.setControl(Control.stop);
-        // qrCode.setWidgetVisibility(false);
-        // gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
         moveOtherNokhtes(shouldExpand: true);
-        // gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-        // gestureCross.gradientNokhte.setWidgetVisibility(false);
-        // qrSubtitleSmartText.setWidgetVisibility(false);
-        // presetIcons.setWidgetVisibility(false);
         centerNokhte.moveToCenter();
       } else if (hasInitiatedBlur && !hasSwiped()) {
         dismissNokhte();
@@ -291,7 +262,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   }
 
   @action
-  onTap(Offset offset) {
+  onTap(offset) {
     if (isAllowedToMakeGesture() && hasInitiatedBlur) {
       dismissNokhte();
       setSwipeDirection(GestureDirections.initial);
@@ -337,12 +308,12 @@ abstract class _SessionStarterWidgetsCoordinatorBase
       });
 
   transitionsCondensedPresetCardMovieStatusReactor() =>
-      reaction((p0) => condensedPresetCards.movieStatuses.first, (p0) {
+      reaction((p0) => presetCards.movieStatuses.first, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (condensedPresetCards.movieModes.first ==
+          if (presetCards.movieModes.first ==
               CondensedPresetCardMovieModes.fadeIn) {
             if (!cardsHaveFadedIn) {
-              condensedPresetCards.setCurrentHeldIndex(
+              presetCards.setCurrentHeldIndex(
                 presetCards.preferredPresetIndex,
                 override: true,
               );
@@ -353,30 +324,22 @@ abstract class _SessionStarterWidgetsCoordinatorBase
       });
 
   presetSelectionReactor(Function(String param) onSelected) =>
-      reaction((p0) => condensedPresetCards.movieStatuses.toString(),
-          (p0) async {
-        if (condensedPresetCards.currentHeldIndex != -1) {
+      reaction((p0) => presetCards.movieStatuses.toString(), (p0) async {
+        if (presetCards.currentHeldIndex != -1) {
           hasNotSelectedPreset = false;
-          final currentHeldIndex = condensedPresetCards.currentHeldIndex;
-          if (condensedPresetCards.movieModes[currentHeldIndex] ==
+          final currentHeldIndex = presetCards.currentHeldIndex;
+          if (presetCards.movieModes[currentHeldIndex] ==
                   CondensedPresetCardMovieModes.selectionInProgress &&
-              condensedPresetCards.movieStatuses[currentHeldIndex] ==
+              presetCards.movieStatuses[currentHeldIndex] ==
                   MovieStatus.finished) {
             if (firstCardIsSelected) {
               scrollToTop();
-              // sessionScroller.scrollController.animateTo(
-              //   0,
-              //   duration: Seconds.get(1),
-              //   curve: Curves.decelerate,
-              // );
-
-              // onSwipeLeft();
             }
             Timer(Seconds.get(1), () {
-              condensedPresetCards.enableAllTouchFeedback();
+              presetCards.enableAllTouchFeedback();
             });
             Timer(Seconds.get(firstCardIsSelected ? 0 : 1), () {
-              condensedPresetCards.initSelectionMovie(currentHeldIndex);
+              presetCards.initSelectionMovie(currentHeldIndex);
               firstCardIsSelected = true;
             });
             await onSelected(presetCards.currentlySelectedSessionUID);
@@ -385,16 +348,17 @@ abstract class _SessionStarterWidgetsCoordinatorBase
       });
   condensedPresetCardTapReactor() =>
       reaction((p0) => presetCards.condensedTapCount, (p0) {
-        if (presetCards.currentExpandedPresetCardName.isNotEmpty) {
-          presetCards.onChosenNameChanged();
-          headerText.setWidgetVisibility(false);
-        }
+        presetArticle.showBottomSheet(
+          presetCards.currentExpandedPresetType,
+          onOpen: () {},
+          onClose: () {},
+        );
       });
 
   condensedPresetCardHoldReactor() =>
-      reaction((p0) => condensedPresetCards.currentHeldIndex, (p0) {
-        if (condensedPresetCards.pastHeldIndex != -1) {
-          condensedPresetCards.initWindDown(condensedPresetCards.pastHeldIndex);
+      reaction((p0) => presetCards.currentHeldIndex, (p0) {
+        if (presetCards.pastHeldIndex != -1) {
+          presetCards.initWindDown(presetCards.pastHeldIndex);
         }
         if (hasNotSelectedPreset) {
           firstCardIsSelected = true;
@@ -407,16 +371,9 @@ abstract class _SessionStarterWidgetsCoordinatorBase
       });
 
   @computed
-  bool get canScroll =>
-      !isEnteringNokhteSession &&
-      !hasInitiatedBlur &&
-      presetCards.activePresetType == ActivePresetType.condensed;
+  bool get canScroll => !isEnteringNokhteSession && !hasInitiatedBlur;
 
   @computed
   bool get qrCodeIsNotActivated =>
       qrCode.qrCodeData == SessionStarterConstants.inactiveQrCodeData;
-
-  @computed
-  bool get presetIsExpanded =>
-      presetCards.activePresetType == ActivePresetType.expanded;
 }

@@ -14,6 +14,7 @@ abstract class _OceanDiveToSkyBase extends BaseBeachWaveMovieStore<NoParams>
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       WaterColorsAndStops.oceanDiveWater,
       WaterColorsAndStops.sky,
     );

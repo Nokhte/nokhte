@@ -16,6 +16,7 @@ abstract class _InvertedHalfAndHalfToDrySandBase
           callsOnCompleteTwice: false,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       WaterColorsAndStops.invertedHalfWaterAndSand,
       WaterColorsAndStops.bottomHeavyDrySand,
     );

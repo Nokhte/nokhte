@@ -54,9 +54,6 @@ class SessionNotesScreen extends HookWidget {
                   store: coordinator.widgets.textEditor,
                 ),
               ),
-              SessionNavigation(
-                store: coordinator.widgets.sessionNavigation,
-              ),
               CollaboratorPresenceIncidentsOverlay(
                 store: coordinator.presence.incidentsOverlayStore,
               ),

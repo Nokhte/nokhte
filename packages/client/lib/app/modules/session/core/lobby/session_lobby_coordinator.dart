@@ -49,14 +49,11 @@ abstract class _SessionLobbyCoordinatorBase
   @action
   constructor() async {
     widgets.constructor();
+    await presence.listen();
     initReactors();
     if (hasReceivedRoutingArgs) {
-      await presence.listen();
-    } else {
-      showPresetInfo();
+      await presence.updateCurrentPhase(1.0);
     }
-    await userMetadata.getMetadata();
-    await presence.updateCurrentPhase(1.0);
     await captureScreen(SessionConstants.lobby);
   }
 
@@ -83,9 +80,27 @@ abstract class _SessionLobbyCoordinatorBase
     ));
     disposers.add(sessionStartReactor());
     disposers.add(widgets.beachWavesMovieStatusReactor(enterGreeter));
-    if (hasReceivedRoutingArgs) {
-      disposers.add(sessionPresetReactor());
-    }
+    disposers.add(
+      widgets.presetArticleTapReactor(
+        onOpen: onOpen,
+        onClose: onClose,
+      ),
+    );
+    disposers.add(sessionPresetReactor());
+  }
+
+  @action
+  onOpen() async {
+    await presence.updateCurrentPhase(0.0);
+    widgets.qrCode.setWidgetVisibility(false);
+    widgets.primarySmartText.setWidgetVisibility(false);
+  }
+
+  @action
+  onClose() async {
+    await presence.updateCurrentPhase(1.0);
+    widgets.qrCode.setWidgetVisibility(true);
+    widgets.primarySmartText.setWidgetVisibility(true);
   }
 
   canStartTheSessionReactor() =>
@@ -109,11 +124,15 @@ abstract class _SessionLobbyCoordinatorBase
 
   @action
   showPresetInfo() {
-    widgets.onPresetInfoRecieved(
-      presetName: sessionMetadata.presetName,
-      presetTags: sessionMetadata.presetTags,
+    widgets.onPresetTypeReceived(
+      sessionMetadata.presetType,
+      onOpen: onOpen,
+      onClose: onClose,
     );
     widgets.onQrCodeReady(sessionMetadata.leaderUID);
+    if (!hasReceivedRoutingArgs) {
+      widgets.qrCode.setWidgetVisibility(false);
+    }
   }
 
   tapReactor() => reaction(

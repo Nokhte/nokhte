@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -52,7 +51,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
   }
 
   @action
-  constructor(Offset center) {
+  constructor() {
     gestureCross.cross.initStaticGlow();
     centerNokhte.setWidgetVisibility(false);
     beachWaves.setMovieMode(BeachWaveMovieModes.emptyTheOcean);
@@ -77,7 +76,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
   }
 
   @action
-  onTap(Offset offset) {
+  onTap() {
     if (hasInitiatedBlur && isAllowedToMakeGesture()) {
       dismissNokhtes();
     }
@@ -137,7 +136,7 @@ abstract class _SessionJoinerWidgetsCoordinatorBase
 
   beachWavesReactor() => reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          Modular.to.navigate(SessionConstants.preview);
+          Modular.to.navigate(SessionConstants.lobby);
         }
       });
 

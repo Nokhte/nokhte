@@ -34,13 +34,17 @@ abstract class _QuickActionsRouterWidgetsCoordinatorBase
   setShowBeachWaves(bool value) => showBeachWaves = value;
 
   @action
+  preconstructor() {
+    beachWaves.currentStore.setControl(Control.stop);
+  }
+
+  @action
   constructor() {
     if (hasReceivedRoutingArgs) {
       final args = Modular.args.data[HomeConstants.QUICK_ACTIONS_ROUTE];
       if (args == SessionStarterConstants.sessionStarter) {
         shouldRotate = true;
         beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
-        beachWaves.currentStore.callsOnCompleteTwice = true;
         beachWaves.currentStore.initMovie(
           const AnyToOnShoreParams(
             startingColors: WaterColorsAndStops.simpleInvertedBeachWater,
@@ -56,7 +60,6 @@ abstract class _QuickActionsRouterWidgetsCoordinatorBase
         });
       } else if (args == StorageConstants.home) {
         beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
-        beachWaves.currentStore.setControl(Control.playReverse);
         Timer(Seconds.get(1), () {
           Modular.to.navigate(StorageConstants.home);
         });

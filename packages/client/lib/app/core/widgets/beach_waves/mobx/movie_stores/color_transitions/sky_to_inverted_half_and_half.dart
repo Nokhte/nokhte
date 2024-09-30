@@ -15,6 +15,7 @@ abstract class _SkyToInvertedHalfAndHalfBase
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       WaterColorsAndStops.sky,
       WaterColorsAndStops.invertedHalfWaterAndSand,
     );

@@ -3,7 +3,6 @@ export "session_joiner_widgets_coordinator.dart";
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -18,9 +17,8 @@ class SessionJoinerScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final center = useCenterOffset();
     useEffect(() {
-      coordinator.constructor(center);
+      coordinator.constructor();
       return () => coordinator.deconstructor();
     }, []);
 

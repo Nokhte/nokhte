@@ -20,12 +20,13 @@ class SessionStartersWidgetsModule extends Module {
   void binds(Injector i) {
     i.add<SessionStarterWidgetsCoordinator>(
       () => SessionStarterWidgetsCoordinator(
+        presetArticle: PresetArticleStore(
+          body: ArticleBodyStore(),
+          nokhteBlur: NokhteBlurStore(),
+        ),
         sessionScroller: SessionScrollerStore(),
         headerText: SmartTextStore(),
-        presetCards: PresetCardsStore(
-          condensed: CondensedPresetCardsStore(),
-          expanded: ExpandedPresetCardsStore(),
-        ),
+        presetCards: PresetCardsStore(),
         swipeGuide: SwipeGuideStore(),
         presetHeader: PresetHeaderStore(
           presetIcons: PresetIconsStore(),

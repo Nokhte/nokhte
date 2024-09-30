@@ -34,16 +34,13 @@ abstract class _SessionNotesCoordinatorBase
 
   @action
   constructor() async {
-    widgets.setScreenType(
-      sessionMetadata.sessionScreenType,
-    );
-    widgets.setPresetType(
-      sessionMetadata.presetType,
-    );
-    widgets.constructor();
+    widgets.setPresetType(sessionMetadata.presetType);
+    widgets.constructor(onEarlyReturn: () async {
+      await presence.updateCurrentPhase(3.0);
+    });
     initReactors();
     if (isNotASocraticSession) {
-      await presence.updateCurrentPhase(2.0);
+      await presence.updateCurrentPhase(3.5);
     }
     await captureScreen(SessionConstants.notes);
   }
@@ -65,20 +62,6 @@ abstract class _SessionNotesCoordinatorBase
       onDisconnected: () => setDisableAllTouchFeedback(true),
     ));
     disposers.add(touchFeedbackStatusReactor());
-    disposers.add(widgets.sessionNavigation.swipeReactor(onSwipeUp: () {
-      ifTouchIsNotDisabled(() {
-        widgets.onSwipeUp(onSwipeUp);
-      });
-    }, onSwipeDown: () {
-      if (sessionMetadata.presetType == PresetTypes.consultative) {
-        ifTouchIsNotDisabled(() async {
-          if (widgets.textEditor.controller.text.isNotEmpty) {
-            await onSwipeUp(widgets.textEditor.controller.text);
-          }
-          widgets.onSwipeDown();
-        });
-      }
-    }));
   }
 
   touchFeedbackStatusReactor() =>
@@ -90,30 +73,13 @@ abstract class _SessionNotesCoordinatorBase
         }
       });
 
-  // swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
-  //       switch (p0) {
-  //         case GestureDirections.up:
-  //           ifTouchIsNotDisabled(() {
-  //             widgets.onSwipeUp(onSwipeUp);
-  //           });
-  //         case GestureDirections.down:
-  //           if (sessionMetadata.presetType == PresetTypes.consultative) {
-  //             ifTouchIsNotDisabled(() async {
-  //               if (widgets.textEditor.controller.text.isNotEmpty) {
-  //                 await onSwipeUp(widgets.textEditor.controller.text);
-  //               }
-  //               widgets.onSwipeDown();
-  //             });
-  //           }
-  //         default:
-  //           break;
-  //       }
-  //     });
-
   swipeUpCallback() {}
 
   @action
-  onSwipeUp(String param) async => await presence.addContent(param);
+  onSwipeUp(String param) async {
+    await presence.addContent(param);
+    await presence.updateCurrentPhase(3.0);
+  }
 
   deconstructor() {
     dispose();

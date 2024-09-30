@@ -19,11 +19,13 @@ class SmartText extends HookWidget {
   final double subTextPadding;
   final double bottomBump;
   final double topBump;
+  final FontWeight fontWeight;
   const SmartText({
     super.key,
     required this.store,
     this.opacityDuration = Duration.zero,
     this.topPadding = 0.0,
+    this.fontWeight = FontWeight.w400,
     this.bottomPadding = 0.0,
     this.subTextPadding = 10.0,
     this.topBump = 0.001,
@@ -76,6 +78,7 @@ class SmartText extends HookWidget {
                             overflow: TextOverflow.visible,
                             style: Fonts.jost(
                               fontSize: store.currentMainTextFontSize,
+                              fontWeight: fontWeight,
                               color: altValue.get('color'),
                             ),
                           ),
@@ -89,6 +92,7 @@ class SmartText extends HookWidget {
                                 textAlign: TextAlign.center,
                                 style: Fonts.jost(
                                   fontSize: store.currentSubTextFontSize,
+                                  fontWeight: fontWeight,
                                   color: altValue.get('color'),
                                 ),
                               ),

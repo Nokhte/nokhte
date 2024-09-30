@@ -16,6 +16,7 @@ abstract class _DeepSeaToInvertedHalfAndHalfBase
           callsOnCompleteTwice: false,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       WaterColorsAndStops.deepSeaWater,
       WaterColorsAndStops.invertedHalfWaterAndSand,
     );

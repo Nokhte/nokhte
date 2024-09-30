@@ -14,6 +14,7 @@ abstract class _DeepSeaToBorealisBase extends BaseBeachWaveMovieStore<NoParams>
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       WaterColorsAndStops.deepSeaWater,
       WaterColorsAndStops.borealis,
     );
