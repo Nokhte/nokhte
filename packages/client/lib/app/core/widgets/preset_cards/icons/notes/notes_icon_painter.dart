@@ -1,14 +1,18 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:path_drawing/path_drawing.dart';
 
-class NotesIconPainter extends CustomPainter {
+class NotesIconPainter extends CustomPainter with BaseIconPainter {
   final double containerSize;
-  final double angle;
+  final double angle, masterOpacity;
+  final bool showText;
 
   NotesIconPainter({
+    required this.masterOpacity,
     required this.containerSize,
     required this.angle,
+    required this.showText,
   });
 
   @override
@@ -31,11 +35,14 @@ class NotesIconPainter extends CustomPainter {
     final pencilYTranslateScalar = scalar * .3;
 
     final Paint circlePaint = Paint()
-      ..color = Colors.white
+      ..color = Colors.white.withOpacity(masterOpacity)
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth;
     canvas.drawCircle(center, circleRad, circlePaint);
 
+    if (showText) {
+      paintText(canvas, center, 'Notes', containerSize, masterOpacity);
+    }
     canvas.rotate(angle);
 
     const pencilSvg =
@@ -52,7 +59,7 @@ class NotesIconPainter extends CustomPainter {
     canvas.drawPath(
       path,
       Paint()
-        ..color = Colors.white
+        ..color = Colors.white.withOpacity(masterOpacity)
         ..style = PaintingStyle.fill,
     );
   }

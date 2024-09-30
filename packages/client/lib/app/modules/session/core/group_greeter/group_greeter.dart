@@ -45,8 +45,7 @@ class SessionGroupGreeterScreen extends HookWidget {
               Center(
                 child: SmartText(
                   store: coordinator.widgets.primarySmartText,
-                  bottomPadding:
-                      coordinator.widgets.smartTextBottomPaddingScalar,
+                  bottomPadding: .3,
                   bottomBump: .002,
                   opacityDuration: Seconds.get(1),
                 ),
@@ -57,12 +56,6 @@ class SessionGroupGreeterScreen extends HookWidget {
                   topPadding: .8,
                   opacityDuration: Seconds.get(1),
                 ),
-              ),
-              SessionPhonePlacementGuide(
-                store: coordinator.widgets.sessionPhonePlacementGuide,
-              ),
-              SessionSeatingGuide(
-                store: coordinator.widgets.sessionSeatingGuide,
               ),
               FullScreen(
                 child: TouchRipple(

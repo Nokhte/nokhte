@@ -16,6 +16,7 @@ abstract class _DeepSeaToHalfAndHalfBase
           callsOnCompleteTwice: false,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       WaterColorsAndStops.deepSeaWater,
       WaterColorsAndStops.halfWaterAndSand,
     );

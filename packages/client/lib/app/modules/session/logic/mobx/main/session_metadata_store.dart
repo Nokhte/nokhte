@@ -240,4 +240,8 @@ abstract class _SessionMetadataStoreBase
 
   @computed
   int get numberOfCollaborators => currentPhases.length;
+
+  @computed
+  bool get someoneIsTakingANote =>
+      currentPhases.any((element) => element == 3.5);
 }

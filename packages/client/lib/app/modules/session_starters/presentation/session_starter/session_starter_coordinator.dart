@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
@@ -45,8 +44,8 @@ abstract class _SessionStarterCoordinatorBase
   toggleIsNavigatingAway() => isNavigatingAway = !isNavigatingAway;
 
   @action
-  constructor(Offset center) async {
-    widgets.constructor(center);
+  constructor() async {
+    widgets.constructor();
     widgets.initReactors();
     initReactors();
     await userInfo.getUserInfoStore(NoParams());
@@ -73,7 +72,6 @@ abstract class _SessionStarterCoordinatorBase
       },
     ));
     disposers.add(nokhteSearchStatusReactor());
-    disposers.add(tapReactor());
     disposers.add(widgets.presetSelectionReactor(onSelected));
   }
 
@@ -85,10 +83,6 @@ abstract class _SessionStarterCoordinatorBase
     await userInfo.getPreferredPreset();
     await starterLogic.nuke();
     await starterLogic.initialize();
-    // if (widgets.qrCode.qrCodeData ==
-    //     SessionStarterConstants.inactiveQrCodeData) {
-    //   widgets.onQrCodeReceived(userInfo.getUserInfoStore.userUID);
-    // }
   }
 
   @action
@@ -107,12 +101,6 @@ abstract class _SessionStarterCoordinatorBase
       }
     }
   }
-
-  tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        ifTouchIsNotDisabled(() {
-          widgets.dismissExpandedPresetCard();
-        });
-      });
 
   nokhteSearchStatusReactor() =>
       reaction((p0) => starterLogic.hasFoundNokhteSession, (p0) async {
@@ -153,7 +141,7 @@ abstract class _SessionStarterCoordinatorBase
           tags: presetsLogic.tags,
         );
         if (!userInfo.getUserInfoStore.hasAccessedQrCode) {
-          widgets.condensedPresetCards.enableAllTouchFeedback();
+          widgets.presetCards.enableAllTouchFeedback();
         }
       });
 

@@ -20,9 +20,8 @@ class SessionStarterScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = useFullScreenSize();
-    final center = useCenterOffset();
     useEffect(() {
-      coordinator.constructor(center);
+      coordinator.constructor();
       return () => coordinator.deconstructor();
     }, []);
 
@@ -84,12 +83,9 @@ class SessionStarterScreen extends HookWidget {
                       opacityDuration: Seconds.get(1),
                       bottomPadding: .6,
                       bottomBump: .004,
+                      fontWeight: FontWeight.w300,
                     ),
-                    Observer(builder: (context) {
-                      return PresetKey(
-                        showWidget: !coordinator.widgets.presetIsExpanded,
-                      );
-                    }),
+                    const PresetKey(),
                     Padding(
                       padding: EdgeInsets.only(
                         top: useScaledSize(
@@ -98,7 +94,7 @@ class SessionStarterScreen extends HookWidget {
                           screenSize: screenSize,
                         ),
                       ),
-                      child: PresetCards(
+                      child: PresetsCards(
                         store: coordinator.widgets.presetCards,
                       ),
                     ),
@@ -128,6 +124,9 @@ class SessionStarterScreen extends HookWidget {
               ),
               AuxiliaryNokhte(
                 store: coordinator.widgets.homeNokhte,
+              ),
+              PresetArticle(
+                store: coordinator.widgets.presetArticle,
               ),
               WifiDisconnectOverlay(
                 store: coordinator.widgets.wifiDisconnectOverlay,

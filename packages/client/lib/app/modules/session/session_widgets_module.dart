@@ -17,157 +17,31 @@ class SessionWidgetsModule extends Module {
   @override
   void exportedBinds(Injector i) {
     injectCore(i);
-    injectInstructions(i);
     injectHybrid(i);
     injectSpeaking(i);
     injectNotes(i);
     injectMonetization(i);
   }
 
-  injectInstructions(i) {
-    i.add<SocraticJustSymbolsWidgetsCoordinator>(
-      () => SocraticJustSymbolsWidgetsCoordinator(
-        smartText: SmartTextStore(),
-        touchRipple: TouchRippleStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        presetDiagram: PresetDiagramStore(),
-      ),
-    );
-    i.add<SocraticSpeakingSymbolsWidgetsCoordinator>(
-      () => SocraticSpeakingSymbolsWidgetsCoordinator(
-        smartText: SmartTextStore(),
-        touchRipple: TouchRippleStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        presetDiagram: PresetDiagramStore(),
-      ),
-    );
-    i.add<SocraticNotesSymbolsWidgetsCoordinator>(
-      () => SocraticNotesSymbolsWidgetsCoordinator(
-        smartText: SmartTextStore(),
-        touchRipple: TouchRippleStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        presetDiagram: PresetDiagramStore(),
-      ),
-    );
-    i.add<CollaborationJustSymbolsWidgetsCoordinator>(
-      () => CollaborationJustSymbolsWidgetsCoordinator(
-        smartText: SmartTextStore(),
-        touchRipple: TouchRippleStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        presetDiagram: PresetDiagramStore(),
-      ),
-    );
-    i.add<SoloHybridInstructionsWidgetsCoordinator>(
-      () => SoloHybridInstructionsWidgetsCoordinator(
-        smartText: SmartTextStore(),
-        touchRipple: TouchRippleStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        borderGlow: BorderGlowStore(),
-        holdTimerIndicator: HoldTimerIndicatorStore(),
-      ),
-    );
-    i.add<CollaborationFullInstructionsWidgetsCoordinator>(
-      () => CollaborationFullInstructionsWidgetsCoordinator(
-        presetDiagram: PresetDiagramStore(),
-        smartText: SmartTextStore(),
-        touchRipple: TouchRippleStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-      ),
-    );
-    i.add<ShowGroupGeometryWidgetsCoordinator>(
-      () => ShowGroupGeometryWidgetsCoordinator(
-        presetDiagram: PresetDiagramStore(),
-        smartText: SmartTextStore(),
-        touchRipple: TouchRippleStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-      ),
-    );
-    i.add<SocraticNotesInstructionsWidgetsCoordinator>(
-      () => SocraticNotesInstructionsWidgetsCoordinator(
-        touchRipple: TouchRippleStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        smartText: SmartTextStore(),
-      ),
-    );
-    i.add<SessionNotesInstructionsWidgetsCoordinator>(
-      () => SessionNotesInstructionsWidgetsCoordinator(
-        touchRipple: TouchRippleStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        smartText: SmartTextStore(),
-      ),
-    );
-    i.add<ConsultationNotesSymbolsWidgetsCoordinator>(
-      () => ConsultationNotesSymbolsWidgetsCoordinator(
-        touchRipple: TouchRippleStore(),
-        presetDiagram: PresetDiagramStore(),
-        beachWaves: BeachWavesStore(),
-        smartText: SmartTextStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-      ),
-    );
-    i.add<ConsultationJustSymbolsWidgetsCoordinator>(
-      () => ConsultationJustSymbolsWidgetsCoordinator(
-        touchRipple: TouchRippleStore(),
-        presetDiagram: PresetDiagramStore(),
-        beachWaves: BeachWavesStore(),
-        smartText: SmartTextStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-      ),
-    );
-    i.add<ConsultationSpeakingSymbolsWidgetsCoordinator>(
-      () => ConsultationSpeakingSymbolsWidgetsCoordinator(
-        touchRipple: TouchRippleStore(),
-        presetDiagram: PresetDiagramStore(),
-        beachWaves: BeachWavesStore(),
-        smartText: SmartTextStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-      ),
-    );
-
-    i.add<SessionSpeakingInstructionsWidgetsCoordinator>(
-      () => SessionSpeakingInstructionsWidgetsCoordinator(
-        smartText: SmartTextStore(),
-        holdTimerIndicator: HoldTimerIndicatorStore(),
-        touchRipple: TouchRippleStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        borderGlow: BorderGlowStore(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
-  }
-
   injectCore(i) {
-    i.add<SessionPreviewWidgetsCoordinator>(
-      () => SessionPreviewWidgetsCoordinator(
-        touchRipple: TouchRippleStore(),
-        primarySmartText: SmartTextStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        beachWaves: BeachWavesStore(),
-        presetCard: ExpandedPresetCardsStore(),
-      ),
-    );
     i.add<SessionInformationWidgetsCoordinator>(
       () => SessionInformationWidgetsCoordinator(
+        presetArticle: PresetArticleStore(
+          nokhteBlur: NokhteBlurStore(),
+          body: ArticleBodyStore(),
+        ),
         tint: TintStore(),
-        touchRipple: TouchRippleStore(),
-        primarySmartText: SmartTextStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         beachWaves: BeachWavesStore(),
-        presetCard: ExpandedPresetCardsStore(),
+        // presetCard: ExpandedPresetCardsStore(),
       ),
     );
     i.add<SessionLobbyWidgetsCoordinator>(
       () => SessionLobbyWidgetsCoordinator(
-        presetIcons: PresetIconsStore(),
+        presetArticle: PresetArticleStore(
+          nokhteBlur: NokhteBlurStore(),
+          body: ArticleBodyStore(),
+        ),
         touchRipple: TouchRippleStore(),
         primarySmartText: SmartTextStore(),
         qrCode: NokhteQrCodeStore(),
@@ -204,8 +78,6 @@ class SessionWidgetsModule extends Module {
     );
     i.add<SessionGroupGreeterWidgetsCoordinator>(
       () => SessionGroupGreeterWidgetsCoordinator(
-        sessionPhonePlacementGuide: SessionPhonePlacementGuideStore(),
-        sessionSeatingGuide: SessionSeatingGuideStore(),
         touchRipple: TouchRippleStore(),
         primarySmartText: SmartTextStore(),
         secondarySmartText: SmartTextStore(),
@@ -267,7 +139,8 @@ class SessionWidgetsModule extends Module {
     i.add<SessionGroupHybridWidgetsCoordinator>(
       () => SessionGroupHybridWidgetsCoordinator(
         sessionNavigation: Modular.get<SessionNavigationStore>(),
-        othersAreTalkingTint: HalfScreenTintStore(),
+        othersAreTalkingTint: TintStore(),
+        othersAreTakingNotesTint: HalfScreenTintStore(),
         speakLessSmileMore: SpeakLessSmileMoreStore(),
         touchRipple: TouchRippleStore(),
         mirroredText: Modular.get<MirroredTextStore>(),
@@ -281,7 +154,6 @@ class SessionWidgetsModule extends Module {
   injectNotes(i) {
     i.add<SessionNotesWidgetsCoordinator>(
       () => SessionNotesWidgetsCoordinator(
-        sessionNavigation: Modular.get<SessionNavigationStore>(),
         smartText: SmartTextStore(),
         textEditor: TextEditorStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),

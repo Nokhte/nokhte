@@ -66,24 +66,21 @@ abstract class _SessionExitWidgetsCoordinatorBase
   }
 
   @action
-  onReadyToGoBack(
-      SessionScreenTypes phoneRole, Function onReadyToGoBack) async {
+  onReadyToGoBack(Function onReadyToGoBack) async {
     tint.reverseMovie(NoParams());
     exitStatusIndicator.setWidgetVisibility(false);
     primarySmartText.setWidgetVisibility(false);
     secondarySmartText.setWidgetVisibility(false);
-    if (phoneRole == SessionScreenTypes.speaking ||
-        phoneRole == SessionScreenTypes.soloHybrid) {
-      beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
-      beachWaves.currentStore.initMovie(NoParams());
-    } else if (phoneRole == SessionScreenTypes.notes) {
-      Timer(Seconds.get(1), () {
-        Modular.to.navigate(SessionConstants.notes);
-      });
-    } else if (phoneRole == SessionScreenTypes.groupHybrid) {
-      beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
-      beachWaves.currentStore.initMovie(NoParams());
-    }
+    // if (phoneRole == SessionScreenTypes.speaking ||
+    //     phoneRole == SessionScreenTypes.groupHybrid ||
+    //     phoneRole == SessionScreenTypes.soloHybrid) {
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
+    beachWaves.currentStore.initMovie(NoParams());
+    // } else if (phoneRole == SessionScreenTypes.notes) {
+    //   Timer(Seconds.get(1), () {
+    //     Modular.to.navigate(SessionConstants.notes);
+    //   });
+    // }
     await onReadyToGoBack();
   }
 
@@ -105,19 +102,14 @@ abstract class _SessionExitWidgetsCoordinatorBase
       });
 
   beachWavesMovieStatusReactor({
-    required Function onReturnToTalkingComplete,
-    required Function onReturnToHybridComplete,
+    required Function onBackToSession,
   }) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToSky) {
             Modular.to.navigate(HomeConstants.home);
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.skyToHalfAndHalf) {
-            onReturnToTalkingComplete();
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
-            onReturnToHybridComplete();
+          } else {
+            onBackToSession();
           }
         }
       });

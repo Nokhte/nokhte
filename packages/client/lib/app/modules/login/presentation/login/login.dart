@@ -22,11 +22,10 @@ class LoginScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final center = useCenterOffset();
     final width = useFullScreenSize().width;
     final screenSize = useFullScreenSize();
     useEffect(() {
-      coordinator.constructor(center);
+      coordinator.constructor();
       return () => coordinator.deconstructor();
     }, []);
 

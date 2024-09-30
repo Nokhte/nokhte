@@ -13,11 +13,12 @@ class Fonts {
 
   static TextStyle jost({
     required double fontSize,
+    FontWeight fontWeight = FontWeight.w300,
     Color color = Colors.white,
   }) =>
       GoogleFonts.jost(
         fontSize: fontSize,
-        fontWeight: FontWeight.w400,
+        fontWeight: fontWeight,
         color: color,
       );
 }

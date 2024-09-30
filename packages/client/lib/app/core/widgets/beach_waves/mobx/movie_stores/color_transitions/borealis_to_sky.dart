@@ -14,6 +14,7 @@ abstract class _BorealisToSkyBase extends BaseBeachWaveMovieStore<NoParams>
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       WaterColorsAndStops.borealis,
       WaterColorsAndStops.sky,
     );

@@ -13,6 +13,7 @@ abstract class _AnyToSkyBase
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       WaterColorsAndStops.toTheDepthsWater,
       WaterColorsAndStops.toTheDepthsWater,
     );
@@ -21,9 +22,10 @@ abstract class _AnyToSkyBase
   @override
   initMovie(DurationAndGradient param) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       param.gradient,
       WaterColorsAndStops.sky,
-      seconds: param.duration,
+      end: param.duration,
     );
     control = Control.playFromStart;
   }

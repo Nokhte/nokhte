@@ -28,7 +28,6 @@ class AuxiliaryNokhtePainter extends CustomPainter {
       text: text,
       style: GoogleFonts.jost(
         fontSize: 20,
-        // fontWeight: FontWeight.w300,
         color: Colors.white.withOpacity(textOpacity),
       ),
     );

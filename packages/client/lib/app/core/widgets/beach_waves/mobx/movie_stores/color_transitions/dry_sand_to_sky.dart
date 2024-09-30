@@ -15,6 +15,7 @@ abstract class _DrySandToSkyBase extends BaseBeachWaveMovieStore<NoParams>
           callsOnCompleteTwice: true,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       WaterColorsAndStops.drySand,
       WaterColorsAndStops.sky,
     );

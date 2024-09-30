@@ -1,8 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
-import 'dart:ui';
-
-import 'package:flutter/rendering.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -67,8 +63,8 @@ abstract class _StorageHomeCoordinatorBase
   setCrossShouldUseObserver(bool value) => crossShouldUseObserver = value;
 
   @action
-  constructor(Offset offset) async {
-    widgets.constructor(offset);
+  constructor() async {
+    widgets.constructor();
     initReactors();
     await getUserInfo(NoParams());
     await getNokhteSessionArtifacts();
