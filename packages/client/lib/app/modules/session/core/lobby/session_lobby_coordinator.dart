@@ -124,7 +124,6 @@ abstract class _SessionLobbyCoordinatorBase
 
   @action
   showPresetInfo() {
-    print('preset type ${sessionMetadata.presetType}');
     widgets.onPresetTypeReceived(
       sessionMetadata.presetType,
       onOpen: onOpen,

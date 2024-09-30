@@ -1,4 +1,3 @@
-import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class SessionLists {
@@ -76,36 +75,21 @@ class SessionLists {
     SharedLists.emptyItem,
   ];
 
-  static List<RotatingTextData> getGroupGreeterPrimary({
-    required int numberOfCollaborators,
-    required int userIndex,
-  }) {
-    final adjacentNumbers = AdjacentNumbers.getAdjacentNumbers(
-      numberOfCollaborators,
-      userIndex + 1,
-      includeIndex: false,
-    );
-    return [
-      putYourPhoneOnDND,
-      RotatingTextData(
-        text:
-            "Make a circle and sit next to ${adjacentNumbers.first} and ${adjacentNumbers.last}",
-        pauseHere: true,
-        mainFontSize: 24.0,
-      ),
-      RotatingTextData(
-        text:
-            "Place your phone halfway between you and ${adjacentNumbers.last}",
-        pauseHere: true,
-        mainFontSize: 24.0,
-      ),
-      SharedLists.emptyItem,
-      RotatingTextData(
-        text: "Wait for the others",
-        pauseHere: true,
-      ),
-    ];
-  }
+  static List<RotatingTextData> get groupGreeterPrimary => [
+        putYourPhoneOnDND,
+        RotatingTextData(
+          text: "Sit in a circle",
+          pauseHere: true,
+          mainFontSize: 23.0,
+        ),
+        RotatingTextData(
+          text:
+              "Place your phone halfway between you and the person to your right",
+          pauseHere: true,
+          mainFontSize: 22.0,
+        ),
+        SharedLists.emptyItem,
+      ];
 
   static List<RotatingTextData> speakingInstructionsPrimary({
     required bool isHybrid,
