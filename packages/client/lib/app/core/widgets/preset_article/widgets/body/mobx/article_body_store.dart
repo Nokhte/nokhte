@@ -83,7 +83,7 @@ abstract class _ArticleBodyStoreBase extends BaseWidgetStore with Store {
       return 'How to speak:';
     } else if (currentPosition.isGreaterThan(.5) &&
         currentPosition.isLessThanOrEqualTo(1.5)) {
-      return 'How to sit:';
+      return 'Where to sit:';
     } else if (currentPosition.isGreaterThan(1.5)) {
       return 'How to take notes:';
     } else {
