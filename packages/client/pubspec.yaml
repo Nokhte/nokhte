@@ -58,6 +58,10 @@ flutter:
   assets:
     - .env
     - assets/app_logo.png
+    - assets/collaborative_seating.png
+    - assets/consultative_seating.png
+    - assets/apple_icon.png
+    - assets/google_icon.png
 flutter_icons:
   image_path: "assets/app_logo.png"
   android: true
