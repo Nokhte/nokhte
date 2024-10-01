@@ -20,20 +20,21 @@ class TagLine extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = useFullScreenSize();
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        TextPainter textPainter = TextPainter(
-          text: TextSpan(text: text, style: textStyle),
-          textDirection: TextDirection.ltr,
-        );
+    return Builder(builder: (context) {
+      TextPainter textPainter = TextPainter(
+        text: TextSpan(text: text, style: textStyle),
+        textDirection: TextDirection.ltr,
+      );
 
-        textPainter.layout(
-          maxWidth: constraints.maxWidth,
-        );
+      textPainter.layout(
+        maxWidth: screenSize.width,
+      );
 
-        double textHeight = textPainter.size.height;
+      double textHeight = textPainter.size.height;
 
-        return Row(
+      return SizedBox(
+        height: textHeight,
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(width: useExpandedPadding ? 40 : 30),
@@ -61,8 +62,8 @@ class TagLine extends HookWidget {
               ),
             ),
           ],
-        );
-      },
-    );
+        ),
+      );
+    });
   }
 }
