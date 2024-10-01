@@ -72,6 +72,7 @@ abstract class _PresetArticleStoreBase extends BaseWidgetStore with Store {
           );
         },
       ).whenComplete(() {
+        body.reset();
         nokhteBlur.reverse();
         setWidgetVisibility(false);
         Timer(Seconds.get(0), () async {
