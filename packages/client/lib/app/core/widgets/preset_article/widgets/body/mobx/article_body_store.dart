@@ -36,6 +36,12 @@ abstract class _ArticleBodyStoreBase extends BaseWidgetStore with Store {
   @action
   setCurrentPosition(double position) => currentPosition = position;
 
+  @action
+  reset() {
+    currentPosition = 0.0;
+    activeIndex = 0;
+  }
+
   @computed
   DemoTypes get currentDemo => bodyInfo.demoTypes;
 

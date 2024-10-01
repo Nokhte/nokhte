@@ -16,6 +16,7 @@ class LoginList {
         ),
         RotatingTextData(
           text: "Sign In",
+          mainFontSize: 30,
           subText: "",
           pauseHere: true,
         ),

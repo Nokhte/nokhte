@@ -103,6 +103,28 @@ class DemoPhones extends HookWidget {
         );
       });
 
+  Widget seatingDemo(String imagePath, double width) {
+    return Column(
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(bottom: 15.0),
+          child: Chivo(
+            'Example',
+            fontSize: 27,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20.0),
+          child: Image.asset(
+            imagePath,
+            width: width * 0.8,
+            height: width * 0.8,
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = useFullScreenSize().width;
@@ -113,7 +135,10 @@ class DemoPhones extends HookWidget {
       } else if (currentPosition > 1.5) {
         return multiFocalNotesDemo(width);
       } else {
-        return Container();
+        return seatingDemo(
+          'assets/collaborative_seating.png',
+          width,
+        );
       }
     } else {
       if (currentPosition < 0.5) {
@@ -121,7 +146,10 @@ class DemoPhones extends HookWidget {
       } else if (currentPosition > 1.5) {
         return monoFocalNotesDemo(width);
       } else {
-        return Container();
+        return seatingDemo(
+          'assets/consultative_seating.png',
+          width,
+        );
       }
     }
   }
