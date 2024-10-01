@@ -17,8 +17,11 @@ abstract class _AnyToOnShoreBase
   @override
   @action
   initMovie(AnyToOnShoreParams params) {
-    movie = AnyToShoreMovie.getMovie(params.startingColors,
-        endingColors: params.endingColors);
+    movie = AnyToShoreMovie.getMovie(
+      params.startingColors,
+      endingColors: params.endingColors,
+      endValue: params.endValue,
+    );
     control = Control.playFromStart;
   }
 }

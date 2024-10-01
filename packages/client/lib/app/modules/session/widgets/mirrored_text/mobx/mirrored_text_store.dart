@@ -39,9 +39,9 @@ abstract class _MirroredTextStoreBase extends BaseWidgetStore with Store {
         setSecondaryMessagesData(SessionLists.touchToTalk);
       case MirroredTextContent.hybrid:
         setPrimaryMessagesData(SharedLists.emptyList);
-        secondaryRightSideUpText.setMessagesData(SessionLists.tapToTakeANote);
-        secondaryUpsideDownText.setMessagesData(SessionLists.touchToTalk);
-        prepForSplitScreen(isInverted: true);
+        secondaryUpsideDownText.setMessagesData(SessionLists.tapToTakeANote);
+        secondaryRightSideUpText.setMessagesData(SessionLists.touchToTalk);
+        prepForSplitScreen();
     }
   }
 

@@ -16,6 +16,7 @@ abstract class _HalfAndHalfToDrySandBase
           callsOnCompleteTwice: false,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       WaterColorsAndStops.halfWaterAndSand,
       WaterColorsAndStops.condensedDrySand,
     );

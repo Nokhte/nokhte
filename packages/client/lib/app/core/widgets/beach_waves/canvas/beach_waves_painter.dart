@@ -8,6 +8,8 @@ class BeachWavesPainter extends CustomPainter {
   final List<double> stopsList;
   final bool shouldPaintSand;
   final SandTypes sandType;
+  final bool shouldScrollAdjust;
+  final double scrollPercentage;
 
   BeachWavesPainter({
     required this.waterValue,
@@ -15,9 +17,33 @@ class BeachWavesPainter extends CustomPainter {
     required this.stopsList,
     required this.shouldPaintSand,
     required this.sandType,
+    required this.shouldScrollAdjust,
+    required this.scrollPercentage,
   });
 
-  paintSand(Canvas canvas, Size size) {
+  adjustColors() {
+    final newColors = <Color>[];
+    for (int i = 0; i < colorsList.length; i++) {
+      newColors.add(Color.lerp(colorsList[i],
+          WaterColorsAndStops.invertedDeeperBlue[i].color, scrollPercentage)!);
+    }
+    return newColors;
+  }
+
+  double lerpDouble(double start, double end, double t) {
+    return start + (end - start) * t;
+  }
+
+  adjustStops() {
+    final newColors = <double>[];
+    for (int i = 0; i < stopsList.length; i++) {
+      newColors.add(lerpDouble(stopsList[i],
+          WaterColorsAndStops.invertedDeeperBlue[i].stop, scrollPercentage));
+    }
+    return newColors;
+  }
+
+  paintSand(Canvas canvas, Size size, SandTypes sandType) {
     final sandGrandient = Paint();
     List<Color> colors = [];
     List<double> stops = [];
@@ -50,8 +76,8 @@ class BeachWavesPainter extends CustomPainter {
     const waveAmplitude = 20.0;
 
     final waveGradient = LinearGradient(
-      colors: colorsList,
-      stops: stopsList,
+      colors: shouldScrollAdjust ? adjustColors() : colorsList,
+      stops: shouldScrollAdjust ? adjustStops() : stopsList,
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
     );
@@ -59,7 +85,7 @@ class BeachWavesPainter extends CustomPainter {
       ..shader = waveGradient
           .createShader(Rect.fromLTWH(0, 0, size.width, size.height));
 
-    final phase = waterValue;
+    final phase = waterValue + (scrollPercentage * 100);
 
     for (int i = 0; i < waveCount; i++) {
       final waveOffset = size.height / (waveCount + 1) * (i + 1);
@@ -84,7 +110,7 @@ class BeachWavesPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     if (shouldPaintSand) {
-      paintSand(canvas, size);
+      paintSand(canvas, size, sandType);
     }
     paintWater(canvas, size);
   }

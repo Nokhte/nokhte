@@ -3,6 +3,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
+import 'package:nokhte/app/core/modules/quick_actions/quick_actions.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -30,6 +31,9 @@ abstract class _HomeScreenRootRouterCoordinatorBase
     required this.widgets,
   }) {
     initEnRouteActions();
+    QuickActionsConstants.route(() {
+      setIsRouting(true);
+    });
   }
 
   @action
@@ -37,10 +41,16 @@ abstract class _HomeScreenRootRouterCoordinatorBase
     widgets.constructor();
     initReactors();
     await cleanUpCollaborationArtifacts(NoParams());
-    if (isConnected) {
+    if (isConnected && !isRouting) {
       await decideAndRoute(setRoutingParams);
     }
   }
+
+  @observable
+  bool isRouting = false;
+
+  @action
+  setIsRouting(bool newVal) => isRouting = newVal;
 
   @action
   setRoutingParams() {

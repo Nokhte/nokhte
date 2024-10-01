@@ -15,14 +15,10 @@ class LoginWidgetsModule extends Module {
   exportedBinds(i) {
     i.addSingleton<LoginScreenWidgetsCoordinator>(
       () => LoginScreenWidgetsCoordinator(
-        gestureCross: Modular.get<GestureCrossStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        loginNokhtes: LoginNokhtesStore(),
         smartTextStore: SmartTextStore(),
         layer1BeachWaves: BeachWavesStore(),
         layer2BeachWaves: BeachWavesStore(),
-        bottomTrailingText: TrailingTextStore(),
-        topTrailingText: TrailingTextStore(),
       ),
     );
   }

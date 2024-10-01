@@ -42,28 +42,22 @@ class SessionLobbyScreen extends HookWidget {
             BorderGlow(store: BorderGlowStore()),
             SmartText(
               store: coordinator.widgets.primarySmartText,
-              topPadding: .22,
-              topBump: 0.003,
+              topPadding: .25,
+              topBump: 0.0015,
               opacityDuration: Seconds.get(1),
             ),
-            FullScreen(
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: useScaledSize(
-                      baseValue: .28,
-                      bumpPerHundredth: 0.002,
-                      screenSize: screenSize,
-                    ),
+            Padding(
+              padding: EdgeInsets.only(
+                  bottom: useScaledSize(
+                baseValue: .09,
+                screenSize: screenSize,
+                bumpPerHundredth: .0021,
+              )
+                  // screenSize.height * .06,
                   ),
-                  child: PresetIcons(
-                    store: coordinator.widgets.presetIcons,
-                  ),
-                ),
+              child: NokhteQrCode(
+                store: coordinator.widgets.qrCode,
               ),
-            ),
-            NokhteQrCode(
-              store: coordinator.widgets.qrCode,
             ),
             FullScreen(
               child: TouchRipple(
@@ -72,6 +66,9 @@ class SessionLobbyScreen extends HookWidget {
             ),
             CollaboratorPresenceIncidentsOverlay(
               store: coordinator.presence.incidentsOverlayStore,
+            ),
+            PresetArticle(
+              store: coordinator.widgets.presetArticle,
             ),
             WifiDisconnectOverlay(
               store: coordinator.widgets.wifiDisconnectOverlay,

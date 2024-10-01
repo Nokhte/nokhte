@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, constant_identifier_names
 
 import 'package:nokhte/app/modules/session/logic/domain/domain.dart';
 import 'package:nokhte_backend/tables/st_active_nokhte_sessions.dart';
@@ -26,10 +26,10 @@ class StaticSessionMetadataModel extends StaticSessionMetadataEntity {
     } else {
       final m = UserMetadataConstants();
       final UID = m.UID;
-      final LEADER_UID = STActiveNokhteSessionsConstants.S_LEADER_UID;
-      final COLLABORATOR_UIDS =
+      const LEADER_UID = STActiveNokhteSessionsConstants.S_LEADER_UID;
+      const COLLABORATOR_UIDS =
           STActiveNokhteSessionsConstants.S_COLLABORATOR_UIDS;
-      final PRESET_UID = STActiveNokhteSessionsConstants.S_PRESET_UID;
+      const PRESET_UID = STActiveNokhteSessionsConstants.S_PRESET_UID;
       final leaderUID = sessionRes.first[LEADER_UID];
       final orderedCollaboratorUIDs = sessionRes.first[COLLABORATOR_UIDS];
       final userIndex = orderedCollaboratorUIDs.indexOf(metadataRes.first[UID]);

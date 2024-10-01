@@ -4,13 +4,12 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 export 'flexible_seating_movie.dart';
 
-class FlexibleSeatingIcon extends StatelessWidget {
-  final double containerSize;
-  final bool shouldAnimate;
+class FlexibleSeatingIcon extends BaseIcon {
   const FlexibleSeatingIcon({
     super.key,
-    required this.containerSize,
-    required this.shouldAnimate,
+    required super.containerSize,
+    required super.shouldAnimate,
+    super.opacity = 1.0,
   });
 
   @override
@@ -28,6 +27,8 @@ class FlexibleSeatingIcon extends StatelessWidget {
             width: containerSize * .23,
             child: CustomPaint(
               painter: FlexibleSeatingIconPainter(
+                showText: shouldAnimate,
+                masterOpacity: opacity,
                 containerSize: containerSize,
                 o1: value.get('o1'),
                 o2: value.get('o2'),

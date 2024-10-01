@@ -1,21 +1,21 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 mixin STActiveNokhteSessionsConstants {
-  String TABLE = "st_active_nokhte_sessions";
-  String COLLABORATOR_UIDS = 'collaborator_uids';
-  String CREATED_AT = 'created_at';
-  String CONTENT = 'content';
-  String SESSION_UID = 'session_uid';
-  String LEADER_UID = 'leader_uid';
-  String PRESET_UID = 'preset_uid';
-  String SHOULD_SKIP_INSTRUCTIONS = 'should_skip_instructions';
+  final String TABLE = S_TABLE;
+  final String COLLABORATOR_UIDS = S_COLLABORATOR_UIDS;
+  final String CREATED_AT = S_CREATED_AT;
+  final String CONTENT = S_CONTENT;
+  final String SESSION_UID = S_SESSION_UID;
+  final String LEADER_UID = S_LEADER_UID;
+  final String PRESET_UID = S_PRESET_UID;
+  final String SHOULD_SKIP_INSTRUCTIONS = S_SHOULD_SKIP_INSTRUCTIONS;
 
-  static String S_TABLE = "st_active_nokhte_sessions";
-  static String S_COLLABORATOR_UIDS = 'collaborator_uids';
-  static String S_CREATED_AT = 'created_at';
-  static String S_CONTENT = 'content';
-  static String S_SESSION_UID = 'session_uid';
-  static String S_LEADER_UID = 'leader_uid';
-  static String S_PRESET_UID = 'preset_uid';
-  static String S_SHOULD_SKIP_INSTRUCTIONS = 'should_skip_instructions';
+  static const String S_TABLE = "st_active_nokhte_sessions";
+  static const String S_COLLABORATOR_UIDS = 'collaborator_uids';
+  static const String S_CREATED_AT = 'created_at';
+  static const String S_CONTENT = 'content';
+  static const String S_SESSION_UID = 'session_uid';
+  static const String S_LEADER_UID = 'leader_uid';
+  static const String S_PRESET_UID = 'preset_uid';
+  static const String S_SHOULD_SKIP_INSTRUCTIONS = 'should_skip_instructions';
 }

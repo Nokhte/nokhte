@@ -44,22 +44,14 @@ abstract class _SessionNotesWidgetsCoordinatorBase
   int inactivityCount = 0;
 
   @observable
-  SessionScreenTypes screenType = SessionScreenTypes.inital;
-
-  @observable
   PresetTypes presetType = PresetTypes.none;
-
-  @action
-  setScreenType(SessionScreenTypes type) {
-    screenType = type;
-  }
 
   @action
   setPresetType(PresetTypes type) {
     presetType = type;
   }
 
-  constructor() {
+  constructor({required Function onEarlyReturn}) {
     smartText.setMessagesData(SessionLists.notesPrimary);
     smartText.setWidgetVisibility(false);
     smartText.startRotatingText();
@@ -67,18 +59,15 @@ abstract class _SessionNotesWidgetsCoordinatorBase
     textEditor.initFadeIn();
 
     textEditor.focusNode.addListener(() {
-      isAHybridScreen
-          ? hybridTextEditorListener()
-          : regularTextEditorListener();
+      hybridTextEditorListener();
     });
-    if (isAHybridScreen) {
-      Timer(Seconds.get(9, milli: 500), () {
-        if (inactivityCount == 0) {
-          textEditor.setWidgetVisibility(false);
-          afterSwipeUp(includeTimer: false);
-        }
-      });
-    }
+    Timer(Seconds.get(9, milli: 500), () async {
+      if (inactivityCount == 0) {
+        textEditor.setWidgetVisibility(false);
+        afterSwipeUp(includeTimer: false);
+        await onEarlyReturn();
+      }
+    });
     disposers.add(beachWavesMovieStatusReactor());
   }
 
@@ -104,7 +93,6 @@ abstract class _SessionNotesWidgetsCoordinatorBase
     } else {
       smartText.setWidgetVisibility(false);
     }
-    //
   }
 
   @action
@@ -152,35 +140,34 @@ abstract class _SessionNotesWidgetsCoordinatorBase
     bool includeTimer = true,
   }) =>
       Timer(Seconds.get(includeTimer ? 1 : 0), () {
-        if (presetType == PresetTypes.collaborative) {
-          textEditor.setWidgetVisibility(false);
-          beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
-          beachWaves.currentStore.initMovie(NoParams());
-        } else if (presetType == PresetTypes.consultative) {
-          if (screenType == SessionScreenTypes.notes) {
-            textEditor.controller.clear();
-            textEditor.setWidgetVisibility(true);
-            canSwipeUp = true;
-          } else {
-            textEditor.setWidgetVisibility(false);
-            beachWaves.setMovieMode(
-              BeachWaveMovieModes.skyToInvertedHalfAndHalf,
-            );
-            beachWaves.currentStore.initMovie(NoParams());
-          }
-        } else {
-          Modular.to.navigate(SessionConstants.exit);
-        }
+        // if (presetType == PresetTypes.collaborative) {
+        textEditor.setWidgetVisibility(false);
+        beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
+        beachWaves.currentStore.initMovie(NoParams());
+        // } else if (presetType == PresetTypes.consultative) {
+        //   if (screenType == SessionScreenTypes.notes) {
+        //     textEditor.controller.clear();
+        //     textEditor.setWidgetVisibility(true);
+        //     canSwipeUp = true;
+        //   } else {
+        //     textEditor.setWidgetVisibility(false);
+        //     beachWaves.setMovieMode(
+        //       BeachWaveMovieModes.skyToInvertedHalfAndHalf,
+        //     );
+        //     beachWaves.currentStore.initMovie(NoParams());
+        //   }
+        // } else {
+        //   Modular.to.navigate(SessionConstants.exit);
+        // }
       });
 
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
-            Modular.to.navigate(SessionConstants.soloHybrid);
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
+          if (presetType == PresetTypes.consultative) {
             Modular.to.navigate(SessionConstants.groupHybrid);
+          } else {
+            Modular.to.navigate(SessionConstants.soloHybrid);
           }
         }
       });
@@ -191,8 +178,13 @@ abstract class _SessionNotesWidgetsCoordinatorBase
     textEditor.controller.dispose();
   }
 
-  @computed
-  bool get isAHybridScreen =>
-      screenType == SessionScreenTypes.groupHybrid ||
-      screenType == SessionScreenTypes.soloHybrid;
+  // @computed
+  // bool get isAImpermanentNotesScreen =>
+  //     screenType == SessionScreenTypes.groupHybrid ||
+  //     screenType == SessionScreenTypes.soloHybrid;
+
+  // @computed
+  // bool get isAPermanentNotesScreen =>
+  //     presetType == PresetTypes.consultative &&
+  //     screenType == SessionScreenTypes.notes;
 }

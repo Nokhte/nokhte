@@ -13,6 +13,7 @@ abstract class _AnyToHalfAndHalfBase
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       WaterColorsAndStops.toTheDepthsWater,
       WaterColorsAndStops.toTheDepthsWater,
     );
@@ -21,7 +22,11 @@ abstract class _AnyToHalfAndHalfBase
   @override
   initMovie(List<ColorAndStop> param) {
     const halfAndHalf = WaterColorsAndStops.halfWaterAndSand;
-    movie = TwoSecondBeachTransitionMovie.getMovie(param, halfAndHalf);
+    movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
+      param,
+      halfAndHalf,
+    );
     control = Control.playFromStart;
   }
 }

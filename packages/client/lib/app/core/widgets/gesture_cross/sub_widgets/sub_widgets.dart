@@ -1,2 +1,3 @@
 export 'cross/cross.dart';
-export 'individual_cross_nokhte/individual_cross_nokhte.dart';
+export 'shared/circle_offsets.dart';
+export 'stroke_cross_nokhte/stroke_cross_nokhte.dart';

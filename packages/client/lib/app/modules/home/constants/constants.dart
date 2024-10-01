@@ -10,19 +10,19 @@ mixin HomeConstants {
     Color(0xFF52D6F3),
   ];
 
-  static const module = '/home';
-  static const relativeRoot = "/";
-  static const relativeCompassAndQrGuide = "/compass_and_qr_guide";
-  static const relativeQrNavigationReminder = "/qr_navigation_reminder";
-  static const relativeStorageGuide = "/storage_guide";
-  static const relativeQrAndStorageAdept = "/qr_and_storage_adept";
-  static const relativeNeedsToUpdate = "/needs_to_update";
+  static const QUICK_ACTIONS_ROUTE = 'quickActionsRoute';
 
-  static const root = "$module$relativeRoot";
-  static const compassAndQrGuide = "$module$relativeCompassAndQrGuide";
-  static const qrNavigationReminder = "$module$relativeQrNavigationReminder";
-  static const storageGuide = "$module$relativeStorageGuide";
-  static const qrAndStorageAdept = "$module$relativeQrAndStorageAdept";
+  static const module = '/home';
+  static const relativeRouter = "/router";
+  static const relativeHome = "/home_screen";
+  static const relativeQuickActionsRouter = "/quick_actions_router";
+  static const relativeNeedsToUpdate = "/needs_to_update";
+  static const relativeEntry = "/entry";
+
+  static const router = "$module$relativeRouter";
+  static const quickActionsRouter = "$module$relativeQuickActionsRouter";
+  static const entry = "$module$relativeEntry";
+  static const home = "$module$relativeHome";
   static const needsToUpdate = "$module$relativeNeedsToUpdate";
 
   static const RESUME_ON_SHORE_PARAMS = "resumeOnShoreParams";

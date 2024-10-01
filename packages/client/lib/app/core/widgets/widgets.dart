@@ -1,8 +1,9 @@
 export 'beach_waves/beach_waves.dart';
+export 'preset_article/preset_article.dart';
 export 'gesture_cross/gesture_cross.dart';
 export 'utilities/utilities.dart';
-export 'instructional_nokhtes/instructional_nokhtes.dart';
-export "jost/jost.dart";
+export 'nokhtes/nokhtes.dart';
+export "fonts/fonts.dart";
 export 'nokhte_blur/nokhte_blur.dart';
 export 'nokhte_qr_code/nokhte_qr_code.dart';
 export 'preset_cards/preset_cards.dart';

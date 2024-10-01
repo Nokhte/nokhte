@@ -44,7 +44,7 @@ class SessionNotesScreen extends HookWidget {
               Center(
                 child: SmartText(
                   store: coordinator.widgets.smartText,
-                  topPadding: .8,
+                  topPadding: .7,
                   opacityDuration: Seconds.get(1),
                 ),
               ),

@@ -15,11 +15,16 @@ class BeachWaves extends HookWidget {
   final BeachWavesStore store;
   final SandTypes sandType;
   final Duration opacityDuration;
-  const BeachWaves(
-      {super.key,
-      required this.store,
-      this.sandType = SandTypes.home,
-      this.opacityDuration = Duration.zero});
+  final bool shouldScrollAdjust;
+  final double scrollPercentage;
+  const BeachWaves({
+    super.key,
+    required this.store,
+    this.sandType = SandTypes.home,
+    this.opacityDuration = Duration.zero,
+    this.shouldScrollAdjust = false,
+    this.scrollPercentage = 0.0,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +44,8 @@ class BeachWaves extends HookWidget {
                   store.setCurrentAnimationValues(currentAnimationValues);
                   return CustomPaint(
                     painter: BeachWavesPainter(
+                      shouldScrollAdjust: shouldScrollAdjust,
+                      scrollPercentage: scrollPercentage,
                       sandType: sandType,
                       waterValue: currentAnimationValues.first,
                       shouldPaintSand: store.shouldPaintSandOnCurrent,

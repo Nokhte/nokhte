@@ -5,12 +5,40 @@ class TalkingIconsPainter extends CustomPainter {
   final Color color;
   final bool showTheH;
   final double sizeScalar;
+  final double opacity;
+  final bool showText;
 
   TalkingIconsPainter({
     required this.color,
+    required this.opacity,
     required this.showTheH,
     required this.sizeScalar,
+    required this.showText,
   });
+
+  paintText(Canvas canvas, Offset center) {
+    final textSpan = TextSpan(
+      text: 'Speaking',
+      style: GoogleFonts.jost(
+        fontSize: sizeScalar * .07,
+        color: Colors.white.withOpacity(opacity),
+      ),
+    );
+    final textPainter = TextPainter(
+      text: textSpan,
+      textDirection: TextDirection.ltr,
+    );
+    textPainter.layout(
+      minWidth: 0,
+      maxWidth: double.infinity,
+    );
+    textPainter.paint(
+        canvas,
+        Offset(
+          center.dx - textPainter.width / 2,
+          (center.dy - textPainter.height / 2) + (textPainter.height * 1.7),
+        ));
+  }
 
   @override
   void paint(canvas, size) {
@@ -59,7 +87,9 @@ class TalkingIconsPainter extends CustomPainter {
     final offset = Offset(xCenter, yCenter);
     textPainter.paint(canvas, offset);
 
-    //
+    if (showText) {
+      paintText(canvas, center);
+    }
   }
 
   @override

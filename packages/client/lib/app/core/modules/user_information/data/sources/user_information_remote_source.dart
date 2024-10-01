@@ -1,3 +1,7 @@
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:nokhte/app/core/modules/hive/hive.dart';
+import 'package:nokhte/app/core/modules/hive/mixin/mixin.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/user_information.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -13,30 +17,43 @@ abstract class UserInformationRemoteSource {
   Future<List> getPreferredPreset();
 }
 
-class UserInformationRemoteSourceImpl implements UserInformationRemoteSource {
+class UserInformationRemoteSourceImpl
+    with HiveBoxUtils, UserInformationConstants
+    implements UserInformationRemoteSource {
   final SupabaseClient supabase;
   final UserInformationQueries userInfoQueries;
   final FinishedNokhteSessionQueries finishedNokhteSessionQueries;
+  final CompanyPresetsQueries companyPresetQueries;
+  final userInfoBox = HiveBoxes.userInformation.toString();
 
   UserInformationRemoteSourceImpl({required this.supabase})
       : userInfoQueries = UserInformationQueries(supabase: supabase),
+        companyPresetQueries = CompanyPresetsQueries(supabase: supabase),
         finishedNokhteSessionQueries =
             FinishedNokhteSessionQueries(supabase: supabase);
 
   @override
-  updatePreferredPreset(String presetUID) async =>
-      await userInfoQueries.updatePreferredPreset(presetUID);
-
-  @override
-  getUserInfo() async => await userInfoQueries.getUserInfo();
+  getUserInfo() async => await initBoxIfNecessary(
+        name: userInfoBox,
+        query: () async => await userInfoQueries.getUserInfo(),
+      );
 
   @override
   getFinishedNokhteSessions() async =>
       await finishedNokhteSessionQueries.select();
 
   @override
-  updateUserFlag(params) async =>
-      await userInfoQueries.updateUserFlag(params.keyStr, params.value);
+  updatePreferredPreset(String presetUID) async {
+    final res = await userInfoQueries.updatePreferredPreset(presetUID);
+    return await updateBox(data: res.first, name: userInfoBox);
+  }
+
+  @override
+  updateUserFlag(params) async {
+    final res =
+        await userInfoQueries.updateUserFlag(params.keyStr, params.value);
+    return await updateBox(data: res.first, name: userInfoBox);
+  }
 
   @override
   versionIsUpToDate() async {
@@ -46,6 +63,11 @@ class UserInformationRemoteSourceImpl implements UserInformationRemoteSource {
   }
 
   @override
-  Future<List> getPreferredPreset() async =>
-      await userInfoQueries.getPreferredPresetInfo();
+  Future<List> getPreferredPreset() async {
+    final box = await Hive.openBox(userInfoBox);
+    final res = await companyPresetQueries.getInfoFromUnifiedUID(
+      box.get(PREFERRED_PRESET),
+    );
+    return res;
+  }
 }

@@ -42,6 +42,10 @@ class SwipeGuidePainter extends CustomPainter {
       canvas.translate(center.dx, center.dy);
       canvas.rotate(pi * 1.5);
       canvas.translate(-center.dx, -center.dy);
+    } else if (orientation == SwipeGuideOrientation.bottom) {
+      canvas.translate(center.dx, center.dy);
+      canvas.rotate(pi * 0.5);
+      canvas.translate(-center.dx, -center.dy);
     }
 
     for (int i = 0; i < 7; i++) {

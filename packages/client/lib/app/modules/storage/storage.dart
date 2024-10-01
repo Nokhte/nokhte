@@ -39,10 +39,8 @@ class StorageModule extends Module {
     );
     i.add<StorageContentCoordinator>(
       () => StorageContentCoordinator(
-        tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<StorageContentWidgetsCoordinator>(),
-        swipe: SwipeDetector(),
       ),
     );
   }
@@ -50,7 +48,7 @@ class StorageModule extends Module {
   @override
   void routes(r) {
     r.child(
-      StorageConstants.relativeRoot,
+      StorageConstants.relativeHome,
       transition: TransitionType.noTransition,
       child: (context) => StorageHomeScreen(
         coordinator: Modular.get<StorageHomeCoordinator>(),

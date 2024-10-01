@@ -14,6 +14,7 @@ abstract class _BlackOutToDrySandBase extends BaseBeachWaveMovieStore<NoParams>
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
+      MovieTween(),
       WaterColorsAndStops.blackOut,
       WaterColorsAndStops.drySand,
     );

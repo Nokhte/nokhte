@@ -26,12 +26,13 @@ abstract class _SessionStarterEntryWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
     gestureCross.fadeInTheCross();
+    beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
     beachWaves.currentStore.initMovie(
       const AnyToOnShoreParams(
-        startingColors: WaterColorsAndStops.oceanDiveWater,
+        startingColors: WaterColorsAndStops.simpleInvertedBeachWater,
         endingColors: WaterColorsAndStops.invertedBeachWater,
+        endValue: -5.0,
       ),
     );
   }

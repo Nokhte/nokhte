@@ -4,20 +4,15 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
-import 'package:simple_animations/simple_animations.dart';
 export './choose_greeter_type.dart';
 export './session_router.dart';
 
 mixin SessionRouter {
   BeachWavesStore get beachWaves;
   initTransition(SessionScreenTypes phoneType) {
-    if (phoneType == SessionScreenTypes.speaking ||
-        phoneType == SessionScreenTypes.soloHybrid) {
+    if (phoneType != SessionScreenTypes.notes) {
       beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
       beachWaves.currentStore.initMovie(NoParams());
-    } else if (phoneType == SessionScreenTypes.groupHybrid) {
-      beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
-      beachWaves.currentStore.setControl(Control.play);
     }
   }
 
@@ -28,11 +23,8 @@ mixin SessionRouter {
       if (isACollaborativeSession) {
         Modular.to.navigate(SessionConstants.soloHybrid);
       } else {
-        Modular.to.navigate(SessionConstants.speaking);
+        Modular.to.navigate(SessionConstants.groupHybrid);
       }
-    } else if (beachWaves.movieMode ==
-        BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
-      Modular.to.navigate(SessionConstants.groupHybrid);
     } else if (beachWaves.movieMode == BeachWaveMovieModes.skyToDrySand) {
       Modular.to.navigate(SessionConstants.notes);
     }

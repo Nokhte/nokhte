@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'core/modules/supabase/supabase.dart';
 import 'modules/home/home.dart';
+import 'modules/session_joiner/session_joiner.dart';
 import 'modules/login/login.dart';
 import 'modules/session/session.dart';
 import 'modules/session_starters/session_starters.dart';
@@ -19,5 +20,6 @@ class AppModule extends Module {
     r.module(SessionConstants.module, module: SessionModule());
     r.module(StorageConstants.module, module: StorageModule());
     r.module(PresetsConstants.module, module: PresetsModule());
+    r.module(SessionJoinerConstants.module, module: SessionJoinerModule());
   }
 }

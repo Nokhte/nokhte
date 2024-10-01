@@ -14,6 +14,12 @@ class LoginList {
           subText: "Tap anywhere to confirm",
           pauseHere: true,
         ),
+        RotatingTextData(
+          text: "Sign In",
+          mainFontSize: 30,
+          subText: "",
+          pauseHere: true,
+        ),
         SharedLists.emptyItem,
       ];
 }

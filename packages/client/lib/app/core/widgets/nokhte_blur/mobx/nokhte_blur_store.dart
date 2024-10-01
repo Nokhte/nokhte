@@ -17,9 +17,17 @@ abstract class _NokhteBlurStoreBase extends BaseWidgetStore with Store {
   bool hasBlurredIn = false;
 
   @action
-  init({double blurValue = 10.0}) {
+  init({
+    double blurValue = 10.0,
+    Duration end = const Duration(seconds: 1),
+  }) {
     hasBlurredIn = true;
-    setMovie(BlurMovie.getMovie(blurValue: blurValue));
+    setMovie(
+      BlurMovie.getMovie(
+        blurValue: blurValue,
+        end: end,
+      ),
+    );
     setMovieStatus(MovieStatus.inProgress);
     setControl(Control.playFromStart);
   }

@@ -35,11 +35,10 @@ class Cross extends StatelessWidget {
           builder: (context, value, child) => SizedBox.expand(
             child: CustomPaint(
               painter: CrossPainter(
+                glowColor: store.glowColor,
                 outlineBlur: value.get('outlineBlur'),
                 outlineOpacity: value.get('outlineOpacity'),
                 showGlowAndOutline: showGlowAndOutline,
-                store.path,
-                store.bounds,
                 crossGradient: ColorsAndStops(colors: [
                   const Color(0xFF0A98FF),
                   Colors.white.withOpacity(0)
