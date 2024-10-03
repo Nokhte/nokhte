@@ -69,6 +69,7 @@ class SessionLobbyScreen extends HookWidget {
             ),
             PresetArticle(
               store: coordinator.widgets.presetArticle,
+              showBottomCard: true,
             ),
             WifiDisconnectOverlay(
               store: coordinator.widgets.wifiDisconnectOverlay,
