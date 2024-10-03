@@ -1,4 +1,5 @@
 export 'any_to_inverted_half_and_half.dart';
+export './deeper_blue_to_black_out.dart';
 export 'any_to_sky.dart';
 export 'any_to_half_and_half.dart';
 export 'black_out_to_dry_sand.dart';
