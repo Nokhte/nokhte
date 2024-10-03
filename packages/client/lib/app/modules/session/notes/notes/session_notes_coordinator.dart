@@ -2,6 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
+import 'package:nokhte/app/core/types/directions.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
@@ -62,7 +63,14 @@ abstract class _SessionNotesCoordinatorBase
       onDisconnected: () => setDisableAllTouchFeedback(true),
     ));
     disposers.add(touchFeedbackStatusReactor());
+    disposers.add(swipeReactor());
   }
+
+  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
+        if (p0 == GestureDirections.up) {
+          widgets.onSwipeUp(onSwipeUp);
+        }
+      });
 
   touchFeedbackStatusReactor() =>
       reaction((p0) => disableAllTouchFeedback, (p0) {
