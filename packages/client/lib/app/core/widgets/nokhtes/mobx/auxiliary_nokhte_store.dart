@@ -119,7 +119,7 @@ abstract class _AuxiliaryNokhteStoreBase
       case AuxiliaryNokhteColorways.vibrantBlue:
         return "Notes";
       case AuxiliaryNokhteColorways.deeperBlue:
-        return "Presets";
+        return "Deactivate";
       case AuxiliaryNokhteColorways.orangeSand:
         return "Join";
       case AuxiliaryNokhteColorways.exitVibrantBlue:

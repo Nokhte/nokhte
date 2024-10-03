@@ -65,6 +65,8 @@ abstract class _HomeCoordinatorBase
               widgets.onSwipeRight();
             case GestureDirections.down:
               widgets.onSwipeDown();
+            case GestureDirections.left:
+              widgets.onSwipeLeft();
             default:
               break;
           }

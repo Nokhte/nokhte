@@ -5,4 +5,5 @@ export 'login_list.dart';
 export 'session_lists.dart';
 export 'session_starters_lists.dart';
 export 'storage_lists.dart';
+export 'settings_lists.dart';
 export 'presets_list.dart';

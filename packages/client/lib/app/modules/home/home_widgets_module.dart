@@ -34,6 +34,7 @@ class HomeWidgetsModule extends Module {
         gestureCross: Modular.get<GestureCrossStore>(),
         centerNokhte: CenterNokhteStore(),
         sessionStarterNokhte: AuxiliaryNokhteStore(),
+        deactivateNokhte: AuxiliaryNokhteStore(),
         sessionJoinerNokhte: AuxiliaryNokhteStore(),
         storageNokhte: AuxiliaryNokhteStore(),
       ),
