@@ -15,13 +15,11 @@ class AuxiliaryNokhteUtils {
       screenSize.height / 2,
     );
     switch (position) {
-      // refactor left and right to use the scaled size hook
       case AuxiliaryNokhtePositions.left:
         switch (direction) {
           case NokhteScaleState.enlarge:
             start = Offset(CircleOffsets.left.dx, CircleOffsets.left.dy);
             end = Offset(
-              // (-screenCenter.dx) * .55,
               -useScaledSize(
                 baseValue: .13,
                 screenSize: screenSize,
@@ -161,6 +159,14 @@ class AuxiliaryNokhteUtils {
         ColorAndStop(Color(0xFFFFE6C4), 0),
         ColorAndStop(Color(0xFFFFBC78), .49),
         ColorAndStop(Color(0xFFFFBC78), .49),
+      ];
+    } else if (colorway == AuxiliaryNokhteColorways.deeperBlue) {
+      temp = const [
+        ColorAndStop(Color(0xFF4072F3), 0),
+        ColorAndStop(Color(0xFF4072F3), 0),
+        ColorAndStop(Color(0xFF40F3F3), 1.00),
+        ColorAndStop(Color(0xFF40F3F3), 1.00),
+        //
       ];
     }
     return temp;

@@ -111,6 +111,16 @@ class WaterColorsAndStops {
     ColorAndStop(Color(0xFF40BDF3), .89),
     ColorAndStop(Color(0xFF40F3F3), 1.00),
   ];
+  static const List<ColorAndStop> deeperBlue = [
+    ColorAndStop(Color(0xFF4072F3), 0),
+    ColorAndStop(Color(0xFF40F3F3), 1.00),
+    ColorAndStop(Color(0xFF40F3F3), 1.00),
+    ColorAndStop(Color(0xFF40F3F3), 1.00),
+    ColorAndStop(Color(0xFF40F3F3), 1.00),
+    ColorAndStop(Color(0xFF40F3F3), 1.00),
+    ColorAndStop(Color(0xFF40F3F3), 1.00),
+    ColorAndStop(Color(0xFF40F3F3), 1.00),
+  ];
 
   static const List<ColorAndStop> drySand = [
     ColorAndStop(Color(0xFFFFFFE3), 0.0),

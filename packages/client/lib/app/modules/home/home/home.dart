@@ -67,6 +67,7 @@ class HomeScreen extends HookWidget {
                 SwipeGuideOrientation.top,
                 SwipeGuideOrientation.bottom,
                 SwipeGuideOrientation.right,
+                SwipeGuideOrientation.left,
               ],
             ),
             CenterNokhte(
@@ -74,6 +75,9 @@ class HomeScreen extends HookWidget {
             ),
             AuxiliaryNokhte(
               store: coordinator.widgets.sessionStarterNokhte,
+            ),
+            AuxiliaryNokhte(
+              store: coordinator.widgets.deactivateNokhte,
             ),
             AuxiliaryNokhte(
               store: coordinator.widgets.sessionJoinerNokhte,

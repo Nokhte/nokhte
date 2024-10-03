@@ -9,6 +9,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session_joiner/session_joiner.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
+import 'package:nokhte/app/modules/settings/settings.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'home_widgets_coordinator.g.dart';
@@ -30,6 +31,7 @@ abstract class _HomeWidgetsCoordinatorBase
   AuxiliaryNokhteStore sessionStarterNokhte;
   AuxiliaryNokhteStore storageNokhte;
   AuxiliaryNokhteStore sessionJoinerNokhte;
+  AuxiliaryNokhteStore deactivateNokhte;
   SwipeGuideStore swipeGuides;
   final NokhteBlurStore nokhteBlur;
   final GestureCrossStore gestureCross;
@@ -52,6 +54,7 @@ abstract class _HomeWidgetsCoordinatorBase
     required this.centerNokhte,
     required this.swipeGuides,
     required this.sessionStarterNokhte,
+    required this.deactivateNokhte,
     required this.sessionJoinerNokhte,
     required this.storageNokhte,
   }) : auxNokhtes = [
@@ -76,6 +79,10 @@ abstract class _HomeWidgetsCoordinatorBase
       AuxiliaryNokhtePositions.top,
       AuxiliaryNokhteColorways.invertedBeachWave,
     );
+    deactivateNokhte.setAndFadeIn(
+      AuxiliaryNokhtePositions.left,
+      AuxiliaryNokhteColorways.deeperBlue,
+    );
     sessionJoinerNokhte.setAndFadeIn(
       AuxiliaryNokhtePositions.bottom,
       AuxiliaryNokhteColorways.orangeSand,
@@ -98,6 +105,23 @@ abstract class _HomeWidgetsCoordinatorBase
         nokhteBlur.reverse();
         centerNokhte.initMovie(AuxiliaryNokhtePositions.top);
         sessionJoinerNokhte.disappear();
+        deactivateNokhte.disappear();
+        storageNokhte.disappear();
+        smartText.setWidgetVisibility(false);
+        setSwipeGuideVisibilities(false);
+      }
+    }
+  }
+
+  @action
+  onSwipeLeft() {
+    if (!isDisconnected && isAllowedToMakeGesture()) {
+      if (hasInitiatedBlur && !hasSwiped()) {
+        setSwipeDirection(GestureDirections.left);
+        nokhteBlur.reverse();
+        centerNokhte.initMovie(AuxiliaryNokhtePositions.left);
+        sessionJoinerNokhte.disappear();
+        sessionStarterNokhte.disappear();
         storageNokhte.disappear();
         smartText.setWidgetVisibility(false);
         setSwipeGuideVisibilities(false);
@@ -110,6 +134,7 @@ abstract class _HomeWidgetsCoordinatorBase
       if (hasInitiatedBlur && !hasSwiped()) {
         setSwipeDirection(GestureDirections.down);
         centerNokhte.initMovie(AuxiliaryNokhtePositions.bottom);
+        deactivateNokhte.disappear();
         sessionStarterNokhte.disappear();
         storageNokhte.disappear();
         smartText.setWidgetVisibility(false);
@@ -126,6 +151,7 @@ abstract class _HomeWidgetsCoordinatorBase
         smartText.setWidgetVisibility(false);
         centerNokhte.initMovie(AuxiliaryNokhtePositions.right);
         sessionStarterNokhte.disappear();
+        deactivateNokhte.disappear();
         sessionJoinerNokhte.disappear();
         setSwipeGuideVisibilities(false);
       }
@@ -134,6 +160,7 @@ abstract class _HomeWidgetsCoordinatorBase
 
   @action
   initReactors() {
+    disposers.add(deactivateNokhteReactor());
     disposers.add(smartTextIndexReactor());
     disposers.add(gestureCrossTapReactor());
     disposers.add(sessionJoinerNokhteReactor());
@@ -171,6 +198,13 @@ abstract class _HomeWidgetsCoordinatorBase
           Modular.to.navigate(StorageConstants.home);
         }
       });
+  deactivateNokhteReactor() =>
+      reaction((p0) => deactivateNokhte.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished &&
+            deactivateNokhte.movieMode == AuxiliaryNokhteMovieModes.explode) {
+          Modular.to.navigate(SettingsConstants.settings);
+        }
+      });
 
   centerNokhteReactor() => reaction(
         (p0) => centerNokhte.movieStatus,
@@ -184,6 +218,8 @@ abstract class _HomeWidgetsCoordinatorBase
               storageNokhte.explode();
             } else if (centerNokhte.position == AuxiliaryNokhtePositions.top) {
               sessionStarterNokhte.explode();
+            } else if (centerNokhte.position == AuxiliaryNokhtePositions.left) {
+              deactivateNokhte.explode();
             }
           }
         },
@@ -242,6 +278,7 @@ abstract class _HomeWidgetsCoordinatorBase
   moveAuxNokhtes({required bool shouldExpand}) {
     final dir =
         shouldExpand ? NokhteScaleState.enlarge : NokhteScaleState.shrink;
+    deactivateNokhte.initMovie(dir);
     sessionStarterNokhte.initMovie(dir);
     sessionJoinerNokhte.initMovie(dir);
     storageNokhte.initMovie(dir);

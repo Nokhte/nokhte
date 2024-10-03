@@ -237,6 +237,13 @@ class AuxiliaryNokhteMovies {
         ColorAndStop(Color(0xFF6BE9BB), .7),
         ColorAndStop(Color(0xFF6BE9BB), 1.0),
       ];
+    } else if (colorway == AuxiliaryNokhteColorways.deeperBlue) {
+      return const [
+        ColorAndStop(Color(0xFF4072F3), 0),
+        ColorAndStop(Color(0xFF4072F3), .15),
+        ColorAndStop(Color(0xFF40F3F3), .85),
+        ColorAndStop(Color(0xFF40F3F3), 1),
+      ];
     } else {
       return [];
     }
