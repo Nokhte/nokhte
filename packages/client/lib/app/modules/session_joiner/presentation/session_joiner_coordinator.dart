@@ -5,6 +5,7 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte/app/modules/session_joiner/session_joiner.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 part 'session_joiner_coordinator.g.dart';
@@ -20,10 +21,17 @@ abstract class _SessionJoinerCoordinatorBase
   @override
   final CaptureScreen captureScreen;
   final SessionStartersLogicCoordinator logic;
+  final SessionPresenceCoordinator presence;
+  // add session metadata here
+  // you want to update phase to .5 upon
+  // joining see if that has desired outcome
+  // or if it's too close succession
+  // i think it will work
 
   _SessionJoinerCoordinatorBase({
     required this.widgets,
     required this.tap,
+    required this.presence,
     required this.swipe,
     required this.logic,
     required this.captureScreen,
@@ -86,6 +94,7 @@ abstract class _SessionJoinerCoordinatorBase
               widgets.enterSession();
               setDisableAllTouchFeedback(true);
               widgets.qrScanner.rotateText();
+              await presence.updateCurrentPhase(.5);
               timer.cancel();
             }
           });

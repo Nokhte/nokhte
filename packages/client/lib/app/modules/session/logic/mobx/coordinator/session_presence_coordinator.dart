@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 part 'session_presence_coordinator.g.dart';
 
@@ -130,18 +129,12 @@ abstract class _SessionPresenceCoordinatorBase with Store, BaseMobxLogic {
 
   @action
   updateCurrentPhase(double params) async {
-    Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
-      if (sessionMetadataStore.userPhase != params) {
-        currentPhaseIsUpdated = false;
-        setState(StoreState.loading);
-        final res = await updateCurrentPhaseLogic(params);
-        res.fold((failure) => errorUpdater(failure),
-            (status) => currentPhaseIsUpdated = status);
-        setState(StoreState.loaded);
-      } else {
-        timer.cancel();
-      }
-    });
+    currentPhaseIsUpdated = false;
+    setState(StoreState.loading);
+    final res = await updateCurrentPhaseLogic(params);
+    res.fold((failure) => errorUpdater(failure),
+        (status) => currentPhaseIsUpdated = status);
+    setState(StoreState.loaded);
   }
 
   @action
