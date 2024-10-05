@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/finished_nokhte_sessions/queries.dart';
 import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/st_active_nokhte_sessions.dart';
-// import 'package:nokhte_backend/tables/user_metadata.dart';
 import 'shared/shared.dart';
 
 void main() {
@@ -13,7 +12,6 @@ void main() {
   late RTActiveNokhteSessionsStream user1Stream;
   late STActiveNokhteSessionQueries user1STQueries;
   late STActiveNokhteSessionQueries user2STQueries;
-  // late UserMetadataQueries user1MetadataQueries;
   late FinishedNokhteSessionQueries user1FinishedQueries;
   final tSetup = CommonCollaborativeTestFunctions();
   List sortedArr = [];
@@ -29,7 +27,6 @@ void main() {
         STActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user2STQueries =
         STActiveNokhteSessionQueries(supabase: tSetup.user2Supabase);
-    // user1MetadataQueries = UserMetadataQueries(supabase: tSetup.user1Supabase);
     user1FinishedQueries =
         FinishedNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user1Stream = RTActiveNokhteSessionsStream(supabase: tSetup.user1Supabase);
@@ -75,22 +72,22 @@ void main() {
   });
 
   test("getWhoIsOnline", () async {
-    final res = await user1RTQueries.getWhoIsOnline();
+    final res = (await user1RTQueries.getWhoIsOnline()).mainType;
     expect(res, [true, true]);
   });
 
   test("getSpeakerSpotlight", () async {
-    final res = await user1RTQueries.getSpeakerSpotlight();
+    final res = (await user1RTQueries.getSpeakerSpotlight()).mainType;
     expect(res, null);
   });
 
   test("getCurrentPhases", () async {
-    final res = await user1RTQueries.getCurrentPhases();
+    final res = (await user1RTQueries.getCurrentPhases()).mainType;
     expect(res, [0, 0]);
   });
 
   test("getCreatedAt", () async {
-    final res = await user1STQueries.getCreatedAt();
+    final res = (await user1STQueries.getCreatedAt()).mainType;
     final parsed = DateTime.parse(res);
     expect(res, isA<String>());
     expect(parsed, isA<DateTime>());
@@ -104,18 +101,18 @@ void main() {
 
   test("updateOnlineStatus", () async {
     await user1RTQueries.updateOnlineStatus(false);
-    final onlineStatus = await user1RTQueries.getWhoIsOnline();
+    final onlineStatus = (await user1RTQueries.getWhoIsOnline()).mainType;
     expect(onlineStatus[sortedArr.indexOf(tSetup.firstUserUID)], false);
     expect(onlineStatus[sortedArr.indexOf(tSetup.secondUserUID)], true);
     await user2RTQueries.updateOnlineStatus(false);
-    final onlineStatus2 = await user1RTQueries.getWhoIsOnline();
+    final onlineStatus2 = (await user1RTQueries.getWhoIsOnline()).mainType;
     expect(onlineStatus2[sortedArr.indexOf(tSetup.firstUserUID)], false);
     expect(onlineStatus2[sortedArr.indexOf(tSetup.secondUserUID)], false);
   });
 
   test("addContent", () async {
     await user1STQueries.addContent('test');
-    final res = await user1STQueries.getContent();
+    final res = ((await user1STQueries.getContent())).mainType;
     expect(res, ["test"]);
   });
 
@@ -130,11 +127,11 @@ void main() {
 
   test("updateCurrentPhases", () async {
     await user1RTQueries.updateCurrentPhases(1);
-    final currentPhases = await user1RTQueries.getCurrentPhases();
+    final currentPhases = (await user1RTQueries.getCurrentPhases()).mainType;
     expect(currentPhases[sortedArr.indexOf(tSetup.firstUserUID)], 1);
     expect(currentPhases[sortedArr.indexOf(tSetup.secondUserUID)], 0);
     await user2RTQueries.updateCurrentPhases(1);
-    final currentPhases2 = await user1RTQueries.getCurrentPhases();
+    final currentPhases2 = (await user1RTQueries.getCurrentPhases()).mainType;
     expect(currentPhases2[sortedArr.indexOf(tSetup.firstUserUID)], 1);
     expect(currentPhases2[sortedArr.indexOf(tSetup.secondUserUID)], 1);
   });
@@ -166,8 +163,5 @@ void main() {
     );
     expect(res.first["session_timestamp"], sessionTimestamp);
     expect(res.first["aliases"], ["", ""]);
-    // final userMetadataRes = await user1MetadataQueries.getUserMetadata();
-    // expect(userMetadataRes.first['is_subscribed'], false);
-    // expect(userMetadataRes.first['has_used_trial'], false);
   });
 }
