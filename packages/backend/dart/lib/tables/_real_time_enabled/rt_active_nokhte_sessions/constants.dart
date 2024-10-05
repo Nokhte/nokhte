@@ -7,4 +7,5 @@ mixin RTActiveNokhteSessionsConstants {
   String IS_ONLINE = 'is_online';
   String SESSION_UID = 'session_uid';
   String HAS_BEGUN = 'has_begun';
+  String VERSION = 'version';
 }

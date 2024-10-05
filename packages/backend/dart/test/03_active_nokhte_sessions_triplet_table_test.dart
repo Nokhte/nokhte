@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/st_active_nokhte_sessions.dart';
-// import 'package:nokhte_backend/tables/user_metadata.dart';
 import 'shared/shared.dart';
 
 void main() {
@@ -14,7 +13,6 @@ void main() {
   late STActiveNokhteSessionQueries user2STQueries;
   late STActiveNokhteSessionQueries user3STQueries;
   late FinishedNokhteSessionQueries user1FinishedQueries;
-  // late UserMetadataQueries user1MetadataQueries;
   final tSetup = CommonCollaborativeTestFunctions();
   List sortedArr = [];
 
@@ -39,7 +37,6 @@ void main() {
         STActiveNokhteSessionQueries(supabase: tSetup.user3Supabase);
     user1FinishedQueries =
         FinishedNokhteSessionQueries(supabase: tSetup.user1Supabase);
-    // user1MetadataQueries = UserMetadataQueries(supabase: tSetup.user1Supabase);
     for (var userUID in sortedArr) {
       await tSetup.supabaseAdmin.from("user_metadata").update({
         "is_subscribed": false,
@@ -64,41 +61,41 @@ void main() {
 
   test("updateOnlineStatus", () async {
     await user1RTQueries.updateOnlineStatus(false);
-    final onlineStatus = await user1RTQueries.getWhoIsOnline();
+    final onlineStatus = (await user1RTQueries.getWhoIsOnline()).mainType;
     expect(onlineStatus[sortedArr.indexOf(tSetup.firstUserUID)], false);
     await user2RTQueries.updateOnlineStatus(false);
-    final onlineStatus2 = await user1RTQueries.getWhoIsOnline();
+    final onlineStatus2 = (await user1RTQueries.getWhoIsOnline()).mainType;
     expect(onlineStatus2[sortedArr.indexOf(tSetup.secondUserUID)], false);
     await user3RTQueries.updateOnlineStatus(false);
-    final onlineStatus3 = await user1RTQueries.getWhoIsOnline();
+    final onlineStatus3 = (await user1RTQueries.getWhoIsOnline()).mainType;
     expect(onlineStatus3, [false, false, false]);
   });
 
   test("addContent", () async {
     await user1STQueries.addContent('test');
     final res = await user1STQueries.getContent();
-    expect(res, ["test"]);
+    expect(res.mainType, ["test"]);
   });
 
   test("updateSpeakerSpotlight", () async {
     await user1RTQueries.updateSpeakerSpotlight(addUserToSpotlight: true);
     final res1 = await user1RTQueries.getSpeakerSpotlight();
-    expect(res1, isNotNull);
+    expect(res1.mainType, isNotNull);
     await user1RTQueries.updateSpeakerSpotlight(addUserToSpotlight: false);
     final res2 = await user1RTQueries.getSpeakerSpotlight();
-    expect(res2, isNull);
+    expect(res2.mainType, isNull);
   });
 
   test("updateCurrentPhases", () async {
     await user1RTQueries.updateCurrentPhases(1);
-    final currentPhases = await user1RTQueries.getCurrentPhases();
+    final currentPhases = (await user1RTQueries.getCurrentPhases()).mainType;
     expect(currentPhases[sortedArr.indexOf(tSetup.firstUserUID)], 1);
     await user2RTQueries.updateCurrentPhases(1);
-    final currentPhases2 = await user1RTQueries.getCurrentPhases();
+    final currentPhases2 = (await user1RTQueries.getCurrentPhases()).mainType;
     expect(currentPhases2[sortedArr.indexOf(tSetup.firstUserUID)], 1);
     expect(currentPhases2[sortedArr.indexOf(tSetup.secondUserUID)], 1);
     await user3RTQueries.updateCurrentPhases(1);
-    final currentPhases3 = await user1RTQueries.getCurrentPhases();
+    final currentPhases3 = (await user1RTQueries.getCurrentPhases()).mainType;
     expect(currentPhases3[sortedArr.indexOf(tSetup.firstUserUID)], 1);
     expect(currentPhases3[sortedArr.indexOf(tSetup.secondUserUID)], 1);
     expect(currentPhases3[sortedArr.indexOf(tSetup.thirdUserUID)], 1);
@@ -115,8 +112,5 @@ void main() {
     );
     expect(res.first["session_timestamp"], sessionTimestamp);
     expect(res.first["aliases"], ["", "", ""]);
-    // final userMetadataRes = await user1MetadataQueries.getUserMetadata();
-    // expect(userMetadataRes.first['is_subscribed'], false);
-    // expect(userMetadataRes.first['has_used_trial'], false);
   });
 }

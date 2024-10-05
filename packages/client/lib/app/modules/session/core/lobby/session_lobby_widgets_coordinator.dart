@@ -48,9 +48,6 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
     );
     primarySmartText.setMessagesData(SessionLists.lobby);
     primarySmartText.setWidgetVisibility(false);
-    Timer(Seconds.get(1), () {
-      primarySmartText.startRotatingText();
-    });
 
     if (hasReceivedRoutingArgs) {
       qrCode.setQrCodeData(
@@ -60,7 +57,10 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
       qrCode.setWidgetVisibility(false);
     }
     disposers.add(smartTextIndexReactor());
-    constructorHasBeenCalled = true;
+    primarySmartText.startRotatingText();
+    Timer(Seconds.get(1), () {
+      constructorHasBeenCalled = true;
+    });
   }
 
   @observable
@@ -112,7 +112,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
   @action
   onCanStartTheSession() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      if (primarySmartText.currentIndex == 0) {
+      if (primarySmartText.currentIndex == 0 && constructorHasBeenCalled) {
         primarySmartText.startRotatingText(isResuming: true);
         timer.cancel();
       }
@@ -122,7 +122,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
   @action
   onRevertCanStartSession() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      if (primarySmartText.currentIndex == 1) {
+      if (primarySmartText.currentIndex == 1 && constructorHasBeenCalled) {
         primarySmartText.startRotatingText(isResuming: true);
         primarySmartText.setWidgetVisibility(false);
         timer.cancel();
@@ -173,20 +173,11 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
     required Function onClose,
   }) =>
       reaction((p0) => presetArticle.tapCount, (p0) {
-        // if (!presetArticle.showWidget) {
         presetArticle.showBottomSheet(
           presetArticle.body.presetType,
           onOpen: onOpen,
           onClose: onClose,
         );
-        // }
-        // if (isFirstTap) {
-        //   if (p0 == 3) {
-        //     primarySmartText.setCurrentIndex(1);
-        //     primarySmartText.startRotatingText(isResuming: true);
-        //     presetIcons.setWidgetVisibility(true);
-        //   }
-        // }
       });
 
   smartTextIndexReactor() =>
@@ -195,11 +186,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
           if (p0 == 2) {
             primarySmartText.setCurrentIndex(0);
             primarySmartText.setWidgetVisibility(true);
-            // primarySmartText.startRotatingText(isResuming: true);
           }
         }
       });
-
-  // @computed
-  // bool get isTheLeader => Modular.args.data.toString() != 'null';
 }

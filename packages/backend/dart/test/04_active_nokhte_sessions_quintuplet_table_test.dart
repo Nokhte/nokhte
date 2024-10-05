@@ -120,7 +120,7 @@ void main() {
     });
     test("updateOnlineStatus", () async {
       await user1RTQueries.updateOnlineStatus(false);
-      final onlineStatus = await user1RTQueries.getWhoIsOnline();
+      final onlineStatus = (await user1RTQueries.getWhoIsOnline()).mainType;
       print("onlineStatus: $onlineStatus");
 
       expect(onlineStatus[0], false);
@@ -128,19 +128,19 @@ void main() {
       expect(onlineStatus[2], true);
       expect(onlineStatus[3], true);
       await user2RTQueries.updateOnlineStatus(false);
-      final onlineStatus2 = await user1RTQueries.getWhoIsOnline();
+      final onlineStatus2 = (await user1RTQueries.getWhoIsOnline()).mainType;
       expect(onlineStatus2[0], false);
       expect(onlineStatus2[1], false);
       expect(onlineStatus2[2], true);
       expect(onlineStatus2[3], true);
       await user3RTQueries.updateOnlineStatus(false);
-      final onlineStatus3 = await user1RTQueries.getWhoIsOnline();
+      final onlineStatus3 = (await user1RTQueries.getWhoIsOnline()).mainType;
       expect(onlineStatus3[0], false);
       expect(onlineStatus3[1], false);
       expect(onlineStatus3[2], false);
       expect(onlineStatus3[3], true);
       await user4RTQueries.updateOnlineStatus(false);
-      final onlineStatus4 = await user1RTQueries.getWhoIsOnline();
+      final onlineStatus4 = (await user1RTQueries.getWhoIsOnline()).mainType;
       expect(onlineStatus4[0], false);
       expect(onlineStatus4[1], false);
       expect(onlineStatus4[2], false);
@@ -150,39 +150,39 @@ void main() {
     test("addContent", () async {
       await user1STQueries.addContent('test');
       final res = await user1STQueries.getContent();
-      expect(res, ["test"]);
+      expect(res.mainType, ["test"]);
     });
 
     test("updateSpeakerSpotlight", () async {
       await user1RTQueries.updateSpeakerSpotlight(addUserToSpotlight: true);
       final res1 = await user1RTQueries.getSpeakerSpotlight();
-      expect(res1, isNotNull);
+      expect(res1.mainType, isNotNull);
       await user1RTQueries.updateSpeakerSpotlight(addUserToSpotlight: false);
       final res2 = await user1RTQueries.getSpeakerSpotlight();
-      expect(res2, isNull);
+      expect(res2.mainType, isNull);
     });
 
     test("updateCurrentPhases", () async {
       await user1RTQueries.updateCurrentPhases(2);
-      final currentPhases = await user1RTQueries.getCurrentPhases();
+      final currentPhases = (await user1RTQueries.getCurrentPhases()).mainType;
       expect(currentPhases[0], 2);
       expect(currentPhases[1], 0);
       expect(currentPhases[2], 0);
       expect(currentPhases[3], 0);
       await user2RTQueries.updateCurrentPhases(2);
-      final currentPhases2 = await user1RTQueries.getCurrentPhases();
+      final currentPhases2 = (await user1RTQueries.getCurrentPhases()).mainType;
       expect(currentPhases2[0], 2);
       expect(currentPhases2[1], 2);
       expect(currentPhases2[2], 0);
       expect(currentPhases2[3], 0);
       await user3RTQueries.updateCurrentPhases(2);
-      final currentPhases3 = await user1RTQueries.getCurrentPhases();
+      final currentPhases3 = (await user1RTQueries.getCurrentPhases()).mainType;
       expect(currentPhases3[0], 2);
       expect(currentPhases3[1], 2);
       expect(currentPhases3[2], 2);
       expect(currentPhases3[3], 0);
       await user4RTQueries.updateCurrentPhases(2);
-      final currentPhases4 = await user1RTQueries.getCurrentPhases();
+      final currentPhases4 = (await user1RTQueries.getCurrentPhases()).mainType;
       expect(currentPhases4[0], 2);
       expect(currentPhases4[1], 2);
       expect(currentPhases4[2], 2);
@@ -200,18 +200,6 @@ void main() {
       );
       expect(res.first["session_timestamp"], sessionTimestamp);
       expect(res.first["aliases"], ["", "", "", ""]);
-
-      // final user1MetadataRes = await user1MetadataQueries.getUserMetadata();
-      // expect(user1MetadataRes.first['has_used_trial'], true);
-
-      // final user2MetadataRes = await user2MetadataQueries.getUserMetadata();
-      // expect(user2MetadataRes.first['has_used_trial'], true);
-
-      // final user3MetadataRes = await user3MetadataQueries.getUserMetadata();
-      // expect(user3MetadataRes.first['has_used_trial'], true);
-
-      // final user4MetadataRes = await user4MetadataQueries.getUserMetadata();
-      // expect(user4MetadataRes.first['has_used_trial'], true);
     });
   }
 
@@ -298,16 +286,16 @@ void main() {
 
     test("updateCurrentPhases", () async {
       await user1RTQueries.updateCurrentPhases(1);
-      final currentPhases = await user1RTQueries.getCurrentPhases();
+      final currentPhases = (await user1RTQueries.getCurrentPhases()).mainType;
       expect(currentPhases, [0, 0, 0, 0]);
       await user2RTQueries.updateCurrentPhases(1);
-      final currentPhases2 = await user1RTQueries.getCurrentPhases();
+      final currentPhases2 = (await user1RTQueries.getCurrentPhases()).mainType;
       expect(currentPhases2, [0, 0, 0, 0]);
       await user3RTQueries.updateCurrentPhases(1);
-      final currentPhases3 = await user1RTQueries.getCurrentPhases();
+      final currentPhases3 = (await user1RTQueries.getCurrentPhases()).mainType;
       expect(currentPhases3, [0, 0, 0, 0]);
       await user4RTQueries.updateCurrentPhases(1);
-      final currentPhases4 = await user1RTQueries.getCurrentPhases();
+      final currentPhases4 = (await user1RTQueries.getCurrentPhases()).mainType;
       expect(currentPhases4, [0, 0, 0, 0]);
     });
   });

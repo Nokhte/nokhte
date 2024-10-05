@@ -51,9 +51,6 @@ abstract class _SessionLobbyCoordinatorBase
     widgets.constructor();
     await presence.listen();
     initReactors();
-    if (hasReceivedRoutingArgs) {
-      await presence.updateCurrentPhase(1.0);
-    }
     await captureScreen(SessionConstants.lobby);
   }
 
@@ -112,10 +109,11 @@ abstract class _SessionLobbyCoordinatorBase
         }
       });
 
-  sessionPresetReactor() => reaction((p0) => sessionMetadata.state, (p0) {
+  sessionPresetReactor() => reaction((p0) => sessionMetadata.state, (p0) async {
         if (p0 == StoreState.loaded) {
           showPresetInfo();
           if (hasReceivedRoutingArgs) {
+            await presence.updateCurrentPhase(1.0);
             disposers.add(tapReactor());
             disposers.add(canStartTheSessionReactor());
           }
