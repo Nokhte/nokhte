@@ -9,9 +9,8 @@ mixin SessionUtils {
     while (attempt < maxRetries) {
       final result = await action();
 
-      // Check if the result indicates a need to retry
       if (shouldRetry != null && !shouldRetry(result)) {
-        return result; // Success, no need to retry
+        return result;
       }
 
       attempt++;
@@ -19,7 +18,6 @@ mixin SessionUtils {
         throw Exception('Operation failed after $maxRetries attempts.');
       }
 
-      // Optionally delay before next retry
       await Future.delayed(delay);
     }
 

@@ -1,122 +1,3 @@
-// // ignore_for_file: constant_identifier_names
-// import 'package:nokhte_backend/edge_functions/active_nokhte_session.dart';
-// import 'package:nokhte_backend/types/types.dart';
-// import 'constants.dart';
-// import 'package:supabase_flutter/supabase_flutter.dart';
-
-// class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
-//     with RTActiveNokhteSessionsConstants {
-//   RTActiveNokhteSessionQueries({
-//     required super.supabase,
-//   });
-
-//   select() async => await supabase.from(TABLE).select();
-
-//   Future<SessionResponse<T>> _getProperty<T>(String property) async {
-//     final row = (await select()).first;
-//     T prop = row[property];
-//     final version = row[VERSION];
-//     return SessionResponse<T>(
-//       mainType: prop,
-//       currentVersion: version,
-//     );
-//   }
-
-//   Future<SessionResponse<List>> getWhoIsOnline() async =>
-//       await _getProperty(IS_ONLINE);
-//   Future<SessionResponse<String?>> getSpeakerSpotlight() async =>
-//       await _getProperty(SPEAKER_SPOTLIGHT);
-//   Future<SessionResponse<List>> getCurrentPhases() async =>
-//       await _getProperty(CURRENT_PHASES);
-//   Future<SessionResponse<String>> getSessionUID() async =>
-//       await _getProperty(SESSION_UID);
-//   Future<SessionResponse<bool>> getHasBegun() async =>
-//       await _getProperty(HAS_BEGUN);
-
-//   Future<List> updateOnlineStatus(bool isOnlineParam) async {
-//     await computeCollaboratorInformation();
-//     final res = await getWhoIsOnline();
-//     final currentOnlineStatus = res.mainType;
-//     currentOnlineStatus[userIndex] = isOnlineParam;
-//     return await _onCurrentActiveNokhteSession(
-//       supabase.from(TABLE).update(
-//         {
-//           IS_ONLINE: currentOnlineStatus,
-//           VERSION: res.currentVersion + 1,
-//         },
-//       ),
-//       version: res.currentVersion,
-//     );
-//   }
-
-//   Future<List> updateCurrentPhases(double newPhase) async {
-//     await computeCollaboratorInformation();
-//     final res = await getCurrentPhases();
-//     final currentPhases = res.mainType;
-//     currentPhases[userIndex] = newPhase;
-//     return await _onCurrentActiveNokhteSession(
-//       supabase.from(TABLE).update(
-//         {
-//           CURRENT_PHASES: currentPhases,
-//           VERSION: res.currentVersion + 1,
-//         },
-//       ),
-//       version: res.currentVersion,
-//     );
-//   }
-
-//   Future<List> updateSpeakerSpotlight({
-//     required bool addUserToSpotlight,
-//   }) async {
-//     await computeCollaboratorInformation();
-//     final res = await getSpeakerSpotlight();
-//     final currentSpotlightSpeaker = res.mainType;
-//     if (addUserToSpotlight) {
-//       if (currentSpotlightSpeaker == null) {
-//         return await _onCurrentActiveNokhteSession(
-//           supabase.from(TABLE).update(
-//             {
-//               SPEAKER_SPOTLIGHT: userUID,
-//               VERSION: res.currentVersion + 1,
-//             },
-//           ),
-//           version: res.currentVersion,
-//         );
-//       } else {
-//         return [];
-//       }
-//     } else {
-//       if (currentSpotlightSpeaker == userUID) {
-//         return await _onCurrentActiveNokhteSession(
-//           supabase.from(TABLE).update(
-//             {
-//               SPEAKER_SPOTLIGHT: null,
-//               VERSION: res.currentVersion + 1,
-//             },
-//           ),
-//           version: res.currentVersion,
-//         );
-//       } else {
-//         return [];
-//       }
-//     }
-//   }
-
-//   _onCurrentActiveNokhteSession(
-//     PostgrestFilterBuilder query, {
-//     required int version,
-//   }) async {
-//     await computeCollaboratorInformation();
-//     if (sessionUID.isNotEmpty) {
-//       return await query
-//           .eq(VERSION, version)
-//           .eq(SESSION_UID, sessionUID)
-//           .select();
-//     } else {
-//       return [];
-//     }
-//   }
-// }
 import 'package:nokhte_backend/edge_functions/active_nokhte_session.dart';
 import 'package:nokhte_backend/types/types.dart';
 import 'package:nokhte_backend/utils/utils.dart';
@@ -176,6 +57,7 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
       shouldRetry: (result) {
         return result.isEmpty;
       },
+      maxRetries: 9,
     );
   }
 
@@ -199,6 +81,7 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
       shouldRetry: (result) {
         return result.isEmpty;
       },
+      maxRetries: 9,
     );
   }
 
@@ -251,6 +134,7 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
     required int version,
   }) async {
     await computeCollaboratorInformation();
+    print('sessionUID: $sessionUID');
     if (sessionUID.isNotEmpty) {
       return await query
           .eq(VERSION, version)
