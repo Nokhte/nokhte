@@ -8,15 +8,22 @@ serve(async (req) => {
     message: "session successfully joined",
   };
 
-  const { error } = await supabaseAdmin.rpc("join_session", {
-    _leader_uid: leaderUID,
-    _user_uid: userUID,
-  });
+  if (userUID !== leaderUID) {
+    const { error } = await supabaseAdmin.rpc("join_session", {
+      _leader_uid: leaderUID,
+      _user_uid: userUID,
+    });
 
-  if (error) {
+    if (error) {
+      returnRes = {
+        status: 400,
+        message: "Error joining session: " + error.message,
+      };
+    }
+  } else {
     returnRes = {
-      status: 400,
-      message: "Error joining session: " + error.message,
+      status: 409,
+      message: "You cannot join your own session",
     };
   }
 
