@@ -147,7 +147,8 @@ abstract class _SessionGroupHybridCoordinatorBase
           if (sessionMetadata.everyoneIsOnline &&
               sessionMetadata.canStartUsingSession &&
               !sessionMetadata.someoneIsTakingANote &&
-              !widgets.sessionNavigation.hasInitiatedBlur) {
+              !widgets.sessionNavigation.hasInitiatedBlur &&
+              hold.placement == GesturePlacement.bottomHalf) {
             await presence
                 .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
           }
