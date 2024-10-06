@@ -36,7 +36,7 @@ class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
         break;
       }
       if (event.isNotEmpty) {
-        yield event.first[VERSION] > 0;
+        yield event.first[CURRENT_PHASES].length > 1;
       }
     }
   }
