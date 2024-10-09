@@ -8,6 +8,7 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 part 'session_speaking_widgets_coordinator.g.dart';
 
@@ -40,14 +41,12 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   }
 
   @action
-  constructor(bool userCanSpeak) {
+  constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
     mirroredText.setMessagesData(MirroredTextContent.sessionSpeaking);
     mirroredText.startBothRotatingText();
     setIsLeaving(false);
-    if (!userCanSpeak) {
-      tint.initMovie(NoParams());
-    }
+    borderGlow.initFadeIn();
     initReactors();
   }
 
@@ -84,6 +83,18 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
     sessionNavigation.setWidgetVisibility(true);
     mirroredText.setWidgetVisibility(true);
     collaboratorHasLeft = false;
+  }
+
+  @action
+  goHome() {
+    mirroredText.setWidgetVisibility(false);
+    borderGlow.setWidgetVisibility(false);
+    beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
+    beachWaves.currentStore.initMovie(
+      const AnyToOnShoreParams(
+        startingColors: WaterColorsAndStops.halfWaterAndSand,
+      ),
+    );
   }
 
   @action
@@ -223,6 +234,8 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.orangeSandToHalfAndHalf) {
             Modular.to.navigate(SessionConstants.socraticSpeakingExit);
+          } else if (beachWaves.movieMode == BeachWaveMovieModes.anyToOnShore) {
+            Modular.to.navigate(HomeConstants.home);
           }
         }
       });

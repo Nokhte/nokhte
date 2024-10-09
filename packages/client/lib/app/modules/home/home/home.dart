@@ -24,71 +24,74 @@ class HomeScreen extends HookWidget {
     }, []);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Swipe(
-        store: coordinator.swipe,
-        child: MultiHitStack(
-          children: [
-            FullScreen(
-              child: BeachWaves(
-                store: coordinator.widgets.beachWaves,
-              ),
-            ),
-            FullScreen(
-              child: NokhteBlur(
-                store: coordinator.widgets.nokhteBlur,
-              ),
-            ),
-            Observer(builder: (context) {
-              return Center(
-                child: SmartText(
-                  store: coordinator.widgets.smartText,
-                  topPadding: coordinator.widgets.smartTextTopPaddingScalar,
-                  // addSubMessageAdjuster: true,
-                  topBump: 0.008,
-                  bottomPadding:
-                      coordinator.widgets.smartTextBottomPaddingScalar,
-                  bottomBump: .008,
-                  opacityDuration: Seconds.get(1),
+      body: Tap(
+        store: coordinator.tap,
+        child: Swipe(
+          store: coordinator.swipe,
+          child: MultiHitStack(
+            children: [
+              FullScreen(
+                child: BeachWaves(
+                  store: coordinator.widgets.beachWaves,
                 ),
-              );
-            }),
-            GestureCross(
-              showGlowAndOutline: true,
-              config: GestureCrossConfiguration(
-                top: Right(EmptySpace()),
-                right: Right(EmptySpace()),
-                bottom: Right(EmptySpace()),
               ),
-              store: coordinator.widgets.gestureCross,
-            ),
-            SwipeGuide(
-              store: coordinator.widgets.swipeGuides,
-              orientations: const [
-                SwipeGuideOrientation.top,
-                SwipeGuideOrientation.bottom,
-                SwipeGuideOrientation.right,
-                SwipeGuideOrientation.left,
-              ],
-            ),
-            CenterNokhte(
-              store: coordinator.widgets.centerNokhte,
-            ),
-            AuxiliaryNokhte(
-              store: coordinator.widgets.sessionStarterNokhte,
-            ),
-            AuxiliaryNokhte(
-              store: coordinator.widgets.deactivateNokhte,
-            ),
-            AuxiliaryNokhte(
-              store: coordinator.widgets.sessionJoinerNokhte,
-            ),
-            AuxiliaryNokhte(
-              store: coordinator.widgets.storageNokhte,
-            ),
-            WifiDisconnectOverlay(
-              store: coordinator.widgets.wifiDisconnectOverlay,
-            ),
-          ],
+              FullScreen(
+                child: NokhteBlur(
+                  store: coordinator.widgets.nokhteBlur,
+                ),
+              ),
+              Observer(builder: (context) {
+                return Center(
+                  child: SmartText(
+                    store: coordinator.widgets.smartText,
+                    topPadding: coordinator.widgets.smartTextTopPaddingScalar,
+                    // addSubMessageAdjuster: true,
+                    topBump: 0.008,
+                    bottomPadding:
+                        coordinator.widgets.smartTextBottomPaddingScalar,
+                    bottomBump: .008,
+                    opacityDuration: Seconds.get(1),
+                  ),
+                );
+              }),
+              GestureCross(
+                showGlowAndOutline: true,
+                config: GestureCrossConfiguration(
+                  top: Right(EmptySpace()),
+                  right: Right(EmptySpace()),
+                  bottom: Right(EmptySpace()),
+                ),
+                store: coordinator.widgets.gestureCross,
+              ),
+              SwipeGuide(
+                store: coordinator.widgets.swipeGuides,
+                orientations: const [
+                  SwipeGuideOrientation.top,
+                  SwipeGuideOrientation.bottom,
+                  SwipeGuideOrientation.right,
+                  SwipeGuideOrientation.left,
+                ],
+              ),
+              CenterNokhte(
+                store: coordinator.widgets.centerNokhte,
+              ),
+              AuxiliaryNokhte(
+                store: coordinator.widgets.sessionStarterNokhte,
+              ),
+              AuxiliaryNokhte(
+                store: coordinator.widgets.deactivateNokhte,
+              ),
+              AuxiliaryNokhte(
+                store: coordinator.widgets.sessionJoinerNokhte,
+              ),
+              AuxiliaryNokhte(
+                store: coordinator.widgets.storageNokhte,
+              ),
+              WifiDisconnectOverlay(
+                store: coordinator.widgets.wifiDisconnectOverlay,
+              ),
+            ],
+          ),
         ),
       ),
       // ),
