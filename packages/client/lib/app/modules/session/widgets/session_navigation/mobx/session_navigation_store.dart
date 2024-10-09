@@ -104,7 +104,11 @@ abstract class _SessionNavigationStoreBase extends BaseWidgetStore
 
   @override
   setWidgetVisibility(bool visibility) {
-    setControl(Control.stop);
+    centerNokhte.setControl(Control.stop);
+    exitNokhte.setControl(Control.stop);
+    infoNokhte.setControl(Control.stop);
+    tint.setControl(Control.stop);
+    swipeGuide.setControl(Control.stop);
     super.setWidgetVisibility(visibility);
   }
 
