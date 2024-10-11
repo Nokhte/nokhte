@@ -52,6 +52,7 @@ class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
   @override
   setUserAsCurrentTalker() async => await rtQueries.updateSpeakerSpotlight(
         addUserToSpotlight: true,
+        time: DateTime.now(),
       );
 
   @override
