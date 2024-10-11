@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
 import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
@@ -37,10 +38,26 @@ abstract class _SessionMetadataStoreBase
   bool userIsSpeaking = false;
 
   @observable
+  ObservableList<NameAndUID> namesAndUIDs = ObservableList.of([]);
+
+  @observable
+  String? currentSpeakerUID = '';
+
+  @observable
+  bool userIsInSecondarySpeakingSpotlight = false;
+
+  @observable
+  ObservableStream<DateTime> time =
+      Stream.periodic(Seconds.get(1)).map((_) => DateTime.now()).asObservable();
+
+  @observable
   bool userCanSpeak = false;
 
   @observable
   ObservableList<double> currentPhases = ObservableList.of(List.filled(9, -9));
+
+  @observable
+  bool secondarySpeakerSpotlightIsEmpty = false;
 
   @observable
   bool isAPremiumSession = false;
@@ -74,6 +91,9 @@ abstract class _SessionMetadataStoreBase
 
   @observable
   ObservableList evenConfiguration = ObservableList.of([]);
+
+  @observable
+  DateTime speakingTimerStart = DateTime.fromMillisecondsSinceEpoch(0);
 
   @observable
   SessionInstructionTypes instructionType = SessionInstructionTypes.initial;
@@ -119,6 +139,7 @@ abstract class _SessionMetadataStoreBase
       if (presetName.isEmpty) {
         userIndex = entity.userIndex;
         leaderIsWhitelisted = entity.leaderIsWhitelisted;
+        namesAndUIDs = ObservableList.of(entity.namesAndUIDs);
         presetUID = entity.presetUID;
         leaderUID = entity.leaderUID;
         final res = await presetLogic(presetUID);
@@ -150,6 +171,11 @@ abstract class _SessionMetadataStoreBase
           }
           everyoneIsOnline = value.everyoneIsOnline;
           final phases = value.phases.map((e) => double.parse(e.toString()));
+          speakingTimerStart = value.speakingTimerStart;
+          secondarySpeakerSpotlightIsEmpty = value.secondarySpotlightIsEmpty;
+          userIsInSecondarySpeakingSpotlight =
+              value.userIsInSecondarySpeakingSpotlight;
+          currentSpeakerUID = value.speakerUID;
           currentPhases = ObservableList.of(phases);
           sessionHasBegun = value.sessionHasBegun;
           userIsSpeaking = value.userIsSpeaking;
@@ -237,6 +263,58 @@ abstract class _SessionMetadataStoreBase
       }
     }
   }
+
+  @computed
+  DateTime get now => time.value ?? DateTime.now();
+
+  @computed
+  int get speakingLength =>
+      speakingTimerStart != DateTime.fromMillisecondsSinceEpoch(0)
+          ? now.difference(speakingTimerStart).inSeconds
+          : 0;
+
+  @computed
+  GlowColor get glowColor {
+    if (userCanSpeak) {
+      return GlowColor.transparent;
+    } else {
+      if (speakingLength <= 62) {
+        return GlowColor.green;
+      } else if (speakingLength > 62 && speakingLength <= 92) {
+        return GlowColor.yellow;
+      } else {
+        return GlowColor.red;
+      }
+    }
+  }
+
+  @computed
+  String get currentSpeakerFirstName {
+    if (currentSpeakerUID != null) {
+      String name = '';
+      for (var nameAndUID in namesAndUIDs) {
+        if (nameAndUID.uid == currentSpeakerUID) {
+          name = nameAndUID.name.split(' ').first;
+        }
+      }
+      return name;
+    } else {
+      return '';
+    }
+  }
+
+  @computed
+  bool get isCooking => !secondarySpeakerSpotlightIsEmpty && userIsSpeaking;
+
+  @computed
+  bool get isBeingRalliedWith =>
+      userIsInSecondarySpeakingSpotlight && !userIsSpeaking;
+
+  @computed
+  bool get showLetEmCook =>
+      !userIsSpeaking &&
+      secondarySpeakerSpotlightIsEmpty &&
+      glowColor != GlowColor.green;
 
   @computed
   int get numberOfCollaborators => currentPhases.length;
