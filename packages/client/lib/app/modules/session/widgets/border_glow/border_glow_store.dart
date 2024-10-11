@@ -13,7 +13,7 @@ class BorderGlowStore = _BorderGlowStoreBase with _$BorderGlowStore;
 abstract class _BorderGlowStoreBase extends BaseWidgetStore<NoParams>
     with Store {
   _BorderGlowStoreBase() {
-    setMovie(BorderGlowUpMovie.movie);
+    setMovie(BorderGlowMovies.glowUp());
   }
 
   @observable
@@ -39,6 +39,13 @@ abstract class _BorderGlowStoreBase extends BaseWidgetStore<NoParams>
     setMovie(StaticWhiteOutMovie.movie);
     setControl(Control.playReverseFromEnd);
     setControl(Control.stop);
+  }
+
+  @action
+  resetCurrentBackToGreen() {
+    setMovie(BorderGlowMovies.glowUp(startingColor: currentColor));
+    setMovieStatus(MovieStatus.inProgress);
+    setControl(Control.playFromStart);
   }
 
   @action
