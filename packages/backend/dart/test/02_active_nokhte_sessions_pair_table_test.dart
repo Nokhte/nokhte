@@ -143,6 +143,8 @@ void main() {
       emits(
         NokhteSessionMetadata(
           userCanSpeak: true,
+          speakingTimerStart: DateTime.fromMillisecondsSinceEpoch(0),
+          userIsBeingRalliedWith: false,
           userIsSpeaking: false,
           phases: [1, 1],
           everyoneIsOnline: false,

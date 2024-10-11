@@ -8,17 +8,6 @@ class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
     with RTActiveNokhteSessionsConstants {
   bool getActiveNokhteSessionCreationListingingStatus = false;
   bool sessionMetadataListeningStatus = false;
-  int lastTrackedNumOfCollaborators = -1;
-  int leaderIndex = -1;
-  List orderedCollaboratorUIDs = [];
-  List orderedPhases = [];
-  bool isAValidSession = false;
-  bool isAPremiumSession = false;
-  bool everyoneHasGyroscopes = false;
-  List shouldSkipInstructions = [];
-  bool isWhitelisted = false;
-  String leaderUID = '';
-  List<SessionTags> tags = [];
 
   final CompanyPresetsQueries presetsQueries;
   RTActiveNokhteSessionsStream({required super.supabase})
@@ -53,6 +42,11 @@ class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
         .stream(primaryKey: ['id'])) {
       if (event.isNotEmpty) {
         yield NokhteSessionMetadata(
+          userIsBeingRalliedWith:
+              event.first[SECONDARY_SPEAKER_SPOTLIGHT] == userUID,
+          speakingTimerStart: event.first[SPEAKING_TIMER_START] == null
+              ? DateTime.fromMillisecondsSinceEpoch(0)
+              : DateTime.parse(event.first[SPEAKING_TIMER_START]),
           phases: event.first[CURRENT_PHASES],
           userCanSpeak: event.first[SPEAKER_SPOTLIGHT] == null,
           userIsSpeaking: event.first[SPEAKER_SPOTLIGHT] == userUID,
