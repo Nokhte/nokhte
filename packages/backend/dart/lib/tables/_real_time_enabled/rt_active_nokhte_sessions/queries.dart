@@ -95,6 +95,7 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
             {
               SPEAKING_TIMER_START: DateTime.now().toUtc().toIso8601String(),
               VERSION: res.currentVersion + 1,
+              SECONDARY_SPEAKER_SPOTLIGHT: userUID,
             },
           ),
           version: res.currentVersion,
@@ -154,6 +155,7 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
 
   Future<List> updateSpeakerSpotlight({
     required bool addUserToSpotlight,
+    DateTime time = const ConstDateTime.fromMillisecondsSinceEpoch(0),
   }) async {
     await computeCollaboratorInformation();
     final res = await getSpeakerSpotlight();
@@ -167,8 +169,7 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
                 {
                   SPEAKER_SPOTLIGHT: userUID,
                   VERSION: res.currentVersion + 1,
-                  SPEAKING_TIMER_START:
-                      DateTime.now().toUtc().toIso8601String(),
+                  SPEAKING_TIMER_START: time.toUtc().toIso8601String(),
                 },
               ),
               version: res.currentVersion,
@@ -184,6 +185,7 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
                   SPEAKER_SPOTLIGHT: null,
                   VERSION: res.currentVersion + 1,
                   SPEAKING_TIMER_START: null,
+                  SECONDARY_SPEAKER_SPOTLIGHT: null,
                 },
               ),
               version: res.currentVersion,
@@ -204,7 +206,6 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
     required int version,
   }) async {
     await computeCollaboratorInformation();
-    print('sessionUID: $sessionUID');
     if (sessionUID.isNotEmpty) {
       return await query
           .eq(VERSION, version)
