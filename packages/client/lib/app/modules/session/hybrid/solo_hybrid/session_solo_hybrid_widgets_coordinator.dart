@@ -126,6 +126,7 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
       isHolding = true;
       canHold = false;
       holdCount++;
+      sessionNavigation.setWidgetVisibility(false);
       beachWaves.setMovieMode(
         BeachWaveMovieModes.halfAndHalfToDrySand,
       );
@@ -172,6 +173,7 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
     isLettingGo = false;
     if (!collaboratorHasLeft) {
       setSmartTextVisibilities(true);
+      sessionNavigation.setWidgetVisibility(true);
     }
   }
 
