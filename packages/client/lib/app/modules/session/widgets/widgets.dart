@@ -1,6 +1,6 @@
 export 'border_glow/border_glow.dart';
 export './let_em_cook/let_em_cook.dart';
-export './rally/custom_widget.dart';
+export 'rally/rally.dart';
 export 'session_navigation/session_navigation.dart';
 export 'collaborator_presence_incidents_overlay/collaborator_presence_incidents_overlay.dart';
 export 'exit_status_indicator/exit_status_indicator.dart';
