@@ -108,7 +108,7 @@ abstract class _SessionGroupHybridCoordinatorBase
             setDisableAllTouchFeedback(false);
           });
         } else if (p0 && !userIsSpeaking) {
-          widgets.othersAreTalkingTint.reverseMovie(NoParams());
+          widgets.onSomeElseIsDoneSpreaking();
         } else if (!p0 && !userIsSpeaking) {
           widgets.onSomeoneElseIsSpeaking(
             sessionMetadata.currentSpeakerFirstName,

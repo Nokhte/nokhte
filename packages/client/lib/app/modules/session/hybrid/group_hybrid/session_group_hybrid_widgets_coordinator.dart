@@ -136,7 +136,14 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
   @action
   onSomeoneElseIsSpeaking(String speakerName) {
     letEmCook.setCurrentCook(speakerName);
+    mirroredText.setWidgetVisibility(false);
     othersAreTalkingTint.initMovie(NoParams());
+  }
+
+  @action
+  onSomeElseIsDoneSpreaking() {
+    othersAreTalkingTint.reverseMovie(NoParams());
+    mirroredText.setWidgetVisibility(true);
   }
 
   @action
