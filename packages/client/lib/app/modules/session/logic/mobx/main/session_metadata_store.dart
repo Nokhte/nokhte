@@ -15,15 +15,12 @@ class SessionMetadataStore = _SessionMetadataStoreBase
 
 abstract class _SessionMetadataStoreBase
     with Store, BaseMobxLogic<NoParams, Stream<NokhteSessionMetadata>> {
-  final ListenToSessionMetadata listenLogic;
-  final GetStaticSessionMetadata getterLogic;
-  final GetSessionPresetInfo presetLogic;
-  final GetInstructionType getInstructionTypeLogic;
+  final SessionPresenceContract contract;
   _SessionMetadataStoreBase({
-    required this.listenLogic,
-    required this.getInstructionTypeLogic,
-    required this.getterLogic,
-    required this.presetLogic,
+    required this.contract,
+    // required this.getInstructionTypeLogic,
+    // required this.getterLogic,
+    // required this.presetLogic,
   }) {
     initBaseLogicActions();
   }
@@ -123,7 +120,7 @@ abstract class _SessionMetadataStoreBase
 
   @action
   _getInstructionType(String unifiedUID) async {
-    final res = await getInstructionTypeLogic(unifiedUID);
+    final res = await contract.getInstructionType(unifiedUID);
     res.fold(
       (failure) => errorUpdater(failure),
       (instructionType) => this.instructionType = instructionType,
@@ -132,7 +129,7 @@ abstract class _SessionMetadataStoreBase
 
   @action
   _getStaticMetadata() async {
-    final res = await getterLogic(NoParams());
+    final res = await contract.getSTSessionMetadata(NoParams());
     res.fold((failure) => mapFailureToMessage(failure), (entity) async {
       isAPremiumSession = entity.isAPremiumSession;
       isAValidSession = entity.isAValidSession;
@@ -142,7 +139,7 @@ abstract class _SessionMetadataStoreBase
         namesAndUIDs = ObservableList.of(entity.namesAndUIDs);
         presetUID = entity.presetUID;
         leaderUID = entity.leaderUID;
-        final res = await presetLogic(presetUID);
+        final res = await contract.getSessionPresetInfo(presetUID);
         res.fold((failure) => mapFailureToMessage(failure), (presetEntity) {
           presetName = presetEntity.name;
           presetTags = ObservableList.of(presetEntity.tags);
@@ -156,7 +153,7 @@ abstract class _SessionMetadataStoreBase
   @action
   Future<void> get(params) async {
     resetValues();
-    final result = await listenLogic(params);
+    final result = await contract.listenToRTSessionMetadata(params);
     result.fold(
       (failure) {
         setErrorMessage(mapFailureToMessage(failure));

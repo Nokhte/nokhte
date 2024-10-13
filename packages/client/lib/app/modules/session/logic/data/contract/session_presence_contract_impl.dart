@@ -135,4 +135,19 @@ class SessionPresenceContractImpl
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  usePowerUp(params) async {
+    if (await networkInfo.isConnected) {
+      return params.fold((letEmCook) async {
+        final res = await remoteSource.letEmCook();
+        return fromSupabase(res);
+      }, (rally) async {
+        final res = await remoteSource.rally(rally);
+        return fromSupabase(res);
+      });
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
