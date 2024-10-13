@@ -19,6 +19,7 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
   final BorderGlowStore borderGlow;
+  final LetEmCookStore letEmCook;
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
   final HalfScreenTintStore othersAreTakingNotesTint;
@@ -29,6 +30,7 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
 
   _SessionGroupHybridWidgetsCoordinatorBase({
     required this.sessionNavigation,
+    required this.letEmCook,
     required this.othersAreTakingNotesTint,
     required this.othersAreTalkingTint,
     required this.wifiDisconnectOverlay,
@@ -125,9 +127,16 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
       beachWaves.setMovieMode(
         BeachWaveMovieModes.halfAndHalfToDrySand,
       );
+      sessionNavigation.setWidgetVisibility(false);
       beachWaves.currentStore.initMovie(NoParams());
       mirroredText.setWidgetVisibility(false);
     }
+  }
+
+  @action
+  onSomeoneElseIsSpeaking(String speakerName) {
+    letEmCook.setCurrentCook(speakerName);
+    othersAreTalkingTint.initMovie(NoParams());
   }
 
   @action
@@ -149,7 +158,6 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
     initGlowDown();
     beachWaves.setMovieMode(BeachWaveMovieModes.anyToHalfAndHalf);
     beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
-    speakLessSmileMore.hideBoth();
   }
 
   @action
@@ -157,7 +165,9 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
     canHold = true;
     isHolding = false;
     isLettingGo = false;
+
     if (!collaboratorHasLeft) {
+      sessionNavigation.setWidgetVisibility(true);
       mirroredText.setWidgetVisibility(true);
     }
   }
@@ -257,14 +267,19 @@ abstract class _SessionGroupHybridWidgetsCoordinatorBase
         }
       });
 
-  borderGlowReactor() => reaction((p0) => borderGlow.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished && borderGlow.isGlowingUp) {
+  borderGlowReactor() => reaction((p0) => borderGlow.currentWidth, (p0) {
+        if (p0 == 200) {
           speakLessSmileMore.setSpeakLess(true);
           Timer(Seconds.get(2), () {
-            if (borderGlow.isGlowingUp) {
+            if (borderGlow.currentWidth == 200) {
               speakLessSmileMore.setSmileMore(true);
             }
           });
+        } else {
+          if (speakLessSmileMore.showSmileMore ||
+              speakLessSmileMore.showSpeakLess) {
+            speakLessSmileMore.hideBoth();
+          }
         }
       });
 

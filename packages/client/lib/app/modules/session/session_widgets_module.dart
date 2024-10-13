@@ -138,6 +138,7 @@ class SessionWidgetsModule extends Module {
     );
     i.add<SessionGroupHybridWidgetsCoordinator>(
       () => SessionGroupHybridWidgetsCoordinator(
+        letEmCook: LetEmCookStore(),
         sessionNavigation: Modular.get<SessionNavigationStore>(),
         othersAreTalkingTint: TintStore(),
         othersAreTakingNotesTint: HalfScreenTintStore(),
