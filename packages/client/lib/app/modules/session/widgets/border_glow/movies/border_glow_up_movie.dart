@@ -5,6 +5,7 @@ import 'package:simple_animations/simple_animations.dart';
 class BorderGlowMovies {
   static MovieTween glowUp({
     Color startingColor = const Color(0x0004FF00),
+    double startingWidth = 0.0,
   }) =>
       MovieTween()
         ..scene(
@@ -14,7 +15,7 @@ class BorderGlowMovies {
             .tween(
               'width',
               Tween<double>(
-                begin: 0,
+                begin: startingWidth,
                 end: 1.0,
               ),
             )
