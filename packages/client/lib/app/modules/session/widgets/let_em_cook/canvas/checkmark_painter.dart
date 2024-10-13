@@ -63,12 +63,6 @@ class CheckmarkPainter extends CustomPainter {
         path1Metric.extractPath(0, path1Metric.length * l2progress);
 
     // Draw the animated portion of both paths
-    if (l1progress > 0) {
-      canvas.drawPath(animatedPath, paint1); // First path with gradient1
-    }
-    if (l1progress == 1) {
-      canvas.drawPath(animatedPath1, paint2); // Second path with gradient2
-    }
 
     // Define the gradient for the surrounding circle
     var circleGradient = LinearGradient(
@@ -87,12 +81,23 @@ class CheckmarkPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = size.height * 0.06;
 
+    canvas.drawCircle(
+      Offset(size.width / 2, size.height / 2),
+      size.height * 0.5,
+      Paint()..color = Colors.black.withOpacity(opacity / 2),
+    );
     // Draw the surrounding circle with gradient
     canvas.drawCircle(
       Offset(size.width / 2, size.height / 2),
       size.height * 0.5,
       circlePaint,
     );
+    if (l1progress > 0) {
+      canvas.drawPath(animatedPath, paint1); // First path with gradient1
+    }
+    if (l1progress == 1) {
+      canvas.drawPath(animatedPath1, paint2); // Second path with gradient2
+    }
   }
 
   @override
