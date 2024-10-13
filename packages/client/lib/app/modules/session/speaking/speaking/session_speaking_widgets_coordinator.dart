@@ -122,7 +122,6 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
     initGlowDown();
     beachWaves.setMovieMode(BeachWaveMovieModes.anyToHalfAndHalf);
     beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
-    speakLessSmileMore.hideBoth();
   }
 
   @action
@@ -240,14 +239,19 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
         }
       });
 
-  borderGlowReactor() => reaction((p0) => borderGlow.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished && borderGlow.isGlowingUp) {
+  borderGlowReactor() => reaction((p0) => borderGlow.currentWidth, (p0) {
+        if (p0 == 200) {
           speakLessSmileMore.setSpeakLess(true);
           Timer(Seconds.get(2), () {
-            if (borderGlow.isGlowingUp) {
+            if (borderGlow.currentWidth == 200) {
               speakLessSmileMore.setSmileMore(true);
             }
           });
+        } else {
+          if (speakLessSmileMore.showSmileMore ||
+              speakLessSmileMore.showSpeakLess) {
+            speakLessSmileMore.hideBoth();
+          }
         }
       });
 }
