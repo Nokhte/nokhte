@@ -62,6 +62,7 @@ flutter:
     - assets/consultative_seating.png
     - assets/apple_icon.png
     - assets/google_icon.png
+    - assets/cook_button.png
 flutter_icons:
   image_path: "assets/app_logo.png"
   android: true
