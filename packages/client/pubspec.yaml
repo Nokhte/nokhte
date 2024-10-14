@@ -63,6 +63,8 @@ flutter:
     - assets/apple_icon.png
     - assets/google_icon.png
     - assets/cook_button.png
+    - assets/rally_button_blue.png
+    - assets/rally_button_red.png
 flutter_icons:
   image_path: "assets/app_logo.png"
   android: true
