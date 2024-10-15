@@ -1,19 +1,22 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/modules/storage/storage.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'canvas/back_button_painter.dart';
 export 'mobx/back_button_store.dart';
 
 class BackButton extends HookWidget {
   final BackButtonStore store;
+  final Color overridedColor;
+  final double topPaddingScalar;
   const BackButton({
     super.key,
     required this.store,
+    this.overridedColor = Colors.transparent,
+    this.topPaddingScalar = 0.06,
   });
 
   @override
@@ -33,14 +36,16 @@ class BackButton extends HookWidget {
         child: Padding(
           padding: EdgeInsets.only(
             left: screenSize.width * .05,
-            top: screenSize.height * .06,
+            top: screenSize.height * topPaddingScalar,
           ),
           child: GestureDetector(
             onTap: () {
               store.onTap();
             },
             child: CustomPaint(
-              painter: BackButtonPainter(),
+              painter: BackButtonPainter(
+                overridedColor: overridedColor,
+              ),
               child: SizedBox(
                 height: screenSize.height * .06,
                 width: screenSize.height * .06,
