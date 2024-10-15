@@ -62,9 +62,7 @@ abstract class _BorderGlowStoreBase extends BaseWidgetStore<NoParams>
     required Color color,
     required double width,
   }) {
-    if (isGlowingUp) {
-      currentColor = color;
-      currentWidth = width;
-    }
+    currentColor = color;
+    currentWidth = width;
   }
 }
