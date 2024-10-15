@@ -21,6 +21,7 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
   final BorderGlowStore borderGlow;
   final SpeakLessSmileMoreStore speakLessSmileMore;
   final HalfScreenTintStore othersAreTalkingTint;
+  final RallyStore rally;
   @override
   final BeachWavesStore beachWaves;
   @override
@@ -30,6 +31,7 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
 
   _SessionSoloHybridWidgetsCoordinatorBase({
     required this.primarySmartText,
+    required this.rally,
     required this.secondarySmartText,
     required this.sessionNavigation,
     required this.othersAreTalkingTint,
@@ -130,9 +132,15 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
       beachWaves.setMovieMode(
         BeachWaveMovieModes.halfAndHalfToDrySand,
       );
+      rally.setRallyPhase(RallyPhase.initial);
       beachWaves.currentStore.initMovie(NoParams());
       setSmartTextVisibilities(false);
     }
+  }
+
+  @action
+  setCollaboratorNames(List<String> collaboratorNames) {
+    rally.setCollaborators(collaboratorNames);
   }
 
   @action
@@ -162,6 +170,7 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
   onLetGo() {
     letGoCount++;
     initGlowDown();
+    rally.reset();
     beachWaves.setMovieMode(BeachWaveMovieModes.anyToHalfAndHalf);
     beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
   }

@@ -127,6 +127,10 @@ class SessionWidgetsModule extends Module {
       () => SessionSoloHybridWidgetsCoordinator(
         sessionNavigation: Modular.get<SessionNavigationStore>(),
         primarySmartText: SmartTextStore(),
+        rally: RallyStore(
+          backButton: BackButtonStore(),
+          tint: TintStore(),
+        ),
         secondarySmartText: SmartTextStore(),
         othersAreTalkingTint: HalfScreenTintStore(),
         speakLessSmileMore: SpeakLessSmileMoreStore(),
