@@ -65,7 +65,7 @@ abstract class _RallyStoreBase extends BaseWidgetStore with Store, Reactions {
 
   @action
   setCurrentlySelectedIndex(int value) {
-    if (currentlySelectedIndex == -2) {
+    if (currentlySelectedIndex == -1) {
       currentlySelectedIndex = value;
       setRallyPhase(RallyPhase.activeInitiator);
     }
