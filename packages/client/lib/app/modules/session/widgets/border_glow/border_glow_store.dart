@@ -16,13 +16,9 @@ abstract class _BorderGlowStoreBase extends BaseWidgetStore<NoParams>
     setMovie(BorderGlowMovies.glowUp());
   }
 
-  @observable
-  bool isGlowingUp = false;
-
   @action
   @override
   initMovie(param) {
-    isGlowingUp = true;
     setMovie(BorderGlowMovies.glowUp());
     setMovieStatus(MovieStatus.inProgress);
     setControl(Control.playFromStart);
@@ -37,18 +33,28 @@ abstract class _BorderGlowStoreBase extends BaseWidgetStore<NoParams>
       ),
     );
     setControl(Control.playFromStart);
-    setMovieStatus(MovieStatus.inProgress);
   }
 
   @action
   initGlowDown() {
-    isGlowingUp = false;
-    setMovie(BorderGlowDownMovie.getMovie(
+    setMovie(BorderGlowMovies.glowDown(
       lastColor: currentColor,
       lastWidth: currentWidth,
     ));
     setControl(Control.playFromStart);
-    setMovieStatus(MovieStatus.inProgress);
+  }
+
+  @action
+  synchronizeGlow(
+    DateTime startTime,
+  ) {
+    setMovie(
+      BorderGlowMovies.synchronizeGlow(
+        startTime: startTime,
+      ),
+    );
+
+    setControl(Control.playFromStart);
   }
 
   @observable
