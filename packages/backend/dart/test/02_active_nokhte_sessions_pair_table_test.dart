@@ -142,7 +142,11 @@ void main() {
       stream,
       emits(
         NokhteSessionMetadata(
+          secondarySpotlightIsEmpty: true,
+          speakerUID: null,
           userCanSpeak: true,
+          speakingTimerStart: DateTime.fromMillisecondsSinceEpoch(0),
+          userIsInSecondarySpeakingSpotlight: false,
           userIsSpeaking: false,
           phases: [1, 1],
           everyoneIsOnline: false,

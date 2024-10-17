@@ -66,11 +66,11 @@ abstract class _SessionNavigationStoreBase extends BaseWidgetStore
     initSwipeReactor = true,
   }) {
     this.presetType = presetType;
-    Color color = SessionConstants.white;
-    if (screenType == SessionScreenTypes.soloHybrid ||
-        screenType == SessionScreenTypes.speaking) {
-      color = SessionConstants.blue;
-    }
+    Color color = SessionConstants.blue;
+    // if (screenType == SessionScreenTypes.soloHybrid ||
+    //     screenType == SessionScreenTypes.speaking) {
+    // color = SessionConstants.blue;
+    // }
     gestureCross.cross.initStaticGlow(
       glowColor: color,
     );
@@ -104,7 +104,11 @@ abstract class _SessionNavigationStoreBase extends BaseWidgetStore
 
   @override
   setWidgetVisibility(bool visibility) {
-    setControl(Control.stop);
+    centerNokhte.setControl(Control.stop);
+    exitNokhte.setControl(Control.stop);
+    infoNokhte.setControl(Control.stop);
+    tint.setControl(Control.stop);
+    swipeGuide.setControl(Control.stop);
     super.setWidgetVisibility(visibility);
   }
 

@@ -29,79 +29,15 @@ class SessionLogicModule extends Module {
         networkInfo: Modular.get<NetworkInfoImpl>(),
       ),
     );
-    i.add<StartTheSession>(
-      () => StartTheSession(
-        contract: i<SessionPresenceContractImpl>(),
-      ),
-    );
-    i.add<GetStaticSessionMetadata>(
-      () => GetStaticSessionMetadata(
-        contract: i<SessionPresenceContractImpl>(),
-      ),
-    );
-    i.add<GetSessionPresetInfo>(
-      () => GetSessionPresetInfo(
-        contract: i<SessionPresenceContractImpl>(),
-      ),
-    );
-    i.add<ListenToSessionMetadata>(
-      () => ListenToSessionMetadata(
-        contract: i<SessionPresenceContractImpl>(),
-      ),
-    );
-    i.add<UpdateCurrentPhase>(
-      () => UpdateCurrentPhase(
-        contract: i<SessionPresenceContractImpl>(),
-      ),
-    );
-    i.add<CancelSessionMetadataStream>(
-      () => CancelSessionMetadataStream(
-        contract: i<SessionPresenceContractImpl>(),
-      ),
-    );
-    i.add<UpdateOnlineStatus>(
-      () => UpdateOnlineStatus(
-        contract: i<SessionPresenceContractImpl>(),
-      ),
-    );
-    i.add<GetInstructionType>(
-      () => GetInstructionType(
-        contract: i<SessionPresenceContractImpl>(),
-      ),
-    );
-    i.add<UpdateWhoIsTalking>(
-      () => UpdateWhoIsTalking(
-        contract: i<SessionPresenceContractImpl>(),
-      ),
-    );
-    i.add<AddContent>(
-      () => AddContent(
-        contract: i<SessionPresenceContractImpl>(),
-      ),
-    );
-    i.add<CompleteTheSession>(
-      () => CompleteTheSession(
-        contract: i<SessionPresenceContractImpl>(),
-      ),
-    );
     i.addSingleton<SessionMetadataStore>(
       () => SessionMetadataStore(
-        presetLogic: i<GetSessionPresetInfo>(),
-        listenLogic: i<ListenToSessionMetadata>(),
-        getterLogic: i<GetStaticSessionMetadata>(),
-        getInstructionTypeLogic: i<GetInstructionType>(),
+        contract: i<SessionPresenceContractImpl>(),
       ),
     );
     i.add<SessionPresenceCoordinator>(
       () => SessionPresenceCoordinator(
-        updateWhoIsTalkingLogic: Modular.get<UpdateWhoIsTalking>(),
-        addContentLogic: Modular.get<AddContent>(),
-        completeTheSessionLogic: Modular.get<CompleteTheSession>(),
-        cancelSessionMetadataStreamLogic: i<CancelSessionMetadataStream>(),
-        updateCurrentPhaseLogic: i<UpdateCurrentPhase>(),
+        contract: i<SessionPresenceContractImpl>(),
         sessionMetadataStore: i<SessionMetadataStore>(),
-        updateOnlineStatusLogic: i<UpdateOnlineStatus>(),
-        startTheSessionLogic: i<StartTheSession>(),
       ),
     );
   }

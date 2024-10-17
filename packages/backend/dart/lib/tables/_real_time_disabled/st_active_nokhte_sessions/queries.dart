@@ -44,6 +44,7 @@ class STActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
         return await _onCurrentActiveNokhteSession(
           supabase.from(TABLE).update({
             CONTENT: currentContent,
+            VERSION: currentVersion + 1,
           }),
           version: currentVersion,
         );

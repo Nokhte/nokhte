@@ -11,11 +11,16 @@ serve(async (req) => {
     message: shouldInitialize ? "successful initialization" : "successful nuke",
   };
   if (shouldInitialize && !shouldStart) {
+    const userRes = (
+      await supabaseAdmin.from("user_information").select().eq("uid", userUID)
+    ).data?.[0];
+    const name = `${userRes.first_name} ${userRes.last_name}`;
     const { data } = await supabaseAdmin
       .from("st_active_nokhte_sessions")
       .insert({
         leader_uid: userUID,
         collaborator_uids: [userUID],
+        collaborator_names: [name],
         preset_uid: presetUID,
       })
       .select();

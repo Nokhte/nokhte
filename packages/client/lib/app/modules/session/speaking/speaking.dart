@@ -8,7 +8,6 @@ class SessionSpeakingModule extends Module {
   @override
   List<Module> get imports => [
         PosthogModule(),
-        SessionLogicModule(),
       ];
   @override
   void exportedBinds(Injector i) {
@@ -16,8 +15,8 @@ class SessionSpeakingModule extends Module {
       () => SessionSpeakingCoordinator(
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<SessionSpeakingWidgetsCoordinator>(),
-        presence: Modular.get<SessionPresenceCoordinator>(),
         hold: HoldDetector(),
+        tap: TapDetector(),
       ),
     );
   }

@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -40,6 +41,10 @@ abstract class _SessionSoloHybridCoordinatorBase
     widgets.sessionNavigation.setup(
       sessionMetadata.sessionScreenType,
       sessionMetadata.presetType,
+    );
+    widgets.rally.setValues(
+      fullNames: sessionMetadata.fullNames,
+      canRally: sessionMetadata.canRallyArray,
     );
     initReactors();
     await presence.updateCurrentPhase(2.0);
@@ -82,9 +87,32 @@ abstract class _SessionSoloHybridCoordinatorBase
       },
     ));
     disposers.add(tapReactor());
+    disposers.add(
+      widgets.beachWavesMovieStatusReactor(
+        onBorderGlowInitialized: () async {
+          await presence.updateSpeakingTimerStart();
+        },
+      ),
+    );
     disposers.add(userIsSpeakingReactor());
     disposers.add(userCanSpeakReactor());
+    disposers.add(othersAreTakingNotesReactor());
+    disposers.add(rallyReactor());
+    disposers.add(glowColorReactor());
+    disposers.add(secondarySpotlightReactor());
   }
+
+  glowColorReactor() => reaction(
+        (p0) => sessionMetadata.glowColor,
+        (p0) {
+          widgets.rally.setGlowColor(p0);
+          if (userIsSpeaking &&
+              sessionMetadata.secondarySpeakerSpotlightIsEmpty &&
+              p0 == GlowColor.red) {
+            widgets.rally.reset();
+          }
+        },
+      );
 
   userIsSpeakingReactor() =>
       reaction((p0) => sessionMetadata.userIsSpeaking, (p0) async {
@@ -95,6 +123,48 @@ abstract class _SessionSoloHybridCoordinatorBase
           setDisableAllTouchFeedback(true);
           await presence.updateCurrentPhase(2);
         }
+      });
+
+  rallyReactor() => reaction(
+        (p0) => widgets.rally.currentlySelectedIndex,
+        (p0) async {
+          await presence.usePowerUp(
+            Right(
+              RallyParams(
+                shouldAdd: p0 != -1,
+                userUID: p0 != -1
+                    ? sessionMetadata
+                        .getUIDFromName(widgets.rally.currentPartnerFullName)
+                    : '',
+              ),
+            ),
+          );
+        },
+      );
+
+  secondarySpotlightReactor() => reaction(
+        (p0) => sessionMetadata.userIsInSecondarySpeakingSpotlight,
+        (p0) {
+          if (p0) {
+            widgets.synchronizeBorderGlow(
+              startTime: sessionMetadata.speakingTimerStart,
+              initiatorFullName: sessionMetadata.currentSpeakerFirstName,
+            );
+          } else {
+            widgets.onLetGo();
+            if (!sessionMetadata.userCanSpeak) {
+              widgets.othersAreTalkingTint.initMovie(NoParams());
+            }
+            // add functionality for wind down
+          }
+        },
+      );
+
+  othersAreTakingNotesReactor() =>
+      reaction((p0) => sessionMetadata.canRallyArray, (p0) {
+        widgets.rally.setCanRally(
+          sessionMetadata.canRallyArray,
+        );
       });
 
   userCanSpeakReactor() => reaction((p0) => sessionMetadata.userCanSpeak, (p0) {
@@ -117,13 +187,16 @@ abstract class _SessionSoloHybridCoordinatorBase
           widgets.onTap(
             tapPosition: tap.currentTapPosition,
             tapPlacement: tap.currentTapPlacement,
-            asyncTapCall: onTap,
+            asyncTalkingTapCall: onTalkingTap,
+            asyncNotesTapCall: () async {
+              await presence.updateCurrentPhase(2.5);
+            },
           );
         },
       );
 
   @action
-  onTap() async {
+  onTalkingTap() async {
     if (sessionMetadata.everyoneIsOnline &&
         sessionMetadata.canStartUsingSession) {
       if (sessionMetadata.userIsSpeaking) {

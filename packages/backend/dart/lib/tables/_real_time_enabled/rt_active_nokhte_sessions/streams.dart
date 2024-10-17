@@ -8,17 +8,6 @@ class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
     with RTActiveNokhteSessionsConstants {
   bool getActiveNokhteSessionCreationListingingStatus = false;
   bool sessionMetadataListeningStatus = false;
-  int lastTrackedNumOfCollaborators = -1;
-  int leaderIndex = -1;
-  List orderedCollaboratorUIDs = [];
-  List orderedPhases = [];
-  bool isAValidSession = false;
-  bool isAPremiumSession = false;
-  bool everyoneHasGyroscopes = false;
-  List shouldSkipInstructions = [];
-  bool isWhitelisted = false;
-  String leaderUID = '';
-  List<SessionTags> tags = [];
 
   final CompanyPresetsQueries presetsQueries;
   RTActiveNokhteSessionsStream({required super.supabase})
@@ -36,7 +25,7 @@ class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
         break;
       }
       if (event.isNotEmpty) {
-        yield event.first[VERSION] > 0;
+        yield event.first[CURRENT_PHASES].length > 1;
       }
     }
   }
@@ -52,7 +41,18 @@ class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
         .from("rt_active_nokhte_sessions")
         .stream(primaryKey: ['id'])) {
       if (event.isNotEmpty) {
+        if (!sessionMetadataListeningStatus) {
+          break;
+        }
         yield NokhteSessionMetadata(
+          speakingTimerStart: event.first[SPEAKING_TIMER_START] == null
+              ? DateTime.fromMillisecondsSinceEpoch(0)
+              : DateTime.parse(event.first[SPEAKING_TIMER_START]),
+          secondarySpotlightIsEmpty:
+              event.first[SECONDARY_SPEAKER_SPOTLIGHT] == null,
+          speakerUID: event.first[SPEAKER_SPOTLIGHT],
+          userIsInSecondarySpeakingSpotlight:
+              event.first[SECONDARY_SPEAKER_SPOTLIGHT] == userUID,
           phases: event.first[CURRENT_PHASES],
           userCanSpeak: event.first[SPEAKER_SPOTLIGHT] == null,
           userIsSpeaking: event.first[SPEAKER_SPOTLIGHT] == userUID,

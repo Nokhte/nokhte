@@ -54,6 +54,9 @@ class SessionGroupHybridScreen extends HookWidget {
               SpeakLessSmileMore(
                 store: coordinator.widgets.speakLessSmileMore,
               ),
+              LetEmCook(
+                store: coordinator.widgets.letEmCook,
+              ),
               FullScreen(
                 child: TouchRipple(
                   store: coordinator.widgets.touchRipple,

@@ -20,50 +20,47 @@ class SessionSpeakingScreen extends HookWidget {
 
       return () => coordinator.deconstructor();
     }, []);
-    useOnAppLifecycleStateChange(
-        (previous, current) => coordinator.onAppLifeCycleStateChange(
-              current,
-              onResumed: () => coordinator.onResumed(),
-              onInactive: () => coordinator.onInactive(),
-            ));
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Hold(
-        store: coordinator.hold,
-        child: MultiHitStack(
-          children: [
-            FullScreen(
-              child: BeachWaves(
-                store: coordinator.widgets.beachWaves,
+      body: Tap(
+        store: coordinator.tap,
+        child: Hold(
+          store: coordinator.hold,
+          child: MultiHitStack(
+            children: [
+              FullScreen(
+                child: BeachWaves(
+                  store: coordinator.widgets.beachWaves,
+                ),
               ),
-            ),
-            Tint(
-              store: coordinator.widgets.tint,
-            ),
-            BorderGlow(
-              store: coordinator.widgets.borderGlow,
-            ),
-            MirroredText(
-              store: coordinator.widgets.mirroredText,
-            ),
-            SpeakLessSmileMore(
-              store: coordinator.widgets.speakLessSmileMore,
-            ),
-            FullScreen(
-              child: TouchRipple(
-                store: coordinator.widgets.touchRipple,
+              // Tint(
+              //   store: coordinator.widgets.tint,
+              // ),
+              BorderGlow(
+                store: coordinator.widgets.borderGlow,
               ),
-            ),
-            SessionNavigation(
-              store: coordinator.widgets.sessionNavigation,
-            ),
-            CollaboratorPresenceIncidentsOverlay(
-              store: coordinator.presence.incidentsOverlayStore,
-            ),
-            WifiDisconnectOverlay(
-              store: coordinator.widgets.wifiDisconnectOverlay,
-            ),
-          ],
+              MirroredText(
+                store: coordinator.widgets.mirroredText,
+              ),
+              SpeakLessSmileMore(
+                store: coordinator.widgets.speakLessSmileMore,
+              ),
+              FullScreen(
+                child: TouchRipple(
+                  store: coordinator.widgets.touchRipple,
+                ),
+              ),
+              // SessionNavigation(
+              //   store: coordinator.widgets.sessionNavigation,
+              // ),
+              // CollaboratorPresenceIncidentsOverlay(
+              //   store: coordinator.presence.incidentsOverlayStore,
+              // ),
+              WifiDisconnectOverlay(
+                store: coordinator.widgets.wifiDisconnectOverlay,
+              ),
+            ],
+          ),
         ),
       ),
       // ),
