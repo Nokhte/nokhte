@@ -97,6 +97,12 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
   @observable
   int tapCount = 0;
 
+  @observable
+  bool isASecondarySpeaker = false;
+
+  @observable
+  DateTime speakingTimerStart = DateTime.fromMillisecondsSinceEpoch(0);
+
   Stopwatch tapStopwatch = Stopwatch();
 
   @action
@@ -132,7 +138,7 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
       beachWaves.setMovieMode(
         BeachWaveMovieModes.halfAndHalfToDrySand,
       );
-      rally.setRallyPhase(RallyPhase.initial);
+
       beachWaves.currentStore.initMovie(NoParams());
       setSmartTextVisibilities(false);
     }
@@ -147,7 +153,8 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
   onTap({
     required Offset tapPosition,
     required GesturePlacement tapPlacement,
-    required Function asyncTapCall,
+    required Function asyncTalkingTapCall,
+    required Function asyncNotesTapCall,
   }) async {
     if ((tapStopwatch.elapsedMilliseconds > 1000 || tapCount == 0) &&
         !sessionNavigation.hasInitiatedBlur) {
@@ -155,11 +162,12 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
       if (tapPlacement == GesturePlacement.topHalf) {
         if (!isHolding && canHold && !collaboratorHasLeft) {
           initFullScreenNotes();
+          await asyncNotesTapCall();
         } else if (isHolding) {
-          await asyncTapCall();
+          await asyncTalkingTapCall();
         }
       } else {
-        await asyncTapCall();
+        await asyncTalkingTapCall();
       }
       tapCount++;
       tapStopwatch.reset();
@@ -169,7 +177,8 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
   @action
   onLetGo() {
     letGoCount++;
-    initGlowDown();
+    borderGlow.initGlowDown();
+
     rally.reset();
     beachWaves.setMovieMode(BeachWaveMovieModes.anyToHalfAndHalf);
     beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
@@ -180,6 +189,8 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
     canHold = true;
     isHolding = false;
     isLettingGo = false;
+    isASecondarySpeaker = false;
+    speakingTimerStart = DateTime.fromMillisecondsSinceEpoch(0);
     if (!collaboratorHasLeft) {
       setSmartTextVisibilities(true);
       sessionNavigation.setWidgetVisibility(true);
@@ -198,17 +209,34 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
     setSmartTextVisibilities(false);
     beachWaves.currentStore.reverseMovie(NoParams());
     othersAreTalkingTint.reverseMovie(NoParams());
-    //
   }
 
   @action
   initBorderGlow() {
-    borderGlow.initMovie(NoParams());
+    if (isASecondarySpeaker) {
+      rally.setRallyPhase(RallyPhase.activeRecipient);
+      borderGlow.synchronizeGlow(speakingTimerStart);
+    } else {
+      borderGlow.initMovie(NoParams());
+      rally.setRallyPhase(RallyPhase.initial);
+    }
   }
 
   @action
-  initGlowDown() {
-    borderGlow.initGlowDown();
+  synchronizeBorderGlow({
+    required DateTime startTime,
+    required String initiatorFullName,
+  }) {
+    speakingTimerStart = startTime;
+    isASecondarySpeaker = true;
+    sessionNavigation.setWidgetVisibility(false);
+    rally.setCurrentInitiator(initiatorFullName);
+    beachWaves.setMovieMode(
+      BeachWaveMovieModes.halfAndHalfToDrySand,
+    );
+    othersAreTalkingTint.reverseMovie(NoParams());
+    beachWaves.currentStore.initMovie(NoParams());
+    setSmartTextVisibilities(false);
   }
 
   @action
@@ -234,7 +262,6 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
   @action
   initReactors() {
     disposers.add(borderGlowReactor());
-    disposers.add(beachWavesMovieStatusReactor());
     disposers.add(
       gestureCrossTapReactor(
         onInit: () {
@@ -247,20 +274,6 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
         },
       ),
     );
-  }
-
-  onBorderGlowComplete(MovieStatus p0, BorderGlowStore store) {
-    if (p0 == MovieStatus.finished &&
-        store.isGlowingUp &&
-        isHolding &&
-        beachWaves.movieMode == BeachWaveMovieModes.halfAndHalfToDrySand) {
-      speakLessSmileMore.setSpeakLess(true);
-      Timer(Seconds.get(2), () {
-        if (isHolding) {
-          speakLessSmileMore.setSmileMore(true);
-        }
-      });
-    }
   }
 
   gestureCrossTapReactor({
@@ -276,27 +289,26 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
         },
       );
 
-  beachWavesMovieStatusReactor() =>
-      reaction((p0) => beachWaves.movieStatus, (p0) {
+  beachWavesMovieStatusReactor({
+    required Function onBorderGlowInitialized,
+  }) =>
+      reaction((p0) => beachWaves.movieStatus, (p0) async {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
-            if (isExiting) {
-              onReadyToNavigate(SessionConstants.exit);
-            } else if (isGoingToNotes) {
-              onReadyToNavigate(SessionConstants.notes);
-            }
+            onReadyToNavigate(SessionConstants.notes);
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.anyToHalfAndHalf) {
             onLetGoCompleted();
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.halfAndHalfToDrySand) {
             initBorderGlow();
+            await onBorderGlowInitialized();
           }
         }
       });
 
   borderGlowReactor() => reaction((p0) => borderGlow.currentWidth, (p0) {
-        if (p0 == 200) {
+        if (p0 == 200 && !isASecondarySpeaker) {
           speakLessSmileMore.setSpeakLess(true);
           Timer(Seconds.get(2), () {
             if (borderGlow.currentWidth == 200) {

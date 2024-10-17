@@ -1,1 +1,1 @@
-enum GlowColor { transparent, green, yellow, red }
+enum GlowColor { transparent, green, yellow, red, inflectionRed }

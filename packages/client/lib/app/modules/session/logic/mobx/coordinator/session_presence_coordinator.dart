@@ -13,10 +13,6 @@ class SessionPresenceCoordinator = _SessionPresenceCoordinatorBase
 abstract class _SessionPresenceCoordinatorBase with Store, BaseMobxLogic {
   final SessionMetadataStore sessionMetadataStore;
   final CollaboratorPresenceIncidentsOverlayStore incidentsOverlayStore;
-  // final AddContent addContentLogic;
-  // final CompleteTheSession completeTheSessionLogic;
-  // final StartTheSession startTheSessionLogic;
-  // final UpdateWhoIsTalking updateWhoIsTalkingLogic;
   final SessionPresenceContract contract;
 
   _SessionPresenceCoordinatorBase({
@@ -57,6 +53,9 @@ abstract class _SessionPresenceCoordinatorBase with Store, BaseMobxLogic {
 
   @observable
   bool speakerSpotlightIsUpdated = false;
+
+  @observable
+  bool speakingTimerStartIsUpdated = false;
 
   @action
   ReactionDisposer initReactors({
@@ -109,6 +108,17 @@ abstract class _SessionPresenceCoordinatorBase with Store, BaseMobxLogic {
       (failure) => errorUpdater(failure),
       (gyroscopeUpdateStatus) =>
           speakerSpotlightIsUpdated = gyroscopeUpdateStatus,
+    );
+    setState(StoreState.loaded);
+  }
+
+  @action
+  updateSpeakingTimerStart() async {
+    final res = await contract.updateSpeakingTimerStart();
+    res.fold(
+      (failure) => errorUpdater(failure),
+      (speakingTimerStatus) =>
+          speakingTimerStartIsUpdated = speakingTimerStatus,
     );
     setState(StoreState.loaded);
   }

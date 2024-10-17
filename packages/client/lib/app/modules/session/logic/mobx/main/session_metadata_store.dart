@@ -18,9 +18,6 @@ abstract class _SessionMetadataStoreBase
   final SessionPresenceContract contract;
   _SessionMetadataStoreBase({
     required this.contract,
-    // required this.getInstructionTypeLogic,
-    // required this.getterLogic,
-    // required this.presetLogic,
   }) {
     initBaseLogicActions();
   }
@@ -198,6 +195,14 @@ abstract class _SessionMetadataStoreBase
     }
   }
 
+  getUIDFromName(String name) {
+    for (var nameAndUID in namesAndUIDs) {
+      if (nameAndUID.name == name) {
+        return nameAndUID.uid;
+      }
+    }
+  }
+
   @computed
   bool get canStartTheSession => currentPhases.every((e) => e >= 1.0);
 
@@ -277,10 +282,12 @@ abstract class _SessionMetadataStoreBase
     } else {
       if (speakingLength <= 62) {
         return GlowColor.green;
-      } else if (speakingLength > 62 && speakingLength <= 92) {
+      } else if (speakingLength > 62 && speakingLength <= 90) {
         return GlowColor.yellow;
-      } else {
+      } else if (speakingLength > 90 && speakingLength < 107) {
         return GlowColor.red;
+      } else {
+        return GlowColor.inflectionRed;
       }
     }
   }
@@ -318,5 +325,28 @@ abstract class _SessionMetadataStoreBase
 
   @computed
   bool get someoneIsTakingANote =>
-      currentPhases.any((element) => element == 3.5);
+      currentPhases.any((element) => element == 2.5);
+
+  @computed
+  List<String> get fullNames {
+    final names = <String>[];
+    for (int i = 0; i < namesAndUIDs.length; i++) {
+      if (i != userIndex) {
+        names.add(namesAndUIDs[i].name);
+      }
+    }
+
+    return names;
+  }
+
+  @computed
+  List<bool> get canRallyArray {
+    final list = <bool>[];
+    for (int i = 0; i < currentPhases.length; i++) {
+      if (i != userIndex) {
+        list.add(currentPhases[i] == 2.0);
+      }
+    }
+    return list;
+  }
 }

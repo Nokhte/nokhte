@@ -26,6 +26,7 @@ abstract class SessionPresenceRemoteSource {
   Future<List> checkIfHasDoneSessionBesides(String presetUID);
   Future<List> checkIfHasDoneSessionSessionType(String presetUID);
   Future<List> getUserMetadata();
+  Future<List> updateSpeakingTimerStart();
 }
 
 class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
@@ -106,8 +107,14 @@ class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
   letEmCook() async => await rtQueries.refreshSpeakingTimerStart();
 
   @override
-  rally(params) async => await rtQueries.updateSecondarySpeakerSpotlight(
-        addToSecondarySpotlight: params.shouldAdd,
-        secondarySpeakerUID: params.userUID,
-      );
+  rally(params) async {
+    return await rtQueries.updateSecondarySpeakerSpotlight(
+      addToSecondarySpotlight: params.shouldAdd,
+      secondarySpeakerUID: params.userUID,
+    );
+  }
+
+  @override
+  updateSpeakingTimerStart() async =>
+      await rtQueries.updateSpeakingTimerStart();
 }

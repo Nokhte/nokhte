@@ -150,4 +150,14 @@ class SessionPresenceContractImpl
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  updateSpeakingTimerStart() async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.updateSpeakingTimerStart();
+      return fromSupabase(res);
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
