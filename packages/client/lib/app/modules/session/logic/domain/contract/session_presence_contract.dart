@@ -9,6 +9,8 @@ abstract class SessionPresenceContract {
   Future<Either<Failure, bool>> completeTheSession(NoParams params);
   Future<Either<Failure, bool>> startTheSession(NoParams params);
   Future<Either<Failure, bool>> updateOnlineStatus(bool params);
+  Future<Either<Failure, bool>> usePowerUp(
+      Either<LetEmCookParams, RallyParams> params);
   Future<Either<Failure, SessionInstructionTypes>> getInstructionType(
     String params,
   );
@@ -24,4 +26,6 @@ abstract class SessionPresenceContract {
   Future<Either<Failure, Stream<NokhteSessionMetadata>>>
       listenToRTSessionMetadata(NoParams params);
   bool cancelSessionMetadataStream(NoParams params);
+
+  Future<Either<Failure, bool>> updateSpeakingTimerStart();
 }

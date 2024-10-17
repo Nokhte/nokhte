@@ -85,8 +85,101 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
     );
   }
 
+  Future<List> refreshSpeakingTimerStart() async {
+    await computeCollaboratorInformation();
+    final res = await getSpeakerSpotlight();
+    return await retry<List>(
+      action: () async {
+        return await _onCurrentActiveNokhteSession(
+          supabase.from(TABLE).update(
+            {
+              SPEAKING_TIMER_START: DateTime.now().toUtc().toIso8601String(),
+              VERSION: res.currentVersion + 1,
+              SECONDARY_SPEAKER_SPOTLIGHT: userUID,
+            },
+          ),
+          version: res.currentVersion,
+        );
+      },
+      shouldRetry: (result) {
+        return result.isEmpty;
+      },
+      maxRetries: 9,
+    );
+  }
+
+  Future<List> updateSpeakingTimerStart() async {
+    await computeCollaboratorInformation();
+    final res = await getSpeakerSpotlight();
+    return await retry<List>(
+      action: () async {
+        return await _onCurrentActiveNokhteSession(
+          supabase.from(TABLE).update(
+            {
+              SPEAKING_TIMER_START: DateTime.now().toUtc().toIso8601String(),
+              VERSION: res.currentVersion + 1,
+            },
+          ),
+          version: res.currentVersion,
+        );
+      },
+      shouldRetry: (result) {
+        return result.isEmpty;
+      },
+      maxRetries: 9,
+    );
+  }
+
+  Future<List> updateSecondarySpeakerSpotlight({
+    required bool addToSecondarySpotlight,
+    required String secondarySpeakerUID,
+  }) async {
+    await computeCollaboratorInformation();
+    final res = await getSpeakerSpotlight();
+    print('Deleting secondary speaker spotlight');
+    final currentSpotlightSpeaker = res.mainType;
+    return await retry<List>(
+      action: () async {
+        if (addToSecondarySpotlight) {
+          if (currentSpotlightSpeaker == userUID) {
+            return await _onCurrentActiveNokhteSession(
+              supabase.from(TABLE).update(
+                {
+                  SECONDARY_SPEAKER_SPOTLIGHT: secondarySpeakerUID,
+                  VERSION: res.currentVersion + 1,
+                },
+              ),
+              version: res.currentVersion,
+            );
+          } else {
+            return [];
+          }
+        } else {
+          if (currentSpotlightSpeaker == userUID) {
+            print('Deleting secondary speaker spotlight');
+            return await _onCurrentActiveNokhteSession(
+              supabase.from(TABLE).update(
+                {
+                  SECONDARY_SPEAKER_SPOTLIGHT: null,
+                  VERSION: res.currentVersion + 1,
+                },
+              ),
+              version: res.currentVersion,
+            );
+          } else {
+            return [];
+          }
+        }
+      },
+      shouldRetry: (result) {
+        return result.isEmpty;
+      },
+    );
+  }
+
   Future<List> updateSpeakerSpotlight({
     required bool addUserToSpotlight,
+    DateTime time = const ConstDateTime.fromMillisecondsSinceEpoch(0),
   }) async {
     await computeCollaboratorInformation();
     final res = await getSpeakerSpotlight();
@@ -100,6 +193,7 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
                 {
                   SPEAKER_SPOTLIGHT: userUID,
                   VERSION: res.currentVersion + 1,
+                  SPEAKING_TIMER_START: time.toUtc().toIso8601String(),
                 },
               ),
               version: res.currentVersion,
@@ -114,6 +208,8 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
                 {
                   SPEAKER_SPOTLIGHT: null,
                   VERSION: res.currentVersion + 1,
+                  SPEAKING_TIMER_START: null,
+                  SECONDARY_SPEAKER_SPOTLIGHT: null,
                 },
               ),
               version: res.currentVersion,
@@ -134,7 +230,6 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
     required int version,
   }) async {
     await computeCollaboratorInformation();
-    print('sessionUID: $sessionUID');
     if (sessionUID.isNotEmpty) {
       return await query
           .eq(VERSION, version)

@@ -66,11 +66,11 @@ abstract class _SessionNavigationStoreBase extends BaseWidgetStore
     initSwipeReactor = true,
   }) {
     this.presetType = presetType;
-    Color color = SessionConstants.white;
-    if (screenType == SessionScreenTypes.soloHybrid ||
-        screenType == SessionScreenTypes.speaking) {
-      color = SessionConstants.blue;
-    }
+    Color color = SessionConstants.blue;
+    // if (screenType == SessionScreenTypes.soloHybrid ||
+    //     screenType == SessionScreenTypes.speaking) {
+    // color = SessionConstants.blue;
+    // }
     gestureCross.cross.initStaticGlow(
       glowColor: color,
     );

@@ -127,6 +127,10 @@ class SessionWidgetsModule extends Module {
       () => SessionSoloHybridWidgetsCoordinator(
         sessionNavigation: Modular.get<SessionNavigationStore>(),
         primarySmartText: SmartTextStore(),
+        rally: RallyStore(
+          backButton: BackButtonStore(),
+          tint: TintStore(),
+        ),
         secondarySmartText: SmartTextStore(),
         othersAreTalkingTint: HalfScreenTintStore(),
         speakLessSmileMore: SpeakLessSmileMoreStore(),
@@ -138,6 +142,7 @@ class SessionWidgetsModule extends Module {
     );
     i.add<SessionGroupHybridWidgetsCoordinator>(
       () => SessionGroupHybridWidgetsCoordinator(
+        letEmCook: LetEmCookStore(),
         sessionNavigation: Modular.get<SessionNavigationStore>(),
         othersAreTalkingTint: TintStore(),
         othersAreTakingNotesTint: HalfScreenTintStore(),

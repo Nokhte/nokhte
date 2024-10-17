@@ -24,10 +24,9 @@ class BorderGlow extends HookWidget {
               opacity: useWidgetOpacity(store.showWidget),
               duration: Seconds.get(1),
               child: CustomAnimationBuilder(
-                tween: store.activeMovie,
-                control: store.activeControl,
-                duration: store.activeMovie.duration,
-                onCompleted: () => store.onCompleted(),
+                tween: store.movie,
+                control: store.control,
+                duration: store.movie.duration,
                 builder: (context, value, child) {
                   store.setAnimationValues(
                     color: value.get('color'),

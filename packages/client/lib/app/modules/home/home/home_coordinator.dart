@@ -15,6 +15,7 @@ abstract class _HomeCoordinatorBase
     with Store, BaseCoordinator, BaseMobxLogic, Reactions {
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
   final HomeWidgetsCoordinator widgets;
+  final TapDetector tap;
   final SwipeDetector swipe;
   @override
   final CaptureScreen captureScreen;
@@ -22,6 +23,7 @@ abstract class _HomeCoordinatorBase
   _HomeCoordinatorBase({
     required this.swipe,
     required this.widgets,
+    required this.tap,
     required this.getNokhteSessionArtifactsLogic,
     required this.captureScreen,
   });
@@ -54,7 +56,16 @@ abstract class _HomeCoordinatorBase
       },
     ));
     disposers.add(swipeReactor());
+    disposers.add(tapReactor());
   }
+
+  tapReactor() => reaction((p0) => tap.tapCount, (p0) {
+        ifTouchIsNotDisabled(() {
+          if (p0 == 3) {
+            widgets.initSoloSession();
+          }
+        });
+      });
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         ifTouchIsNotDisabled(() {

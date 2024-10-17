@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -84,6 +85,9 @@ abstract class _SessionGroupHybridCoordinatorBase
     disposers.add(userIsSpeakingReactor());
     disposers.add(userCanSpeakReactor());
     disposers.add(othersAreTakingNotesReactor());
+    disposers.add(glowColorReactor());
+    disposers.add(secondarySpeakerSpotlightReactor());
+    disposers.add(letEmCookTapReactor());
   }
 
   userIsSpeakingReactor() =>
@@ -104,11 +108,53 @@ abstract class _SessionGroupHybridCoordinatorBase
             setDisableAllTouchFeedback(false);
           });
         } else if (p0 && !userIsSpeaking) {
-          widgets.othersAreTalkingTint.reverseMovie(NoParams());
+          widgets.onSomeElseIsDoneSpreaking();
         } else if (!p0 && !userIsSpeaking) {
-          widgets.othersAreTalkingTint.initMovie(NoParams());
+          widgets.onSomeoneElseIsSpeaking(
+            sessionMetadata.currentSpeakerFirstName,
+          );
         }
       });
+
+  glowColorReactor() => reaction(
+        (p0) => sessionMetadata.glowColor,
+        (p0) {
+          if (!userIsSpeaking &&
+              sessionMetadata.secondarySpeakerSpotlightIsEmpty &&
+              p0 == GlowColor.yellow) {
+            widgets.letEmCook.setButtonVisibility(true);
+          } else if (p0 == GlowColor.transparent) {
+            widgets.letEmCook.setButtonVisibility(false);
+          }
+        },
+      );
+
+  secondarySpeakerSpotlightReactor() => reaction(
+        (p0) => sessionMetadata.secondarySpeakerSpotlightIsEmpty,
+        (p0) {
+          if (!p0) {
+            if (sessionMetadata.userIsSpeaking) {
+              widgets.borderGlow.resetCurrentBackToGreen();
+            } else {
+              if (sessionMetadata.userIsInSecondarySpeakingSpotlight) {
+                widgets.letEmCook.initSentAnimation();
+              } else {
+                widgets.letEmCook.setButtonVisibility(false);
+              }
+            }
+          }
+        },
+      );
+
+  letEmCookTapReactor() => reaction(
+        (p0) => widgets.letEmCook.tapCount,
+        (p0) async {
+          if (sessionMetadata.secondarySpeakerSpotlightIsEmpty) {
+            await presence.usePowerUp(Left(LetEmCookParams()));
+          }
+        },
+      );
+
   othersAreTakingNotesReactor() =>
       reaction((p0) => sessionMetadata.someoneIsTakingANote, (p0) {
         if (p0 && !widgets.isGoingToNotes) {
@@ -116,17 +162,6 @@ abstract class _SessionGroupHybridCoordinatorBase
         } else {
           widgets.othersAreTakingNotesTint.reverseMovie(NoParams());
         }
-        // if (p0 && userIsSpeaking) {
-        //   widgets.onLetGo();
-        //   setUserIsSpeaking(false);
-        //   Timer(Seconds.get(2), () {
-        //     setDisableAllTouchFeedback(false);
-        //   });
-        // } else if (p0 && !userIsSpeaking) {
-        //   widgets.othersAreTalkingTint.reverseMovie(NoParams());
-        // } else if (!p0 && !userIsSpeaking) {
-        //   widgets.othersAreTalkingTint.initMovie(NoParams());
-        // }
       });
 
   tapReactor() => reaction(

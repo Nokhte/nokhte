@@ -1,3 +1,4 @@
+import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
@@ -13,6 +14,10 @@ abstract class SessionPresenceRemoteSource {
   Stream<NokhteSessionMetadata> listenToSessionMetadata();
   bool cancelSessionMetadataStream();
   Future<List> addContent(String content);
+  Future<List> letEmCook();
+  Future<List> rally(
+    RallyParams params,
+  );
   String getUserUID();
   Future<List> getPresetInformation(String unifiedUID);
   Future<List> getStaticSessionMetadata();
@@ -21,6 +26,7 @@ abstract class SessionPresenceRemoteSource {
   Future<List> checkIfHasDoneSessionBesides(String presetUID);
   Future<List> checkIfHasDoneSessionSessionType(String presetUID);
   Future<List> getUserMetadata();
+  Future<List> updateSpeakingTimerStart();
 }
 
 class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
@@ -52,6 +58,7 @@ class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
   @override
   setUserAsCurrentTalker() async => await rtQueries.updateSpeakerSpotlight(
         addUserToSpotlight: true,
+        time: DateTime.now(),
       );
 
   @override
@@ -95,4 +102,19 @@ class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
 
   @override
   getUserMetadata() async => await userMetadata.getUserMetadata();
+
+  @override
+  letEmCook() async => await rtQueries.refreshSpeakingTimerStart();
+
+  @override
+  rally(params) async {
+    return await rtQueries.updateSecondarySpeakerSpotlight(
+      addToSecondarySpotlight: params.shouldAdd,
+      secondarySpeakerUID: params.userUID,
+    );
+  }
+
+  @override
+  updateSpeakingTimerStart() async =>
+      await rtQueries.updateSpeakingTimerStart();
 }

@@ -7,6 +7,7 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'package:nokhte/app/modules/session_joiner/session_joiner.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte/app/modules/settings/settings.dart';
@@ -61,6 +62,7 @@ abstract class _HomeWidgetsCoordinatorBase
           sessionStarterNokhte,
           storageNokhte,
           sessionJoinerNokhte,
+          deactivateNokhte,
         ] {
     initEnRouteActions();
     initSwipeNavigationUtils();
@@ -144,6 +146,24 @@ abstract class _HomeWidgetsCoordinatorBase
   }
 
   @action
+  initSoloSession() {
+    gestureCross.fadeAllOut();
+    for (var element in auxNokhtes) {
+      element.setWidgetVisibility(false);
+    }
+    centerNokhte.setWidgetVisibility(false);
+    smartText.setWidgetVisibility(false);
+    beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
+    beachWaves.currentStore.reverseMovie(
+      AnyToOnShoreParams(
+        startingColors: WaterColorsAndStops.halfWaterAndSand,
+        endingColors: WaterColorsAndStops.onShoreWater,
+        endValue: beachWaves.currentAnimationValues.first,
+      ),
+    );
+  }
+
+  @action
   onSwipeRight() {
     if (!isDisconnected && isAllowedToMakeGesture()) {
       if (hasInitiatedBlur && !hasSwiped()) {
@@ -224,6 +244,25 @@ abstract class _HomeWidgetsCoordinatorBase
           }
         },
       );
+
+  @override
+  beachWavesMovieStatusReactor() =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (beachWaves.movieStatus == MovieStatus.finished) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.anyToOnShore) {
+            Modular.to.navigate(SessionConstants.speaking);
+          } else {
+            beachWaves.setMovieStatus(MovieStatus.inProgress);
+            if (waterDirecton == WaterDirection.up) {
+              beachWaves.currentStore.setControl(Control.playFromStart);
+              setWaterDirection(WaterDirection.down);
+            } else {
+              beachWaves.currentStore.setControl(Control.playReverseFromEnd);
+              setWaterDirection(WaterDirection.up);
+            }
+          }
+        }
+      });
 
   @action
   onGestureCrossTap() {
