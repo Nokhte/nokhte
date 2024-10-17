@@ -168,7 +168,9 @@ abstract class _SessionSoloHybridCoordinatorBase
       });
 
   userCanSpeakReactor() => reaction((p0) => sessionMetadata.userCanSpeak, (p0) {
-        if (p0 && userIsSpeaking) {
+        if (p0 &&
+            userIsSpeaking &&
+            widgets.rally.phase != RallyPhase.selection) {
           widgets.onLetGo();
           setUserIsSpeaking(false);
           Timer(Seconds.get(2), () {
@@ -198,7 +200,8 @@ abstract class _SessionSoloHybridCoordinatorBase
   @action
   onTalkingTap() async {
     if (sessionMetadata.everyoneIsOnline &&
-        sessionMetadata.canStartUsingSession) {
+        sessionMetadata.canStartUsingSession &&
+        widgets.rally.phase != RallyPhase.selection) {
       if (sessionMetadata.userIsSpeaking) {
         await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
       } else {

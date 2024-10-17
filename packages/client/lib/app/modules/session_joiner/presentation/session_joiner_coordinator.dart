@@ -22,11 +22,6 @@ abstract class _SessionJoinerCoordinatorBase
   final CaptureScreen captureScreen;
   final SessionStartersLogicCoordinator logic;
   final SessionPresenceCoordinator presence;
-  // add session metadata here
-  // you want to update phase to .5 upon
-  // joining see if that has desired outcome
-  // or if it's too close succession
-  // i think it will work
 
   _SessionJoinerCoordinatorBase({
     required this.widgets,
@@ -69,35 +64,24 @@ abstract class _SessionJoinerCoordinatorBase
     ));
     disposers.add(tapReactor());
     disposers.add(qrCodeScannerReactor());
+    disposers.add(hasFoundTheSessionReactor());
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) => onSwipe(p0));
 
-  @observable
-  int retryCount = 0;
-
   qrCodeScannerReactor() =>
-      reaction((p0) => widgets.qrScanner.mostRecentScannedUID, (p0) {
+      reaction((p0) => widgets.qrScanner.mostRecentScannedUID, (p0) async {
         if (p0.isNotEmpty) {
-          widgets.qrScanner.rotateText();
-          Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
-            if (!logic.hasFoundNokhteSession) {
-              if (retryCount < 5) {
-                retryCount++;
-                await logic.join(p0);
-              } else {
-                widgets.qrScanner.resetText();
-                retryCount = 0;
-                timer.cancel();
-              }
-            } else {
-              widgets.enterSession();
-              setDisableAllTouchFeedback(true);
-              widgets.qrScanner.rotateText();
-              await presence.updateCurrentPhase(.5);
-              timer.cancel();
-            }
-          });
+          await logic.join(p0);
+          widgets.qrScanner.resetMostRecentScannedUID();
+        }
+      });
+
+  hasFoundTheSessionReactor() =>
+      reaction((p0) => logic.hasFoundNokhteSession, (p0) async {
+        if (p0) {
+          widgets.enterSession();
+          setDisableAllTouchFeedback(true);
         }
       });
 

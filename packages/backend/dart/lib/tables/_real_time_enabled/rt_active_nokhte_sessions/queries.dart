@@ -63,26 +63,12 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
 
   Future<List> updateCurrentPhases(double newPhase) async {
     await computeCollaboratorInformation();
-    final res = await getCurrentPhases();
-    final currentPhases = res.mainType;
-    currentPhases[userIndex] = newPhase;
-    return await retry<List>(
-      action: () async {
-        return await _onCurrentActiveNokhteSession(
-          supabase.from(TABLE).update(
-            {
-              CURRENT_PHASES: currentPhases,
-              VERSION: res.currentVersion + 1,
-            },
-          ),
-          version: res.currentVersion,
-        );
-      },
-      shouldRetry: (result) {
-        return result.isEmpty;
-      },
-      maxRetries: 9,
-    );
+    await supabase.rpc('update_nokhte_session_phase', params: {
+      'incoming_session_uid': sessionUID,
+      'index_to_edit': userIndex,
+      'new_value': newPhase,
+    });
+    return [];
   }
 
   Future<List> refreshSpeakingTimerStart() async {
@@ -136,7 +122,6 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
   }) async {
     await computeCollaboratorInformation();
     final res = await getSpeakerSpotlight();
-    print('Deleting secondary speaker spotlight');
     final currentSpotlightSpeaker = res.mainType;
     return await retry<List>(
       action: () async {
@@ -156,7 +141,6 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
           }
         } else {
           if (currentSpotlightSpeaker == userUID) {
-            print('Deleting secondary speaker spotlight');
             return await _onCurrentActiveNokhteSession(
               supabase.from(TABLE).update(
                 {

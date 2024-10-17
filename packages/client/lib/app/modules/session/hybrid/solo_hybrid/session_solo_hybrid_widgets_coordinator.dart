@@ -160,7 +160,10 @@ abstract class _SessionSoloHybridWidgetsCoordinatorBase
         !sessionNavigation.hasInitiatedBlur) {
       touchRipple.onTap(tapPosition, adjustColorBasedOnPosition: true);
       if (tapPlacement == GesturePlacement.topHalf) {
-        if (!isHolding && canHold && !collaboratorHasLeft) {
+        if (!isHolding &&
+            canHold &&
+            !collaboratorHasLeft &&
+            !isASecondarySpeaker) {
           initFullScreenNotes();
           await asyncNotesTapCall();
         } else if (isHolding) {
