@@ -187,20 +187,6 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
     );
   }
 
-  onBorderGlowComplete(MovieStatus p0, BorderGlowStore store) {
-    if (p0 == MovieStatus.finished &&
-        store.isGlowingUp &&
-        isHolding &&
-        beachWaves.movieMode == BeachWaveMovieModes.anyToSky) {
-      speakLessSmileMore.setSpeakLess(true);
-      Timer(Seconds.get(2), () {
-        if (isHolding) {
-          speakLessSmileMore.setSmileMore(true);
-        }
-      });
-    }
-  }
-
   gestureCrossTapReactor({
     required Function onInit,
     required Function onReverse,
