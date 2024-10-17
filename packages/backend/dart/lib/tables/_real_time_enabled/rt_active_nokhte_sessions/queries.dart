@@ -108,17 +108,40 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
     );
   }
 
+  Future<List> updateSpeakingTimerStart() async {
+    await computeCollaboratorInformation();
+    final res = await getSpeakerSpotlight();
+    return await retry<List>(
+      action: () async {
+        return await _onCurrentActiveNokhteSession(
+          supabase.from(TABLE).update(
+            {
+              SPEAKING_TIMER_START: DateTime.now().toUtc().toIso8601String(),
+              VERSION: res.currentVersion + 1,
+            },
+          ),
+          version: res.currentVersion,
+        );
+      },
+      shouldRetry: (result) {
+        return result.isEmpty;
+      },
+      maxRetries: 9,
+    );
+  }
+
   Future<List> updateSecondarySpeakerSpotlight({
     required bool addToSecondarySpotlight,
     required String secondarySpeakerUID,
   }) async {
     await computeCollaboratorInformation();
     final res = await getSpeakerSpotlight();
+    print('Deleting secondary speaker spotlight');
     final currentSpotlightSpeaker = res.mainType;
     return await retry<List>(
       action: () async {
         if (addToSecondarySpotlight) {
-          if (currentSpotlightSpeaker == null) {
+          if (currentSpotlightSpeaker == userUID) {
             return await _onCurrentActiveNokhteSession(
               supabase.from(TABLE).update(
                 {
@@ -133,6 +156,7 @@ class RTActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
           }
         } else {
           if (currentSpotlightSpeaker == userUID) {
+            print('Deleting secondary speaker spotlight');
             return await _onCurrentActiveNokhteSession(
               supabase.from(TABLE).update(
                 {
