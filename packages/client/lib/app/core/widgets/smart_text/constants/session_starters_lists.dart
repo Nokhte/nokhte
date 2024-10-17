@@ -27,10 +27,6 @@ class SessionStartersList {
           pauseHere: true,
         ),
         RotatingTextData(
-          text: "Joining",
-          pauseHere: true,
-        ),
-        RotatingTextData(
           text: "Joined",
           pauseHere: true,
         ),
