@@ -34,12 +34,13 @@ class ArticleBody extends HookWidget with ArticleBodyUtils {
             currentPosition: store.currentPosition,
           ),
           ArticleContent(
+            type: store.presetType,
             currentInstructionsHeader: store.currentInstructionsHeader,
             currentInstructionsBody: store.currentInstruction,
             currentJustifications: store.currentJustification,
-            demoType: store.currentDemo,
             opacity: contentLerp(store.currentPosition),
             currentPosition: store.currentPosition,
+            powerUpInformation: store.powerUpInfo,
           ),
         ],
       );

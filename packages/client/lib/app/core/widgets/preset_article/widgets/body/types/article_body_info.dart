@@ -10,7 +10,7 @@ class ArticleBodyInfo extends Equatable {
   final List<String> speakingJustifications;
   final List<String> sittingJustifications;
   final List<String> notesJustifications;
-  final DemoTypes demoTypes;
+
   final String title;
   final String tagline;
   final String uniqueFeature;
@@ -30,9 +30,6 @@ class ArticleBodyInfo extends Equatable {
           'Write with brevity **(104 characters)**',
           '**Keep** track of ideas'
         ],
-        demoTypes = presetType == PresetTypes.collaborative
-            ? DemoTypes.multifocal
-            : DemoTypes.monofocal,
         powerup = PowerupInfo(
           presetType == PresetTypes.collaborative
               ? Powerups.letEmCook
@@ -115,6 +112,5 @@ class ArticleBodyInfo extends Equatable {
         speakingJustifications,
         sittingJustifications,
         notesJustifications,
-        demoTypes,
       ];
 }

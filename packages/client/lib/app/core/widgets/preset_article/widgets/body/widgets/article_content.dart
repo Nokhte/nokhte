@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 
 class ArticleContent extends StatelessWidget {
   final String currentInstructionsHeader;
   final List<String> currentInstructionsBody;
   final List<String> currentJustifications;
-  final DemoTypes demoType;
+
+  final PresetTypes type;
+  final PowerupInfo powerUpInformation;
   final double opacity;
   final double currentPosition;
 
@@ -15,7 +18,8 @@ class ArticleContent extends StatelessWidget {
     required this.currentInstructionsBody,
     required this.currentJustifications,
     required this.opacity,
-    required this.demoType,
+    required this.powerUpInformation,
+    required this.type,
     required this.currentPosition,
   });
 
@@ -40,9 +44,13 @@ class ArticleContent extends StatelessWidget {
             ),
           ),
           DemoPhones(
-            // opacity: ntLerp(store.currentPosition),
-            type: demoType,
+            type: type,
             currentPosition: currentPosition,
+          ),
+          PowerupExplanation(
+            currentPosition: currentPosition,
+            info: powerUpInformation,
+            type: type,
           ),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 6.0),

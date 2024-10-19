@@ -43,9 +43,6 @@ abstract class _ArticleBodyStoreBase extends BaseWidgetStore with Store {
   }
 
   @computed
-  DemoTypes get currentDemo => bodyInfo.demoTypes;
-
-  @computed
   List<String> get currentInstruction {
     if (currentPosition.isLessThanOrEqualTo(.5)) {
       return bodyInfo.speakingInstructions;
