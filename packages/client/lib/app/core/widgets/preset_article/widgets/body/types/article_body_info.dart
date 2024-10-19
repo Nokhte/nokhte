@@ -14,6 +14,8 @@ class ArticleBodyInfo extends Equatable {
   final String title;
   final String tagline;
   final String uniqueFeature;
+  final PowerupInfo powerup;
+  // next add the article impl i recommend a separate widget
 
   ArticleBodyInfo({required this.presetType})
       : speakingInstructions = _getInstructions(presetType, 'speaking'),
@@ -30,7 +32,12 @@ class ArticleBodyInfo extends Equatable {
         ],
         demoTypes = presetType == PresetTypes.collaborative
             ? DemoTypes.multifocal
-            : DemoTypes.monofocal;
+            : DemoTypes.monofocal,
+        powerup = PowerupInfo(
+          presetType == PresetTypes.collaborative
+              ? Powerups.letEmCook
+              : Powerups.rally,
+        );
 
   static List<String> _getInstructions(PresetTypes type, String context) {
     final collaborative = {

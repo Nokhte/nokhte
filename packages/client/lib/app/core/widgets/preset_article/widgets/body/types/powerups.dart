@@ -1,0 +1,4 @@
+enum Powerups {
+  letEmCook,
+  rally,
+}
