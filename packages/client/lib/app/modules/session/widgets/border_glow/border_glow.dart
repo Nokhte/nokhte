@@ -8,7 +8,7 @@ import 'dart:ui';
 import 'border_glow.dart';
 export 'movies/movies.dart';
 export 'border_glow.dart';
-export 'movies/border_glow_store.dart';
+export 'border_glow_store.dart';
 export 'constants/constants.dart';
 
 class BorderGlow extends HookWidget {
