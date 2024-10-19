@@ -79,6 +79,13 @@ abstract class _ArticleBodyStoreBase extends BaseWidgetStore with Store {
       : 'Consultation';
 
   @computed
+  PowerupInfo get powerUpInfo => PowerupInfo(
+        presetType == PresetTypes.collaborative
+            ? Powerups.rally
+            : Powerups.letEmCook,
+      );
+
+  @computed
   List get tags => presetType == PresetTypes.collaborative
       ? ["tap_to_speak", "flexible_seating", "notes_during"]
       : ["hold_to_speak", "strict_seating", "notes_during"];
