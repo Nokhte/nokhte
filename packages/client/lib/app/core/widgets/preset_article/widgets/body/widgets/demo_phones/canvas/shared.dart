@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 
 mixin DemoPainterUtils {
   final phoneAspectRatio = .5;
@@ -229,7 +230,7 @@ mixin DemoPainterUtils {
 
   void drawTint(Canvas canvas, Offset offset, double width, double height,
       double cornerRadius, double opacity, TintType type
-      // DemoTypes type,
+      // PresetTypes type,
       ) {
     final paint = Paint()..color = Colors.black.withOpacity(opacity / 2);
     RRect rrect = RRect.fromRectAndRadius(
@@ -297,7 +298,7 @@ mixin DemoPainterUtils {
     double phoneHeight,
     double opacity,
     double containerSize,
-    DemoTypes type,
+    PresetTypes type,
   ) {
     final rect = phoneOffset & Size(phoneWidth, phoneHeight);
     final center = rect.center;
@@ -313,7 +314,7 @@ mixin DemoPainterUtils {
     paintText(
       canvas,
       center,
-      type == DemoTypes.multifocal ? 'Tap to speak' : 'Hold to speak',
+      type == PresetTypes.collaborative ? 'Tap to speak' : 'Hold to speak',
       containerSize,
       opacity,
       DemoTextPosition.slightlyBelowCenter,

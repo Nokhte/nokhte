@@ -1,26 +1,30 @@
-// ignore_for_file: unused_import
+// ignore_for_file: r[used_import, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/widgets/widgets.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 import 'package:simple_animations/simple_animations.dart';
-import 'canvas/canvas.dart';
+export 'canvas/canvas.dart';
 export 'movies/movies.dart';
 export 'types/types.dart';
+export 'widgets/widgets.dart';
 
-class DemoPhones extends HookWidget {
-  // we will have different params but i don't think we will have any store
-  final DemoTypes type;
+class DemoPhones extends HookWidget with RallyConstants {
+  final PresetTypes type;
+  final bool showPowerUp;
   final double currentPosition;
-  const DemoPhones({
+
+  DemoPhones({
     super.key,
     required this.type,
     required this.currentPosition,
+    this.showPowerUp = false,
   });
 
-  Widget multiFocalNotesDemo(double width) => CustomAnimationBuilder(
+  Widget collaborativeNotesDemo(double width) => CustomAnimationBuilder(
       tween: DemoPhoneMovies.collaborativeNotes,
       duration: DemoPhoneMovies.collaborativeNotes.duration,
       control: Control.loop,
@@ -29,7 +33,7 @@ class DemoPhones extends HookWidget {
           height: width,
           width: width,
           child: CustomPaint(
-            painter: MultiFocalNotesDemoPainter(
+            painter: CollaborativeNotesDemoPainter(
               slightlyAboveCenterTextOpacity: value.get('p1Text'),
               slightlyBelowCenterTextOpacity: value.get('p1Text'),
               aboveCenterTextOpacity: value.get('p2AboveTextOpacity'),
@@ -44,7 +48,7 @@ class DemoPhones extends HookWidget {
         );
       });
 
-  Widget monoFocalNotesDemo(double width) => CustomAnimationBuilder(
+  Widget consultativeNotesDemo(double width) => CustomAnimationBuilder(
       tween: DemoPhoneMovies.consultativeNotes,
       duration: DemoPhoneMovies.consultativeNotes.duration,
       control: Control.loop,
@@ -53,7 +57,7 @@ class DemoPhones extends HookWidget {
           height: width,
           width: width,
           child: CustomPaint(
-            painter: MonoFocalNotesDemoPainter(
+            painter: ConsultativeNotesDemoPainter(
               slightlyAboveCenterTextOpacity: value.get('p1Text'),
               slightlyBelowCenterTextOpacity: value.get('p1Text'),
               aboveCenterTextOpacity: value.get('p2AboveTextOpacity'),
@@ -128,28 +132,43 @@ class DemoPhones extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final width = useFullScreenSize().width;
-
-    if (type == DemoTypes.multifocal) {
-      if (currentPosition < 0.5) {
-        return speakingDemos(width);
-      } else if (currentPosition > 1.5) {
-        return multiFocalNotesDemo(width);
+    if (!showPowerUp) {
+      if (type == PresetTypes.collaborative) {
+        if (currentPosition < 0.5) {
+          return speakingDemos(width);
+        } else if (currentPosition > 1.5) {
+          return collaborativeNotesDemo(width);
+        } else {
+          return seatingDemo(
+            'assets/collaborative_seating.png',
+            width,
+          );
+        }
+      } else if (type == PresetTypes.consultative) {
+        if (currentPosition < 0.5) {
+          return speakingDemos(width);
+        } else if (currentPosition > 1.5) {
+          return consultativeNotesDemo(width);
+        } else {
+          return seatingDemo(
+            'assets/consultative_seating.png',
+            width,
+          );
+        }
       } else {
-        return seatingDemo(
-          'assets/collaborative_seating.png',
-          width,
-        );
+        return Container();
       }
     } else {
       if (currentPosition < 0.5) {
-        return speakingDemos(width);
-      } else if (currentPosition > 1.5) {
-        return monoFocalNotesDemo(width);
+        if (type == PresetTypes.collaborative) {
+          return RallyDemo();
+        } else if (type == PresetTypes.consultative) {
+          return LetEmCookDemo();
+        } else {
+          return Container();
+        }
       } else {
-        return seatingDemo(
-          'assets/consultative_seating.png',
-          width,
-        );
+        return Container();
       }
     }
   }

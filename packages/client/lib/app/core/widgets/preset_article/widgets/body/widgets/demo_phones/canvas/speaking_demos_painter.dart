@@ -1,32 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'shared.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 
-class MonoFocalNotesDemoPainter extends CustomPainter with DemoPainterUtils {
-  final DemoTypes type;
+class SpeakingDemosPainter extends CustomPainter with DemoPainterUtils {
+  final PresetTypes type;
   final List<Color> leftPhoneColorsList;
   final List<Color> rightPhoneColorsList;
   final List<double> leftPhoneStopsList;
   final List<double> rightPhoneStopsList;
-  final double containerSize,
-      aboveCenterTextOpacity,
-      aboveCenterTextProgress,
-      belowCenterTextOpacity,
-      slightlyAboveCenterTextOpacity,
-      slightlyBelowCenterTextOpacity;
+  final Color glowColor;
+  final double activeTextOpacity,
+      restingTextOpacity,
+      glowStrokeWidth,
+      containerSize;
 
-  MonoFocalNotesDemoPainter({
+  SpeakingDemosPainter({
     required this.type,
     required this.containerSize,
     required this.leftPhoneColorsList,
     required this.leftPhoneStopsList,
     required this.rightPhoneColorsList,
     required this.rightPhoneStopsList,
-    required this.aboveCenterTextOpacity,
-    required this.aboveCenterTextProgress,
-    required this.belowCenterTextOpacity,
-    required this.slightlyAboveCenterTextOpacity,
-    required this.slightlyBelowCenterTextOpacity,
+    required this.activeTextOpacity,
+    required this.restingTextOpacity,
+    required this.glowColor,
+    required this.glowStrokeWidth,
   });
 
   @override
@@ -67,38 +65,47 @@ class MonoFocalNotesDemoPainter extends CustomPainter with DemoPainterUtils {
       phoneCornerRadius,
     );
 
-    paintNotesPhoneTexts(
-      canvas,
-      leftPhoneOffset,
-      phoneWidth,
-      phoneHeight,
-      containerSize,
-      aboveCenterTextOpacity,
-      aboveCenterTextProgress,
-      belowCenterTextOpacity,
-    );
-
     drawTint(
       canvas,
       rightPhoneOffset,
       phoneWidth,
       phoneHeight,
       phoneCornerRadius,
-      aboveCenterTextOpacity,
-      TintType.bottomHalf,
+      activeTextOpacity,
+      type == PresetTypes.collaborative ? TintType.bottomHalf : TintType.full,
     );
 
+    final lRect = leftPhoneOffset & Size(phoneWidth, phoneHeight);
     final rRect = rightPhoneOffset & Size(phoneWidth, phoneHeight);
+    final lCenter = lRect.center;
     final rCenter = rRect.center;
 
     paintText(
       canvas,
-      rCenter,
-      'Waiting',
+      lCenter,
+      'Speaking',
       containerSize,
-      aboveCenterTextOpacity,
+      activeTextOpacity,
+      DemoTextPosition.leftHeader,
+      lRect,
+    );
+    paintText(
+      canvas,
+      rCenter,
+      'Listening',
+      containerSize,
+      activeTextOpacity,
       DemoTextPosition.leftHeader,
       rRect,
+    );
+    paintPhoneTexts(
+      canvas,
+      leftPhoneOffset,
+      phoneWidth,
+      phoneHeight,
+      restingTextOpacity,
+      containerSize,
+      type,
     );
     paintPhoneTexts(
       canvas,
@@ -107,17 +114,17 @@ class MonoFocalNotesDemoPainter extends CustomPainter with DemoPainterUtils {
       phoneHeight,
       1,
       containerSize,
-      DemoTypes.monofocal,
+      type,
     );
 
-    paintPhoneTexts(
+    drawBlurredBorder(
       canvas,
       leftPhoneOffset,
       phoneWidth,
       phoneHeight,
-      slightlyAboveCenterTextOpacity,
-      containerSize,
-      DemoTypes.monofocal,
+      phoneCornerRadius,
+      glowColor,
+      glowStrokeWidth,
     );
   }
 

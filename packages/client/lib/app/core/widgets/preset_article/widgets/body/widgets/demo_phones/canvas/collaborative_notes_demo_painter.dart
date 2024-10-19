@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 
-import 'canvas.dart';
-
-class MultiFocalNotesDemoPainter extends CustomPainter with DemoPainterUtils {
-  final DemoTypes type;
+class CollaborativeNotesDemoPainter extends CustomPainter
+    with DemoPainterUtils {
+  final PresetTypes type;
   final double containerSize;
   final List<Color> colorsList;
   final List<double> stopsList;
@@ -14,7 +14,7 @@ class MultiFocalNotesDemoPainter extends CustomPainter with DemoPainterUtils {
       slightlyAboveCenterTextOpacity,
       slightlyBelowCenterTextOpacity;
 
-  MultiFocalNotesDemoPainter({
+  CollaborativeNotesDemoPainter({
     required this.type,
     required this.containerSize,
     required this.colorsList,
