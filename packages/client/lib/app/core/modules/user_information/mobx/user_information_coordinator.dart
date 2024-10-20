@@ -9,31 +9,19 @@ class UserInformationCoordinator = _UserInformationCoordinatorBase
     with _$UserInformationCoordinator;
 
 abstract class _UserInformationCoordinatorBase with Store, BaseMobxLogic {
-  final GetPreferredPreset getPreferredPresetLogic;
-  final GetUserInfoStore getUserInfoStore;
-  final UpdatePreferredPreset updatePreferredPresetLogic;
-  final UpdateUserFlag updateUserFlagLogic;
+  final UserInformationContract contract;
 
   _UserInformationCoordinatorBase({
-    required this.getUserInfoStore,
-    required this.updatePreferredPresetLogic,
-    required this.updateUserFlagLogic,
-    required this.getPreferredPresetLogic,
+    required this.contract,
   }) {
     initBaseLogicActions();
   }
 
   @observable
-  bool invitationFlowCompletionStatusIsUpdated = false;
+  bool isOnMostRecentVersion = false;
 
   @observable
-  bool invitationSendStatusIsUpdated = false;
-
-  @observable
-  bool invitationRepeatStatusIsUpdated = false;
-
-  @observable
-  bool storageStatusIsUpdated = false;
+  bool presetIsUpdated = false;
 
   @observable
   PreferredPresetEntity preferredPreset = PreferredPresetEntity.initial();
@@ -41,27 +29,30 @@ abstract class _UserInformationCoordinatorBase with Store, BaseMobxLogic {
   @action
   getPreferredPreset() async {
     setState(StoreState.loading);
-    final res = await getPreferredPresetLogic(NoParams());
+    final res = await contract.getPreferredPreset(NoParams());
     res.fold((failure) => errorUpdater(failure),
-        (status) => preferredPreset = status);
+        (presetInfo) => preferredPreset = presetInfo);
     setState(StoreState.loaded);
   }
 
   @action
   updatePreferredPreset(String presetUID) async {
     setState(StoreState.loading);
-    final res = await updatePreferredPresetLogic(presetUID);
+    final res = await contract.updatePreferredPreset(presetUID);
     res.fold((failure) => errorUpdater(failure),
-        (status) => invitationFlowCompletionStatusIsUpdated = status);
+        (status) => presetIsUpdated = status);
     setState(StoreState.loaded);
   }
 
   @action
-  updateUserFlag(UserFlagParam params) async {
+  checkIfVersionIsUpToDate() async {
     setState(StoreState.loading);
-    final res = await updateUserFlagLogic(params);
+    final res = await contract.checkIfVersionIsUpToDate();
     res.fold((failure) => errorUpdater(failure),
-        (status) => storageStatusIsUpdated = status);
+        (status) => isOnMostRecentVersion = status);
     setState(StoreState.loaded);
   }
+
+  @computed
+  bool get hasAccessedQrCode => preferredPreset.name.isNotEmpty;
 }
