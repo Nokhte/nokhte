@@ -139,14 +139,14 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   onPreferredPresetReceived({
     required String sessionName,
     required List tags,
-    required String unifiedUID,
+    required String presetUID,
     required String userUID,
   }) {
     presetHeader.setHeader(
       sessionName,
       tags,
     );
-    presetCards.setPreferredPresetUID(unifiedUID);
+    presetCards.setPreferredPresetUID(presetUID);
     onQrCodeReceived(userUID);
   }
 
@@ -282,12 +282,12 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   }
 
   onCompanyPresetsReceived({
-    required ObservableList unifiedUIDs,
+    required ObservableList uids,
     required ObservableList tags,
     required ObservableList names,
   }) {
     presetCards.setPresets(
-      unifiedUIDs: unifiedUIDs,
+      uids: uids,
       tags: tags,
       names: names,
     );
