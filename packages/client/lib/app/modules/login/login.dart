@@ -20,6 +20,7 @@ class LoginModule extends Module {
   List<Module> get imports => [
         LoginWidgetsModule(),
         PosthogModule(),
+        UserInformationModule(),
         LegacyConnectivityModule(),
       ];
 
