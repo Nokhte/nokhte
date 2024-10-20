@@ -28,7 +28,7 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
   ObservableList<Color> selectedPresetColors = ObservableList.of([]);
 
   @observable
-  ObservableList unifiedUIDs = ObservableList();
+  ObservableList uids = ObservableList();
 
   @observable
   ObservableList tags = ObservableList();
@@ -49,12 +49,12 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
 
   @action
   setPresets({
-    required ObservableList unifiedUIDs,
+    required ObservableList uids,
     required ObservableList tags,
     required ObservableList names,
     bool isInstructions = true,
   }) {
-    this.unifiedUIDs = unifiedUIDs;
+    this.uids = uids;
     this.tags = tags;
     this.names = names;
   }
@@ -299,11 +299,10 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
 
   @computed
   String get currentlySelectedSessionUID =>
-      currentHeldIndex == -1 ? '' : unifiedUIDs[currentHeldIndex];
+      currentHeldIndex == -1 ? '' : uids[currentHeldIndex];
 
   @computed
-  int get preferredPresetIndex =>
-      unifiedUIDs.isEmpty || preferredPresetUID.isEmpty
-          ? -1
-          : unifiedUIDs.indexOf(preferredPresetUID);
+  int get preferredPresetIndex => uids.isEmpty || preferredPresetUID.isEmpty
+      ? -1
+      : uids.indexOf(preferredPresetUID);
 }
