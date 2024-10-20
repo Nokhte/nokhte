@@ -7,9 +7,7 @@ import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
-import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
 part 'session_exit_coordinator.g.dart';
@@ -22,7 +20,6 @@ abstract class _SessionExitCoordinatorBase
         Store,
         EnRoute,
         EnRouteRouter,
-        HomeScreenRouter,
         BaseCoordinator,
         Reactions,
         SessionPresence,
@@ -38,8 +35,6 @@ abstract class _SessionExitCoordinatorBase
   final SessionPresenceCoordinator presence;
   @override
   final CaptureScreen captureScreen;
-  @override
-  final GetUserInfoStore getUserInfo;
 
   _SessionExitCoordinatorBase({
     required this.captureScreen,
@@ -48,7 +43,6 @@ abstract class _SessionExitCoordinatorBase
     required this.captureEnd,
     required this.presence,
     required this.cleanUpCollaborationArtifacts,
-    required this.getUserInfo,
   }) : sessionMetadata = presence.sessionMetadataStore {
     initEnRouteActions();
     initBaseCoordinatorActions();
@@ -78,7 +72,6 @@ abstract class _SessionExitCoordinatorBase
       ),
     );
     swipe.setMinDistance(100.0);
-    await getUserInfo(NoParams());
     await captureScreen(SessionConstants.exit);
   }
 
