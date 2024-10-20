@@ -3,7 +3,7 @@ import 'package:nokhte_backend/tables/_real_time_disabled/company_presets/querie
 
 class CompanyPresetsModel extends CompanyPresetsEntity {
   const CompanyPresetsModel({
-    required super.unifiedUIDs,
+    required super.uids,
     required super.tags,
     required super.names,
   });
@@ -11,25 +11,24 @@ class CompanyPresetsModel extends CompanyPresetsEntity {
   static CompanyPresetsModel fromSupabase(List presetsRes) {
     if (presetsRes.isEmpty) {
       return const CompanyPresetsModel(
-        unifiedUIDs: [],
+        uids: [],
         tags: [],
         names: [],
       );
     } else {
-      final List unifiedUIDs = [];
+      final List uids = [];
       final List tags = [];
       final List names = [];
       for (var preset in presetsRes) {
         if (preset[CompanyPresetsQueries.NAME] != 'Socratic') {
-          unifiedUIDs.add(preset[CompanyPresetsQueries.UNIFIED_PRESETS]
-              .first[CompanyPresetsQueries.UID]);
+          uids.add(preset[CompanyPresetsQueries.UID]);
           tags.add(preset[CompanyPresetsQueries.TAGS]);
           names.add(preset[CompanyPresetsQueries.NAME]);
         }
       }
 
       return CompanyPresetsModel(
-        unifiedUIDs: unifiedUIDs,
+        uids: uids,
         tags: tags,
         names: names,
       );

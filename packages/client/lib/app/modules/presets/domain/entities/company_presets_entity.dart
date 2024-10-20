@@ -1,16 +1,16 @@
 import 'package:equatable/equatable.dart';
 
 class CompanyPresetsEntity extends Equatable {
-  final List unifiedUIDs;
+  final List uids;
   final List tags;
   final List names;
 
   const CompanyPresetsEntity({
-    required this.unifiedUIDs,
+    required this.uids,
     required this.tags,
     required this.names,
   });
 
   @override
-  List<Object> get props => [unifiedUIDs, tags, names];
+  List<Object> get props => [uids, tags, names];
 }

@@ -18,7 +18,7 @@ abstract class _PresetsLogicCoordinatorBase with Store, BaseMobxLogic {
   }
 
   @observable
-  ObservableList unifiedUIDs = ObservableList();
+  ObservableList uids = ObservableList();
 
   @observable
   ObservableList tags = ObservableList();
@@ -30,7 +30,7 @@ abstract class _PresetsLogicCoordinatorBase with Store, BaseMobxLogic {
   getCompanyPresets() async {
     final result = await getCompanyPresetsLogic(NoParams());
     result.fold((failure) => errorUpdater(failure), (entity) {
-      unifiedUIDs = ObservableList.of(entity.unifiedUIDs);
+      uids = ObservableList.of(entity.uids);
       tags = ObservableList.of(entity.tags);
       names = ObservableList.of(entity.names);
     });
