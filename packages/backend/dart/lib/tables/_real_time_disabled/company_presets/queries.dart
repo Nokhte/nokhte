@@ -12,7 +12,6 @@ class CompanyPresetsQueries {
   static const ODD_CONFIGURATION = 'odd_configuration';
   static const TAGS = 'tags';
   static const NAME = 'name';
-  static const UNIFIED_PRESETS = 'unified_presets';
 
   final SupabaseClient supabase;
 
@@ -21,43 +20,16 @@ class CompanyPresetsQueries {
   });
 
   Future<List> select({
-    PresetTypes type = PresetTypes.none,
+    String uid = '',
+    PresetTypes? type,
   }) async {
-    final name = mapTypeToPresetType(type);
-    if (name.isEmpty) {
-      return await supabase.from(TABLE).select('*, $UNIFIED_PRESETS(*)');
+    if (uid.isEmpty) {
+      return await supabase.from(TABLE).select();
+    } else if (type != null) {
+      final name = mapTypeToPresetType(type);
+      return await supabase.from(TABLE).select().eq(NAME, name);
     } else {
-      return await supabase
-          .from(TABLE)
-          .select('*, $UNIFIED_PRESETS($UID)')
-          .eq(NAME, name);
-    }
-  }
-
-  Future<String> getUnifiedUID(PresetTypes type) async {
-    final res = await select(type: type);
-    if (res.isNotEmpty) {
-      return res.first[UNIFIED_PRESETS].first[UID];
-    } else {
-      return '';
-    }
-  }
-
-  Future<List> getInfoFromUnifiedUID(String unifiedUID) async => await supabase
-      .from(UNIFIED_PRESETS)
-      .select(
-          '*, $TABLE($TAGS, $NAME, $EVEN_CONFIGURATION, $ODD_CONFIGURATION)')
-      .eq(UID, unifiedUID);
-
-  Future<List<SessionTags>> getTagsFromUnifiedUID(String unifiedUID) async {
-    final res = await supabase
-        .from(UNIFIED_PRESETS)
-        .select('*, $TABLE($TAGS)')
-        .eq(UID, unifiedUID);
-    if (res.isNotEmpty) {
-      return mapTagsToEnum(res.first[TABLE][TAGS]);
-    } else {
-      return [];
+      return await supabase.from(TABLE).select().eq(UID, uid);
     }
   }
 
