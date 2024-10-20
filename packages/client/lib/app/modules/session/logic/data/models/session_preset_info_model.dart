@@ -18,7 +18,7 @@ class SessionPresetInfoModel extends SessionPresetInfoEntity {
         evenConfiguration: [],
       );
     } else {
-      final companyPresetRes = res.first[CompanyPresetsQueries.TABLE];
+      final companyPresetRes = res.first;
       return SessionPresetInfoModel(
         name: companyPresetRes[CompanyPresetsQueries.NAME],
         tags: companyPresetRes[CompanyPresetsQueries.TAGS],

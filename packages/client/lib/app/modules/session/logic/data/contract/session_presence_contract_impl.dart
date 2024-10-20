@@ -120,21 +120,6 @@ class SessionPresenceContractImpl
     }
   }
 
-  @override
-  getInstructionType(params) async {
-    if (await networkInfo.isConnected) {
-      final otherSessionsRes =
-          await remoteSource.checkIfHasDoneSessionBesides(params);
-      final currentPresetSessionsRes =
-          await remoteSource.checkIfHasDoneSessionSessionType(params);
-      return Right(toInstructionType(
-        otherSessions: otherSessionsRes,
-        currentPresetSessions: currentPresetSessionsRes,
-      ));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
 
   @override
   usePowerUp(params) async {

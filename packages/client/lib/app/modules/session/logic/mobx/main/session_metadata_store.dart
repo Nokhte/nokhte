@@ -116,15 +116,6 @@ abstract class _SessionMetadataStoreBase
   }
 
   @action
-  _getInstructionType(String unifiedUID) async {
-    final res = await contract.getInstructionType(unifiedUID);
-    res.fold(
-      (failure) => errorUpdater(failure),
-      (instructionType) => this.instructionType = instructionType,
-    );
-  }
-
-  @action
   _getStaticMetadata() async {
     final res = await contract.getSTSessionMetadata(NoParams());
     res.fold((failure) => mapFailureToMessage(failure), (entity) async {
@@ -161,7 +152,6 @@ abstract class _SessionMetadataStoreBase
         streamSubscription = sessionMetadata.listen((value) async {
           if (value.phases.length != currentPhases.length) {
             await _getStaticMetadata();
-            await _getInstructionType(presetUID);
           }
           everyoneIsOnline = value.everyoneIsOnline;
           final phases = value.phases.map((e) => double.parse(e.toString()));
