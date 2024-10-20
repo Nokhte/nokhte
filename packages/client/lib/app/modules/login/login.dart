@@ -41,11 +41,7 @@ class LoginModule extends Module {
         contract: i.get<LoginContractImpl>(),
       ),
     );
-    i.add<AuthGetUserInfo>(
-      () => AuthGetUserInfo(
-        contract: i.get<LoginContractImpl>(),
-      ),
-    );
+
     i.add<GetLoginState>(
       () => GetLoginState(
         contract: i.get<LoginContractImpl>(),
@@ -66,11 +62,6 @@ class LoginModule extends Module {
         contract: i.get<LoginContractImpl>(),
       ),
     );
-    i.add<GetUserInfoStore>(
-      () => GetUserInfoStore(
-        logic: i<AuthGetUserInfo>(),
-      ),
-    );
     i.add<SignInWithAuthProviderStore>(
       () => SignInWithAuthProviderStore(
         signInWithApple: i.get<SignInWithApple>(),
@@ -87,7 +78,7 @@ class LoginModule extends Module {
         identifyUser: Modular.get<IdentifyUser>(),
         addMetadata: Modular.get<AddMetadata>(),
         captureScreen: Modular.get<CaptureScreen>(),
-        getUserInfo: Modular.get<GetUserInfoStore>(),
+        userInfo: Modular.get<UserInformationCoordinator>(),
         tap: TapDetector(),
         addName: Modular.get<AddName>(),
         widgets: Modular.get<LoginScreenWidgetsCoordinator>(),
