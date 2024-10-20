@@ -36,7 +36,9 @@ void main() {
 
   test("select", () async {
     final presetUID =
-        await companyPresetsQueries.getUnifiedUID(PresetTypes.collaborative);
+        (await companyPresetsQueries.select(type: PresetTypes.collaborative))
+            .first[CompanyPresetsQueries.UID];
+    // await companyPresetsQueries.getUnifiedUID(PresetTypes.collaborative);
     await tSetup.supabaseAdmin.from("finished_nokhte_sessions").insert({
       "collaborator_uids": sortedUIDs,
       "content": tSessionContent,

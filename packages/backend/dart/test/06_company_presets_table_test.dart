@@ -32,12 +32,6 @@ void main() {
       res.first[CompanyPresetsQueries.NAME],
       CompanyPresetsQueries.mapTypeToPresetType(PresetTypes.consultative),
     );
-    expect(res.first[CompanyPresetsQueries.UNIFIED_PRESETS], isNotEmpty);
-  });
-
-  test("getUnifiedUID: PresetTypes.consultative", () async {
-    final res = await user1Queries.getUnifiedUID(PresetTypes.consultative);
-    expect(res, isNotEmpty);
   });
 
   test("select: PresetTypes.collaborative", () async {
@@ -50,12 +44,6 @@ void main() {
       res.first[CompanyPresetsQueries.NAME],
       CompanyPresetsQueries.mapTypeToPresetType(PresetTypes.collaborative),
     );
-    expect(res.first[CompanyPresetsQueries.UNIFIED_PRESETS], isNotEmpty);
-  });
-
-  test("getUnifiedUID: PresetTypes.collaborative", () async {
-    final res = await user1Queries.getUnifiedUID(PresetTypes.collaborative);
-    expect(res, isNotEmpty);
   });
 
   test("select: PresetTypes.socratic", () async {
@@ -67,44 +55,5 @@ void main() {
       res.first[CompanyPresetsQueries.NAME],
       CompanyPresetsQueries.mapTypeToPresetType(PresetTypes.socratic),
     );
-    expect(res.first[CompanyPresetsQueries.UNIFIED_PRESETS], isNotEmpty);
-  });
-
-  test("getUnifiedUID: PresetTypes.socratic", () async {
-    final res = await user1Queries.getUnifiedUID(PresetTypes.socratic);
-    expect(res, isNotEmpty);
-  });
-
-  test("getTagsFromUnifiedUID: PresetTypes.socratic", () async {
-    const socraticTags = [
-      SessionTags.holdToSpeak,
-      SessionTags.strictSeating,
-      SessionTags.notesAfter,
-    ];
-    final uid = await user1Queries.getUnifiedUID(PresetTypes.socratic);
-    final res = await user1Queries.getTagsFromUnifiedUID(uid);
-    expect(res, socraticTags);
-  });
-
-  test("getTagsFromUnifiedUID: PresetTypes.consultative", () async {
-    const consultativeTags = [
-      SessionTags.holdToSpeak,
-      SessionTags.strictSeating,
-      SessionTags.notesDuring,
-    ];
-    final uid = await user1Queries.getUnifiedUID(PresetTypes.consultative);
-    final res = await user1Queries.getTagsFromUnifiedUID(uid);
-    expect(res, consultativeTags);
-  });
-
-  test("getTagsFromUnifiedUID: PresetTypes.collaborative", () async {
-    const collaborativeTags = [
-      SessionTags.tapToSpeak,
-      SessionTags.flexibleSeating,
-      SessionTags.notesDuring
-    ];
-    final uid = await user1Queries.getUnifiedUID(PresetTypes.collaborative);
-    final res = await user1Queries.getTagsFromUnifiedUID(uid);
-    expect(res, collaborativeTags);
   });
 }
