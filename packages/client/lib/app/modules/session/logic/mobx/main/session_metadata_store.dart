@@ -78,13 +78,10 @@ abstract class _SessionMetadataStoreBase
   String presetName = '';
 
   @observable
-  ObservableList presetTags = ObservableList.of([]);
+  ObservableList<SessionTags> presetTags = ObservableList.of([]);
 
   @observable
-  ObservableList oddConfiguration = ObservableList.of([]);
-
-  @observable
-  ObservableList evenConfiguration = ObservableList.of([]);
+  String phoneType = '';
 
   @observable
   DateTime speakingTimerStart = DateTime.fromMillisecondsSinceEpoch(0);
@@ -131,8 +128,7 @@ abstract class _SessionMetadataStoreBase
         res.fold((failure) => mapFailureToMessage(failure), (presetEntity) {
           presetName = presetEntity.name;
           presetTags = ObservableList.of(presetEntity.tags);
-          oddConfiguration = ObservableList.of(presetEntity.oddConfiguration);
-          evenConfiguration = ObservableList.of(presetEntity.evenConfiguration);
+          phoneType = presetEntity.phoneType;
         });
       }
     });
@@ -227,8 +223,8 @@ abstract class _SessionMetadataStoreBase
       return PresetTypes.consultative;
     } else if (presetName.contains('llaborat')) {
       return PresetTypes.collaborative;
-    } else if (presetName.contains('crat')) {
-      return PresetTypes.socratic;
+    } else if (presetName.contains('olo')) {
+      return PresetTypes.solo;
     } else {
       return PresetTypes.none;
     }
@@ -236,23 +232,10 @@ abstract class _SessionMetadataStoreBase
 
   @computed
   SessionScreenTypes get sessionScreenType {
-    if (evenConfiguration.isEmpty || oddConfiguration.isEmpty) {
+    if (phoneType.isEmpty) {
       return SessionScreenTypes.inital;
     } else {
-      if (evenConfiguration.length == 1 && oddConfiguration.length == 1) {
-        return fromRawScreenType(evenConfiguration.first);
-      } else {
-        final moduloIndex = userIndex % 2;
-        if (numberOfCollaborators.isOdd) {
-          if (userIndex == numberOfCollaborators - 1) {
-            return fromRawScreenType(oddConfiguration.last);
-          } else {
-            return fromRawScreenType(oddConfiguration[moduloIndex]);
-          }
-        } else {
-          return fromRawScreenType(evenConfiguration[moduloIndex]);
-        }
-      }
+      return fromRawScreenType(phoneType);
     }
   }
 
