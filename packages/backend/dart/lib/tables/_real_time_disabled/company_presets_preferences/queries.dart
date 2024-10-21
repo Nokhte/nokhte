@@ -28,7 +28,7 @@ class CompanyPresetsPreferencesQueries {
     if (othertags.isNotEmpty) {
       return await supabase.from(TABLE).insert({
         COMPANY_PRESET: companyPresetUID,
-        'chosen_tags': othertags,
+        TAGS: othertags,
       }).select();
     } else {
       return [];
