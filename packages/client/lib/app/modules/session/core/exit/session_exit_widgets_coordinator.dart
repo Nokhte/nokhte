@@ -42,14 +42,12 @@ abstract class _SessionExitWidgetsCoordinatorBase
   }
 
   @action
-  constructor(bool isNotASocraticSession) {
+  constructor() {
     tint.initMovie(NoParams());
     primarySmartText.setMessagesData(SessionLists.waitingToLeave);
     secondarySmartText.setMessagesData(SessionLists.exitBottomText);
     primarySmartText.startRotatingText();
-    if (isNotASocraticSession) {
-      secondarySmartText.startRotatingText();
-    }
+    secondarySmartText.startRotatingText();
     beachWaves.setMovieMode(
       BeachWaveMovieModes.skyToDrySand,
     );

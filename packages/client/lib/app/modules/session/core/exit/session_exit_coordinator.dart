@@ -62,7 +62,7 @@ abstract class _SessionExitCoordinatorBase
   @action
   constructor() async {
     phaseHasBeenSet = false;
-    widgets.constructor(isNotASocraticSession);
+    widgets.constructor();
     initReactors();
     await presence.updateCurrentPhase(4.0);
     sessionMetadata.setAffirmativePhase(4.0);
@@ -113,14 +113,14 @@ abstract class _SessionExitCoordinatorBase
         },
       ),
     );
-    if (isNotASocraticSession) {
-      disposers.add(swipeReactor(onSwipeDown: () {
-        widgets.onReadyToGoBack(() async {
-          await presence.updateCurrentPhase(2.0);
-          setDisableAllTouchFeedback(true);
-        });
-      }));
-    }
+    // if (isNotASocraticSession) {
+    disposers.add(swipeReactor(onSwipeDown: () {
+      widgets.onReadyToGoBack(() async {
+        await presence.updateCurrentPhase(2.0);
+        setDisableAllTouchFeedback(true);
+      });
+    }));
+    // }
   }
 
   @action
@@ -136,10 +136,6 @@ abstract class _SessionExitCoordinatorBase
 
   @computed
   SessionScreenTypes get phoneRole => sessionMetadata.sessionScreenType;
-
-  @computed
-  bool get isNotASocraticSession =>
-      sessionMetadata.presetType != PresetTypes.socratic;
 
   deconstructor() {
     presence.dispose();
