@@ -8,8 +8,7 @@ export 'session_tags.dart';
 class CompanyPresetsQueries {
   static const TABLE = 'company_presets';
   static const UID = 'uid';
-  static const EVEN_CONFIGURATION = 'even_configuration';
-  static const ODD_CONFIGURATION = 'odd_configuration';
+  static const PHONE_TYPE = 'phone_type';
   static const TAGS = 'tags';
   static const NAME = 'name';
 
@@ -37,20 +36,64 @@ class CompanyPresetsQueries {
       tags.map((e) => mapTagToEnum(e)).toList();
 
   static SessionTags mapTagToEnum(String tag) {
-    if (tag == 'strict_seating') {
-      return SessionTags.strictSeating;
-    } else if (tag == 'flexible_seating') {
-      return SessionTags.flexibleSeating;
-    } else if (tag == 'tap_to_speak') {
-      return SessionTags.tapToSpeak;
-    } else if (tag == 'hold_to_speak') {
-      return SessionTags.holdToSpeak;
-    } else if (tag == 'notes_during') {
-      return SessionTags.notesDuring;
-    } else if (tag == 'notes_after') {
-      return SessionTags.notesAfter;
-    } else {
-      return SessionTags.none;
+    switch (tag) {
+      case 'strict_seating':
+        return SessionTags.strictSeating;
+      case 'flexible_seating':
+        return SessionTags.flexibleSeating;
+      case 'no_seating':
+        return SessionTags.noSeating;
+      case 'hold_to_speak':
+        return SessionTags.holdToSpeak;
+      case 'tap_to_speak':
+        return SessionTags.tapToSpeak;
+      case 'mono_focal_notes':
+        return SessionTags.monoFocalNotes;
+      case 'multi_focal_notes':
+        return SessionTags.multiFocalNotes;
+      case 'deactivated_notes':
+        return SessionTags.deactivatedNotes;
+      default:
+        return SessionTags.none;
+    }
+  }
+
+  static List<String> mapEnumsToTags(List<SessionTags> tags) =>
+      tags.map((e) => mapEnumToTag(e)).toList();
+
+  static String mapEnumToTag(SessionTags tag) {
+    switch (tag) {
+      case SessionTags.strictSeating:
+        return 'strict_seating';
+      case SessionTags.flexibleSeating:
+        return 'flexible_seating';
+      case SessionTags.noSeating:
+        return 'no_seating';
+      case SessionTags.holdToSpeak:
+        return 'hold_to_speak';
+      case SessionTags.tapToSpeak:
+        return 'tap_to_speak';
+      case SessionTags.monoFocalNotes:
+        return 'mono_focal_notes';
+      case SessionTags.multiFocalNotes:
+        return 'multi_focal_notes';
+      case SessionTags.deactivatedNotes:
+        return 'deactivated_notes';
+      default:
+        return 'none';
+    }
+  }
+
+  static PresetTypes mapStringToPresetType(String type) {
+    switch (type) {
+      case 'Consultation':
+        return PresetTypes.consultative;
+      case 'Collaboration':
+        return PresetTypes.collaborative;
+      case 'Solo':
+        return PresetTypes.solo;
+      default:
+        return PresetTypes.none;
     }
   }
 
@@ -60,8 +103,8 @@ class CompanyPresetsQueries {
         return 'Consultation';
       case PresetTypes.collaborative:
         return 'Collaboration';
-      case PresetTypes.socratic:
-        return 'Socratic';
+      case PresetTypes.solo:
+        return 'Solo';
       case PresetTypes.none:
         return '';
     }

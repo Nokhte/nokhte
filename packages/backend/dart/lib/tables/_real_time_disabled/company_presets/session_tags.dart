@@ -1,9 +1,11 @@
 enum SessionTags {
   strictSeating,
   flexibleSeating,
+  noSeating,
   holdToSpeak,
   tapToSpeak,
-  notesDuring,
-  notesAfter,
+  monoFocalNotes,
+  multiFocalNotes,
+  deactivatedNotes,
   none,
 }
