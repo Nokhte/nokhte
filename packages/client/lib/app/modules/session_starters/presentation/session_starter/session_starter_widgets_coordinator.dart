@@ -11,6 +11,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/shared/mobx/mobx.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'session_starter_widgets_coordinator.g.dart';
 
@@ -138,15 +139,15 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   @action
   onPreferredPresetReceived({
     required String sessionName,
-    required List tags,
-    required String unifiedUID,
+    required List<SessionTags> tags,
+    required String presetUID,
     required String userUID,
   }) {
     presetHeader.setHeader(
       sessionName,
       tags,
     );
-    presetCards.setPreferredPresetUID(unifiedUID);
+    presetCards.setPreferredPresetUID(presetUID);
     onQrCodeReceived(userUID);
   }
 
@@ -282,12 +283,12 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   }
 
   onCompanyPresetsReceived({
-    required ObservableList unifiedUIDs,
-    required ObservableList tags,
-    required ObservableList names,
+    required ObservableList<String> uids,
+    required ObservableList<List<SessionTags>> tags,
+    required ObservableList<String> names,
   }) {
     presetCards.setPresets(
-      unifiedUIDs: unifiedUIDs,
+      uids: uids,
       tags: tags,
       names: names,
     );
@@ -347,9 +348,10 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         }
       });
   condensedPresetCardTapReactor() =>
-      reaction((p0) => presetCards.condensedTapCount, (p0) {
+      reaction((p0) => presetCards.tapCount, (p0) {
         presetArticle.showBottomSheet(
-          presetCards.currentExpandedPresetType,
+          presetCards.presetTypedNames[presetCards.currentTappedIndex],
+          presetCards.tags[presetCards.currentTappedIndex],
           onOpen: () {},
           onClose: () {},
         );

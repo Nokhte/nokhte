@@ -28,10 +28,10 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
   ObservableList<Color> selectedPresetColors = ObservableList.of([]);
 
   @observable
-  ObservableList unifiedUIDs = ObservableList();
+  ObservableList uids = ObservableList();
 
   @observable
-  ObservableList tags = ObservableList();
+  ObservableList<List<SessionTags>> tags = ObservableList();
 
   @observable
   ObservableList names = ObservableList();
@@ -39,22 +39,16 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
   @observable
   String preferredPresetUID = "";
 
-  List<String> taglines = [
-    ArticleBodyInfo(presetType: PresetTypes.consultative).tagline,
-    ArticleBodyInfo(presetType: PresetTypes.collaborative).tagline,
-  ];
-
   @action
   setPreferredPresetUID(String uid) => preferredPresetUID = uid;
 
   @action
   setPresets({
-    required ObservableList unifiedUIDs,
-    required ObservableList tags,
-    required ObservableList names,
-    bool isInstructions = true,
+    required ObservableList<String> uids,
+    required ObservableList<List<SessionTags>> tags,
+    required ObservableList<String> names,
   }) {
-    this.unifiedUIDs = unifiedUIDs;
+    this.uids = uids;
     this.tags = tags;
     this.names = names;
   }
@@ -85,15 +79,6 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
   @action
   selectPreset(int index) {
     initSelectionInProgress(index);
-  }
-
-  @computed
-  PresetTypes get currentExpandedPresetType {
-    if (currentExpandedPresetCardName.contains('onsultat')) {
-      return PresetTypes.consultative;
-    } else {
-      return PresetTypes.collaborative;
-    }
   }
 
   @action
@@ -166,16 +151,6 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
   }
 
   @action
-  showEverythingExcept(int index) {
-    for (int i = 0; i < length; i++) {
-      if (i != index) {
-        controls[i] = Control.playFromStart;
-        movies[i] = FadePresetCardMovies.fadeIn;
-      }
-    }
-  }
-
-  @action
   showOnly(int index) {
     movieModes[index] = CondensedPresetCardMovieModes.fadeOut;
     movieStatuses[index] = MovieStatus.idle;
@@ -197,56 +172,6 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
       }
     }));
     movies[index] = PresetCardSelectionMovies.active;
-  }
-
-  @action
-  initHighlightMovie(int index) {
-    movieModes[index] = CondensedPresetCardMovieModes.instructionHighlight;
-    movieStatuses[index] = MovieStatus.inProgress;
-
-    controls = ObservableList.of(List.generate(length, (i) {
-      if (i == index) {
-        return Control.loop;
-      } else {
-        return Control.stop;
-      }
-    }));
-    isEnabled[index] = true;
-    movies[index] = InstructionHighlightPresetCardMovie.movie;
-    movieModes[index] = CondensedPresetCardMovieModes.instructionHighlight;
-  }
-
-  @action
-  teeUpInstructions(int index) {
-    resetMovieStatuses();
-    movies = ObservableList.of(
-      List.generate(
-        length,
-        (i) {
-          if (i == index) {
-            return InstructionHighlightPresetCardMovie.transition;
-          } else {
-            // return FadeOutPresetCardMovie.movie;
-            return FadePresetCardMovies.fadeOut;
-          }
-        },
-      ),
-    );
-
-    controls = ObservableList.of(List.filled(length, Control.playFromStart));
-
-    movieModes = ObservableList.of(
-      List.generate(
-        length,
-        (i) {
-          if (i == index) {
-            return CondensedPresetCardMovieModes.instructionHighlightTransition;
-          } else {
-            return CondensedPresetCardMovieModes.fadeOut;
-          }
-        },
-      ),
-    );
   }
 
   @action
@@ -287,23 +212,35 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
       ObservableList.of(List.filled(length, MovieStatus.inProgress));
 
   @computed
-  int get condensedTapCount => tapCount;
-
-  @computed
-  String get currentExpandedPresetCardName =>
-      currentTappedIndex == -1 ? '' : names[currentTappedIndex];
-
-  @computed
-  List get currentExpandedPresetTags =>
-      currentTappedIndex == -1 ? [] : tags[currentTappedIndex];
-
-  @computed
   String get currentlySelectedSessionUID =>
-      currentHeldIndex == -1 ? '' : unifiedUIDs[currentHeldIndex];
+      currentHeldIndex == -1 ? '' : uids[currentHeldIndex];
 
   @computed
-  int get preferredPresetIndex =>
-      unifiedUIDs.isEmpty || preferredPresetUID.isEmpty
-          ? -1
-          : unifiedUIDs.indexOf(preferredPresetUID);
+  int get preferredPresetIndex => uids.isEmpty || preferredPresetUID.isEmpty
+      ? -1
+      : uids.indexOf(preferredPresetUID);
+
+  @computed
+  List<String> get taglines {
+    final List<String> taglines = [];
+
+    for (int i = 0; i < names.length; i++) {
+      taglines.add(ArticleBodyInfo(
+        presetType: CompanyPresetsQueries.mapStringToPresetType(
+          names[i],
+        ),
+        presetTags: tags[i],
+      ).tagline);
+    }
+    return taglines;
+  }
+
+  @computed
+  List<PresetTypes> get presetTypedNames {
+    final List<PresetTypes> temp = <PresetTypes>[];
+    for (var name in names) {
+      temp.add(CompanyPresetsQueries.mapStringToPresetType(name));
+    }
+    return temp;
+  }
 }

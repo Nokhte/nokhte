@@ -36,7 +36,7 @@ class HomeModule extends Module {
       () => HomeScreenRootRouterCoordinator(
         cleanUpCollaborationArtifacts:
             Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
-        getUserInfo: Modular.get<GetUserInfoStore>(),
+        userInfo: Modular.get<UserInformationCoordinator>(),
         widgets: Modular.get<HomeScreenRootRouterWidgetsCoordinator>(),
       ),
     );
@@ -45,6 +45,7 @@ class HomeModule extends Module {
         cleanUpCollaborationArtifacts:
             Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         widgets: Modular.get<QuickActionsRouterWidgetsCoordinator>(),
+        userInfo: Modular.get<UserInformationCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
       ),
     );
@@ -69,7 +70,7 @@ class HomeModule extends Module {
       () => HomeEntryCoordinator(
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<HomeEntryWidgetsCoordinator>(),
-        getUserInfo: Modular.get<GetUserInfoStore>(),
+        userInfo: Modular.get<UserInformationCoordinator>(),
       ),
     );
   }

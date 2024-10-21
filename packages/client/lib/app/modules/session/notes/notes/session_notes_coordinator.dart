@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/types/directions.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
-import 'package:nokhte_backend/tables/company_presets.dart';
 part 'session_notes_coordinator.g.dart';
 
 class SessionNotesCoordinator = _SessionNotesCoordinatorBase
@@ -40,9 +39,7 @@ abstract class _SessionNotesCoordinatorBase
       await presence.updateCurrentPhase(2.0);
     });
     initReactors();
-    if (isNotASocraticSession) {
-      await presence.updateCurrentPhase(2.5);
-    }
+    await presence.updateCurrentPhase(2.5);
     await captureScreen(SessionConstants.notes);
   }
 
@@ -93,8 +90,4 @@ abstract class _SessionNotesCoordinatorBase
     dispose();
     widgets.deconstructor();
   }
-
-  @computed
-  bool get isNotASocraticSession =>
-      sessionMetadata.presetType != PresetTypes.socratic;
 }

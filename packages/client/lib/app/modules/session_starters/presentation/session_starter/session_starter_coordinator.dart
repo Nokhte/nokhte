@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -48,7 +46,7 @@ abstract class _SessionStarterCoordinatorBase
     widgets.constructor();
     widgets.initReactors();
     initReactors();
-    await userInfo.getUserInfoStore(NoParams());
+    await userInfo.getPreferredPreset();
     await presetsLogic.getCompanyPresets();
     await starterLogic.initialize();
     await captureScreen(SessionStarterConstants.sessionStarter);
@@ -56,7 +54,6 @@ abstract class _SessionStarterCoordinatorBase
   }
 
   initReactors() {
-    disposers.add(userInfoReactor());
     disposers.add(swipeReactor());
     disposers.add(companyPresetsReactor());
     disposers.add(preferredPresetReactor());
@@ -111,36 +108,26 @@ abstract class _SessionStarterCoordinatorBase
         }
       });
 
-  userInfoReactor() =>
-      reaction((p0) => userInfo.getUserInfoStore.state, (p0) async {
-        if (p0 == StoreState.loaded) {
-          if (userInfo.getUserInfoStore.hasAccessedQrCode) {
-            widgets.onQrCodeReceived(userInfo.getUserInfoStore.userUID);
-            await userInfo.getPreferredPreset();
-          } else {
-            widgets.onNoPresetSelected();
-          }
-        }
-      });
-
   preferredPresetReactor() => reaction((p0) => userInfo.preferredPreset, (p0) {
-        if (p0.name.isNotEmpty) {
+        if (userInfo.hasAccessedQrCode) {
           widgets.onPreferredPresetReceived(
             sessionName: p0.name,
             tags: p0.tags,
-            unifiedUID: userInfo.preferredPreset.unifiedUID,
-            userUID: userInfo.getUserInfoStore.userUID,
+            presetUID: userInfo.preferredPreset.presetUID,
+            userUID: userInfo.preferredPreset.userUID,
           );
+        } else {
+          widgets.onNoPresetSelected();
         }
       });
 
   companyPresetsReactor() => reaction((p0) => presetsLogic.names, (p0) {
         widgets.onCompanyPresetsReceived(
-          unifiedUIDs: presetsLogic.unifiedUIDs,
+          uids: presetsLogic.uids,
           names: presetsLogic.names,
           tags: presetsLogic.tags,
         );
-        if (!userInfo.getUserInfoStore.hasAccessedQrCode) {
+        if (!userInfo.hasAccessedQrCode) {
           widgets.presetCards.enableAllTouchFeedback();
         }
       });

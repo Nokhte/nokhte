@@ -21,6 +21,21 @@ abstract class _ArticleBodyStoreBase extends BaseWidgetStore with Store {
   @action
   setPresetType(PresetTypes type) => presetType = type;
 
+  @observable
+  ObservableList<SessionTags> presetTags = ObservableList.of([]);
+
+  @action
+  setPresetTags(ObservableList<SessionTags> tags) => presetTags = tags;
+
+  @action
+  setInformation(
+    PresetTypes type,
+    List<SessionTags> tags,
+  ) {
+    presetTags = ObservableList.of(tags);
+    presetType = type;
+  }
+
   @action
   setActiveIndex(int index) {
     setWidgetVisibility(false);
@@ -41,9 +56,6 @@ abstract class _ArticleBodyStoreBase extends BaseWidgetStore with Store {
     currentPosition = 0.0;
     activeIndex = 0;
   }
-
-  @computed
-  DemoTypes get currentDemo => bodyInfo.demoTypes;
 
   @computed
   List<String> get currentInstruction {
@@ -79,9 +91,11 @@ abstract class _ArticleBodyStoreBase extends BaseWidgetStore with Store {
       : 'Consultation';
 
   @computed
-  List get tags => presetType == PresetTypes.collaborative
-      ? ["tap_to_speak", "flexible_seating", "notes_during"]
-      : ["hold_to_speak", "strict_seating", "notes_during"];
+  PowerupInfo get powerUpInfo => PowerupInfo(
+        presetType == PresetTypes.collaborative
+            ? Powerups.rally
+            : Powerups.letEmCook,
+      );
 
   @computed
   String get currentInstructionsHeader {
@@ -99,6 +113,7 @@ abstract class _ArticleBodyStoreBase extends BaseWidgetStore with Store {
 
   @computed
   ArticleBodyInfo get bodyInfo => ArticleBodyInfo(
+        presetTags: presetTags,
         presetType: presetType,
       );
 }

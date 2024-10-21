@@ -1,16 +1,17 @@
 import 'package:equatable/equatable.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 
 class CompanyPresetsEntity extends Equatable {
-  final List unifiedUIDs;
-  final List tags;
-  final List names;
+  final List<String> uids;
+  final List<List<SessionTags>> tags;
+  final List<String> names;
 
   const CompanyPresetsEntity({
-    required this.unifiedUIDs,
+    required this.uids,
     required this.tags,
     required this.names,
   });
 
   @override
-  List<Object> get props => [unifiedUIDs, tags, names];
+  List<Object> get props => [uids, tags, names];
 }

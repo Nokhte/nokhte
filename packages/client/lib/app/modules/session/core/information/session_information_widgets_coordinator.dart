@@ -42,11 +42,13 @@ abstract class _SessionInformationWidgetsCoordinatorBase
   @action
   constructor({
     required PresetTypes presetType,
+    required List<SessionTags> tags,
   }) {
     beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
     Timer(Seconds.get(0, milli: 500), () {
       presetArticle.showBottomSheet(
         presetType,
+        tags,
         onClose: () {
           onClose();
         },

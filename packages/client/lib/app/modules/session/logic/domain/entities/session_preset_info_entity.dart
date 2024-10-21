@@ -1,22 +1,20 @@
 import 'package:equatable/equatable.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 
 class SessionPresetInfoEntity extends Equatable {
   final String name;
-  final List tags;
-  final List oddConfiguration;
-  final List evenConfiguration;
+  final List<SessionTags> tags;
+  final String phoneType;
   const SessionPresetInfoEntity({
     required this.name,
     required this.tags,
-    required this.oddConfiguration,
-    required this.evenConfiguration,
+    required this.phoneType,
   });
 
   @override
   List<Object> get props => [
         name,
         tags,
-        evenConfiguration,
-        oddConfiguration,
+        phoneType,
       ];
 }

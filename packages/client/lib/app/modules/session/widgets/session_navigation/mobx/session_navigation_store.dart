@@ -49,9 +49,7 @@ abstract class _SessionNavigationStoreBase extends BaseWidgetStore
     centerNokhte.fadeIn();
     exitNokhte.setAndFadeIn(
       AuxiliaryNokhtePositions.bottom,
-      presetType == PresetTypes.socratic
-          ? AuxiliaryNokhteColorways.exitOrangeSand
-          : AuxiliaryNokhteColorways.exitVibrantBlue,
+      AuxiliaryNokhteColorways.exitVibrantBlue,
     );
     infoNokhte.setAndFadeIn(
       AuxiliaryNokhtePositions.top,
@@ -67,10 +65,6 @@ abstract class _SessionNavigationStoreBase extends BaseWidgetStore
   }) {
     this.presetType = presetType;
     Color color = SessionConstants.blue;
-    // if (screenType == SessionScreenTypes.soloHybrid ||
-    //     screenType == SessionScreenTypes.speaking) {
-    // color = SessionConstants.blue;
-    // }
     gestureCross.cross.initStaticGlow(
       glowColor: color,
     );
@@ -154,11 +148,11 @@ abstract class _SessionNavigationStoreBase extends BaseWidgetStore
   exitNokhteReactor() => reaction((p0) => exitNokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
             exitNokhte.movieMode == AuxiliaryNokhteMovieModes.explode) {
-          if (presetType == PresetTypes.socratic) {
-            Modular.to.navigate(SessionConstants.socraticSpeakingExit);
-          } else {
-            Modular.to.navigate(SessionConstants.exit);
-          }
+          // if (presetType == PresetTypes.socratic) {
+          // Modular.to.navigate(SessionConstants.socraticSpeakingExit);
+          // } else {
+          Modular.to.navigate(SessionConstants.exit);
+          // }
         }
       });
 

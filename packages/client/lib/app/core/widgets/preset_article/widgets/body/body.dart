@@ -29,17 +29,18 @@ class ArticleBody extends HookWidget with ArticleBodyUtils {
             onPageChanged: (currentIndex) {
               store.setActiveIndex(currentIndex);
             },
-            tags: store.tags,
+            tags: store.presetTags,
             containerSize: containerSize,
             currentPosition: store.currentPosition,
           ),
           ArticleContent(
+            type: store.presetType,
             currentInstructionsHeader: store.currentInstructionsHeader,
             currentInstructionsBody: store.currentInstruction,
             currentJustifications: store.currentJustification,
-            demoType: store.currentDemo,
             opacity: contentLerp(store.currentPosition),
             currentPosition: store.currentPosition,
+            powerUpInformation: store.powerUpInfo,
           ),
         ],
       );

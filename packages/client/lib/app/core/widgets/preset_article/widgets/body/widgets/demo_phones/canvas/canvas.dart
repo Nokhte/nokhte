@@ -1,4 +1,6 @@
-export 'mono_focal_notes_demo_painter.dart';
-export 'multi_focal_notes_demo_painter.dart';
+export 'consultative_notes_demo_painter.dart';
+export 'let_em_cook_demo_painter.dart';
+export 'collaborative_notes_demo_painter.dart';
 export 'shared.dart';
-export 'multi_focal_speaking_demo_painter.dart';
+export 'speaking_demos_painter.dart';
+export 'rally_demo_painter.dart';

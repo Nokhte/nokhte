@@ -46,11 +46,13 @@ abstract class _PresetArticleStoreBase extends BaseWidgetStore with Store {
 
   @action
   showBottomSheet(
-    PresetTypes presetType, {
+    PresetTypes presetType,
+    List<SessionTags> presetTags, {
     required Function onOpen,
     required Function onClose,
   }) async {
-    body.setPresetType(presetType);
+    body.setInformation(presetType, presetTags);
+
     if (!showWidget) {
       setWidgetVisibility(true);
       nokhteBlur.init(

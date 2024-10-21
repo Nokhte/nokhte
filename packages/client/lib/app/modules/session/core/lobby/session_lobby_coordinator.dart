@@ -124,6 +124,7 @@ abstract class _SessionLobbyCoordinatorBase
   showPresetInfo() {
     widgets.onPresetTypeReceived(
       sessionMetadata.presetType,
+      sessionMetadata.presetTags,
       onOpen: onOpen,
       onClose: onClose,
     );

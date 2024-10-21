@@ -1,6 +1,6 @@
 enum PresetTypes {
   consultative,
   collaborative,
-  socratic,
+  solo,
   none,
 }

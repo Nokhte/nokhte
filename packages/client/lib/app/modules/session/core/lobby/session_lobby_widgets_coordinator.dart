@@ -89,7 +89,8 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
 
   @action
   onPresetTypeReceived(
-    PresetTypes presetType, {
+    PresetTypes presetType,
+    List<SessionTags> tags, {
     required Function onOpen,
     required Function onClose,
   }) {
@@ -97,12 +98,12 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
     if (!hasReceivedRoutingArgs) {
       presetArticle.showBottomSheet(
         presetType,
+        tags,
         onOpen: onOpen,
         onClose: onClose,
       );
     } else {
       presetArticle.body.setPresetType(presetType);
-      // onOpen();
     }
   }
 
@@ -175,6 +176,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
       reaction((p0) => presetArticle.tapCount, (p0) {
         presetArticle.showBottomSheet(
           presetArticle.body.presetType,
+          [],
           onOpen: onOpen,
           onClose: onClose,
         );
