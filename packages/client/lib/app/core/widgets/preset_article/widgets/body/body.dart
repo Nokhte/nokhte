@@ -29,7 +29,7 @@ class ArticleBody extends HookWidget with ArticleBodyUtils {
             onPageChanged: (currentIndex) {
               store.setActiveIndex(currentIndex);
             },
-            tags: store.tags,
+            tags: store.presetTags,
             containerSize: containerSize,
             currentPosition: store.currentPosition,
           ),

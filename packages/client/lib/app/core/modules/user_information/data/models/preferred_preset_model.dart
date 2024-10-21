@@ -34,7 +34,9 @@ class PreferredPresetModel extends PreferredPresetEntity {
       } else {
         return PreferredPresetModel(
           name: companyPresetRes.first[CompanyPresetsQueries.NAME],
-          tags: companyPresetRes.first[CompanyPresetsQueries.TAGS],
+          tags: CompanyPresetsQueries.mapTagsToEnum(
+            companyPresetRes.first[CompanyPresetsQueries.TAGS],
+          ),
           presetUID: companyPresetRes.first[CompanyPresetsQueries.UID],
           userUID: userInformationRes.first[UserInformationConstants.S_UID],
         );

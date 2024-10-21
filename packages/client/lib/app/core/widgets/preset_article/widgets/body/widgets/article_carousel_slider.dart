@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 
 class ArticleCarouselSlider extends StatelessWidget with ArticleBodyUtils {
   final Function(double currentPosition) onScrolled;
@@ -17,66 +18,71 @@ class ArticleCarouselSlider extends StatelessWidget with ArticleBodyUtils {
     required this.currentPosition,
   });
 
-  Widget mapTagToIcon(String tag, double targetValue, double containerSize) {
-    switch (tag) {
-      case "hold_to_speak":
-        return buildIcon(
-          targetValue: targetValue,
-          containerSize: containerSize,
+  Widget mapTagToIcon(
+      SessionTags tag, double targetValue, double containerSize) {
+    if (tag == SessionTags.holdToSpeak) {
+      return buildIcon(
+        targetValue: targetValue,
+        containerSize: containerSize,
+        shouldAnimate: true,
+        iconBuilder: (context, size, opacity, animate) => TalkingIcons(
+          isHoldToTalk: true,
+          containerSize: size,
+          opacity: opacity,
           shouldAnimate: true,
-          iconBuilder: (context, size, opacity, animate) => TalkingIcons(
-            isHoldToTalk: true,
-            containerSize: size,
-            opacity: opacity,
-            shouldAnimate: true,
-          ),
-        );
-      case "tap_to_speak":
-        return buildIcon(
-          targetValue: targetValue,
-          containerSize: containerSize,
+        ),
+      );
+    } else if (tag == SessionTags.tapToSpeak) {
+      return buildIcon(
+        targetValue: targetValue,
+        containerSize: containerSize,
+        shouldAnimate: true,
+        iconBuilder: (context, size, opacity, animate) => TalkingIcons(
+          isHoldToTalk: false,
+          containerSize: size,
+          opacity: opacity,
           shouldAnimate: true,
-          iconBuilder: (context, size, opacity, animate) => TalkingIcons(
-            isHoldToTalk: false,
-            containerSize: size,
-            opacity: opacity,
-            shouldAnimate: true,
-          ),
-        );
-      case "strict_seating":
-        return buildIcon(
-          targetValue: targetValue,
-          containerSize: containerSize,
+        ),
+      );
+    } else if (tag == SessionTags.strictSeating) {
+      return buildIcon(
+        targetValue: targetValue,
+        containerSize: containerSize,
+        shouldAnimate: true,
+        iconBuilder: (context, size, opacity, animate) => StrictSeatingIcon(
+          containerSize: size,
+          opacity: opacity,
           shouldAnimate: true,
-          iconBuilder: (context, size, opacity, animate) => StrictSeatingIcon(
-            containerSize: size,
-            opacity: opacity,
-            shouldAnimate: true,
-          ),
-        );
-      case "flexible_seating":
-        return buildIcon(
-          targetValue: targetValue,
-          containerSize: containerSize,
+        ),
+      );
+    } else if (tag == SessionTags.flexibleSeating) {
+      return buildIcon(
+        targetValue: targetValue,
+        containerSize: containerSize,
+        shouldAnimate: true,
+        iconBuilder: (context, size, opacity, animate) => FlexibleSeatingIcon(
+          containerSize: size,
+          opacity: opacity,
           shouldAnimate: true,
-          iconBuilder: (context, size, opacity, animate) => FlexibleSeatingIcon(
-            containerSize: size,
-            opacity: opacity,
-            shouldAnimate: true,
-          ),
-        );
-      case "notes_during":
-      default:
-        return buildIcon(
-          targetValue: targetValue,
-          containerSize: containerSize,
+        ),
+      );
+    } else if (tag == SessionTags.monoFocalNotes ||
+        tag == SessionTags.multiFocalNotes ||
+        tag == SessionTags.deactivatedNotes) {
+      // MonoFocalNotes and default case
+      return buildIcon(
+        targetValue: targetValue,
+        containerSize: containerSize,
+        shouldAnimate: true,
+        iconBuilder: (context, size, opacity, animate) => NotesIcon(
+          containerSize: size,
+          opacity: opacity,
           shouldAnimate: true,
-          iconBuilder: (context, size, opacity, animate) => NotesIcon(
-            containerSize: size,
-            opacity: opacity,
-            shouldAnimate: true,
-          ),
-        );
+        ),
+      );
+    } else {
+      // print("tag.runtimeType ${tag.runtimeType}");
+      return Container();
     }
   }
 

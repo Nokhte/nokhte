@@ -1,8 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 
 class PreferredPresetEntity extends Equatable {
   final String name;
-  final List tags;
+  final List<SessionTags> tags;
   final String presetUID;
   final String userUID;
 

@@ -21,6 +21,21 @@ abstract class _ArticleBodyStoreBase extends BaseWidgetStore with Store {
   @action
   setPresetType(PresetTypes type) => presetType = type;
 
+  @observable
+  ObservableList<SessionTags> presetTags = ObservableList.of([]);
+
+  @action
+  setPresetTags(ObservableList<SessionTags> tags) => presetTags = tags;
+
+  @action
+  setInformation(
+    PresetTypes type,
+    List<SessionTags> tags,
+  ) {
+    presetTags = ObservableList.of(tags);
+    presetType = type;
+  }
+
   @action
   setActiveIndex(int index) {
     setWidgetVisibility(false);
@@ -83,11 +98,6 @@ abstract class _ArticleBodyStoreBase extends BaseWidgetStore with Store {
       );
 
   @computed
-  List get tags => presetType == PresetTypes.collaborative
-      ? ["tap_to_speak", "flexible_seating", "notes_during"]
-      : ["hold_to_speak", "strict_seating", "notes_during"];
-
-  @computed
   String get currentInstructionsHeader {
     if (currentPosition.isLessThanOrEqualTo(.5)) {
       return 'How to speak:';
@@ -103,6 +113,7 @@ abstract class _ArticleBodyStoreBase extends BaseWidgetStore with Store {
 
   @computed
   ArticleBodyInfo get bodyInfo => ArticleBodyInfo(
+        presetTags: presetTags,
         presetType: presetType,
       );
 }

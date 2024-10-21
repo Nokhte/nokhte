@@ -16,15 +16,14 @@ class CompanyPresetsModel extends CompanyPresetsEntity {
         names: [],
       );
     } else {
-      final List uids = [];
-      final List tags = [];
-      final List names = [];
+      final List<String> uids = [];
+      final List<List<SessionTags>> tags = [];
+      final List<String> names = [];
       for (var preset in presetsRes) {
-        if (preset[CompanyPresetsQueries.NAME] != 'Socratic') {
-          uids.add(preset[CompanyPresetsQueries.UID]);
-          tags.add(preset[CompanyPresetsQueries.TAGS]);
-          names.add(preset[CompanyPresetsQueries.NAME]);
-        }
+        uids.add(preset[CompanyPresetsQueries.UID]);
+        tags.add(CompanyPresetsQueries.mapTagsToEnum(
+            preset[CompanyPresetsQueries.TAGS]));
+        names.add(preset[CompanyPresetsQueries.NAME]);
       }
 
       return CompanyPresetsModel(

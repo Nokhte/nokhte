@@ -1,9 +1,10 @@
 import 'package:equatable/equatable.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 
 class CompanyPresetsEntity extends Equatable {
-  final List uids;
-  final List tags;
-  final List names;
+  final List<String> uids;
+  final List<List<SessionTags>> tags;
+  final List<String> names;
 
   const CompanyPresetsEntity({
     required this.uids,

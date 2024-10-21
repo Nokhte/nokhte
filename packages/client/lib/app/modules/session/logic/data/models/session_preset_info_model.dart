@@ -5,8 +5,7 @@ class SessionPresetInfoModel extends SessionPresetInfoEntity {
   const SessionPresetInfoModel({
     required super.name,
     required super.tags,
-    required super.oddConfiguration,
-    required super.evenConfiguration,
+    required super.phoneType,
   });
 
   factory SessionPresetInfoModel.fromSupabase(List res) {
@@ -14,27 +13,16 @@ class SessionPresetInfoModel extends SessionPresetInfoEntity {
       return const SessionPresetInfoModel(
         name: '',
         tags: [],
-        oddConfiguration: [],
-        evenConfiguration: [],
+        phoneType: '',
       );
     } else {
       final companyPresetRes = res.first;
       return SessionPresetInfoModel(
         name: companyPresetRes[CompanyPresetsQueries.NAME],
-        tags: companyPresetRes[CompanyPresetsQueries.TAGS],
-        oddConfiguration:
-            companyPresetRes[CompanyPresetsQueries.ODD_CONFIGURATION],
-        evenConfiguration:
-            companyPresetRes[CompanyPresetsQueries.EVEN_CONFIGURATION],
+        tags: CompanyPresetsQueries.mapTagsToEnum(
+            companyPresetRes[CompanyPresetsQueries.TAGS]),
+        phoneType: companyPresetRes[CompanyPresetsQueries.PHONE_TYPE],
       );
     }
   }
 }
-
-
-
-/// [{
-/// uid: 8e562e20-e4cd-4b3b-a73c-b93bc902a340, is_company_preset: true, company_preset_id: 8e562e20-e4cd-4b3b-a73c-b93bc902a340, user_generated_preset_id: null, 
-/// company_presets: {tags: [hold_to_speak, strict_seating, notes_during], 
-///                   name: Consultation, even_configuration: [speaking, notes],
-///  odd_configuration: [group_hybrid, speaking, notes]}}]
