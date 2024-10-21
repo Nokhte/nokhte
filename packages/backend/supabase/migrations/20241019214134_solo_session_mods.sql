@@ -409,30 +409,3 @@ alter table "public"."company_presets_preferences" add constraint "company_prese
 alter table "public"."company_presets_preferences" validate constraint "company_presets_preferences_tags_check";
 
 
-
--- ALTER TABLE "public"."company_presets" 
--- RENAME COLUMN "tags" TO "possible_tags";
-
--- ALTER TABLE "public"."company_presets_preferences" 
--- RENAME COLUMN "tags" TO "chosen_tags";
-
--- set check_function_bodies = off;
-
--- CREATE OR REPLACE FUNCTION public.check_valid_tags(preference_tags session_presets_tags[], company_preset_uid uuid)
---  RETURNS boolean
---  LANGUAGE plpgsql
--- AS $function$
--- DECLARE
---     company_preset_tags session_presets_tags[];
--- BEGIN
---     -- Get the tags from the corresponding company_preset
---     SELECT tags INTO company_preset_tags
---     FROM public.company_presets
---     WHERE uid = company_preset_uid;
-
---     -- Check if all tags in preference_tags are present in company_preset_tags
---     RETURN preference_tags <@ company_preset_tags;
--- END;
--- $function$
--- ;
-

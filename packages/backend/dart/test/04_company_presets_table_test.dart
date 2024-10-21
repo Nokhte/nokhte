@@ -21,7 +21,7 @@ void main() {
   const collaborativeTags = [
     'tap_to_speak',
     'flexible_seating',
-    'mono_focal_notes'
+    'multi_focal_notes'
   ];
   const soloTags = [
     'hold_to_speak',
@@ -33,6 +33,7 @@ void main() {
 
   test("select: PresetTypes.consultative", () async {
     final res = await user1Queries.select(type: PresetTypes.consultative);
+    print('res: $res');
     expect(res.first[CompanyPresetsQueries.PHONE_TYPE], 'group_hybrid');
     expect(res.first[CompanyPresetsQueries.TAGS], consultativeTags);
     expect(
@@ -43,7 +44,7 @@ void main() {
 
   test("select: PresetTypes.collaborative", () async {
     final res = await user1Queries.select(type: PresetTypes.collaborative);
-    expect(res.first[CompanyPresetsQueries.PHONE_TYPE], ['solo_hybrid']);
+    expect(res.first[CompanyPresetsQueries.PHONE_TYPE], 'solo_hybrid');
     expect(res.first[CompanyPresetsQueries.TAGS], collaborativeTags);
     expect(
       res.first[CompanyPresetsQueries.NAME],
@@ -53,7 +54,7 @@ void main() {
 
   test("select: PresetTypes.solo", () async {
     final res = await user1Queries.select(type: PresetTypes.solo);
-    expect(res.first[CompanyPresetsQueries.PHONE_TYPE], ['polymorphic_solo']);
+    expect(res.first[CompanyPresetsQueries.PHONE_TYPE], 'polymorphic_solo');
     expect(res.first[CompanyPresetsQueries.TAGS], soloTags);
     expect(
       res.first[CompanyPresetsQueries.NAME],

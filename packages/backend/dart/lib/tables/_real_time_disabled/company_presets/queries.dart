@@ -22,7 +22,7 @@ class CompanyPresetsQueries {
     String uid = '',
     PresetTypes? type,
   }) async {
-    if (uid.isEmpty) {
+    if (uid.isEmpty && type == null) {
       return await supabase.from(TABLE).select();
     } else if (type != null) {
       final name = mapTypeToPresetType(type);
