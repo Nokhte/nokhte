@@ -46,6 +46,7 @@ class UserInformationRemoteSourceImpl
   Future<List> getPreferredPreset() async {
     final res = await userInfoQueries.getUserInfo();
     final presetUID = res.first[userInfoQueries.PREFERRED_PRESET];
+    if (presetUID == null) return [];
     return await companyPresetQueries.select(
       uid: presetUID,
     );
