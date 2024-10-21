@@ -61,7 +61,7 @@ class PowerupExplanation extends HookWidget {
           child: RichJostList(
             contentList: [info.description],
             isOrdered: false,
-            horizontalPadding: 40,
+            horizontalPadding: 80,
           ),
         ),
         DemoPhones(
