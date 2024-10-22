@@ -9,6 +9,7 @@ import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/shared/mobx/mobx.dart';
+import 'package:nokhte/app/modules/presets/presets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
@@ -282,17 +283,9 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     }
   }
 
-  onCompanyPresetsReceived({
-    required ObservableList<String> uids,
-    required ObservableList<List<SessionTags>> tags,
-    required ObservableList<String> names,
-  }) {
-    presetCards.setPresets(
-      uids: uids,
-      tags: tags,
-      names: names,
-    );
-    presetCards.showAllCondensedPresets(showTags: false);
+  onCompanyPresetsReceived(CompanyPresetsEntity presetsEntity) {
+    presetCards.setPresets(presetsEntity);
+    presetCards.showAllCondensedPresets();
   }
 
   moveOtherNokhtes({required bool shouldExpand}) {
@@ -350,8 +343,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   condensedPresetCardTapReactor() =>
       reaction((p0) => presetCards.tapCount, (p0) {
         presetArticle.showBottomSheet(
-          presetCards.presetTypedNames[presetCards.currentTappedIndex],
-          presetCards.tags[presetCards.currentTappedIndex],
+          presetCards.companyPresetsEntity,
+          activeIndex: presetCards.currentTappedIndex,
           onOpen: () {},
           onClose: () {},
         );

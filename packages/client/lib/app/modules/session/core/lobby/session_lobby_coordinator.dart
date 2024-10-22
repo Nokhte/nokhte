@@ -77,12 +77,7 @@ abstract class _SessionLobbyCoordinatorBase
     ));
     disposers.add(sessionStartReactor());
     disposers.add(widgets.beachWavesMovieStatusReactor(enterGreeter));
-    disposers.add(
-      widgets.presetArticleTapReactor(
-        onOpen: onOpen,
-        onClose: onClose,
-      ),
-    );
+    disposers.add(presetArticleTapReactor());
     disposers.add(sessionPresetReactor());
   }
 
@@ -120,11 +115,19 @@ abstract class _SessionLobbyCoordinatorBase
         }
       });
 
+  presetArticleTapReactor() =>
+      reaction((p0) => widgets.presetArticle.tapCount, (p0) {
+        widgets.presetArticle.showBottomSheet(
+          sessionMetadata.presetEntity,
+          onOpen: onOpen,
+          onClose: onClose,
+        );
+      });
+
   @action
   showPresetInfo() {
     widgets.onPresetTypeReceived(
-      sessionMetadata.presetType,
-      sessionMetadata.presetTags,
+      sessionMetadata.presetEntity,
       onOpen: onOpen,
       onClose: onClose,
     );

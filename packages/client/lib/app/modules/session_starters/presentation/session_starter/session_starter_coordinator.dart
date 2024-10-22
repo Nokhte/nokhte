@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
@@ -47,7 +48,7 @@ abstract class _SessionStarterCoordinatorBase
     widgets.initReactors();
     initReactors();
     await userInfo.getPreferredPreset();
-    await presetsLogic.getCompanyPresets();
+    await presetsLogic.getCompanyPresets(Left(GetAllPresetsParams()));
     await starterLogic.initialize();
     await captureScreen(SessionStarterConstants.sessionStarter);
     starterLogic.listenToSessionActivation();
@@ -121,14 +122,12 @@ abstract class _SessionStarterCoordinatorBase
         }
       });
 
-  companyPresetsReactor() => reaction((p0) => presetsLogic.names, (p0) {
-        widgets.onCompanyPresetsReceived(
-          uids: presetsLogic.uids,
-          names: presetsLogic.names,
-          tags: presetsLogic.tags,
-        );
-        if (!userInfo.hasAccessedQrCode) {
-          widgets.presetCards.enableAllTouchFeedback();
+  companyPresetsReactor() => reaction((p0) => presetsLogic.state, (p0) {
+        if (p0 == StoreState.loaded) {
+          widgets.onCompanyPresetsReceived(presetsLogic.presetsEntity);
+          if (!userInfo.hasAccessedQrCode) {
+            widgets.presetCards.enableAllTouchFeedback();
+          }
         }
       });
 

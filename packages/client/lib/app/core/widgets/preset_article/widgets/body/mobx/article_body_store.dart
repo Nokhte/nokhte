@@ -14,11 +14,11 @@ abstract class _ArticleBodyStoreBase extends BaseWidgetStore with Store {
 
   @action
   setPreset(
-    CompanyPresetsEntity entity,
-    int indexToLookAt,
-  ) {
+    CompanyPresetsEntity entity, {
+    int activeIndex = 0,
+  }) {
     preset = entity;
-    activeIndex = indexToLookAt;
+    this.activeIndex = activeIndex;
   }
 
   @observable

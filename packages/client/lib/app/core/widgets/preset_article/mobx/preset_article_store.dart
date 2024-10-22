@@ -51,7 +51,7 @@ abstract class _PresetArticleStoreBase extends BaseWidgetStore with Store {
     Function? onOpen,
     Function? onClose,
   }) async {
-    body.setPreset(preset, activeIndex);
+    body.setPreset(preset, activeIndex: activeIndex);
 
     if (!showWidget) {
       setWidgetVisibility(true);
