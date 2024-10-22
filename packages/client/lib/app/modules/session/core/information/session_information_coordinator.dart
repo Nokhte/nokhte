@@ -37,10 +37,7 @@ abstract class _SessionInformationCoordinatorBase
 
   @action
   constructor() async {
-    widgets.constructor(
-      presetType: sessionMetadata.presetType,
-      tags: sessionMetadata.presetTags,
-    );
+    widgets.constructor(sessionMetadata.presetEntity);
     initReactors();
     await captureScreen(SessionConstants.information);
     widgets.setRoute(

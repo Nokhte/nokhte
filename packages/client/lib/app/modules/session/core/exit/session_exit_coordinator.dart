@@ -135,7 +135,7 @@ abstract class _SessionExitCoordinatorBase
   }
 
   @computed
-  SessionScreenTypes get phoneRole => sessionMetadata.sessionScreenType;
+  SessionScreenTypes get phoneRole => sessionMetadata.screenType;
 
   deconstructor() {
     presence.dispose();

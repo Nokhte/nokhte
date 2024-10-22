@@ -39,7 +39,7 @@ abstract class _SessionSoloHybridCoordinatorBase
   constructor() async {
     widgets.constructor(sessionMetadata.userCanSpeak);
     widgets.sessionNavigation.setup(
-      sessionMetadata.sessionScreenType,
+      sessionMetadata.screenType,
       sessionMetadata.presetType,
     );
     widgets.rally.setValues(
