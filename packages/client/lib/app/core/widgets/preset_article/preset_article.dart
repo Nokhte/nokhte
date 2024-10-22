@@ -60,7 +60,7 @@ class PresetArticle extends HookWidget {
                                     padding: EdgeInsets.only(
                                         top: height * .02, left: height * .03),
                                     child: Text(
-                                      store.body.bodyInfo.title,
+                                      store.body.article.title,
                                       style: GoogleFonts.jost(
                                         color: Colors.white,
                                         fontSize: height * .03,
@@ -82,7 +82,7 @@ class PresetArticle extends HookWidget {
                               Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
                                 child: TagLine(
-                                  store.body.bodyInfo.tagline,
+                                  store.body.article.tagline,
                                   useExpandedPadding: false,
                                 ),
                               ),

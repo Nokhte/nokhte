@@ -1,19 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/presets/presets.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
 
 class ArticleCarouselSlider extends StatelessWidget with ArticleBodyUtils {
   final Function(double currentPosition) onScrolled;
-  final Function(int currentIndex) onPageChanged;
-  final List tags;
+  final List<ArticleSection> articleSections;
   final double containerSize;
   final double currentPosition;
   const ArticleCarouselSlider({
     super.key,
     required this.onScrolled,
-    required this.onPageChanged,
-    required this.tags,
+    required this.articleSections,
     required this.containerSize,
     required this.currentPosition,
   });
@@ -81,7 +80,6 @@ class ArticleCarouselSlider extends StatelessWidget with ArticleBodyUtils {
         ),
       );
     } else {
-      // print("tag.runtimeType ${tag.runtimeType}");
       return Container();
     }
   }
@@ -146,20 +144,17 @@ class ArticleCarouselSlider extends StatelessWidget with ArticleBodyUtils {
             onScrolled: (value) {
               onScrolled(value ?? 0);
             },
-            onPageChanged: (value, reason) {
-              onPageChanged(value);
-            },
           ),
-          items: List.generate(tags.length, (index) {
+          items: List.generate(articleSections.length, (index) {
             return mapTagToIcon(
-              tags[index],
+              articleSections[index].tag,
               index.toDouble(),
               containerSize,
             );
           }),
         ),
         CarouselPlacementIndicator(
-          length: tags.length,
+          length: articleSections.length,
           currentPosition: currentPosition,
           containerSize: containerSize,
         ),

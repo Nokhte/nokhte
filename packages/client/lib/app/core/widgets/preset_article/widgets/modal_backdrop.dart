@@ -20,9 +20,9 @@ class ModalBackdrop extends StatelessWidget {
         child: Column(
           children: [
             ...ArticleHeader.get(
-              title: store.bodyInfo.title,
-              tagline: store.bodyInfo.tagline,
-              uniqueFeature: store.bodyInfo.uniqueFeature,
+              title: store.article.title,
+              tagline: store.article.tagline,
+              uniqueFeature: store.article.uniqueFeature,
             ),
             ArticleBody(
               store: store,

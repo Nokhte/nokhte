@@ -26,15 +26,13 @@ class ArticleBody extends HookWidget with ArticleBodyUtils {
             onScrolled: (value) {
               store.setCurrentPosition(value);
             },
-            onPageChanged: (currentIndex) {
-              store.setActiveIndex(currentIndex);
-            },
-            tags: store.presetTags,
+            articleSections: store.article.articleSections,
             containerSize: containerSize,
             currentPosition: store.currentPosition,
           ),
           ArticleContent(
-            type: store.presetType,
+            currentTag: store.currentTag,
+            allTheTags: store.allTheSessionTags,
             currentInstructionsHeader: store.currentInstructionsHeader,
             currentInstructionsBody: store.currentInstruction,
             currentJustifications: store.currentJustification,

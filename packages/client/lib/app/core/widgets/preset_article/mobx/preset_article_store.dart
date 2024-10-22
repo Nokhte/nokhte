@@ -6,7 +6,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/seconds.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte_backend/tables/company_presets.dart';
+import 'package:nokhte/app/modules/presets/presets.dart';
 part 'preset_article_store.g.dart';
 
 class PresetArticleStore = _PresetArticleStoreBase with _$PresetArticleStore;
@@ -46,12 +46,12 @@ abstract class _PresetArticleStoreBase extends BaseWidgetStore with Store {
 
   @action
   showBottomSheet(
-    PresetTypes presetType,
-    List<SessionTags> presetTags, {
-    required Function onOpen,
-    required Function onClose,
+    CompanyPresetsEntity preset, {
+    int activeIndex = 0,
+    Function? onOpen,
+    Function? onClose,
   }) async {
-    body.setInformation(presetType, presetTags);
+    body.setPreset(preset, activeIndex);
 
     if (!showWidget) {
       setWidgetVisibility(true);
@@ -78,10 +78,10 @@ abstract class _PresetArticleStoreBase extends BaseWidgetStore with Store {
         nokhteBlur.reverse();
         setWidgetVisibility(false);
         Timer(Seconds.get(0), () async {
-          await onClose();
+          await onClose?.call();
         });
       });
-      await onOpen();
+      await onOpen?.call();
     }
   }
 }

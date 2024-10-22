@@ -1,13 +1,16 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/presets/presets.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
 
 class ArticleContent extends StatelessWidget {
   final String currentInstructionsHeader;
   final List<String> currentInstructionsBody;
   final List<String> currentJustifications;
+  final List<SessionTags> allTheTags;
+  final SessionTags currentTag;
 
-  final PresetTypes type;
   final PowerupInfo powerUpInformation;
   final double opacity;
   final double currentPosition;
@@ -17,9 +20,10 @@ class ArticleContent extends StatelessWidget {
     required this.currentInstructionsHeader,
     required this.currentInstructionsBody,
     required this.currentJustifications,
+    required this.currentTag,
     required this.opacity,
     required this.powerUpInformation,
-    required this.type,
+    required this.allTheTags,
     required this.currentPosition,
   });
 
@@ -30,7 +34,7 @@ class ArticleContent extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6.0),
+            padding: const EdgeInsets.symmetric(vertical: 25.0),
             child: Chivo(
               currentInstructionsHeader,
               fontSize: 27,
@@ -44,18 +48,17 @@ class ArticleContent extends StatelessWidget {
             ),
           ),
           DemoPhones(
-            type: type,
-            currentPosition: currentPosition,
+            allTheTags: allTheTags,
+            demoType: Left(currentTag),
           ),
           PowerupExplanation(
-            currentPosition: currentPosition,
             info: powerUpInformation,
-            type: type,
+            allTheTags: allTheTags,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 6.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6.0),
             child: Chivo(
-              'Reasons:',
+              currentJustifications.isNotEmpty ? 'Reasons:' : '',
               fontSize: 27,
             ),
           ),

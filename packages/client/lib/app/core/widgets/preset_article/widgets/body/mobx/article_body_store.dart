@@ -1,11 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
-
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/presets/presets.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
 part 'article_body_store.g.dart';
 
@@ -13,37 +10,19 @@ class ArticleBodyStore = _ArticleBodyStoreBase with _$ArticleBodyStore;
 
 abstract class _ArticleBodyStoreBase extends BaseWidgetStore with Store {
   @observable
-  int activeIndex = 0;
-
-  @observable
-  PresetTypes presetType = PresetTypes.collaborative;
+  CompanyPresetsEntity preset = CompanyPresetsEntity.initial();
 
   @action
-  setPresetType(PresetTypes type) => presetType = type;
-
-  @observable
-  ObservableList<SessionTags> presetTags = ObservableList.of([]);
-
-  @action
-  setPresetTags(ObservableList<SessionTags> tags) => presetTags = tags;
-
-  @action
-  setInformation(
-    PresetTypes type,
-    List<SessionTags> tags,
+  setPreset(
+    CompanyPresetsEntity entity,
+    int indexToLookAt,
   ) {
-    presetTags = ObservableList.of(tags);
-    presetType = type;
+    preset = entity;
+    activeIndex = indexToLookAt;
   }
 
-  @action
-  setActiveIndex(int index) {
-    setWidgetVisibility(false);
-    Timer(Seconds.get(1), () {
-      activeIndex = index;
-      setWidgetVisibility(true);
-    });
-  }
+  @observable
+  int activeIndex = 0;
 
   @observable
   double currentPosition = 0.0;
@@ -54,66 +33,53 @@ abstract class _ArticleBodyStoreBase extends BaseWidgetStore with Store {
   @action
   reset() {
     currentPosition = 0.0;
-    activeIndex = 0;
+  }
+
+  ArticleSection _getCurrentSection() {
+    if (currentPosition.isLessThanOrEqualTo(.5)) {
+      return article.articleSections[0];
+    } else if (currentPosition.isGreaterThan(.5) &&
+        currentPosition.isLessThanOrEqualTo(1.5)) {
+      return article.articleSections[1];
+    } else if (currentPosition.isGreaterThan(1.5)) {
+      return article.articleSections[2];
+    }
+    return ArticleSection.initial();
+  }
+
+  @computed
+  SessionTags get currentTag {
+    final section = _getCurrentSection();
+    return section.tag;
   }
 
   @computed
   List<String> get currentInstruction {
-    if (currentPosition.isLessThanOrEqualTo(.5)) {
-      return bodyInfo.speakingInstructions;
-    } else if (currentPosition.isGreaterThan(.5) &&
-        currentPosition.isLessThanOrEqualTo(1.5)) {
-      return bodyInfo.sittingInstructions;
-    } else if (currentPosition.isGreaterThan(1.5)) {
-      return bodyInfo.notesInstructions;
-    } else {
-      return [];
-    }
+    final section = _getCurrentSection();
+    return section.articleInstructions;
   }
 
   @computed
   List<String> get currentJustification {
-    if (currentPosition.isLessThanOrEqualTo(.5)) {
-      return bodyInfo.speakingJustifications;
-    } else if (currentPosition.isGreaterThan(.5) &&
-        currentPosition.isLessThanOrEqualTo(1.5)) {
-      return bodyInfo.sittingJustifications;
-    } else if (currentPosition.isGreaterThan(1.5)) {
-      return bodyInfo.notesJustifications;
-    } else {
-      return [];
-    }
+    final section = _getCurrentSection();
+    return section.articleJustifications;
   }
 
   @computed
-  String get name => presetType == PresetTypes.collaborative
-      ? 'Collaboration'
-      : 'Consultation';
-
-  @computed
-  PowerupInfo get powerUpInfo => PowerupInfo(
-        presetType == PresetTypes.collaborative
-            ? Powerups.rally
-            : Powerups.letEmCook,
-      );
+  PowerupInfo get powerUpInfo {
+    final section = _getCurrentSection();
+    return section.powerup;
+  }
 
   @computed
   String get currentInstructionsHeader {
-    if (currentPosition.isLessThanOrEqualTo(.5)) {
-      return 'How to speak:';
-    } else if (currentPosition.isGreaterThan(.5) &&
-        currentPosition.isLessThanOrEqualTo(1.5)) {
-      return 'Where to sit:';
-    } else if (currentPosition.isGreaterThan(1.5)) {
-      return 'How to take notes:';
-    } else {
-      return '';
-    }
+    final section = _getCurrentSection();
+    return section.sectionHeader;
   }
 
   @computed
-  ArticleBodyInfo get bodyInfo => ArticleBodyInfo(
-        presetTags: presetTags,
-        presetType: presetType,
-      );
+  PresetArticleEntity get article => preset.articles[activeIndex];
+
+  @computed
+  List<SessionTags> get allTheSessionTags => preset.tags[activeIndex];
 }
