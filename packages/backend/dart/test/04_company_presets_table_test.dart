@@ -38,7 +38,7 @@ void main() {
     expect(res.first[CompanyPresetsQueries.TAGS], consultativeTags);
     expect(
       res.first[CompanyPresetsQueries.NAME],
-      CompanyPresetsQueries.mapTypeToPresetType(PresetTypes.consultative),
+      CompanyPresetsUtils.mapTypeToPresetType(PresetTypes.consultative),
     );
   });
 
@@ -48,7 +48,7 @@ void main() {
     expect(res.first[CompanyPresetsQueries.TAGS], collaborativeTags);
     expect(
       res.first[CompanyPresetsQueries.NAME],
-      CompanyPresetsQueries.mapTypeToPresetType(PresetTypes.collaborative),
+      CompanyPresetsUtils.mapTypeToPresetType(PresetTypes.collaborative),
     );
   });
 
@@ -58,7 +58,7 @@ void main() {
     expect(res.first[CompanyPresetsQueries.TAGS], soloTags);
     expect(
       res.first[CompanyPresetsQueries.NAME],
-      CompanyPresetsQueries.mapTypeToPresetType(PresetTypes.solo),
+      CompanyPresetsUtils.mapTypeToPresetType(PresetTypes.solo),
     );
   });
 }

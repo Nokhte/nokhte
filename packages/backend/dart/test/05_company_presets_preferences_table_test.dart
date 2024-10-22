@@ -32,8 +32,11 @@ void main() {
         (await companyPresetQueries.select(type: PresetTypes.solo))
             .first[CompanyPresetsQueries.UID];
     expect(res, isNotEmpty);
-    expect(res.first[CompanyPresetsPreferencesQueries.TAGS],
-        CompanyPresetsPreferencesQueries.mapTypeToPresetType(PresetTypes.solo));
+    expect(
+      res.first[CompanyPresetsPreferencesQueries.TAGS],
+      CompanyPresetsPreferencesQueries.mapTypeToChosenDefaultStringTags(
+          PresetTypes.solo),
+    );
     expect(
         res.first[CompanyPresetsPreferencesQueries.COMPANY_PRESET], presetUID);
   });
@@ -67,7 +70,7 @@ void main() {
 
     expect(
       res.first[CompanyPresetsPreferencesQueries.TAGS],
-      CompanyPresetsQueries.mapEnumsToTags(tags),
+      CompanyPresetsUtils.mapEnumsToTags(tags),
     );
   });
 
@@ -81,7 +84,7 @@ void main() {
     final res = await user1Queries.update(newTags: tags);
     expect(
       res.first[CompanyPresetsPreferencesQueries.TAGS],
-      CompanyPresetsQueries.mapEnumsToTags(tags),
+      CompanyPresetsUtils.mapEnumsToTags(tags),
     );
   });
 

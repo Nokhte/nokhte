@@ -24,7 +24,7 @@ class CompanyPresetsPreferencesQueries {
       type: type,
     ))
         .first[CompanyPresetsQueries.UID];
-    final othertags = mapTypeToPresetType(type);
+    final othertags = mapTypeToChosenDefaultStringTags(type);
     if (othertags.isNotEmpty) {
       return await supabase.from(TABLE).insert({
         COMPANY_PRESET: companyPresetUID,
@@ -60,13 +60,17 @@ class CompanyPresetsPreferencesQueries {
     }
   }
 
+  Future<List> select() async => await supabase.from(TABLE).select();
+
   Future<List> update({
     PresetTypes type = PresetTypes.solo,
     required List<SessionTags> newTags,
   }) async {
-    final companyPresetUID =
-        (await companyPresets.select()).first[CompanyPresetsQueries.UID];
-    final tags = CompanyPresetsQueries.mapEnumsToTags(newTags);
+    final companyPresetUID = (await companyPresets.select(
+      type: type,
+    ))
+        .first[CompanyPresetsQueries.UID];
+    final tags = CompanyPresetsUtils.mapEnumsToTags(newTags);
     if (tags.isNotEmpty) {
       return await supabase
           .from(TABLE)
@@ -80,15 +84,20 @@ class CompanyPresetsPreferencesQueries {
     }
   }
 
-  static List<String> mapTypeToPresetType(PresetTypes type) {
+  static List<SessionTags> mapTypeToChosenDefaultTags(PresetTypes type) {
     if (type == PresetTypes.solo) {
-      return CompanyPresetsQueries.mapEnumsToTags([
+      return [
         SessionTags.tapToSpeak,
         SessionTags.noSeating,
         SessionTags.deactivatedNotes,
-      ]);
+      ];
     } else {
-      return CompanyPresetsQueries.mapEnumsToTags([]);
+      return [];
     }
   }
+
+  static List<String> mapTypeToChosenDefaultStringTags(PresetTypes type) =>
+      CompanyPresetsUtils.mapEnumsToTags(
+        mapTypeToChosenDefaultTags(type),
+      );
 }
