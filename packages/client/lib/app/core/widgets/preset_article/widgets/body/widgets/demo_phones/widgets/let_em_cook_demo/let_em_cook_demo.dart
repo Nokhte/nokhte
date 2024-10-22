@@ -3,10 +3,17 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/widgets/widgets.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'let_em_cook_demo_painter.dart';
+import 'movie.dart';
 
 class LetEmCookDemo extends HookWidget {
-  const LetEmCookDemo({super.key});
+  final List<SessionTags> allTheTags;
+  const LetEmCookDemo(
+    this.allTheTags, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +21,8 @@ class LetEmCookDemo extends HookWidget {
     final iconWidth = width * .12;
 
     return CustomAnimationBuilder(
-      tween: DemoPhoneMovies.letEmCook,
-      duration: DemoPhoneMovies.letEmCook.duration,
+      tween: letEmCook,
+      duration: letEmCook.duration,
       control: Control.loop,
       builder: (context, value, child) {
         return MultiHitStack(
@@ -29,6 +36,7 @@ class LetEmCookDemo extends HookWidget {
                   glowStrokeWidth: value.get('glowStroke'),
                   restingTextOpacity: value.get('p1Text'),
                   activeTextOpacity: value.get('p2Text'),
+                  allTheTags: allTheTags,
                   containerSize: width,
                   leftPhoneColorsList:
                       GetCurrentWaterAnimation.colors(value, prefix: 'l'),

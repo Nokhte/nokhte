@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
 
-class SpeakingDemosPainter extends CustomPainter with DemoPainterUtils {
-  final PresetTypes type;
+class LetEmCookDemoPainter extends CustomPainter with DemoPainterUtils {
   final List<Color> leftPhoneColorsList;
   final List<Color> rightPhoneColorsList;
   final List<double> leftPhoneStopsList;
   final List<double> rightPhoneStopsList;
+  final List<SessionTags> allTheTags;
   final Color glowColor;
+
   final double activeTextOpacity,
       restingTextOpacity,
       glowStrokeWidth,
       containerSize;
 
-  SpeakingDemosPainter({
-    required this.type,
+  LetEmCookDemoPainter({
     required this.containerSize,
+    required this.allTheTags,
     required this.leftPhoneColorsList,
     required this.leftPhoneStopsList,
     required this.rightPhoneColorsList,
@@ -72,7 +73,7 @@ class SpeakingDemosPainter extends CustomPainter with DemoPainterUtils {
       phoneHeight,
       phoneCornerRadius,
       activeTextOpacity,
-      type == PresetTypes.collaborative ? TintType.bottomHalf : TintType.full,
+      TintType.full,
     );
 
     final lRect = leftPhoneOffset & Size(phoneWidth, phoneHeight);
@@ -105,16 +106,16 @@ class SpeakingDemosPainter extends CustomPainter with DemoPainterUtils {
       phoneHeight,
       restingTextOpacity,
       containerSize,
-      type,
+      allTheTags,
     );
     paintPhoneTexts(
       canvas,
       rightPhoneOffset,
       phoneWidth,
       phoneHeight,
-      1,
+      restingTextOpacity,
       containerSize,
-      type,
+      allTheTags,
     );
 
     drawBlurredBorder(

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
 
-class ConsultativeNotesDemoPainter extends CustomPainter with DemoPainterUtils {
-  final PresetTypes type;
+class MonoFocalNotesDemoPainter extends CustomPainter with DemoPainterUtils {
+  final List<SessionTags> allTheTags;
   final List<Color> leftPhoneColorsList;
   final List<Color> rightPhoneColorsList;
   final List<double> leftPhoneStopsList;
@@ -15,8 +15,8 @@ class ConsultativeNotesDemoPainter extends CustomPainter with DemoPainterUtils {
       slightlyAboveCenterTextOpacity,
       slightlyBelowCenterTextOpacity;
 
-  ConsultativeNotesDemoPainter({
-    required this.type,
+  MonoFocalNotesDemoPainter({
+    required this.allTheTags,
     required this.containerSize,
     required this.leftPhoneColorsList,
     required this.leftPhoneStopsList,
@@ -107,7 +107,7 @@ class ConsultativeNotesDemoPainter extends CustomPainter with DemoPainterUtils {
       phoneHeight,
       1,
       containerSize,
-      PresetTypes.consultative,
+      allTheTags,
     );
 
     paintPhoneTexts(
@@ -117,7 +117,7 @@ class ConsultativeNotesDemoPainter extends CustomPainter with DemoPainterUtils {
       phoneHeight,
       slightlyAboveCenterTextOpacity,
       containerSize,
-      PresetTypes.consultative,
+      allTheTags,
     );
   }
 

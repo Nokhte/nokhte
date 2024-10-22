@@ -2,28 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
 
-class LetEmCookDemoPainter extends CustomPainter with DemoPainterUtils {
+class RallyDemoPainter extends CustomPainter with DemoPainterUtils {
+  final List<SessionTags> allTheTags;
   final List<Color> leftPhoneColorsList;
   final List<Color> rightPhoneColorsList;
   final List<double> leftPhoneStopsList;
   final List<double> rightPhoneStopsList;
   final Color glowColor;
+  final double rightPhoneTextOpacity;
 
-  final double activeTextOpacity,
+  final double leftActiveTextOpacity,
+      rightHeaderListeningTextOpacity,
+      rightHeaderSpeakingTextOpacity,
       restingTextOpacity,
+      leftTintOpacity,
+      rightTintOpacity,
       glowStrokeWidth,
       containerSize;
 
-  LetEmCookDemoPainter({
+  RallyDemoPainter({
     required this.containerSize,
+    required this.allTheTags,
     required this.leftPhoneColorsList,
     required this.leftPhoneStopsList,
     required this.rightPhoneColorsList,
     required this.rightPhoneStopsList,
-    required this.activeTextOpacity,
+    required this.rightHeaderListeningTextOpacity,
+    required this.rightHeaderSpeakingTextOpacity,
     required this.restingTextOpacity,
+    required this.leftActiveTextOpacity,
+    required this.leftTintOpacity,
+    required this.rightTintOpacity,
     required this.glowColor,
     required this.glowStrokeWidth,
+    required this.rightPhoneTextOpacity,
   });
 
   @override
@@ -70,8 +82,8 @@ class LetEmCookDemoPainter extends CustomPainter with DemoPainterUtils {
       phoneWidth,
       phoneHeight,
       phoneCornerRadius,
-      activeTextOpacity,
-      TintType.full,
+      rightTintOpacity,
+      TintType.bottomHalf,
     );
 
     final lRect = leftPhoneOffset & Size(phoneWidth, phoneHeight);
@@ -84,7 +96,7 @@ class LetEmCookDemoPainter extends CustomPainter with DemoPainterUtils {
       lCenter,
       'Speaking',
       containerSize,
-      activeTextOpacity,
+      leftActiveTextOpacity,
       DemoTextPosition.leftHeader,
       lRect,
     );
@@ -93,7 +105,16 @@ class LetEmCookDemoPainter extends CustomPainter with DemoPainterUtils {
       rCenter,
       'Listening',
       containerSize,
-      activeTextOpacity,
+      rightHeaderListeningTextOpacity,
+      DemoTextPosition.leftHeader,
+      rRect,
+    );
+    paintText(
+      canvas,
+      rCenter,
+      'Speaking',
+      containerSize,
+      rightHeaderSpeakingTextOpacity,
       DemoTextPosition.leftHeader,
       rRect,
     );
@@ -104,21 +125,63 @@ class LetEmCookDemoPainter extends CustomPainter with DemoPainterUtils {
       phoneHeight,
       restingTextOpacity,
       containerSize,
-      PresetTypes.consultative,
+      allTheTags,
     );
     paintPhoneTexts(
       canvas,
       rightPhoneOffset,
       phoneWidth,
       phoneHeight,
-      restingTextOpacity,
+      rightPhoneTextOpacity,
       containerSize,
-      PresetTypes.consultative,
+      allTheTags,
     );
 
     drawBlurredBorder(
       canvas,
       leftPhoneOffset,
+      phoneWidth,
+      phoneHeight,
+      phoneCornerRadius,
+      glowColor,
+      glowStrokeWidth,
+    );
+
+    drawTint(
+      canvas,
+      leftPhoneOffset,
+      phoneWidth,
+      phoneHeight,
+      phoneCornerRadius,
+      leftTintOpacity,
+      // 1,
+      TintType.full,
+    );
+  }
+
+  @override
+  bool shouldRepaint(oldDelegate) => true;
+}
+
+class OtherGlowPainter extends CustomPainter with DemoPainterUtils {
+  final Color glowColor;
+  final double containerSize, glowStrokeWidth;
+
+  OtherGlowPainter({
+    required this.containerSize,
+    required this.glowColor,
+    required this.glowStrokeWidth,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Offset rightPhoneOffset = getRightPhoneOffset(size, containerSize);
+    final phoneHeight = getPhoneHeight(containerSize);
+    final phoneWidth = getPhoneWidth(containerSize);
+
+    drawBlurredBorder(
+      canvas,
+      rightPhoneOffset,
       phoneWidth,
       phoneHeight,
       phoneCornerRadius,

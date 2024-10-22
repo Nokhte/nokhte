@@ -3,18 +3,22 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/widgets/widgets.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'rally_demo_painter.dart';
 
 class RallyDemo extends HookWidget with RallyConstants {
-  RallyDemo({super.key});
+  final List<SessionTags> allTheTags;
+  RallyDemo(
+    this.allTheTags, {
+    super.key,
+  });
 
   Widget getListItem(String text, double width) => Container(
         width: width * 0.32,
         margin: EdgeInsets.only(
           left: width * 0.1,
           bottom: width * 0.025,
-          // vertical: 5.0,
-          // horizontal: 5.0,
         ),
         padding: EdgeInsets.symmetric(
           vertical: width * 0.005,
@@ -56,6 +60,7 @@ class RallyDemo extends HookWidget with RallyConstants {
                   rightTintOpacity: value.get('rightTintOpacity'),
                   rightPhoneTextOpacity: value.get('rPhoneTextOpacity'),
                   containerSize: width,
+                  allTheTags: allTheTags,
                   leftPhoneColorsList:
                       GetCurrentWaterAnimation.colors(value, prefix: 'l'),
                   leftPhoneStopsList:

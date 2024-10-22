@@ -228,10 +228,15 @@ mixin DemoPainterUtils {
     canvas.restore();
   }
 
-  void drawTint(Canvas canvas, Offset offset, double width, double height,
-      double cornerRadius, double opacity, TintType type
-      // PresetTypes type,
-      ) {
+  void drawTint(
+    Canvas canvas,
+    Offset offset,
+    double width,
+    double height,
+    double cornerRadius,
+    double opacity,
+    TintType type,
+  ) {
     final paint = Paint()..color = Colors.black.withOpacity(opacity / 2);
     RRect rrect = RRect.fromRectAndRadius(
       Rect.fromLTWH(
@@ -298,8 +303,9 @@ mixin DemoPainterUtils {
     double phoneHeight,
     double opacity,
     double containerSize,
-    PresetTypes type,
+    List<SessionTags> allTheTags,
   ) {
+    final isTapToSpeak = allTheTags.contains(SessionTags.tapToSpeak);
     final rect = phoneOffset & Size(phoneWidth, phoneHeight);
     final center = rect.center;
     paintText(
@@ -314,7 +320,7 @@ mixin DemoPainterUtils {
     paintText(
       canvas,
       center,
-      type == PresetTypes.collaborative ? 'Tap to speak' : 'Hold to speak',
+      isTapToSpeak ? 'Tap to speak' : 'Hold to speak',
       containerSize,
       opacity,
       DemoTextPosition.slightlyBelowCenter,
