@@ -110,15 +110,6 @@ class SessionPresenceContractImpl
     }
   }
 
-  @override
-  getSessionPresetInfo(unifiedUID) async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource.getPresetInformation(unifiedUID);
-      return Right(SessionPresetInfoModel.fromSupabase(res));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
 
 
   @override

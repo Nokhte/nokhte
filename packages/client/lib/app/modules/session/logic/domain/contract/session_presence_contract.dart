@@ -17,9 +17,6 @@ abstract class SessionPresenceContract {
   Future<Either<Failure, StaticSessionMetadataEntity>> getSTSessionMetadata(
     NoParams params,
   );
-  Future<Either<Failure, SessionPresetInfoEntity>> getSessionPresetInfo(
-    String unifiedUID,
-  );
   Future<Either<Failure, Stream<NokhteSessionMetadata>>>
       listenToRTSessionMetadata(NoParams params);
   bool cancelSessionMetadataStream(NoParams params);

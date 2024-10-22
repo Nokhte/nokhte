@@ -1,10 +1,12 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/modules/presets/presets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 import 'package:nokhte_backend/tables/company_presets.dart';
 import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
@@ -16,8 +18,10 @@ class SessionMetadataStore = _SessionMetadataStoreBase
 abstract class _SessionMetadataStoreBase
     with Store, BaseMobxLogic<NoParams, Stream<NokhteSessionMetadata>> {
   final SessionPresenceContract contract;
+  final PresetsLogicCoordinator presetsLogic;
   _SessionMetadataStoreBase({
     required this.contract,
+    required this.presetsLogic,
   }) {
     initBaseLogicActions();
   }
@@ -75,15 +79,6 @@ abstract class _SessionMetadataStoreBase
   String presetUID = '';
 
   @observable
-  String presetName = '';
-
-  @observable
-  ObservableList<SessionTags> presetTags = ObservableList.of([]);
-
-  @observable
-  String phoneType = '';
-
-  @observable
   DateTime speakingTimerStart = DateTime.fromMillisecondsSinceEpoch(0);
 
   @observable
@@ -102,7 +97,7 @@ abstract class _SessionMetadataStoreBase
   @action
   resetValues() {
     setState(StoreState.initial);
-    presetName = '';
+    presetsLogic.reset();
     currentPhases = ObservableList.of(List.filled(9, -9));
   }
 
@@ -118,18 +113,13 @@ abstract class _SessionMetadataStoreBase
     res.fold((failure) => mapFailureToMessage(failure), (entity) async {
       isAPremiumSession = entity.isAPremiumSession;
       isAValidSession = entity.isAValidSession;
-      if (presetName.isEmpty) {
+      if (presetsLogic.presetsEntity.uids.isEmpty) {
         userIndex = entity.userIndex;
         leaderIsWhitelisted = entity.leaderIsWhitelisted;
         namesAndUIDs = ObservableList.of(entity.namesAndUIDs);
         presetUID = entity.presetUID;
         leaderUID = entity.leaderUID;
-        final res = await contract.getSessionPresetInfo(presetUID);
-        res.fold((failure) => mapFailureToMessage(failure), (presetEntity) {
-          presetName = presetEntity.name;
-          presetTags = ObservableList.of(presetEntity.tags);
-          phoneType = presetEntity.phoneType;
-        });
+        await presetsLogic.getCompanyPresets(Right(entity.presetUID));
       }
     });
   }
@@ -167,20 +157,6 @@ abstract class _SessionMetadataStoreBase
     );
   }
 
-  SessionScreenTypes fromRawScreenType(String param) {
-    if (param.contains('solo')) {
-      return SessionScreenTypes.soloHybrid;
-    } else if (param.contains('group')) {
-      return SessionScreenTypes.groupHybrid;
-    } else if (param.contains('speaking')) {
-      return SessionScreenTypes.speaking;
-    } else if (param.contains('notes')) {
-      return SessionScreenTypes.notes;
-    } else {
-      return SessionScreenTypes.inital;
-    }
-  }
-
   getUIDFromName(String name) {
     for (var nameAndUID in namesAndUIDs) {
       if (nameAndUID.name == name) {
@@ -215,28 +191,6 @@ abstract class _SessionMetadataStoreBase
       }
     }
     return count;
-  }
-
-  @computed
-  PresetTypes get presetType {
-    if (presetName.contains('sultat')) {
-      return PresetTypes.consultative;
-    } else if (presetName.contains('llaborat')) {
-      return PresetTypes.collaborative;
-    } else if (presetName.contains('olo')) {
-      return PresetTypes.solo;
-    } else {
-      return PresetTypes.none;
-    }
-  }
-
-  @computed
-  SessionScreenTypes get sessionScreenType {
-    if (phoneType.isEmpty) {
-      return SessionScreenTypes.inital;
-    } else {
-      return fromRawScreenType(phoneType);
-    }
   }
 
   @computed
@@ -311,6 +265,18 @@ abstract class _SessionMetadataStoreBase
 
     return names;
   }
+
+  @computed
+  CompanyPresetsEntity get presetEntity => presetsLogic.presetsEntity;
+
+  @computed
+  SessionScreenTypes get screenType => presetEntity.screenTypes.first;
+
+  @computed
+  PresetTypes get presetType => presetEntity.presets.first;
+
+  @computed
+  PresetArticleEntity get article => presetEntity.articles.first;
 
   @computed
   List<bool> get canRallyArray {
