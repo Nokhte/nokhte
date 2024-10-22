@@ -1,39 +1,51 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/presets/presets.dart';
-import 'package:nokhte_backend/tables/company_presets.dart';
 part 'presets_logic_coordinator.g.dart';
 
 class PresetsLogicCoordinator = _PresetsLogicCoordinatorBase
     with _$PresetsLogicCoordinator;
 
 abstract class _PresetsLogicCoordinatorBase with Store, BaseMobxLogic {
-  final GetCompanyPresets getCompanyPresetsLogic;
+  final PresetsContract contract;
 
   _PresetsLogicCoordinatorBase({
-    required this.getCompanyPresetsLogic,
+    required this.contract,
   }) {
     initBaseLogicActions();
   }
 
   @observable
-  ObservableList<String> uids = ObservableList();
+  CompanyPresetsEntity presetsEntity = CompanyPresetsEntity.initial();
 
   @observable
-  ObservableList<List<SessionTags>> tags = ObservableList();
-
-  @observable
-  ObservableList<String> names = ObservableList();
+  bool preferencesAreUpdated = false;
 
   @action
-  getCompanyPresets() async {
-    final result = await getCompanyPresetsLogic(NoParams());
+  reset() {
+    presetsEntity = CompanyPresetsEntity.initial();
+    preferencesAreUpdated = false;
+  }
+
+  @action
+  getCompanyPresets(
+    Either<GetAllPresetsParams, String> params,
+  ) async {
+    setState(StoreState.loading);
+    final result = await contract.getPresets(params);
     result.fold((failure) => errorUpdater(failure), (entity) {
-      uids = ObservableList.of(entity.uids);
-      tags = ObservableList.of(entity.tags);
-      names = ObservableList.of(entity.names);
+      presetsEntity = entity;
+      setState(StoreState.loaded);
+    });
+  }
+
+  @action
+  upsertSessionPreferences(UpsertSessionPreferencesParams params) async {
+    final result = await contract.upsertSessionPreferences(params);
+    result.fold((failure) => errorUpdater(failure), (updateStatus) {
+      preferencesAreUpdated = updateStatus;
     });
   }
 }
