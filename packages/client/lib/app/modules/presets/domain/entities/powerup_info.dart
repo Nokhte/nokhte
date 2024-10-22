@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/presets/presets.dart';
 
 class PowerupInfo extends Equatable {
   final Powerups powerup;
@@ -22,6 +22,8 @@ class PowerupInfo extends Equatable {
         ? 'assets/cook_button.png'
         : 'assets/rally_button_white.png';
   }
+
+  factory PowerupInfo.initial() => PowerupInfo(Powerups.none);
 
   static String _getName(Powerups powerup) {
     return powerup == Powerups.letEmCook ? "Let 'em cook" : "Rally";
