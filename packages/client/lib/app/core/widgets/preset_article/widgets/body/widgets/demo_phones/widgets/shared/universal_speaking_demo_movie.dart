@@ -3,7 +3,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-MovieTween groupSpeaking = TwoSecondBeachTransitionMovie.getMovie(
+MovieTween universalSpeakingDemo = TwoSecondBeachTransitionMovie.getMovie(
   TwoSecondBeachTransitionMovie.getMovie(
     TwoSecondBeachTransitionMovie.getMovie(
       MovieTween(),

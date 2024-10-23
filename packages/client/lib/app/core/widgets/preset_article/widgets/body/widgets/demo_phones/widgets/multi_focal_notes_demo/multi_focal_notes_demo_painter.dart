@@ -33,16 +33,11 @@ class MultiFocalNotesDemoPainter extends CustomPainter with DemoPainterUtils {
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
     );
-    const double phoneAspectRatio = .5;
-    const double phoneCornerRadius = 15.0;
 
-    final double phoneHeight = containerSize * 0.8;
-    final double phoneWidth = phoneHeight * phoneAspectRatio;
+    final double phoneHeight = getPhoneHeight(containerSize);
+    final double phoneWidth = getPhoneWidth(containerSize);
 
-    final Offset phoneOffset = Offset(
-      (size.width - phoneWidth) / 2,
-      (size.height - phoneHeight) / 2,
-    );
+    final Offset phoneOffset = getCenterPhoneOffset(size, containerSize);
 
     drawPhone(
         canvas, phoneOffset, phoneWidth, phoneHeight, grad, phoneCornerRadius);

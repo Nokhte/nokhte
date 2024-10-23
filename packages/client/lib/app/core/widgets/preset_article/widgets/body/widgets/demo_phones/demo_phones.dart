@@ -31,7 +31,11 @@ class DemoPhones extends HookWidget with RallyConstants {
 
   Widget _buildSessionTagDemo(SessionTags tag) {
     if (tag == SessionTags.tapToSpeak || tag == SessionTags.holdToSpeak) {
-      return GroupSpeakingDemo(allTheTags);
+      if (allTheTags.contains(SessionTags.noSeating)) {
+        return SoloSpeakingDemo(allTheTags);
+      } else {
+        return GroupSpeakingDemo(allTheTags);
+      }
     }
     if (tag == SessionTags.monoFocalNotes) {
       return MonoFocalNotesDemo(allTheTags);
