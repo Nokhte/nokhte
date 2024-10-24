@@ -101,7 +101,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
         onClose: onClose,
       );
     } else {
-      presetArticle.body.setPreset(entity);
+      presetArticle.setPreset(entity);
     }
   }
 
