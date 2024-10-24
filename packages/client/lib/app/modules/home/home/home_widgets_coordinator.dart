@@ -37,6 +37,7 @@ abstract class _HomeWidgetsCoordinatorBase
   final NokhteBlurStore nokhteBlur;
   final GestureCrossStore gestureCross;
   final SmartTextStore smartText;
+  final SmartTextStore gestureCrossSmartText;
   @override
   final CenterNokhteStore centerNokhte;
   @override
@@ -52,6 +53,7 @@ abstract class _HomeWidgetsCoordinatorBase
     required this.wifiDisconnectOverlay,
     required this.gestureCross,
     required this.smartText,
+    required this.gestureCrossSmartText,
     required this.centerNokhte,
     required this.swipeGuides,
     required this.sessionStarterNokhte,
@@ -94,6 +96,10 @@ abstract class _HomeWidgetsCoordinatorBase
       AuxiliaryNokhteColorways.vibrantBlue,
     );
     smartText.setMessagesData(HomeList.list);
+
+    gestureCrossSmartText.setWidgetVisibility(false);
+    gestureCrossSmartText.setMessagesData(HomeList.gestureCrossList);
+    gestureCrossSmartText.startRotatingText();
     smartText.startRotatingText();
     initReactors();
     setupEnRouteWidgets();
@@ -269,9 +275,12 @@ abstract class _HomeWidgetsCoordinatorBase
     if (!isDisconnected && isAllowedToMakeGesture()) {
       if (!hasInitiatedBlur) {
         setHasInitiatedBlur(true);
+
         nokhteBlur.init();
         beachWaves.currentStore.setControl(Control.stop);
-        smartText.startRotatingText(isResuming: true);
+        smartText.setWidgetVisibility(false);
+
+        gestureCrossSmartText.setWidgetVisibility(true);
         centerNokhte.moveToCenter();
         Timer(const Duration(seconds: 0, milliseconds: 500), () {
           setSmartTextTopPaddingScalar(.6);
@@ -288,18 +297,16 @@ abstract class _HomeWidgetsCoordinatorBase
 
   smartTextIndexReactor() => reaction((p0) => smartText.currentIndex, (p0) {
         if (p0 == 2) {
-          setSmartTextTopPaddingScalar(0.0);
           smartText.reset();
         }
       });
 
-  // add a smartText index reactor
-
   @action
   dismissNokhte() {
     setSwipeGuideVisibilities(false);
+    smartText.reset();
     setHasInitiatedBlur(false);
-    smartText.startRotatingText(isResuming: true);
+    gestureCrossSmartText.setWidgetVisibility(false);
     setSwipeDirection(GestureDirections.initial);
     centerNokhte.moveBackToCross(
       startingPosition: CenterNokhtePositions.center,
