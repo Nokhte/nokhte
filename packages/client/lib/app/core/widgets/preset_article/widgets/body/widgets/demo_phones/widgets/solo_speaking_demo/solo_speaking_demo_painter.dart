@@ -25,6 +25,7 @@ class SoloSpeakingDemoPainter extends CustomPainter with DemoPainterUtils {
 
   @override
   void paint(Canvas canvas, Size size) {
+    // print("allTheTags: $allTheTags");
     final centerPhoneGrad = LinearGradient(
       colors: centerPhoneColorsList,
       stops: centerPhoneStopsList,

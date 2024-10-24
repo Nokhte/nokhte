@@ -7,12 +7,12 @@ import 'package:nokhte_backend/tables/company_presets.dart';
 
 class PowerupExplanation extends HookWidget {
   final PowerupInfo info;
-  final List<SessionTags> allTheTags;
+  final List<SessionTags> articleSections;
 
   const PowerupExplanation({
     super.key,
     required this.info,
-    required this.allTheTags,
+    required this.articleSections,
   });
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class PowerupExplanation extends HookWidget {
               ),
             ),
             DemoPhones(
-              allTheTags: allTheTags,
+              articleSections: articleSections,
               demoType: Right(info.powerup),
             ),
           ])

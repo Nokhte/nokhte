@@ -13,39 +13,41 @@ export 'widgets/widgets.dart';
 
 class DemoPhones extends HookWidget with RallyConstants {
   final Either<SessionTags, Powerups> demoType;
-  final List<SessionTags> allTheTags;
+  final List<SessionTags> articleSections;
 
   DemoPhones({
     super.key,
     required this.demoType,
-    required this.allTheTags,
+    required this.articleSections,
   });
 
   @override
   Widget build(BuildContext context) {
     return demoType.fold(
-      (sessionTag) => _buildSessionTagDemo(sessionTag),
+      (sessionTag) {
+        return _buildSessionTagDemo(sessionTag);
+      },
       (powerup) => _buildPowerupDemo(powerup),
     );
   }
 
   Widget _buildSessionTagDemo(SessionTags tag) {
     if (tag == SessionTags.tapToSpeak || tag == SessionTags.holdToSpeak) {
-      if (allTheTags.contains(SessionTags.noSeating)) {
-        return SoloSpeakingDemo(allTheTags);
+      if (!articleSections.contains(SessionTags.flexibleSeating) &&
+          !articleSections.contains(SessionTags.strictSeating)) {
+        return SoloSpeakingDemo(articleSections);
       } else {
-        return GroupSpeakingDemo(allTheTags);
+        return GroupSpeakingDemo(articleSections);
       }
     }
     if (tag == SessionTags.monoFocalNotes) {
-      return MonoFocalNotesDemo(allTheTags);
+      return MonoFocalNotesDemo(articleSections);
     } else if (tag == SessionTags.multiFocalNotes) {
-      return MultiFocalNotesDemo(allTheTags);
+      return MultiFocalNotesDemo(articleSections);
     }
     if (tag == SessionTags.flexibleSeating ||
-        tag == SessionTags.strictSeating ||
-        tag == SessionTags.noSeating) {
-      return SeatingDemos(allTheTags);
+        tag == SessionTags.strictSeating) {
+      return SeatingDemos(articleSections);
     }
     return Container();
   }
@@ -53,9 +55,9 @@ class DemoPhones extends HookWidget with RallyConstants {
   Widget _buildPowerupDemo(Powerups powerup) {
     switch (powerup) {
       case Powerups.rally:
-        return RallyDemo(allTheTags);
+        return RallyDemo(articleSections);
       case Powerups.letEmCook:
-        return LetEmCookDemo(allTheTags);
+        return LetEmCookDemo(articleSections);
       default:
         return Container();
     }

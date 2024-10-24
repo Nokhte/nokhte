@@ -305,13 +305,17 @@ mixin DemoPainterUtils {
     double containerSize,
     List<SessionTags> allTheTags,
   ) {
-    final isTapToSpeak = allTheTags.contains(SessionTags.tapToSpeak);
+    final speakingString = allTheTags.contains(SessionTags.tapToSpeak)
+        ? 'Tap to speak'
+        : 'Hold to speak';
+    final notesAreDeactivated =
+        allTheTags.contains(SessionTags.deactivatedNotes);
     final rect = phoneOffset & Size(phoneWidth, phoneHeight);
     final center = rect.center;
     paintText(
       canvas,
       center,
-      'Tap to take a note',
+      notesAreDeactivated ? speakingString : 'Tap to take a note',
       containerSize,
       opacity,
       DemoTextPosition.slightlyAboveCenter,
@@ -320,7 +324,8 @@ mixin DemoPainterUtils {
     paintText(
       canvas,
       center,
-      isTapToSpeak ? 'Tap to speak' : 'Hold to speak',
+      speakingString,
+      // isTapToSpeak ? 'Tap to speak' : 'Hold to speak',
       containerSize,
       opacity,
       DemoTextPosition.slightlyBelowCenter,

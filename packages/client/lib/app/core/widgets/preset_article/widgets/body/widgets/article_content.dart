@@ -8,7 +8,7 @@ class ArticleContent extends StatelessWidget {
   final String currentInstructionsHeader;
   final List<String> currentInstructionsBody;
   final List<String> currentJustifications;
-  final List<SessionTags> allTheTags;
+  final List<SessionTags> articleSections;
   final SessionTags currentTag;
 
   final PowerupInfo powerUpInformation;
@@ -23,7 +23,7 @@ class ArticleContent extends StatelessWidget {
     required this.currentTag,
     required this.opacity,
     required this.powerUpInformation,
-    required this.allTheTags,
+    required this.articleSections,
     required this.currentPosition,
   });
 
@@ -48,12 +48,12 @@ class ArticleContent extends StatelessWidget {
             ),
           ),
           DemoPhones(
-            allTheTags: allTheTags,
+            articleSections: articleSections,
             demoType: Left(currentTag),
           ),
           PowerupExplanation(
             info: powerUpInformation,
-            allTheTags: allTheTags,
+            articleSections: articleSections,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 6.0),
