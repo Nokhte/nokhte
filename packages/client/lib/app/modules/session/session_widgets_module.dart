@@ -28,7 +28,6 @@ class SessionWidgetsModule extends Module {
       () => SessionInformationWidgetsCoordinator(
         presetArticle: PresetArticleStore(
           nokhteBlur: NokhteBlurStore(),
-          body: ArticleBodyStore(),
         ),
         tint: TintStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
@@ -40,7 +39,6 @@ class SessionWidgetsModule extends Module {
       () => SessionLobbyWidgetsCoordinator(
         presetArticle: PresetArticleStore(
           nokhteBlur: NokhteBlurStore(),
-          body: ArticleBodyStore(),
         ),
         touchRipple: TouchRippleStore(),
         primarySmartText: SmartTextStore(),
