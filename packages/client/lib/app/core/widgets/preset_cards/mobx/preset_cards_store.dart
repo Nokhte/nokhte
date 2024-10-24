@@ -92,15 +92,18 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
     movieModes[i] = CondensedPresetCardMovieModes.selectionWindDown;
   }
 
-  // @observable
-  // int pastHeldIndex = -1;
+  @observable
+  int pastHeldIndex = -1;
+
+  @observable
+  int currentHeldIndex = -1;
 
   @action
   setCurrentHeldIndex(int i, {bool override = false}) {
     if (isEnabled[i] || override) {
-      heldIndices.add(i);
-      // pastHeldIndex = currentHeldIndex;
-      // currentHeldIndex = i;
+      // heldIndices.add(i);mB
+      pastHeldIndex = currentHeldIndex;
+      currentHeldIndex = i;
     }
   }
 
@@ -176,12 +179,12 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
   resetMovieStatuses() => movieStatuses =
       ObservableList.of(List.filled(length, MovieStatus.inProgress));
 
-  @computed
-  int get currentHeldIndex => heldIndices.isEmpty ? -1 : heldIndices[0];
+  // @computed
+  // int get currentHeldIndex => heldIndices.isEmpty ? -1 : heldIndices[0];
 
-  @computed
-  int get pastHeldIndex =>
-      heldIndices.length.isLessThan(2) ? -1 : heldIndices[1];
+  // @computed
+  // int get pastHeldIndex =>
+  //     heldIndices.length.isLessThan(2) ? -1 : heldIndices[1];
 
   @computed
   List<String> get uids => companyPresetsEntity.uids;
@@ -220,6 +223,10 @@ abstract class _PresetCardsStoreBase extends BaseWidgetStore with Store {
   @computed
   String get currentlySelectedSessionUID =>
       currentHeldIndex == -1 ? '' : uids[currentHeldIndex];
+
+  @computed
+  bool get currentArticleHasOptions =>
+      currentlyTappedArticle.options.isNotEmpty;
 
   @computed
   int get preferredPresetIndex => uids.isEmpty || preferredPresetUID.isEmpty
