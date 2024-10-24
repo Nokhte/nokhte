@@ -15,8 +15,8 @@ class ArticleSection extends Equatable {
     required this.tag,
     required this.category,
   })  : sectionHeader = _getSectionHeader(tag),
-        articleInstructions = _getInstructions(tag),
         articleJustifications = _getJustifications(tag),
+        articleInstructions = _getInstructions(tag, presetType),
         powerup = PowerupInfo(_getPowerup(presetType, category));
 
   static String _getSectionHeader(SessionTags tag) {
@@ -30,16 +30,30 @@ class ArticleSection extends Equatable {
     } else if (tag == SessionTags.flexibleSeating ||
         tag == SessionTags.strictSeating) {
       return 'Where to sit:';
-    } else if (tag == SessionTags.noSeating) {
-      return '';
     }
     return '';
   }
 
+  static List<ArticleSection> fromExistingEntity(
+    PresetTypes presetType,
+    List<SessionTags> tags,
+    PresetArticleEntity base,
+  ) {
+    final temp = <ArticleSection>[];
+    for (int i = 0; i < tags.length; i++) {
+      temp.add(ArticleSection(
+        presetType: presetType,
+        tag: tags[i],
+        category: base.articleSections[i].category,
+      ));
+    }
+    return temp;
+  }
+
   factory ArticleSection.initial() => ArticleSection(
         presetType: PresetTypes.none,
-        tag: SessionTags.noSeating,
-        category: TagCategory.ghost,
+        tag: SessionTags.none,
+        category: TagCategory.none,
       );
 
   static Powerups _getPowerup(PresetTypes presetType, TagCategory category) {
@@ -53,7 +67,8 @@ class ArticleSection extends Equatable {
     return Powerups.none;
   }
 
-  static List<String> _getInstructions(SessionTags tag) {
+  static List<String> _getInstructions(
+      SessionTags tag, PresetTypes presetType) {
     switch (tag) {
       case SessionTags.tapToSpeak:
         return [
@@ -61,11 +76,15 @@ class ArticleSection extends Equatable {
           '**Tap again** when you are finished'
         ];
       case SessionTags.holdToSpeak:
-        return [
+        final temp = [
           'Locate the phone **to your right**',
           '**Hold** on the yellow side to speak',
           '**Let go** when you are finished'
         ];
+        if (presetType == PresetTypes.solo) {
+          temp.removeAt(0);
+        }
+        return temp;
       case SessionTags.flexibleSeating:
         return ['**Sit or stand** anywhere', '**Keep** your phone with you'];
       case SessionTags.strictSeating:
@@ -73,8 +92,6 @@ class ArticleSection extends Equatable {
           'Sit in a **circle**',
           'Place your phone **halfway** between you and the person to your right'
         ];
-      case SessionTags.noSeating:
-        return ['No specific seating arrangement required'];
       case SessionTags.monoFocalNotes:
         return [
           'Locate the **phone to your left**',

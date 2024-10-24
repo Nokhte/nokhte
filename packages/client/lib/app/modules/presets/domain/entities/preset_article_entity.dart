@@ -5,14 +5,15 @@ import 'package:nokhte_backend/tables/company_presets.dart';
 class PresetArticleEntity extends Equatable {
   final List<ArticleOptions> options;
   final List<ArticleSection> articleSections;
-
+  final PresetTypes presetType;
   final String title;
   final String tagline;
   final String uniqueFeature;
+  final List<SessionTags> presetTags;
 
   PresetArticleEntity({
-    required List<SessionTags> presetTags,
-    required PresetTypes presetType,
+    required this.presetTags,
+    required this.presetType,
     required this.articleSections,
   })  : options = _getOptionsToggles(presetTags),
         title = _getTitle(presetType),
@@ -25,9 +26,23 @@ class PresetArticleEntity extends Equatable {
         presetType: PresetTypes.none,
       );
 
+  factory PresetArticleEntity.fromExistingEntity({
+    required PresetArticleEntity base,
+    required List<SessionTags> newPresetTags,
+  }) {
+    return PresetArticleEntity(
+      presetTags: base.presetTags,
+      presetType: base.presetType,
+      articleSections: ArticleSection.fromExistingEntity(
+        base.presetType,
+        newPresetTags,
+        base,
+      ),
+    );
+  }
+
   static List<ArticleOptions> _getOptionsToggles(List<SessionTags> tags) {
     List<ArticleOptions> options = [];
-
     if (tags.contains(SessionTags.tapToSpeak) &&
         tags.contains(SessionTags.holdToSpeak)) {
       options.add(ArticleOptions.talkingToggle);
@@ -42,7 +57,6 @@ class PresetArticleEntity extends Equatable {
         (hasMultiFocal && hasNotesDeactivated)) {
       options.add(ArticleOptions.notesToggle);
     }
-
     return options;
   }
 

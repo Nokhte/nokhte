@@ -69,8 +69,7 @@ class CompanyPresetsModel extends CompanyPresetsEntity {
       case SessionTags.strictSeating:
       case SessionTags.flexibleSeating:
         return TagCategory.sitting;
-      case SessionTags.noSeating:
-        return TagCategory.ghost;
+
       case SessionTags.holdToSpeak:
       case SessionTags.tapToSpeak:
         return TagCategory.speaking;
@@ -79,7 +78,7 @@ class CompanyPresetsModel extends CompanyPresetsEntity {
       case SessionTags.deactivatedNotes:
         return TagCategory.notes;
       default:
-        return TagCategory.ghost;
+        return TagCategory.none;
     }
   }
 
@@ -112,17 +111,17 @@ class CompanyPresetsModel extends CompanyPresetsEntity {
     } else {
       final userTags = CompanyPresetsUtils.mapTagsToEnum(
           userPrefsRes.first[CompanyPresetsQueries.TAGS]);
-      sections = userTags
-          .map((tag) => ArticleSection(
-                presetType: presetType,
-                tag: tag,
-                category: categorizeTag(tag),
-              ))
-          .toList();
+      // print(userTags);
+
+      sections = userTags.map((tag) {
+        return ArticleSection(
+          presetType: presetType,
+          tag: tag,
+          category: categorizeTag(tag),
+        );
+      }).toList();
     }
 
-    return sections
-        .where((section) => section.category != TagCategory.ghost)
-        .toList();
+    return sections;
   }
 }
