@@ -39,7 +39,7 @@ abstract class _SessionGroupHybridCoordinatorBase
   constructor() async {
     widgets.constructor(sessionMetadata.someoneIsTakingANote);
     widgets.sessionNavigation.setup(
-      sessionMetadata.sessionScreenType,
+      sessionMetadata.screenType,
       sessionMetadata.presetType,
     );
     initReactors();
