@@ -10,8 +10,6 @@ mixin CompanyPresetsUtils {
         return SessionTags.strictSeating;
       case 'flexible_seating':
         return SessionTags.flexibleSeating;
-      case 'no_seating':
-        return SessionTags.noSeating;
       case 'hold_to_speak':
         return SessionTags.holdToSpeak;
       case 'tap_to_speak':
@@ -36,8 +34,6 @@ mixin CompanyPresetsUtils {
         return 'strict_seating';
       case SessionTags.flexibleSeating:
         return 'flexible_seating';
-      case SessionTags.noSeating:
-        return 'no_seating';
       case SessionTags.holdToSpeak:
         return 'hold_to_speak';
       case SessionTags.tapToSpeak:

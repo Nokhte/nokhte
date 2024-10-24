@@ -408,4 +408,9 @@ alter table "public"."company_presets_preferences" add constraint "company_prese
 
 alter table "public"."company_presets_preferences" validate constraint "company_presets_preferences_tags_check";
 
+alter table "public"."company_presets_preferences" drop constraint "company_presets_preferences_tags_check";
 
+UPDATE public.company_presets
+SET 
+    tags = ARRAY['hold_to_speak', 'tap_to_speak', 'deactivated_notes', 'multi_focal_notes']::session_presets_tags[]
+WHERE name = 'Solo';

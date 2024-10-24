@@ -63,7 +63,7 @@ void main() {
    ''', () async {
     final tags = [
       SessionTags.holdToSpeak,
-      SessionTags.noSeating,
+
       SessionTags.deactivatedNotes,
     ];
     final res = await user1Queries.upsert(newTags: tags);
@@ -78,7 +78,7 @@ void main() {
       () async {
     final tags = [
       SessionTags.holdToSpeak,
-      SessionTags.noSeating,
+
       SessionTags.multiFocalNotes
     ];
     final res = await user1Queries.update(newTags: tags);

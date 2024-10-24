@@ -88,7 +88,6 @@ class CompanyPresetsPreferencesQueries {
     if (type == PresetTypes.solo) {
       return [
         SessionTags.tapToSpeak,
-        SessionTags.noSeating,
         SessionTags.deactivatedNotes,
       ];
     } else {
