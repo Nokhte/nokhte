@@ -30,9 +30,10 @@ abstract class _UserInformationCoordinatorBase with Store, BaseMobxLogic {
   getPreferredPreset() async {
     setState(StoreState.loading);
     final res = await contract.getPreferredPreset(NoParams());
-    res.fold((failure) => errorUpdater(failure),
-        (presetInfo) => preferredPreset = presetInfo);
-    setState(StoreState.loaded);
+    res.fold((failure) => errorUpdater(failure), (presetInfo) {
+      preferredPreset = presetInfo;
+      setState(StoreState.loaded);
+    });
   }
 
   @action
